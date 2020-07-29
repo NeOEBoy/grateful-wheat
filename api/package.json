@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "pm2start": "pm2 start pm2.config.js",
+    "pm2start": "pm2 start pm2.config.js --only grateful-wheat-api-production",
     "pm2stop": "pm2 stop grateful-wheat-api-production"
   },
   "dependencies": {

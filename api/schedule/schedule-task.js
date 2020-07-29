@@ -115,18 +115,134 @@ const getCommoditySales = async (thePOSPALAUTH30220) => {
   return commoditySalesResponseJson;
 }
 
+const getNewMemberCount = async (thePOSPALAUTH30220) => {
+  let newCustomerSummaryUrl = 'https://beta33.pospal.cn/CustomerReport/LoadNewCustomerSummary';
+  // groupBy=day&beginDateTime=2020-07-28&endDateTime=2020-07-28
+  let newCustomerSummaryBodyStr = 'groupBy=day';
+  let today = dateFormat("YYYY-mm-dd", new Date());
+  // today = '2020-07-28'
+  newCustomerSummaryBodyStr += '&beginDateTime=';
+  newCustomerSummaryBodyStr += today;
+  newCustomerSummaryBodyStr += '&endDateTime=';
+  newCustomerSummaryBodyStr += today;
+
+  const newCustomerSummaryResponse = await fetch(newCustomerSummaryUrl, {
+    method: 'POST', body: newCustomerSummaryBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+
+  const newCustomerSummaryResponseJson = await newCustomerSummaryResponse.json();
+  return newCustomerSummaryResponseJson;
+}
+
+const getRechargeNumber = async (thePOSPALAUTH30220) => {
+  const rechargeNumber0 = await doGetRechargeNumber(thePOSPALAUTH30220, '3995763');
+  const rechargeNumber1 = await doGetRechargeNumber(thePOSPALAUTH30220, '3995767');
+  const rechargeNumber2 = await doGetRechargeNumber(thePOSPALAUTH30220, '3995771');
+  const rechargeNumber3 = await doGetRechargeNumber(thePOSPALAUTH30220, '4061089');
+
+  let rechargeNumber = [rechargeNumber0, rechargeNumber1, rechargeNumber2, rechargeNumber3];
+  return rechargeNumber;
+}
+
+const doGetRechargeNumber = async (thePOSPALAUTH30220, userId) => {
+  let rechargeNumberUrl = 'https://beta33.pospal.cn/Report/LoadStoreCountDataV2';
+  // groupBy=day&beginDateTime=2020-07-28&endDateTime=2020-07-28
+  let rechargeNumberBodyStr = '';
+  rechargeNumberBodyStr += 'countItem=memberCard';
+  rechargeNumberBodyStr += '&countOption=totalRechargeMoney';
+  rechargeNumberBodyStr += '&isCustom=';
+  rechargeNumberBodyStr += '&userId=';
+
+  rechargeNumberBodyStr += userId;
+
+  let today = dateFormat("YYYY-mm-dd", new Date());
+  // today = '2020-07-28'
+  rechargeNumberBodyStr += '&beginDateTime=';
+  rechargeNumberBodyStr += escape(today + '+00:00:00');
+  rechargeNumberBodyStr += '&endDateTime=';
+  rechargeNumberBodyStr += escape(today + '+23:59:59');
+
+  const rechargeNumberResponse = await fetch(rechargeNumberUrl, {
+    method: 'POST', body: rechargeNumberBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+
+  const rechargeNumberResponseJson = await rechargeNumberResponse.json();
+  return rechargeNumberResponseJson;
+}
+
 const sendSalesDateToCompanyGroup = async (salesData) => {
-  let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=9c5e59e5-7a39-4f6a-a545-d39f9e543c35';
-
   // console.log(salesData);
+  if (salesData.successed) {
+    let today = dateFormat("YYYY.mm.dd", new Date());
+    let list = salesData.list;
+    let content = '';
+    content += '**' + today + '(今日)商品销售**\n' +
+      '> 漳浦店:<font color=\"info\"> ' + list[1].totalAmount + ' 元</font>\n' +
+      '> 旧镇店:<font color=\"info\"> ' + list[2].totalAmount + ' 元</font>\n' +
+      '> 江滨店:<font color=\"info\"> ' + list[3].totalAmount + ' 元</font>\n';
+    // console.log(content);
 
-  let today = dateFormat("YYYY.mm.dd", new Date());
-  let list = salesData.list;
+    await doSendToCompanyGroup(content);
+  }
+}
 
-  let content =
-    today + '（今日）销售数据，请查看。\n' +
-    '> 漳浦店:<font color=\"comment\"> ' + list[1].totalAmount + ' 元</font>\n' +
-    '> 旧镇店:<font color=\"comment\"> ' + list[2].totalAmount + ' 元</font>\n>';
+const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
+  // console.log(newMemberData);
+  if (newMemberData.successed) {
+    let today = dateFormat("YYYY-mm-dd", new Date());
+
+    let list = newMemberData.list;
+    let Shop0 = list[0][today] ? list[0][today]['NewCustomerCount'] : 0;
+    let Shop1 = list[1][today] ? list[1][today]['NewCustomerCount'] : 0;
+    let Shop2 = list[2][today] ? list[2][today]['NewCustomerCount'] : 0;
+    let Shop3 = list[3][today] ? list[3][today]['NewCustomerCount'] : 0;
+
+    let content = '';
+    content += '**' + today + '(今日)新增会员**\n' +
+      '> 公众号:<font color=\"info\"> ' + Shop0 + ' 人</font>\n' +
+      '> 漳浦店:<font color=\"info\"> ' + Shop1 + ' 人</font>\n' +
+      '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 人</font>\n' +
+      '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 人</font>\n'
+    // console.log(content);
+
+    await doSendToCompanyGroup(content);
+  }
+}
+
+const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
+  // console.log(newMemberData);
+  if (rechargeNumber.length >= 4) {
+    let today = dateFormat("YYYY-mm-dd", new Date());
+
+    let Shop0 = rechargeNumber[0].successed ? rechargeNumber[0].countValue : '未知';
+    let Shop1 = rechargeNumber[1].successed ? rechargeNumber[1].countValue : '未知';
+    let Shop2 = rechargeNumber[2].successed ? rechargeNumber[2].countValue : '未知';
+    let Shop3 = rechargeNumber[3].successed ? rechargeNumber[3].countValue : '未知';
+
+    let content = '';
+    content += '**' + today + '(今日)会员充值**\n' +
+      '> 公众号:<font color=\"info\"> ' + Shop0 + ' 元</font>\n' +
+      '> 漳浦店:<font color=\"info\"> ' + Shop1 + ' 元</font>\n' +
+      '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 元</font>\n' +
+      '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 元</font>\n'
+    // console.log(content);
+
+    await doSendToCompanyGroup(content);
+  }
+}
+
+const doSendToCompanyGroup = async (content) => {
+  // return;
+
+  let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=9c5e59e5-7a39-4f6a-a545-d39f9e543c35';
 
   let message =
   {
@@ -136,39 +252,45 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
     }
   }
 
-  const webhookResponse = await fetch(webhookUrl, {
+  await fetch(webhookUrl, {
     method: 'POST', body: JSON.stringify(message),
     headers: {
       'Content-Type': 'application/json',
     }
   });
-  const webhookResponseJson = await webhookResponse.json();
-  return webhookResponseJson;
+}
+
+const dostartSchedule = async () => {
+  /// 1.登录并获取验证信息
+  const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
+  // console.log(thePOSPALAUTH30220);
+
+  /// 2.发送今日销售额
+  const salesData = await getCommoditySales(thePOSPALAUTH30220);
+  await sendSalesDateToCompanyGroup(salesData);
+
+  /// 3.发送今日新增会员数
+  const newMemberData = await getNewMemberCount(thePOSPALAUTH30220);
+  await sendNewMemberDateToCompanyGroup(newMemberData);
+
+  const rechargeNumber = await getRechargeNumber(thePOSPALAUTH30220);
+  // console.log(rechargeNumber);
+  await sendRechargeNumberDateToCompanyGroup(rechargeNumber);
 }
 
 const startSchedule = async () => {
   //每分钟的第30秒定时执行一次:
   // 秒、分、时、日、月、周几
-  // 每日23点45分00秒自动发送
-  schedule.scheduleJob('00 45 23 * * *', async () => {
-
-    // 登录并获取验证信息
-    const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
-    // console.log(thePOSPALAUTH30220);
-
-    const salesData = await getCommoditySales(thePOSPALAUTH30220);
-    // console.log(salesData);
-
-    if (salesData && salesData.successed) {
-      // console.log(salesData.list[1].totalAmount);
-
-      await sendSalesDateToCompanyGroup(salesData);
-      // https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=9c5e59e5-7a39-4f6a-a545-d39f9e543c35
-      // console.log(salesData.list[1].paymethodAmounts[0]);
-    }
-
-    // console.log('startSchedule:' + new Date());
-  });
+  // 每日23点55分00秒自动发送
+  const test = false;
+  if (test) {
+    await dostartSchedule();
+  } else {
+    schedule.scheduleJob('00 55 23 * * *', async () => {
+      await dostartSchedule();
+      // console.log('startSchedule:' + new Date());
+    });
+  }
 }
 
 module.exports = startSchedule;

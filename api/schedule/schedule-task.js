@@ -181,13 +181,29 @@ const doGetRechargeNumber = async (thePOSPALAUTH30220, userId) => {
 const sendSalesDateToCompanyGroup = async (salesData) => {
   // console.log(salesData);
   if (salesData.successed) {
-    let today = dateFormat("YYYY.mm.dd", new Date());
+    let today = dateFormat("YYYY-mm-dd", new Date());
     let list = salesData.list;
     let content = '';
     content += '**' + today + '(今日)商品销售**\n' +
       '> 漳浦店:<font color=\"info\"> ' + list[1].totalAmount + ' 元</font>\n' +
       '> 旧镇店:<font color=\"info\"> ' + list[2].totalAmount + ' 元</font>\n' +
       '> 江滨店:<font color=\"info\"> ' + list[3].totalAmount + ' 元</font>\n';
+    // console.log(content);
+
+    await doSendToCompanyGroup(content);
+  }
+}
+
+const sendmemberConsumToCompanyGroup = async (salesData) => {
+  // console.log(salesData);
+  if (salesData.successed) {
+    let today = dateFormat("YYYY-mm-dd", new Date());
+    let list = salesData.list;
+    let content = '';
+    content += '**' + today + '(今日)会员消费**\n' +
+      '> 漳浦店:<font color=\"info\"> ' + list[1].paymethodAmounts[5] + ' 元</font>\n' +
+      '> 旧镇店:<font color=\"info\"> ' + list[2].paymethodAmounts[5] + ' 元</font>\n' +
+      '> 江滨店:<font color=\"info\"> ' + list[3].paymethodAmounts[5] + ' 元</font>\n';
     // console.log(content);
 
     await doSendToCompanyGroup(content);
@@ -239,6 +255,34 @@ const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
   }
 }
 
+const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
+  // console.log(salesData);
+  if (salesData.successed && rechargeNumber.length >= 4) {
+    let today = dateFormat("YYYY-mm-dd", new Date());
+    let list = salesData.list;
+    let content = '';
+
+    /// 营业实收 = 销售总金额 - 会员卡消费 + 充值金额
+    let shop1ai = (parseFloat(list[1].totalAmount) -
+      parseFloat(list[1].paymethodAmounts[5]) +
+      parseFloat(rechargeNumber[1].countValue)).toFixed(2);
+    let shop2ai = (parseFloat(list[2].totalAmount) -
+      parseFloat(list[2].paymethodAmounts[5]) +
+      parseFloat(rechargeNumber[2].countValue)).toFixed(2);
+    let shop3ai = (parseFloat(list[3].totalAmount) -
+      parseFloat(list[3].paymethodAmounts[5]) +
+      parseFloat(rechargeNumber[3].countValue)).toFixed(2);
+
+    content += '**' + today + '(今日)营业实收**\n' +
+      '> 漳浦店:<font color=\"info\"> ' + shop1ai + ' 元</font>\n' +
+      '> 旧镇店:<font color=\"info\"> ' + shop2ai + ' 元</font>\n' +
+      '> 江滨店:<font color=\"info\"> ' + shop3ai + ' 元</font>\n';
+    // console.log(content);
+
+    await doSendToCompanyGroup(content);
+  }
+}
+
 const doSendToCompanyGroup = async (content) => {
   // return;
 
@@ -268,6 +312,7 @@ const dostartSchedule = async () => {
   /// 2.发送今日销售额
   const salesData = await getCommoditySales(thePOSPALAUTH30220);
   await sendSalesDateToCompanyGroup(salesData);
+  await sendmemberConsumToCompanyGroup(salesData);
 
   /// 3.发送今日新增会员数
   const newMemberData = await getNewMemberCount(thePOSPALAUTH30220);
@@ -276,20 +321,26 @@ const dostartSchedule = async () => {
   const rechargeNumber = await getRechargeNumber(thePOSPALAUTH30220);
   // console.log(rechargeNumber);
   await sendRechargeNumberDateToCompanyGroup(rechargeNumber);
+
+  await sendActualIncomeToCompanyGroup(salesData, rechargeNumber);
 }
 
 const startSchedule = async () => {
   //每分钟的第30秒定时执行一次:
   // 秒、分、时、日、月、周几
   // 每日23点55分00秒自动发送
-  const test = false;
-  if (test) {
-    await dostartSchedule();
-  } else {
-    schedule.scheduleJob('00 55 23 * * *', async () => {
+  try {
+    const test = false;
+    if (test) {
       await dostartSchedule();
-      // console.log('startSchedule:' + new Date());
-    });
+    } else {
+      schedule.scheduleJob('00 59 23 * * *', async () => {
+        await dostartSchedule();
+        // console.log('startSchedule:' + new Date());
+      });
+    }
+  } catch (e) {
+    console.log('startSchedule e=' + e.toString());
   }
 }
 

@@ -263,6 +263,9 @@ const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
     let content = '';
 
     /// 营业实收 = 销售总金额 - 会员卡消费 + 充值金额
+    let shop0ai = (parseFloat(list[0].totalAmount) -
+      parseFloat(list[0].paymethodAmounts[5]) +
+      parseFloat(rechargeNumber[0].countValue)).toFixed(2);
     let shop1ai = (parseFloat(list[1].totalAmount) -
       parseFloat(list[1].paymethodAmounts[5]) +
       parseFloat(rechargeNumber[1].countValue)).toFixed(2);
@@ -274,6 +277,7 @@ const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
       parseFloat(rechargeNumber[3].countValue)).toFixed(2);
 
     content += '**' + today + '(今日)营业实收**\n' +
+      '> 公众号:<font color=\"info\"> ' + shop0ai + ' 元</font>\n' +
       '> 漳浦店:<font color=\"info\"> ' + shop1ai + ' 元</font>\n' +
       '> 旧镇店:<font color=\"info\"> ' + shop2ai + ' 元</font>\n' +
       '> 江滨店:<font color=\"info\"> ' + shop3ai + ' 元</font>\n';

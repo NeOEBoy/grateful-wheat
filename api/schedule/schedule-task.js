@@ -1,6 +1,8 @@
 
 const schedule = require('node-schedule');
 const fetch = require('node-fetch');
+const parseStringPromise = require('xml2js').parseStringPromise;
+
 const KForTest = false;
 
 const dateFormat = (fmt, date) => {
@@ -26,7 +28,7 @@ const dateFormat = (fmt, date) => {
 const whichDate = () => {
   let theDate = new Date();
   // 换算成昨天，测试用
-  // theDate.setTime(theDate.getTime()-24*60*60*1000);
+  // theDate.setTime(theDate.getTime() - 24 * 60 * 60 * 1000);
   return theDate;
 }
 
@@ -121,6 +123,56 @@ const getCommoditySales = async (thePOSPALAUTH30220) => {
   return commoditySalesResponseJson;
 }
 
+const getDiscardInventory = async (thePOSPALAUTH30220) => {
+  let shop0 = await doGetDiscardInventory('3995763', thePOSPALAUTH30220);
+  let shop1 = await doGetDiscardInventory('3995767', thePOSPALAUTH30220);
+  let shop2 = await doGetDiscardInventory('3995771', thePOSPALAUTH30220);
+  let shop3 = await doGetDiscardInventory('4061089', thePOSPALAUTH30220);
+  return [shop0, shop1, shop2, shop3];
+}
+
+const doGetDiscardInventory = async (userId, thePOSPALAUTH30220) => {
+  let discardInventoryUrl = 'https://beta33.pospal.cn/Inventory/LoadDiscardInventoryHistory';
+
+  let discardInventoryBodyStr = 'userId=' + userId;
+  let today = dateFormat("YYYY.mm.dd", whichDate());
+  discardInventoryBodyStr += '&beginDateTime=';
+  discardInventoryBodyStr += escape(today + '+00:00:00');
+  discardInventoryBodyStr += '&endDateTime=';
+  discardInventoryBodyStr += escape(today + '+23:59:59');
+
+  const commoditySalesResponse = await fetch(discardInventoryUrl, {
+    method: 'POST', body: discardInventoryBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+
+  let totalCount = 0; // 0为无报损
+
+  const commoditySalesResponseJson = await commoditySalesResponse.json();
+  if (commoditySalesResponseJson.successed) {
+    let view = commoditySalesResponseJson.view;
+    // console.log(view);
+
+    var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>' + view + '</root>';
+    try {
+      let result = await parseStringPromise(xml);
+      if (result) {
+        let trArray = result.root.tbody[0].tr;
+        let lastIndex = trArray.length - 1;
+        totalCount = trArray[lastIndex].td[4]._;
+        // console.log(totalCount);
+      }
+    } catch (e) {
+      // console.log('没有报损数据，解析出错');
+    }
+  }
+
+  return totalCount;
+}
+
 const getNewMemberCount = async (thePOSPALAUTH30220) => {
   let newCustomerSummaryUrl = 'https://beta33.pospal.cn/CustomerReport/LoadNewCustomerSummary';
   // groupBy=day&beginDateTime=2020-07-28&endDateTime=2020-07-28
@@ -200,9 +252,32 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
     content += '**' + today + '(今日)商品销售**\n' +
       '> 漳浦店:<font color=\"info\"> ' + shop1sd + ' 元</font>\n' +
       '> 旧镇店:<font color=\"info\"> ' + shop2sd + ' 元</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + shop3sd + ' 元</font>\n\n' + 
+      '> 江滨店:<font color=\"info\"> ' + shop3sd + ' 元</font>\n\n' +
       '> 总计:<font color=\"warning\"> ' + totalSd + ' 元</font>\n';
-    if(KForTest) console.log(content);
+    if (KForTest) console.log(content);
+
+    await doSendToCompanyGroup(content);
+  }
+}
+const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => {
+  if (discardInventoryArray.length >= 4) {
+    let today = dateFormat("YYYY-mm-dd", whichDate());
+
+    let Shop0 = discardInventoryArray[0];
+    let Shop1 = discardInventoryArray[1];
+    let Shop2 = discardInventoryArray[2];
+    let Shop3 = discardInventoryArray[3];
+
+    let total = (parseFloat(Shop0) + parseFloat(Shop1) +
+      parseFloat(Shop2) + parseFloat(Shop3)).toFixed(2);
+
+    let content = '';
+    content += '**' + today + '(今日)商品报损**\n' +
+      '> 漳浦店:<font color=\"info\"> ' + Shop1 + ' 元</font>\n' +
+      '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 元</font>\n' +
+      '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 元</font>\n\n' +
+      '> 总计:<font color=\"warning\"> ' + total + ' 元</font>\n';
+    if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
   }
@@ -219,14 +294,14 @@ const sendmemberConsumToCompanyGroup = async (salesData) => {
     let shop2mc = list[2].paymethodAmounts[5].toFixed(2);
     let shop3mc = list[3].paymethodAmounts[5].toFixed(2);
 
-    let totalMc = (parseFloat(shop1mc) + parseFloat(shop2mc) + parseFloat(shop3mc)).toFixed(2); 
-    
+    let totalMc = (parseFloat(shop1mc) + parseFloat(shop2mc) + parseFloat(shop3mc)).toFixed(2);
+
     content += '**' + today + '(今日)会员消费**\n' +
       '> 漳浦店:<font color=\"info\"> ' + shop1mc + ' 元</font>\n' +
       '> 旧镇店:<font color=\"info\"> ' + shop2mc + ' 元</font>\n' +
       '> 江滨店:<font color=\"info\"> ' + shop3mc + ' 元</font>\n\n' +
       '> 总计:<font color=\"warning\"> ' + totalMc + ' 元</font>\n';;
-      if(KForTest) console.log(content);
+    if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
   }
@@ -243,7 +318,7 @@ const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
     let Shop2 = list[2][today] ? list[2][today]['NewCustomerCount'] : 0;
     let Shop3 = list[3][today] ? list[3][today]['NewCustomerCount'] : 0;
 
-    let total  = Shop0 + Shop1 + Shop2 + Shop3;
+    let total = Shop0 + Shop1 + Shop2 + Shop3;
 
     let content = '';
     content += '**' + today + '(今日)新增会员**\n' +
@@ -252,7 +327,7 @@ const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
       '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 人</font>\n' +
       '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 人</font>\n\n' +
       '> 总计:<font color=\"warning\"> ' + total + ' 人</font>\n';
-      if(KForTest) console.log(content);
+    if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
   }
@@ -268,9 +343,9 @@ const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
     let Shop2 = rechargeNumber[2].successed ? rechargeNumber[2].countValue : 0;
     let Shop3 = rechargeNumber[3].successed ? rechargeNumber[3].countValue : 0;
 
-    let total = (parseFloat(Shop0) + parseFloat(Shop1) + 
-            parseFloat(Shop2) + parseFloat(Shop3)).toFixed(2);
-    
+    let total = (parseFloat(Shop0) + parseFloat(Shop1) +
+      parseFloat(Shop2) + parseFloat(Shop3)).toFixed(2);
+
     let content = '';
     content += '**' + today + '(今日)会员充值**\n' +
       '> 公众号:<font color=\"info\"> ' + Shop0 + ' 元</font>\n' +
@@ -278,7 +353,7 @@ const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
       '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 元</font>\n' +
       '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 元</font>\n\n' +
       '> 总计:<font color=\"warning\"> ' + total + ' 元</font>\n';
-      if(KForTest) console.log(content);
+    if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
   }
@@ -305,8 +380,8 @@ const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
       parseFloat(list[3].paymethodAmounts[5]) +
       parseFloat(rechargeNumber[3].countValue)).toFixed(2);
 
-    let totalAi = (parseFloat(shop0ai) + parseFloat(shop1ai) + 
-                parseFloat(shop2ai) + parseFloat(shop3ai)).toFixed(2);
+    let totalAi = (parseFloat(shop0ai) + parseFloat(shop1ai) +
+      parseFloat(shop2ai) + parseFloat(shop3ai)).toFixed(2);
 
     content += '**' + today + '(今日)营业实收**\n' +
       '> 公众号:<font color=\"info\"> ' + shop0ai + ' 元</font>\n' +
@@ -314,14 +389,14 @@ const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
       '> 旧镇店:<font color=\"info\"> ' + shop2ai + ' 元</font>\n' +
       '> 江滨店:<font color=\"info\"> ' + shop3ai + ' 元</font>\n\n' +
       '> 总计:<font color=\"warning\"> ' + totalAi + ' 元</font>\n';
-      if(KForTest) console.log(content);
+    if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
   }
 }
 
 const doSendToCompanyGroup = async (content) => {
-  if(KForTest) return;
+  if (KForTest) return;
 
   let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=9c5e59e5-7a39-4f6a-a545-d39f9e543c35';
 
@@ -344,21 +419,27 @@ const doSendToCompanyGroup = async (content) => {
 const dostartSchedule = async () => {
   /// 1.登录并获取验证信息
   const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
-  // console.log(thePOSPALAUTH30220);
 
   /// 2.发送今日销售额
   const salesData = await getCommoditySales(thePOSPALAUTH30220);
   await sendSalesDateToCompanyGroup(salesData);
+
+  /// 3.发送商品报损
+  const discardInventory = await getDiscardInventory(thePOSPALAUTH30220);
+  await sendDiscardInventoryDateToCompanyGroup(discardInventory);
+
+  /// 4.发送会员消费
   await sendmemberConsumToCompanyGroup(salesData);
 
-  /// 3.发送今日新增会员数
+  /// 5.发送今日新增会员数
   const newMemberData = await getNewMemberCount(thePOSPALAUTH30220);
   await sendNewMemberDateToCompanyGroup(newMemberData);
 
+  /// 6.发送今日会员充值
   const rechargeNumber = await getRechargeNumber(thePOSPALAUTH30220);
-  // console.log(rechargeNumber);
   await sendRechargeNumberDateToCompanyGroup(rechargeNumber);
 
+  /// 6.发送今日营业实收
   await sendActualIncomeToCompanyGroup(salesData, rechargeNumber);
 }
 

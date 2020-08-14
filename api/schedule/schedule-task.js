@@ -3,7 +3,38 @@ const schedule = require('node-schedule');
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
 
+/**--------------------配置信息--------------------*/
 const KForTest = false;
+/// 增加门店这里添加一下
+const KShopArray = [
+  { index: 0, name: '公众号(总部店)', userId: '3995763' },
+  { index: 1, name: '教育局店', userId: '3995767' },
+  { index: 2, name: '旧镇店', userId: '3995771' },
+  { index: 3, name: '江滨店', userId: '4061089' }
+];
+/// 注意，如果后台增加支付方式，务必这里添加一下，否则金额会不正确
+let KPaymethodsJson = [
+  { "showName": "现金支付", "isCustom": false },
+  { "showName": "银联支付", "isCustom": false },
+  { "showName": "支付宝支付", "isCustom": false },
+  { "showName": "微信支付", "isCustom": false },
+  { "showName": "卡对卡充值", "isCustom": false },
+  { "showName": "储值卡支付", "isCustom": false },
+  { "showName": "10通用劵", "isCustom": true },
+  { "showName": "20通用劵", "isCustom": true },
+  { "showName": "88DIY", "isCustom": true },
+  { "showName": "38蛋糕抵用", "isCustom": true },
+  { "showName": "168蛋糕劵", "isCustom": true },
+  { "showName": "208蛋糕劵", "isCustom": true },
+  { "showName": "258蛋糕劵", "isCustom": true },
+  { "showName": "企微收款", "isCustom": true },
+  { "showName": "支付收款", "isCustom": true },
+  { "showName": "预定金支付", "isCustom": false },
+  { "showName": "次卡支付", "isCustom": false },
+  { "showName": "购物卡支付", "isCustom": false },
+  { "showName": "预付卡支付", "isCustom": false }
+];
+/**--------------------配置信息--------------------*/
 
 const dateFormat = (fmt, date) => {
   let ret;
@@ -68,49 +99,14 @@ const getCommoditySales = async (thePOSPALAUTH30220) => {
   commoditySalesBodyStr += escape(today + '+00:00:00');
   commoditySalesBodyStr += '&endDateTime=';
   commoditySalesBodyStr += escape(today + '+23:59:59');
-
-  let paymethodsJson = [
-    { "showName": "现金支付", "isCustom": false },
-    { "showName": "银联支付", "isCustom": false },
-    { "showName": "支付宝支付", "isCustom": false },
-    { "showName": "微信支付", "isCustom": false },
-    { "showName": "卡对卡充值", "isCustom": false },
-    { "showName": "储值卡支付", "isCustom": false },
-    { "showName": "10通用劵", "isCustom": true },
-    { "showName": "20通用劵", "isCustom": true },
-    { "showName": "88DIY", "isCustom": true },
-    { "showName": "38蛋糕抵用", "isCustom": true },
-    { "showName": "168蛋糕劵", "isCustom": true },
-    { "showName": "208蛋糕劵", "isCustom": true },
-    { "showName": "258蛋糕劵", "isCustom": true },
-    { "showName": "企微收款", "isCustom": true },
-    { "showName": "支付收款", "isCustom": true },
-    { "showName": "预定金支付", "isCustom": false },
-    { "showName": "次卡支付", "isCustom": false },
-    { "showName": "购物卡支付", "isCustom": false },
-    { "showName": "预付卡支付", "isCustom": false }
-  ];
   commoditySalesBodyStr += '&paymethodsJson=';
-  commoditySalesBodyStr += escape(JSON.stringify(paymethodsJson));
+  commoditySalesBodyStr += escape(JSON.stringify(KPaymethodsJson));
 
-  commoditySalesBodyStr += '&userIds' + escape('[]') + '=';
-  commoditySalesBodyStr += '3995763'; // 总部
-
-  commoditySalesBodyStr += '&userIds' + escape('[]') + '=';
-  commoditySalesBodyStr += '3995767'; // 漳浦教育局店
-
-  commoditySalesBodyStr += '&userIds' + escape('[]') + '=';
-  commoditySalesBodyStr += '3995771'; // 旧镇店
-
-  commoditySalesBodyStr += '&userIds' + escape('[]') + '=';
-  commoditySalesBodyStr += '4061089'; // 漳浦江滨店
-
-  commoditySalesBodyStr += '&userIds' + escape('[]') + '=';
-  commoditySalesBodyStr += '4061092'; // 漳州店
-
-  // console.log(commoditySalesBodyStr);
-
-  // let commoditySalesBody = 'beginDateTime=2020.07.28+00%3A00%3A00&endDateTime=2020.07.28+23%3A59%3A59&paymethodsJson=%5B%7B%22showName%22%3A%22%E7%8E%B0%E9%87%91%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E9%93%B6%E8%81%94%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E5%8D%A1%E5%AF%B9%E5%8D%A1%E5%85%85%E5%80%BC%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E5%82%A8%E5%80%BC%E5%8D%A1%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%2210%E9%80%9A%E7%94%A8%E5%8A%B5%22%2C%22isCustom%22%3Atrue%7D%2C%7B%22showName%22%3A%2220%E9%80%9A%E7%94%A8%E5%8A%B5%22%2C%22isCustom%22%3Atrue%7D%2C%7B%22showName%22%3A%22%E9%A2%84%E5%AE%9A%E9%87%91%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E6%AC%A1%E5%8D%A1%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E8%B4%AD%E7%89%A9%E5%8D%A1%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%2C%7B%22showName%22%3A%22%E9%A2%84%E4%BB%98%E5%8D%A1%E6%94%AF%E4%BB%98%22%2C%22isCustom%22%3Afalse%7D%5D&userIds%5B%5D=3995763&userIds%5B%5D=3995767&userIds%5B%5D=3995771&userIds%5B%5D=4061089&userIds%5B%5D=4061092';
+  /// 所有门店
+  KShopArray.forEach((shop) => {
+    commoditySalesBodyStr += '&userIds' + escape('[]') + '=';
+    commoditySalesBodyStr += shop.userId;
+  });
 
   const commoditySalesResponse = await fetch(commoditySalesUrl, {
     method: 'POST', body: commoditySalesBodyStr,
@@ -124,11 +120,12 @@ const getCommoditySales = async (thePOSPALAUTH30220) => {
 }
 
 const getDiscardInventory = async (thePOSPALAUTH30220) => {
-  let shop0 = await doGetDiscardInventory('3995763', thePOSPALAUTH30220);
-  let shop1 = await doGetDiscardInventory('3995767', thePOSPALAUTH30220);
-  let shop2 = await doGetDiscardInventory('3995771', thePOSPALAUTH30220);
-  let shop3 = await doGetDiscardInventory('4061089', thePOSPALAUTH30220);
-  return [shop0, shop1, shop2, shop3];
+  let discardArray = [];
+  for (const shop of KShopArray) {
+    let discard = await doGetDiscardInventory(shop.userId, thePOSPALAUTH30220);
+    discardArray.push(discard);
+  }
+  return discardArray;
 }
 
 const doGetDiscardInventory = async (userId, thePOSPALAUTH30220) => {
@@ -197,13 +194,12 @@ const getNewMemberCount = async (thePOSPALAUTH30220) => {
 }
 
 const getRechargeNumber = async (thePOSPALAUTH30220) => {
-  const rechargeNumber0 = await doGetRechargeNumber(thePOSPALAUTH30220, '3995763');
-  const rechargeNumber1 = await doGetRechargeNumber(thePOSPALAUTH30220, '3995767');
-  const rechargeNumber2 = await doGetRechargeNumber(thePOSPALAUTH30220, '3995771');
-  const rechargeNumber3 = await doGetRechargeNumber(thePOSPALAUTH30220, '4061089');
-
-  let rechargeNumber = [rechargeNumber0, rechargeNumber1, rechargeNumber2, rechargeNumber3];
-  return rechargeNumber;
+  let rechargeNumberArr = [];
+  for (shop of KShopArray) {
+    const rechargeNumber = await doGetRechargeNumber(thePOSPALAUTH30220, shop.userId);
+    rechargeNumberArr.push(rechargeNumber);
+  }
+  return rechargeNumberArr;
 }
 
 const doGetRechargeNumber = async (thePOSPALAUTH30220, userId) => {
@@ -243,40 +239,48 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
     let list = salesData.list;
     let content = '';
 
-    let shop1sd = list[1].totalAmount.toFixed(2);
-    let shop2sd = list[2].totalAmount.toFixed(2);
-    let shop3sd = list[3].totalAmount.toFixed(2);
+    let totalSd = 0;
+    content += '**' + today + '(今日)商品销售**\n';
 
-    let totalSd = (parseFloat(shop1sd) + parseFloat(shop2sd) + parseFloat(shop3sd)).toFixed(2);
+    KShopArray.forEach(shop => {
+      let name = shop.name;
+      let index = shop.index;
+      if (index !== 0) {
+        let sd = list[index].totalAmount.toFixed(2);
+        content += '> ' + name + ':<font color=\"info\"> ' + sd + ' 元</font>\n';
+        totalSd += parseFloat(sd);
+      }
+    });
 
-    content += '**' + today + '(今日)商品销售**\n' +
-      '> 漳浦店:<font color=\"info\"> ' + shop1sd + ' 元</font>\n' +
-      '> 旧镇店:<font color=\"info\"> ' + shop2sd + ' 元</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + shop3sd + ' 元</font>\n\n' +
-      '> 总计:<font color=\"warning\"> ' + totalSd + ' 元</font>\n';
+    content += '\n';
+    content += '> 总计:<font color=\"warning\"> ' + totalSd.toFixed(2) + ' 元</font>\n';
+
     if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
   }
 }
 const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => {
-  if (discardInventoryArray.length >= 4) {
+  if (discardInventoryArray.length >= KShopArray.length) {
     let today = dateFormat("YYYY-mm-dd", whichDate());
 
-    let Shop0 = discardInventoryArray[0];
-    let Shop1 = discardInventoryArray[1];
-    let Shop2 = discardInventoryArray[2];
-    let Shop3 = discardInventoryArray[3];
-
-    let total = (parseFloat(Shop0) + parseFloat(Shop1) +
-      parseFloat(Shop2) + parseFloat(Shop3)).toFixed(2);
-
     let content = '';
-    content += '**' + today + '(今日)商品报损**\n' +
-      '> 漳浦店:<font color=\"info\"> ' + Shop1 + ' 元</font>\n' +
-      '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 元</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 元</font>\n\n' +
-      '> 总计:<font color=\"warning\"> ' + total + ' 元</font>\n';
+    let totalDi = 0;
+    content += '**' + today + '(今日)商品报损**\n';
+
+    KShopArray.forEach((shop) => {
+      let name = shop.name;
+      let index = shop.index;
+      if (index !== 0) {
+        let di = discardInventoryArray[index];
+        content += '> ' + name + ':<font color=\"info\"> ' + di + ' 元</font>\n';
+        totalDi += parseFloat(di);
+      }
+    });
+
+    content += '\n';
+    content += '> 总计:<font color=\"warning\"> ' + totalDi.toFixed(2) + ' 元</font>\n';
+
     if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
@@ -288,19 +292,24 @@ const sendmemberConsumToCompanyGroup = async (salesData) => {
   if (salesData.successed) {
     let today = dateFormat("YYYY-mm-dd", whichDate());
     let list = salesData.list;
+
     let content = '';
+    let totalMc = 0;
+    content += '**' + today + '(今日)会员消费**\n';
 
-    let shop1mc = list[1].paymethodAmounts[5].toFixed(2);
-    let shop2mc = list[2].paymethodAmounts[5].toFixed(2);
-    let shop3mc = list[3].paymethodAmounts[5].toFixed(2);
+    KShopArray.forEach((shop) => {
+      let name = shop.name;
+      let index = shop.index;
+      if (index !== 0) {
+        let mc = list[index].paymethodAmounts[5].toFixed(2);
+        content += '> ' + name + ':<font color=\"info\"> ' + mc + ' 元</font>\n';
+        totalMc += parseFloat(mc);
+      }
+    });
 
-    let totalMc = (parseFloat(shop1mc) + parseFloat(shop2mc) + parseFloat(shop3mc)).toFixed(2);
+    content += '\n';
+    content += '> 总计:<font color=\"warning\"> ' + totalMc.toFixed(2) + ' 元</font>\n';
 
-    content += '**' + today + '(今日)会员消费**\n' +
-      '> 漳浦店:<font color=\"info\"> ' + shop1mc + ' 元</font>\n' +
-      '> 旧镇店:<font color=\"info\"> ' + shop2mc + ' 元</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + shop3mc + ' 元</font>\n\n' +
-      '> 总计:<font color=\"warning\"> ' + totalMc + ' 元</font>\n';;
     if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
@@ -313,20 +322,22 @@ const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
     let today = dateFormat("YYYY-mm-dd", whichDate());
 
     let list = newMemberData.list;
-    let Shop0 = list[0][today] ? list[0][today]['NewCustomerCount'] : 0;
-    let Shop1 = list[1][today] ? list[1][today]['NewCustomerCount'] : 0;
-    let Shop2 = list[2][today] ? list[2][today]['NewCustomerCount'] : 0;
-    let Shop3 = list[3][today] ? list[3][today]['NewCustomerCount'] : 0;
-
-    let total = Shop0 + Shop1 + Shop2 + Shop3;
 
     let content = '';
-    content += '**' + today + '(今日)新增会员**\n' +
-      '> 公众号:<font color=\"info\"> ' + Shop0 + ' 人</font>\n' +
-      '> 漳浦店:<font color=\"info\"> ' + Shop1 + ' 人</font>\n' +
-      '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 人</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 人</font>\n\n' +
-      '> 总计:<font color=\"warning\"> ' + total + ' 人</font>\n';
+    let totalNm = 0;
+    content += '**' + today + '(今日)新增会员**\n';
+
+    KShopArray.forEach((shop) => {
+      let name = shop.name;
+      let index = shop.index;
+      let nm = list[index][today] ? list[index][today]['NewCustomerCount'] : 0;
+      content += '> ' + name + ':<font color=\"info\"> ' + nm + ' 人</font>\n';
+      totalNm += parseFloat(nm);
+    });
+
+    content += '\n';
+    content += '> 总计:<font color=\"warning\"> ' + totalNm + ' 人</font>\n';
+
     if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
@@ -335,24 +346,24 @@ const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
 
 const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
   // console.log(newMemberData);
-  if (rechargeNumber.length >= 4) {
+  if (rechargeNumber.length >= KShopArray.length) {
     let today = dateFormat("YYYY-mm-dd", whichDate());
 
-    let Shop0 = rechargeNumber[0].successed ? rechargeNumber[0].countValue : 0;
-    let Shop1 = rechargeNumber[1].successed ? rechargeNumber[1].countValue : 0;
-    let Shop2 = rechargeNumber[2].successed ? rechargeNumber[2].countValue : 0;
-    let Shop3 = rechargeNumber[3].successed ? rechargeNumber[3].countValue : 0;
-
-    let total = (parseFloat(Shop0) + parseFloat(Shop1) +
-      parseFloat(Shop2) + parseFloat(Shop3)).toFixed(2);
-
     let content = '';
-    content += '**' + today + '(今日)会员充值**\n' +
-      '> 公众号:<font color=\"info\"> ' + Shop0 + ' 元</font>\n' +
-      '> 漳浦店:<font color=\"info\"> ' + Shop1 + ' 元</font>\n' +
-      '> 旧镇店:<font color=\"info\"> ' + Shop2 + ' 元</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + Shop3 + ' 元</font>\n\n' +
-      '> 总计:<font color=\"warning\"> ' + total + ' 元</font>\n';
+    let totalRm = 0;
+    content += '**' + today + '(今日)会员充值**\n';
+
+    KShopArray.forEach((shop) => {
+      let name = shop.name;
+      let index = shop.index;
+      let rm = rechargeNumber[index].successed ? rechargeNumber[index].countValue : 0;
+      content += '> ' + name + ':<font color=\"info\"> ' + rm + ' 元</font>\n';
+      totalRm += parseFloat(rm);
+    });
+
+    content += '\n';
+    content += '> 总计:<font color=\"warning\"> ' + totalRm.toFixed(2) + ' 元</font>\n';
+
     if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
@@ -364,31 +375,23 @@ const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
   if (salesData.successed && rechargeNumber.length >= 4) {
     let today = dateFormat("YYYY-mm-dd", whichDate());
     let list = salesData.list;
+
     let content = '';
+    let totalAi = 0;
+    content += '**' + today + '(今日)营业实收**\n';
 
-    /// 营业实收 = 销售总金额 - 会员卡消费 + 充值金额
-    let shop0ai = (parseFloat(list[0].totalAmount) -
-      parseFloat(list[0].paymethodAmounts[5]) +
-      parseFloat(rechargeNumber[0].countValue)).toFixed(2);
-    let shop1ai = (parseFloat(list[1].totalAmount) -
-      parseFloat(list[1].paymethodAmounts[5]) +
-      parseFloat(rechargeNumber[1].countValue)).toFixed(2);
-    let shop2ai = (parseFloat(list[2].totalAmount) -
-      parseFloat(list[2].paymethodAmounts[5]) +
-      parseFloat(rechargeNumber[2].countValue)).toFixed(2);
-    let shop3ai = (parseFloat(list[3].totalAmount) -
-      parseFloat(list[3].paymethodAmounts[5]) +
-      parseFloat(rechargeNumber[3].countValue)).toFixed(2);
+    KShopArray.forEach((shop) => {
+      let name = shop.name;
+      let index = shop.index;
+      let ai = (parseFloat(list[index].totalAmount) -
+        parseFloat(list[index].paymethodAmounts[5]) +
+        parseFloat(rechargeNumber[index].countValue)).toFixed(2);
+      content += '> ' + name + ':<font color=\"info\"> ' + ai + ' 元</font>\n';
+      totalAi += parseFloat(ai);
+    });
 
-    let totalAi = (parseFloat(shop0ai) + parseFloat(shop1ai) +
-      parseFloat(shop2ai) + parseFloat(shop3ai)).toFixed(2);
-
-    content += '**' + today + '(今日)营业实收**\n' +
-      '> 公众号:<font color=\"info\"> ' + shop0ai + ' 元</font>\n' +
-      '> 漳浦店:<font color=\"info\"> ' + shop1ai + ' 元</font>\n' +
-      '> 旧镇店:<font color=\"info\"> ' + shop2ai + ' 元</font>\n' +
-      '> 江滨店:<font color=\"info\"> ' + shop3ai + ' 元</font>\n\n' +
-      '> 总计:<font color=\"warning\"> ' + totalAi + ' 元</font>\n';
+    content += '\n';
+    content += '> 总计:<font color=\"warning\"> ' + totalAi.toFixed(2) + ' 元</font>\n';
     if (KForTest) console.log(content);
 
     await doSendToCompanyGroup(content);
@@ -439,7 +442,7 @@ const dostartSchedule = async () => {
   const rechargeNumber = await getRechargeNumber(thePOSPALAUTH30220);
   await sendRechargeNumberDateToCompanyGroup(rechargeNumber);
 
-  /// 6.发送今日营业实收
+  /// 7.发送今日营业实收
   await sendActualIncomeToCompanyGroup(salesData, rechargeNumber);
 }
 

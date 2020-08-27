@@ -232,6 +232,77 @@ const doGetRechargeNumber = async (thePOSPALAUTH30220, userId) => {
   return rechargeNumberResponseJson;
 }
 
+const getCash = async (thePOSPALAUTH30220) => {
+  let cashs = [];
+  for (shop of KShopArray) {
+    const cash = await doGetCash(thePOSPALAUTH30220, shop.userId);
+    cashs.push(cash);
+  }
+  // console.log(cashs);
+  return cashs;
+}
+
+const doGetCash = async (thePOSPALAUTH30220, userId) => {
+  let totalCash = 0;
+  const businessSummaryResponseJson = await doGetBusinessSummary(thePOSPALAUTH30220, userId);
+  // console.log(businessSummaryResponseJson);
+
+  if (businessSummaryResponseJson.successed) {
+    let view = businessSummaryResponseJson.view;
+    // console.log(view);
+
+    var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>' + view + '</root>';
+    // console.log(xml);
+
+    try {
+      let result = await parseStringPromise(xml, {
+        strict: false, // 为true可能解析不正确
+        normalizeTags: true
+      });
+      // console.log(result);
+
+      if (result) {
+        let trArray = result.root.tbody[0].tr;
+        let lastIndex = trArray.length - 1;
+        let lastItem = trArray[lastIndex].td[2]._;
+
+        totalCash = lastItem.trim();
+        // console.log(lastItem);
+      }
+    } catch (e) {
+      console.log('解析出错 e=' + e.toString());
+    }
+  }
+
+  return totalCash;
+}
+
+const doGetBusinessSummary = async (thePOSPALAUTH30220, userId) => {
+  let businessSummary = 'https://beta33.pospal.cn/Report/LoadBusinessSummaryV2';
+  // userIds%5B%5D=3995763&beginDateTime=2020.08.27+00%3A00%3A00&endDateTime=2020.08.27+23%3A59%3A59
+  let businessSummaryBodyStr = '';
+  businessSummaryBodyStr += 'userIds'+escape('[]')+ '=';
+  businessSummaryBodyStr += userId;
+  let today = dateFormat("YYYY.mm.dd", whichDate());
+  // today = '2020-07-28'
+  businessSummaryBodyStr += '&beginDateTime=';
+  businessSummaryBodyStr += escape(today + '+00:00:00');
+  businessSummaryBodyStr += '&endDateTime=';
+  businessSummaryBodyStr += escape(today + '+23:59:59');
+  // console.log(businessSummaryBodyStr);
+
+  const businessSummaryResponse = await fetch(businessSummary, {
+    method: 'POST', body: businessSummaryBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+
+  const businessSummaryResponseJson = await businessSummaryResponse.json();
+  return businessSummaryResponseJson;
+}
+
 const sendSalesDateToCompanyGroup = async (salesData) => {
   // console.log(salesData);
   if (salesData.successed) {
@@ -260,6 +331,7 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
     await doSendToCompanyGroup(content);
   }
 }
+
 const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => {
   if (discardInventoryArray.length >= KShopArray.length) {
     let today = dateFormat("YYYY-mm-dd", whichDate());
@@ -370,6 +442,31 @@ const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
   }
 }
 
+const sendCashsToCompanyGroup = async (cashs) => {
+  // console.log(cashs);
+  let today = dateFormat("YYYY-mm-dd", whichDate());
+
+  let content = '';
+  let totalCash = 0;
+  content += '**' + today + '(今日)现金收入**\n';
+
+  KShopArray.forEach((shop) => {
+    let name = shop.name;
+    let index = shop.index;
+    if (index !== 0) {
+      let cash = (parseFloat(cashs[index])).toFixed(2);
+      content += '> ' + name + ':<font color=\"info\"> ' + cash + ' 元</font>\n';
+      totalCash += parseFloat(cash);
+    }
+  });
+
+  content += '\n';
+  content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
+  if (KForTest) console.log(content);
+
+  await doSendToCompanyGroup(content);
+}
+
 const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
   // console.log(salesData);
   if (salesData.successed && rechargeNumber.length >= 4) {
@@ -442,7 +539,11 @@ const dostartSchedule = async () => {
   const rechargeNumber = await getRechargeNumber(thePOSPALAUTH30220);
   await sendRechargeNumberDateToCompanyGroup(rechargeNumber);
 
-  /// 7.发送今日营业实收
+  /// 7.发送今日现金收取
+  const cashs = await getCash(thePOSPALAUTH30220);
+  await sendCashsToCompanyGroup(cashs);
+  
+  /// 8.发送今日营业实收
   await sendActualIncomeToCompanyGroup(salesData, rechargeNumber);
 }
 

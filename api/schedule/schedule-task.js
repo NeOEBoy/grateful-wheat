@@ -7,10 +7,11 @@ const parseStringPromise = require('xml2js').parseStringPromise;
 const KForTest = false;
 /// 增加门店这里添加一下
 const KShopArray = [
-  { index: 0, name: '公众号(总部店)', userId: '3995763' },
-  { index: 1, name: '教育局店', userId: '3995767' },
-  { index: 2, name: '旧镇店', userId: '3995771' },
-  { index: 3, name: '江滨店', userId: '4061089' }
+  { index: 0, name: '公众号', userId: '3995763' },
+  { index: 1, name: '教育局', userId: '3995767' },
+  { index: 2, name: '旧镇', userId: '3995771' },
+  { index: 3, name: '江滨', userId: '4061089' },
+  { index: 4, name: '汤泉世纪', userId: '4061092' }
 ];
 /// 注意，如果后台增加支付方式，务必这里添加一下，否则金额会不正确
 let KPaymethodsJson = [
@@ -306,7 +307,7 @@ const doGetBusinessSummary = async (thePOSPALAUTH30220, userId) => {
 const sendSalesDateToCompanyGroup = async (salesData) => {
   // console.log(salesData);
   if (salesData.successed) {
-    let today = dateFormat("YYYY-mm-dd", whichDate());
+    let today = dateFormat("YYYY.mm.dd", whichDate());
     let list = salesData.list;
     let content = '';
 
@@ -334,7 +335,7 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
 
 const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => {
   if (discardInventoryArray.length >= KShopArray.length) {
-    let today = dateFormat("YYYY-mm-dd", whichDate());
+    let today = dateFormat("YYYY.mm.dd", whichDate());
 
     let content = '';
     let totalDi = 0;
@@ -362,7 +363,7 @@ const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => 
 const sendmemberConsumToCompanyGroup = async (salesData) => {
   // console.log(salesData);
   if (salesData.successed) {
-    let today = dateFormat("YYYY-mm-dd", whichDate());
+    let today = dateFormat("YYYY.mm.dd", whichDate());
     let list = salesData.list;
 
     let content = '';
@@ -391,7 +392,7 @@ const sendmemberConsumToCompanyGroup = async (salesData) => {
 const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
   // console.log(newMemberData);
   if (newMemberData.successed) {
-    let today = dateFormat("YYYY-mm-dd", whichDate());
+    let today = dateFormat("YYYY.mm.dd", whichDate());
 
     let list = newMemberData.list;
 
@@ -419,7 +420,7 @@ const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
 const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
   // console.log(newMemberData);
   if (rechargeNumber.length >= KShopArray.length) {
-    let today = dateFormat("YYYY-mm-dd", whichDate());
+    let today = dateFormat("YYYY.mm.dd", whichDate());
 
     let content = '';
     let totalRm = 0;
@@ -444,7 +445,7 @@ const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
 
 const sendCashsToCompanyGroup = async (cashs) => {
   // console.log(cashs);
-  let today = dateFormat("YYYY-mm-dd", whichDate());
+  let today = dateFormat("YYYY.mm.dd", whichDate());
 
   let content = '';
   let totalCash = 0;
@@ -470,7 +471,7 @@ const sendCashsToCompanyGroup = async (cashs) => {
 const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
   // console.log(salesData);
   if (salesData.successed && rechargeNumber.length >= 4) {
-    let today = dateFormat("YYYY-mm-dd", whichDate());
+    let today = dateFormat("YYYY.mm.dd", whichDate());
     let list = salesData.list;
 
     let content = '';

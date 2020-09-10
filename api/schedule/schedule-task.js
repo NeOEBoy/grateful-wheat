@@ -531,6 +531,9 @@ const sendCashsToCompanyGroup = async (cashs) => {
 
   content += '\n';
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
+  content += '> 费率:<font color=\"warning\"> ' + '0%' + ' </font>\n';
+  content += '> 入账:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
+
   if (KForTest) console.log(content);
 
   await doSendToCompanyGroup(content);
@@ -541,7 +544,7 @@ const sendWeixinIncomeToCompanyGroup = async (weixinIncome) => {
 
   let content = '';
   let totalCash = 0;
-  content += '**微信实收额**\n';
+  content += '**微信支付实收额**\n';
 
   KShopArray.forEach((shop) => {
     let name = shop.name;
@@ -553,6 +556,9 @@ const sendWeixinIncomeToCompanyGroup = async (weixinIncome) => {
 
   content += '\n';
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
+  content += '> 费率:<font color=\"warning\"> ' + '0.3%' + ' </font>\n';
+  content += '> 入账:<font color=\"warning\"> ' + (totalCash*(1-0.003)).toFixed(2) + ' 元</font>\n';
+
   if (KForTest) console.log(content);
 
   await doSendToCompanyGroup(content);
@@ -575,6 +581,8 @@ const sendAlipayIncomeToCompanyGroup = async (alipayIncome) => {
 
   content += '\n';
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
+  content += '> 费率:<font color=\"warning\"> ' + '0.38%' + ' </font>\n';
+  content += '> 入账:<font color=\"warning\"> ' + (totalCash*(1-0.0038)).toFixed(2) + ' 元</font>\n';
   if (KForTest) console.log(content);
 
   await doSendToCompanyGroup(content);

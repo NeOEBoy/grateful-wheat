@@ -636,7 +636,7 @@ const doSendToCompanyGroup = async (content) => {
   });
 }
 
-const dostartSchedule = async () => {
+const dostartScheduleBusiness = async () => {
   /// 登录并获取验证信息
   const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
 
@@ -679,21 +679,20 @@ const dostartSchedule = async () => {
   await sendActualIncomeToCompanyGroup(salesData, rechargeNumber);
 }
 
-const startSchedule = async () => {
-  //每分钟的第30秒定时执行一次:
+const startScheduleBusiness = async () => {
   // 秒、分、时、日、月、周几
-  // 每日23点55分00秒自动发送
+  // 每日23点59分00秒自动发送
   try {
     if (KForTest) {
-      await dostartSchedule();
+      await dostartScheduleBusiness();
     } else {
       schedule.scheduleJob('00 59 23 * * *', async () => {
-        await dostartSchedule();
+        await dostartScheduleBusiness();
       });
     }
   } catch (e) {
-    console.log('startSchedule e=' + e.toString());
+    console.log('startScheduleBusiness e=' + e.toString());
   }
 }
 
-module.exports = startSchedule;
+module.exports = startScheduleBusiness;

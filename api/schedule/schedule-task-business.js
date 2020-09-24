@@ -2,9 +2,11 @@
 const schedule = require('node-schedule');
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
+const dateFormat = require('../util/date-util').dateFormat;
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
+
 /// 增加门店这里添加一下
 const KShopArray = [
   { index: 0, name: '公众号', userId: '3995763' },
@@ -36,26 +38,6 @@ let KPaymethodsJson = [
   { "showName": "预付卡支付", "isCustom": false }
 ];
 /**--------------------配置信息--------------------*/
-
-const dateFormat = (fmt, date) => {
-  let ret;
-  const opt = {
-    "Y+": date.getFullYear().toString(),        // 年
-    "m+": (date.getMonth() + 1).toString(),     // 月
-    "d+": date.getDate().toString(),            // 日
-    "H+": date.getHours().toString(),           // 时
-    "M+": date.getMinutes().toString(),         // 分
-    "S+": date.getSeconds().toString()          // 秒
-    // 有其他格式化字符需求可以继续添加，必须转化成字符串
-  };
-  for (let k in opt) {
-    ret = new RegExp("(" + k + ")").exec(fmt);
-    if (ret) {
-      fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
-    };
-  };
-  return fmt;
-}
 
 const whichDate = () => {
   let theDate = new Date();
@@ -358,14 +340,13 @@ const doGetBusinessSummary = async (thePOSPALAUTH30220, userId) => {
   return businessSummaryResponseJson;
 }
 
-const sendSalesDateTitleToCompanyGroup = async () => {
+const getSalesDateTitle = () => {
   let today = dateFormat("YYYY.mm.dd", whichDate());
-  let content = '**' + today + ' 商品销售情况**';
-  if (KForTest) console.log(content);
-  await doSendToCompanyGroup(content);
+  let content = '**' + today + ' 商品销售情况**\n';
+  return content;
 }
 
-const sendSalesDateToCompanyGroup = async (salesData) => {
+const getSalesDateContent = (salesData) => {
   // console.log(salesData);
   if (salesData.successed) {
     let today = dateFormat("YYYY.mm.dd", whichDate());
@@ -373,7 +354,7 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
     let content = '';
 
     let totalSd = 0;
-    content += '**商品销售额**\n';
+    content += '> **商品销售额**\n';
 
     KShopArray.forEach(shop => {
       let name = shop.name;
@@ -387,27 +368,23 @@ const sendSalesDateToCompanyGroup = async (salesData) => {
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalSd.toFixed(2) + ' 元</font>\n';
+    content += '\n';
 
-    if (KForTest) console.log(content);
-
-    await doSendToCompanyGroup(content);
+    return content;
   }
 }
 
-const sendMemberTitleToCompanyGroup = async () => {
+const getMemberTitleDataContent = () => {
   let today = dateFormat("YYYY.mm.dd", whichDate());
-  let content = '**' + today + ' 会员充值情况**';
-  if (KForTest) console.log(content);
-  await doSendToCompanyGroup(content);
+  let content = '**' + today + ' 会员充值情况**\n';
+  return content;
 }
 
-const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => {
+const getDiscardInventoryDateContent = (discardInventoryArray) => {
+  let content = '';
   if (discardInventoryArray.length >= KShopArray.length) {
-    let today = dateFormat("YYYY.mm.dd", whichDate());
-
-    let content = '';
     let totalDi = 0;
-    content += '**商品报损额**\n';
+    content += '> **商品报损额**\n';
 
     KShopArray.forEach((shop) => {
       let name = shop.name;
@@ -421,22 +398,21 @@ const sendDiscardInventoryDateToCompanyGroup = async (discardInventoryArray) => 
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalDi.toFixed(2) + ' 元</font>\n';
-
-    if (KForTest) console.log(content);
-
-    await doSendToCompanyGroup(content);
+    content += '\n';
   }
+
+  return content;
 }
 
-const sendmemberConsumToCompanyGroup = async (salesData) => {
+const getMemberConsumDataContent = (salesData) => {
   // console.log(salesData);
+  let content = '';
+
   if (salesData.successed) {
-    let today = dateFormat("YYYY.mm.dd", whichDate());
     let list = salesData.list;
 
-    let content = '';
     let totalMc = 0;
-    content += '**会员消费额**\n';
+    content += '> **会员消费额**\n';
 
     KShopArray.forEach((shop) => {
       let name = shop.name;
@@ -450,21 +426,21 @@ const sendmemberConsumToCompanyGroup = async (salesData) => {
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalMc.toFixed(2) + ' 元</font>\n';
-
-    if (KForTest) console.log(content);
-
-    await doSendToCompanyGroup(content);
+    content += '\n'
   }
+
+  return content;
 }
 
-const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
+const getNewMemberDateContent = (newMemberData) => {
+  let content = '';
+
   if (newMemberData.successed) {
     let today4json = dateFormat("YYYY-mm-dd", whichDate());
     let list = newMemberData.list;
-
-    let content = '';
+    
     let totalNm = 0;
-    content += '**新增会员数**\n';
+    content += '> **新增会员数**\n';
 
     KShopArray.forEach((shop) => {
       let name = shop.name;
@@ -476,26 +452,24 @@ const sendNewMemberDateToCompanyGroup = async (newMemberData) => {
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalNm + ' 人</font>\n';
-
-    if (KForTest) console.log(content);
-
-    await doSendToCompanyGroup(content);
+    content += '\n';
   }
+
+  return content;
 }
 
-const sendActualIncomeTitleToCompanyGroup = async () => {
+const getActualIncomeTitleDataContent = () => {
   let today = dateFormat("YYYY.mm.dd", whichDate());
-  let content = '**' + today + ' 营业实收情况**';
-  if (KForTest) console.log(content);
-  await doSendToCompanyGroup(content);
+  let content = '**' + today + ' 营业实收情况**\n';
+  return content;
 }
 
-const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
+const getRechargeNumberDateContent = (rechargeNumber) => {
   // console.log(newMemberData);
+  let content = '';
   if (rechargeNumber.length >= KShopArray.length) {
-    let content = '';
     let totalRm = 0;
-    content += '**会员充值额**\n';
+    content += '> **会员充值额**\n';
 
     KShopArray.forEach((shop) => {
       let name = shop.name;
@@ -507,19 +481,17 @@ const sendRechargeNumberDateToCompanyGroup = async (rechargeNumber) => {
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalRm.toFixed(2) + ' 元</font>\n';
-
-    if (KForTest) console.log(content);
-
-    await doSendToCompanyGroup(content);
+    content += '\n';
   }
+  return content;
 }
 
-const sendCashsToCompanyGroup = async (cashs) => {
+const getCashsDataContent = (cashs) => {
   // console.log(cashs);
 
   let content = '';
   let totalCash = 0;
-  content += '**现金实收额**\n';
+  content += '> **现金实收额**\n';
 
   KShopArray.forEach((shop) => {
     let name = shop.name;
@@ -533,18 +505,17 @@ const sendCashsToCompanyGroup = async (cashs) => {
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
   content += '> 费率:<font color=\"warning\"> ' + '0%' + ' </font>\n';
   content += '> 入账:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
+  content += '\n';
 
-  if (KForTest) console.log(content);
-
-  await doSendToCompanyGroup(content);
+  return content;
 }
 
-const sendWeixinIncomeToCompanyGroup = async (weixinIncome) => {
+const getWeixinIncomeDataContent = (weixinIncome) => {
   // console.log(weixinIncome);
 
   let content = '';
   let totalCash = 0;
-  content += '**微信支付实收额**\n';
+  content += '> **微信支付实收额**\n';
 
   KShopArray.forEach((shop) => {
     let name = shop.name;
@@ -558,18 +529,16 @@ const sendWeixinIncomeToCompanyGroup = async (weixinIncome) => {
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
   content += '> 费率:<font color=\"warning\"> ' + '0.3%' + ' </font>\n';
   content += '> 入账:<font color=\"warning\"> ' + (totalCash*(1-0.003)).toFixed(2) + ' 元</font>\n';
-
-  if (KForTest) console.log(content);
-
-  await doSendToCompanyGroup(content);
+  content += '\n';
+  return content;
 }
 
-const sendAlipayIncomeToCompanyGroup = async (alipayIncome) => {
+const getAlipayIncomeDataContent = (alipayIncome) => {
   // console.log(alipayIncome);
 
   let content = '';
   let totalCash = 0;
-  content += '**支付宝实收额**\n';
+  content += '> **支付宝实收额**\n';
 
   KShopArray.forEach((shop) => {
     let name = shop.name;
@@ -583,19 +552,19 @@ const sendAlipayIncomeToCompanyGroup = async (alipayIncome) => {
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
   content += '> 费率:<font color=\"warning\"> ' + '0.38%' + ' </font>\n';
   content += '> 入账:<font color=\"warning\"> ' + (totalCash*(1-0.0038)).toFixed(2) + ' 元</font>\n';
-  if (KForTest) console.log(content);
-
-  await doSendToCompanyGroup(content);
+  content += '\n';
+  return content;
 }
 
-const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
+const getActualIncomeDataContent = (salesData, rechargeNumber) => {
   // console.log(salesData);
+  let content = '';
+
   if (salesData.successed) {
     let list = salesData.list;
 
-    let content = '';
     let totalAi = 0;
-    content += '**总营业实收额**\n';
+    content += '> **总营业实收额**\n';
 
     KShopArray.forEach((shop) => {
       let name = shop.name;
@@ -609,10 +578,10 @@ const sendActualIncomeToCompanyGroup = async (salesData, rechargeNumber) => {
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalAi.toFixed(2) + ' 元</font>\n';
-    if (KForTest) console.log(content);
-
-    await doSendToCompanyGroup(content);
+    content += '\n';
   }
+
+  return content;
 }
 
 const doSendToCompanyGroup = async (content) => {
@@ -641,42 +610,48 @@ const dostartScheduleBusiness = async () => {
   const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
 
   /** -------------------商品销售情况-------------------*/
-  /// 发送商品销售标题
-  await sendSalesDateTitleToCompanyGroup();
-  /// 发送今日销售额
+  /// 商品销售标题
+  let saleDataContent = getSalesDateTitle();
+  /// 今日销售额
   const salesData = await getCommoditySales(thePOSPALAUTH30220);
-  await sendSalesDateToCompanyGroup(salesData);
-  /// 发送商品报损
+  saleDataContent += getSalesDateContent(salesData);
+  /// 商品报损
   const discardInventory = await getDiscardInventory(thePOSPALAUTH30220);
-  await sendDiscardInventoryDateToCompanyGroup(discardInventory);
+  saleDataContent += getDiscardInventoryDateContent(discardInventory);
+  if(KForTest) console.log(saleDataContent);
+  await doSendToCompanyGroup(saleDataContent);
 
   /** -------------------会员充值情况-------------------*/
-  /// 发送会员标题
-  await sendMemberTitleToCompanyGroup();
+  /// 会员标题
+  let memberData = getMemberTitleDataContent();
   /// 发送今日会员充值
   const rechargeNumber = await getRechargeNumber(thePOSPALAUTH30220);
-  await sendRechargeNumberDateToCompanyGroup(rechargeNumber);
+  memberData += getRechargeNumberDateContent(rechargeNumber);
   /// 发送会员消费
-  await sendmemberConsumToCompanyGroup(salesData);
+  memberData += getMemberConsumDataContent(salesData);
   /// 发送今日新增会员数
   const newMemberData = await getNewMemberCount(thePOSPALAUTH30220);
-  await sendNewMemberDateToCompanyGroup(newMemberData);
+  memberData += getNewMemberDateContent(newMemberData);
+  if(KForTest) console.log(memberData);
+  await doSendToCompanyGroup(memberData);
 
   /** -------------------营业实收情况-------------------*/
   /// 发送营业实收标题
-  await sendActualIncomeTitleToCompanyGroup();
+  let actualIncomeDataContent = getActualIncomeTitleDataContent();
   /// 发送今日现金实收
   const allPay = await getAllPay(thePOSPALAUTH30220);
   const cashs = allPay[0];
-  await sendCashsToCompanyGroup(cashs);
+  actualIncomeDataContent += getCashsDataContent(cashs);
   /// 发送今日微信实收
   const weixinIncome = allPay[1];
-  await sendWeixinIncomeToCompanyGroup(weixinIncome);
+  actualIncomeDataContent += getWeixinIncomeDataContent(weixinIncome);
   /// 发送今日支付宝实收
   const alipayIncome = allPay[2];
-  await sendAlipayIncomeToCompanyGroup(alipayIncome);
+  actualIncomeDataContent += getAlipayIncomeDataContent(alipayIncome);
   /// 发送今日营业实收（实收=总销售-会员消费+会员充值）
-  await sendActualIncomeToCompanyGroup(salesData, rechargeNumber);
+  actualIncomeDataContent += getActualIncomeDataContent(salesData, rechargeNumber);
+  if(KForTest) console.log(actualIncomeDataContent);
+  await doSendToCompanyGroup(actualIncomeDataContent);
 }
 
 const startScheduleBusiness = async () => {

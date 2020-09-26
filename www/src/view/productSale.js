@@ -99,8 +99,8 @@ class ProductSale extends React.Component {
                 return (<List.Item>
                   <div style={{
                     width: 30, height: 30, backgroundColor: indexDivBC, color: "white",
-                    fontSize: 14, fontWeight: "bold", textAlign: 'center', marginRight: 20,
-                    marginLeft: 25, borderRadius: 10
+                    fontSize: 14, fontWeight: "bold", textAlign: 'center', marginRight: 15,
+                    marginLeft: 15, borderRadius: 10
                   }}>
                     <div style={{ marginTop: 3 }}>{index + 1}</div>
                   </div>
@@ -108,11 +108,11 @@ class ProductSale extends React.Component {
                   <List.Item.Meta
                     title={(
                       <div>
-                        <span style={{ fontSize: 18 }}>
+                        <span style={{ fontSize: 16 }}>
                           {item.name}
                         </span>
                         {item.specification !== '-' &&
-                          <span style={{ fontSize: 14 }}>
+                          <span style={{ fontSize: 12 }}>
                             {item.specification}
                           </span>}
                       </div>

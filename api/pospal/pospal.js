@@ -25,7 +25,9 @@ const getProductSaleList = async (thePOSPALAUTH30220, whichDate, userId, pageInd
   let productSaleUrl = 'https://beta33.pospal.cn/ReportV2/LoadProductSaleByPage';
   let productSaleBody = '';
   productSaleBody += 'keyword=&';
-  productSaleBody += 'userIds%5B%5D=' + userId + '&';
+  if(userId) {
+    productSaleBody += 'userIds%5B%5D=' + userId + '&';
+  }
   productSaleBody += 'isSellWell=1&';
   productSaleBody += 'beginDateTime=' + whichDate + '+00%3A00%3A00&';
   productSaleBody += 'endDateTime=' + whichDate + '+23%3A59%3A59&';

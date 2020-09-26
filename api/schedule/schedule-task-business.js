@@ -358,19 +358,38 @@ const getSalesDateContent = (salesData) => {
     KShopArray.forEach(shop => {
       let name = shop.name;
       let index = shop.index;
+      let userId = shop.userId;
       if (index !== 0) {
         let sd = list[index].totalAmount.toFixed(2);
         content += '> ' + name + ':<font color=\"info\"> ' + sd + ' 元</font>\n';
+        content += makeProductSaleMark(userId, name, sd, dateFormat("YYYY.mm.dd", whichDate()));
+        content += '\n';
+
         totalSd += parseFloat(sd);
       }
     });
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalSd.toFixed(2) + ' 元</font>\n';
+    content += makeProductSaleMark('', '所有门店', totalSd.toFixed(2), dateFormat("YYYY.mm.dd", whichDate()));
+    content += '\n';
     content += '\n';
 
     return content;
   }
+}
+
+const makeProductSaleMark = (id, name, number, date) => {
+  let productsaleurl = 'http://gratefulwheat.ruyue.xyz/productsale';
+  productsaleurl += '?id=';
+  productsaleurl += id;
+  productsaleurl += '&name=';
+  productsaleurl += name;
+  productsaleurl += '&number=';
+  productsaleurl += number;
+  productsaleurl += '&date=';
+  productsaleurl += date;
+  return '> ' + '[热卖商品](' + productsaleurl + ')';
 }
 
 const getMemberTitleDataContent = () => {
@@ -437,7 +456,7 @@ const getNewMemberDateContent = (newMemberData) => {
   if (newMemberData.successed) {
     let today4json = dateFormat("YYYY-mm-dd", whichDate());
     let list = newMemberData.list;
-    
+
     let totalNm = 0;
     content += '> **新增会员数**\n';
 
@@ -527,7 +546,7 @@ const getWeixinIncomeDataContent = (weixinIncome) => {
   content += '\n';
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
   content += '> 费率:<font color=\"warning\"> ' + '0.3%' + ' </font>\n';
-  content += '> 入账:<font color=\"warning\"> ' + (totalCash*(1-0.003)).toFixed(2) + ' 元</font>\n';
+  content += '> 入账:<font color=\"warning\"> ' + (totalCash * (1 - 0.003)).toFixed(2) + ' 元</font>\n';
   content += '\n';
   return content;
 }
@@ -550,7 +569,7 @@ const getAlipayIncomeDataContent = (alipayIncome) => {
   content += '\n';
   content += '> 总计:<font color=\"warning\"> ' + totalCash.toFixed(2) + ' 元</font>\n';
   content += '> 费率:<font color=\"warning\"> ' + '0.38%' + ' </font>\n';
-  content += '> 入账:<font color=\"warning\"> ' + (totalCash*(1-0.0038)).toFixed(2) + ' 元</font>\n';
+  content += '> 入账:<font color=\"warning\"> ' + (totalCash * (1 - 0.0038)).toFixed(2) + ' 元</font>\n';
   content += '\n';
   return content;
 }
@@ -584,9 +603,10 @@ const getActualIncomeDataContent = (salesData, rechargeNumber) => {
 }
 
 const doSendToCompanyGroup = async (content) => {
-  if (KForTest) return;
-
   let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=9c5e59e5-7a39-4f6a-a545-d39f9e543c35';
+
+  ///测试地址
+  if (KForTest) webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
 
   let message =
   {
@@ -617,7 +637,7 @@ const dostartScheduleBusiness = async () => {
   /// 商品报损
   const discardInventory = await getDiscardInventory(thePOSPALAUTH30220);
   saleDataContent += getDiscardInventoryDateContent(discardInventory);
-  if(KForTest) console.log(saleDataContent);
+  if (KForTest) console.log(saleDataContent);
   await doSendToCompanyGroup(saleDataContent);
 
   /** -------------------会员充值情况-------------------*/
@@ -631,7 +651,7 @@ const dostartScheduleBusiness = async () => {
   /// 发送今日新增会员数
   const newMemberData = await getNewMemberCount(thePOSPALAUTH30220);
   memberData += getNewMemberDateContent(newMemberData);
-  if(KForTest) console.log(memberData);
+  if (KForTest) console.log(memberData);
   await doSendToCompanyGroup(memberData);
 
   /** -------------------营业实收情况-------------------*/
@@ -649,7 +669,7 @@ const dostartScheduleBusiness = async () => {
   actualIncomeDataContent += getAlipayIncomeDataContent(alipayIncome);
   /// 发送今日营业实收（实收=总销售-会员消费+会员充值）
   actualIncomeDataContent += getActualIncomeDataContent(salesData, rechargeNumber);
-  if(KForTest) console.log(actualIncomeDataContent);
+  if (KForTest) console.log(actualIncomeDataContent);
   await doSendToCompanyGroup(actualIncomeDataContent);
 }
 

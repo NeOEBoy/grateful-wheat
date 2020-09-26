@@ -1,6 +1,8 @@
 
-// const KApiHost = 'http://localhost:9001';
-const KApiHost = 'http://gratefulwheat.ruyue.xyz/apis';
+
+/**--------------------配置信息--------------------*/
+const KForTest = false;
+const KApiHost = KForTest ? 'http://localhost:9001' : 'http://gratefulwheat.ruyue.xyz/apis';
 
 const getProductSaleList = async (userId, date, pageIndex, pageSize) => {
   let productSaleUrl = KApiHost + '/product/saleList';

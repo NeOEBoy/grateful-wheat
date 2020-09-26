@@ -14,7 +14,7 @@ router.get('/saleList', async function (req, res, next) {
     let pageSize = req.query.pageSize;
     let userId = req.query.userId;
     let date = req.query.date;
-    if (!userId || !date || !pageIndex || !pageSize) {
+    if (!date || !pageIndex || !pageSize) {
       next(createError(500));
       return;
     }

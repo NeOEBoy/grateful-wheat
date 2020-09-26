@@ -1,6 +1,9 @@
 
+// const KApiHost = 'http://localhost:9001';
+const KApiHost = 'http://gratefulwheat.ruyue.xyz/apis ';
+
 const getProductSaleList = async (userId, date, pageIndex, pageSize) => {
-  let productSaleUrl = 'http://localhost:9001/product/saleList';
+  let productSaleUrl = KApiHost + '/product/saleList';
   productSaleUrl += '?pageIndex=';
   productSaleUrl += pageIndex;
   productSaleUrl += '&pageSize=';

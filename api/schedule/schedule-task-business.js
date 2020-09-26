@@ -349,7 +349,6 @@ const getSalesDateTitle = () => {
 const getSalesDateContent = (salesData) => {
   // console.log(salesData);
   if (salesData.successed) {
-    let today = dateFormat("YYYY.mm.dd", whichDate());
     let list = salesData.list;
     let content = '';
 

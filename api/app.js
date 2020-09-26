@@ -6,8 +6,27 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productRouter = require('./routes/product');
 
 var app = express();
+
+//设置跨域访问
+const KTestHostLocal = 'http://localhost'
+const KWWWTestHostLocal = KTestHostLocal + ':4000';
+const KAllowHosts =[KWWWTestHostLocal];
+app.all('*', function (req, res, next) {
+  let origin = req.get('origin');
+  console.log('app.all origin = ' + origin);
+  if (KAllowHosts.indexOf(origin) !== -1) {
+    console.log('允许跨域访问');
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With, accept, origin, content-type, x-csrftoken, x-token");
+  res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,14 +40,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/product', productRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

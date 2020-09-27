@@ -47,6 +47,7 @@ class ProductDiscard extends React.Component {
       <div>
         <List
           dataSource={this.state.listData}
+          loading={this.state.loading}
           locale={{ emptyText: '暂时没有数据' }}
           header={
             <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>

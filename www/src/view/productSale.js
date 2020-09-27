@@ -32,7 +32,7 @@ class ProductSale extends React.Component {
 
     try {
       let saleList = [];
-      const productSale = await getProductSaleList(this.props.id, this.props.date, pageIndex, KPageSize);
+      const productSale = await getProductSaleList(this.props.query.get('id'), this.props.query.get('date'), pageIndex, KPageSize);
       if (productSale && productSale.errCode === 0) {
         saleList = productSale.list;
       }
@@ -75,7 +75,7 @@ class ProductSale extends React.Component {
               <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
                 热卖商品
                 <span style={{ textAlign: 'center', fontSize: 13, fontWeight: "lighter" }}>
-                  {`门店：${this.props.name}，商品实收：¥ ${this.props.number}`}
+                  {`门店：${this.props.query.get('name')}，商品实收：¥ ${this.props.query.get('number')}`}
                 </span>
               </div>
             }

@@ -407,19 +407,37 @@ const getDiscardInventoryDateContent = (discardInventoryArray) => {
     KShopArray.forEach((shop) => {
       let name = shop.name;
       let index = shop.index;
+      let userId = shop.userId;
       if (index !== 0) {
         let di = discardInventoryArray[index];
         content += '> ' + name + ':<font color=\"info\"> ' + di + ' 元</font>\n';
+        content += makeProductDiscardMark(userId, name, di, dateFormat("YYYY.mm.dd", whichDate()));
+        content += '\n';
         totalDi += parseFloat(di);
       }
     });
 
     content += '\n';
     content += '> 总计:<font color=\"warning\"> ' + totalDi.toFixed(2) + ' 元</font>\n';
+    content += makeProductDiscardMark('', '所有门店', totalDi.toFixed(2), dateFormat("YYYY.mm.dd", whichDate()));
+    content += '\n';
     content += '\n';
   }
 
   return content;
+}
+
+const makeProductDiscardMark = (id, name, number, date) => {
+  let productdiscardurl = 'http://gratefulwheat.ruyue.xyz/discardsale';
+  productdiscardurl += '?id=';
+  productdiscardurl += id;
+  productdiscardurl += '&name=';
+  productdiscardurl += name;
+  productdiscardurl += '&number=';
+  productdiscardurl += number;
+  productdiscardurl += '&date=';
+  productdiscardurl += date;
+  return '> ' + '[报损商品](' + productdiscardurl + ')';
 }
 
 const getMemberConsumDataContent = (salesData) => {

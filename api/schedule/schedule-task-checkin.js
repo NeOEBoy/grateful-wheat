@@ -79,9 +79,10 @@ const getCheckInData = async (accessToken, userIdList) => {
 }
 
 const doSendToCompanyGroup = async (content) => {
-  if (KForTest) return;
-
   let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=702633cd-37d3-4d4f-b811-8fd5e14e7475';
+  
+  ///测试地址
+  if (KForTest) webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
 
   let message =
   {

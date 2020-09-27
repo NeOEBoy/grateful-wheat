@@ -75,7 +75,7 @@ class ProductSale extends React.Component {
               <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
                 热卖商品
                 <span style={{ textAlign: 'center', fontSize: 13, fontWeight: "lighter" }}>
-                  {`门店：${this.props.name}, 总实收：¥ ${this.props.number}`}
+                  {`门店：${this.props.name}，商品实收：¥ ${this.props.number}`}
                 </span>
               </div>
             }

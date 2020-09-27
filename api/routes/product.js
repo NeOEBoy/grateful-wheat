@@ -36,7 +36,7 @@ router.get('/discardList', async function (req, res, next) {
   try {
     let userId = req.query.userId;
     let date = req.query.date;
-    if (!userId || !date) {
+    if (!date) {
       next(createError(500));
       return;
     }

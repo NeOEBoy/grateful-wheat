@@ -10,7 +10,7 @@ var productRouter = require('./routes/product');
 
 var app = express();
 
-//设置跨域访问
+/// 设置跨域访问
 const KTestHostLocal = 'http://localhost'
 const KWWWTestHostLocal = KTestHostLocal + ':4000';
 const KAllowHosts =[KWWWTestHostLocal];
@@ -58,10 +58,10 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-// 启动定时任务，定时汇报营业数据
+/// 启动定时任务，定时汇报营业数据
 const startScheduleBusiness = require('./schedule/schedule-task-business');
 startScheduleBusiness();
-// 启动定时任务，定时汇报打卡数据
+/// 启动定时任务，定时汇报打卡数据
 const startScheduleCheckin = require('./schedule/schedule-task-checkin');
 startScheduleCheckin();
 

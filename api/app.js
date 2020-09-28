@@ -10,7 +10,7 @@ var productRouter = require('./routes/product');
 
 var app = express();
 
-/// 设置跨域访问
+/// 设置跨域访问---
 const KTestHostLocal = 'http://localhost'
 const KWWWTestHostLocal = KTestHostLocal + ':4000';
 const KAllowHosts =[KWWWTestHostLocal];
@@ -27,6 +27,7 @@ app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   next();
 });
+/// 设置跨域访问---
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

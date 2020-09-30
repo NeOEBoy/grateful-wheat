@@ -74,6 +74,8 @@ class ProductDiscard extends React.Component {
                 indexDivBC = "red";
               }
 
+              let specification = item.specification !== '-' ? ' | ' + item.specification : '';
+              let category = item.category !== '' ? ' | ' + item.category : '';
               return (<List.Item>
                 <div style={{
                   width: 30, height: 30, backgroundColor: indexDivBC, color: "white",
@@ -89,10 +91,12 @@ class ProductDiscard extends React.Component {
                       <span style={{ fontSize: 16 }}>
                         {item.name}
                       </span>
-                      {item.specification !== '-' &&
-                        <span style={{ fontSize: 12 }}>
-                          {item.specification}
-                        </span>}
+                      <span style={{ fontSize: 12 }}>
+                        {specification}
+                      </span>
+                      <span style={{ fontSize: 10 }}>
+                        {category}
+                      </span>
                     </div>
                   )}
                   description={`报损数量：${item.discardNumber}`}

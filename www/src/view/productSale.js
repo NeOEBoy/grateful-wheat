@@ -96,6 +96,9 @@ class ProductSale extends React.Component {
                   indexDivBC = "red";
                 }
 
+                let specification = item.specification !== '-' ? ' | ' + item.specification : '';
+                let category = item.category !== '' ? ' | ' + item.category : '';
+
                 return (<List.Item>
                   <div style={{
                     width: 30, height: 30, backgroundColor: indexDivBC, color: "white",
@@ -111,13 +114,15 @@ class ProductSale extends React.Component {
                         <span style={{ fontSize: 16 }}>
                           {item.name}
                         </span>
-                        {item.specification !== '-' &&
-                          <span style={{ fontSize: 12 }}>
-                            {item.specification}
-                          </span>}
+                        <span style={{ fontSize: 12 }}>
+                          {specification}
+                        </span>
+                        <span style={{ fontSize: 10 }}>
+                          {category}
+                        </span>
                       </div>
                     )}
-                    description={`销量：${item.saleNumber} 库存：${item.currentNumber}`}
+                    description={`销售数量：${item.saleNumber} 现有库存：${item.currentNumber}`}
                   />
                   <span style={{
                     marginRight: 25, color: "coral", fontSize: 18

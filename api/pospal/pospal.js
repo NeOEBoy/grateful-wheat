@@ -65,6 +65,7 @@ const getProductSaleList = async (thePOSPALAUTH30220, whichDate, userId, pageInd
       if (result) {
         let productNameIndex = -1;
         let productSaleNumberIndex = -1;
+        let productCategoryIndex = -1;
         let productCurrentNumberIndex = -1;
         let productRealIncomeIndex = -1;
         let productSpecificationIndex = -1;
@@ -85,6 +86,10 @@ const getProductSaleList = async (thePOSPALAUTH30220, whichDate, userId, pageInd
               productSpecificationIndex = index;
               continue;
             }
+            if (titleName === '商品分类') {
+              productCategoryIndex = index;
+              continue;
+            }
             if (titleName === '销售数量') {
               productSaleNumberIndex = index;
               continue;
@@ -102,6 +107,7 @@ const getProductSaleList = async (thePOSPALAUTH30220, whichDate, userId, pageInd
 
         // console.log(productNameIndex);
         // console.log(productSpecificationIndex);
+        // console.log(productCategoryIndex);
         // console.log(productSaleNumberIndex);
         // console.log(productCurrentNumberIndex);
         // console.log(productRealIncomeIndex);
@@ -118,6 +124,10 @@ const getProductSaleList = async (thePOSPALAUTH30220, whichDate, userId, pageInd
           let productSpecification = element.td[productSpecificationIndex];
           // console.log(productSpecification);
           productItem.specification = productSpecification;
+
+          let productCategory = element.td[productCategoryIndex];
+          // console.log(productCategory);
+          productItem.category = productCategory;
 
           let productSaleNumber = element.td[productSaleNumberIndex].span[0]._;
           productSaleNumber = productSaleNumber.replace(/\r\n/g, "").trim();
@@ -179,6 +189,7 @@ const getProductDiscardList = async (thePOSPALAUTH30220, whichDate, userId) => {
         });
       if (result) {
         let productNameIndex = -1;
+        let productCategoryIndex = -1;
         let productSpecificationIndex = -1;
         let productDiscardNumberIndex = -1;
         let productDiscardMoneyIndex = -1;
@@ -197,6 +208,10 @@ const getProductDiscardList = async (thePOSPALAUTH30220, whichDate, userId) => {
             productNameIndex = index;
             continue;
           }
+          if (titleName === '商品分类') {
+            productCategoryIndex = index;
+            continue;
+          }
           if (titleName === '规格') {
             productSpecificationIndex = index;
             continue;
@@ -212,6 +227,7 @@ const getProductDiscardList = async (thePOSPALAUTH30220, whichDate, userId) => {
         }
 
         // console.log(productNameIndex);
+        // console.log(productCategoryIndex);
         // console.log(productSpecificationIndex);
         // console.log(productDiscardNumber);
         // console.log(productDiscardMoney);
@@ -226,7 +242,15 @@ const getProductDiscardList = async (thePOSPALAUTH30220, whichDate, userId) => {
           let productName = element.td[productNameIndex];
           if (productName === '总计') continue; ///省略最后一项
           // console.log(productName);
+          /// 官方会使用-拼接标题和规格，去除规格，后面自己拼接
+          productNameArray = productName.split('-');
+          productName = productNameArray && productNameArray.length > 0 ?
+            productNameArray[0] : productName;
           productItem.name = productName;
+
+          let productCategory = element.td[productCategoryIndex];
+          // console.log(productCategory);
+          productItem.category = productCategory;
 
           let productSpecification = element.td[productSpecificationIndex];
           // console.log(productSpecification);

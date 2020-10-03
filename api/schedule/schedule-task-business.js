@@ -621,8 +621,8 @@ const getActualIncomeDataContent = (salesData, rechargeNumber) => {
 }
 
 const doSendToCompanyGroup = async (content) => {
-  let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=9c5e59e5-7a39-4f6a-a545-d39f9e543c35';
-
+  let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=24751d96-c739-4860-b8d1-6fe3da1a71f9'
+  
   ///测试地址
   if (KForTest) webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
 

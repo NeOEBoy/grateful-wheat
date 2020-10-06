@@ -42,7 +42,7 @@ let KPaymethodsJson = [
 const whichDate = () => {
   let theDate = new Date();
   // 换算成昨天，测试用
-  // theDate.setTime(theDate.getTime() - 24 * 60 * 60 * 1000);
+  // theDate.setTime(theDate.getTime() - 1*24 * 60 * 60 * 1000);
   return theDate;
 }
 
@@ -622,7 +622,7 @@ const getActualIncomeDataContent = (salesData, rechargeNumber) => {
 
 const doSendToCompanyGroup = async (content) => {
   let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=24751d96-c739-4860-b8d1-6fe3da1a71f9'
-  
+
   ///测试地址
   if (KForTest) webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
 

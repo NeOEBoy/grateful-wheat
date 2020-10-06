@@ -60,7 +60,7 @@ app.use(function (err, req, res, next) {
 });
 
 /// 启动定时任务，定时汇报营业数据
-const startScheduleBusiness = require('./schedule/schedule-task-business');
+const startScheduleBusiness = require('./schedule/schedule-task-business1');
 startScheduleBusiness();
 /// 启动定时任务，定时汇报打卡数据
 const startScheduleCheckin = require('./schedule/schedule-task-checkin');

@@ -223,6 +223,12 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
   businessSummaryObj.giftpackageSaleObj = {};
   businessSummaryObj.giftpackageSaleObj.overview = '';
 
+  businessSummaryObj.actualIncomeObj = {};
+  businessSummaryObj.actualIncomeObj.overview = '';
+  businessSummaryObj.actualIncomeObj.cashpay = '';
+  businessSummaryObj.actualIncomeObj.alipay = '';
+  businessSummaryObj.actualIncomeObj.weixinpay = '';
+
   try {
     let view = businessSummaryResponseJson.view;
     // console.log(view);
@@ -291,6 +297,8 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
       // console.log(memberRechargeItem);
       let giftpackageSaleItem = trArray[columnGiftpackageSaleIndex];
       // console.log(giftpackageSaleItem);
+      let actualIncomeItem = trArray[columnActualIncomeIndex];
+      // console.log(giftpackageSaleItem);
 
       if (rowOverviewIndex !== -1) {
         let productSaleOverview = productSaleItem.td[rowOverviewIndex].div[0].span[0]._.trim();
@@ -302,6 +310,9 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let giftpackageSaleOverview = giftpackageSaleItem.td[rowOverviewIndex].span[0].trim();
         businessSummaryObj.giftpackageSaleObj.overview = giftpackageSaleOverview;
         // console.log(giftpackageSaleOverview);
+        let actualIncomeOverview = actualIncomeItem.td[rowOverviewIndex].span[0].trim();
+        businessSummaryObj.actualIncomeObj.overview = actualIncomeOverview;
+        // console.log(actualIncomeOverview);
       }
       if (rowCashPayIndex !== -1) {
         let productSaleCashPay = productSaleItem.td[rowCashPayIndex].span[0]._.trim();
@@ -310,6 +321,8 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let memberRechargeCashpay = memberRechargeItem.td[rowCashPayIndex].span[0]._.trim();
         businessSummaryObj.memberRechargeObj.cashpay = memberRechargeCashpay;
         // console.log(memberRechargeCashpay);
+        let actualIncomeCashpay = actualIncomeItem.td[rowCashPayIndex]._.trim();
+        businessSummaryObj.actualIncomeObj.cashpay = actualIncomeCashpay;
       }
       if (rowAlipayIndex !== -1) {
         let productSaleAlipay = productSaleItem.td[rowAlipayIndex].span[0]._.trim();
@@ -318,6 +331,9 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let memberRechargeAlipay = memberRechargeItem.td[rowAlipayIndex].span[0]._.trim();
         businessSummaryObj.memberRechargeObj.alipay = memberRechargeAlipay;
         // console.log(memberRechargeAlipay);
+        let actualIncomeAlipay = actualIncomeItem.td[rowAlipayIndex]._.trim();
+        businessSummaryObj.actualIncomeObj.alipay = actualIncomeAlipay;
+        // console.log(actualIncomeAlipay);
       }
       if (rowWeixinpayIndex !== -1) {
         let productSaleWeixinpay = productSaleItem.td[rowWeixinpayIndex].span[0]._.trim();
@@ -326,6 +342,9 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let memberRechargeWeixinpay = memberRechargeItem.td[rowWeixinpayIndex].span[0]._.trim();
         businessSummaryObj.memberRechargeObj.weixinpay = memberRechargeWeixinpay;
         // console.log(memberRechargeWeixinpay);
+        let actualIncomeWeixinpay = actualIncomeItem.td[rowAlipayIndex]._.trim();
+        businessSummaryObj.actualIncomeObj.weixinpay = actualIncomeWeixinpay;
+        // console.log(actualIncomeWeixinpay);
       }
       if (rowCardpayIndex !== -1) {
         let productSaleCardpay = productSaleItem.td[rowCardpayIndex].span[0]._.trim();
@@ -364,7 +383,7 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.stores = [];
 
   businessSummaryObj4workweixin.memberItem = {};
-  businessSummaryObj4workweixin.memberItem.title = today + ' 会员充值情况';
+  businessSummaryObj4workweixin.memberItem.title = today + ' 会员情况';
 
   businessSummaryObj4workweixin.memberItem.rechargeMoney = {};
   businessSummaryObj4workweixin.memberItem.rechargeMoney.title = '会员充值额';
@@ -378,13 +397,32 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   businessSummaryObj4workweixin.memberItem.newMember.title = '新增会员数';
   businessSummaryObj4workweixin.memberItem.newMember.stores = [];
 
+  businessSummaryObj4workweixin.actualIncomeItem = {};
+  businessSummaryObj4workweixin.actualIncomeItem.title = today + ' 营业实收情况';
+
+  businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney = {};
+  businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title = '现金实收额';
+  businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores = [];
+
+  businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney = {};
+  businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title = '微信实收额';
+  businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores = [];
+
+  businessSummaryObj4workweixin.actualIncomeItem.alipayMoney = {};
+  businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title = '支付宝实收额';
+  businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.stores = [];
+
+  businessSummaryObj4workweixin.actualIncomeItem.overviewMoney = {};
+  businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.title = '总实收额';
+  businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.stores = [];
+
   businessSummaryObjArray.forEach(businessSummaryObj => {
     let productSaleObj = businessSummaryObj.productSaleObj;
     let productSaleOverview = productSaleObj.overview;
     let store4ProductSale = {};
     store4ProductSale.name = businessSummaryObj.shop.name;
     store4ProductSale.userId = businessSummaryObj.shop.userId;
-    store4ProductSale.money = productSaleOverview;
+    store4ProductSale.money = productSaleOverview ? productSaleOverview : '0.00';
     businessSummaryObj4workweixin.productSaleItem.productSaleMoney.stores.push(store4ProductSale);
 
     let giftpackageSaleObj = businessSummaryObj.giftpackageSaleObj;
@@ -392,15 +430,15 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     let store4GiftpackageSale = {};
     store4GiftpackageSale.name = businessSummaryObj.shop.name;
     store4GiftpackageSale.userId = businessSummaryObj.shop.userId;
-    store4GiftpackageSale.money = giftpackageSaleOverview;
+    store4GiftpackageSale.money = giftpackageSaleOverview ? giftpackageSaleOverview : '0.00';
     businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.stores.push(store4GiftpackageSale);
-    
+
     let productDiscardObj = businessSummaryObj.productDiscardObj;
     let productDiscardOverview = productDiscardObj.overview;
     let store4ProductDiscard = {};
     store4ProductDiscard.name = businessSummaryObj.shop.name;
     store4ProductDiscard.userId = businessSummaryObj.shop.userId;
-    store4ProductDiscard.money = productDiscardOverview;
+    store4ProductDiscard.money = productDiscardOverview ? productDiscardOverview : '0.00';
     businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.stores.push(store4ProductDiscard);
 
     let memberRechargeObj = businessSummaryObj.memberRechargeObj;
@@ -408,14 +446,14 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     let store4MemberRecharge = {};
     store4MemberRecharge.name = businessSummaryObj.shop.name;
     store4MemberRecharge.userId = businessSummaryObj.shop.userId;
-    store4MemberRecharge.money = memberRechargeOverview;
+    store4MemberRecharge.money = memberRechargeOverview ? memberRechargeOverview : '0.00';
     businessSummaryObj4workweixin.memberItem.rechargeMoney.stores.push(store4MemberRecharge);
 
     let store4MemberConsume = {};
     let productSaleCardpay = productSaleObj.cardpay;
     store4MemberConsume.name = businessSummaryObj.shop.name;
     store4MemberConsume.userId = businessSummaryObj.shop.userId;
-    store4MemberConsume.money = productSaleCardpay;
+    store4MemberConsume.money = productSaleCardpay ? productSaleCardpay : '0.00';
     businessSummaryObj4workweixin.memberItem.consumeMoney.stores.push(store4MemberConsume);
 
     let newMemberObj = businessSummaryObj.newMemberObj;
@@ -425,6 +463,35 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     store4NewMember.userId = businessSummaryObj.shop.userId;
     store4NewMember.newMemberCount = newMemberCount;
     businessSummaryObj4workweixin.memberItem.newMember.stores.push(store4NewMember);
+
+    let actualIncomeObj = businessSummaryObj.actualIncomeObj;
+    let actualIncomeCashpay = actualIncomeObj.cashpay;
+    let store4ActualIncomeCashpay = {};
+    store4ActualIncomeCashpay.name = businessSummaryObj.shop.name;
+    store4ActualIncomeCashpay.userId = businessSummaryObj.shop.userId;
+    store4ActualIncomeCashpay.cashpay = actualIncomeCashpay ? actualIncomeCashpay : '0.00';
+    businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores.push(store4ActualIncomeCashpay);
+
+    let actualIncomeWeixinpay = actualIncomeObj.weixinpay;
+    let store4ActualIncomeWeixinpay = {};
+    store4ActualIncomeWeixinpay.name = businessSummaryObj.shop.name;
+    store4ActualIncomeWeixinpay.userId = businessSummaryObj.shop.userId;
+    store4ActualIncomeWeixinpay.weixinpay = actualIncomeWeixinpay ? actualIncomeWeixinpay : '0.00';
+    businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores.push(store4ActualIncomeWeixinpay);
+
+    let actualIncomeAlipay = actualIncomeObj.alipay;
+    let store4ActualIncomeAlipay = {};
+    store4ActualIncomeAlipay.name = businessSummaryObj.shop.name;
+    store4ActualIncomeAlipay.userId = businessSummaryObj.shop.userId;
+    store4ActualIncomeAlipay.alipay = actualIncomeAlipay ? actualIncomeAlipay : '0.00';
+    businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.stores.push(store4ActualIncomeAlipay);
+
+    let actualIncomeOverview = actualIncomeObj.overview;
+    let store4ActualIncomeOverview = {};
+    store4ActualIncomeOverview.name = businessSummaryObj.shop.name;
+    store4ActualIncomeOverview.userId = businessSummaryObj.shop.userId;
+    store4ActualIncomeOverview.overview = actualIncomeOverview ? actualIncomeOverview : '0.00';
+    businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.stores.push(store4ActualIncomeOverview);
   });
 
   // console.log(JSON.stringify(businessSummaryObj4workweixin));
@@ -534,6 +601,68 @@ const buildString4Workweixin = (businessSummaryObj4workweixin) => {
     newMemberTotalCount += newMemberCount;
   });
   totalContent += '> ' + '总计' + ':<font color=\"info\"> ' + newMemberTotalCount.toFixed(0) + ' 人</font>\n';
+  totalContent += '\n';
+  /*-------------------------*/
+
+  /*-------------------------*/
+  /// 实收情况
+  totalContent += '**' + businessSummaryObj4workweixin.actualIncomeItem.title + '**\n';
+  // /// 现金实收
+  // totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '**\n';
+  // /// 现金实收-门店
+  // let cashpayMoneyTotal = 0;
+  // businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores.forEach(store => {
+  //   totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.cashpay + ' 元</font>\n';
+
+  //   let cashpayMoney = parseFloat(store.cashpay);
+  //   cashpayMoneyTotal += cashpayMoney;
+  // });
+  // totalContent += '> ' + '总计' + ':<font color=\"info\"> ' + cashpayMoneyTotal.toFixed(2) + ' 元</font>\n';
+  // totalContent += '\n';
+  /*-------------------------*/
+
+  /*-------------------------*/
+  // /// 支付宝实收
+  // totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '**\n';
+  // /// 支付宝实收-门店
+  // let weixinpayMoneyTotal = 0;
+  // businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores.forEach(store => {
+  //   totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.weixinpay + ' 元</font>\n';
+
+  //   let weixinpayMoney = parseFloat(store.weixinpay);
+  //   weixinpayMoneyTotal += weixinpayMoney;
+  // });
+  // totalContent += '> ' + '总计' + ':<font color=\"info\"> ' + weixinpayMoneyTotal.toFixed(2) + ' 元</font>\n';
+  // totalContent += '\n';
+  /*-------------------------*/
+
+  /*-------------------------*/
+  // /// 支付宝实收
+  // totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '**\n';
+  // /// 支付宝实收-门店
+  // let alipayMoneyTotal = 0;
+  // businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.stores.forEach(store => {
+  //   totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.alipay + ' 元</font>\n';
+
+  //   let alipayMoney = parseFloat(store.alipay);
+  //   alipayMoneyTotal += alipayMoney;
+  // });
+  // totalContent += '> ' + '总计' + ':<font color=\"info\"> ' + alipayMoneyTotal.toFixed(2) + ' 元</font>\n';
+  // totalContent += '\n';
+  /*-------------------------*/
+
+  /*-------------------------*/
+  /// 总实收
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.title + '**\n';
+  /// 总实收-门店
+  let overviewMoneyTotal = 0;
+  businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.stores.forEach(store => {
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.overview + ' 元</font>\n';
+
+    let overviewMoney = parseFloat(store.overview);
+    overviewMoneyTotal += overviewMoney;
+  });
+  totalContent += '> ' + '总计' + ':<font color=\"info\"> ' + overviewMoneyTotal.toFixed(2) + ' 元</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 

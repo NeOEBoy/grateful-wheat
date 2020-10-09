@@ -8,12 +8,13 @@ const dateFormat = require('../util/date-util').dateFormat;
 const KForTest = false;
 const KSendToWorkWeixin = true;
 /// 增加门店这里添加一下
+KShopHeadUserId = '3995763'; // 总部账号
 const KShopArray = [
-  { index: 0, name: '公众号', userId: '3995763' },
-  { index: 1, name: '教育局', userId: '3995767' },
+  { index: 0, name: '总部', userId: KShopHeadUserId },
+  { index: 1, name: '教育', userId: '3995767' },
   { index: 2, name: '旧镇', userId: '3995771' },
   { index: 3, name: '江滨', userId: '4061089' },
-  { index: 4, name: '汤泉世纪', userId: '4061092' }
+  { index: 4, name: '汤泉', userId: '4061092' }
 ];
 /**--------------------配置信息--------------------*/
 
@@ -103,18 +104,20 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
   /// 商品销售情况
   totalContent += '**' + businessSummaryObj4workweixin.productSaleItem.title + '**\n';
   /// 商品销售额
-  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.productSaleMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.productSaleMoney.title + '(元)**\n';
   /// 商品销售额-门店
   let productSaleMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.productSaleItem.productSaleMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + ' 元</font>\n';
+    if (store.userId === KShopHeadUserId) return;
+
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
     totalContent += makeProductSaleMark(store.userId, store.name, store.money, dateFormat("YYYY.mm.dd", whichDate()));
     totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     productSaleMoneyTotalMoney += storeMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productSaleMoneyTotalMoney.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productSaleMoneyTotalMoney.toFixed(2) + '</font>\n';
   totalContent += makeProductSaleMark('', '所有门店', productSaleMoneyTotalMoney.toFixed(2), dateFormat("YYYY.mm.dd", whichDate()));
   totalContent += '\n';
   totalContent += '\n';
@@ -122,38 +125,40 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
 
   /*-------------------------*/
   /// 礼品包销售额
-  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.title + '(元)**\n';
   /// 礼品包销售额-门店
   let giftpackageSaleMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + ' 元</font>\n';
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
 
     let storeMoney = parseFloat(store.money);
     giftpackageSaleMoneyTotalMoney += storeMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + giftpackageSaleMoneyTotalMoney.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + giftpackageSaleMoneyTotalMoney.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 商品报损额
-  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.title + '(元)**\n';
   /// 商品报损额-门店
   let productDiscardMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + ' 元</font>\n';
+    if (store.userId === KShopHeadUserId) return;
+
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
     totalContent += makeProductDiscardMark(store.userId, store.name, store.money, dateFormat("YYYY.mm.dd", whichDate()));
     totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     productDiscardMoneyTotalMoney += storeMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productDiscardMoneyTotalMoney.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productDiscardMoneyTotalMoney.toFixed(2) + '</font>\n';
   totalContent += makeProductDiscardMark('', '所有门店', productDiscardMoneyTotalMoney.toFixed(2), dateFormat("YYYY.mm.dd", whichDate()));
   totalContent += '\n';
   totalContent += '\n';
   /*-------------------------*/
-  if(KForTest) console.log(totalContent);
+  if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }
 
@@ -163,49 +168,62 @@ const buildMemberString4WorkweixinAndSend = async (businessSummaryObj4workweixin
   /// 会员充值情况
   totalContent += '**' + businessSummaryObj4workweixin.memberItem.title + '**\n';
   /// 会员充值额
-  totalContent += '> **' + businessSummaryObj4workweixin.memberItem.rechargeMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.memberItem.rechargeMoney.title + '(元)**\n';
   /// 商品销售额-门店
-  let memberRechargeMoneyTotalMoney = 0;
+  let memberRechargeActualMoneyTotalMoney = 0;
+  let memberRechargePresentMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.memberItem.rechargeMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + ' 元</font>\n';
+    totalContent += '> ' + store.name +
+      ':<font color=\"info\">' +
+      ' 充:' + store.actualmoney +
+      '+赠:' + store.presentmoney +
+      '</font>\n';
 
-    let storeMoney = parseFloat(store.money);
-    memberRechargeMoneyTotalMoney += storeMoney;
+    let storeActualMoney = parseFloat(store.actualmoney);
+    let storePresentMoney = parseFloat(store.presentmoney);
+    memberRechargeActualMoneyTotalMoney += storeActualMoney;
+    memberRechargePresentMoneyTotalMoney += storePresentMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + memberRechargeMoneyTotalMoney.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' +
+    ':<font color=\"warning\">' +
+    ' 充:' + memberRechargeActualMoneyTotalMoney.toFixed(2) +
+    '+赠:' + memberRechargePresentMoneyTotalMoney.toFixed(2) +
+    '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 会员消费额
-  totalContent += '> **' + businessSummaryObj4workweixin.memberItem.consumeMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.memberItem.consumeMoney.title + '(元)**\n';
   /// 商品销售额-门店
   let memberConsumeMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.memberItem.consumeMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + ' 元</font>\n';
+    if (store.userId === KShopHeadUserId) return;
+
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
 
     let storeMoney = parseFloat(store.money);
     memberConsumeMoneyTotalMoney += storeMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + memberConsumeMoneyTotalMoney.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + memberConsumeMoneyTotalMoney.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 新增会员数
-  totalContent += '> **' + businessSummaryObj4workweixin.memberItem.newMember.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.memberItem.newMember.title + '(人)**\n';
   /// 新增会员数-门店
   let newMemberTotalCount = 0;
   businessSummaryObj4workweixin.memberItem.newMember.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.newMemberCount + ' 人</font>\n';
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.newMemberCount + '</font>\n';
 
     let newMemberCount = parseFloat(store.newMemberCount);
     newMemberTotalCount += newMemberCount;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + newMemberTotalCount.toFixed(0) + ' 人</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + newMemberTotalCount.toFixed(0) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
-  if(KForTest) console.log(totalContent);
+  if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }
 
@@ -215,67 +233,66 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
   /// 实收情况
   totalContent += '**' + businessSummaryObj4workweixin.actualIncomeItem.title + '**\n';
   /// 现金实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '(元)**\n';
   /// 现金实收-门店
   let cashpayMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.cashpay + ' 元</font>\n';
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.cashpay + '</font>\n';
 
     let cashpayMoney = parseFloat(store.cashpay);
     cashpayMoneyTotal += cashpayMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + cashpayMoneyTotal.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + cashpayMoneyTotal.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 支付宝实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '(元)**\n';
   /// 支付宝实收-门店
   let weixinpayMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.weixinpay + ' 元</font>\n';
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.weixinpay + '</font>\n';
 
     let weixinpayMoney = parseFloat(store.weixinpay);
     weixinpayMoneyTotal += weixinpayMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + weixinpayMoneyTotal.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + weixinpayMoneyTotal.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 支付宝实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '(元)**\n';
   /// 支付宝实收-门店
   let alipayMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.alipay + ' 元</font>\n';
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.alipay + '</font>\n';
 
     let alipayMoney = parseFloat(store.alipay);
     alipayMoneyTotal += alipayMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + alipayMoneyTotal.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + alipayMoneyTotal.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 总实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.title + '**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.title + '(元)**\n';
   /// 总实收-门店
   let overviewMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.overview + ' 元</font>\n';
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.overview + '</font>\n';
 
     let overviewMoney = parseFloat(store.overview);
     overviewMoneyTotal += overviewMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + overviewMoneyTotal.toFixed(2) + ' 元</font>\n';
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + overviewMoneyTotal.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
-  if(KForTest) console.log(totalContent);
+  if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }
-
 
 const getBusinessSummaryByUserIdAndParse = async (thePOSPALAUTH30220, userId) => {
   const businessSummaryResponseJson = await getBusinessSummaryByUserId(thePOSPALAUTH30220, userId);
@@ -417,7 +434,9 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
   businessSummaryObj.productSaleObj.cardpay = '';
 
   businessSummaryObj.memberRechargeObj = {};
-  businessSummaryObj.memberRechargeObj.overview = '';
+  businessSummaryObj.memberRechargeObj.overview = {};
+  businessSummaryObj.memberRechargeObj.overview.actual = '';// 充值实际金额
+  businessSummaryObj.memberRechargeObj.overview.present = '';// 充值赠送金额
   businessSummaryObj.memberRechargeObj.cashpay = '';
   businessSummaryObj.memberRechargeObj.alipay = '';
   businessSummaryObj.memberRechargeObj.weixinpay = '';
@@ -506,8 +525,10 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let productSaleOverview = productSaleItem.td[rowOverviewIndex].div[0].span[0]._.trim();
         businessSummaryObj.productSaleObj.overview = productSaleOverview;
         // console.log(productSaleOverview);
-        let memberRechargeOverview = memberRechargeItem.td[rowOverviewIndex].span[0]._.trim();
-        businessSummaryObj.memberRechargeObj.overview = memberRechargeOverview;
+        let memberRechargeOverviewActual = memberRechargeItem.td[rowOverviewIndex].span[0]._.trim();
+        businessSummaryObj.memberRechargeObj.overview.actual = memberRechargeOverviewActual;
+        let memberRechargeOverviewPresent = memberRechargeItem.td[rowOverviewIndex].span[1]._.trim();
+        businessSummaryObj.memberRechargeObj.overview.present = memberRechargeOverviewPresent;
         // console.log(memberRechargeOverview);
         let giftpackageSaleOverview = giftpackageSaleItem.td[rowOverviewIndex].span[0].trim();
         businessSummaryObj.giftpackageSaleObj.overview = giftpackageSaleOverview;
@@ -644,11 +665,13 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.stores.push(store4ProductDiscard);
 
     let memberRechargeObj = businessSummaryObj.memberRechargeObj;
-    let memberRechargeOverview = memberRechargeObj.overview;
+    let memberRechargeOverviewActual = memberRechargeObj.overview.actual;
+    let memberRechargeOverviewPresent = memberRechargeObj.overview.present;
     let store4MemberRecharge = {};
     store4MemberRecharge.name = businessSummaryObj.shop.name;
     store4MemberRecharge.userId = businessSummaryObj.shop.userId;
-    store4MemberRecharge.money = memberRechargeOverview ? memberRechargeOverview : '0.00';
+    store4MemberRecharge.actualmoney = memberRechargeOverviewActual ? memberRechargeOverviewActual : '0.00';
+    store4MemberRecharge.presentmoney = memberRechargeOverviewPresent ? memberRechargeOverviewPresent : '0.00';
     businessSummaryObj4workweixin.memberItem.rechargeMoney.stores.push(store4MemberRecharge);
 
     let store4MemberConsume = {};

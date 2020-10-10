@@ -11,7 +11,7 @@ const KSendToWorkWeixin = true;
 KShopHeadUserId = '3995763'; // 总部账号
 const KShopArray = [
   { index: 0, name: '总部', userId: KShopHeadUserId },
-  { index: 1, name: '教育', userId: '3995767' },
+  { index: 1, name: '教育局', userId: '3995767' },
   { index: 2, name: '旧镇', userId: '3995771' },
   { index: 3, name: '江滨', userId: '4061089' },
   { index: 4, name: '汤泉', userId: '4061092' }
@@ -247,9 +247,9 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
   /*-------------------------*/
 
   /*-------------------------*/
-  /// 支付宝实收
+  /// 微信实收
   totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '(元)**\n';
-  /// 支付宝实收-门店
+  /// 微信实收-门店
   let weixinpayMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores.forEach(store => {
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.weixinpay + '</font>\n';
@@ -565,7 +565,7 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let memberRechargeWeixinpay = memberRechargeItem.td[rowWeixinpayIndex].span[0]._.trim();
         businessSummaryObj.memberRechargeObj.weixinpay = memberRechargeWeixinpay;
         // console.log(memberRechargeWeixinpay);
-        let actualIncomeWeixinpay = actualIncomeItem.td[rowAlipayIndex]._.trim();
+        let actualIncomeWeixinpay = actualIncomeItem.td[rowWeixinpayIndex]._.trim();
         businessSummaryObj.actualIncomeObj.weixinpay = actualIncomeWeixinpay;
         // console.log(actualIncomeWeixinpay);
       }

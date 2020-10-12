@@ -21,25 +21,33 @@ const signIn = async () => {
   return thePOSPALAUTH30220;
 };
 
-const getProductSaleList = async (thePOSPALAUTH30220, whichDate, userId, pageIndex, pageSize) => {
+const getProductSaleList = async (
+  thePOSPALAUTH30220,
+  beginDateTime,
+  endDateTime,
+  userId,
+  pageIndex,
+  pageSize) => {
   let productSaleUrl = 'https://beta33.pospal.cn/ReportV2/LoadProductSaleByPage';
   let productSaleBody = '';
   productSaleBody += 'keyword=&';
   if (userId) {
     productSaleBody += 'userIds%5B%5D=' + userId + '&';
   }
-  productSaleBody += 'isSellWell=1&';
-  productSaleBody += 'beginDateTime=' + whichDate + '+00%3A00%3A00&';
-  productSaleBody += 'endDateTime=' + whichDate + '+23%3A59%3A59&';
-  productSaleBody += 'productbrand=&';
-  productSaleBody += 'supplierUid=&';
-  productSaleBody += 'productTagUidsJson=&';
-  productSaleBody += 'categorysJson=%5B%5D&';
-  productSaleBody += 'isCustomer=&';
-  productSaleBody += 'pageIndex=' + pageIndex + '&';
-  productSaleBody += 'pageSize=' + pageSize + '&';
-  productSaleBody += 'orderColumn=totoalProductNum&';
-  productSaleBody += 'asc=false';
+
+  productSaleBody += 'isSellWell=1';
+  productSaleBody += '&beginDateTime=' + escape(beginDateTime);
+  productSaleBody += '&endDateTime=' + escape(endDateTime);
+  productSaleBody += '&productbrand=';
+  productSaleBody += '&supplierUid=';
+  productSaleBody += '&productTagUidsJson=';
+  productSaleBody += '&categorysJson=%5B%5D';
+  productSaleBody += '&isCustomer=';
+  productSaleBody += '&pageIndex=' + pageIndex;
+  productSaleBody += '&pageSize=' + pageSize;
+  productSaleBody += '&orderColumn=totoalProductNum';
+  productSaleBody += '&asc=false';
+  console.log(productSaleBody);
 
   const productSaleResponse = await fetch(productSaleUrl, {
     method: 'POST', body: productSaleBody,

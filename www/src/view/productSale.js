@@ -1,38 +1,92 @@
 import React from 'react';
-import { List, message, Spin } from 'antd';
+import {
+  List,
+  message,
+  Spin,
+  Dropdown,
+  Menu,
+  Button,
+  DatePicker
+} from 'antd';
 import { getProductSaleList } from '../api/api';
 import InfiniteScroll from 'react-infinite-scroller';
+import { DownOutlined } from '@ant-design/icons';
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
+import moment from 'moment';
 
+const { RangePicker } = DatePicker;
 const KPageSize = 20;
+const KShopArray = [
+  { index: 0, name: '全部', userId: '' },
+  { index: 1, name: '教育局', userId: '3995767' },
+  { index: 2, name: '旧镇', userId: '3995771' },
+  { index: 3, name: '江滨', userId: '4061089' },
+  { index: 4, name: '汤泉', userId: '4061092' }
+];
 
 class ProductSale extends React.Component {
   constructor(props) {
     super(props);
 
+    let beginDateTime = this.props.query.get('beginDateTime');
+    beginDateTime = beginDateTime.replace(' ', '+');// +号会变成空格，替换回来
+    let endDateTime = this.props.query.get('endDateTime');
+    endDateTime = endDateTime.replace(' ', '+');// +号会变成空格，替换回来
+
     this.state = {
       listData: [],
       loading: false,
       hasMore: true,
-      pageIndex: 1
+      pageIndex: 1,
+      shopIndex: 1,
+      userId: '',
+      beginDateTime: beginDateTime,
+      endDateTime: endDateTime
     };
   }
 
   async componentDidMount() {
-    await this.fetchNextPage();
+    let userId = this.props.query.get('id');
+    userId = userId ? userId : '';
+
+    await this.initFirstPage(userId);
+  }
+
+  async initFirstPage(userId, beginDateTime, endDateTime) {
+    for (let index = 0; index < KShopArray.length; index++) {
+      if (KShopArray[index].userId === userId) {
+        this.setState({ shopIndex: index })
+        break;
+      }
+    }
+
+    this.setState({
+      userId: userId !== undefined ? userId : this.state.userId,
+      listData: [],
+      loading: false,
+      hasMore: true,
+      pageIndex: 1,
+      beginDateTime: beginDateTime ? beginDateTime : this.state.beginDateTime,
+      endDateTime: endDateTime ? endDateTime : this.state.endDateTime
+    }, async () => {
+      await this.fetchNextPage();
+    });
   }
 
   async fetchNextPage() {
     let { hasMore, pageIndex, listData } = this.state;
     if (!hasMore) {
-      message.warning('Infinite List loaded all');
+      message.warning('没有更多数据了');
       return;
     }
 
     this.setState({ loading: true });
 
     try {
+      const { userId, beginDateTime, endDateTime } = this.state;
       let saleList = [];
-      const productSale = await getProductSaleList(this.props.query.get('id'), this.props.query.get('date'), pageIndex, KPageSize);
+      const productSale = await getProductSaleList(userId, beginDateTime, endDateTime, pageIndex, KPageSize);
       if (productSale && productSale.errCode === 0) {
         saleList = productSale.list;
       }
@@ -59,8 +113,65 @@ class ProductSale extends React.Component {
   };
 
   render() {
+    const { shopIndex, beginDateTime, endDateTime } = this.state;
+
+    let shopName = KShopArray[shopIndex].name;
     return (
       <div style={{ height: window.innerHeight, overflow: "auto" }}>
+        <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
+          热卖商品
+          <br />
+          <Dropdown
+            overlay={
+              () => {
+                let shop0 = KShopArray[0];
+                let shop1 = KShopArray[1];
+                let shop2 = KShopArray[2];
+                let shop3 = KShopArray[3];
+                let shop4 = KShopArray[4];
+
+                return (
+                  <Menu onClick={async ({ key }) => {
+                    let userId = KShopArray[key].userId;
+                    await this.initFirstPage(userId);
+                  }} >
+                    <Menu.Item key={shop0.index}>{shop0.name}</Menu.Item>
+                    <Menu.Item key={shop1.index}>{shop1.name}</Menu.Item>
+                    <Menu.Item key={shop2.index}>{shop2.name}</Menu.Item>
+                    <Menu.Item key={shop3.index}>{shop3.name}</Menu.Item>
+                    <Menu.Item key={shop4.index}>{shop4.name}</Menu.Item>
+                  </Menu>)
+              }
+            } trigger={['click']}>
+            <Button onClick={e => e.preventDefault()}>
+              {shopName}
+              <DownOutlined />
+            </Button>
+          </Dropdown>
+            &nbsp;&nbsp;
+            <RangePicker size='default' locale={locale}
+            defaultValue={[moment(beginDateTime, 'YYYY.MM.DD+HH:mm:ss'),
+            moment(endDateTime, 'YYYY.MM.DD+HH:mm:ss')]}
+            showTime={{
+              hideDisabledOptions: true,
+              defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')]
+            }} onChange={(data) => {
+              if (!data) {
+                message.warning('请选择正确的日期!');
+                return;
+              };
+
+              {/* message.info(data[0].format('YYYY.MM.DD+HH:mm:ss'));
+                    message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
+            }} onOk={async (data) => {
+              {/* message.info(data[0].format('YYYY.MM.DD+HH:mm:ss'));
+                    message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
+
+              await this.initFirstPage(undefined,
+                data[0] ? data[0].format('YYYY.MM.DD+HH:mm:ss') : undefined,
+                data[1] ? data[1].format('YYYY.MM.DD+HH:mm:ss') : undefined);
+            }} />
+        </div>
         <InfiniteScroll
           initialLoad={false}
           pageStart={0}
@@ -71,14 +182,6 @@ class ProductSale extends React.Component {
           <List
             dataSource={this.state.listData}
             locale={{ emptyText: '暂时没有数据' }}
-            header={
-              <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
-                热卖商品
-                <span style={{ textAlign: 'center', fontSize: 13, fontWeight: "lighter" }}>
-                  {`门店：${this.props.query.get('name')}，商品实收：¥ ${this.props.query.get('number')}`}
-                </span>
-              </div>
-            }
             footer={
               <div style={{ height: 100, textAlign: 'center', fontSize: 14, fontWeight: "lighter" }}>
                 弯麦--心里满满都是你

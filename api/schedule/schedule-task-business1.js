@@ -100,6 +100,9 @@ const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
 
 const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
   let totalContent = '';
+  let beginDateTime = escape(dateFormat("YYYY.mm.dd", whichDate()) + '+00:00:00');
+  let endDateTime = escape(dateFormat("YYYY.mm.dd", whichDate()) + '+23:59:59');
+
   /*-------------------------*/
   /// 商品销售情况
   totalContent += '**' + businessSummaryObj4workweixin.productSaleItem.title + '**\n';
@@ -111,31 +114,37 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
     if (store.userId === KShopHeadUserId) return;
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
-    totalContent += makeProductSaleMark(store.userId, store.name, store.money, dateFormat("YYYY.mm.dd", whichDate()));
+    totalContent += makeProductSaleMark(store.userId, beginDateTime, endDateTime);
     totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     productSaleMoneyTotalMoney += storeMoney;
   });
   totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productSaleMoneyTotalMoney.toFixed(2) + '</font>\n';
-  totalContent += makeProductSaleMark('', '所有门店', productSaleMoneyTotalMoney.toFixed(2), dateFormat("YYYY.mm.dd", whichDate()));
+  totalContent += makeProductSaleMark('', beginDateTime, endDateTime);
   totalContent += '\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 礼品包销售额
-  totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.title + '(元)**\n';
+  let totalContent4giftpackageSaleMoney = '';
+  totalContent4giftpackageSaleMoney += '> **' + businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.title + '(元)**\n';
   /// 礼品包销售额-门店
   let giftpackageSaleMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
+    totalContent4giftpackageSaleMoney += '> ' + store.name + ':<font color=\"info\"> ' + parseFloat(store.money).toFixed(2) + '</font>\n';
 
     let storeMoney = parseFloat(store.money);
     giftpackageSaleMoneyTotalMoney += storeMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + giftpackageSaleMoneyTotalMoney.toFixed(2) + '</font>\n';
-  totalContent += '\n';
+  totalContent4giftpackageSaleMoney += '> ' + '总计' + ':<font color=\"warning\"> ' + giftpackageSaleMoneyTotalMoney.toFixed(2) + '</font>\n';
+  totalContent4giftpackageSaleMoney += '\n';
+
+  /// 只有总计有金额才显示，否则不显示礼品包条目
+  if (giftpackageSaleMoneyTotalMoney > 0) {
+    totalContent += totalContent4giftpackageSaleMoney;
+  }
   /*-------------------------*/
 
   /*-------------------------*/
@@ -723,17 +732,15 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   return businessSummaryObj4workweixin;
 }
 
-
-const makeProductSaleMark = (id, name, number, date) => {
+const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   let productsaleurl = 'http://gratefulwheat.ruyue.xyz/productsale';
+  if(KForTest) productsaleurl = 'http://localhost:4000/productsale';
   productsaleurl += '?id=';
   productsaleurl += id;
-  productsaleurl += '&name=';
-  productsaleurl += name;
-  productsaleurl += '&number=';
-  productsaleurl += number;
-  productsaleurl += '&date=';
-  productsaleurl += date;
+  productsaleurl += '&beginDateTime=';
+  productsaleurl += beginDateTime;
+  productsaleurl += '&endDateTime=';
+  productsaleurl += endDateTime;
   return '> ' + '[热卖商品](' + productsaleurl + ')';
 }
 

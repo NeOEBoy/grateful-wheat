@@ -13,8 +13,9 @@ router.get('/saleList', async function (req, res, next) {
     let pageIndex = req.query.pageIndex;
     let pageSize = req.query.pageSize;
     let userId = req.query.userId;
-    let date = req.query.date;
-    if (!date || !pageIndex || !pageSize) {
+    let beginDateTime = req.query.beginDateTime;
+    let endDateTime = req.query.endDateTime;
+    if (!beginDateTime || !endDateTime || !pageIndex || !pageSize) {
       next(createError(500));
       return;
     }
@@ -22,7 +23,8 @@ router.get('/saleList', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let productSaleResponseJson = await getProductSaleList(
       thePOSPALAUTH30220,
-      date,
+      beginDateTime,
+      endDateTime,
       userId,
       pageIndex,
       pageSize);

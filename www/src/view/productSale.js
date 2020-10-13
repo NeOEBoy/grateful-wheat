@@ -159,8 +159,10 @@ class ProductSale extends React.Component {
           </Dropdown>
           <br />
           <RangePicker size='small' locale={locale}
+            bordered={true}
             style={{ width: 320 }}
             placeholder={['开始时间', '结束时间']}
+            inputReadOnly={true}
             defaultValue={[moment(beginDateTime, 'YYYY.MM.DD+HH:mm:ss'),
             moment(endDateTime, 'YYYY.MM.DD+HH:mm:ss')]}
             showTime={{
@@ -176,13 +178,7 @@ class ProductSale extends React.Component {
                 message.warning('请选择正确的日期!');
                 return;
               };
-
-              {/* message.info(data[0].format('YYYY.MM.DD+HH:mm:ss'));
-                  message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
             }} onOk={async (data) => {
-              {/* message.info(data[0].format('YYYY.MM.DD+HH:mm:ss'));
-                  message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
-
               await this.initFirstPage(undefined,
                 data[0] ? data[0].format('YYYY.MM.DD+HH:mm:ss') : undefined,
                 data[1] ? data[1].format('YYYY.MM.DD+HH:mm:ss') : undefined);

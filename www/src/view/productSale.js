@@ -29,10 +29,16 @@ class ProductSale extends React.Component {
   constructor(props) {
     super(props);
 
-    let beginDateTime = this.props.query.get('beginDateTime');
-    beginDateTime = beginDateTime.replace(' ', '+');// +号会变成空格，替换回来
-    let endDateTime = this.props.query.get('endDateTime');
-    endDateTime = endDateTime.replace(' ', '+');// +号会变成空格，替换回来
+    let query = this.props.query;
+    let beginDateTime = '';
+    let endDateTime = '';
+    if (query) {
+      beginDateTime = query.get('beginDateTime');
+      beginDateTime = beginDateTime.replace(' ', '+');// +号会变成空格，替换回来
+
+      endDateTime = query.get('endDateTime');
+      endDateTime = endDateTime.replace(' ', '+');// +号会变成空格，替换回来
+    }
 
     this.state = {
       listData: [],
@@ -47,8 +53,11 @@ class ProductSale extends React.Component {
   }
 
   async componentDidMount() {
-    let userId = this.props.query.get('id');
-    userId = userId ? userId : '';
+    let query = this.props.query;
+    let userId = '';
+    if (query) {
+      userId = query.get('id');
+    }
 
     await this.initFirstPage(userId);
   }
@@ -143,29 +152,36 @@ class ProductSale extends React.Component {
                   </Menu>)
               }
             } trigger={['click']}>
-            <Button onClick={e => e.preventDefault()}>
+            <Button size="small" style={{ width: 240 }} onClick={e => e.preventDefault()}>
               {shopName}
               <DownOutlined />
             </Button>
           </Dropdown>
-            &nbsp;&nbsp;
-            <RangePicker size='default' locale={locale}
+          <br />
+          <RangePicker size='small' locale={locale}
+            style={{ width: 320 }}
+            placeholder={['开始时间', '结束时间']}
             defaultValue={[moment(beginDateTime, 'YYYY.MM.DD+HH:mm:ss'),
             moment(endDateTime, 'YYYY.MM.DD+HH:mm:ss')]}
             showTime={{
               hideDisabledOptions: true,
-              defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')]
-            }} onChange={(data) => {
+              defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
+              showTime: true,
+              showHour: false,
+              showMinute: false,
+              showSecond: false
+            }}
+            onChange={(data) => {
               if (!data) {
                 message.warning('请选择正确的日期!');
                 return;
               };
 
               {/* message.info(data[0].format('YYYY.MM.DD+HH:mm:ss'));
-                    message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
+                  message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
             }} onOk={async (data) => {
               {/* message.info(data[0].format('YYYY.MM.DD+HH:mm:ss'));
-                    message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
+                  message.info(data[1].format('YYYY.MM.DD+HH:mm:ss')); */}
 
               await this.initFirstPage(undefined,
                 data[0] ? data[0].format('YYYY.MM.DD+HH:mm:ss') : undefined,

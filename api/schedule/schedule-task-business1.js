@@ -183,8 +183,8 @@ const buildMemberString4WorkweixinAndSend = async (businessSummaryObj4workweixin
   let memberRechargePresentMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.memberItem.rechargeMoney.stores.forEach(store => {
     totalContent += '> ' + store.name +
-      ':<font color=\"info\">' +
-      ' 充:' + store.actualmoney +
+      ':\n<font color=\"info\">' +
+      '充:' + store.actualmoney +
       '+赠:' + store.presentmoney +
       '</font>\n';
 
@@ -194,8 +194,8 @@ const buildMemberString4WorkweixinAndSend = async (businessSummaryObj4workweixin
     memberRechargePresentMoneyTotalMoney += storePresentMoney;
   });
   totalContent += '> ' + '总计' +
-    ':<font color=\"warning\">' +
-    ' 充:' + memberRechargeActualMoneyTotalMoney.toFixed(2) +
+    ':\n<font color=\"warning\">' +
+    '充:' + memberRechargeActualMoneyTotalMoney.toFixed(2) +
     '+赠:' + memberRechargePresentMoneyTotalMoney.toFixed(2) +
     '</font>\n';
   totalContent += '\n';
@@ -204,7 +204,7 @@ const buildMemberString4WorkweixinAndSend = async (businessSummaryObj4workweixin
   /*-------------------------*/
   /// 会员消费额
   totalContent += '> **' + businessSummaryObj4workweixin.memberItem.consumeMoney.title + '(元)**\n';
-  /// 商品销售额-门店
+  /// 会员消费额-门店
   let memberConsumeMoneyTotalMoney = 0;
   businessSummaryObj4workweixin.memberItem.consumeMoney.stores.forEach(store => {
     if (store.userId === KShopHeadUserId) return;

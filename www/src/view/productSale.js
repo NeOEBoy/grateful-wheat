@@ -6,7 +6,8 @@ import {
   Dropdown,
   Menu,
   Button,
-  DatePicker
+  DatePicker,
+  Input
 } from 'antd';
 import { getProductSaleList } from '../api/api';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -14,7 +15,7 @@ import { DownOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
-
+const { Search } = Input;
 const { RangePicker } = DatePicker;
 const KPageSize = 20;
 const KShopArray = [
@@ -48,7 +49,8 @@ class ProductSale extends React.Component {
       shopIndex: 1,
       userId: '',
       beginDateTime: beginDateTime,
-      endDateTime: endDateTime
+      endDateTime: endDateTime,
+      keyword: ''
     };
   }
 
@@ -62,7 +64,7 @@ class ProductSale extends React.Component {
     await this.initFirstPage(userId);
   }
 
-  async initFirstPage(userId, beginDateTime, endDateTime) {
+  async initFirstPage(userId, beginDateTime, endDateTime, keyword) {
     for (let index = 0; index < KShopArray.length; index++) {
       if (KShopArray[index].userId === userId) {
         this.setState({ shopIndex: index })
@@ -76,8 +78,9 @@ class ProductSale extends React.Component {
       loading: false,
       hasMore: true,
       pageIndex: 1,
-      beginDateTime: beginDateTime ? beginDateTime : this.state.beginDateTime,
-      endDateTime: endDateTime ? endDateTime : this.state.endDateTime
+      beginDateTime: beginDateTime !== undefined ? beginDateTime : this.state.beginDateTime,
+      endDateTime: endDateTime !== undefined ? endDateTime : this.state.endDateTime,
+      keyword: keyword !== undefined ? keyword : this.state.keyword,
     }, async () => {
       await this.fetchNextPage();
     });
@@ -93,9 +96,9 @@ class ProductSale extends React.Component {
     this.setState({ loading: true });
 
     try {
-      const { userId, beginDateTime, endDateTime } = this.state;
+      const { userId, beginDateTime, endDateTime, keyword } = this.state;
       let saleList = [];
-      const productSale = await getProductSaleList(userId, beginDateTime, endDateTime, pageIndex, KPageSize);
+      const productSale = await getProductSaleList(userId, beginDateTime, endDateTime, pageIndex, KPageSize, keyword);
       if (productSale && productSale.errCode === 0) {
         saleList = productSale.list;
       }
@@ -183,6 +186,12 @@ class ProductSale extends React.Component {
                 data[0] ? data[0].format('YYYY.MM.DD+HH:mm:ss') : undefined,
                 data[1] ? data[1].format('YYYY.MM.DD+HH:mm:ss') : undefined);
             }} />
+          <br />
+          <Search style={{ width: 280 }} size="small" placeholder="输入商品名称后查询" enterButton="查询"
+            onSearch={async value => {
+              await this.initFirstPage(undefined, undefined, undefined, value);
+            }
+            } />
         </div>
         <InfiniteScroll
           initialLoad={false}

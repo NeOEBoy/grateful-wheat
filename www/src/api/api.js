@@ -5,7 +5,7 @@ console.log('process.env.NODE_ENV = ' + process.env.NODE_ENV);
 const KApiHost = process.env.NODE_ENV === 'development' ?
   'http://localhost:9001' : 'http://gratefulwheat.ruyue.xyz/apis';
 
-const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex, pageSize) => {
+const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex, pageSize, keyword) => {
   let productSaleUrl = KApiHost + '/product/saleList';
   productSaleUrl += '?pageIndex=';
   productSaleUrl += pageIndex;
@@ -17,7 +17,9 @@ const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex,
   productSaleUrl += beginDateTime;
   productSaleUrl += '&endDateTime=';
   productSaleUrl += endDateTime;
-
+  productSaleUrl += '&keyword=';
+  productSaleUrl += keyword;
+  
   const productSaleResponse = await fetch(productSaleUrl);
   const productSaleJson = await productSaleResponse.json();
   return productSaleJson;

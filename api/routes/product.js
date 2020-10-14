@@ -15,6 +15,8 @@ router.get('/saleList', async function (req, res, next) {
     let userId = req.query.userId;
     let beginDateTime = req.query.beginDateTime;
     let endDateTime = req.query.endDateTime;
+    let keyword = req.query.keyword;
+
     if (!beginDateTime || !endDateTime || !pageIndex || !pageSize) {
       next(createError(500));
       return;
@@ -27,7 +29,8 @@ router.get('/saleList', async function (req, res, next) {
       endDateTime,
       userId,
       pageIndex,
-      pageSize);
+      pageSize, 
+      keyword);
     res.send(productSaleResponseJson);
   } catch (err) {
     next(err)

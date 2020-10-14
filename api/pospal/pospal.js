@@ -27,15 +27,18 @@ const getProductSaleList = async (
   endDateTime,
   userId,
   pageIndex,
-  pageSize) => {
+  pageSize,
+  keyword) => {
   let productSaleUrl = 'https://beta33.pospal.cn/ReportV2/LoadProductSaleByPage';
   let productSaleBody = '';
-  productSaleBody += 'keyword=&';
+  productSaleBody += 'keyword=';
+  productSaleBody += keyword;
+
   if (userId) {
-    productSaleBody += 'userIds%5B%5D=' + userId + '&';
+    productSaleBody += '&userIds%5B%5D=' + userId;
   }
 
-  productSaleBody += 'isSellWell=1';
+  productSaleBody += '&isSellWell=1';
   productSaleBody += '&beginDateTime=' + escape(beginDateTime);
   productSaleBody += '&endDateTime=' + escape(endDateTime);
   productSaleBody += '&productbrand=';

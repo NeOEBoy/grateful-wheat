@@ -1,38 +1,102 @@
 import React from 'react';
-import { List } from 'antd';
+import {
+  List,
+  message,
+  Dropdown,
+  Menu,
+  Button,
+  DatePicker,
+  Input
+} from 'antd';
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
 import { getProductDiscardList } from '../api/api';
+import { DownOutlined } from '@ant-design/icons';
+const { RangePicker } = DatePicker;
+const { Search } = Input;
+
+const KShopArray = [
+  { index: 0, name: '全部', userId: '' },
+  { index: 1, name: '教育局店', userId: '3995767' },
+  { index: 2, name: '旧镇店', userId: '3995771' },
+  { index: 3, name: '江滨店', userId: '4061089' },
+  { index: 4, name: '汤泉世纪店', userId: '4061092' }
+];
 
 class ProductDiscard extends React.Component {
   constructor(props) {
     super(props);
 
+    let query = this.props.query;
+    let beginDateTime = '';
+    let endDateTime = '';
+    if (query) {
+      beginDateTime = query.get('beginDateTime');
+      beginDateTime = beginDateTime.replace(' ', '+');// +号会变成空格，替换回来
+
+      endDateTime = query.get('endDateTime');
+      endDateTime = endDateTime.replace(' ', '+');// +号会变成空格，替换回来
+    }
+
     this.state = {
+      userId: '',
+      shopIndex: 1,
       listData: [],
-      loading: false
+      loading: false,
+      beginDateTime: beginDateTime,
+      endDateTime: endDateTime,
+      keyword: ''
     };
   }
 
   async componentDidMount() {
-    await this.fetchListData();
+    let query = this.props.query;
+    let userId = '';
+    if (query) {
+      userId = query.get('id');
+    }
+
+    await this.initFirstPage(userId);
+  }
+
+  async initFirstPage(userId, beginDateTime, endDateTime, keyword) {
+    for (let index = 0; index < KShopArray.length; index++) {
+      if (KShopArray[index].userId === userId) {
+        this.setState({ shopIndex: index })
+        break;
+      }
+    }
+
+    this.setState({
+      userId: userId !== undefined ? userId : this.state.userId,
+      listData: [],
+      loading: false,
+      beginDateTime: beginDateTime !== undefined ? beginDateTime : this.state.beginDateTime,
+      endDateTime: endDateTime !== undefined ? endDateTime : this.state.endDateTime,
+      keyword: keyword !== undefined ? keyword : this.state.keyword,
+    }, async () => {
+      await this.fetchListData();
+    });
   }
 
   async fetchListData() {
-    let { listData } = this.state;
-
-    this.setState({ loading: true });
-
     try {
+      const { listData, userId, beginDateTime, endDateTime, keyword } = this.state;
       let discardList = [];
+      this.setState({ loading: true });
       const productDiscard = await getProductDiscardList(
-        this.props.query.get('id'),
-        this.props.query.get('date'));
+        userId,
+        beginDateTime,
+        endDateTime,
+        keyword);
       if (productDiscard && productDiscard.errCode === 0) {
         discardList = productDiscard.list;
       }
-      listData = listData.concat(discardList);
+      let newListData = listData.concat(discardList);
 
       this.setState({
-        listData: listData,
+        listData: newListData,
         loading: false,
       });
     } catch (err) {
@@ -43,6 +107,8 @@ class ProductDiscard extends React.Component {
   }
 
   render() {
+    const { shopIndex, beginDateTime, endDateTime } = this.state;
+    let shopName = KShopArray[shopIndex].name;
     return (
       <div>
         <List
@@ -52,9 +118,69 @@ class ProductDiscard extends React.Component {
           header={
             <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
               报损商品
-                <span style={{ textAlign: 'center', fontSize: 13, fontWeight: "lighter" }}>
-                {`门店：${this.props.query.get('name')}，报损金额：¥ ${this.props.query.get('number')}`}
-              </span>
+              <br />
+              <Dropdown
+                overlay={
+                  () => {
+                    let shop0 = KShopArray[0];
+                    let shop1 = KShopArray[1];
+                    let shop2 = KShopArray[2];
+                    let shop3 = KShopArray[3];
+                    let shop4 = KShopArray[4];
+
+                    return (
+                      <Menu onClick={async ({ key }) => {
+                        let userId = KShopArray[key].userId;
+                        await this.initFirstPage(userId);
+                      }} >
+                        <Menu.Item key={shop0.index}>{shop0.name}</Menu.Item>
+                        <Menu.Item key={shop1.index}>{shop1.name}</Menu.Item>
+                        <Menu.Item key={shop2.index}>{shop2.name}</Menu.Item>
+                        <Menu.Item key={shop3.index}>{shop3.name}</Menu.Item>
+                        <Menu.Item key={shop4.index}>{shop4.name}</Menu.Item>
+                      </Menu>)
+                  }
+                } trigger={['click']}>
+                <Button size="small" style={{ width: 240 }} onClick={e => e.preventDefault()}>
+                  {shopName}
+                  <DownOutlined />
+                </Button>
+              </Dropdown>
+              <br />
+              <RangePicker size='small' locale={locale}
+                bordered={true}
+                style={{ width: 320, marginTop: 15 }}
+                placeholder={['开始时间', '结束时间']}
+                inputReadOnly={true}
+                defaultValue={[moment(beginDateTime, 'YYYY.MM.DD+HH:mm:ss'),
+                moment(endDateTime, 'YYYY.MM.DD+HH:mm:ss')]}
+                showTime={{
+                  hideDisabledOptions: true,
+                  defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                  showTime: true,
+                  showHour: false,
+                  showMinute: false,
+                  showSecond: false
+                }}
+                onChange={(data) => {
+                  if (!data) {
+                    message.warning('请选择正确的日期!');
+                    return;
+                  };
+                }} onOk={async (data) => {
+                  console.log(data[0].format('YYYY.MM.DD+HH:mm:ss'));
+                  console.log(data[1].format('YYYY.MM.DD+HH:mm:ss'));
+
+                  await this.initFirstPage(undefined,
+                    data[0] ? data[0].format('YYYY.MM.DD+HH:mm:ss') : undefined,
+                    data[1] ? data[1].format('YYYY.MM.DD+HH:mm:ss') : undefined);
+                }} />
+              <br />
+              <Search style={{ width: 280, marginTop: 15 }} size="small" placeholder="输入商品名称后查询" enterButton="查询"
+                onSearch={async value => {
+                  await this.initFirstPage(undefined, undefined, undefined, value);
+                }
+                } />
             </div>
           }
           footer={

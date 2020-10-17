@@ -166,15 +166,17 @@ const getProductSaleList = async (
   return { errCode: 0, list: productSaleList };
 };
 
-const getProductDiscardList = async (thePOSPALAUTH30220, whichDate, userId) => {
+const getProductDiscardList = async (thePOSPALAUTH30220, userId, beginDateTime, endDateTime, keyword) => {
   let productDiscardUrl = 'https://beta33.pospal.cn/Inventory/LoadDiscardProductCountList';
   let productDiscardBody = '';
-  productDiscardBody += 'userId=' + userId + '&';
-  productDiscardBody += 'categoryUids=%5B%5D&';
-  productDiscardBody += 'reasonName=&';
-  productDiscardBody += 'keyword=&';
-  productDiscardBody += 'beginDateTime=' + whichDate + '+00%3A00%3A00&';
-  productDiscardBody += 'endDateTime=' + whichDate + '+23%3A59%3A59';
+  productDiscardBody += 'userId=' + userId;
+  productDiscardBody += '&categoryUids=%5B%5D';
+  productDiscardBody += '&reasonName=';
+  productDiscardBody += '&keyword=' + keyword;
+  productDiscardBody += '&beginDateTime=' + escape(beginDateTime);
+  productDiscardBody += '&endDateTime=' + escape(endDateTime);
+
+  // console.log('getProductDiscardList productDiscardBody = ' + productDiscardBody);
 
   const productDiscardResponse = await fetch(productDiscardUrl, {
     method: 'POST', body: productDiscardBody,

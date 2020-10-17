@@ -20,10 +20,10 @@ const { RangePicker } = DatePicker;
 const KPageSize = 20;
 const KShopArray = [
   { index: 0, name: '全部', userId: '' },
-  { index: 1, name: '教育局', userId: '3995767' },
-  { index: 2, name: '旧镇', userId: '3995771' },
-  { index: 3, name: '江滨', userId: '4061089' },
-  { index: 4, name: '汤泉', userId: '4061092' }
+  { index: 1, name: '教育局店', userId: '3995767' },
+  { index: 2, name: '旧镇店', userId: '3995771' },
+  { index: 3, name: '江滨店', userId: '4061089' },
+  { index: 4, name: '汤泉世纪店', userId: '4061092' }
 ];
 
 class ProductSale extends React.Component {
@@ -163,14 +163,14 @@ class ProductSale extends React.Component {
           <br />
           <RangePicker size='small' locale={locale}
             bordered={true}
-            style={{ width: 320 }}
+            style={{ width: 320, marginTop: 15 }}
             placeholder={['开始时间', '结束时间']}
             inputReadOnly={true}
             defaultValue={[moment(beginDateTime, 'YYYY.MM.DD+HH:mm:ss'),
             moment(endDateTime, 'YYYY.MM.DD+HH:mm:ss')]}
             showTime={{
               hideDisabledOptions: true,
-              defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('11:59:59', 'HH:mm:ss')],
+              defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
               showTime: true,
               showHour: false,
               showMinute: false,
@@ -187,7 +187,7 @@ class ProductSale extends React.Component {
                 data[1] ? data[1].format('YYYY.MM.DD+HH:mm:ss') : undefined);
             }} />
           <br />
-          <Search style={{ width: 280 }} size="small" placeholder="输入商品名称后查询" enterButton="查询"
+          <Search style={{ width: 280, marginTop: 15 }} size="small" placeholder="输入商品名称后查询" enterButton="查询"
             onSearch={async value => {
               await this.initFirstPage(undefined, undefined, undefined, value);
             }

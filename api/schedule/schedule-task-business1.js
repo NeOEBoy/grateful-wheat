@@ -11,10 +11,10 @@ const KSendToWorkWeixin = true;
 KShopHeadUserId = '3995763'; // 总部账号
 const KShopArray = [
   { index: 0, name: '总部', userId: KShopHeadUserId },
-  { index: 1, name: '教育局', userId: '3995767' },
-  { index: 2, name: '旧镇', userId: '3995771' },
-  { index: 3, name: '江滨', userId: '4061089' },
-  { index: 4, name: '汤泉', userId: '4061092' }
+  { index: 1, name: '教育局店', userId: '3995767' },
+  { index: 2, name: '旧镇店', userId: '3995771' },
+  { index: 3, name: '江滨店', userId: '4061089' },
+  { index: 4, name: '汤泉世纪店', userId: '4061092' }
 ];
 /**--------------------配置信息--------------------*/
 
@@ -156,14 +156,14 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
     if (store.userId === KShopHeadUserId) return;
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
-    totalContent += makeProductDiscardMark(store.userId, store.name, store.money, dateFormat("YYYY.mm.dd", whichDate()));
+    totalContent += makeProductDiscardMark(store.userId, beginDateTime, endDateTime);
     totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     productDiscardMoneyTotalMoney += storeMoney;
   });
   totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productDiscardMoneyTotalMoney.toFixed(2) + '</font>\n';
-  totalContent += makeProductDiscardMark('', '所有门店', productDiscardMoneyTotalMoney.toFixed(2), dateFormat("YYYY.mm.dd", whichDate()));
+  totalContent += makeProductDiscardMark('', beginDateTime, endDateTime);
   totalContent += '\n';
   totalContent += '\n';
   /*-------------------------*/
@@ -744,16 +744,15 @@ const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   return '> ' + '[热卖商品](' + productsaleurl + ')';
 }
 
-const makeProductDiscardMark = (id, name, number, date) => {
+const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
   let productdiscardurl = 'http://gratefulwheat.ruyue.xyz/discardsale';
+  if(KForTest) productdiscardurl = 'http://localhost:4000/discardsale';
   productdiscardurl += '?id=';
   productdiscardurl += id;
-  productdiscardurl += '&name=';
-  productdiscardurl += name;
-  productdiscardurl += '&number=';
-  productdiscardurl += number;
-  productdiscardurl += '&date=';
-  productdiscardurl += date;
+  productdiscardurl += '&beginDateTime=';
+  productdiscardurl += beginDateTime;
+  productdiscardurl += '&endDateTime=';
+  productdiscardurl += endDateTime;
   return '> ' + '[报损商品](' + productdiscardurl + ')';
 }
 

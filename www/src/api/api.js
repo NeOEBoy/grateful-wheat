@@ -25,14 +25,20 @@ const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex,
   return productSaleJson;
 }
 
-const getProductDiscardList = async (userId, date) => {
+const getProductDiscardList = async (userId, beginDateTime, endDateTime, keyword) => {
   // console.log('getProductDiscardList begin');
   let productDiscardUrl = KApiHost + '/product/discardList';
   productDiscardUrl += '?userId=';
   productDiscardUrl += userId;
-  productDiscardUrl += '&date=';
-  productDiscardUrl += date;
+  productDiscardUrl += '&beginDateTime=';
+  productDiscardUrl += beginDateTime;
+  productDiscardUrl += '&endDateTime=';
+  productDiscardUrl += endDateTime;
+  productDiscardUrl += '&keyword=';
+  productDiscardUrl += keyword;
+  
   console.log(productDiscardUrl);
+  // userId=&categoryUids=%5B%5D&reasonName=&beginDateTime=2020.10.16+00%3A00%3A00&endDateTime=2020.10.16+23%3A59%3A59&keyword=
 
   const productDiscardResponse = await fetch(productDiscardUrl);
   const productDiscardJson = await productDiscardResponse.json();

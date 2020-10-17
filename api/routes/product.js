@@ -40,8 +40,11 @@ router.get('/saleList', async function (req, res, next) {
 router.get('/discardList', async function (req, res, next) {
   try {
     let userId = req.query.userId;
-    let date = req.query.date;
-    if (!date) {
+    let beginDateTime = req.query.beginDateTime;
+    let endDateTime = req.query.endDateTime;
+    let keyword = req.query.keyword;
+
+    if (!beginDateTime || !endDateTime) {
       next(createError(500));
       return;
     }
@@ -49,8 +52,10 @@ router.get('/discardList', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let productDiscardResponseJson = await getProductDiscardList(
       thePOSPALAUTH30220,
-      date,
-      userId);
+      userId,
+      beginDateTime,
+      endDateTime,
+      keyword);
     res.send(productDiscardResponseJson);
   } catch (err) {
     next(err)

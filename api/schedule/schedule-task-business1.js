@@ -148,6 +148,42 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
   /*-------------------------*/
 
   /*-------------------------*/
+  /// 预定金
+  let totalContent4earnestMoney = '';
+  totalContent4earnestMoney += '> **' + businessSummaryObj4workweixin.productSaleItem.earnestMoney.title + '(元)**\n';
+  /// 预定金-门店
+  let earnestMoneyTotalMoney = 0;
+  let earnestOrderTotalNumber = 0;
+  businessSummaryObj4workweixin.productSaleItem.earnestMoney.stores.forEach(store => {
+    totalContent4earnestMoney += '> ' + store.name +
+      ':<font color=\"info\"> ' +
+      parseFloat(store.money).toFixed(2) +
+      '</font>' +
+      ' <font color=\"comment\"> ' +
+      parseFloat(store.numberOfOrder).toFixed(0) +
+      '单</font>\n';
+
+    let storeMoney = parseFloat(store.money);
+    earnestMoneyTotalMoney += storeMoney;
+    let numberOfOrder = parseFloat(store.numberOfOrder);
+    earnestOrderTotalNumber += numberOfOrder;
+  });
+  totalContent4earnestMoney += '> ' + '总计' +
+    ':<font color=\"warning\"> ' +
+    earnestMoneyTotalMoney.toFixed(2) +
+    '</font>' +
+    ' <font color=\"comment\"> ' +
+    earnestOrderTotalNumber.toFixed(0) +
+    '单</font>\n';
+  totalContent4earnestMoney += '\n';
+
+  /// 只有总计有金额才显示，否则不显示礼品包条目
+  if (earnestMoneyTotalMoney > 0) {
+    totalContent += totalContent4earnestMoney;
+  }
+  /*-------------------------*/
+
+  /*-------------------------*/
   /// 商品报损额
   totalContent += '> **' + businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.title + '(元)**\n';
   /// 商品报损额-门店
@@ -442,6 +478,13 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
   businessSummaryObj.productSaleObj.weixinpay = '';
   businessSummaryObj.productSaleObj.cardpay = '';
 
+  businessSummaryObj.earnestObj = {};
+  businessSummaryObj.earnestObj.overview = '';
+  businessSummaryObj.earnestObj.cashpay = '';
+  businessSummaryObj.earnestObj.alipay = '';
+  businessSummaryObj.earnestObj.weixinpay = '';
+  businessSummaryObj.earnestObj.cardpay = '';
+
   businessSummaryObj.memberRechargeObj = {};
   businessSummaryObj.memberRechargeObj.overview = {};
   businessSummaryObj.memberRechargeObj.overview.actual = '';// 充值实际金额
@@ -523,6 +566,8 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
       // console.log(trArray);
       let productSaleItem = trArray[columnProductSaleIndex];
       // console.log(productSaleItem);
+      let earnestItem = trArray[columnEarnestIndex];
+      // console.log(earnestItem);
       let memberRechargeItem = trArray[columnMemberRechargeIndex];
       // console.log(memberRechargeItem);
       let giftpackageSaleItem = trArray[columnGiftpackageSaleIndex];
@@ -534,6 +579,15 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let productSaleOverview = productSaleItem.td[rowOverviewIndex].div[0].span[0]._.trim();
         businessSummaryObj.productSaleObj.overview = productSaleOverview;
         // console.log(productSaleOverview);
+
+        let earnestItemOverview = earnestItem.td[rowOverviewIndex].span[0]._.trim();
+        businessSummaryObj.earnestObj.overview = earnestItemOverview;
+        // console.log(earnestItemOverview);
+
+        let earnestItemNumberOfOrder = earnestItem.td[rowOverviewIndex].span[1];
+        businessSummaryObj.earnestObj.numberOfOrder = earnestItemNumberOfOrder;
+        // console.log(earnestItemNumberOfOrder);
+
         let memberRechargeOverviewActual = memberRechargeItem.td[rowOverviewIndex].span[0]._.trim();
         businessSummaryObj.memberRechargeObj.overview.actual = memberRechargeOverviewActual;
         let memberRechargeOverviewPresent = memberRechargeItem.td[rowOverviewIndex].span[1]._.trim();
@@ -614,6 +668,10 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.title = '礼品包销售额';
   businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.stores = [];
 
+  businessSummaryObj4workweixin.productSaleItem.earnestMoney = {};
+  businessSummaryObj4workweixin.productSaleItem.earnestMoney.title = '预定金-蛋糕';
+  businessSummaryObj4workweixin.productSaleItem.earnestMoney.stores = [];
+
   businessSummaryObj4workweixin.memberItem = {};
   businessSummaryObj4workweixin.memberItem.title = today + ' 会员情况';
 
@@ -656,6 +714,16 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     store4ProductSale.userId = businessSummaryObj.shop.userId;
     store4ProductSale.money = productSaleOverview ? productSaleOverview : '0.00';
     businessSummaryObj4workweixin.productSaleItem.productSaleMoney.stores.push(store4ProductSale);
+
+    let earnestObj = businessSummaryObj.earnestObj;
+    let earnestObjOverview = earnestObj.overview;
+    let earnestObjNumberOfOrder = earnestObj.numberOfOrder;
+    let store4Earnest = {};
+    store4Earnest.name = businessSummaryObj.shop.name;
+    store4Earnest.userId = businessSummaryObj.shop.userId;
+    store4Earnest.money = earnestObjOverview ? earnestObjOverview : '0.00';
+    store4Earnest.numberOfOrder = earnestObjNumberOfOrder ? earnestObjNumberOfOrder : '0.00';
+    businessSummaryObj4workweixin.productSaleItem.earnestMoney.stores.push(store4Earnest);
 
     let giftpackageSaleObj = businessSummaryObj.giftpackageSaleObj;
     let giftpackageSaleOverview = giftpackageSaleObj.overview;
@@ -734,7 +802,7 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
 
 const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   let productsaleurl = 'http://gratefulwheat.ruyue.xyz/productsale';
-  if(KForTest) productsaleurl = 'http://localhost:4000/productsale';
+  if (KForTest) productsaleurl = 'http://localhost:4000/productsale';
   productsaleurl += '?id=';
   productsaleurl += id;
   productsaleurl += '&beginDateTime=';
@@ -746,7 +814,7 @@ const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
 
 const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
   let productdiscardurl = 'http://gratefulwheat.ruyue.xyz/discardsale';
-  if(KForTest) productdiscardurl = 'http://localhost:4000/discardsale';
+  if (KForTest) productdiscardurl = 'http://localhost:4000/discardsale';
   productdiscardurl += '?id=';
   productdiscardurl += id;
   productdiscardurl += '&beginDateTime=';

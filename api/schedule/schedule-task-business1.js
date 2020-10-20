@@ -177,10 +177,10 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
     '单</font>\n';
   totalContent4earnestMoney += '\n';
 
-  /// 只有总计有金额才显示，否则不显示礼品包条目
-  if (earnestMoneyTotalMoney > 0) {
-    totalContent += totalContent4earnestMoney;
-  }
+  /// 只有总计有金额才显示，否则不显示预定金条目
+  // if (earnestMoneyTotalMoney > 0) {
+  totalContent += totalContent4earnestMoney;
+  // }
   /*-------------------------*/
 
   /*-------------------------*/

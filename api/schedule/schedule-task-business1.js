@@ -579,15 +579,12 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let productSaleOverview = productSaleItem.td[rowOverviewIndex].div[0].span[0]._.trim();
         businessSummaryObj.productSaleObj.overview = productSaleOverview;
         // console.log(productSaleOverview);
-
         let earnestItemOverview = earnestItem.td[rowOverviewIndex].span[0]._.trim();
         businessSummaryObj.earnestObj.overview = earnestItemOverview;
         // console.log(earnestItemOverview);
-
         let earnestItemNumberOfOrder = earnestItem.td[rowOverviewIndex].span[1];
         businessSummaryObj.earnestObj.numberOfOrder = earnestItemNumberOfOrder;
         // console.log(earnestItemNumberOfOrder);
-
         let memberRechargeOverviewActual = memberRechargeItem.td[rowOverviewIndex].span[0]._.trim();
         businessSummaryObj.memberRechargeObj.overview.actual = memberRechargeOverviewActual;
         let memberRechargeOverviewPresent = memberRechargeItem.td[rowOverviewIndex].span[1]._.trim();
@@ -600,6 +597,7 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         businessSummaryObj.actualIncomeObj.overview = actualIncomeOverview;
         // console.log(actualIncomeOverview);
       }
+
       if (rowCashPayIndex !== -1) {
         let productSaleCashPay = productSaleItem.td[rowCashPayIndex].span[0]._.trim();
         businessSummaryObj.productSaleObj.cashpay = productSaleCashPay;
@@ -610,6 +608,7 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let actualIncomeCashpay = actualIncomeItem.td[rowCashPayIndex]._.trim();
         businessSummaryObj.actualIncomeObj.cashpay = actualIncomeCashpay;
       }
+
       if (rowAlipayIndex !== -1) {
         let productSaleAlipay = productSaleItem.td[rowAlipayIndex].span[0]._.trim();
         businessSummaryObj.productSaleObj.alipay = productSaleAlipay;
@@ -621,6 +620,7 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         businessSummaryObj.actualIncomeObj.alipay = actualIncomeAlipay;
         // console.log(actualIncomeAlipay);
       }
+
       if (rowWeixinpayIndex !== -1) {
         let productSaleWeixinpay = productSaleItem.td[rowWeixinpayIndex].span[0]._.trim();
         businessSummaryObj.productSaleObj.weixinpay = productSaleWeixinpay;
@@ -632,17 +632,42 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         businessSummaryObj.actualIncomeObj.weixinpay = actualIncomeWeixinpay;
         // console.log(actualIncomeWeixinpay);
       }
+
       if (rowCardpayIndex !== -1) {
         let productSaleCardpay = productSaleItem.td[rowCardpayIndex].span[0]._.trim();
         businessSummaryObj.productSaleObj.cardpay = productSaleCardpay;
         // console.log(productSaleCardpay);
-        let memberRechargeCardpay = memberRechargeItem.td[rowCardpayIndex].span[0]._.trim();
+        let memberRechargeCardpay = '0';
+        if (memberRechargeItem.td[rowCardpayIndex].span) {
+          memberRechargeCardpay = memberRechargeItem.td[rowCardpayIndex].span[0]._.trim();
+        }
+
         businessSummaryObj.memberRechargeObj.cardpay = memberRechargeCardpay;
         // console.log(memberRechargeCardpay);
       }
+
+
+      /**
+       *  总营业实收如果直接获取表格的营业实收字段，
+       *  会包含券的支付方式，这里修正为：现金 + 微信 + 支付宝
+       */
+      let actualIncomeCashpay = 0;
+      if (businessSummaryObj.actualIncomeObj.cashpay !== '') {
+        actualIncomeCashpay = parseFloat(businessSummaryObj.actualIncomeObj.cashpay);
+      }
+      let actualIncomeAlipay = 0;
+      if (businessSummaryObj.actualIncomeObj.alipay !== '') {
+        actualIncomeAlipay = parseFloat(businessSummaryObj.actualIncomeObj.alipay);
+      }
+      let actualIncomeWeixinpay = 0;
+      if (businessSummaryObj.actualIncomeObj.weixinpay !== '') {
+        actualIncomeWeixinpay = parseFloat(businessSummaryObj.actualIncomeObj.weixinpay);
+      }
+      let actualIncomeOverview = actualIncomeCashpay + actualIncomeAlipay + actualIncomeWeixinpay;
+      businessSummaryObj.actualIncomeObj.overview = actualIncomeOverview.toFixed(2);
     }
   } catch (e) {
-    // console.log('解析businessSummary出错');
+    console.log('解析businessSummary出错 e = ' + e);
   }
 
   return businessSummaryObj;

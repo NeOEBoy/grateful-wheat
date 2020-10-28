@@ -295,8 +295,118 @@ const getProductDiscardList = async (thePOSPALAUTH30220, userId, beginDateTime, 
   return { errCode: 0, list: productDiscardList };
 };
 
+const getProductSaleAndDiscardList = async (thePOSPALAUTH30220, userId, categoryId, beginDateTime, endDateTime, keyword) => {
+  let productSaleAndDiscardUrl = 'https://beta33.pospal.cn/Advanced/LoadProductSaleAndDiscardByPage';
+  let productSaleAndDiscardBody = '';
+  productSaleAndDiscardBody += 'keyword=' + keyword;
+  if (userId) {
+    productSaleAndDiscardBody += '&userIds%5B%5D=' + userId;
+  }
+  productSaleAndDiscardBody += '&categorysJson=';
+  let categorysJson = '%5B%5D';
+  if (categoryId && categoryId.length > 0) {
+    categorysJson = '%5B' + categoryId + '%5D';
+  }
+
+  productSaleAndDiscardBody += categorysJson;
+  productSaleAndDiscardBody += '&beginDateTime=' + beginDateTime;
+  productSaleAndDiscardBody += '&endDateTime=' + endDateTime;
+  productSaleAndDiscardBody += '&pageIndex=1';
+  productSaleAndDiscardBody += '&pageSize=1000'; ///获取1000个，一般种类没那么多，1000个足以获取全部
+  productSaleAndDiscardBody += '&orderColumn=&asc=false';
+
+  // console.log('productSaleAndDiscardBody = ' + productSaleAndDiscardBody);
+
+  // keyword=&categorysJson=%5B%221593049816479739965%22%5D&beginDateTime=2020-10-21&endDateTime=2020-10-27&pageIndex=1&pageSize=50&orderColumn=&asc=false    
+  // console.log('getProductDiscardList productSaleAndDiscardBody = ' + productSaleAndDiscardBody);
+  const productSaleAndDiscardResponse = await fetch(productSaleAndDiscardUrl, {
+    method: 'POST', body: productSaleAndDiscardBody,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  let productSaleAndDiscardResponseJson = await productSaleAndDiscardResponse.json();
+  // console.log(productSaleAndDiscardResponseJson);
+
+  let productSaleAndDiscardList = [];
+
+  if (productSaleAndDiscardResponseJson.successed) {
+    try {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + productSaleAndDiscardResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        let procuctSaleAndDiscardDataTh = result.root.tbody[0].tr;
+        let procuctSaleAndDiscardDataThLength = procuctSaleAndDiscardDataTh.length;
+        // console.log(procuctSaleAndDiscardDataTh);
+        for (let index = 0; index < procuctSaleAndDiscardDataThLength; ++index) {
+          let element = procuctSaleAndDiscardDataTh[index];
+          let productItem = {};
+
+          let productName = element.td[1]._;
+          // console.log(productName);
+          productItem.name = productName;
+
+          let productCategory = element.td[13];
+          // console.log(productCategory);
+          productItem.category = productCategory;
+
+          let productSpecification = element.td[3];
+          // console.log(productSpecification);
+          productItem.specification = productSpecification;
+
+          let productDiscardNumber = element.td[7]._;
+          // console.log(productDiscardNumber);
+          productItem.discardNumber = productDiscardNumber;
+
+          let productDiscardMoney = element.td[8]._;
+          // console.log(productDiscardMoney);
+          productItem.diacardMoney = productDiscardMoney;
+
+          let productSaleNumber = element.td[5]._;
+          // console.log(productSaleNumber);
+          productItem.saleNumber = productSaleNumber;
+
+          let productSaleMoney = element.td[6]._;
+          // console.log(productSaleMoney);
+          productItem.saleMoney = productSaleMoney;
+
+          /// 报损率计算方式：报损量/(报损量+销售量)
+          let discardProportion = '0';
+          if (parseInt(productItem.discardNumber) + parseInt(productItem.saleNumber) > 0) {
+            discardProportion = (parseInt(productItem.discardNumber) / (parseInt(productItem.discardNumber) + parseInt(productItem.saleNumber))).toFixed(2);
+            discardProportion = (parseFloat(discardProportion) * 100).toFixed(0);
+          }
+          productItem.discardProportion = discardProportion;
+
+          productSaleAndDiscardList.push(productItem);
+        }
+      }
+    } catch (e) {
+      console.log('没有商品数据，解析出错');
+    }
+  }
+
+  /// 根据报损率降序排序
+  productSaleAndDiscardList =
+    productSaleAndDiscardList.sort((first, second) => {
+      let firstDiscardProportion = parseInt(first.discardProportion);
+      let secondDiscardProportion = parseInt(second.discardProportion)
+      return secondDiscardProportion - firstDiscardProportion;
+    });
+
+  return { errCode: 0, list: productSaleAndDiscardList };
+};
+
 module.exports = {
   signIn,
   getProductSaleList,
-  getProductDiscardList
+  getProductDiscardList,
+  getProductSaleAndDiscardList
 };

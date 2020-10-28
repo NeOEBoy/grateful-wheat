@@ -193,6 +193,7 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
     totalContent += makeProductDiscardMark(store.userId, beginDateTime, endDateTime);
+    totalContent += makeProductSaleAndDiscardMark(store.userId, beginDateTime, endDateTime);
     totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
@@ -200,6 +201,7 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
   });
   totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + productDiscardMoneyTotalMoney.toFixed(2) + '</font>\n';
   totalContent += makeProductDiscardMark('', beginDateTime, endDateTime);
+  totalContent += makeProductSaleAndDiscardMark('', beginDateTime, endDateTime);
   totalContent += '\n';
   totalContent += '\n';
   /*-------------------------*/
@@ -834,7 +836,7 @@ const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   productsaleurl += beginDateTime;
   productsaleurl += '&endDateTime=';
   productsaleurl += endDateTime;
-  return '> ' + '[热卖商品](' + productsaleurl + ')';
+  return '> ' + '[热卖商品排行](' + productsaleurl + ')';
 }
 
 const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
@@ -846,9 +848,20 @@ const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
   productdiscardurl += beginDateTime;
   productdiscardurl += '&endDateTime=';
   productdiscardurl += endDateTime;
-  return '> ' + '[报损商品](' + productdiscardurl + ')';
+  return '> ' + '[报损商品排行](' + productdiscardurl + ')';
 }
 
+const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {
+  let productsaleanddiscardurl = 'http://gratefulwheat.ruyue.xyz/productsaleanddiscard';
+  if (KForTest) productsaleanddiscardurl = 'http://localhost:4000/productsaleanddiscard';
+  productsaleanddiscardurl += '?id=';
+  productsaleanddiscardurl += id;
+  productsaleanddiscardurl += '&beginDateTime=';
+  productsaleanddiscardurl += beginDateTime;
+  productsaleanddiscardurl += '&endDateTime=';
+  productsaleanddiscardurl += endDateTime;
+  return ' | ' + '[报损率排行](' + productsaleanddiscardurl + ')';
+}
 
 const doSendToCompanyGroup = async (content) => {
   if (!KSendToWorkWeixin) return;
@@ -873,6 +886,5 @@ const doSendToCompanyGroup = async (content) => {
     }
   });
 }
-
 
 module.exports = startScheduleBusiness;

@@ -2,7 +2,7 @@
 const schedule = require('node-schedule');
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
-const dateFormat = require('../util/date-util').dateFormat;
+const moment = require('moment');
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
@@ -16,7 +16,21 @@ const KShopArray = [
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉世纪店', userId: '4061092' }
 ];
+const KReportWebhookUrl =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=24751d96-c739-4860-b8d1-6fe3da1a71f9';
+const KReportWebhookUrl4Test =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
 /**--------------------配置信息--------------------*/
+
+const beginDateMoment = () => {
+  let startOfDayMoment = moment().startOf('day');
+  return startOfDayMoment;
+}
+
+const endDateMoment = () => {
+  let endOfDayMoment = moment().endOf('day');
+  return endOfDayMoment;
+}
 
 const startScheduleBusiness = async () => {
   // 秒、分、时、日、月、周几
@@ -42,13 +56,6 @@ const dostartScheduleBusiness = async () => {
   await buildProductSaleString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildMemberString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildActualIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
-}
-
-const whichDate = () => {
-  let theDate = new Date();
-  // 换算成昨天，测试用
-  // theDate.setTime(theDate.getTime() - 24 * 60 * 60 * 1000);
-  return theDate;
 }
 
 const siginAndGetPOSPALAUTH30220 = async () => {
@@ -100,8 +107,8 @@ const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
 
 const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
   let totalContent = '';
-  let beginDateTime = escape(dateFormat("YYYY.mm.dd", whichDate()) + '+00:00:00');
-  let endDateTime = escape(dateFormat("YYYY.mm.dd", whichDate()) + '+23:59:59');
+  let beginDateTime = escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  let endDateTime = escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
 
   /*-------------------------*/
   /// 商品销售情况
@@ -357,11 +364,10 @@ const getDiscardInventoryByUserId = async (thePOSPALAUTH30220, userId) => {
   let discardInventoryUrl = 'https://beta33.pospal.cn/Inventory/LoadDiscardInventoryHistory';
 
   let discardInventoryBodyStr = 'userId=' + userId;
-  let today = dateFormat("YYYY.mm.dd", whichDate());
   discardInventoryBodyStr += '&beginDateTime=';
-  discardInventoryBodyStr += escape(today + '+00:00:00');
+  discardInventoryBodyStr += escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
   discardInventoryBodyStr += '&endDateTime=';
-  discardInventoryBodyStr += escape(today + '+23:59:59');
+  discardInventoryBodyStr += escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
 
   const commoditySalesResponse = await fetch(discardInventoryUrl, {
     method: 'POST', body: discardInventoryBodyStr,
@@ -415,11 +421,10 @@ const getNewMemberCountByUserId = async (thePOSPALAUTH30220, userId) => {
   newCustomerSummaryBodyStr += 'userIds%5B%5D=';
   newCustomerSummaryBodyStr += userId;
   newCustomerSummaryBodyStr += '&groupBy=day';
-  let today = dateFormat("YYYY-mm-dd", whichDate());
   newCustomerSummaryBodyStr += '&beginDateTime=';
-  newCustomerSummaryBodyStr += today;
+  newCustomerSummaryBodyStr += beginDateMoment().format('YYYY-MM-DD');
   newCustomerSummaryBodyStr += '&endDateTime=';
-  newCustomerSummaryBodyStr += today;
+  newCustomerSummaryBodyStr += endDateMoment().format('YYYY-MM-DD');
 
   const newCustomerSummaryResponse = await fetch(newCustomerSummaryUrl, {
     method: 'POST', body: newCustomerSummaryBodyStr,
@@ -452,11 +457,10 @@ const getBusinessSummaryByUserId = async (thePOSPALAUTH30220, userId) => {
   let businessSummaryBodyStr = '';
   businessSummaryBodyStr += 'userIds%5B%5D=';
   businessSummaryBodyStr += userId;
-  let today = dateFormat("YYYY.mm.dd", whichDate());
   businessSummaryBodyStr += '&beginDateTime=';
-  businessSummaryBodyStr += escape(today + '+00:00:00');
+  businessSummaryBodyStr += escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
   businessSummaryBodyStr += '&endDateTime=';
-  businessSummaryBodyStr += escape(today + '+23:59:59');
+  businessSummaryBodyStr += escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
 
   const businessSummaryResponse = await fetch(businessSummary, {
     method: 'POST', body: businessSummaryBodyStr,
@@ -676,12 +680,13 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
 };
 
 const parseBusinessSummaryArray = (businessSummaryObjArray) => {
-  let today = dateFormat("YYYY.mm.dd", whichDate());
+  let beginToEndDay = beginDateMoment().format('YYYY.MM.DD')
+    + '~' + endDateMoment().format('YYYY.MM.DD')
 
   let businessSummaryObj4workweixin = {};
 
   businessSummaryObj4workweixin.productSaleItem = {};
-  businessSummaryObj4workweixin.productSaleItem.title = today + ' 商品销售情况';
+  businessSummaryObj4workweixin.productSaleItem.title = beginToEndDay + '\n商品销售情况';
 
   businessSummaryObj4workweixin.productSaleItem.productSaleMoney = {};
   businessSummaryObj4workweixin.productSaleItem.productSaleMoney.title = '商品销售额';
@@ -696,11 +701,11 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   businessSummaryObj4workweixin.productSaleItem.giftpackageSaleMoney.stores = [];
 
   businessSummaryObj4workweixin.productSaleItem.earnestMoney = {};
-  businessSummaryObj4workweixin.productSaleItem.earnestMoney.title = '预定金-蛋糕';
+  businessSummaryObj4workweixin.productSaleItem.earnestMoney.title = '预定金';
   businessSummaryObj4workweixin.productSaleItem.earnestMoney.stores = [];
 
   businessSummaryObj4workweixin.memberItem = {};
-  businessSummaryObj4workweixin.memberItem.title = today + ' 会员情况';
+  businessSummaryObj4workweixin.memberItem.title = beginToEndDay + '\n会员动态情况';
 
   businessSummaryObj4workweixin.memberItem.rechargeMoney = {};
   businessSummaryObj4workweixin.memberItem.rechargeMoney.title = '会员充值额';
@@ -715,7 +720,7 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   businessSummaryObj4workweixin.memberItem.newMember.stores = [];
 
   businessSummaryObj4workweixin.actualIncomeItem = {};
-  businessSummaryObj4workweixin.actualIncomeItem.title = today + ' 营业实收情况';
+  businessSummaryObj4workweixin.actualIncomeItem.title = beginToEndDay + '\n营业实收情况';
 
   businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney = {};
   businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title = '现金实收额';
@@ -866,10 +871,9 @@ const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {
 const doSendToCompanyGroup = async (content) => {
   if (!KSendToWorkWeixin) return;
 
-  let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=24751d96-c739-4860-b8d1-6fe3da1a71f9'
-
+  let webhookUrl = KReportWebhookUrl;
   ///测试地址
-  if (KForTest) webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
+  if (KForTest) webhookUrl = KReportWebhookUrl4Test;
 
   let message =
   {

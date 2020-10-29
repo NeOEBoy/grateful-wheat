@@ -60,8 +60,10 @@ app.use(function (err, req, res, next) {
 });
 
 /// 启动定时任务，定时汇报营业数据
-const startScheduleBusiness = require('./schedule/schedule-task-business1');
-startScheduleBusiness();
+const startScheduleBusinessDay = require('./schedule/schedule-task-business-day');
+startScheduleBusinessDay();
+const startScheduleBusinessWeek = require('./schedule/schedule-task-business-week');
+startScheduleBusinessWeek();
 /// 启动定时任务，定时汇报打卡数据
 const startScheduleCheckin = require('./schedule/schedule-task-checkin');
 startScheduleCheckin();

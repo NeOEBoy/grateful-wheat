@@ -196,12 +196,12 @@ const dostartScheduleCheckin = async () => {
 
 const startScheduleCheckin = async () => {
   // 秒、分、时、日、月、周几
-  // 每日23点59分00秒自动发送
+  // 每日23点57分00秒自动发送
   try {
     if (KForTest) {
       await dostartScheduleCheckin();
     } else {
-      schedule.scheduleJob('00 59 23 * * *', async () => {
+      schedule.scheduleJob('00 57 23 * * *', async () => {
         await dostartScheduleCheckin();
       });
     }

@@ -34,12 +34,12 @@ const endDateMoment = () => {
 
 const startScheduleBusiness = async () => {
   // 秒、分、时、日、月、周几
-  // 每日23点59分00秒自动发送
+  // 每日23点58分00秒自动发送
   try {
     if (KForTest) {
       await dostartScheduleBusiness();
     } else {
-      schedule.scheduleJob('00 59 23 * * *', async () => {
+      schedule.scheduleJob('00 58 23 * * *', async () => {
         await dostartScheduleBusiness();
       });
     }

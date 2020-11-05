@@ -95,7 +95,7 @@ const getMemberMoneyChangeLog = async (thePOSPALAUTH30220, memeberId) => {
   let memberMoneyChangeLogBodyStr = '';
   memberMoneyChangeLogBodyStr += 'customerNumber=';
   memberMoneyChangeLogBodyStr += memeberId;
-  memberMoneyChangeLogBodyStr += '&beginTime=2020.10.11+00%3A00%3A00&endTime=2020.10.31+23%3A59%3A59&refund=';
+  memberMoneyChangeLogBodyStr += '&beginTime=2020.10.10+00%3A00%3A00&endTime=2020.10.31+23%3A59%3A59&refund=';
 
   // createUserId=&categoryUid=&tagUid=&type=1&guiderUid=&keyword=&pageIndex=1&pageSize=50&orderColumn=&asc=false
   const memberMoneyChangeLogResponse = await fetch(memberMoneyChangeLogUrl, {

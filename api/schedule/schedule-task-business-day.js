@@ -54,6 +54,7 @@ const dostartScheduleBusiness = async () => {
   /// 获取营业概况并解析
   const businessSummaryObj4workweixin = await getBusinessSummaryObj4workweixin(thePOSPALAUTH30220);
   await buildProductSaleString4WorkweixinAndSend(businessSummaryObj4workweixin);
+  await buildCouponString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildMemberString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildActualIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
 }
@@ -95,6 +96,9 @@ const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
 
     let newMemberObj = await getNewMemberCountByUserIdAndParse(thePOSPALAUTH30220, shop.userId);
     businessSummaryObj.newMemberObj = newMemberObj;
+
+    let couponObj = await getCouponByUserIdAndParse(thePOSPALAUTH30220, shop.userId);
+    businessSummaryObj.couponObj = couponObj;
 
     businessSummaryObj.shop = shop;
     businessSummaryObjArray.push(businessSummaryObj);
@@ -185,9 +189,9 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
   totalContent4earnestMoney += '\n';
 
   /// 只有总计有金额才显示，否则不显示预定金条目
-  // if (earnestMoneyTotalMoney > 0) {
-  totalContent += totalContent4earnestMoney;
-  // }
+  if (earnestMoneyTotalMoney > 0) {
+    totalContent += totalContent4earnestMoney;
+  }
   /*-------------------------*/
 
   /*-------------------------*/
@@ -212,6 +216,33 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
   totalContent += '\n';
   totalContent += '\n';
   /*-------------------------*/
+  if (KForTest) console.log(totalContent);
+  await doSendToCompanyGroup(totalContent);
+}
+
+const buildCouponString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
+  let totalContent = '';
+  // let beginDateTime = escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  // let endDateTime = escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+
+  /*-------------------------*/
+  /// 商品销售情况
+  totalContent += '**' + businessSummaryObj4workweixin.couponItem.title + '**\n';
+  /// 商品销售额
+  totalContent += '> **' + businessSummaryObj4workweixin.couponItem.couponMoney.title + '(元)**\n';
+  /// 商品销售额-门店
+  let couponMoneyTotalMoney = 0;
+  businessSummaryObj4workweixin.couponItem.couponMoney.stores.forEach(store => {
+    if (store.userId === KShopHeadUserId) return;
+
+    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
+    let storeMoney = parseFloat(store.money);
+    couponMoneyTotalMoney += storeMoney;
+  });
+  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + couponMoneyTotalMoney.toFixed(2) + '</font>\n';
+  totalContent += '\n';
+  /*-------------------------*/
+
   if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }
@@ -449,6 +480,66 @@ const parseNewMemberCount = (newCustomerSummaryResponseJson) => {
 
   return newMemberObj;
 }
+
+const getCouponByUserIdAndParse = async (thePOSPALAUTH30220, userId) => {
+  let couponResponseJson = await getCouponByUserId(thePOSPALAUTH30220, userId);
+  let couponObj = await parseCoupon(couponResponseJson);
+  return couponObj;
+}
+
+const getCouponByUserId = async (thePOSPALAUTH30220, userId) => {
+  let getCouponUrl = 'https://beta33.pospal.cn/Promotion/LoadCouponSummary';
+  
+  let getCouponBodyStr = 'userIds%5B%5D=' + userId;
+  getCouponBodyStr += '&beginDateTime=';
+  getCouponBodyStr += escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  getCouponBodyStr += '&endDateTime=';
+  getCouponBodyStr += escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  getCouponBodyStr += '&queryType=1';
+  getCouponBodyStr += '&promotionCouponType=';
+  getCouponBodyStr += '&salable=';
+
+  const couponResponse = await fetch(getCouponUrl, {
+    method: 'POST', body: getCouponBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+
+  const couponResponseJson = await couponResponse.json();
+  return couponResponseJson;
+}
+
+const parseCoupon = async (couponResponseJson) => {
+  let couponObj = {};
+  let totalCount = 0; // 0为无核销
+
+  if (couponResponseJson.successed) {
+    let view = couponResponseJson.contentView;
+    // console.log(view);
+
+    var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>' + view + '</root>';
+    try {
+      let result = await parseStringPromise(xml);
+      if (result) {
+        let trArray = result.root.tbody[0].tr;
+        for (let index = 0; index < trArray.length; ++index) {
+          let writeOffMoney = trArray[index].td[9]._;
+          totalCount += parseFloat(writeOffMoney);
+        }
+        totalCount = totalCount.toFixed(2);
+        // console.log(totalCount);
+      }
+    } catch (e) {
+      // console.log('没有报损数据，解析出错');
+    }
+  }
+
+  /// 总计
+  couponObj.overview = totalCount;
+  return couponObj;
+};
 
 const getBusinessSummaryByUserId = async (thePOSPALAUTH30220, userId) => {
   let businessSummary = 'https://beta33.pospal.cn/Report/LoadBusinessSummaryV2';
@@ -704,6 +795,13 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
   businessSummaryObj4workweixin.productSaleItem.earnestMoney.title = '预定金';
   businessSummaryObj4workweixin.productSaleItem.earnestMoney.stores = [];
 
+  businessSummaryObj4workweixin.couponItem = {};
+  businessSummaryObj4workweixin.couponItem.title = beginToEndDay + '\n优惠劵情况';
+
+  businessSummaryObj4workweixin.couponItem.couponMoney = {};
+  businessSummaryObj4workweixin.couponItem.couponMoney.title = '优惠劵核销额';
+  businessSummaryObj4workweixin.couponItem.couponMoney.stores = [];
+
   businessSummaryObj4workweixin.memberItem = {};
   businessSummaryObj4workweixin.memberItem.title = beginToEndDay + '\n会员动态情况';
 
@@ -772,6 +870,14 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     store4ProductDiscard.userId = businessSummaryObj.shop.userId;
     store4ProductDiscard.money = productDiscardOverview ? productDiscardOverview : '0.00';
     businessSummaryObj4workweixin.productSaleItem.productDiscardMoney.stores.push(store4ProductDiscard);
+
+    let couponObj = businessSummaryObj.couponObj;
+    let couponOverview = couponObj.overview;
+    let store4coupon = {};
+    store4coupon.name = businessSummaryObj.shop.name;
+    store4coupon.userId = businessSummaryObj.shop.userId;
+    store4coupon.money = couponOverview ? couponOverview : '0.00';
+    businessSummaryObj4workweixin.couponItem.couponMoney.stores.push(store4coupon);
 
     let memberRechargeObj = businessSummaryObj.memberRechargeObj;
     let memberRechargeOverviewActual = memberRechargeObj.overview.actual;

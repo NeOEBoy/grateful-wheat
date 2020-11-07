@@ -66,8 +66,26 @@ const getProductSaleAndDiscardList = async (userId, categoryId, beginDateTime, e
   return productSaleAndDiscardJson;
 }
 
+const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
+  let couponSummaryListUrl = KApiHost + '/coupon/couponSummaryList';
+
+  couponSummaryListUrl += '?userId='
+  couponSummaryListUrl += userId;
+  couponSummaryListUrl += '&beginDateTime=';
+  couponSummaryListUrl += beginDateTime;
+  couponSummaryListUrl += '&endDateTime=';
+  couponSummaryListUrl += endDateTime;
+
+  // console.log(couponSummaryListUrl);
+  // keyword=&categorysJson=%5B%221593049816479739965%22%5D&beginDateTime=2020-10-21&endDateTime=2020-10-27&pageIndex=1&pageSize=50&orderColumn=&asc=false
+  const couponSummaryListResponse = await fetch(couponSummaryListUrl);
+  const couponSummaryListJson = await couponSummaryListResponse.json();
+  return couponSummaryListJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
-  getProductSaleAndDiscardList
+  getProductSaleAndDiscardList,
+  getCouponSummaryList
 };

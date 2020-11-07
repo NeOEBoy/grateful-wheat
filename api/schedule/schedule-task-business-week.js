@@ -223,8 +223,8 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
 
 const buildCouponString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
   let totalContent = '';
-  // let beginDateTime = escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
-  // let endDateTime = escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  let beginDateTime = escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  let endDateTime = escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
 
   /*-------------------------*/
   /// 商品销售情况
@@ -237,10 +237,15 @@ const buildCouponString4WorkweixinAndSend = async (businessSummaryObj4workweixin
     if (store.userId === KShopHeadUserId) return;
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
+    totalContent += makeCouponSummaryMark(store.userId, beginDateTime, endDateTime);
+    totalContent += '\n';
+
     let storeMoney = parseFloat(store.money);
     couponMoneyTotalMoney += storeMoney;
   });
   totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + couponMoneyTotalMoney.toFixed(2) + '</font>\n';
+  totalContent += makeCouponSummaryMark('', beginDateTime, endDateTime);
+  totalContent += '\n';
   totalContent += '\n';
   /*-------------------------*/
 
@@ -973,6 +978,18 @@ const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {
   productsaleanddiscardurl += '&endDateTime=';
   productsaleanddiscardurl += endDateTime;
   return ' | ' + '[报损率排行](' + productsaleanddiscardurl + ')';
+}
+
+const makeCouponSummaryMark = (id, beginDateTime, endDateTime) => {
+  let couponsummaryurl = 'http://gratefulwheat.ruyue.xyz/couponsummary';
+  if (KForTest) couponsummaryurl = 'http://localhost:4000/couponsummary';
+  couponsummaryurl += '?id=';
+  couponsummaryurl += id;
+  couponsummaryurl += '&beginDateTime=';
+  couponsummaryurl += beginDateTime;
+  couponsummaryurl += '&endDateTime=';
+  couponsummaryurl += endDateTime;
+  return '> ' + '[优惠劵核销排行](' + couponsummaryurl + ')';
 }
 
 const doSendToCompanyGroup = async (content) => {

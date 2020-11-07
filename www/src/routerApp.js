@@ -2,6 +2,7 @@ import React from "react";
 import ProductSale from "./view/productSale";
 import ProductDiscard from "./view/productDiscard";
 import ProductSaleAndDiscard from "./view/productSaleAndDiscard.js";
+import CouponSummary from "./view/couponSummary";
 
 import {
   BrowserRouter as Router,
@@ -22,6 +23,7 @@ function Inside4QueryParams() {
       <Route path="/productsale" children={<ProductSale query={query} />} />
       <Route path="/discardsale" children={<ProductDiscard query={query} />} />
       <Route path="/productsaleanddiscard" children={<ProductSaleAndDiscard query={query} />} />
+      <Route path="/couponsummary" children={<CouponSummary query={query} />} />
     </div>
   );
 }

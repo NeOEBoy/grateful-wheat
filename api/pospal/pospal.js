@@ -404,9 +404,105 @@ const getProductSaleAndDiscardList = async (thePOSPALAUTH30220, userId, category
   return { errCode: 0, list: productSaleAndDiscardList };
 };
 
+const getCouponSummaryList = async (thePOSPALAUTH30220, userId, beginDateTime, endDateTime) => {
+  let couponSummaryListUrl = 'https://beta33.pospal.cn/Promotion/LoadCouponSummary';
+  let couponSummaryListBody = '';
+  couponSummaryListBody += 'queryType=1&promotionCouponType=&salable=';
+  if (userId) {
+    couponSummaryListBody += '&userIds%5B%5D=' + userId;
+  }
+  couponSummaryListBody += '&beginDateTime=' + beginDateTime;
+  couponSummaryListBody += '&endDateTime=' + endDateTime;
+
+  // console.log('couponSummaryListBody = ' + couponSummaryListBody);
+
+  // beginDateTime=2020.11.06+00%3A00%3A00&endDateTime=2020.11.06+23%3A59%3A59&queryType=1&promotionCouponType=&salable=&userIds%5B%5D=3995767    
+  const couponSummaryListResponse = await fetch(couponSummaryListUrl, {
+    method: 'POST', body: couponSummaryListBody,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  let couponSummaryListResponseJson = await couponSummaryListResponse.json();
+  // console.log(couponSummaryListResponseJson);
+
+  let couponSummaryListList = [];
+
+  if (couponSummaryListResponseJson.successed) {
+    try {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + couponSummaryListResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        let couponSummaryListDataTh = result.root.tbody[0].tr;
+        let couponSummaryListDataThLength = couponSummaryListDataTh.length;
+        // console.log(couponSummaryListDataTh);
+        for (let index = 0; index < couponSummaryListDataThLength; ++index) {
+          let element = couponSummaryListDataTh[index];
+          let couponItem = {};
+
+          /// 优惠劵名字
+          let couponName = element.td[1]._;
+          // console.log(couponName);
+          couponItem.name = couponName;
+
+          /// 优惠劵面值金额
+          let faceValue = element.td[3]._;
+          // console.log(faceValue);
+          couponItem.faceValue = faceValue;
+
+          /// 优惠劵赠送数量
+          let presentNumber = '0';
+          if(element.td[4]._) {
+            presentNumber = element.td[4]._.trim();
+          } else {
+            presentNumber = element.td[4].a[0]._.trim();
+          }
+          // console.log(element.td[4]);
+          couponItem.presentNumber = presentNumber;
+          couponItem.presentValue = (parseInt(presentNumber) * parseFloat(faceValue)).toFixed(2);
+
+          /// 优惠劵销售数量
+          let saleNumber = element.td[5]._;
+          // console.log(saleNumber);
+          couponItem.saleNumber = saleNumber;
+          couponItem.saleValue = (parseInt(saleNumber) * parseFloat(faceValue)).toFixed(2);
+
+          /// 优惠劵核销数量
+          let writeOffNumber = element.td[8]._;
+          // console.log(writeOffNumber);
+          couponItem.writeOffNumber = writeOffNumber;
+          couponItem.writeOffValue = (parseInt(writeOffNumber) * parseFloat(faceValue)).toFixed(2);
+
+          couponSummaryListList.push(couponItem);
+        }
+      }
+    } catch (e) {
+      console.log('没有商品数据，解析出错');
+    }
+  }
+
+  /// 根据核销数量降序排序
+  couponSummaryListList =
+    couponSummaryListList.sort((first, second) => {
+      let firstWriteOffNumber = parseInt(first.writeOffNumber);
+      let secondWriteOffNumber = parseInt(second.writeOffNumber)
+      return secondWriteOffNumber - firstWriteOffNumber;
+    });
+
+  return { errCode: 0, list: couponSummaryListList };
+}
+
 module.exports = {
   signIn,
   getProductSaleList,
   getProductDiscardList,
-  getProductSaleAndDiscardList
+  getProductSaleAndDiscardList,
+  getCouponSummaryList
 };

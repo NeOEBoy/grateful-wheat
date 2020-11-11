@@ -452,6 +452,11 @@ const getCouponSummaryList = async (thePOSPALAUTH30220, userId, beginDateTime, e
           // console.log(couponName);
           couponItem.name = couponName;
 
+          /// 优惠劵销售价格
+          let salePrice = element.td[2]._;
+          // console.log(salePrice);
+          couponItem.salePrice = salePrice;
+
           /// 优惠劵面值金额
           let faceValue = element.td[3]._;
           // console.log(faceValue);
@@ -459,26 +464,38 @@ const getCouponSummaryList = async (thePOSPALAUTH30220, userId, beginDateTime, e
 
           /// 优惠劵赠送数量
           let presentNumber = '0';
-          if(element.td[4]._) {
+          if (element.td[4]._) {
             presentNumber = element.td[4]._.trim();
           } else {
             presentNumber = element.td[4].a[0]._.trim();
           }
           // console.log(element.td[4]);
           couponItem.presentNumber = presentNumber;
-          couponItem.presentValue = (parseInt(presentNumber) * parseFloat(faceValue)).toFixed(2);
 
           /// 优惠劵销售数量
           let saleNumber = element.td[5]._;
           // console.log(saleNumber);
           couponItem.saleNumber = saleNumber;
-          couponItem.saleValue = (parseInt(saleNumber) * parseFloat(faceValue)).toFixed(2);
+
+          /// 优惠劵销售金额
+          let saleValue = element.td[6]._;
+          // console.log(saleValue);
+          couponItem.saleValue = saleValue;
 
           /// 优惠劵核销数量
           let writeOffNumber = element.td[8]._;
           // console.log(writeOffNumber);
           couponItem.writeOffNumber = writeOffNumber;
-          couponItem.writeOffValue = (parseInt(writeOffNumber) * parseFloat(faceValue)).toFixed(2);
+
+          /// 优惠劵优惠金额
+          let writeOffValue = element.td[9]._;
+          // console.log(writeOffValue);
+          couponItem.writeOffValue = writeOffValue;
+
+          /// 优惠劵支付金额
+          let payValue = element.td[10]._;
+          // console.log(payValue);
+          couponItem.payValue = payValue;
 
           couponSummaryListList.push(couponItem);
         }

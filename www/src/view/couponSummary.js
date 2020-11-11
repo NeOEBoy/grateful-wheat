@@ -187,7 +187,6 @@ class CouponSummary extends React.Component {
                 indexDivBC = "red";
               }
 
-              let faceValue = ' | ' + item.faceValue;
               return (<List.Item>
                 <div style={{
                   width: 30, height: 30, backgroundColor: indexDivBC, color: "white",
@@ -203,21 +202,25 @@ class CouponSummary extends React.Component {
                       <span style={{ fontSize: 16 }}>
                         {item.name}
                       </span>
-                      <span style={{ fontSize: 12 }}>
-                        {faceValue}
-                      </span>
                     </div>
                   )}
                   description={(
                     <div>
-                      <div style={{ color: "darkred", fontSize: 14 }}>
-                        {`核销数量：${item.writeOffNumber} , 核销金额：￥${item.writeOffValue}`}
+                    <div>
+                        <span style={{ color: "darkred", fontSize: 14 }}>属性：</span>
+                        <span style={{ color: "darkred", fontSize: 12 }}>{`面值金额：${item.faceValue} , 销售价格：￥${item.salePrice}`}</span>
                       </div>
-                      <div style={{ color: "gray", fontSize: 12 }}>
-                        {`赠送数量：${item.presentNumber} , 赠送金额：￥${item.presentValue}`}
+                      <div>
+                        <span style={{ color: "darkred", fontSize: 14 }}>核销：</span>
+                        <span style={{ color: "darkred", fontSize: 12 }}>{`数量：${item.writeOffNumber} , 优惠金额：￥${item.writeOffValue}, 交易金额：￥${item.payValue}`}</span>
                       </div>
-                      <div style={{ color: "gray", fontSize: 12 }}>
-                        {`销售数量：${item.saleNumber} , 销售金额：￥${item.saleValue}`}
+                      <div>
+                        <span style={{ color: "gray", fontSize: 14 }}>销售：</span>
+                        <span style={{ color: "gray", fontSize: 12 }}>{`数量：${item.saleNumber} , 销售金额：￥${item.saleValue}`}</span>
+                      </div>
+                      <div>
+                        <span style={{ color: "gray", fontSize: 14 }}>非销售(赠送)：</span>
+                        <span style={{ color: "gray", fontSize: 12 }}>{`数量：${item.presentNumber}`}</span>
                       </div>
                     </div>
                   )}

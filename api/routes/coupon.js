@@ -3,7 +3,8 @@ var router = express.Router();
 var createError = require('http-errors');
 const {
   signIn,
-  getCouponSummaryList
+  getCouponSummaryList,
+  getDIYCouponList
 } = require('../pospal/pospal');
 
 /* GET users listing. */
@@ -32,7 +33,27 @@ router.get('/couponSummaryList', async function (req, res, next) {
     res.send(couponSummaryListResponseJson);
   } catch (err) {
     console.log('err = ' + err);
+    next(err)
+  }
+});
 
+router.get('/diyCouponList', async function (req, res, next) {
+  try {
+    let pageIndex = req.query.pageIndex;
+    let pageSize = req.query.pageSize;
+
+    if (!pageIndex || !pageSize) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let diyCouponListResponseJson = await getDIYCouponList(
+      thePOSPALAUTH30220,
+      pageIndex, pageSize);
+    res.send(diyCouponListResponseJson);
+  } catch (err) {
+    console.log('err = ' + err);
     next(err)
   }
 });

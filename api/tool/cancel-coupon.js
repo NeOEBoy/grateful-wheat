@@ -132,7 +132,7 @@ const parseCancelCoupon = async (cancelCouponResponseJson) => {
   let cancelText = '接口调用不成功！！！';
   // console.log(cancelCouponResponseJson);
 
-  if(cancelCouponResponseJson.successed) {
+  if (cancelCouponResponseJson.successed) {
     cancelText = '已经成功作废优惠券。';
   }
 
@@ -149,7 +149,7 @@ const startCancel = async (couponId, couponName) => {
   // console.log(promotionCouponId);
 
   /// 作废优惠券
-  if(promotionCouponId) {
+  if (promotionCouponId) {
     let cancelText = await cancelCouponByIdAndParse(thePOSPALAUTH30220, couponId, promotionCouponId);
     console.log(cancelText);
   }
@@ -157,7 +157,7 @@ const startCancel = async (couponId, couponName) => {
 
 var args = process.argv.splice(2);
 // args[0]='877461508' args[1]='品类优惠测试券'
-if(args.length !== 2) {
+if (args.length !== 2) {
   console.log('参数错误，第一个参数为优惠券id，第二个参数为优惠劵种类id');
 } else {
   startCancel(args[0], args[1]);

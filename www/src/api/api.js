@@ -83,9 +83,40 @@ const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
   return couponSummaryListJson;
 }
 
+const getDIYCouponList = async (pageIndex, pageSize) => {
+  let diyCouponListUrl = KApiHost + '/coupon/diyCouponList';
+
+  diyCouponListUrl += '?pageIndex='
+  diyCouponListUrl += pageIndex;
+  diyCouponListUrl += '&pageSize='
+  diyCouponListUrl += pageSize;
+
+  // console.log(diyCouponListUrl);
+  const diyCouponListResponse = await fetch(diyCouponListUrl);
+  const diyCouponListResponseJson = await diyCouponListResponse.json();
+  return diyCouponListResponseJson;
+
+  let nextDIYCouponList = [];
+
+  for (let i = 0; i < 5; i++) {
+    nextDIYCouponList.push({
+      couponId: '419442080' + pageIndex,
+      couponSource: 'api充值' + pageIndex,
+      memberId: '15860622030' + pageIndex,
+      memberName: '大白' + pageIndex,
+      couponCreateTime: '2020-11-19 12:03' + pageIndex,
+      couponWriteOffTime: '-' + pageIndex,
+      couponState: '已激活' + pageIndex
+    });
+  }
+
+  return { errCode: 0, list: nextDIYCouponList, total: 20};
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
   getProductSaleAndDiscardList,
-  getCouponSummaryList
+  getCouponSummaryList,
+  getDIYCouponList
 };

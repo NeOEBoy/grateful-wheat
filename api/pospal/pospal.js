@@ -516,10 +516,154 @@ const getCouponSummaryList = async (thePOSPALAUTH30220, userId, beginDateTime, e
   return { errCode: 0, list: couponSummaryListList };
 }
 
+const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
+  let loadPromotionCouponCodesUrl = 'https://beta33.pospal.cn/Promotion/LoadPromotionCouponCodes';
+  let loadPromotionCouponCodesUrlBody = '';
+  loadPromotionCouponCodesUrlBody += 'userId=3995763&promotionCouponUid=1604560747439474724&couponUserId=3995763';
+  loadPromotionCouponCodesUrlBody += '&pageIndex=' + pageIndex;
+  loadPromotionCouponCodesUrlBody += '&pageSize=' + pageSize;
+
+  // console.log('loadPromotionCouponCodesUrlBody = ' + loadPromotionCouponCodesUrlBody);
+
+  // userId=3995763&pageIndex=1&pageSize=10&promotionCouponUid=1604560747439474724&couponUserId=3995763    
+  const loadPromotionCouponCodesResponse = await fetch(loadPromotionCouponCodesUrl, {
+    method: 'POST', body: loadPromotionCouponCodesUrlBody,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  let loadPromotionCouponCodesResponseJson = await loadPromotionCouponCodesResponse.json();
+  // console.log(loadPromotionCouponCodesResponseJson);
+
+  let promotionCouponCodeList = [];
+  let total = 0;
+  if (loadPromotionCouponCodesResponseJson.successed) {
+    try {
+      total = loadPromotionCouponCodesResponseJson.total;
+
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + loadPromotionCouponCodesResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        let couponIdIndex = -1;
+        let couponSourceIndex = -1;
+        let memberIdIndex = -1;
+        let memberNameIndex = -1;
+        let couponCreateTimeIndex = -1;
+        let couponWriteOffIndex = -1;
+        let couponStatusIndex = -1;
+
+        let couponCodeListDataTable = result.root.div[1].div[1].div[0].table[0];
+
+        let couponCodeListDataTh = couponCodeListDataTable.thead[0].tr[0].th;
+        // console.log(couponCodeListDataTh);
+
+        let procuctDiscardTitleThLength = couponCodeListDataTh.length;
+        for (let index = 0; index < procuctDiscardTitleThLength; ++index) {
+          let titleName = couponCodeListDataTh[index]._;
+          // console.log(titleName);
+          if (!titleName) {
+            continue;
+          }
+
+          titleName = titleName.replace(/\r\n/g, "").trim();
+          if (titleName === '优惠券编号') {
+            couponIdIndex = index;
+            continue;
+          }
+          if (titleName === '优惠券来源') {
+            couponSourceIndex = index;
+            continue;
+          }
+          if (titleName === '会员号') {
+            memberIdIndex = index;
+            continue;
+          }
+          if (titleName === '会员姓名') {
+            memberNameIndex = index;
+            continue;
+          }
+          if (titleName === '制券时间') {
+            couponCreateTimeIndex = index;
+            continue;
+          }
+          if (titleName === '使用时间') {
+            couponWriteOffIndex = index;
+            continue;
+          }
+          if (titleName === '状态') {
+            couponStatusIndex = index;
+            continue;
+          }
+        }
+
+        let couponCodeListDataTbody = couponCodeListDataTable.tbody[0].tr;
+        // console.log(couponCodeListDataTbody);
+        let couponCodeListDataThLength = couponCodeListDataTbody.length;
+        for (let index = 0; index < couponCodeListDataThLength; ++index) {
+          let element = couponCodeListDataTbody[index];
+          let couponItem = {};
+
+          /// 优惠劵id
+          let couponId = element.td[couponIdIndex]._;
+          // console.log(couponId);
+          couponItem.couponId = couponId;
+
+          /// 优惠劵来源
+          let couponSource = element.td[couponSourceIndex]._;
+          // console.log(couponSource);
+          couponItem.couponSource = couponSource;
+
+          /// 会员id
+          let memberId = element.td[memberIdIndex]._;
+          // console.log(memberId);
+          couponItem.memberId = memberId;
+
+          /// 会员名字
+          let memberName = element.td[memberNameIndex]._;
+          // console.log(memberName);
+          couponItem.memberName = memberName;
+
+          /// 制券时间
+          let couponCreateTime = element.td[couponCreateTimeIndex]._;
+          // console.log(couponCreateTime);
+          couponItem.couponCreateTime = couponCreateTime;
+
+          /// 核销时间
+          let couponWriteOff = element.td[couponWriteOffIndex]._;
+          // console.log(couponWriteOff);
+          couponItem.couponWriteOff = couponWriteOff;
+
+          /// 核销时间
+          let couponStatus = element.td[couponStatusIndex]._;
+          // console.log(couponStatus);
+          couponItem.couponStatus = couponStatus;
+
+          promotionCouponCodeList.push(couponItem);
+        }
+      }
+    } catch (e) {
+      console.log('没有商品数据，解析出错');
+    }
+  }
+
+  // console.log(promotionCouponCodeList);
+  // console.log(total);
+
+  return { errCode: 0, list: promotionCouponCodeList, total };
+}
+
 module.exports = {
   signIn,
   getProductSaleList,
   getProductDiscardList,
   getProductSaleAndDiscardList,
-  getCouponSummaryList
+  getCouponSummaryList,
+  getDIYCouponList
 };

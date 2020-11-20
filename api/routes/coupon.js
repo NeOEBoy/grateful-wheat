@@ -14,7 +14,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/couponSummaryList', async function (req, res, next) {
   try {
-    
     let userId = req.query.userId;
     let beginDateTime = req.query.beginDateTime;
     let endDateTime = req.query.endDateTime;

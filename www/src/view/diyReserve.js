@@ -1,8 +1,11 @@
 import React from 'react';
 import {
   List,
+  Button,
+  Modal
 } from 'antd';
-import { getDIYCouponList } from '../api/api';
+import { getDIYCouponList, getMemberListByKeyword } from '../api/api';
+import { PhoneOutlined } from '@ant-design/icons';
 
 const KPageSize = 5;
 
@@ -14,7 +17,9 @@ class diyReserve extends React.Component {
       pageIndex: 1,
       total: 1,
       listData: [],
-      loading: false
+      loading: false,
+      callModalVisible: false,
+      phoneNumToBeCall: ''
     }
   }
 
@@ -50,8 +55,43 @@ class diyReserve extends React.Component {
     }
   }
 
+  showCallModal = async (phoneNum) => {
+    this.setState({
+      callModalVisible: true,
+      phoneNumToBeCall: '-----------'
+    });
+
+    let memberListResponseJson = await getMemberListByKeyword(phoneNum);
+    // console.log(memberListResponseJson);
+    if (memberListResponseJson.errCode === 0 &&
+      memberListResponseJson.list.length === 1) {
+      let phoneNum = memberListResponseJson.list[0].phoneNum;
+      // console.log(phoneNum);
+
+      this.setState({
+        phoneNumToBeCall: phoneNum
+      });
+    }
+  };
+
+  handleCallModalOnOk = () => {
+    this.setState({
+      callModalVisible: false,
+    });
+
+    window.location.href = "tel://" + this.state.phoneNumToBeCall;
+  }
+
+  handleCallModalOnCancel = () => {
+    this.setState({
+      callModalVisible: false,
+    });
+  }
+
   render() {
-    const { listData, pageIndex, total, loading } = this.state;
+    const { listData, pageIndex, total, loading, phoneNumToBeCall } = this.state;
+
+    let callModalDisable = phoneNumToBeCall === '-----------';
 
     return (
       <div>
@@ -77,9 +117,10 @@ class diyReserve extends React.Component {
           dataSource={listData}
           renderItem={
             item => {
+              let alreadyUse = item.couponWriteOffTime !== '-';
               return (<List.Item>
                 <div style={{
-                  width: 40, height: 40, backgroundColor: "darkgreen", color: "white",
+                  width: 40, height: 40, backgroundColor: "crimson", color: "white",
                   fontSize: 12, fontWeight: "bold", textAlign: 'center', marginRight: 15,
                   marginLeft: 15, borderRadius: 5
                 }}>
@@ -89,9 +130,8 @@ class diyReserve extends React.Component {
                 <List.Item.Meta
                   title={(
                     <div>
-                      <span style={{ fontSize: 16 }}>
-                        {item.couponId}
-                      </span>
+                      <span style={{ color: "black", fontSize: 14 }}>DIY券编号：</span>
+                      <span style={{ color: "black", fontSize: 12 }}>{item.couponId}</span>
                     </div>
                   )}
                   description={(
@@ -102,7 +142,7 @@ class diyReserve extends React.Component {
                       </div>
                       <div>
                         <span style={{ color: "gray", fontSize: 14 }}>使用时间：</span>
-                        <span style={{ color: "gray", fontSize: 12 }}>{`${item.couponWriteOff}`}</span>
+                        <span style={{ color: "crimson", fontSize: 12 }}>{`${item.couponWriteOffTime}`}</span>
                       </div>
                       <div>
                         <span style={{ color: "gray", fontSize: 14 }}>来源：</span>
@@ -114,13 +154,19 @@ class diyReserve extends React.Component {
                       </div>
                       <div>
                         <span style={{ color: "gray", fontSize: 14 }}>会员名字：</span>
-                        <span style={{ color: "gray", fontSize: 12 }}>{`${item.memberName}`}</span>
-                        <span> </span>
-                        <a href="tel:10086">一键拨打电话</a>
+                        <span style={{ color: "crimson", fontSize: 12 }}>{`${item.memberName}`}</span>
+                        <br />
+                        <Button type="primary" icon={<PhoneOutlined />}
+                          onClick={() => {
+                            this.showCallModal(item.memberId);
+                          }}
+                          disabled={alreadyUse}>
+                          拨打会员电话
+                        </Button>
                       </div>
                       <div>
                         <span style={{ color: "gray", fontSize: 14 }}>状态：</span>
-                        <span style={{ color: "gray", fontSize: 12 }}>{`${item.couponStatus}`}</span>
+                        <span style={{ color: "crimson", fontSize: 12 }}>{`${item.couponStatus}`}</span>
                       </div>
                     </div>
                   )}
@@ -129,8 +175,25 @@ class diyReserve extends React.Component {
             }
           }
         >
-
         </List>
+
+        <Modal
+          title="拨打电话"
+          visible={this.state.callModalVisible}
+          onOk={this.handleCallModalOnOk}
+          onCancel={this.handleCallModalOnCancel}
+          okText="确认拨打"
+          cancelText="取消"
+          closable
+          okButtonProps={{ disabled: callModalDisable }}
+          cancelButtonProps={{ disabled: callModalDisable }}
+        >
+          <div>
+            <span>会员电话为：</span>
+            <span style={{ color: "red" }}>{phoneNumToBeCall}</span>
+            <span>，请确认是否拨打？</span>
+          </div>
+        </Modal>
       </div>
     );
   }

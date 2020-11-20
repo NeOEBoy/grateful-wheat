@@ -25,7 +25,7 @@ function Inside4QueryParams() {
       <Route path="/discardsale" children={<ProductDiscard query={query} />} />
       <Route path="/productsaleanddiscard" children={<ProductSaleAndDiscard query={query} />} />
       <Route path="/couponsummary" children={<CouponSummary query={query} />} />
-      <Route path="/diyReserve" children={<DIYReserve query={query} />} />
+      <Route path="/diyreserve" children={<DIYReserve query={query} />} />
     </div>
   );
 }

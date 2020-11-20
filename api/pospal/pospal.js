@@ -1,23 +1,44 @@
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
+const moment = require('moment');
+
+let thePOSPALAUTH30220 = '';
+let signTimeMoment = {};
 
 const signIn = async () => {
-  let signInUrl = 'https://beta33.pospal.cn/account/SignIn';
-  let signInBody = { 'userName': 'wanmaizb', 'password': 'Rainsnow12' };
-  const signInResponse = await fetch(signInUrl, {
-    method: 'POST', body: JSON.stringify(signInBody),
-    headers: { 'Content-Type': 'application/json' }
-  });
-  let setCookie = signInResponse.headers.get('set-cookie');
-  let thePOSPALAUTH30220 = '';
-  let cookieArray = setCookie.split('; ');
-  cookieArray.forEach(element => {
-    let cookieSingle = element.split('=');
-    if (cookieSingle[0] === 'HttpOnly, .POSPALAUTH30220') {
-      // console.log(cookieSingle[1]);
-      thePOSPALAUTH30220 = cookieSingle[1];
+  let needRefresh = false;
+  if (thePOSPALAUTH30220 === '') {
+    needRefresh = true;
+  } else {
+    currentMoment = moment();
+    let timeDiff = currentMoment.diff(signTimeMoment, "seconds");
+    console.log(timeDiff);
+    /// 30分钟内（估计的）不用重复登录
+    if (timeDiff >= 30 * 60) {
+      needRefresh = true;
     }
-  });
+  }
+
+  if (needRefresh) {
+    let signInUrl = 'https://beta33.pospal.cn/account/SignIn';
+    let signInBody = { 'userName': 'wanmaizb', 'password': 'Rainsnow12' };
+    const signInResponse = await fetch(signInUrl, {
+      method: 'POST', body: JSON.stringify(signInBody),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    let setCookie = signInResponse.headers.get('set-cookie');
+    let cookieArray = setCookie.split('; ');
+    cookieArray.forEach(element => {
+      let cookieSingle = element.split('=');
+      if (cookieSingle[0] === 'HttpOnly, .POSPALAUTH30220') {
+        // console.log(cookieSingle[1]);
+        thePOSPALAUTH30220 = cookieSingle[1];
+      }
+    });
+    signTimeMoment = moment();
+    console.log('登录银豹...');
+  }
+
   return thePOSPALAUTH30220;
 };
 
@@ -636,11 +657,11 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
           couponItem.couponCreateTime = couponCreateTime;
 
           /// 核销时间
-          let couponWriteOff = element.td[couponWriteOffIndex]._;
-          // console.log(couponWriteOff);
-          couponItem.couponWriteOff = couponWriteOff;
+          let couponWriteOffTime = element.td[couponWriteOffIndex]._;
+          // console.log(couponWriteOffTime);
+          couponItem.couponWriteOffTime = couponWriteOffTime;
 
-          /// 核销时间
+          /// 状态
           let couponStatus = element.td[couponStatusIndex]._;
           // console.log(couponStatus);
           couponItem.couponStatus = couponStatus;
@@ -659,11 +680,86 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
   return { errCode: 0, list: promotionCouponCodeList, total };
 }
 
+const getMemberList = async (thePOSPALAUTH30220, keyword) => {
+  let loadCustomerByPageUrl = 'https://beta33.pospal.cn/Customer/LoadCustomersByPage';
+  let loadCustomerByPageUrlBody = '';
+  loadCustomerByPageUrlBody += 'createUserId=&categoryUid=&tagUid=&type=1&guiderUid=&pageIndex=1&pageSize=50&orderColumn=&asc=false';
+  loadCustomerByPageUrlBody += '&keyword=' + keyword;
+
+  // console.log('loadPromotionCouponCodesUrlBody = ' + loadPromotionCouponCodesUrlBody);
+
+  const loadCustomerByPageResponse = await fetch(loadCustomerByPageUrl, {
+    method: 'POST', body: loadCustomerByPageUrlBody,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  let loadCustomerByPageResponseJson = await loadCustomerByPageResponse.json();
+  // console.log(loadCustomerByPageResponseJson);
+  let memberList = [];
+  if (loadCustomerByPageResponseJson.successed) {
+    try {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + loadCustomerByPageResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        let phoneNumIndex = -1;
+
+        let memberListDataTh = result.root.thead[0].tr[0].th;
+        // console.log(memberListDataTh);
+
+        let memberListDataThLength = memberListDataTh.length;
+        for (let index = 0; index < memberListDataThLength; ++index) {
+          let titleName = memberListDataTh[index]._;
+          // console.log(titleName);
+          if (!titleName) {
+            continue;
+          }
+
+          titleName = titleName.replace(/\r\n/g, "").trim();
+          if (titleName === '电话') {
+            phoneNumIndex = index;
+            continue;
+          }
+        }
+
+        // console.log(phoneNumIndex);
+        let memberListDataTbody = result.root.tbody[0].tr;
+        // console.log(memberListDataTbody);
+        let memberListDataTbodyLength = memberListDataTbody.length;
+        for (let index = 0; index < memberListDataTbodyLength; ++index) {
+          let element = memberListDataTbody[index];
+          // console.log(element);
+          let memberItem = {};
+
+          /// 手机号
+          let phoneNum = element.td[phoneNumIndex];
+          // console.log(phoneNum);
+          memberItem.phoneNum = phoneNum;
+
+          memberList.push(memberItem);
+        }
+      }
+    } catch (e) {
+      console.log('没有会员数据，解析出错');
+    }
+  }
+
+  return { errCode: 0, list: memberList };
+}
+
 module.exports = {
   signIn,
   getProductSaleList,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,
-  getDIYCouponList
+  getDIYCouponList,
+  getMemberList
 };

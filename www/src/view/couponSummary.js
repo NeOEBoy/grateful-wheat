@@ -206,7 +206,7 @@ class CouponSummary extends React.Component {
                   )}
                   description={(
                     <div>
-                    <div>
+                      <div>
                         <span style={{ color: "darkred", fontSize: 14 }}>属性：</span>
                         <span style={{ color: "darkred", fontSize: 12 }}>{`面值金额：${item.faceValue} , 销售价格：￥${item.salePrice}`}</span>
                       </div>

@@ -95,22 +95,18 @@ const getDIYCouponList = async (pageIndex, pageSize) => {
   const diyCouponListResponse = await fetch(diyCouponListUrl);
   const diyCouponListResponseJson = await diyCouponListResponse.json();
   return diyCouponListResponseJson;
+}
 
-  let nextDIYCouponList = [];
+const getMemberListByKeyword = async (keyword) => {
+  let memberListUrl = KApiHost + '/member/memberList';
 
-  for (let i = 0; i < 5; i++) {
-    nextDIYCouponList.push({
-      couponId: '419442080' + pageIndex,
-      couponSource: 'api充值' + pageIndex,
-      memberId: '15860622030' + pageIndex,
-      memberName: '大白' + pageIndex,
-      couponCreateTime: '2020-11-19 12:03' + pageIndex,
-      couponWriteOffTime: '-' + pageIndex,
-      couponState: '已激活' + pageIndex
-    });
-  }
+  memberListUrl += '?keyword='
+  memberListUrl += keyword;
 
-  return { errCode: 0, list: nextDIYCouponList, total: 20};
+  // console.log(memberListUrl);
+  const memberListResponse = await fetch(memberListUrl);
+  const memberListResponseJson = await memberListResponse.json();
+  return memberListResponseJson;
 }
 
 export {
@@ -118,5 +114,6 @@ export {
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,
-  getDIYCouponList
+  getDIYCouponList,
+  getMemberListByKeyword
 };

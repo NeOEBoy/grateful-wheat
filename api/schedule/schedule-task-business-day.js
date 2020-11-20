@@ -3,6 +3,9 @@ const schedule = require('node-schedule');
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
 const moment = require('moment');
+const {
+  signIn
+} = require('../pospal/pospal');
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
@@ -50,40 +53,13 @@ const startScheduleBusiness = async () => {
 
 const dostartScheduleBusiness = async () => {
   /// 登录并获取验证信息
-  const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
+  const thePOSPALAUTH30220 = await signIn();
   /// 获取营业概况并解析
   const businessSummaryObj4workweixin = await getBusinessSummaryObj4workweixin(thePOSPALAUTH30220);
   await buildProductSaleString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildCouponString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildMemberString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildActualIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
-}
-
-const siginAndGetPOSPALAUTH30220 = async () => {
-  let signInUrl = 'https://beta33.pospal.cn/account/SignIn';
-  let signInBody = { 'userName': 'wanmaizb', 'password': 'Rainsnow12' };
-  const signInResponse = await fetch(signInUrl, {
-    method: 'POST', body: JSON.stringify(signInBody),
-    headers: { 'Content-Type': 'application/json' }
-  });
-  let setCookie = signInResponse.headers.get('set-cookie');
-  let thePOSPALAUTH30220 = '';
-  let cookieArray = setCookie.split('; ');
-  cookieArray.forEach(element => {
-    let cookieSingle = element.split('=');
-    if (cookieSingle[0] === 'HttpOnly, .POSPALAUTH30220') {
-      // console.log(cookieSingle[1]);
-      thePOSPALAUTH30220 = cookieSingle[1];
-    }
-  });
-  // console.log(setCookie);
-  // const signInResponseJson = await signInResponse.json();
-  // console.log(signInResponseJson);
-  // if (signInResponseJson.success) {
-  //   console.log(thePOSPALAUTH30220);
-  // }
-
-  return thePOSPALAUTH30220;
 }
 
 const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {

@@ -145,10 +145,6 @@ class diyReserve extends React.Component {
                         <span style={{ color: "crimson", fontSize: 12 }}>{`${item.couponWriteOffTime}`}</span>
                       </div>
                       <div>
-                        <span style={{ color: "gray", fontSize: 14 }}>来源：</span>
-                        <span style={{ color: "gray", fontSize: 12 }}>{`${item.couponSource}`}</span>
-                      </div>
-                      <div>
                         <span style={{ color: "gray", fontSize: 14 }}>会员号：</span>
                         <span style={{ color: "gray", fontSize: 12 }}>{`${item.memberId}`}</span>
                       </div>

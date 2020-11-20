@@ -79,7 +79,7 @@ class diyReserve extends React.Component {
       callModalVisible: false,
     });
 
-    window.location.href = "tel://" + this.state.phoneNumToBeCall;
+    window.location.href = "tel:" + this.state.phoneNumToBeCall;
   }
 
   handleCallModalOnCancel = () => {

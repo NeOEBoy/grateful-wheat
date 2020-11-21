@@ -12,7 +12,7 @@ const signIn = async () => {
   } else {
     currentMoment = moment();
     let timeDiff = currentMoment.diff(signTimeMoment, "seconds");
-    console.log(timeDiff);
+    // console.log(timeDiff);
     /// 30分钟内（估计的）不用重复登录
     if (timeDiff >= 30 * 60) {
       needRefresh = true;
@@ -36,7 +36,7 @@ const signIn = async () => {
       }
     });
     signTimeMoment = moment();
-    console.log('登录银豹...');
+    // console.log('登录银豹...');
   }
 
   return thePOSPALAUTH30220;
@@ -572,6 +572,7 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
           normalizeTags: true
         });
       if (result) {
+        let serialNumberIndex = -1;
         let couponIdIndex = -1;
         let couponSourceIndex = -1;
         let memberIdIndex = -1;
@@ -590,6 +591,10 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
           let titleName = couponCodeListDataTh[index]._;
           // console.log(titleName);
           if (!titleName) {
+            let image = couponCodeListDataTh[index].img;
+            if(image) {
+              serialNumberIndex = index;
+            }
             continue;
           }
 
@@ -630,6 +635,11 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
         for (let index = 0; index < couponCodeListDataThLength; ++index) {
           let element = couponCodeListDataTbody[index];
           let couponItem = {};
+
+          /// 序号
+          let serialNumber = element.td[serialNumberIndex]._;
+          // console.log(serialNumber);
+          couponItem.serialNumber = serialNumber;
 
           /// 优惠劵id
           let couponId = element.td[couponIdIndex]._;

@@ -2,11 +2,14 @@ import React from 'react';
 import {
   List,
   Button,
-  Modal
+  Modal,
+  Input
 } from 'antd';
-import { getDIYCouponList, getMemberListByKeyword } from '../api/api';
-import { PhoneOutlined } from '@ant-design/icons';
 
+import { getDIYCouponList, getMemberListByKeyword } from '../api/api';
+import { PhoneOutlined, SaveOutlined } from '@ant-design/icons';
+
+const { TextArea } = Input;
 const KPageSize = 5;
 
 class diyReserve extends React.Component {
@@ -105,7 +108,7 @@ class diyReserve extends React.Component {
           }
           pagination={{
             showSizeChanger: false,
-            position: "top",
+            position: "both",
             onChange: (pageIndex) => {
               this.fetchListDataByPage(pageIndex);
             },
@@ -120,11 +123,13 @@ class diyReserve extends React.Component {
               let alreadyUse = item.couponWriteOffTime !== '-';
               return (<List.Item>
                 <div style={{
-                  width: 40, height: 40, backgroundColor: "crimson", color: "white",
-                  fontSize: 12, fontWeight: "bold", textAlign: 'center', marginRight: 15,
-                  marginLeft: 15, borderRadius: 5
+                  width: 20, height: 20, backgroundColor: "crimson", color: "white",
+                  fontSize: 12, fontWeight: "bold", textAlign: 'center', marginRight: 6,
+                  marginLeft: 6, borderRadius: 4
                 }}>
-                  <div style={{ marginTop: 3 }}>DIY</div>
+                  <div style={{ marginTop: 1 }}>
+                    <span>{item.serialNumber}</span>
+                  </div>
                 </div>
 
                 <List.Item.Meta
@@ -167,6 +172,18 @@ class diyReserve extends React.Component {
                     </div>
                   )}
                 />
+                <div style={{ marginRight: 10 }}>
+                  <div>备注：</div>
+                  <TextArea
+                    style={{ width: 200 }}
+                    placeholder="这里输入备注"
+                    autoSize={{ minRows: 3 }} />
+                  <br />
+                  <Button type="dashed" icon={<SaveOutlined />} 
+                    style={{background: "skyblue", border: 'skyblue', marginTop:6}}>
+                    保存备注
+                  </Button>
+                </div>
               </List.Item>)
             }
           }

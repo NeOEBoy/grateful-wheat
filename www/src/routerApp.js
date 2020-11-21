@@ -12,6 +12,12 @@ import {
 } from "react-router-dom";
 import './routerApp.css';
 
+import {
+  ConfigProvider
+} from 'antd';
+// 在需要用到的 组件文件中引入中文语言包
+import zhCN from 'antd/es/locale/zh_CN';
+
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -31,8 +37,10 @@ function Inside4QueryParams() {
 }
 export default function RouterApp() {
   return (
-    <Router>
-      <Inside4QueryParams />
-    </Router>
+    <ConfigProvider locale={zhCN}>
+      <Router>
+        <Inside4QueryParams />
+      </Router>
+    </ConfigProvider>
   );
 }

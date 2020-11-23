@@ -11,7 +11,7 @@ import { getDIYCouponList, getMemberListByKeyword } from '../api/api';
 import { PhoneOutlined, SaveOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
-const KPageSize = 5;
+const KPageSize = 10;
 
 class diyReserve extends React.Component {
   constructor(props) {
@@ -101,9 +101,9 @@ class diyReserve extends React.Component {
       <div>
         <span style={{
           position: "absolute", marginLeft: 32, marginTop: 2,
-          fontSize: 18, fontWeight: "bold"
+          fontSize: 14, fontWeight: "bold"
         }}>
-          弯麦DIY预约
+          DIY预约
         </span>
         <List
           locale={{ emptyText: '暂时没有数据' }}
@@ -115,9 +115,9 @@ class diyReserve extends React.Component {
           }
           pagination={{
             responsive: true,
-            style: { marginRight: 24, marginBottom: 32 },
+            style: { marginTop:-16, marginRight: 18, marginBottom: 8 },
             showSizeChanger: false,
-            position: "both",
+            position: "top",
             showQuickJumper: true,
             onChange: (pageIndex) => {
               this.fetchListDataByPage(pageIndex);
@@ -151,34 +151,29 @@ class diyReserve extends React.Component {
                   )}
                   description={(
                     <div>
-                      <div>
+                      <div style={{marginTop:-10}}>
                         <span style={{ color: "gray", fontSize: 12 }}>制券时间：</span>
                         <span style={{ color: "gray", fontSize: 10 }}>{`${item.couponCreateTime}`}</span>
                       </div>
-                      <div>
+                      <div style={{marginTop:-8}}>
                         <span style={{ color: "gray", fontSize: 12 }}>使用时间：</span>
                         <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponWriteOffTime}`}</span>
                       </div>
-                      <div>
-                        <span style={{ color: "gray", fontSize: 12 }}>会员号：</span>
-                        <span style={{ color: "gray", fontSize: 10 }}>{`${item.memberId}`}</span>
-                      </div>
-                      <div>
+                      <div style={{marginTop:-8}}>
                         <span style={{ color: "gray", fontSize: 12 }}>会员名字：</span>
-                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.memberName}`}</span>
-                        <br />
-                        <Button type="primary" icon={<PhoneOutlined />}
+                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.memberName}`}</span>                        
+                      </div>
+                      <div style={{marginTop:-8}}>
+                        <span style={{ color: "gray", fontSize: 12 }}>状态：</span>
+                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponStatus}`}</span>
+                      </div>
+                      <Button type="primary" icon={<PhoneOutlined />}
                           onClick={() => {
                             this.showCallModal(item.memberId);
                           }}
                           disabled={alreadyUse}>
-                          拨打会员电话
+                          拨打
                         </Button>
-                      </div>
-                      <div>
-                        <span style={{ color: "gray", fontSize: 12 }}>状态：</span>
-                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponStatus}`}</span>
-                      </div>
                     </div>
                   )}
                 />
@@ -188,14 +183,14 @@ class diyReserve extends React.Component {
                     disabled={alreadyUse}
                     style={{ width: 180 }}
                     placeholder="这里输入备注"
-                    autoSize={{ minRows: 3 }} />
+                    autoSize={{ minRows: 2 }} />
                   <br />
                   <Button type="dashed" icon={<SaveOutlined />}
                     disabled={alreadyUse}
                     onClick={() => {
                       message.success('已经保存');
                     }}
-                    style={{ background: "skyblue", border: 'skyblue', marginTop: 4 }}>
+                    style={{ background: "skyblue", border: 'skyblue', marginTop: 2 }}>
                     保存备注
                   </Button>
                 </div>

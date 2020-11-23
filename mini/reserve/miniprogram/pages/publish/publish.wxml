@@ -1,0 +1,15 @@
+<!-- publish.wxml -->
+<view class="container">
+  <view>
+    <input bindinput="bindName" value="{{inputValue}}" />
+  </view>
+
+  <view class="usermotto">
+    <button bindtap="insertData">插入数据</button>
+    <button bindtap="readData">读取数据</button>
+  </view>
+
+  <view>
+    <text>{{inputValue}}</text>
+  </view>
+</view>

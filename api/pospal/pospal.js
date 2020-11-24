@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
 const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
 
 let thePOSPALAUTH30220 = '';
 let signTimeMoment = {};
@@ -592,7 +594,7 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
           // console.log(titleName);
           if (!titleName) {
             let image = couponCodeListDataTh[index].img;
-            if(image) {
+            if (image) {
               serialNumberIndex = index;
             }
             continue;
@@ -675,6 +677,18 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
           let couponStatus = element.td[couponStatusIndex]._;
           // console.log(couponStatus);
           couponItem.couponStatus = couponStatus;
+
+          /// 备注信息，比如打电话预约后的预约情况
+          let remark = '';
+          let remarkFileName = path.resolve(__dirname, 'remark') + '\\' + couponId + '.txt';
+          if (fs.existsSync(remarkFileName)) {
+            if (couponWriteOffTime !== '-') { ///劵已经核销过，删除备注
+              fs.unlinkSync(remarkFileName);
+            } else {
+              remark = fs.readFileSync(remarkFileName, 'utf-8');
+            }
+          }
+          couponItem.remark = remark;
 
           promotionCouponCodeList.push(couponItem);
         }
@@ -764,6 +778,23 @@ const getMemberList = async (thePOSPALAUTH30220, keyword) => {
   return { errCode: 0, list: memberList };
 }
 
+const saveRemark = async (couponId, remarkText) => {
+  // console.log('saveRemark couponId=' + couponId);
+  // console.log('saveRemark remarkText=' + remarkText);
+
+  /// 1删除
+  let remarkFileName = path.resolve(__dirname, 'remark') + '\\' + couponId + '.txt';
+  if (fs.existsSync(remarkFileName)) {
+    fs.unlinkSync(remarkFileName);
+  }
+  /// 2重建
+  if (remarkText) {
+    fs.writeFileSync(remarkFileName, remarkText);
+  }
+
+  return { errCode: 0 };
+}
+
 module.exports = {
   signIn,
   getProductSaleList,
@@ -771,5 +802,6 @@ module.exports = {
   getProductSaleAndDiscardList,
   getCouponSummaryList,
   getDIYCouponList,
-  getMemberList
+  getMemberList,
+  saveRemark
 };

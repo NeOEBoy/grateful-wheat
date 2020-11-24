@@ -4,7 +4,8 @@ var createError = require('http-errors');
 const {
   signIn,
   getCouponSummaryList,
-  getDIYCouponList
+  getDIYCouponList,
+  saveRemark
 } = require('../pospal/pospal');
 
 /* GET users listing. */
@@ -51,6 +52,20 @@ router.get('/diyCouponList', async function (req, res, next) {
       thePOSPALAUTH30220,
       pageIndex, pageSize);
     res.send(diyCouponListResponseJson);
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/saveRemark', async function (req, res, next) {
+  try {
+    let couponId = req.query.couponId;
+    let remark = req.query.remark;
+
+    let result = await saveRemark(couponId, remark);
+    // console.log(result);
+    res.send(result);
   } catch (err) {
     console.log('err = ' + err);
     next(err)

@@ -4,14 +4,17 @@ import {
   Button,
   Modal,
   Input,
-  message
+  message,
+  DatePicker
 } from 'antd';
 
-import { getDIYCouponList, getMemberListByKeyword } from '../api/api';
-import { PhoneOutlined, SaveOutlined } from '@ant-design/icons';
+import { getDIYCouponList, getMemberListByKeyword, saveRemarkToCoupon } from '../api/api';
+import { PhoneOutlined, SaveOutlined, MessageOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const { TextArea } = Input;
 const KPageSize = 10;
+const KDefaultPhoneNum = '-----------';
 
 class diyReserve extends React.Component {
   constructor(props) {
@@ -23,7 +26,12 @@ class diyReserve extends React.Component {
       listData: [],
       loading: false,
       callModalVisible: false,
-      phoneNumToBeCall: ''
+      phoneNumToBeCall: '',
+      messageModalVisible: false,
+      eventTime4Message: moment(),
+      lastCallItem: undefined,
+      lastMessageItem: undefined,
+      lastSaveItem: undefined
     }
   }
 
@@ -59,21 +67,16 @@ class diyReserve extends React.Component {
     }
   }
 
-  showCallModal = async (phoneNum) => {
+  showCallModal = async (keyword) => {
     this.setState({
       callModalVisible: true,
-      phoneNumToBeCall: '-----------'
+      phoneNumToBeCall: KDefaultPhoneNum
     });
 
-    let memberListResponseJson = await getMemberListByKeyword(phoneNum);
-    // console.log(memberListResponseJson);
-    if (memberListResponseJson.errCode === 0 &&
-      memberListResponseJson.list.length === 1) {
-      let phoneNum = memberListResponseJson.list[0].phoneNum;
-      // console.log(phoneNum);
-
+    let phoneNumber = await this.getPhoneNumberBy(keyword);
+    if (phoneNumber) {
       this.setState({
-        phoneNumToBeCall: phoneNum
+        phoneNumToBeCall: phoneNumber
       });
     }
   };
@@ -92,18 +95,72 @@ class diyReserve extends React.Component {
     });
   }
 
-  render() {
-    const { listData, pageIndex, total, loading, phoneNumToBeCall } = this.state;
+  showMessageModal = async (keyword) => {
+    this.setState({
+      messageModalVisible: true,
+      phoneNumToBeCall: KDefaultPhoneNum
+    });
 
-    let callModalDisable = phoneNumToBeCall === '-----------';
+    let phoneNumber = await this.getPhoneNumberBy(keyword);
+    if (phoneNumber) {
+      this.setState({
+        phoneNumToBeCall: phoneNumber
+      });
+    }
+  }
+
+  handleMessageModalOnOk = () => {
+    this.setState({
+      messageModalVisible: false,
+    });
+  }
+
+  handleMessageModalOnCancel = () => {
+    this.setState({
+      messageModalVisible: false,
+    });
+  }
+
+  getPhoneNumberBy = async (keyword) => {
+    let phoneNumber = '';
+    let memberListResponseJson = await getMemberListByKeyword(keyword);
+    // console.log(memberListResponseJson);
+    if (memberListResponseJson.errCode === 0 &&
+      memberListResponseJson.list.length === 1) {
+      let phoneNum = memberListResponseJson.list[0].phoneNum;
+      // console.log(phoneNum);
+
+      phoneNumber = phoneNum;
+    }
+
+    return phoneNumber;
+  }
+
+  handleDayOnOk = (value) => {
+    // console.log('onOk: ', value);
+    this.setState({ eventTime4Message: value });
+  }
+
+  render() {
+    const { listData,
+      pageIndex,
+      total,
+      loading,
+      phoneNumToBeCall,
+      lastCallItem,
+      lastMessageItem,
+      lastSaveItem,
+      eventTime4Message } = this.state;
+
+    let callModalDisable = phoneNumToBeCall === KDefaultPhoneNum;
 
     return (
       <div>
         <span style={{
-          position: "absolute", marginLeft: 32, marginTop: 2,
-          fontSize: 14, fontWeight: "bold"
+          position: "absolute", marginLeft: 8, marginTop: 8,
+          fontSize: 12, fontWeight: "bold"
         }}>
-          DIY预约
+          DIY
         </span>
         <List
           locale={{ emptyText: '暂时没有数据' }}
@@ -114,8 +171,8 @@ class diyReserve extends React.Component {
             </div>
           }
           pagination={{
-            responsive: true,
-            style: { marginTop:-16, marginRight: 18, marginBottom: 8 },
+            responsive: false,
+            style: { marginTop: -16, marginRight: 18, marginBottom: 8 },
             showSizeChanger: false,
             position: "top",
             showQuickJumper: true,
@@ -131,6 +188,10 @@ class diyReserve extends React.Component {
           renderItem={
             item => {
               let alreadyUse = item.couponWriteOffTime !== '-';
+              let callButtonDanger = lastCallItem === item;
+              let saveButtonDanger = lastSaveItem === item;
+              let messageButtonDanger = lastMessageItem === item;
+
               return (<List.Item>
                 <div style={{
                   width: 20, height: 20, backgroundColor: "crimson", color: "white",
@@ -151,28 +212,40 @@ class diyReserve extends React.Component {
                   )}
                   description={(
                     <div>
-                      <div style={{marginTop:-10}}>
+                      <div style={{ marginTop: -10 }}>
                         <span style={{ color: "gray", fontSize: 12 }}>制券时间：</span>
                         <span style={{ color: "gray", fontSize: 10 }}>{`${item.couponCreateTime}`}</span>
                       </div>
-                      <div style={{marginTop:-8}}>
+                      <div style={{ marginTop: -8 }}>
                         <span style={{ color: "gray", fontSize: 12 }}>使用时间：</span>
                         <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponWriteOffTime}`}</span>
                       </div>
-                      <div style={{marginTop:-8}}>
+                      <div style={{ marginTop: -8 }}>
                         <span style={{ color: "gray", fontSize: 12 }}>会员名字：</span>
-                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.memberName}`}</span>                        
+                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.memberName}`}</span>
                       </div>
-                      <div style={{marginTop:-8}}>
+                      <div style={{ marginTop: -8 }}>
                         <span style={{ color: "gray", fontSize: 12 }}>状态：</span>
                         <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponStatus}`}</span>
                       </div>
-                      <Button type="primary" icon={<PhoneOutlined />}
-                          onClick={() => {
-                            this.showCallModal(item.memberId);
-                          }}
-                          disabled={alreadyUse}>
-                          拨打
+                      <Button type='primary' icon={<PhoneOutlined />}
+                        shape="round" danger={callButtonDanger}
+                        onClick={() => {
+                          this.setState({ lastCallItem: item });
+                          this.showCallModal(item.memberId);
+                        }}
+                        disabled={alreadyUse}>
+                        拨打
+                        </Button>
+                      <span> </span>
+                      <Button type='primary' icon={<MessageOutlined />}
+                        shape="round" danger={messageButtonDanger}
+                        onClick={() => {
+                          this.setState({ lastMessageItem: item });
+                          this.showMessageModal(item.memberId);
+                        }}
+                        disabled={alreadyUse}>
+                        发送
                         </Button>
                     </div>
                   )}
@@ -180,18 +253,32 @@ class diyReserve extends React.Component {
                 <div style={{ marginRight: 10 }}>
                   <div>备注：</div>
                   <TextArea
+                    value={item.remark}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      item.remark = value;
+                      /// 强制更新一下
+                      this.forceUpdate();
+                    }}
                     disabled={alreadyUse}
                     style={{ width: 180 }}
                     placeholder="这里输入备注"
                     autoSize={{ minRows: 2 }} />
                   <br />
-                  <Button type="dashed" icon={<SaveOutlined />}
-                    disabled={alreadyUse}
-                    onClick={() => {
-                      message.success('已经保存');
+                  <Button type='primary' icon={<SaveOutlined />}
+                    disabled={alreadyUse} danger={saveButtonDanger}
+                    onClick={async () => {
+                      this.setState({ lastSaveItem: item });
+
+                      let result = await saveRemarkToCoupon(item.couponId, item.remark);
+                      if (result.errCode === 0) {
+                        message.success('已经保存');
+                      } else {
+                        message.warning('保存失败');
+                      }
                     }}
-                    style={{ background: "skyblue", border: 'skyblue', marginTop: 2 }}>
-                    保存备注
+                    style={{ marginTop: 2 }}>
+                    保存
                   </Button>
                 </div>
               </List.Item>)
@@ -215,6 +302,33 @@ class diyReserve extends React.Component {
             <span>会员电话为：</span>
             <span style={{ color: "red" }}>{phoneNumToBeCall}</span>
             <span>，请确认是否拨打？</span>
+          </div>
+        </Modal>
+
+        <Modal
+          title="发送短信"
+          visible={this.state.messageModalVisible}
+          onOk={this.handleMessageModalOnOk}
+          onCancel={this.handleMessageModalOnCancel}
+          okText="确认发送"
+          cancelText="取消"
+          closable
+          okButtonProps={{ disabled: callModalDisable }}
+          cancelButtonProps={{ disabled: callModalDisable }}
+        >
+          <div>
+            <span style={{ fontSize: 16 }}>会员电话为：</span>
+            <span style={{ color: "red" }}>{phoneNumToBeCall}</span>
+            <br />
+            <span style={{ fontSize: 16 }}>短信模板为：</span>
+            <span>【弯麦烘焙】您已成功预约DIY活动，活动时间：</span>
+            <span style={{ color: "green", textDecoration: 'underline' }}>{`${eventTime4Message.format('YYYY-MM-DD, HH:mm:ss a')}`}</span>
+            <span>，请提前10分钟到达，如变更请提前一天拨打13290768588。</span>
+            <br />
+            <span style={{ fontSize: 16 }}>活动时间为：</span>
+            <DatePicker showTime value={eventTime4Message} onOk={this.handleDayOnOk} />
+            <br /><br />
+            <span>请确认是否发送？</span>
           </div>
         </Modal>
       </div>

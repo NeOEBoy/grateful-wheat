@@ -109,11 +109,26 @@ const getMemberListByKeyword = async (keyword) => {
   return memberListResponseJson;
 }
 
+const saveRemarkToCoupon = async (couponId, remarkText) => {
+  let saveRemarkUrl = KApiHost + '/coupon/saveRemark';
+
+  saveRemarkUrl += '?couponId='
+  saveRemarkUrl += couponId;
+  saveRemarkUrl += '&remark='
+  saveRemarkUrl += remarkText;
+
+  // console.log(saveRemarkUrl);
+  const saveRemarkResponse = await fetch(saveRemarkUrl);
+  const saveRemarkResponseJson = await saveRemarkResponse.json();
+  return saveRemarkResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,
   getDIYCouponList,
-  getMemberListByKeyword
+  getMemberListByKeyword,
+  saveRemarkToCoupon
 };

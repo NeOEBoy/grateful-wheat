@@ -123,6 +123,18 @@ const saveRemarkToCoupon = async (couponId, remarkText) => {
   return saveRemarkResponseJson;
 }
 
+const sendSMSToMember = async (phoneNumber) => {
+  let sendSMSUrl = KApiHost + '/coupon/sendSMS';
+
+  sendSMSUrl += '?phoneNumber='
+  sendSMSUrl += phoneNumber;
+
+  // console.log(sendSMSUrl);
+  const sendSMSResponse = await fetch(sendSMSUrl);
+  const sendSMSResponseJson = await sendSMSResponse.json();
+  return sendSMSResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -130,5 +142,6 @@ export {
   getCouponSummaryList,
   getDIYCouponList,
   getMemberListByKeyword,
-  saveRemarkToCoupon
+  saveRemarkToCoupon,
+  sendSMSToMember
 };

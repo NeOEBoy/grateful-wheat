@@ -5,7 +5,8 @@ const {
   signIn,
   getCouponSummaryList,
   getDIYCouponList,
-  saveRemark
+  saveRemark,
+  sendSMS
 } = require('../pospal/pospal');
 
 /* GET users listing. */
@@ -64,6 +65,19 @@ router.get('/saveRemark', async function (req, res, next) {
     let remark = req.query.remark;
 
     let result = await saveRemark(couponId, remark);
+    // console.log(result);
+    res.send(result);
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/sendSMS', async function (req, res, next) {
+  try {
+    let phoneNumber = req.query.phoneNumber;
+
+    let result = await sendSMS(phoneNumber);
     // console.log(result);
     res.send(result);
   } catch (err) {

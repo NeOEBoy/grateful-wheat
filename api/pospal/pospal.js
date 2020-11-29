@@ -3,6 +3,8 @@ const parseStringPromise = require('xml2js').parseStringPromise;
 const moment = require('moment');
 const fs = require('fs');
 const path = require('path');
+const tencentcloud = require("tencentcloud-sdk-nodejs");
+const SmsClient = tencentcloud.sms.v20190711.Client;
 
 let thePOSPALAUTH30220 = '';
 let signTimeMoment = {};
@@ -684,8 +686,13 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
           if (fs.existsSync(remarkFileName)) {
             if (couponWriteOffTime !== '-') { ///劵已经核销过，删除备注
               fs.unlinkSync(remarkFileName);
+              remark = '该券已经于' + couponWriteOffTime + '被使用过';
             } else {
               remark = fs.readFileSync(remarkFileName, 'utf-8');
+            }
+          } else {
+            if (couponWriteOffTime !== '-') { ///劵已经核销过，删除备注
+              remark = '该券已经于' + couponWriteOffTime + '被使用过';
             }
           }
           couponItem.remark = remark;
@@ -795,6 +802,45 @@ const saveRemark = async (couponId, remarkText) => {
   return { errCode: 0 };
 }
 
+const sendSMS = async (phoneNumber) => {
+  try {
+    const clientConfig = {
+      credential: {
+        secretId: "AKIDpj8eu5CLBkyCI8wyQmy1V6RVIekZprfF",
+        secretKey: "dBSVQBpwb1BbniNBk224vc3FOtH66wqf",
+      },
+      region: "",
+      profile: {
+        httpProfile: {
+          endpoint: "sms.tencentcloudapi.com",
+        },
+      },
+    };
+
+    const client = new SmsClient(clientConfig);
+    const params = {
+      SmsSdkAppid: '1400452256',
+      PhoneNumberSet: ['+86' + '18698036807'],
+      Sign:'328004',
+      TemplateID: '784973',
+      TemplateParamSet: ['122']
+    };
+    let data = await client.SendSms(params);
+    console.log(data);
+    if (data &&
+      data.SendStatusSet &&
+      data.SendStatusSet.length === 1) {
+      let status = data.SendStatusSet[0];
+      return { errCode: status.Code, errMessage: status.Message };
+    } else {
+      return { errCode: -1, errMessage: '数据返回错误' };
+    }
+  } catch (e) {
+    console.log('sendSMS e = ' + e);
+    return { errCode: -1, errMessage: e.toString() };
+  }
+}
+
 module.exports = {
   signIn,
   getProductSaleList,
@@ -803,5 +849,6 @@ module.exports = {
   getCouponSummaryList,
   getDIYCouponList,
   getMemberList,
-  saveRemark
+  saveRemark,
+  sendSMS
 };

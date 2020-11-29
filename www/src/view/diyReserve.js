@@ -5,10 +5,11 @@ import {
   Modal,
   Input,
   message,
-  DatePicker
+  DatePicker,
+  Pagination
 } from 'antd';
 
-import { getDIYCouponList, getMemberListByKeyword, saveRemarkToCoupon } from '../api/api';
+import { getDIYCouponList, getMemberListByKeyword, saveRemarkToCoupon, sendSMSToMember } from '../api/api';
 import { PhoneOutlined, SaveOutlined, MessageOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
@@ -109,10 +110,17 @@ class diyReserve extends React.Component {
     }
   }
 
-  handleMessageModalOnOk = () => {
+  handleMessageModalOnOk = async () => {
     this.setState({
       messageModalVisible: false,
     });
+
+    let result = await sendSMSToMember(this.state.phoneNumToBeCall);
+    if (result && result.errCode === 0) {
+      message.info('发送成功');
+    } else {
+      message.error(result.errMessage);
+    }
   }
 
   handleMessageModalOnCancel = () => {
@@ -156,34 +164,39 @@ class diyReserve extends React.Component {
 
     return (
       <div>
-        <span style={{
-          position: "absolute", marginLeft: 8, marginTop: 8,
-          fontSize: 12, fontWeight: "bold"
+        <div style={{
+          position: "fixed", zIndex: 5, fontSize: 12,
+          fontWeight: "bold", width: '100%', background: 'rgba(136,136,136,0.8)'
         }}>
-          DIY
-        </span>
+          <div style={{ marginTop: 4, marginLeft: 6, fontSize: 24 }}>
+            DIY活动预约
+          </div>
+          <Pagination
+            style={{ marginTop: 4, marginLeft: 6, marginBottom: 12 }}
+            onChange={(pageIndex) => {
+              this.fetchListDataByPage(pageIndex);
+            }}
+            showQuickJumper={true}
+            showSizeChanger={false}
+            defaultCurrent={1}
+            current={pageIndex}
+            pageSize={KPageSize}
+            total={total} />
+        </div>
+
         <List
           locale={{ emptyText: '暂时没有数据' }}
           loading={loading}
+          header={
+            <div style={{ height: 66 }}>
+            </div>
+          }
           footer={
             <div style={{ textAlign: 'center', fontSize: 14, fontWeight: "lighter" }}>
               弯麦--心里满满都是你
             </div>
           }
-          pagination={{
-            responsive: false,
-            style: { marginTop: -16, marginRight: 18, marginBottom: 8 },
-            showSizeChanger: false,
-            position: "top",
-            showQuickJumper: true,
-            onChange: (pageIndex) => {
-              this.fetchListDataByPage(pageIndex);
-            },
-            defaultCurrent: 1,
-            current: pageIndex,
-            pageSize: KPageSize,
-            total: total
-          }}
+
           dataSource={listData}
           renderItem={
             item => {

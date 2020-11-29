@@ -248,7 +248,6 @@ class diyReserve extends React.Component {
                           this.showCallModal(item.memberId);
                         }}
                         disabled={alreadyUse}>
-                        拨打
                         </Button>
                       <span> </span>
                       <Button type='primary' icon={<MessageOutlined />}
@@ -258,7 +257,6 @@ class diyReserve extends React.Component {
                           this.showMessageModal(item.memberId);
                         }}
                         disabled={alreadyUse}>
-                        发送
                         </Button>
                     </div>
                   )}
@@ -291,7 +289,7 @@ class diyReserve extends React.Component {
                       }
                     }}
                     style={{ marginTop: 2 }}>
-                    保存
+                    保存备注
                   </Button>
                 </div>
               </List.Item>)

@@ -13,7 +13,7 @@ import { getDIYCouponList, getMemberListByKeyword, saveRemarkToCoupon, sendSMSTo
 import { PhoneOutlined, SaveOutlined, MessageOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
-const { TextArea } = Input;
+const { TextArea, Search } = Input;
 const KPageSize = 10;
 const KDefaultPhoneNum = '-----------';
 
@@ -32,7 +32,8 @@ class diyReserve extends React.Component {
       eventTime4Message: moment(),
       lastCallItem: undefined,
       lastMessageItem: undefined,
-      lastSaveItem: undefined
+      lastSaveItem: undefined,
+      keyword: ''
     }
   }
 
@@ -42,6 +43,8 @@ class diyReserve extends React.Component {
 
   async fetchListDataByPage(pageIndex) {
     try {
+      const { keyword } = this.state;
+
       this.setState({
         listData: [],
         pageIndex: pageIndex
@@ -49,7 +52,7 @@ class diyReserve extends React.Component {
         let nextDIYCouponList = [];
         let totalFromCloud = 1;
         this.setState({ loading: true });
-        const diyCouponListResult = await getDIYCouponList(pageIndex, KPageSize);
+        const diyCouponListResult = await getDIYCouponList(pageIndex, KPageSize, keyword);
         if (diyCouponListResult && diyCouponListResult.errCode === 0) {
           nextDIYCouponList = diyCouponListResult.list;
           totalFromCloud = diyCouponListResult.total;
@@ -115,9 +118,11 @@ class diyReserve extends React.Component {
       messageModalVisible: false,
     });
 
-    let result = await sendSMSToMember(this.state.phoneNumToBeCall);
-    if (result && result.errCode === 0) {
-      message.info('发送成功');
+    let eventTime4Message = this.state.eventTime4Message;
+    let result = await sendSMSToMember(this.state.phoneNumToBeCall,
+      eventTime4Message.format('MM-DD HH:mm'));
+    if (result && result.errCode === 'Ok') {
+      message.info('短信发送成功');
     } else {
       message.error(result.errMessage);
     }
@@ -166,11 +171,21 @@ class diyReserve extends React.Component {
       <div>
         <div style={{
           position: "fixed", zIndex: 5, fontSize: 12,
-          fontWeight: "bold", width: '100%', background: 'rgba(136,136,136,0.8)'
+          fontWeight: "bold", width: '100%', background: 'rgba(136,136,136,0.9)'
         }}>
           <div style={{ marginTop: 4, marginLeft: 6, fontSize: 24 }}>
             DIY活动预约
           </div>
+          <Search style={{ width: 280, marginTop: 4, marginLeft: 6, marginBottom: 4 }} size="middle"
+            placeholder="券号/会员号/会员姓名" enterButton="查询"
+            onSearch={async () => {
+              this.fetchListDataByPage(1);
+            }}
+            value={this.state.keyword}
+            onChange={(e) => {
+              const { value } = e.target;
+              this.setState({ keyword: value });
+            }} />
           <Pagination
             style={{ marginTop: 4, marginLeft: 6, marginBottom: 12 }}
             onChange={(pageIndex) => {
@@ -188,11 +203,11 @@ class diyReserve extends React.Component {
           locale={{ emptyText: '暂时没有数据' }}
           loading={loading}
           header={
-            <div style={{ height: 66 }}>
+            <div style={{ height: 110 }}>
             </div>
           }
           footer={
-            <div style={{ textAlign: 'center', fontSize: 14, fontWeight: "lighter" }}>
+            <div style={{ height: 40, textAlign: 'center', fontSize: 14, fontWeight: "lighter" }}>
               弯麦--心里满满都是你
             </div>
           }
@@ -248,7 +263,7 @@ class diyReserve extends React.Component {
                           this.showCallModal(item.memberId);
                         }}
                         disabled={alreadyUse}>
-                        </Button>
+                      </Button>
                       <span> </span>
                       <Button type='primary' icon={<MessageOutlined />}
                         shape="round" danger={messageButtonDanger}
@@ -257,7 +272,7 @@ class diyReserve extends React.Component {
                           this.showMessageModal(item.memberId);
                         }}
                         disabled={alreadyUse}>
-                        </Button>
+                      </Button>
                     </div>
                   )}
                 />
@@ -333,13 +348,13 @@ class diyReserve extends React.Component {
             <br />
             <span style={{ fontSize: 16 }}>短信模板为：</span>
             <span>【弯麦烘焙】您已成功预约DIY活动，活动时间：</span>
-            <span style={{ color: "green", textDecoration: 'underline' }}>{`${eventTime4Message.format('YYYY-MM-DD, HH:mm:ss a')}`}</span>
+            <span style={{ color: "green", textDecoration: 'underline' }}>{`${eventTime4Message.format('MM-DD HH:mm')}`}</span>
             <span>，请提前10分钟到达，如变更请提前一天拨打13290768588。</span>
             <br />
             <span style={{ fontSize: 16 }}>活动时间为：</span>
-            <DatePicker showTime value={eventTime4Message} onOk={this.handleDayOnOk} />
+            <DatePicker format={'MM-DD HH:mm'} showTime={{ format: 'HH:mm' }} value={eventTime4Message} onOk={this.handleDayOnOk} />
             <br /><br />
-            <span>请确认是否发送？</span>
+            <span>确认发送后，会发送正文短消息给会员，请确认是否发送？</span>
           </div>
         </Modal>
       </div>

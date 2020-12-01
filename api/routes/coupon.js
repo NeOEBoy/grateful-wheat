@@ -42,6 +42,7 @@ router.get('/diyCouponList', async function (req, res, next) {
   try {
     let pageIndex = req.query.pageIndex;
     let pageSize = req.query.pageSize;
+    let keyword = req.query.keyword;
 
     if (!pageIndex || !pageSize) {
       next(createError(500));
@@ -51,7 +52,7 @@ router.get('/diyCouponList', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let diyCouponListResponseJson = await getDIYCouponList(
       thePOSPALAUTH30220,
-      pageIndex, pageSize);
+      pageIndex, pageSize, keyword);
     res.send(diyCouponListResponseJson);
   } catch (err) {
     console.log('err = ' + err);
@@ -76,8 +77,9 @@ router.get('/saveRemark', async function (req, res, next) {
 router.get('/sendSMS', async function (req, res, next) {
   try {
     let phoneNumber = req.query.phoneNumber;
+    let templateParam1 = req.query.templateParam1;
 
-    let result = await sendSMS(phoneNumber);
+    let result = await sendSMS(phoneNumber, templateParam1);
     // console.log(result);
     res.send(result);
   } catch (err) {

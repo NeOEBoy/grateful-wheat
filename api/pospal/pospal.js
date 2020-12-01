@@ -10,37 +10,41 @@ let thePOSPALAUTH30220 = '';
 let signTimeMoment = {};
 
 const signIn = async () => {
-  let needRefresh = false;
-  if (thePOSPALAUTH30220 === '') {
-    needRefresh = true;
-  } else {
-    currentMoment = moment();
-    let timeDiff = currentMoment.diff(signTimeMoment, "seconds");
-    // console.log(timeDiff);
-    /// 30分钟内（估计的）不用重复登录
-    if (timeDiff >= 30 * 60) {
+  try {
+    let needRefresh = false;
+    if (thePOSPALAUTH30220 === '') {
       needRefresh = true;
-    }
-  }
-
-  if (needRefresh) {
-    let signInUrl = 'https://beta33.pospal.cn/account/SignIn';
-    let signInBody = { 'userName': 'wanmaizb', 'password': 'Rainsnow12' };
-    const signInResponse = await fetch(signInUrl, {
-      method: 'POST', body: JSON.stringify(signInBody),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    let setCookie = signInResponse.headers.get('set-cookie');
-    let cookieArray = setCookie.split('; ');
-    cookieArray.forEach(element => {
-      let cookieSingle = element.split('=');
-      if (cookieSingle[0] === 'HttpOnly, .POSPALAUTH30220') {
-        // console.log(cookieSingle[1]);
-        thePOSPALAUTH30220 = cookieSingle[1];
+    } else {
+      currentMoment = moment();
+      let timeDiff = currentMoment.diff(signTimeMoment, "seconds");
+      // console.log(timeDiff);
+      /// 30分钟内（估计的）不用重复登录
+      if (timeDiff >= 30 * 60) {
+        needRefresh = true;
       }
-    });
-    signTimeMoment = moment();
-    // console.log('登录银豹...');
+    }
+
+    if (needRefresh) {
+      let signInUrl = 'https://beta33.pospal.cn/account/SignIn';
+      let signInBody = { 'userName': 'wanmaizb', 'password': 'Rainsnow12' };
+      const signInResponse = await fetch(signInUrl, {
+        method: 'POST', body: JSON.stringify(signInBody),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      let setCookie = signInResponse.headers.get('set-cookie');
+      let cookieArray = setCookie.split('; ');
+      cookieArray.forEach(element => {
+        let cookieSingle = element.split('=');
+        if (cookieSingle[0] === 'HttpOnly, .POSPALAUTH30220') {
+          // console.log(cookieSingle[1]);
+          thePOSPALAUTH30220 = cookieSingle[1];
+        }
+      });
+      signTimeMoment = moment();
+      // console.log('登录银豹...');
+    }
+  } catch (e) {
+    console.log('signIn e=' + e.toString());
   }
 
   return thePOSPALAUTH30220;
@@ -541,12 +545,13 @@ const getCouponSummaryList = async (thePOSPALAUTH30220, userId, beginDateTime, e
   return { errCode: 0, list: couponSummaryListList };
 }
 
-const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize) => {
+const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize, keyword) => {
   let loadPromotionCouponCodesUrl = 'https://beta33.pospal.cn/Promotion/LoadPromotionCouponCodes';
   let loadPromotionCouponCodesUrlBody = '';
   loadPromotionCouponCodesUrlBody += 'userId=3995763&promotionCouponUid=1604560747439474724&couponUserId=3995763';
   loadPromotionCouponCodesUrlBody += '&pageIndex=' + pageIndex;
   loadPromotionCouponCodesUrlBody += '&pageSize=' + pageSize;
+  loadPromotionCouponCodesUrlBody += '&keyword=' + keyword;
 
   // console.log('loadPromotionCouponCodesUrlBody = ' + loadPromotionCouponCodesUrlBody);
 
@@ -802,7 +807,7 @@ const saveRemark = async (couponId, remarkText) => {
   return { errCode: 0 };
 }
 
-const sendSMS = async (phoneNumber) => {
+const sendSMS = async (phoneNumber, templateParam1) => {
   try {
     const clientConfig = {
       credential: {
@@ -820,24 +825,23 @@ const sendSMS = async (phoneNumber) => {
     const client = new SmsClient(clientConfig);
     const params = {
       SmsSdkAppid: '1400452256',
-      PhoneNumberSet: ['+86' + '18698036807'],
-      Sign:'328004',
+      PhoneNumberSet: ['+86' + '18698036807'],// todo替换真实电话号码
+      Sign: '弯麦烘焙',
       TemplateID: '784973',
-      TemplateParamSet: ['122']
+      TemplateParamSet: [templateParam1]
     };
     let data = await client.SendSms(params);
-    console.log(data);
     if (data &&
       data.SendStatusSet &&
       data.SendStatusSet.length === 1) {
       let status = data.SendStatusSet[0];
       return { errCode: status.Code, errMessage: status.Message };
     } else {
-      return { errCode: -1, errMessage: '数据返回错误' };
+      return { errCode: 'Fail', errMessage: '数据返回错误' };
     }
   } catch (e) {
     console.log('sendSMS e = ' + e);
-    return { errCode: -1, errMessage: e.toString() };
+    return { errCode: 'Fail', errMessage: e.toString() };
   }
 }
 

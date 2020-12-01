@@ -83,13 +83,15 @@ const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
   return couponSummaryListJson;
 }
 
-const getDIYCouponList = async (pageIndex, pageSize) => {
+const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
   let diyCouponListUrl = KApiHost + '/coupon/diyCouponList';
 
   diyCouponListUrl += '?pageIndex='
   diyCouponListUrl += pageIndex;
   diyCouponListUrl += '&pageSize='
   diyCouponListUrl += pageSize;
+  diyCouponListUrl += '&keyword='
+  diyCouponListUrl += keyword;
 
   // console.log(diyCouponListUrl);
   const diyCouponListResponse = await fetch(diyCouponListUrl);
@@ -123,11 +125,13 @@ const saveRemarkToCoupon = async (couponId, remarkText) => {
   return saveRemarkResponseJson;
 }
 
-const sendSMSToMember = async (phoneNumber) => {
+const sendSMSToMember = async (phoneNumber, templateParam1) => {
   let sendSMSUrl = KApiHost + '/coupon/sendSMS';
 
   sendSMSUrl += '?phoneNumber='
   sendSMSUrl += phoneNumber;
+  sendSMSUrl += '&templateParam1=';
+  sendSMSUrl += templateParam1;
 
   // console.log(sendSMSUrl);
   const sendSMSResponse = await fetch(sendSMSUrl);

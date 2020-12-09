@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var createError = require('http-errors');
+const models = require('../stores/models');
+const moment = require('moment');
+
 const {
   signIn,
   getCouponSummaryList,
@@ -82,6 +85,118 @@ router.get('/sendSMS', async function (req, res, next) {
     let result = await sendSMS(phoneNumber, templateParam1);
     // console.log(result);
     res.send(result);
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/createDIYEvent', async function (req, res, next) {
+  try {
+    let started = req.query.started;
+
+    let DIYEvents = models.DIYEvents;
+    const diyEventByStarted = await DIYEvents.findOne({
+      started: started
+    });
+    if (diyEventByStarted) {
+      res.send({ errCode: -5, errMessage: 'DIY活动已存在，请更换时间创建！' });
+      return;
+    }
+    let newDIYEvent = new DIYEvents({
+      started: started,
+      created: moment(),
+      participants: []
+    });
+
+    await newDIYEvent.save();
+    res.send({ errCode: 0 });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/DIYEventList', async function (req, res, next) {
+  try {
+    let DIYEvents = models.DIYEvents;
+    const diyEvents = await DIYEvents.find();
+    if (diyEvents) {
+      for (let index = 0; index < diyEvents.length; ++index) {
+        let Participants = models.Participants;
+        let eventId = diyEvents[index]._id;
+        const participants = await Participants.find({ eventId: eventId });
+        if (participants) {
+          diyEvents[index].participants = participants;
+        }
+      }
+    }
+    res.send({ errCode: 0, list: diyEvents });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/DeleteDIYEvent', async function (req, res, next) {
+  try {
+    let _id = req.query._id;
+
+    let DIYEvents = models.DIYEvents;
+    await DIYEvents.findByIdAndDelete(_id);
+    let Participants = models.Participants;
+    await Participants.deleteMany({ eventId: _id });
+
+    res.send({ errCode: 0 });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/joinToEvent', async function (req, res, next) {
+  try {
+    let couponId = req.query.couponId;
+    let memberName = req.query.memberName;
+    let eventId = req.query.eventId;
+
+    let Participants = models.Participants;
+    const participantsById = await Participants.findOne({
+      couponId: couponId,
+      memberName: memberName
+    });
+    if (participantsById) {
+      res.send({ errCode: -5, errMessage: '该顾客已经添加过，请选择另一个顾客！' });
+      return;
+    }
+
+    let newParticipants = new Participants({
+      couponId: couponId,
+      memberName: memberName,
+      eventId: eventId
+    });
+
+    await newParticipants.save();
+    res.send({ errCode: 0 });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/leaveFromEvent', async function (req, res, next) {
+  try {
+    let couponId = req.query.couponId;
+    let memberName = req.query.memberName;
+    let eventId = req.query.eventId;
+
+    let Participants = models.Participants;
+    await Participants.findOneAndDelete({
+      couponId: couponId,
+      memberName: memberName,
+      eventId: eventId
+    });
+    res.send({ errCode: 0 });
   } catch (err) {
     console.log('err = ' + err);
     next(err)

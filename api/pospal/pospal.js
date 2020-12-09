@@ -687,7 +687,7 @@ const getDIYCouponList = async (thePOSPALAUTH30220, pageIndex, pageSize, keyword
 
           /// 备注信息，比如打电话预约后的预约情况
           let remark = '';
-          let remarkFileName = path.resolve(__dirname, 'remark') + '\\' + couponId + '.txt';
+          let remarkFileName = path.resolve(__dirname, '..\\stores\\remark') + '\\' + couponId + '.txt';
           if (fs.existsSync(remarkFileName)) {
             if (couponWriteOffTime !== '-') { ///劵已经核销过，删除备注
               fs.unlinkSync(remarkFileName);
@@ -795,7 +795,7 @@ const saveRemark = async (couponId, remarkText) => {
   // console.log('saveRemark remarkText=' + remarkText);
 
   /// 1删除
-  let remarkFileName = path.resolve(__dirname, 'remark') + '\\' + couponId + '.txt';
+  let remarkFileName = path.resolve(__dirname, '..\\stores\\remark') + '\\' + couponId + '.txt';
   if (fs.existsSync(remarkFileName)) {
     fs.unlinkSync(remarkFileName);
   }
@@ -808,6 +808,8 @@ const saveRemark = async (couponId, remarkText) => {
 }
 
 const sendSMS = async (phoneNumber, templateParam1) => {
+  // todo 测试，正式删除
+  return { errCode: 'Ok', errMessage: '' };
   try {
     const clientConfig = {
       credential: {

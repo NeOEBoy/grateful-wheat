@@ -139,6 +139,68 @@ const sendSMSToMember = async (phoneNumber, templateParam1) => {
   return sendSMSResponseJson;
 }
 
+const createDIYEvent = async (started) => {
+  let createDIYEventUrl = KApiHost + '/coupon/createDIYEvent';
+
+  createDIYEventUrl += '?started='
+  createDIYEventUrl += started;
+
+  // console.log(createDIYEventUrl);
+  const createDIYEventResponse = await fetch(createDIYEventUrl);
+  const createDIYEventResponseJson = await createDIYEventResponse.json();
+  return createDIYEventResponseJson;
+}
+
+const DIYEventList = async () => {
+  let DIYEventListUrl = KApiHost + '/coupon/DIYEventList';
+
+  // console.log(DIYEventListUrl);
+  const DIYEventListResponse = await fetch(DIYEventListUrl);
+  const DIYEventListResponseJson = await DIYEventListResponse.json();
+  return DIYEventListResponseJson;
+}
+
+const DeleteDIYEvent = async (_id) => {
+  let deleteDIYEventUrl = KApiHost + '/coupon/DeleteDIYEvent';
+  deleteDIYEventUrl += '?_id='
+  deleteDIYEventUrl += _id;
+
+  // console.log(deleteDIYEventUrl);
+  const DeleteDIYEventResponse = await fetch(deleteDIYEventUrl);
+  const DeleteDIYEventResponseJson = await DeleteDIYEventResponse.json();
+  return DeleteDIYEventResponseJson;
+}
+
+const JoinToEvent = async (couponId, memberName, eventId) => {
+  let joinToEventUrl = KApiHost + '/coupon/joinToEvent';
+  joinToEventUrl += '?couponId='
+  joinToEventUrl += couponId;
+  joinToEventUrl += '&memberName='
+  joinToEventUrl += memberName;
+  joinToEventUrl += '&eventId='
+  joinToEventUrl += eventId;
+
+  // console.log(joinToEventUrl);
+  const joinToEventUrlResponse = await fetch(joinToEventUrl);
+  const joinToEventUrlResponseJson = await joinToEventUrlResponse.json();
+  return joinToEventUrlResponseJson;
+}
+
+const LeaveFromEvent = async (couponId, memberName, eventId) => {
+  let LeaveFromEventUrl = KApiHost + '/coupon/leaveFromEvent';
+  LeaveFromEventUrl += '?couponId='
+  LeaveFromEventUrl += couponId;
+  LeaveFromEventUrl += '&memberName='
+  LeaveFromEventUrl += memberName;
+  LeaveFromEventUrl += '&eventId='
+  LeaveFromEventUrl += eventId;
+
+  // console.log(LeaveFromEventUrl);
+  const leaveFromEventUrlResponse = await fetch(LeaveFromEventUrl);
+  const leaveFromEventUrlResponseJson = await leaveFromEventUrlResponse.json();
+  return leaveFromEventUrlResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -147,5 +209,10 @@ export {
   getDIYCouponList,
   getMemberListByKeyword,
   saveRemarkToCoupon,
-  sendSMSToMember
+  sendSMSToMember,
+  createDIYEvent,
+  DIYEventList,
+  DeleteDIYEvent,
+  JoinToEvent,
+  LeaveFromEvent
 };

@@ -10,6 +10,11 @@ var productRouter = require('./routes/product');
 var couponRouter = require('./routes/coupon');
 var memberRouter = require('./routes/member');
 
+const mongoManager = require('./stores/mongo-manager')
+
+// 启动时连接下数据库
+mongoManager.connectDB();
+
 var app = express();
 
 /// 设置跨域访问---

@@ -3,6 +3,7 @@ var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
 const moment = require('moment');
+moment.locale('zh-cn');
 
 const {
   signIn,
@@ -177,7 +178,65 @@ router.get('/joinToEvent', async function (req, res, next) {
     });
 
     await newParticipants.save();
-    res.send({ errCode: 0 });
+
+    let remark = '';
+    let DIYEvents = models.DIYEvents;
+    const diyEventItem = await DIYEvents.findOne({ _id: eventId });
+    if (diyEventItem) {
+      let eventTime = moment(diyEventItem.started).utcOffset(8);
+      remark = `已加入${eventTime.format('MM-DD dddd HH:mm')}的DIY活动`
+      await saveRemark(couponId, remark);
+    }
+    res.send({ errCode: 0, remark: remark });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/sendSMSAndJoinToEvent', async function (req, res, next) {
+  try {
+    let phoneNumber = req.query.phoneNumber;
+    let templateParam1 = req.query.templateParam1;
+    let couponId = req.query.couponId;
+    let memberName = req.query.memberName;
+    let eventId = req.query.eventId;
+
+    /// 1,添加名单
+    let Participants = models.Participants;
+    const participantsById = await Participants.findOne({
+      couponId: couponId,
+      memberName: memberName
+    });
+    if (participantsById) {
+      res.send({ errCode: -5, errMessage: '该顾客已经添加过，请选择另一个顾客！' });
+      return;
+    }
+    let newParticipants = new Participants({
+      couponId: couponId,
+      memberName: memberName,
+      eventId: eventId
+    });
+    await newParticipants.save();
+
+    /// 2,发送短信
+    let result = await sendSMS(phoneNumber, templateParam1);
+    if (result.errCode !== 'Ok') {
+      res.send({ errCode: -2, errMessage: result.errMessage });
+      return;
+    }
+
+    /// 2,保存备注
+    let remark = '';
+    let DIYEvents = models.DIYEvents;
+    const diyEventItem = await DIYEvents.findOne({ _id: eventId });
+    if (diyEventItem) {
+      let eventTime = moment(diyEventItem.started).utcOffset(8);
+      remark = `已短信预约并加入${eventTime.format('MM-DD dddd HH:mm')}的DIY活动`;
+      await saveRemark(couponId, remark);
+    }
+
+    res.send({ errCode: 0, remark: remark });
   } catch (err) {
     console.log('err = ' + err);
     next(err)
@@ -196,6 +255,8 @@ router.get('/leaveFromEvent', async function (req, res, next) {
       memberName: memberName,
       eventId: eventId
     });
+
+    await saveRemark(couponId, '');
     res.send({ errCode: 0 });
   } catch (err) {
     console.log('err = ' + err);

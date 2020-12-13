@@ -186,6 +186,28 @@ const JoinToEvent = async (couponId, memberName, eventId) => {
   return joinToEventUrlResponseJson;
 }
 
+const sendSMSAndJoinToEvent = async (
+  phoneNumber, templateParam1,
+  couponId, memberName, eventId) => {
+  let sendSMSAndJoinToEventUrl = KApiHost + '/coupon/sendSMSAndJoinToEvent';
+  
+  sendSMSAndJoinToEventUrl += '?phoneNumber='
+  sendSMSAndJoinToEventUrl += phoneNumber;
+  sendSMSAndJoinToEventUrl += '&templateParam1=';
+  sendSMSAndJoinToEventUrl += templateParam1;
+  sendSMSAndJoinToEventUrl += '&couponId='
+  sendSMSAndJoinToEventUrl += couponId;
+  sendSMSAndJoinToEventUrl += '&memberName='
+  sendSMSAndJoinToEventUrl += memberName;
+  sendSMSAndJoinToEventUrl += '&eventId='
+  sendSMSAndJoinToEventUrl += eventId;
+
+  // console.log(sendSMSAndJoinToEventUrl);
+  const sendSMSAndJoinToEventResponse = await fetch(sendSMSAndJoinToEventUrl);
+  const sendSMSAndJoinToEventResponseJson = await sendSMSAndJoinToEventResponse.json();
+  return sendSMSAndJoinToEventResponseJson;
+}
+
 const LeaveFromEvent = async (couponId, memberName, eventId) => {
   let LeaveFromEventUrl = KApiHost + '/coupon/leaveFromEvent';
   LeaveFromEventUrl += '?couponId='
@@ -214,5 +236,6 @@ export {
   DIYEventList,
   DeleteDIYEvent,
   JoinToEvent,
-  LeaveFromEvent
+  LeaveFromEvent,
+  sendSMSAndJoinToEvent
 };

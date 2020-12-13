@@ -16,12 +16,12 @@ import {
   getDIYCouponList,
   getMemberListByKeyword,
   saveRemarkToCoupon,
-  sendSMSToMember,
   createDIYEvent,
   DIYEventList,
   DeleteDIYEvent,
   JoinToEvent,
-  LeaveFromEvent
+  LeaveFromEvent,
+  sendSMSAndJoinToEvent
 } from '../api/api';
 
 import {
@@ -169,38 +169,30 @@ class diyReserve extends React.Component {
     if (eventItem) {
       /// 修正下北京时间，+8，换成东八区
       let eventTime4Message = moment(eventItem.started).utcOffset(8);
-      let result = await sendSMSToMember(this.state.phoneNumToBeCall,
-        eventTime4Message.format('MM-DD HH:mm'));
-      if (result && result.errCode === 'Ok') {
-        message.info('短信发送成功');
+      let couponId = lastMessageItem.couponId;
+      let memberName = lastMessageItem.memberName;
+      let eventId = eventItem._id;
+      let result = await sendSMSAndJoinToEvent(this.state.phoneNumToBeCall,
+        eventTime4Message.format('MM-DD HH:mm'), couponId, memberName, eventId);
 
-        let couponId = lastMessageItem.couponId;
-        let remark = `已短信预约${eventTime4Message.format('MM-DD dddd HH:mm')}DIY`
-        saveRemarkToCoupon(couponId, remark);
-        lastMessageItem.remark = remark;
-        /// 强制更新一下
-        this.forceUpdate();
+      if (result && result.errCode === 0) {
+        message.info('加入DIY活动名单并成功发送短信');
+        lastMessageItem.remark = result.remark;
 
-        const { whichEventIndexToChoose, DIYEventList } = this.state;
-        let memberName = lastMessageItem.memberName;
-        let eventItem = DIYEventList[whichEventIndexToChoose];
-        let eventId = eventItem._id;
-        // console.log(couponId);
-        // console.log(memberName);
-        // console.log(eventId);
-        const joinResult = await JoinToEvent(couponId, memberName, eventId);
-        if (joinResult && joinResult.errCode === 0) {
-          message.info('活动加入成功');
-          this.fetchDIYEventList();
-        } else {
-          if (joinResult) {
-            message.info(joinResult.errMessage);
-          } else {
-            message.info('添加失败');
-          }
+        this.fetchDIYEventList();
+
+        let lastMode = this.state.DIYEventShowMode;
+        if (lastMode === 'small') {
+          this.setState({ DIYEventShowMode: 'large' });
+          this.setState({ DIYEventShowMode: 'small' });
         }
+        this.forceUpdate();
       } else {
-        message.error(result.errMessage);
+        if (result) {
+          message.info(result.errMessage);
+        } else {
+          message.info('添加失败');
+        }
       }
     }
   }
@@ -287,8 +279,20 @@ class diyReserve extends React.Component {
     // console.log(eventId);
     const joinResult = await JoinToEvent(couponId, memberName, eventId);
     if (joinResult && joinResult.errCode === 0) {
-      message.info('加入成功');
+      message.info('活动加入成功');
       this.fetchDIYEventList();
+
+      /// 更新下remark UI
+      lastJoinToEventItem.remark = joinResult.remark;
+
+      let lastMode = this.state.DIYEventShowMode;
+      if (lastMode === 'small') {
+        this.setState({ DIYEventShowMode: 'large' });
+        this.setState({ DIYEventShowMode: 'small' });
+      }
+
+      /// 强制更新一下
+      this.forceUpdate();
     } else {
       if (joinResult) {
         message.info(joinResult.errMessage);
@@ -411,7 +415,7 @@ class diyReserve extends React.Component {
                     let participantsNumber = item.participants.length;
                     return (
                       <List.Item>
-                        <div style={{ marginLeft: 10, marginRight: 2 }}>
+                        <div style={{ marginLeft: 10, marginRight: 2 }} className='animaToBig'>
                           <Button disabled>
                             <span>{start}</span>
                             <span style={{
@@ -442,21 +446,38 @@ class diyReserve extends React.Component {
                                           </Button>
                                           <Button danger style={{ marginLeft: 20 }} size='small' icon={<CloseOutlined />}
                                             onClick={async () => {
-                                              let couponId = item1.couponId;
-                                              let memberName = item1.memberName;
-                                              let eventId = item1.eventId;
-                                              await LeaveFromEvent(couponId, memberName, eventId);
-                                              await this.fetchDIYEventList(false);
+                                              Modal.confirm({
+                                                title: '是否删除',
+                                                content: '删除会从DIY活动名单中移除该会员',
+                                                okText: '确认删除',
+                                                cancelText: '取消',
+                                                onOk: async () => {
+                                                  let couponId = item1.couponId;
+                                                  let memberName = item1.memberName;
+                                                  let eventId = item1.eventId;
+                                                  await LeaveFromEvent(couponId, memberName, eventId);
+                                                  await this.fetchDIYEventList(false);
+                                                }
+                                              })
                                             }}>
                                           </Button>
                                         </div>
                                       )
-                                    }>
+                                    } className='animaToBig'>
                                     <List.Item.Meta
                                       title={(
-                                        <Text style={{ width: 104, marginLeft: -16 }} ellipsis type='warning'>
-                                          {item1.memberName}
-                                        </Text>
+                                        <div>
+                                          <Text style={{ fontSize: 14, width: 104, marginLeft: -12 }} ellipsis type='danger'>
+                                            {item1.memberName}
+                                          </Text>
+                                        </div>
+                                      )}
+                                      description={(
+                                        <div style={{ marginTop: -12 }}>
+                                          <Text style={{ fontSize: 12, width: 104, marginLeft: -12 }} ellipsis type='warning'>
+                                            {item1.couponId}
+                                          </Text>
+                                        </div>
                                       )}>
                                     </List.Item.Meta>
                                   </List.Item>)

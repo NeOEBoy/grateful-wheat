@@ -810,6 +810,7 @@ const saveRemark = async (couponId, remarkText) => {
 const sendSMS = async (phoneNumber, templateParam1) => {
   // todo 测试，正式删除
   return { errCode: 'Ok', errMessage: '' };
+
   try {
     const clientConfig = {
       credential: {

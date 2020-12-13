@@ -381,7 +381,7 @@ class diyReserve extends React.Component {
             position: "fixed", zIndex: 5, fontSize: 12, bottom: 0,
             right: 0, background: 'rgba(136,136,136,0.9)', borderRadius: 10
           }}>
-            <Button shape='round' style={{
+            <Button size='small' shape='round' style={{
               marginLeft: 10,
               marginTop: 10,
               marginRight: 10,
@@ -402,9 +402,10 @@ class diyReserve extends React.Component {
         ) : (
             <div style={{
               position: "fixed", zIndex: 5, fontSize: 12, bottom: 0,
-              right: 0, background: 'rgba(136,136,136,0.95)', borderRadius: 10
+              right: 0, background: 'rgba(136,136,136,0.98)', borderRadius: 10
             }} className='animaToBig'>
               <List
+                size='small'
                 locale={{ emptyText: '没有DIY活动，请创建' }}
                 dataSource={DIYEventList}
                 renderItem={
@@ -416,7 +417,7 @@ class diyReserve extends React.Component {
                     return (
                       <List.Item>
                         <div style={{ marginLeft: 10, marginRight: 2 }} className='animaToBig'>
-                          <Button disabled>
+                          <Button size='small' disabled>
                             <span>{start}</span>
                             <span style={{
                               width: 22, height: 22,
@@ -466,19 +467,13 @@ class diyReserve extends React.Component {
                                     } className='animaToBig'>
                                     <List.Item.Meta
                                       title={(
-                                        <div>
-                                          <Text style={{ fontSize: 14, width: 104, marginLeft: -12 }} ellipsis type='danger'>
+                                        <div style={{ marginTop: -4, marginBottom: -4 }}>
+                                          <Text style={{ color: 'white', fontSize: 12, width: 104, marginLeft: -12 }} ellipsis>
                                             {item1.memberName}
                                           </Text>
                                         </div>
                                       )}
-                                      description={(
-                                        <div style={{ marginTop: -12 }}>
-                                          <Text style={{ fontSize: 12, width: 104, marginLeft: -12 }} ellipsis type='warning'>
-                                            {item1.couponId}
-                                          </Text>
-                                        </div>
-                                      )}>
+                                    >
                                     </List.Item.Meta>
                                   </List.Item>)
                                 )
@@ -488,7 +483,7 @@ class diyReserve extends React.Component {
                         </div>
 
                         <div>
-                          <Button danger icon={<DeleteOutlined />}
+                          <Button size='small' danger icon={<DeleteOutlined />}
                             style={{ marginLeft: 2, marginRight: 10 }}
                             onClick={
                               () => {
@@ -517,12 +512,13 @@ class diyReserve extends React.Component {
                   }
                 }
                 header={
-                  <div style={{ textAlign: 'center', fontSize: 12, color: 'white' }}>
+                  <div style={{ textAlign: 'center', fontSize: 12, color: 'white', height: 10 }}>
                     DIY活动列表
-                      <Button
+                    <Button
                       style={{ position: 'absolute', right: 4, top: 6 }}
                       type='primary'
                       shape='circle'
+                      size='small'
                       icon={<CloseOutlined />}
                       onClick={
                         () => {
@@ -539,6 +535,7 @@ class diyReserve extends React.Component {
                       style={{
                         marginBottom: 0
                       }}
+                      size='small'
                       onClick={() => {
                         this.showCreateDIYEventModal();
                       }}>
@@ -552,6 +549,7 @@ class diyReserve extends React.Component {
           )}
 
         <List
+          size='small'
           locale={{ emptyText: '暂时没有数据' }}
           loading={loading}
           header={

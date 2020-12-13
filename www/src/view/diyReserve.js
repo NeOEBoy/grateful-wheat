@@ -29,7 +29,7 @@ import {
   MessageOutlined, FileAddTwoTone,
   DeleteOutlined, CloseOutlined,
   AppstoreTwoTone, ExclamationCircleOutlined,
-  UserAddOutlined
+  UserAddOutlined, MinusCircleOutlined
 } from '@ant-design/icons';
 import './diyReserve.css';
 import moment from 'moment';
@@ -382,10 +382,10 @@ class diyReserve extends React.Component {
             right: 0, background: 'rgba(136,136,136,0.9)', borderRadius: 10
           }}>
             <Button size='small' shape='round' style={{
-              marginLeft: 10,
-              marginTop: 10,
-              marginRight: 10,
-              marginBottom: 10
+              marginLeft: 4,
+              marginTop: 4,
+              marginRight: 4,
+              marginBottom: 4
             }} icon={<AppstoreTwoTone />} onClick={
               () => {
                 this.setState({ DIYEventShowMode: 'large' })
@@ -393,6 +393,7 @@ class diyReserve extends React.Component {
             }>
               <span>查看DIY活动</span>
               <span style={{
+                marginLeft: 4,
                 width: 22, height: 22,
                 backgroundColor: 'orange',
                 borderRadius: 11
@@ -403,7 +404,7 @@ class diyReserve extends React.Component {
             <div style={{
               position: "fixed", zIndex: 5, fontSize: 12, bottom: 0,
               right: 0, background: 'rgba(136,136,136,0.98)', borderRadius: 10
-            }} className='animaToBig'>
+            }}>
               <List
                 size='small'
                 locale={{ emptyText: '没有DIY活动，请创建' }}
@@ -416,20 +417,34 @@ class diyReserve extends React.Component {
                     let participantsNumber = item.participants.length;
                     return (
                       <List.Item>
-                        <div style={{ marginLeft: 10, marginRight: 2 }} className='animaToBig'>
-                          <Button size='small' disabled>
+                        <div style={{ marginLeft: -10, marginRight: 0 }} className='animaToBig'>
+                          <Button size='small' onClick={() => {
+                            if (item.fold !== undefined) {
+                              item.fold = !(item.fold);
+                            } else {
+                              item.fold = true;
+                            }
+
+                            this.forceUpdate();
+                          }}
+                          >
                             <span>{start}</span>
                             <span style={{
+                              marginLeft: 4,
                               width: 22, height: 22,
                               backgroundColor: 'orange',
                               borderRadius: 11
                             }}>{participantsNumber}</span>
                           </Button>
 
-                          <List
+                          {item.fold ? (
+                            <div style={{ textAlign: 'center', color: 'green', fontSize: 12 }}>
+                              点击上方标题展开名单
+                            </div>
+                          ) : <List
                             split={false}
                             size='small'
-                            style={{ width: 208, marginTop: 2 }}
+                            style={{ width: 196, marginTop: 2 }}
                             grid={{ column: 2, gutter: 0 }}
                             locale={{ emptyText: '没有参加者，请邀请' }}
                             dataSource={item.participants}
@@ -468,7 +483,7 @@ class diyReserve extends React.Component {
                                     <List.Item.Meta
                                       title={(
                                         <div style={{ marginTop: -4, marginBottom: -4 }}>
-                                          <Text style={{ color: 'white', fontSize: 12, width: 104, marginLeft: -12 }} ellipsis>
+                                          <Text style={{ color: 'white', fontSize: 12, width: 94, marginLeft: -12 }} ellipsis>
                                             {item1.memberName}
                                           </Text>
                                         </div>
@@ -479,7 +494,8 @@ class diyReserve extends React.Component {
                                 )
                               }
                             }>
-                          </List>
+                            </List>}
+
                         </div>
 
                         <div>
@@ -516,10 +532,10 @@ class diyReserve extends React.Component {
                     DIY活动列表
                     <Button
                       style={{ position: 'absolute', right: 4, top: 6 }}
-                      type='primary'
+                      type='dashed'
                       shape='circle'
                       size='small'
-                      icon={<CloseOutlined />}
+                      icon={<MinusCircleOutlined />}
                       onClick={
                         () => {
                           this.setState({ DIYEventShowMode: 'small' })
@@ -546,7 +562,8 @@ class diyReserve extends React.Component {
               >
               </List>
             </div>
-          )}
+          )
+        }
 
         <List
           size='small'
@@ -764,23 +781,54 @@ class diyReserve extends React.Component {
                 快捷设置：
               </span>
               <span>
-                <Button style={{ marginLeft: 8 }} type='dashed' danger onClick={() => {
-                  let thisWeekSix = moment().endOf('week')
-                    .subtract(1, 'days').set('hour', 15)
-                    .set('minute', 30).set('second', 0)
+                <Button style={{ marginLeft: 8, marginTop: 8 }} type='dashed' danger onClick={() => {
+                  let thisWeekSix = moment()
+                    .endOf('week')
+                    .subtract(1, 'days')
+                    .set('hour', 15)
+                    .set('minute', 30)
+                    .set('second', 0)
                     .set('millisecond', 0);
                   this.setState({ eventTime4createDIY: thisWeekSix });
                 }}>
                   本周六15:30
                 </Button>
-                <Button style={{ marginLeft: 8 }} type='dashed' danger onClick={() => {
-                  let thisWeekSix = moment().endOf('week')
-                    .set('hour', 15).set('minute', 30)
-                    .set('second', 0).set('millisecond', 0);
+                <Button style={{ marginLeft: 8, marginTop: 8 }} type='dashed' danger onClick={() => {
+                  let thisWeekSix = moment()
+                    .endOf('week')
+                    .set('hour', 15)
+                    .set('minute', 30)
+                    .set('second', 0)
+                    .set('millisecond', 0);
                   this.setState({ eventTime4createDIY: thisWeekSix });
                 }}>
                   本周日15:30
-              </Button>
+                </Button>
+                <Button style={{ marginLeft: 8, marginTop: 8 }} type='dashed' danger onClick={() => {
+                  let thisWeekSix = moment()
+                    .add(7, 'days')
+                    .endOf('week')
+                    .subtract(1, 'days')
+                    .set('hour', 15)
+                    .set('minute', 30)
+                    .set('second', 0)
+                    .set('millisecond', 0);
+                  this.setState({ eventTime4createDIY: thisWeekSix });
+                }}>
+                  下周六15:30
+                </Button>
+                <Button style={{ marginLeft: 8, marginTop: 8 }} type='dashed' danger onClick={() => {
+                  let thisWeekSix = moment()
+                    .add(7, 'days')
+                    .endOf('week')
+                    .set('hour', 15)
+                    .set('minute', 30)
+                    .set('second', 0)
+                    .set('millisecond', 0);
+                  this.setState({ eventTime4createDIY: thisWeekSix });
+                }}>
+                  下周日15:30
+                </Button>
               </span>
             </div>
           </div>
@@ -825,7 +873,7 @@ class diyReserve extends React.Component {
               )
           }
         </Modal>
-      </div>
+      </div >
     );
   }
 }

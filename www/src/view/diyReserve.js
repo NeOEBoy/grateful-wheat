@@ -463,6 +463,7 @@ class diyReserve extends React.Component {
                                           <Button danger style={{ marginLeft: 20 }} size='small' icon={<CloseOutlined />}
                                             onClick={async () => {
                                               Modal.confirm({
+                                                style: { top: 0 },
                                                 title: '是否删除',
                                                 content: '删除会从DIY活动名单中移除该会员',
                                                 okText: '确认删除',
@@ -504,6 +505,7 @@ class diyReserve extends React.Component {
                             onClick={
                               () => {
                                 Modal.confirm({
+                                  style: { top: 0 },
                                   icon: <ExclamationCircleOutlined />,
                                   title: '是否删除',
                                   content: (
@@ -609,20 +611,20 @@ class diyReserve extends React.Component {
                   description={(
                     <div>
                       <div style={{ marginTop: -10 }}>
-                        <span style={{ color: "gray", fontSize: 12 }}>制券时间：</span>
+                        <span style={{ color: "gray", fontSize: 12 }}>制券:</span>
                         <span style={{ color: "gray", fontSize: 10 }}>{`${item.couponCreateTime}`}</span>
                       </div>
                       <div style={{ marginTop: -8 }}>
-                        <span style={{ color: "gray", fontSize: 12 }}>使用时间：</span>
-                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponWriteOffTime}`}</span>
+                        <span style={{ color: "gray", fontSize: 12 }}>使用:</span>
+                        <span style={{ color: "gray", fontSize: 10 }}>{`${item.couponWriteOffTime}`}</span>
                       </div>
                       <div style={{ marginTop: -8 }}>
-                        <span style={{ color: "gray", fontSize: 12 }}>会员名字：</span>
-                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.memberName}`}</span>
+                        <span style={{ color: "gray", fontSize: 12 }}>名字:</span>
+                        <Text ellipsis style={{ color: "crimson", fontSize: 10, width: 100 }}>{`${item.memberName}`}</Text>
                       </div>
                       <div style={{ marginTop: -8 }}>
-                        <span style={{ color: "gray", fontSize: 12 }}>状态：</span>
-                        <span style={{ color: "crimson", fontSize: 11 }}>{`${item.couponStatus}`}</span>
+                        <span style={{ color: "gray", fontSize: 12 }}>状态:</span>
+                        <span style={{ color: "crimson", fontSize: 10 }}>{`${item.couponStatus}`}</span>
                       </div>
                       <Button type='primary' icon={<PhoneOutlined />}
                         shape='circle' danger={callButtonDanger}
@@ -691,7 +693,7 @@ class diyReserve extends React.Component {
         </List>
 
         <Modal
-          style={{ top: 12 }}
+          style={{ top: 0 }}
           title="拨打电话"
           visible={this.state.callModalVisible}
           onOk={this.handleCallModalOnOk}
@@ -710,12 +712,12 @@ class diyReserve extends React.Component {
         </Modal>
 
         <Modal
-          style={{ top: 12 }}
+          style={{ top: 0 }}
           title="发送短信"
           visible={this.state.messageModalVisible}
           onOk={this.handleMessageModalOnOk}
           onCancel={this.handleMessageModalOnCancel}
-          okText="确认发送并添加到名单中"
+          okText="添加到名单中并确认发送短信"
           cancelText="取消"
           closable
           okButtonProps={{ disabled: sendSMSModalDisable }}
@@ -760,7 +762,7 @@ class diyReserve extends React.Component {
         </Modal>
 
         <Modal
-          style={{ top: 12 }}
+          style={{ top: 0 }}
           title="创建DIY活动"
           visible={this.state.createDIYEventModalVisible}
           onOk={this.handleCreateDIYEventModalOnOk}
@@ -835,7 +837,7 @@ class diyReserve extends React.Component {
         </Modal>
 
         <Modal
-          style={{ top: 12 }}
+          style={{ top: 0 }}
           title="选择参加DIY活动"
           visible={this.state.joinToEventModalVisible}
           onOk={this.handleJoinToEventModalOnOk}

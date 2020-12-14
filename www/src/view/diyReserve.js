@@ -21,7 +21,9 @@ import {
   DeleteDIYEvent,
   JoinToEvent,
   LeaveFromEvent,
-  sendSMSAndJoinToEvent
+  sendSMSAndJoinToEvent,
+  saveLastPage,
+  getLastPage
 } from '../api/api';
 
 import {
@@ -66,8 +68,12 @@ class diyReserve extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.fetchListDataByPage(1);
+  async componentDidMount() {
+    let lastPageResult = await getLastPage();
+    if (lastPageResult && lastPageResult.errCode === 0) {
+      let page = lastPageResult.page;
+      this.fetchListDataByPage(page);
+    }
     this.fetchDIYEventList(true);
   }
 
@@ -353,7 +359,7 @@ class diyReserve extends React.Component {
           <div style={{ marginTop: 4, marginLeft: 6, fontSize: 24 }}>
             DIY活动预约
           </div>
-          <Search style={{ width: 280, marginTop: 4, marginLeft: 6, marginBottom: 4 }} size="middle"
+          <Search style={{ width: 240, marginTop: 4, marginLeft: 6, marginBottom: 4 }} size="middle"
             placeholder="券号/会员号/会员姓名" enterButton="查询"
             onSearch={async () => {
               this.fetchListDataByPage(1);
@@ -367,6 +373,8 @@ class diyReserve extends React.Component {
             style={{ marginTop: 4, marginLeft: 6, marginBottom: 12 }}
             onChange={(pageIndex) => {
               this.fetchListDataByPage(pageIndex);
+
+              saveLastPage(pageIndex);
             }}
             showQuickJumper={true}
             showSizeChanger={false}
@@ -717,7 +725,7 @@ class diyReserve extends React.Component {
           visible={this.state.messageModalVisible}
           onOk={this.handleMessageModalOnOk}
           onCancel={this.handleMessageModalOnCancel}
-          okText="添加到名单中并确认发送短信"
+          okText="添加到名单中并发送短信"
           cancelText="取消"
           closable
           okButtonProps={{ disabled: sendSMSModalDisable }}

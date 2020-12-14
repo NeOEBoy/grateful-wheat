@@ -223,6 +223,26 @@ const LeaveFromEvent = async (couponId, memberName, eventId) => {
   return leaveFromEventUrlResponseJson;
 }
 
+const saveLastPage = async (page) => {
+  let saveLastPageUrl = KApiHost + '/coupon/saveLastPage';
+  saveLastPageUrl += '?page='
+  saveLastPageUrl += page;
+
+  // console.log(saveLastPageUrl);
+  const saveLastPageResponse = await fetch(saveLastPageUrl);
+  const saveLastPageResponseJson = await saveLastPageResponse.json();
+  return saveLastPageResponseJson;
+}
+
+const getLastPage = async () => {
+  let getLastPageUrl = KApiHost + '/coupon/getLastPage';
+
+  // console.log(getLastPageUrl);
+  const getLastPageResponse = await fetch(getLastPageUrl);
+  const getLastPageResponseJson = await getLastPageResponse.json();
+  return getLastPageResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -237,5 +257,7 @@ export {
   DeleteDIYEvent,
   JoinToEvent,
   LeaveFromEvent,
-  sendSMSAndJoinToEvent
+  sendSMSAndJoinToEvent,
+  saveLastPage,
+  getLastPage
 };

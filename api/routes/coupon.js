@@ -264,4 +264,40 @@ router.get('/leaveFromEvent', async function (req, res, next) {
   }
 });
 
+router.get('/saveLastPage', async function (req, res, next) {
+  try {
+    let page = req.query.page;
+
+    let Pages = models.Pages;
+    await Pages.findOneAndUpdate(
+      { id: '001' },
+      { page: page },
+      { new: true, upsert: true }
+    );
+    res.send({ errCode: 0 });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
+router.get('/getLastPage', async function (req, res, next) {
+  try {
+    let Pages = models.Pages;
+
+    let page = 1;
+    let lastPageItem = await Pages.findOne(
+      { id: '001' }
+    );
+    if (lastPageItem) {
+      page = lastPageItem.page;
+    }
+
+    res.send({ errCode: 0, page: page });
+  } catch (err) {
+    console.log('err = ' + err);
+    next(err)
+  }
+});
+
 module.exports = router;

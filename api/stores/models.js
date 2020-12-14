@@ -29,3 +29,14 @@ var ParticipantSchema = new Schema({
   eventId: String,
 });
 exports.Participants = mongo.model('participants', ParticipantSchema);
+
+/*
+  页面索引Scheme
+*/
+var PageSchema = new Schema({
+  // id=001
+  id: String,
+  // 页码
+  page: Number
+});
+exports.Pages = mongo.model('pages', PageSchema);

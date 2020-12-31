@@ -809,7 +809,7 @@ const saveRemark = async (couponId, remarkText) => {
 
 const sendSMS = async (phoneNumber, templateParam1) => {
   // todo 测试，正式删除
-  return { errCode: 'Ok', errMessage: '' };
+  // return { errCode: 'Ok', errMessage: '' };
 
   try {
     const clientConfig = {
@@ -828,7 +828,7 @@ const sendSMS = async (phoneNumber, templateParam1) => {
     const client = new SmsClient(clientConfig);
     const params = {
       SmsSdkAppid: '1400452256',
-      PhoneNumberSet: ['+86' + '18698036807'],// todo替换真实电话号码
+      PhoneNumberSet: ['+86' + phoneNumber],
       Sign: '弯麦烘焙',
       TemplateID: '784973',
       TemplateParamSet: [templateParam1]

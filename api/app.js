@@ -68,12 +68,16 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-/// 启动定时任务，定时汇报营业数据
+/// 启动定时任务，每日汇报营业数据
 const startScheduleBusinessDay = require('./schedule/schedule-task-business-day');
 startScheduleBusinessDay();
+/// 启动定时任务，每周汇报营业数据
 const startScheduleBusinessWeek = require('./schedule/schedule-task-business-week');
 startScheduleBusinessWeek();
-/// 启动定时任务，定时汇报打卡数据
+/// 启动定时任务，每月汇报营业数据
+const startScheduleBusinessMonth = require('./schedule/schedule-task-business-month');
+startScheduleBusinessMonth();
+/// 启动定时任务，每日汇报打卡数据
 const startScheduleCheckin = require('./schedule/schedule-task-checkin');
 startScheduleCheckin();
 

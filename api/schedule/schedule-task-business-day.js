@@ -23,26 +23,22 @@ const KReportWebhookUrl =
   'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=24751d96-c739-4860-b8d1-6fe3da1a71f9';
 const KReportWebhookUrl4Test =
   'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
+let beginDateMoment;
+let endDateMoment;
+
 /**--------------------配置信息--------------------*/
-
-const beginDateMoment = () => {
-  let startOfDayMoment = moment().startOf('day');
-  return startOfDayMoment;
-}
-
-const endDateMoment = () => {
-  let endOfDayMoment = moment().endOf('day');
-  return endOfDayMoment;
-}
-
 const startScheduleBusiness = async () => {
   // 秒、分、时、日、月、周几
-  // 每日23点58分00秒自动发送
+  // 每日0点1分0秒自动发送
   try {
     if (KForTest) {
+      beginDateMoment = moment().startOf('day');
+      endDateMoment = moment().endOf('day');
       await dostartScheduleBusiness();
     } else {
-      schedule.scheduleJob('00 58 23 * * *', async () => {
+      schedule.scheduleJob('0 1 0 * * *', async () => {
+        beginDateMoment = moment().subtract(1, 'days').startOf('day');
+        endDateMoment = moment().subtract(1, 'days').endOf('day');
         await dostartScheduleBusiness();
       });
     }
@@ -87,8 +83,8 @@ const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
 
 const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
   let totalContent = '';
-  let beginDateTime = escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
-  let endDateTime = escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  let beginDateTime = escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
+  let endDateTime = escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
 
   /*-------------------------*/
   /// 商品销售情况
@@ -198,8 +194,8 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
 
 const buildCouponString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
   let totalContent = '';
-  let beginDateTime = escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
-  let endDateTime = escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  let beginDateTime = escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
+  let endDateTime = escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
 
   /*-------------------------*/
   /// 商品销售情况
@@ -299,46 +295,62 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
   /// 实收情况
   totalContent += '**' + businessSummaryObj4workweixin.actualIncomeItem.title + '**\n';
   /// 现金实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '(元)**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '(元)(费率:无)**\n';
   /// 现金实收-门店
   let cashpayMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.cashpay + '</font>\n';
+    totalContent += '> ' + store.name + ':\n<font color=\"info\">' + '实:' + store.cashpay + '</font>\n';
 
     let cashpayMoney = parseFloat(store.cashpay);
     cashpayMoneyTotal += cashpayMoney;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + cashpayMoneyTotal.toFixed(2) + '</font>\n';
+  totalContent += '> ' + '总计' + ':\n<font color=\"warning\">' + '实:' + cashpayMoneyTotal.toFixed(2) + '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 微信实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '(元)**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '(元)(费率:0.3%)**\n';
   /// 微信实收-门店
   let weixinpayMoneyTotal = 0;
+  let weixinpayMoneyTotalFinal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.weixinpay + '</font>\n';
-
+    totalContent += '> ' + store.name + ':\n<font color=\"info\">' +
+      '虚:' + store.weixinpay + ' ' +
+      '实:' + store.weixinpayFinal +
+      '</font>\n';
     let weixinpayMoney = parseFloat(store.weixinpay);
     weixinpayMoneyTotal += weixinpayMoney;
+    let weixinpayMoneyFinal = parseFloat(store.weixinpayFinal);
+    weixinpayMoneyTotalFinal += weixinpayMoneyFinal;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + weixinpayMoneyTotal.toFixed(2) + '</font>\n';
+  totalContent += '> ' + '总计' + ':\n<font color=\"warning\">' +
+    '虚:' + weixinpayMoneyTotal.toFixed(2) + ' ' +
+    '实:' + weixinpayMoneyTotalFinal.toFixed(2) +
+    '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
   /*-------------------------*/
   /// 支付宝实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '(元)**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '(元)(费率:0.38%)**\n';
   /// 支付宝实收-门店
   let alipayMoneyTotal = 0;
+  let alipayMoneyTotalFinal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.alipay + '</font>\n';
-
+    totalContent += '> ' + store.name + ':\n<font color=\"info\">' +
+      '虚:' + store.alipay + ' ' +
+      '实:' + store.alipayFinal +
+      '</font>\n';
     let alipayMoney = parseFloat(store.alipay);
     alipayMoneyTotal += alipayMoney;
+    let alipayMoneyFinal = parseFloat(store.alipayFinal);
+    alipayMoneyTotalFinal += alipayMoneyFinal;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + alipayMoneyTotal.toFixed(2) + '</font>\n';
+  totalContent += '> ' + '总计' + ':\n<font color=\"warning\">' +
+    '虚:' + alipayMoneyTotal.toFixed(2) + ' ' +
+    '实:' + alipayMoneyTotalFinal.toFixed(2) +
+    '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
 
@@ -347,13 +359,23 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
   totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.title + '(元)**\n';
   /// 总实收-门店
   let overviewMoneyTotal = 0;
+  let overviewMoneyTotalFinal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.stores.forEach(store => {
-    totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.overview + '</font>\n';
+    totalContent += '> ' + store.name + ':\n<font color=\"info\">' +
+      '虚:' + store.overview + ' ' +
+      '实:' + store.overviewFinal +
+      '</font>\n';
 
     let overviewMoney = parseFloat(store.overview);
     overviewMoneyTotal += overviewMoney;
+
+    let overviewMoneyFinal = parseFloat(store.overviewFinal);
+    overviewMoneyTotalFinal += overviewMoneyFinal;
   });
-  totalContent += '> ' + '总计' + ':<font color=\"warning\"> ' + overviewMoneyTotal.toFixed(2) + '</font>\n';
+  totalContent += '> ' + '总计' + ':\n<font color=\"warning\">' +
+    '虚:' + overviewMoneyTotal.toFixed(2) + ' ' +
+    '实:' + overviewMoneyTotalFinal.toFixed(2) +
+    '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
   if (KForTest) console.log(totalContent);
@@ -377,9 +399,9 @@ const getDiscardInventoryByUserId = async (thePOSPALAUTH30220, userId) => {
 
   let discardInventoryBodyStr = 'userId=' + userId;
   discardInventoryBodyStr += '&beginDateTime=';
-  discardInventoryBodyStr += escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  discardInventoryBodyStr += escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
   discardInventoryBodyStr += '&endDateTime=';
-  discardInventoryBodyStr += escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  discardInventoryBodyStr += escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
 
   const commoditySalesResponse = await fetch(discardInventoryUrl, {
     method: 'POST', body: discardInventoryBodyStr,
@@ -434,9 +456,9 @@ const getNewMemberCountByUserId = async (thePOSPALAUTH30220, userId) => {
   newCustomerSummaryBodyStr += userId;
   newCustomerSummaryBodyStr += '&groupBy=day';
   newCustomerSummaryBodyStr += '&beginDateTime=';
-  newCustomerSummaryBodyStr += beginDateMoment().format('YYYY-MM-DD');
+  newCustomerSummaryBodyStr += beginDateMoment.format('YYYY-MM-DD');
   newCustomerSummaryBodyStr += '&endDateTime=';
-  newCustomerSummaryBodyStr += endDateMoment().format('YYYY-MM-DD');
+  newCustomerSummaryBodyStr += endDateMoment.format('YYYY-MM-DD');
 
   const newCustomerSummaryResponse = await fetch(newCustomerSummaryUrl, {
     method: 'POST', body: newCustomerSummaryBodyStr,
@@ -470,12 +492,12 @@ const getCouponByUserIdAndParse = async (thePOSPALAUTH30220, userId) => {
 
 const getCouponByUserId = async (thePOSPALAUTH30220, userId) => {
   let getCouponUrl = 'https://beta33.pospal.cn/Promotion/LoadCouponSummary';
-  
+
   let getCouponBodyStr = 'userIds%5B%5D=' + userId;
   getCouponBodyStr += '&beginDateTime=';
-  getCouponBodyStr += escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  getCouponBodyStr += escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
   getCouponBodyStr += '&endDateTime=';
-  getCouponBodyStr += escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  getCouponBodyStr += escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
   getCouponBodyStr += '&queryType=1';
   getCouponBodyStr += '&promotionCouponType=';
   getCouponBodyStr += '&salable=';
@@ -530,9 +552,9 @@ const getBusinessSummaryByUserId = async (thePOSPALAUTH30220, userId) => {
   businessSummaryBodyStr += 'userIds%5B%5D=';
   businessSummaryBodyStr += userId;
   businessSummaryBodyStr += '&beginDateTime=';
-  businessSummaryBodyStr += escape(beginDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  businessSummaryBodyStr += escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
   businessSummaryBodyStr += '&endDateTime=';
-  businessSummaryBodyStr += escape(endDateMoment().format('YYYY.MM.DD+HH:mm:ss'));
+  businessSummaryBodyStr += escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
 
   const businessSummaryResponse = await fetch(businessSummary, {
     method: 'POST', body: businessSummaryBodyStr,
@@ -734,15 +756,24 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         actualIncomeCashpay = parseFloat(businessSummaryObj.actualIncomeObj.cashpay);
       }
       let actualIncomeAlipay = 0;
+      let actualIncomeAlipayFinal = 0;
       if (businessSummaryObj.actualIncomeObj.alipay !== '') {
         actualIncomeAlipay = parseFloat(businessSummaryObj.actualIncomeObj.alipay);
+        actualIncomeAlipayFinal = actualIncomeAlipay * (1 - 0.0038);
+        businessSummaryObj.actualIncomeObj.alipayFinal = actualIncomeAlipayFinal.toFixed(2);
       }
       let actualIncomeWeixinpay = 0;
+      let actualIncomeWeixinpayFinal = 0;
       if (businessSummaryObj.actualIncomeObj.weixinpay !== '') {
         actualIncomeWeixinpay = parseFloat(businessSummaryObj.actualIncomeObj.weixinpay);
+        actualIncomeWeixinpayFinal = actualIncomeWeixinpay * (1 - 0.003);
+        businessSummaryObj.actualIncomeObj.weixinpayFinal = actualIncomeWeixinpayFinal.toFixed(2);
       }
       let actualIncomeOverview = actualIncomeCashpay + actualIncomeAlipay + actualIncomeWeixinpay;
       businessSummaryObj.actualIncomeObj.overview = actualIncomeOverview.toFixed(2);
+      let actualIncomeOverviewFinal = actualIncomeCashpay +
+        actualIncomeAlipayFinal + actualIncomeWeixinpayFinal;
+      businessSummaryObj.actualIncomeObj.overviewFinal = actualIncomeOverviewFinal.toFixed(2);
     }
   } catch (e) {
     console.log('解析businessSummary出错 e = ' + e);
@@ -752,8 +783,8 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
 };
 
 const parseBusinessSummaryArray = (businessSummaryObjArray) => {
-  let beginToEndDay = beginDateMoment().format('YYYY.MM.DD')
-    + '~' + endDateMoment().format('YYYY.MM.DD')
+  let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
+    + '~' + endDateMoment.format('YYYY.MM.DD')
 
   let businessSummaryObj4workweixin = {};
 
@@ -894,24 +925,30 @@ const parseBusinessSummaryArray = (businessSummaryObjArray) => {
     businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores.push(store4ActualIncomeCashpay);
 
     let actualIncomeWeixinpay = actualIncomeObj.weixinpay;
+    let actualIncomeWeixinpayFinal = actualIncomeObj.weixinpayFinal;
     let store4ActualIncomeWeixinpay = {};
     store4ActualIncomeWeixinpay.name = businessSummaryObj.shop.name;
     store4ActualIncomeWeixinpay.userId = businessSummaryObj.shop.userId;
     store4ActualIncomeWeixinpay.weixinpay = actualIncomeWeixinpay ? actualIncomeWeixinpay : '0.00';
+    store4ActualIncomeWeixinpay.weixinpayFinal = actualIncomeWeixinpayFinal ? actualIncomeWeixinpayFinal : '0.00';
     businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.stores.push(store4ActualIncomeWeixinpay);
 
     let actualIncomeAlipay = actualIncomeObj.alipay;
+    let actualIncomeAlipayFinal = actualIncomeObj.alipayFinal;
     let store4ActualIncomeAlipay = {};
     store4ActualIncomeAlipay.name = businessSummaryObj.shop.name;
     store4ActualIncomeAlipay.userId = businessSummaryObj.shop.userId;
     store4ActualIncomeAlipay.alipay = actualIncomeAlipay ? actualIncomeAlipay : '0.00';
+    store4ActualIncomeAlipay.alipayFinal = actualIncomeAlipayFinal ? actualIncomeAlipayFinal : '0.00';
     businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.stores.push(store4ActualIncomeAlipay);
 
     let actualIncomeOverview = actualIncomeObj.overview;
+    let actualIncomeOverviewFinal = actualIncomeObj.overviewFinal;
     let store4ActualIncomeOverview = {};
     store4ActualIncomeOverview.name = businessSummaryObj.shop.name;
     store4ActualIncomeOverview.userId = businessSummaryObj.shop.userId;
     store4ActualIncomeOverview.overview = actualIncomeOverview ? actualIncomeOverview : '0.00';
+    store4ActualIncomeOverview.overviewFinal = actualIncomeOverviewFinal ? actualIncomeOverviewFinal : '0.00';
     businessSummaryObj4workweixin.actualIncomeItem.overviewMoney.stores.push(store4ActualIncomeOverview);
   });
 

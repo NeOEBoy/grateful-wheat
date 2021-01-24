@@ -2,17 +2,38 @@
 const schedule = require('node-schedule');
 const fetch = require('node-fetch');
 const dateFormat = require('../util/date-util').dateFormat;
+const moment = require('moment');
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
+const KSendToWorkWeixin = true;
+const KReportWebhookUrl =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b9faf185-22db-402b-a35f-e19aad92e8da';
+const KReportWebhookUrl4Test =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
+
+let beginDateMoment;
+let endDateMoment;
 
 /**--------------------配置信息--------------------*/
-
-const whichDate = () => {
-  let theDate = new Date();
-  // 换算成昨天，测试用
-  // theDate.setTime(theDate.getTime() - 24 * 60 * 60 * 1000);
-  return theDate;
+const startScheduleCheckin = async () => {
+  // 秒、分、时、日、月、周几
+  // 每日23点59分00秒自动发送
+  try {
+    if (KForTest) {
+      beginDateMoment = moment().startOf('day');
+      endDateMoment = moment().endOf('day');
+      await dostartScheduleCheckin();
+    } else {
+      schedule.scheduleJob('00 59 23 * * *', async () => {
+        beginDateMoment = moment().startOf('day');
+        endDateMoment = moment().endOf('day');
+        await dostartScheduleCheckin();
+      });
+    }
+  } catch (e) {
+    console.log('startScheduleCheckin e=' + e.toString());
+  }
 }
 
 const getAccessToken = async () => {
@@ -54,15 +75,9 @@ const getCheckInData = async (accessToken, userIdList) => {
   checkInDataUrl += 'access_token=';
   checkInDataUrl += accessToken;
 
-  const date = whichDate();
-  let startTime = new Date(new Date(date.toLocaleDateString()).getTime());
-  startTime = Math.round(startTime / 1000);
+  let startTime = beginDateMoment.unix();
+  let endtime = endDateMoment.unix();
 
-  // console.log('startTime = ' + startTime);
-  let endtime = new Date(new Date(date.toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1);
-  endtime = Math.round(endtime / 1000);
-
-  // console.log('endtime = ' + endtime);
   let checkInBody = {
     'opencheckindatatype': 3,
     'useridlist': userIdList,
@@ -79,10 +94,12 @@ const getCheckInData = async (accessToken, userIdList) => {
 }
 
 const doSendToCompanyGroup = async (content) => {
-  let webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=b9faf185-22db-402b-a35f-e19aad92e8da';
-  
+  if (!KSendToWorkWeixin) return;
+
+  let webhookUrl = KReportWebhookUrl;
+
   ///测试地址
-  if (KForTest) webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
+  if (KForTest) webhookUrl = KReportWebhookUrl4Test;
 
   let message =
   {
@@ -123,7 +140,7 @@ const dostartScheduleCheckin = async () => {
           userSimplelistResponseJson.userlist.length > 0) {
 
           let content = '';
-          content += '**' + dateFormat("YYYY.mm.dd", whichDate()) + ' ' + element.name + '打卡情况**\n';
+          content += '**' + beginDateMoment.format('YYYY.MM.DD') + ' ' + element.name + '打卡情况**\n';
 
           const userIdList = [];
           const userObjArray = [];
@@ -191,22 +208,6 @@ const dostartScheduleCheckin = async () => {
         }
       }
     }
-  }
-}
-
-const startScheduleCheckin = async () => {
-  // 秒、分、时、日、月、周几
-  // 每日23点57分00秒自动发送
-  try {
-    if (KForTest) {
-      await dostartScheduleCheckin();
-    } else {
-      schedule.scheduleJob('00 57 23 * * *', async () => {
-        await dostartScheduleCheckin();
-      });
-    }
-  } catch (e) {
-    console.log('startScheduleCheckin e=' + e.toString());
   }
 }
 

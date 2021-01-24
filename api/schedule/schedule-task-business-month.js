@@ -20,7 +20,7 @@ const KShopArray = [
   { index: 4, name: '汤泉世纪店', userId: '4061092' }
 ];
 const KReportWebhookUrl =
-  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=ccc40998-537a-497f-99cc-b0d57329dc34';
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=6f8510b6-6749-4ce6-8617-1e8afce14d65';
 const KReportWebhookUrl4Test =
   'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
 let beginDateMoment;
@@ -29,16 +29,16 @@ let endDateMoment;
 /**--------------------配置信息--------------------*/
 const startScheduleBusiness = async () => {
   // 秒、分、时、日、月、周几
-  // 每周一0点2分0秒自动发送
+  // 每月1日0点3分0秒自动发送
   try {
     if (KForTest) {
-      beginDateMoment = moment().startOf('week').startOf('day');
-      endDateMoment = moment().endOf('week').endOf('day');
+      beginDateMoment = moment().startOf('month').startOf('day');
+      endDateMoment = moment().endOf('month').endOf('day');
       await dostartScheduleBusiness();
     } else {
-      schedule.scheduleJob('0 2 0 * * 1', async () => {
-        beginDateMoment = moment().subtract(1, 'days').startOf('week').startOf('day');
-        endDateMoment = moment().subtract(1, 'days').endOf('week').endOf('day');
+      schedule.scheduleJob('0 3 0 1 * *', async () => {
+        beginDateMoment = moment().subtract(1, 'days').startOf('month').startOf('day');
+        endDateMoment = moment().subtract(1, 'days').endOf('month').endOf('day');
         await dostartScheduleBusiness();
       });
     }

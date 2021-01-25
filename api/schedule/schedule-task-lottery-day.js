@@ -1,0 +1,334 @@
+
+const schedule = require('node-schedule');
+const fetch = require('node-fetch');
+const parseStringPromise = require('xml2js').parseStringPromise;
+const moment = require('moment');
+const {
+  signIn,
+  getMemberList
+} = require('../third/pospal');
+
+/**--------------------配置信息--------------------*/
+const KForTest = false;
+const KSendToWorkWeixin = true;
+/// 增加门店这里添加一下
+KShopHeadUserId = '3995763'; // 总部账号
+const KShopArray = [
+  { index: 0, name: '总部', userId: KShopHeadUserId },
+  { index: 1, name: '教育局店', userId: '3995767' },
+  { index: 2, name: '旧镇店', userId: '3995771' },
+  { index: 3, name: '江滨店', userId: '4061089' },
+  { index: 4, name: '汤泉世纪店', userId: '4061092' }
+];
+
+const KReportWebhookUrl =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=f296f0bf-13dd-447c-afc1-3f97c7196cd5';
+const KReportWebhookUrl4Test =
+  'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=2b090cd9-9770-4f5a-a4fa-bc4d0f5f5d51';
+let beginDateMoment;
+let endDateMoment;
+
+/**--------------------配置信息--------------------*/
+const startScheduleLottery = async () => {
+  // 秒、分、时、日、月、周几
+  // 每日0点5分0秒自动发送
+  try {
+    if (KForTest) {
+      beginDateMoment = moment().startOf('day');
+      endDateMoment = moment().endOf('day');
+      await dostartScheduleLottery();
+    } else {
+      schedule.scheduleJob('0 5 0 * * *', async () => {
+        beginDateMoment = moment().subtract(1, 'days').startOf('day');
+        endDateMoment = moment().subtract(1, 'days').endOf('day');
+        await dostartScheduleLottery();
+      });
+    }
+  } catch (e) {
+    console.log('startScheduleLottery e=' + e.toString());
+  }
+}
+
+const dostartScheduleLottery = async () => {
+  /// 登录并获取验证信息
+  const thePOSPALAUTH30220 = await signIn();
+  /// 获取单据总数
+  const totalTicketRecord = await getTicketSummaryAndParse(thePOSPALAUTH30220);
+  if (totalTicketRecord < 100) {
+    console.log('单据过少，无法抽奖！！！');
+    return;
+  }
+
+  /// 循环查询单据，查找会员消费的单据
+  let ticketObj = {};
+  let count = 0;
+  let random = -1;
+  for (; ;) {
+    count++;
+    if (count > 100) break;
+
+    /// 随机索引
+    let min = 1; let max = totalTicketRecord;
+    random = Math.floor(Math.random() * (max - min + 1)) + min;
+    // console.log(random);
+    ticketObj = await getTicketByPageAndParse(thePOSPALAUTH30220, random);
+    // console.log(ticketObj);
+    if (ticketObj.memberId !== '-') break;
+  }
+
+  if (!ticketObj || ticketObj.memberId === '-') {
+    console.log('没有会员购买商品，无法抽奖！！！');
+    return;
+  }
+
+  ticketObj.totalRecord = totalTicketRecord;
+  ticketObj.luckyIndex = random;
+  let memberList = await getMemberList(thePOSPALAUTH30220, ticketObj.memberId);
+  memberList = memberList.list;
+  if (memberList.length === 1) {
+    let member = memberList[0];
+    // console.log('member = ' + JSON.stringify(member));
+    ticketObj.memberName = member.memberName;
+    ticketObj.memberPhoneNum = member.phoneNum;
+  }
+
+  console.log('ticketObj = ' + JSON.stringify(ticketObj));
+  await buildLotteryString4WorkweixinAndSend(ticketObj);
+}
+
+const getTicketSummaryAndParse = async (thePOSPALAUTH30220) => {
+  let ticketSummary = 'https://beta33.pospal.cn/Report/LoadTicketSummary';
+
+  /// userIds%5B%5D=3995763&beginDateTime=2020.10.03+00%3A00%3A00&endDateTime=2020.10.03+23%3A59%3A59
+  let ticketSummaryBodyStr = '';
+  ticketSummaryBodyStr += 'orderSource=';
+  ticketSummaryBodyStr += '&sn=';
+  ticketSummaryBodyStr += '&reversed=0';
+  ticketSummaryBodyStr += '&onlyCustomer=false';
+  ticketSummaryBodyStr += '&onlyWholesale=false';
+  ticketSummaryBodyStr += '&onlyReturn=false';
+  ticketSummaryBodyStr += '&cashierUid=';
+  ticketSummaryBodyStr += '&guiderUid=';
+  ticketSummaryBodyStr += '&paymethod=';
+  ticketSummaryBodyStr += '&beginTime=';
+  ticketSummaryBodyStr += escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
+  ticketSummaryBodyStr += '&endTime=';
+  ticketSummaryBodyStr += escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
+
+  // orderSource=&sn=&reversed=0&onlyCustomer=false&onlyWholesale=false&onlyReturn=false&beginTime=2021.01.24+00%3A00%3A00&endTime=2021.01.24+23%3A59%3A59&cashierUid=&guiderUid=&paymethod=
+  const ticketSummaryResponse = await fetch(ticketSummary, {
+    method: 'POST', body: ticketSummaryBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  const ticketSummaryResponseJson = await ticketSummaryResponse.json();
+
+  let totalTicketRecord = 0;
+
+  if (ticketSummaryResponseJson && ticketSummaryResponseJson.successed) {
+    totalTicketRecord = ticketSummaryResponseJson.totalRecord;
+  }
+
+  return totalTicketRecord;
+}
+
+const getTicketByPageAndParse = async (thePOSPALAUTH30220, pageIndex) => {
+  let ticketObj = {};
+
+  let ticketByPage = 'https://beta33.pospal.cn/Report/LoadTicketsByPage';
+
+  /// userIds%5B%5D=3995763&beginDateTime=2020.10.03+00%3A00%3A00&endDateTime=2020.10.03+23%3A59%3A59
+  let ticketByPageBodyStr = '';
+  ticketByPageBodyStr += 'orderSource=';
+  ticketByPageBodyStr += '&sn=';
+  ticketByPageBodyStr += '&reversed=0';
+  ticketByPageBodyStr += '&onlyCustomer=false';
+  ticketByPageBodyStr += '&onlyWholesale=false';
+  ticketByPageBodyStr += '&onlyReturn=false';
+  ticketByPageBodyStr += '&cashierUid=';
+  ticketByPageBodyStr += '&guiderUid=';
+  ticketByPageBodyStr += '&paymethod=';
+  ticketByPageBodyStr += '&pageIndex='; ticketByPageBodyStr += pageIndex;
+  ticketByPageBodyStr += '&pageSize=1';
+  ticketByPageBodyStr += '&orderColumn=';
+  ticketByPageBodyStr += '&asc=false';
+  ticketByPageBodyStr += '&beginTime=';
+  ticketByPageBodyStr += escape(beginDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
+  ticketByPageBodyStr += '&endTime=';
+  ticketByPageBodyStr += escape(endDateMoment.format('YYYY.MM.DD+HH:mm:ss'));
+
+  // orderSource=&sn=&reversed=0&onlyCustomer=false&onlyWholesale=false&onlyReturn=false&beginTime=2021.01.24+00%3A00%3A00&endTime=2021.01.24+23%3A59%3A59&cashierUid=&guiderUid=&paymethod=&pageIndex=1&pageSize=10&orderColumn=&asc=false
+  const ticketByPageResponse = await fetch(ticketByPage, {
+    method: 'POST', body: ticketByPageBodyStr,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  const ticketByPageResponseJson = await ticketByPageResponse.json();
+  if (ticketByPageResponseJson && ticketByPageResponseJson.successed) {
+    try {
+      let view = ticketByPageResponseJson.contentView;
+      // console.log(view);
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>' + view + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml, {
+        strict: false, // 为true可能解析不正确
+        normalizeTags: true
+      });
+      if (result) {
+        let orderTrArray = result.root.tbody[0].tr;
+        if (orderTrArray.length < 2) {
+          throw new Error('没有找到对应订单！！！');
+        }
+
+        let columnSerialNumberIndex = -1; /// 流水号
+        let columnDateIndex = -1; /// 日期
+        let columnCashierIndex = -1; /// 收银员
+        let columnMemberIndex = -1; /// 会员
+        let columnProductNumberIndex = -1; ///商品数量
+        let columnProductPriceOriginIndex = -1; ///商品原价
+        let columnProductPriceRealIndex = -1; ///商品实收
+        let columnProductPriceDiscountedIndex = -1; ///商品折让
+
+        let orderTh = result.root.thead[0].tr[0].th;
+        // console.log(orderTh);
+        let orderThLength = orderTh.length;
+        for (let index = 0; index < orderThLength; ++index) {
+          if (orderTh[index]._ === '流水号') {
+            columnSerialNumberIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '日期') {
+            columnDateIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '收银员') {
+            columnCashierIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '会员') {
+            columnMemberIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '商品数量') {
+            columnProductNumberIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '商品原价') {
+            columnProductPriceOriginIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '实收金额') {
+            columnProductPriceRealIndex = index;
+            continue;
+          }
+          if (orderTh[index]._ === '折让金额') {
+            columnProductPriceDiscountedIndex = index;
+            continue;
+          }
+        }
+        // console.log('columnSerialNumberIndex = ' + columnSerialNumberIndex);
+        // console.log('columnDateIndex = ' + columnDateIndex);
+        // console.log('columnCashierIndex = ' + columnCashierIndex);
+        // console.log('columnMemberIndex = ' + columnMemberIndex);
+        // console.log('columnProductNumberIndex = ' + columnProductNumberIndex);
+        // console.log('columnProductPriceOriginIndex = ' + columnProductPriceOriginIndex);
+        // console.log('columnProductPriceRealIndex = ' + columnProductPriceRealIndex);
+        // console.log('columnProductPriceDiscountedIndex = ' + columnProductPriceDiscountedIndex);
+
+        let orderTdArray = orderTrArray[0].td;
+        let serialNumber = orderTdArray[columnSerialNumberIndex]._;
+        // console.log('serialNumber = ' + serialNumber);
+        let date = orderTdArray[columnDateIndex]._;
+        // console.log('date = ' + date);
+        let shopId = orderTdArray[columnCashierIndex].a[0].$.DATA;
+        // console.log('shopId = ' + shopId);
+
+        let shopName = '未知';
+        KShopArray.forEach(shop => {
+          if (shop.userId === shopId) {
+            shopName = shop.name;
+          }
+        });
+        // console.log('shopName = ' + shopName);
+        let memberId = orderTdArray[columnMemberIndex].a[0].$.DATA2;
+        // console.log('memberId = ' + memberId);
+        let productNumber = orderTdArray[columnProductNumberIndex]._;
+        // console.log('productNumber = ' + productNumber);
+        let productPriceOrigin = orderTdArray[columnProductPriceOriginIndex]._;
+        // console.log('productPriceOrigin = ' + productPriceOrigin);
+        let productPriceReal = orderTdArray[columnProductPriceRealIndex]._;
+        // console.log('productPriceReal = ' + productPriceReal);
+        let productPriceDiscounted = orderTdArray[columnProductPriceDiscountedIndex]._;
+        // console.log('productPriceDiscounted = ' + productPriceDiscounted);
+
+        ticketObj.serialNumber = serialNumber;
+        ticketObj.date = date;
+        ticketObj.shopId = shopId;
+        ticketObj.shopName = shopName;
+        ticketObj.memberId = memberId;
+        ticketObj.productNumber = productNumber;
+        ticketObj.productPriceOrigin = productPriceOrigin;
+        ticketObj.productPriceReal = productPriceReal;
+        ticketObj.productPriceDiscounted = productPriceDiscounted;
+      }
+    } catch (e) {
+      console.log('查询ticketByPage出错 e = ' + e);
+    }
+  }
+
+  return ticketObj;
+}
+
+const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
+  let totalContent = '';
+
+  let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
+    + '~' + endDateMoment.format('YYYY.MM.DD');
+  let title = '中奖免单单据信息';
+  let luckInAll = '共' + ticketObj.totalRecord + ';' + '第' + ticketObj.luckyIndex + '单';
+  totalContent += '**<<' + beginToEndDay + '**>>\n';
+  totalContent += '**<<' + title + '**>>\n';
+  totalContent += '**<<' + luckInAll + '**>>\n';
+
+  totalContent += '> 订单编号:\n<font color=\"warning\">' + ticketObj.serialNumber + '</font>\n';
+  totalContent += '> 订单时间:\n<font color=\"warning\">' + ticketObj.date + '</font>\n';
+  totalContent += '> 商品数量:\n<font color=\"info\">' + ticketObj.productNumber + '(件)</font>\n';
+  totalContent += '> 商品总计:\n<font color=\"info\">' + ticketObj.productPriceOrigin + '(元)</font>\n';
+  totalContent += '> 商品实付:\n<font color=\"warning\">' + ticketObj.productPriceReal + '(元)</font>\n';
+  totalContent += '> 交易门店:\n<font color=\"info\">' + ticketObj.shopName + '</font>\n';
+  totalContent += '> 会员号:\n<font color=\"warning\">' + ticketObj.memberId + '</font>\n';
+  totalContent += '> 会员姓名:\n<font color=\"warning\">' + ticketObj.memberName + '</font>\n';
+  totalContent += '> 会员电话:\n<font color=\"warning\">' + ticketObj.memberPhoneNum + '</font>\n';
+
+  if (KForTest) console.log(totalContent);
+  await doSendToCompanyGroup(totalContent);
+}
+
+const doSendToCompanyGroup = async (content) => {
+  if (!KSendToWorkWeixin) return;
+
+  let webhookUrl = KReportWebhookUrl;
+  ///测试地址
+  if (KForTest) webhookUrl = KReportWebhookUrl4Test;
+
+  let message =
+  {
+    "msgtype": "markdown",
+    "markdown": {
+      "content": content
+    }
+  }
+
+  await fetch(webhookUrl, {
+    method: 'POST', body: JSON.stringify(message),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+}
+
+module.exports = startScheduleLottery;

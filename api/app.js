@@ -78,7 +78,10 @@ startScheduleBusinessWeek();
 const startScheduleBusinessMonth = require('./schedule/schedule-task-business-month');
 startScheduleBusinessMonth();
 /// 启动定时任务，每日汇报打卡数据
-const startScheduleCheckin = require('./schedule/schedule-task-checkin');
-startScheduleCheckin();
+const startScheduleCheckinDay = require('./schedule/schedule-task-checkin-day');
+startScheduleCheckinDay();
+/// 启动定时任务，每日上报抽奖数据
+const startScheduleLotteryDay = require('./schedule/schedule-task-lottery-day');
+startScheduleLotteryDay();
 
 module.exports = app;

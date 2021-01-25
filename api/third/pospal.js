@@ -745,7 +745,9 @@ const getMemberList = async (thePOSPALAUTH30220, keyword) => {
           normalizeTags: true
         });
       if (result) {
+        let memberIdIndex = -1;
         let phoneNumIndex = -1;
+        let memberNameIndex = -1;
 
         let memberListDataTh = result.root.thead[0].tr[0].th;
         // console.log(memberListDataTh);
@@ -763,9 +765,20 @@ const getMemberList = async (thePOSPALAUTH30220, keyword) => {
             phoneNumIndex = index;
             continue;
           }
+          if (titleName === '会员号') {
+            memberIdIndex = index;
+            continue;
+          }
+          if (titleName === '姓名') {
+            memberNameIndex = index;
+            continue;
+          }
         }
 
         // console.log(phoneNumIndex);
+        // console.log(memberIdIndex);
+        // console.log(memberNameIndex);
+
         let memberListDataTbody = result.root.tbody[0].tr;
         // console.log(memberListDataTbody);
         let memberListDataTbodyLength = memberListDataTbody.length;
@@ -773,6 +786,21 @@ const getMemberList = async (thePOSPALAUTH30220, keyword) => {
           let element = memberListDataTbody[index];
           // console.log(element);
           let memberItem = {};
+
+          /// 会员号
+          let memberId = element.td[memberIdIndex];
+          // console.log(memberId);
+          memberItem.memberId = memberId;
+
+          /// 会员名字
+          let memberName = element.td[memberNameIndex]._;
+          if (memberName) memberName = memberName.replace(/\r\n/g, "").trim();
+          if (!memberName) {
+            memberName = element.td[memberNameIndex];
+            if(memberName) memberName = memberName.replace(/\r\n/g, "").trim();
+          }
+          // console.log(memberName);
+          memberItem.memberName = memberName;
 
           /// 手机号
           let phoneNum = element.td[phoneNumIndex];

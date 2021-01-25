@@ -11,7 +11,7 @@ const {
   getDIYCouponList,
   saveRemark,
   sendSMS
-} = require('../pospal/pospal');
+} = require('../third/pospal');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

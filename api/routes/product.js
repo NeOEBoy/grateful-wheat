@@ -6,7 +6,7 @@ const {
   getProductSaleList,
   getProductDiscardList,
   getProductSaleAndDiscardList
-} = require('../pospal/pospal');
+} = require('../third/pospal');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

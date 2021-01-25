@@ -5,7 +5,12 @@ const parseStringPromise = require('xml2js').parseStringPromise;
 const moment = require('moment');
 const {
   signIn
-} = require('../pospal/pospal');
+} = require('../third/pospal');
+const {
+  getAccessToken,
+  getBillList,
+  parseBillList
+} = require('../third/weixin');
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
@@ -48,14 +53,20 @@ const startScheduleBusiness = async () => {
 }
 
 const dostartScheduleBusiness = async () => {
+  let businessSummaryObj4workweixin = {};
+
   /// 登录并获取验证信息
   const thePOSPALAUTH30220 = await signIn();
   /// 获取营业概况并解析
-  const businessSummaryObj4workweixin = await getBusinessSummaryObj4workweixin(thePOSPALAUTH30220);
+  businessSummaryObj4workweixin = await getBusinessSummaryObj4workweixin(thePOSPALAUTH30220);
   await buildProductSaleString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildCouponString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildMemberString4WorkweixinAndSend(businessSummaryObj4workweixin);
   await buildActualIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
+
+  /// 对外收款：企业微信对外收款
+  await appendWeixinPaymentInItem(businessSummaryObj4workweixin);
+  await buildExternalIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
 }
 
 const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
@@ -79,6 +90,32 @@ const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
 
   const businessSummaryObj4workweixin = parseBusinessSummaryArray(businessSummaryObjArray);
   return businessSummaryObj4workweixin;
+}
+
+const appendWeixinPaymentInItem = async (businessSummaryObj4workweixin) => {
+  let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
+    + '~' + endDateMoment.format('YYYY.MM.DD');
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem = {};
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.title = beginToEndDay + '\n对外收款情况';
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment = {};
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment.title = '微信对外收款'
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment.stores = [];
+
+  const accessToken = await getAccessToken('0SWXfor_2ht9LxJ4Bl_vPc3avt__V58cllO3vHEsPHY');
+  const getBillListResponseJson = await getBillList(accessToken, beginDateMoment.unix(), endDateMoment.unix());
+  const inAndOutComeFromWorkWX = await parseBillList(getBillListResponseJson);
+  // console.log('inAndOutComeFromWorkWX = ' + inAndOutComeFromWorkWX);
+
+  let weixinPaymentInItem = {};
+  weixinPaymentInItem.name = '收款';
+  weixinPaymentInItem.fee = inAndOutComeFromWorkWX[0];
+  weixinPaymentInItem.feeFinal = inAndOutComeFromWorkWX[0] * (1 - 0.003);
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment.stores.push(weixinPaymentInItem);
+  let weixinPaymentOutItem = {};
+  weixinPaymentOutItem.name = '退款';
+  weixinPaymentOutItem.fee = -(inAndOutComeFromWorkWX[1]);
+  weixinPaymentOutItem.feeFinal = -(inAndOutComeFromWorkWX[1] * (1 - 0.003));
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment.stores.push(weixinPaymentOutItem);
 }
 
 const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
@@ -295,7 +332,7 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
   /// 实收情况
   totalContent += '**' + businessSummaryObj4workweixin.actualIncomeItem.title + '**\n';
   /// 现金实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '(元)(费率:无)**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.title + '(元|费率:无)**\n';
   /// 现金实收-门店
   let cashpayMoneyTotal = 0;
   businessSummaryObj4workweixin.actualIncomeItem.cashpayMoney.stores.forEach(store => {
@@ -310,7 +347,7 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
 
   /*-------------------------*/
   /// 微信实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '(元)(费率:0.3%)**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.weixinpayMoney.title + '(元|费率:0.3%)**\n';
   /// 微信实收-门店
   let weixinpayMoneyTotal = 0;
   let weixinpayMoneyTotalFinal = 0;
@@ -333,7 +370,7 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
 
   /*-------------------------*/
   /// 支付宝实收
-  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '(元)(费率:0.38%)**\n';
+  totalContent += '> **' + businessSummaryObj4workweixin.actualIncomeItem.alipayMoney.title + '(元|费率:0.38%)**\n';
   /// 支付宝实收-门店
   let alipayMoneyTotal = 0;
   let alipayMoneyTotalFinal = 0;
@@ -378,6 +415,39 @@ const buildActualIncomeString4WorkweixinAndSend = async (businessSummaryObj4work
     '</font>\n';
   totalContent += '\n';
   /*-------------------------*/
+  if (KForTest) console.log(totalContent);
+  await doSendToCompanyGroup(totalContent);
+}
+
+const buildExternalIncomeString4WorkweixinAndSend = async (businessSummaryObj4workweixin) => {
+  let totalContent = '';
+  /*-------------------------*/
+  /// 对外收款情况
+  totalContent += '**' + businessSummaryObj4workweixin.ExternalReceivePaymentItem.title + '**\n';
+  /// 微信对外收款
+  totalContent += '> **' + businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment.title + '(元|费率:0.3%)**\n';
+  let externalReceivePaymentTotal = 0;
+  let externalReceivePaymentTotalFinal = 0;
+  businessSummaryObj4workweixin.ExternalReceivePaymentItem.weixinPayment.stores.forEach(store => {
+    let floatFee = store.fee / 100;
+    let floatFeeFinal = store.feeFinal / 100;
+    totalContent += '> ' + store.name + ':\n<font color=\"info\">' +
+      '虚:' + floatFee.toFixed(2) + ' ' +
+      '实' + floatFeeFinal.toFixed(2) +
+      '</font>\n';
+
+    let weixinFee = parseFloat(floatFee);
+    externalReceivePaymentTotal += weixinFee;
+    let weixinFeeFinal = parseFloat(floatFeeFinal);
+    externalReceivePaymentTotalFinal += weixinFeeFinal;
+  });
+  totalContent += '> ' + '总计' + ':\n<font color=\"warning\">' +
+    '虚:' + externalReceivePaymentTotal.toFixed(2) + ' ' +
+    '实:' + externalReceivePaymentTotalFinal.toFixed(2) +
+    '</font>\n';
+  totalContent += '\n';
+  /*-------------------------*/
+
   if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }

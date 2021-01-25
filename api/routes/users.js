@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const { signIn } = require('../pospal/pospal');
+const { signIn } = require('../third/pospal');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

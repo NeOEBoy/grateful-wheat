@@ -4,7 +4,7 @@ var createError = require('http-errors');
 const {
   signIn,
   getMemberList
-} = require('../pospal/pospal');
+} = require('../third/pospal');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

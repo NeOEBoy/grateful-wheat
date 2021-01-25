@@ -54,8 +54,9 @@ const dostartScheduleLottery = async () => {
   const thePOSPALAUTH30220 = await signIn();
   /// 获取单据总数
   const totalTicketRecord = await getTicketSummaryAndParse(thePOSPALAUTH30220);
-  if (totalTicketRecord < 100) {
-    console.log('单据过少，无法抽奖！！！');
+  if (totalTicketRecord < 1000) {
+    // console.log('单据过少，无法抽奖！！！');
+    await buildErrorString4WorkweixinAndSend('单据过少，无法抽奖！！！')
     return;
   }
 
@@ -77,7 +78,8 @@ const dostartScheduleLottery = async () => {
   }
 
   if (!ticketObj || ticketObj.memberId === '-') {
-    console.log('没有会员购买商品，无法抽奖！！！');
+    // console.log('没有会员购买商品，无法抽奖！！！');
+    await buildErrorString4WorkweixinAndSend('没有会员购买商品，无法抽奖！！！')
     return;
   }
 
@@ -304,6 +306,12 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
   totalContent += '> 会员姓名:\n<font color=\"warning\">' + ticketObj.memberName + '</font>\n';
   totalContent += '> 会员电话:\n<font color=\"warning\">' + ticketObj.memberPhoneNum + '</font>\n';
 
+  if (KForTest) console.log(totalContent);
+  await doSendToCompanyGroup(totalContent);
+}
+
+const buildErrorString4WorkweixinAndSend = async (message) => {
+  let totalContent = message;
   if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }

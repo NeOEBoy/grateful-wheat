@@ -50,6 +50,8 @@ const startScheduleLottery = async () => {
 }
 
 const dostartScheduleLottery = async () => {
+  await buildPrepareString4WorkweixinAndSend();
+
   let ticketObj = {};
 
   /// 登录并获取验证信息
@@ -293,11 +295,11 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
 
   let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
     + '~' + endDateMoment.format('YYYY.MM.DD');
-  let title = '中奖免单单据信息';
-  let luckInAll = '共' + ticketObj.totalRecord + '单;' + '第' + ticketObj.luckyIndex + '单';
-  totalContent += '**<<' + beginToEndDay + '>>**\n';
-  totalContent += '**<<' + title + '>>**\n';
-  totalContent += '**<<' + luckInAll + '>>**\n';
+  let title = '已成功开奖';
+  let luckInAll = '恭喜第' + ticketObj.luckyIndex + '单顾客中奖';
+  totalContent += '**' + beginToEndDay + '**\n';
+  totalContent += '**' + title + '**\n';
+  totalContent += '**' + luckInAll + '**\n';
 
   totalContent += '> 订单编号:\n<font color=\"warning\">' + ticketObj.serialNumber + '</font>\n';
   totalContent += '> 订单时间:\n<font color=\"warning\">' + ticketObj.date + '</font>\n';
@@ -313,16 +315,22 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
   await doSendToCompanyGroup(totalContent);
 }
 
+const buildPrepareString4WorkweixinAndSend = async () => {
+  let totalContent = '**' + beginDateMoment.format('YYYY.MM.DD')
+    + '~' + endDateMoment.format('YYYY.MM.DD') + '**\n';
+  totalContent += '**准备开奖...**\n';
+  if (KForTest) console.log(totalContent);
+  await doSendToCompanyGroup(totalContent);
+}
+
 const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
   let totalContent = '';
 
   let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
     + '~' + endDateMoment.format('YYYY.MM.DD');
-  let title = '中奖免单单据信息';
-  let luckInAll = '共' + ticketObj.totalRecord + '单';
-  totalContent += '**<<' + beginToEndDay + '>>**\n';
-  totalContent += '**<<' + title + '>>**\n';
-  totalContent += '**<<' + luckInAll + '>>**\n';
+  let title = '已成功开奖';
+  totalContent += '**' + beginToEndDay + '**\n';
+  totalContent += '**' + title + '**\n';
   totalContent += '> 抽奖信息:\n<font color=\"warning\">' + ticketObj.message + '</font>\n';
 
   if (KForTest) console.log(totalContent);

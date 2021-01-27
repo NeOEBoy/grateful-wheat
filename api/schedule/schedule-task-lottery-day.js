@@ -50,18 +50,20 @@ const startScheduleLottery = async () => {
 }
 
 const dostartScheduleLottery = async () => {
+  let ticketObj = {};
+
   /// 登录并获取验证信息
   const thePOSPALAUTH30220 = await signIn();
   /// 获取单据总数
   const totalTicketRecord = await getTicketSummaryAndParse(thePOSPALAUTH30220);
-  if (totalTicketRecord < 1000) {
-    // console.log('单据过少，无法抽奖！！！');
-    await buildErrorString4WorkweixinAndSend('单据过少，无法抽奖！！！')
+  if (totalTicketRecord < 100) {
+    ticketObj.totalRecord = totalTicketRecord;
+    ticketObj.message = '总订单量过少，无法抽奖...';
+    await buildErrorString4WorkweixinAndSend(ticketObj);
     return;
   }
 
   /// 循环查询单据，查找会员消费的单据
-  let ticketObj = {};
   let count = 0;
   let random = -1;
   for (; ;) {
@@ -78,8 +80,9 @@ const dostartScheduleLottery = async () => {
   }
 
   if (!ticketObj || ticketObj.memberId === '-') {
-    // console.log('没有会员购买商品，无法抽奖！！！');
-    await buildErrorString4WorkweixinAndSend('没有会员购买商品，无法抽奖！！！')
+    ticketObj.totalRecord = totalTicketRecord;
+    ticketObj.message = '总订单中没有会员订单，无法抽奖...';
+    await buildErrorString4WorkweixinAndSend(ticketObj);
     return;
   }
 
@@ -94,7 +97,7 @@ const dostartScheduleLottery = async () => {
     ticketObj.memberPhoneNum = member.phoneNum;
   }
 
-  console.log('ticketObj = ' + JSON.stringify(ticketObj));
+  // console.log('ticketObj = ' + JSON.stringify(ticketObj));
   await buildLotteryString4WorkweixinAndSend(ticketObj);
 }
 
@@ -291,10 +294,10 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
   let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
     + '~' + endDateMoment.format('YYYY.MM.DD');
   let title = '中奖免单单据信息';
-  let luckInAll = '共' + ticketObj.totalRecord + ';' + '第' + ticketObj.luckyIndex + '单';
-  totalContent += '**<<' + beginToEndDay + '**>>\n';
-  totalContent += '**<<' + title + '**>>\n';
-  totalContent += '**<<' + luckInAll + '**>>\n';
+  let luckInAll = '共' + ticketObj.totalRecord + '单;' + '第' + ticketObj.luckyIndex + '单';
+  totalContent += '**<<' + beginToEndDay + '>>**\n';
+  totalContent += '**<<' + title + '>>**\n';
+  totalContent += '**<<' + luckInAll + '>>**\n';
 
   totalContent += '> 订单编号:\n<font color=\"warning\">' + ticketObj.serialNumber + '</font>\n';
   totalContent += '> 订单时间:\n<font color=\"warning\">' + ticketObj.date + '</font>\n';
@@ -310,8 +313,18 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
   await doSendToCompanyGroup(totalContent);
 }
 
-const buildErrorString4WorkweixinAndSend = async (message) => {
-  let totalContent = message;
+const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
+  let totalContent = '';
+
+  let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
+    + '~' + endDateMoment.format('YYYY.MM.DD');
+  let title = '中奖免单单据信息';
+  let luckInAll = '共' + ticketObj.totalRecord + '单';
+  totalContent += '**<<' + beginToEndDay + '>>**\n';
+  totalContent += '**<<' + title + '>>**\n';
+  totalContent += '**<<' + luckInAll + '>>**\n';
+  totalContent += '> 抽奖信息:\n<font color=\"warning\">' + ticketObj.message + '</font>\n';
+
   if (KForTest) console.log(totalContent);
   await doSendToCompanyGroup(totalContent);
 }

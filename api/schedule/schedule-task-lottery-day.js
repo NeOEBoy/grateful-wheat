@@ -8,6 +8,12 @@ const {
   getMemberList
 } = require('../third/pospal');
 
+const fs = require('fs');
+const images = require('images');
+const TextToSVG = require('text-to-svg');
+const { convert } = require('convert-svg-to-png');
+const crypto = require('crypto');
+
 /**--------------------配置信息--------------------*/
 const KForTest = false;
 const KSendToWorkWeixin = true;
@@ -30,8 +36,8 @@ let endDateMoment;
 
 /**--------------------配置信息--------------------*/
 const startScheduleLottery = async () => {
-  // 秒、分、时、日、月、周几
-  // 每日0点5分0秒自动发送
+  /// 秒、分、时、日、月、周几
+  /// 每日0点5分0秒自动发送
   try {
     if (KForTest) {
       beginDateMoment = moment().startOf('day');
@@ -101,6 +107,8 @@ const dostartScheduleLottery = async () => {
 
   // console.log('ticketObj = ' + JSON.stringify(ticketObj));
   await buildLotteryString4WorkweixinAndSend(ticketObj);
+
+  await composePicture(ticketObj.memberName);
 }
 
 const getTicketSummaryAndParse = async (thePOSPALAUTH30220) => {
@@ -312,7 +320,7 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
   totalContent += '> 会员电话:\n<font color=\"warning\">' + ticketObj.memberPhoneNum + '</font>\n';
 
   if (KForTest) console.log(totalContent);
-  await doSendToCompanyGroup(totalContent);
+  await doSendToCompanyGroup('markdown', totalContent);
 }
 
 const buildPrepareString4WorkweixinAndSend = async () => {
@@ -320,7 +328,7 @@ const buildPrepareString4WorkweixinAndSend = async () => {
     + '~' + endDateMoment.format('YYYY.MM.DD') + '**\n';
   totalContent += '**准备开奖...**\n';
   if (KForTest) console.log(totalContent);
-  await doSendToCompanyGroup(totalContent);
+  await doSendToCompanyGroup('markdown', totalContent);
 }
 
 const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
@@ -334,21 +342,49 @@ const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
   totalContent += '> 抽奖信息:\n<font color=\"warning\">' + ticketObj.message + '</font>\n';
 
   if (KForTest) console.log(totalContent);
-  await doSendToCompanyGroup(totalContent);
+  await doSendToCompanyGroup('markdown', totalContent);
 }
 
-const doSendToCompanyGroup = async (content) => {
+const composePicture = async (name) => {
+  const imagePathPre = './schedule/lottery-template';
+
+  const textToSVG = TextToSVG.loadSync(imagePathPre + '/庞门正道标题体.ttf');
+  const nameSVG = textToSVG.getSVG(name, { x: 0, y: 0, fontSize: 50, anchor: 'top' });
+  const namePNG = await convert(nameSVG);
+  const nameImage = images(namePNG);
+
+  const templateImage = images(imagePathPre + '/template.jpg');
+  templateImage.drawImage(nameImage, 0, 0).save(imagePathPre + '/composite.jpg', { quality: 90 });
+  let compositeImageBuffer = fs.readFileSync(imagePathPre + '/composite.jpg');
+  fs.unlinkSync(imagePathPre + '/composite.jpg');
+  await doSendToCompanyGroup('image', compositeImageBuffer);
+}
+
+const doSendToCompanyGroup = async (type, content) => {
   if (!KSendToWorkWeixin) return;
 
   let webhookUrl = KReportWebhookUrl;
   ///测试地址
   if (KForTest) webhookUrl = KReportWebhookUrl4Test;
 
-  let message =
-  {
-    "msgtype": "markdown",
-    "markdown": {
-      "content": content
+  let message = {};
+  if (type === 'markdown') {
+    message = {
+      "msgtype": "markdown",
+      "markdown": {
+        "content": content
+      }
+    }
+  } else if (type === 'image') {
+    let contentBase64 = Buffer.from(content).toString('base64');
+    let contentMd5 = crypto.createHash('md5').update(content).digest('hex');
+
+    message = {
+      "msgtype": "image",
+      "image": {
+        "base64": contentBase64,
+        "md5": contentMd5
+      }
     }
   }
 

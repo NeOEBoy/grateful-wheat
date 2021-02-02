@@ -350,7 +350,7 @@ const composePicture = async (name) => {
 
   const textToSVG = TextToSVG.loadSync(imagePathPre + '/庞门正道标题体.ttf');
   const nameSVG = textToSVG.getSVG(name, { x: 0, y: 0, fontSize: 50, anchor: 'top' });
-  const namePNG = await convert(nameSVG);
+  const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
   const nameImage = images(namePNG);
 
   const templateImage = images(imagePathPre + '/template.jpg');
@@ -389,7 +389,7 @@ const doSendToCompanyGroup = async (type, content) => {
   }
 
   if (KForTest) console.log(message);
-  
+
   await fetch(webhookUrl, {
     method: 'POST', body: JSON.stringify(message),
     headers: {

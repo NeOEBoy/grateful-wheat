@@ -388,6 +388,8 @@ const doSendToCompanyGroup = async (type, content) => {
     }
   }
 
+  if (KForTest) console.log(message);
+  
   await fetch(webhookUrl, {
     method: 'POST', body: JSON.stringify(message),
     headers: {

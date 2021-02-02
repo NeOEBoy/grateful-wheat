@@ -15,7 +15,7 @@ const { convert } = require('convert-svg-to-png');
 const crypto = require('crypto');
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = true;
 const KSendToWorkWeixin = true;
 /// 增加门店这里添加一下
 KShopHeadUserId = '3995763'; // 总部账号
@@ -64,7 +64,7 @@ const dostartScheduleLottery = async () => {
   const thePOSPALAUTH30220 = await signIn();
   /// 获取单据总数
   const totalTicketRecord = await getTicketSummaryAndParse(thePOSPALAUTH30220);
-  if (totalTicketRecord < 100) {
+  if (totalTicketRecord < 1) {
     ticketObj.totalRecord = totalTicketRecord;
     ticketObj.message = '总订单量过少，无法抽奖...';
     await buildErrorString4WorkweixinAndSend(ticketObj);

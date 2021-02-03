@@ -348,7 +348,7 @@ const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
 const composePicture = async (name) => {
   const imagePathPre = './schedule/lottery-template';
 
-  const textToSVG = TextToSVG.loadSync(imagePathPre + '/庞门正道标题体.ttf');
+  const textToSVG = TextToSVG.loadSync(imagePathPre + '/思源宋体 SC-Bold.otf');
   const nameSVG = textToSVG.getSVG(name, { x: 0, y: 0, fontSize: 50, anchor: 'top' });
   const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
   const nameImage = images(namePNG);

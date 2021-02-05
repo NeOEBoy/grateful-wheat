@@ -15,7 +15,7 @@ const { convert } = require('convert-svg-to-png');
 const crypto = require('crypto');
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = true;
 const KSendToWorkWeixin = true;
 /// 增加门店这里添加一下
 KShopHeadUserId = '3995763'; // 总部账号

@@ -3,8 +3,8 @@ const parseStringPromise = require('xml2js').parseStringPromise;
 const ExcelJS = require('exceljs');
 const moment = require('moment');
 
-let THEInfo1NameCell; let THEInfo2NameCell; let THEInfo3NameCell;
-let THEInfo1TotalCell; let THEInfo2TotalCell; let THEInfo3TotalCell;
+let THEInfo1NameCell; let THEInfo2NameCell;
+let THEInfo1TotalCell; let THEInfo2TotalCell;
 let SHOP_NAME; let SHOP_USERID; let QUERYMONTH;
 
 /// 增加门店这里添加一下
@@ -215,7 +215,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(3).width = 18;
+    worksheet.getColumn(3).width = 15;
     let productNameItemTitleCell = worksheet.getCell('C' + lastRow);
     productNameItemTitleCell.value = '商品名称';
     productNameItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -232,7 +232,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(4).width = 12;
+    worksheet.getColumn(4).width = 14;
     let productCategoryItemTitleCell = worksheet.getCell('D' + lastRow);
     productCategoryItemTitleCell.value = '商品分类';
     productCategoryItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -249,7 +249,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(5).width = 10;
+    worksheet.getColumn(5).width = 14;
     let productSpecificationItemTitleCell = worksheet.getCell('E' + lastRow);
     productSpecificationItemTitleCell.value = '商品规格';
     productSpecificationItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -351,7 +351,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(11).width = 8;
+    worksheet.getColumn(11).width = 5;
     let enterNumberItemTitleCell = worksheet.getCell('K' + lastRow);
     enterNumberItemTitleCell.value = '进货数';
     enterNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -368,7 +368,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(12).width = 8;
+    worksheet.getColumn(12).width = 5;
     let returnNumberItemTitleCell = worksheet.getCell('L' + lastRow);
     returnNumberItemTitleCell.value = '退货数';
     returnNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -385,7 +385,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(13).width = 8;
+    worksheet.getColumn(13).width = 5;
     let transferNumberItemTitleCell = worksheet.getCell('M' + lastRow);
     transferNumberItemTitleCell.value = '调出数';
     transferNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -402,7 +402,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(14).width = 8;
+    worksheet.getColumn(14).width = 5;
     let promotionsNumberItemTitleCell = worksheet.getCell('N' + lastRow);
     promotionsNumberItemTitleCell.value = '最终数';
     promotionsNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -1081,11 +1081,8 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
       { column: 'I', value: '' },
       { column: 'J', value: '' },
       { column: 'K', value: '' },
-      { column: 'L', value: '总计', fontBold: true },
-      {
-        column: 'M', value: { formula: totalImaginaryPriceFormula, result: '公式' },
-        numFmt: '0.00', fontBold: true
-      },
+      { column: 'L', value: '' },
+      { column: 'M', value: '' },
       { column: 'N', value: '总计', fontBold: true },
       {
         column: 'O', value: { formula: totalRealPriceFormula, result: '公式' },
@@ -1124,515 +1121,6 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
   console.log('开始插入报损条目！');
   insertItemToWorkSheet(excelRowInformation, worksheet);
   console.log('插入报损条目完毕！');
-
-  return lastRow;
-}
-
-const makeExcelInfo3Meta = (worksheet, lastRow) => {
-  lastRow++;
-  /// 空行
-  {
-    const emptyRow = worksheet.getRow(lastRow);
-    emptyRow.height = 14;
-    worksheet.mergeCells('B' + lastRow + ':P' + lastRow);
-    let emptyCell = worksheet.getCell('B' + lastRow);
-    emptyCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-  }
-  /// 标题行
-  lastRow++;
-  {
-    const titleRow = worksheet.getRow(lastRow);
-    titleRow.height = 14;
-    THEInfo3NameCell = 'B' + lastRow;
-    worksheet.mergeCells('B' + lastRow + ':P' + lastRow);
-    let titleCell = worksheet.getCell('B' + lastRow);
-    titleCell.value = '活动统计';
-    titleCell.font = { size: 10, bold: true, name: '等线' };
-    titleCell.alignment = { horizontal: 'center', vertical: 'middle' }
-    titleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    titleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-  }
-  lastRow++;
-  {
-    worksheet.getRow(lastRow).height = 14;
-    let serialNumSubTitleCell = worksheet.getCell('B' + lastRow);
-    serialNumSubTitleCell.value = '序';
-    serialNumSubTitleCell.font = { size: 10, bold: true, name: '等线' };
-    serialNumSubTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    serialNumSubTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    serialNumSubTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    worksheet.mergeCells('C' + lastRow + ':F' + lastRow);
-    let productSubTitleCell = worksheet.getCell('C' + lastRow);
-    productSubTitleCell.value = '商品';
-    productSubTitleCell.font = { size: 10, bold: true, name: '等线' };
-    productSubTitleCell.alignment = { horizontal: 'center', vertical: 'middle' }
-    productSubTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    productSubTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    worksheet.mergeCells('G' + lastRow + ':K' + lastRow);
-    let priceSubTitleCell = worksheet.getCell('G' + lastRow);
-    priceSubTitleCell.value = '价格';
-    priceSubTitleCell.font = { size: 10, bold: true, name: '等线' };
-    priceSubTitleCell.alignment = { horizontal: 'center', vertical: 'middle' }
-    priceSubTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    priceSubTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let numSubTitleCell = worksheet.getCell('L' + lastRow);
-    numSubTitleCell.value = '数量';
-    numSubTitleCell.font = { size: 10, bold: true, name: '等线' };
-    numSubTitleCell.alignment = { horizontal: 'center', vertical: 'middle' }
-    numSubTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    numSubTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    worksheet.mergeCells('M' + lastRow + ':O' + lastRow);
-    let totalPriceSubTitleCell = worksheet.getCell('M' + lastRow);
-    totalPriceSubTitleCell.value = '总价';
-    totalPriceSubTitleCell.font = { size: 10, bold: true, name: '等线' };
-    totalPriceSubTitleCell.alignment = { horizontal: 'center', vertical: 'middle' }
-    totalPriceSubTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    totalPriceSubTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let otherSubTitleCell = worksheet.getCell('P' + lastRow);
-    otherSubTitleCell.value = '其它';
-    otherSubTitleCell.font = { size: 10, bold: true, name: '等线' };
-    otherSubTitleCell.alignment = { horizontal: 'center', vertical: 'middle' }
-    otherSubTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    otherSubTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-  }
-  lastRow++;
-  {
-    worksheet.getRow(lastRow).height = 14;
-    let serialNumItemTitleCell = worksheet.getCell('B' + lastRow);
-    serialNumItemTitleCell.value = '序号';
-    serialNumItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    serialNumItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    serialNumItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFBFBFBF' }
-    };
-    serialNumItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let productNameItemTitleCell = worksheet.getCell('C' + lastRow);
-    productNameItemTitleCell.value = '商品名称';
-    productNameItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    productNameItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    productNameItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF808080' }
-    };
-    productNameItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let productCategoryItemTitleCell = worksheet.getCell('D' + lastRow);
-    productCategoryItemTitleCell.value = '商品分类';
-    productCategoryItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    productCategoryItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    productCategoryItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF808080' }
-    };
-    productCategoryItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let productSpecificationItemTitleCell = worksheet.getCell('E' + lastRow);
-    productSpecificationItemTitleCell.value = '商品规格';
-    productSpecificationItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    productSpecificationItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    productSpecificationItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF808080' }
-    };
-    productSpecificationItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let productUnitItemTitleCell = worksheet.getCell('F' + lastRow);
-    productUnitItemTitleCell.value = '单位';
-    productUnitItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    productUnitItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    productUnitItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF808080' }
-    };
-    productUnitItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let salePriceItemTitleCell = worksheet.getCell('G' + lastRow);
-    salePriceItemTitleCell.value = '销售价';
-    salePriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    salePriceItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    salePriceItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF9BC2E6' }
-    };
-    salePriceItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let memberPriceItemTitleCell = worksheet.getCell('H' + lastRow);
-    memberPriceItemTitleCell.value = '会员价';
-    memberPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    memberPriceItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    memberPriceItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF9BC2E6' }
-    };
-    memberPriceItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let wholeSalePriceItemTitleCell = worksheet.getCell('I' + lastRow);
-    wholeSalePriceItemTitleCell.value = '批发价';
-    wholeSalePriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    wholeSalePriceItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    wholeSalePriceItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF9BC2E6' }
-    };
-    wholeSalePriceItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let discardPriceItemTitleCell = worksheet.getCell('J' + lastRow);
-    discardPriceItemTitleCell.value = '加盟价';
-    discardPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    discardPriceItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    discardPriceItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF9BC2E6' }
-    };
-    discardPriceItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let activityPriceItemTitleCell = worksheet.getCell('K' + lastRow);
-    activityPriceItemTitleCell.value = '活动价';
-    activityPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    activityPriceItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    activityPriceItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF9BC2E6' }
-    };
-    activityPriceItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let activityNumberItemTitleCell = worksheet.getCell('L' + lastRow);
-    activityNumberItemTitleCell.value = '活动数';
-    activityNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    activityNumberItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    activityNumberItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFFFE699' }
-    };
-    activityNumberItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    worksheet.mergeCells('M' + lastRow + ':O' + lastRow);
-    let totalPriceItemTitleCell = worksheet.getCell('M' + lastRow);
-    totalPriceItemTitleCell.value = '活动总盈亏';
-    totalPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    totalPriceItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    totalPriceItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFA9D08E' }
-    };
-    totalPriceItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-
-    let remarkItemTitleCell = worksheet.getCell('P' + lastRow);
-    remarkItemTitleCell.value = '备注';
-    remarkItemTitleCell.font = { size: 9, bold: true, name: '等线' };
-    remarkItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
-    remarkItemTitleCell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFF4B084' }
-    };
-    remarkItemTitleCell.border = {
-      top: { style: 'medium' },
-      left: { style: 'medium' },
-      bottom: { style: 'medium' },
-      right: { style: 'medium' }
-    };
-  }
-
-  return lastRow;
-}
-
-const makeExcelInfo3Data = (worksheet, lastRow) => {
-  let excelRowInformation = [];
-
-  lastRow++;
-  let firstRow = lastRow;
-  let excelRowExampleItem = {
-    row: lastRow,
-    data: [
-      { column: 'B', value: 1 },
-      { column: 'C', value: '手工蛋挞' },
-      { column: 'D', value: '现烤' },
-      { column: 'E', value: '单个' },
-      { column: 'F', value: '个' },
-      { column: 'G', value: 3.5, numFmt: '0.00' },
-      { column: 'H', value: 3.5, numFmt: '0.00' },
-      { column: 'I', value: 3.5, numFmt: '0.00' },
-      {
-        column: 'J', value: {
-          formula: 'IF(OR(D' + lastRow + '=\"外购品\",D'
-            + lastRow + '=\"弯麦耗材\"),I' + lastRow
-            + ',IF(H' + lastRow + '<G' + lastRow
-            + ',H' + lastRow + ',G' + lastRow + ')*0.7)', result: '公式'
-        }, numFmt: '0.00'
-      },
-      { column: 'K', value: 0.25 },
-      { column: 'L', value: 2 },
-      {
-        column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
-        value: {
-          formula: '(K' + lastRow + '-J' + lastRow + ')*L' + lastRow,
-          result: '公式'
-        },
-        numFmt: '0.00'
-      },
-      { column: 'P', value: '' }
-    ]
-  };
-  excelRowInformation.push(excelRowExampleItem);
-
-  lastRow++;
-  let excelRowExample2Item = {
-    row: lastRow,
-    data: [
-      { column: 'B', value: 2 },
-      { column: 'C', value: '胡萝卜餐包' },
-      { column: 'D', value: '吐司餐包' },
-      { column: 'E', value: '-' },
-      { column: 'F', value: '袋' },
-      { column: 'G', value: 8.5, numFmt: '0.00' },
-      { column: 'H', value: 8.5, numFmt: '0.00' },
-      { column: 'I', value: 8.5, numFmt: '0.00' },
-      {
-        column: 'J', value: {
-          formula: 'IF(OR(D' + lastRow + '=\"外购品\",D'
-            + lastRow + '=\"弯麦耗材\"),I' + lastRow
-            + ',IF(H' + lastRow + '<G' + lastRow
-            + ',H' + lastRow + ',G' + lastRow + ')*0.7)', result: '公式'
-        }, numFmt: '0.00'
-      },
-      { column: 'K', value: 5 },
-      { column: 'L', value: 3 },
-      {
-        column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
-        value: {
-          formula: '(K' + lastRow + '-J' + lastRow + ')*L' + lastRow,
-          result: '公式'
-        },
-        numFmt: '0.00'
-      },
-      { column: 'P', value: '' }
-    ]
-  };
-  excelRowInformation.push(excelRowExample2Item);
-
-  lastRow++;
-  let excelRowFooter1Item = {
-    row: lastRow,
-    data: [
-      { column: 'B', value: '' },
-      { column: 'C', value: '' },
-      { column: 'D', value: '' },
-      { column: 'E', value: '' },
-      { column: 'F', value: '' },
-      { column: 'G', value: '' },
-      { column: 'H', value: '' },
-      { column: 'I', value: '' },
-      { column: 'J', value: '' },
-      { column: 'K', value: '' },
-      { column: 'L', value: '' },
-      { column: 'M', merge: 'M' + lastRow + ':O' + lastRow, value: '' },
-      { column: 'P', value: '' }
-    ]
-  };
-  excelRowInformation.push(excelRowFooter1Item);
-
-  lastRow++;
-  let excelRowFooter2Item = {
-    row: lastRow,
-    data: [
-      { column: 'B', value: '' },
-      { column: 'C', value: '' },
-      { column: 'D', value: '' },
-      { column: 'E', value: '' },
-      { column: 'F', value: '' },
-      { column: 'G', value: '' },
-      { column: 'H', value: '' },
-      { column: 'I', value: '' },
-      { column: 'J', value: '' },
-      { column: 'K', value: '' },
-      { column: 'L', value: '总计', fontBold: true },
-      {
-        column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
-        value: {
-          formula: 'SUM(M' + firstRow + ':M' + (lastRow - 2) + ')',
-          result: '公式'
-        },
-        numFmt: '0.00',
-        fontBold: true
-      },
-      { column: 'P', value: '' }
-    ]
-  };
-  THEInfo3TotalCell = 'M' + lastRow;
-  excelRowInformation.push(excelRowFooter2Item);
-
-  lastRow++;
-  let excelRowFooter3Item = {
-    row: lastRow,
-    data: [
-      { column: 'B', value: '' },
-      { column: 'C', value: '' },
-      { column: 'D', value: '' },
-      { column: 'E', value: '' },
-      { column: 'F', value: '' },
-      { column: 'G', value: '' },
-      { column: 'H', value: '' },
-      { column: 'I', value: '' },
-      { column: 'J', value: '' },
-      { column: 'K', value: '' },
-      { column: 'L', value: '' },
-      { column: 'M', merge: 'M' + lastRow + ':O' + lastRow, value: '' },
-      { column: 'P', value: '' }
-    ]
-  };
-  excelRowInformation.push(excelRowFooter3Item);
-
-  console.log('开始插入合计条目！');
-  insertItemToWorkSheet(excelRowInformation, worksheet);
-  console.log('插入合计条目完毕！');
 
   return lastRow;
 }
@@ -1782,29 +1270,6 @@ const makeExcelInfo4Data = (worksheet, lastRow) => {
     ]
   };
   excelRowInformation.push(excelRow2Item);
-
-  lastRow++;
-  let excelRow3Item = {
-    row: lastRow,
-    data: [
-      {
-        column: 'K', merge: 'K' + lastRow + ':L' + lastRow,
-        value: {
-          formula: THEInfo3NameCell,
-          result: '公式'
-        }
-      },
-      {
-        column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
-        value: {
-          formula: THEInfo3TotalCell,
-          result: '公式'
-        }, numFmt: '0.00'
-      },
-      { column: 'P', value: '' }
-    ]
-  };
-  excelRowInformation.push(excelRow3Item);
 
   lastRow++;
   let excelRowFooter1Item = {
@@ -2387,12 +1852,6 @@ const startBuild = async () => {
   /// 报损统计data
   console.log('准备构建报损表格内容！');
   theLastRow = await makeExcelInfo2Data(worksheet, thePOSPALAUTH30220, theLastRow);
-  /// 活动盈亏Meta
-  console.log('准备构建活动盈亏表格头！');
-  theLastRow = makeExcelInfo3Meta(worksheet, theLastRow);
-  /// 报损统计data
-  console.log('准备构建活动表格内容！');
-  theLastRow = makeExcelInfo3Data(worksheet, theLastRow);
   /// 合计Meta
   console.log('准备构建合计表格头！');
   theLastRow = makeExcelInfo4Meta(worksheet, theLastRow);
@@ -2405,30 +1864,34 @@ const startBuild = async () => {
   console.log('提取完毕，请查看<<' + SHOP_NAME + '_' + QUERYMONTH + '_' + '进货对账表.xlsx>>文件！！！');
 }
 
-var args = process.argv.splice(2);
-// args[0]='877461508' args[1]='品类优惠测试券'
-if (args.length !== 2) {
-  console.log('参数错误，第1参数：店名(教育局店|旧镇店|江滨店|汤泉世纪店|...)，第2个参数：月份(2020.12)');
-} else {
-  for (let index = 0; index < KShopArray.length; ++index) {
-    let shop = KShopArray[index];
-    if (shop.name === args[0]) {
-      SHOP_USERID = shop.userId;
-      SHOP_NAME = shop.name;
-      break;
+const excute = () => {
+  var args = process.argv.splice(2);
+  // args[0]='877461508' args[1]='品类优惠测试券'
+  if (args.length !== 2) {
+    console.log('参数错误，第1参数：店名(教育局店|旧镇店|江滨店|汤泉世纪店|...)，第2个参数：月份(2020.12)');
+  } else {
+    for (let index = 0; index < KShopArray.length; ++index) {
+      let shop = KShopArray[index];
+      if (shop.name === args[0]) {
+        SHOP_USERID = shop.userId;
+        SHOP_NAME = shop.name;
+        break;
+      }
     }
-  }
-  if (SHOP_USERID === undefined) {
-    console.log('第1参数错误，请输入正确店名(如：教育局店|旧镇店|江滨店|汤泉世纪店|...)');
-    return;
-  }
+    if (SHOP_USERID === undefined) {
+      console.log('第1参数错误，请输入正确店名(如：教育局店|旧镇店|江滨店|汤泉世纪店|...)');
+      return;
+    }
 
-  if (args[1].indexOf('.') === -1) {
-    console.log('第2参数错误，请输入正确月份(如：2020.12)');
-    return;
-  }
-  QUERYMONTH = args[1];
+    if (args[1].indexOf('.') === -1) {
+      console.log('第2参数错误，请输入正确月份(如：2020.12)');
+      return;
+    }
+    QUERYMONTH = args[1];
 
-  startBuild();
+    startBuild();
+  }
 }
+
+excute();
 

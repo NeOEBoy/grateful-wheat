@@ -305,7 +305,7 @@ const buildLotteryString4WorkweixinAndSend = async (ticketObj) => {
   let beginToEndDay = beginDateMoment.format('YYYY.MM.DD')
     + '~' + endDateMoment.format('YYYY.MM.DD');
   let title = '已成功开奖';
-  let luckInAll = '恭喜第' + ticketObj.luckyIndex + '单顾客中奖';
+  let luckInAll = '恭喜第' + ticketObj.luckyIndex + '单会员中奖';
   totalContent += '**' + beginToEndDay + '**\n';
   totalContent += '**' + title + '**\n';
   totalContent += '**' + luckInAll + '**\n';

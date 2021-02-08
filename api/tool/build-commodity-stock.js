@@ -17,25 +17,150 @@ const KShopArray = [
   { index: 4, name: '汤泉世纪店', userId: '4061092' }
 ];
 
-const makeExcelTitle = (worksheet) => {
+const makeExcelCommonTitle = (worksheet) => {
   let lastRow = 1;
-  /// 第一行空行
   {
     const placeholderCol = worksheet.getColumn(1);
     placeholderCol.width = 4;
     const placeholderRow = worksheet.getRow(lastRow);
     placeholderRow.height = 12;
-    worksheet.mergeCells('B1:P1');
+    worksheet.mergeCells('B' + lastRow + ':P' + lastRow);
   }
-  /// 第二行数字序号行
+  lastRow++;
+  {
+    const logoRow = worksheet.getRow(lastRow);
+    logoRow.height = 44;
+    worksheet.mergeCells('B' + lastRow + ':P' + lastRow);
+    let logoCell = worksheet.getCell('B' + lastRow);
+    logoCell.value = '';
+    logoCell.font = { size: 16, bold: true, name: '等线' };
+    logoCell.alignment = { horizontal: 'center', vertical: 'middle' }
+    logoCell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    logoCell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+  }
+  lastRow++;
+  {
+    const parterRow1 = worksheet.getRow(lastRow);
+    parterRow1.height = 22;
+
+    worksheet.mergeCells('B' + lastRow + ':F' + lastRow);
+    let parter1Cell = worksheet.getCell('B' + lastRow);
+    parter1Cell.value = '合作商：';
+    parter1Cell.font = { size: 10, bold: true, name: '等线' };
+    parter1Cell.alignment = { horizontal: 'right', vertical: 'middle' }
+    parter1Cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    parter1Cell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+
+    worksheet.mergeCells('G' + lastRow + ':P' + lastRow);
+    let parter2Cell = worksheet.getCell('G' + lastRow);
+    parter2Cell.value = SHOP_NAME;
+    parter2Cell.font = { size: 10, bold: false, name: '等线' };
+    parter2Cell.alignment = { horizontal: 'left', vertical: 'middle' }
+    parter2Cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    parter2Cell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+  }
+  lastRow++;
+  {
+    const monthRow1 = worksheet.getRow(lastRow);
+    monthRow1.height = 22;
+
+    worksheet.mergeCells('B' + lastRow + ':F' + lastRow);
+    let month1Cell = worksheet.getCell('B' + lastRow);
+    month1Cell.value = '对账月份：';
+    month1Cell.font = { size: 10, bold: true, name: '等线' };
+    month1Cell.alignment = { horizontal: 'right', vertical: 'middle' }
+    month1Cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    month1Cell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+
+    worksheet.mergeCells('G' + lastRow + ':P' + lastRow);
+    let month2Cell = worksheet.getCell('G' + lastRow);
+    month2Cell.value = QUERYMONTH + '.';
+    month2Cell.font = { size: 10, bold: false, name: '等线' };
+    month2Cell.alignment = { horizontal: 'left', vertical: 'middle' }
+    month2Cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    month2Cell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+  }
+  lastRow++;
+  {
+    const timeRow1 = worksheet.getRow(lastRow);
+    timeRow1.height = 22;
+
+    worksheet.mergeCells('B' + lastRow + ':F' + lastRow);
+    let time1Cell = worksheet.getCell('B' + lastRow);
+    time1Cell.value = '对账时间：';
+    time1Cell.font = { size: 10, bold: true, name: '等线' };
+    time1Cell.alignment = { horizontal: 'right', vertical: 'middle' }
+    time1Cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    time1Cell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+
+    worksheet.mergeCells('G' + lastRow + ':P' + lastRow);
+    let time2Cell = worksheet.getCell('G' + lastRow);
+    time2Cell.value = '';
+    time2Cell.font = { size: 10, bold: false, name: '等线' };
+    time2Cell.alignment = { horizontal: 'left', vertical: 'middle' }
+    time2Cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFACB9CA' }
+    };
+    time2Cell.border = {
+      bottom: { style: 'mediumDashed' }
+    };
+  }
+  return lastRow;
+}
+
+const makeExcelTitle = (worksheet, lastRow) => {
+  lastRow++;
+  {
+    const placeholderRow = worksheet.getRow(lastRow);
+    placeholderRow.height = 12;
+    worksheet.mergeCells('B' + lastRow + ':P' + lastRow);
+  }
   lastRow++;
   {
     const seriNumRow = worksheet.getRow(lastRow);
-    seriNumRow.height = 40;
-    worksheet.mergeCells('B2:P2');
-    let seriNumCell = worksheet.getCell('B2');
+    seriNumRow.height = 22;
+    worksheet.mergeCells('B' + lastRow + ':P' + lastRow);
+    let seriNumCell = worksheet.getCell('B' + lastRow);
     seriNumCell.value = '③';
-    seriNumCell.font = { size: 16, bold: true, name: '等线' };
+    seriNumCell.font = { size: 10, bold: true, name: '等线' };
     seriNumCell.alignment = { horizontal: 'center', vertical: 'middle' }
     seriNumCell.fill = {
       type: 'pattern',
@@ -1836,10 +1961,20 @@ const startBuild = async () => {
   const thePOSPALAUTH30220 = await siginAndGetPOSPALAUTH30220();
 
   const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('进货对账详单');
+  const worksheet = workbook.addWorksheet('面包支出');
+
+  /// 通用总标题
+  console.log('准备构建通用表格头！');
+  let theLastRow = makeExcelCommonTitle(worksheet);
+  const logoImageId = workbook.addImage({ filename: './logo.png', extension: 'png' });
+  worksheet.addImage(logoImageId, {
+    tl: { col: 5, row: 1.3 },
+    ext: { width: 400, height: 46 }
+  });
+
   /// 总标题
   console.log('准备构建总表格头！');
-  let theLastRow = makeExcelTitle(worksheet);
+  theLastRow = makeExcelTitle(worksheet, theLastRow);
   /// 进货支出Meta
   console.log('准备构建进货表格头！');
   theLastRow = makeExcelInfo1Meta(worksheet, theLastRow);

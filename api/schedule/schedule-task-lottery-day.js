@@ -361,12 +361,12 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   }
   if (name) {
     const nameSVG = textToSVG.getSVG(name, {
-      x: 0, y: 0, fontSize: 25, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'white' }
+      x: 0, y: 0, fontSize: 22, anchor: 'top',
+      attributes: { fill: 'gold', stroke: 'black' }
     });
     const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const nameImage = images(namePNG);
-    imageAfterDraw = templateImage.drawImage(nameImage, 20, 40);
+    imageAfterDraw = templateImage.drawImage(nameImage, 138, 878);
   }
 
   let isPhone = reg4Phone.test(phoneNum);
@@ -375,32 +375,32 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   }
   if (phoneNum) {
     const phoneNumSVG = textToSVG.getSVG(phoneNum, {
-      x: 0, y: 0, fontSize: 25, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'white' }
+      x: 0, y: 0, fontSize: 22, anchor: 'top',
+      attributes: { fill: 'gold', stroke: 'black' }
     });
     const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const phoneNumImage = images(phoneNumPNG);
-    imageAfterDraw = templateImage.drawImage(phoneNumImage, 20, 80);
+    imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 838);
   }
 
   if (priceReal) {
     const priceRealSVG = textToSVG.getSVG(priceReal, {
-      x: 0, y: 0, fontSize: 25, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'white' }
+      x: 0, y: 0, fontSize: 22, anchor: 'top',
+      attributes: { fill: 'gold', stroke: 'black' }
     });
     const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const priceRealImage = images(priceRealPNG);
-    imageAfterDraw = templateImage.drawImage(priceRealImage, 20, 120);
+    imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 838);
   }
 
   if (orderDate) {
     const orderDateSVG = textToSVG.getSVG(orderDate, {
-      x: 0, y: 0, fontSize: 25, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'white' }
+      x: 0, y: 0, fontSize: 18, anchor: 'top',
+      attributes: { fill: 'gold', stroke: 'black' }
     });
     const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const orderDateImage = images(orderDatePNG);
-    imageAfterDraw = templateImage.drawImage(orderDateImage, 20, 160);
+    imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 880);
   }
 
   imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 90 });

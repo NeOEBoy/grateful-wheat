@@ -349,7 +349,7 @@ const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
 const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   const imagePathPre = './schedule/lottery-template';
 
-  const textToSVG = TextToSVG.loadSync(imagePathPre + '/思源黑体SourceHanSansCN-Heavy.otf');
+  const textToSVG = TextToSVG.loadSync(imagePathPre + '/王汉宗细新宋简.ttf');
 
   const templateImage = images(imagePathPre + '/template.jpg');
   let imageAfterDraw = templateImage;
@@ -362,7 +362,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   if (name) {
     const nameSVG = textToSVG.getSVG(name, {
       x: 0, y: 0, fontSize: 22, anchor: 'top',
-      attributes: { fill: 'gold', stroke: 'black' }
+      attributes: { fill: 'black', stroke: 'black' }
     });
     const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const nameImage = images(namePNG);
@@ -376,7 +376,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   if (phoneNum) {
     const phoneNumSVG = textToSVG.getSVG(phoneNum, {
       x: 0, y: 0, fontSize: 22, anchor: 'top',
-      attributes: { fill: 'gold', stroke: 'black' }
+      attributes: { fill: 'black', stroke: 'black' }
     });
     const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const phoneNumImage = images(phoneNumPNG);
@@ -384,9 +384,10 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   }
 
   if (priceReal) {
+    priceReal += ' 元';
     const priceRealSVG = textToSVG.getSVG(priceReal, {
       x: 0, y: 0, fontSize: 22, anchor: 'top',
-      attributes: { fill: 'gold', stroke: 'black' }
+      attributes: { fill: 'black', stroke: 'black' }
     });
     const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const priceRealImage = images(priceRealPNG);
@@ -396,17 +397,21 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   if (orderDate) {
     const orderDateSVG = textToSVG.getSVG(orderDate, {
       x: 0, y: 0, fontSize: 18, anchor: 'top',
-      attributes: { fill: 'gold', stroke: 'black' }
+      attributes: { fill: 'black', stroke: 'black' }
     });
     const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const orderDateImage = images(orderDatePNG);
     imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 880);
   }
 
-  imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 90 });
-  let compositeImageBuffer = fs.readFileSync(imagePathPre + '/composite.jpg');
-  fs.unlinkSync(imagePathPre + '/composite.jpg');
-  await doSendToCompanyGroup('image', compositeImageBuffer);
+  imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 100 });
+  fs.readFile(imagePathPre + '/composite.jpg', (err, compositeImageBuffer) => {
+    if (!err && compositeImageBuffer) {
+      doSendToCompanyGroup('image', compositeImageBuffer);
+    }
+
+    fs.unlink(imagePathPre + '/composite.jpg', (err) => { });
+  });
 }
 
 const doSendToCompanyGroup = async (type, content) => {

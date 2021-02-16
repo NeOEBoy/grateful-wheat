@@ -15,7 +15,7 @@ const { convert } = require('convert-svg-to-png');
 const crypto = require('crypto');
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = true;
 const KSendToWorkWeixin = true;
 /// 增加门店这里添加一下
 KShopHeadUserId = '3995763'; // 总部账号
@@ -64,7 +64,7 @@ const dostartScheduleLottery = async () => {
   const thePOSPALAUTH30220 = await signIn();
   /// 获取单据总数
   const totalTicketRecord = await getTicketSummaryAndParse(thePOSPALAUTH30220);
-  if (totalTicketRecord < 100) {
+  if (totalTicketRecord < 1) {
     ticketObj.totalRecord = totalTicketRecord;
     ticketObj.message = '总订单量过少，无法抽奖...';
     await buildErrorString4WorkweixinAndSend(ticketObj);
@@ -84,7 +84,7 @@ const dostartScheduleLottery = async () => {
     // console.log(random);
     ticketObj = await getTicketByPageAndParse(thePOSPALAUTH30220, random);
     // console.log(ticketObj);
-    if (ticketObj.memberId !== '-') break;
+    if (ticketObj.memberId !== '-' && ticketObj.productOrderType === '销售') break;
   }
 
   if (!ticketObj || ticketObj.memberId === '-') {
@@ -208,6 +208,7 @@ const getTicketByPageAndParse = async (thePOSPALAUTH30220, pageIndex) => {
         let columnProductPriceOriginIndex = -1; ///商品原价
         let columnProductPriceRealIndex = -1; ///商品实收
         let columnProductPriceDiscountedIndex = -1; ///商品折让
+        let columnProductOrderTypeIndex = -1; ///订单类型，销售/退货
 
         let orderTh = result.root.thead[0].tr[0].th;
         // console.log(orderTh);
@@ -245,6 +246,10 @@ const getTicketByPageAndParse = async (thePOSPALAUTH30220, pageIndex) => {
             columnProductPriceDiscountedIndex = index;
             continue;
           }
+          if (orderTh[index]._ === '类型') {
+            columnProductOrderTypeIndex = index;
+            continue;
+          }
         }
         // console.log('columnSerialNumberIndex = ' + columnSerialNumberIndex);
         // console.log('columnDateIndex = ' + columnDateIndex);
@@ -254,6 +259,7 @@ const getTicketByPageAndParse = async (thePOSPALAUTH30220, pageIndex) => {
         // console.log('columnProductPriceOriginIndex = ' + columnProductPriceOriginIndex);
         // console.log('columnProductPriceRealIndex = ' + columnProductPriceRealIndex);
         // console.log('columnProductPriceDiscountedIndex = ' + columnProductPriceDiscountedIndex);
+        // console.log('columnProductOrderTypeIndex = ' + columnProductOrderTypeIndex);
 
         let orderTdArray = orderTrArray[0].td;
         let serialNumber = orderTdArray[columnSerialNumberIndex]._;
@@ -280,6 +286,8 @@ const getTicketByPageAndParse = async (thePOSPALAUTH30220, pageIndex) => {
         // console.log('productPriceReal = ' + productPriceReal);
         let productPriceDiscounted = orderTdArray[columnProductPriceDiscountedIndex]._;
         // console.log('productPriceDiscounted = ' + productPriceDiscounted);
+        let productOrderType = orderTdArray[columnProductOrderTypeIndex]._;
+        // console.log('productOrderType = ' + productOrderType);
 
         ticketObj.serialNumber = serialNumber;
         ticketObj.date = date;
@@ -290,6 +298,7 @@ const getTicketByPageAndParse = async (thePOSPALAUTH30220, pageIndex) => {
         ticketObj.productPriceOrigin = productPriceOrigin;
         ticketObj.productPriceReal = productPriceReal;
         ticketObj.productPriceDiscounted = productPriceDiscounted;
+        ticketObj.productOrderType = productOrderType;
       }
     } catch (e) {
       console.log('查询ticketByPage出错 e = ' + e);
@@ -349,7 +358,7 @@ const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
 const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   const imagePathPre = './schedule/lottery-template';
 
-  const textToSVG = TextToSVG.loadSync(imagePathPre + '/王汉宗细新宋简.ttf');
+  const textToSVG = TextToSVG.loadSync(imagePathPre + '/思源宋体SC-Light.otf');
 
   const templateImage = images(imagePathPre + '/template.jpg');
   let imageAfterDraw = templateImage;
@@ -361,12 +370,12 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   }
   if (name) {
     const nameSVG = textToSVG.getSVG(name, {
-      x: 0, y: 0, fontSize: 22, anchor: 'top',
+      x: 0, y: 0, fontSize: 20, anchor: 'top',
       attributes: { fill: 'black', stroke: 'black' }
     });
     const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const nameImage = images(namePNG);
-    imageAfterDraw = templateImage.drawImage(nameImage, 138, 878);
+    imageAfterDraw = templateImage.drawImage(nameImage, 138, 873);
   }
 
   let isPhone = reg4Phone.test(phoneNum);
@@ -375,23 +384,23 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   }
   if (phoneNum) {
     const phoneNumSVG = textToSVG.getSVG(phoneNum, {
-      x: 0, y: 0, fontSize: 22, anchor: 'top',
+      x: 0, y: 0, fontSize: 20, anchor: 'top',
       attributes: { fill: 'black', stroke: 'black' }
     });
     const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const phoneNumImage = images(phoneNumPNG);
-    imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 838);
+    imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 833);
   }
 
   if (priceReal) {
     priceReal += ' 元';
     const priceRealSVG = textToSVG.getSVG(priceReal, {
-      x: 0, y: 0, fontSize: 22, anchor: 'top',
+      x: 0, y: 0, fontSize: 20, anchor: 'top',
       attributes: { fill: 'black', stroke: 'black' }
     });
     const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const priceRealImage = images(priceRealPNG);
-    imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 838);
+    imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 833);
   }
 
   if (orderDate) {
@@ -401,7 +410,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
     });
     const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
     const orderDateImage = images(orderDatePNG);
-    imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 880);
+    imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 876);
   }
 
   imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 100 });

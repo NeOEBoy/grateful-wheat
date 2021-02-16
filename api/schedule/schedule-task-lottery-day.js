@@ -372,7 +372,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
     if (name) {
       const nameSVG = textToSVG.getSVG(name, {
         x: 0, y: 0, fontSize: 20, anchor: 'top',
-        attributes: { fill: 'black', stroke: 'black' }
+        attributes: { fill: 'black', stroke: 'yellow' }
       });
       const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const nameImage = images(namePNG);
@@ -386,7 +386,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
     if (phoneNum) {
       const phoneNumSVG = textToSVG.getSVG(phoneNum, {
         x: 0, y: 0, fontSize: 20, anchor: 'top',
-        attributes: { fill: 'black', stroke: 'black' }
+        attributes: { fill: 'black', stroke: 'yellow' }
       });
       const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const phoneNumImage = images(phoneNumPNG);
@@ -397,7 +397,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
       priceReal += ' 元';
       const priceRealSVG = textToSVG.getSVG(priceReal, {
         x: 0, y: 0, fontSize: 20, anchor: 'top',
-        attributes: { fill: 'black', stroke: 'black' }
+        attributes: { fill: 'black', stroke: 'yellow' }
       });
       const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const priceRealImage = images(priceRealPNG);
@@ -407,7 +407,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
     if (orderDate) {
       const orderDateSVG = textToSVG.getSVG(orderDate, {
         x: 0, y: 0, fontSize: 18, anchor: 'top',
-        attributes: { fill: 'black', stroke: 'black' }
+        attributes: { fill: 'black', stroke: 'yellow' }
       });
       const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const orderDateImage = images(orderDatePNG);

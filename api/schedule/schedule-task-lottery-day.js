@@ -376,7 +376,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
       });
       const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const nameImage = images(namePNG);
-      imageAfterDraw = templateImage.drawImage(nameImage, 138, 873);
+      imageAfterDraw = templateImage.drawImage(nameImage, 138, 878);
     }
 
     let isPhone = reg4Phone.test(phoneNum);
@@ -390,7 +390,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
       });
       const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const phoneNumImage = images(phoneNumPNG);
-      imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 833);
+      imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 838);
     }
 
     if (priceReal) {
@@ -401,7 +401,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
       });
       const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const priceRealImage = images(priceRealPNG);
-      imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 833);
+      imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 838);
     }
 
     if (orderDate) {
@@ -411,7 +411,7 @@ const composePicture = async (name, phoneNum, priceReal, orderDate) => {
       });
       const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
       const orderDateImage = images(orderDatePNG);
-      imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 876);
+      imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 880);
     }
 
     imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 100 });

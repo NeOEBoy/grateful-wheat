@@ -358,68 +358,70 @@ const buildErrorString4WorkweixinAndSend = async (ticketObj) => {
 const composePicture = async (name, phoneNum, priceReal, orderDate) => {
   const imagePathPre = './schedule/lottery-template';
 
-  const textToSVG = TextToSVG.loadSync(imagePathPre + '/思源宋体SC-Light.otf');
+  TextToSVG.load(imagePathPre + '/庞门正道标题体.ttf', async (err, textToSVG) => {
+    if (err || !textToSVG) return;
 
-  const templateImage = images(imagePathPre + '/template.jpg');
-  let imageAfterDraw = templateImage;
+    const templateImage = images(imagePathPre + '/template.jpg');
+    let imageAfterDraw = templateImage;
 
-  let reg4Phone = /^1[0-9]{10}$/;
-  let nameIsPhone = reg4Phone.test(name);
-  if (nameIsPhone) {
-    name = name.substring(0, 3) + '****' + name.substr(name.length - 4)
-  }
-  if (name) {
-    const nameSVG = textToSVG.getSVG(name, {
-      x: 0, y: 0, fontSize: 20, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'black' }
-    });
-    const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
-    const nameImage = images(namePNG);
-    imageAfterDraw = templateImage.drawImage(nameImage, 138, 873);
-  }
-
-  let isPhone = reg4Phone.test(phoneNum);
-  if (isPhone) {
-    phoneNum = phoneNum.substring(0, 3) + '****' + phoneNum.substr(phoneNum.length - 4)
-  }
-  if (phoneNum) {
-    const phoneNumSVG = textToSVG.getSVG(phoneNum, {
-      x: 0, y: 0, fontSize: 20, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'black' }
-    });
-    const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
-    const phoneNumImage = images(phoneNumPNG);
-    imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 833);
-  }
-
-  if (priceReal) {
-    priceReal += ' 元';
-    const priceRealSVG = textToSVG.getSVG(priceReal, {
-      x: 0, y: 0, fontSize: 20, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'black' }
-    });
-    const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
-    const priceRealImage = images(priceRealPNG);
-    imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 833);
-  }
-
-  if (orderDate) {
-    const orderDateSVG = textToSVG.getSVG(orderDate, {
-      x: 0, y: 0, fontSize: 18, anchor: 'top',
-      attributes: { fill: 'black', stroke: 'black' }
-    });
-    const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
-    const orderDateImage = images(orderDatePNG);
-    imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 876);
-  }
-
-  imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 100 });
-  fs.readFile(imagePathPre + '/composite.jpg', (err, compositeImageBuffer) => {
-    if (!err && compositeImageBuffer) {
-      doSendToCompanyGroup('image', compositeImageBuffer);
+    let reg4Phone = /^1[0-9]{10}$/;
+    let nameIsPhone = reg4Phone.test(name);
+    if (nameIsPhone) {
+      name = name.substring(0, 3) + '****' + name.substr(name.length - 4)
+    }
+    if (name) {
+      const nameSVG = textToSVG.getSVG(name, {
+        x: 0, y: 0, fontSize: 20, anchor: 'top',
+        attributes: { fill: 'black', stroke: 'black' }
+      });
+      const namePNG = await convert(nameSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
+      const nameImage = images(namePNG);
+      imageAfterDraw = templateImage.drawImage(nameImage, 138, 873);
     }
 
-    fs.unlink(imagePathPre + '/composite.jpg', (err) => { });
+    let isPhone = reg4Phone.test(phoneNum);
+    if (isPhone) {
+      phoneNum = phoneNum.substring(0, 3) + '****' + phoneNum.substr(phoneNum.length - 4)
+    }
+    if (phoneNum) {
+      const phoneNumSVG = textToSVG.getSVG(phoneNum, {
+        x: 0, y: 0, fontSize: 20, anchor: 'top',
+        attributes: { fill: 'black', stroke: 'black' }
+      });
+      const phoneNumPNG = await convert(phoneNumSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
+      const phoneNumImage = images(phoneNumPNG);
+      imageAfterDraw = templateImage.drawImage(phoneNumImage, 138, 833);
+    }
+
+    if (priceReal) {
+      priceReal += ' 元';
+      const priceRealSVG = textToSVG.getSVG(priceReal, {
+        x: 0, y: 0, fontSize: 20, anchor: 'top',
+        attributes: { fill: 'black', stroke: 'black' }
+      });
+      const priceRealPNG = await convert(priceRealSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
+      const priceRealImage = images(priceRealPNG);
+      imageAfterDraw = templateImage.drawImage(priceRealImage, 437, 833);
+    }
+
+    if (orderDate) {
+      const orderDateSVG = textToSVG.getSVG(orderDate, {
+        x: 0, y: 0, fontSize: 18, anchor: 'top',
+        attributes: { fill: 'black', stroke: 'black' }
+      });
+      const orderDatePNG = await convert(orderDateSVG, { puppeteer: { args: ['--no-sandbox', '--disable-setuid-sandbox'] } });
+      const orderDateImage = images(orderDatePNG);
+      imageAfterDraw = templateImage.drawImage(orderDateImage, 437, 876);
+    }
+
+    imageAfterDraw.save(imagePathPre + '/composite.jpg', { quality: 100 });
+    fs.readFile(imagePathPre + '/composite.jpg', (err, compositeImageBuffer) => {
+      if (!err && compositeImageBuffer) {
+        doSendToCompanyGroup('image', compositeImageBuffer);
+      }
+
+      fs.unlink(imagePathPre + '/composite.jpg', (err) => { });
+    });
   });
 }
 

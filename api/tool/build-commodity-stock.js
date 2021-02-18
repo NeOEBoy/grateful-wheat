@@ -1589,7 +1589,7 @@ const getProductTransferNumberInfo = async (thePOSPALAUTH30220, stockFlowType) =
         let tbodyTRLength = tbodyTRArray.length;
         if (tbodyTRLength === 1) {
           let tr0Property = tbodyTRArray[0].$;
-          if (tr0Property.CLASS === 'noRecord') {
+          if (tr0Property && tr0Property.CLASS === 'noRecord') {
             throw new Error('查找不到' + stockMessage + '的调货记录信息!!!');
           }
         }

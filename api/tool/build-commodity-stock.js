@@ -591,7 +591,7 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
   const normalOutNumberInfoArray = await getProductTransferNumberInfo(thePOSPALAUTH30220, 13);
   // console.log(normalOutNumberInfoArray);
 
-  const totalNumberInfoArray = mergeEnterReturnOutInfo(
+  let totalNumberInfoArray = mergeEnterReturnOutInfo(
     enterNumberInfoArray, returnNumberInfoArray, normalOutNumberInfoArray);
 
   console.log('准备查询对应商品详细信息！');
@@ -599,7 +599,7 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
   let firstRow = lastRow + 1;
   for (let index = 0; index < totalNumberInfoArray.length; ++index) {
     let totalNumberInfo = totalNumberInfoArray[index];
-    totalNumberInfo.serialNum = index + 1;
+
     totalNumberInfo.category = '';
     totalNumberInfo.specification = '';
     totalNumberInfo.unit = '';
@@ -618,7 +618,13 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
       totalNumberInfo.wholePrice = productInfo.wholePrice;
       // console.log(totalNumberInfo);
     }
+  }
 
+  totalNumberInfoArray = MergeClassification(totalNumberInfoArray);
+
+  for (let index = 0; index < totalNumberInfoArray.length; ++index) {
+    let totalNumberInfo = totalNumberInfoArray[index];
+    totalNumberInfo.serialNum = index + 1;
     let excelRowItem = {};
     excelRowItem.row = totalNumberInfo.serialNum + firstRow - 1;
     excelRowItem.data = [];
@@ -648,9 +654,6 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowInformation.push(excelRowItem);
 
     lastRow++;
-
-    /// 测试一下
-    // if (index >= 0) break;
   }
 
   lastRow++;
@@ -1096,13 +1099,12 @@ const makeExcelInfo2Meta = (worksheet, lastRow) => {
 
 const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
   // console.log('正在查询报损信息！');
-  const numberInfoArray = await getDiscardProductList(thePOSPALAUTH30220);
+  let numberInfoArray = await getDiscardProductList(thePOSPALAUTH30220);
   // console.log(numberInfoArray);
   let excelRowInformation = [];
   let firstRow = lastRow + 1;
   for (let index = 0; index < numberInfoArray.length; ++index) {
     let discardNumberInfo = numberInfoArray[index];
-    discardNumberInfo.serialNum = index + 1;
     discardNumberInfo.category = '';
     discardNumberInfo.specification = '';
     discardNumberInfo.unit = '';
@@ -1121,7 +1123,13 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
       discardNumberInfo.wholePrice = productInfo.wholePrice;
       // console.log(discardNumberInfo);
     }
+  }
 
+  numberInfoArray = MergeClassification(numberInfoArray);
+
+  for (let index = 0; index < numberInfoArray.length; ++index) {
+    let discardNumberInfo = numberInfoArray[index];
+    discardNumberInfo.serialNum = index + 1;
     let excelRowItem = {};
     excelRowItem.row = discardNumberInfo.serialNum + firstRow - 1;
     excelRowItem.data = [];
@@ -1163,10 +1171,8 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowInformation.push(excelRowItem);
 
     lastRow++;
-
-    /// 测试一下
-    // if (index >= 1) break;
   }
+
   // console.log(numberInfoArray);
 
   lastRow++;
@@ -1949,6 +1955,30 @@ const mergeEnterReturnOutInfo = (enterNumberInfoArray, returnNumberInfoArray, ou
   });
 
   return totalNumberInfoArray;
+}
+
+const MergeClassification = (totalNumberInfoArray) => {
+  console.log('准备整理分类商品！');
+  let afterMergeTotalNumberInfoArray = [];
+
+  let classificationArray = [];
+  totalNumberInfoArray && totalNumberInfoArray.forEach(element => {
+    if (classificationArray.indexOf(element.category) === -1) {
+      classificationArray.push(element.category);
+    }
+  });
+
+  // console.log(classificationArray);
+
+  classificationArray.forEach(element => {
+    totalNumberInfoArray && totalNumberInfoArray.forEach(element1 => {
+      if (element === element1.category) {
+        afterMergeTotalNumberInfoArray.push(element1);
+      }
+    });
+  });
+
+  return afterMergeTotalNumberInfoArray;
 }
 
 const startBuild = async () => {

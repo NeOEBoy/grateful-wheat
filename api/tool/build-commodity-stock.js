@@ -17,6 +17,29 @@ const KShopArray = [
   { index: 4, name: '汤泉世纪店', userId: '4061092' }
 ];
 
+/// 下面的分类属于外购品，给合作商批发价
+const KOutsideCategorys = [
+  '外购品', '弯麦耗材', '南靖康盛贸易'
+];
+
+const makeORString = (column, row, OutsideCategorys) => {
+  let ORString = 'OR(';
+
+  OutsideCategorys.forEach(element => {
+    let orItem = column + row + '=';
+    orItem += '\"' + element + '\"';
+
+    ORString += orItem;
+    if (OutsideCategorys.indexOf(element) !== (OutsideCategorys.length - 1)) {
+      ORString += ','
+    }
+  });
+
+  ORString += ')';
+
+  return ORString;
+}
+
 const makeExcelCommonTitle = (worksheet) => {
   let lastRow = 1;
   {
@@ -636,8 +659,8 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'G', value: totalNumberInfo.price, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'H', value: totalNumberInfo.memberPrice, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'I', value: totalNumberInfo.wholePrice, numFmt: '0.00' });
-    let costPriceFormula = 'IF(OR(D' + excelRowItem.row + '=\"外购品\",D'
-      + excelRowItem.row + '=\"弯麦耗材\"),I' + excelRowItem.row
+    let costPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
+      + excelRowItem.row
       + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
       + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
     excelRowItem.data.push({ column: 'J', value: { formula: costPriceFormula, result: '公式' }, numFmt: '0.00' });
@@ -1141,8 +1164,8 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'G', value: discardNumberInfo.price, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'H', value: discardNumberInfo.memberPrice, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'I', value: discardNumberInfo.wholePrice, numFmt: '0.00' });
-    let discardPriceFormula = 'IF(OR(D' + excelRowItem.row + '=\"外购品\",D'
-      + excelRowItem.row + '=\"弯麦耗材\"),I' + excelRowItem.row
+    let discardPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
+      + excelRowItem.row
       + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
       + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
     excelRowItem.data.push({ column: 'J', value: { formula: discardPriceFormula, result: '公式' }, numFmt: '0.00' });

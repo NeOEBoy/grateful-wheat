@@ -65,8 +65,8 @@ const dostartScheduleBusiness = async () => {
   await buildActualIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
 
   /// 对外收款：企业微信对外收款
-  await appendWeixinPaymentInItem(businessSummaryObj4workweixin);
-  await buildExternalIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
+  // await appendWeixinPaymentInItem(businessSummaryObj4workweixin);
+  // await buildExternalIncomeString4WorkweixinAndSend(businessSummaryObj4workweixin);
 }
 
 const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {

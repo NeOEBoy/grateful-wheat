@@ -84,4 +84,8 @@ startScheduleCheckinDay();
 const startScheduleLotteryDay = require('./schedule/schedule-task-lottery-day');
 startScheduleLotteryDay();
 
+/// 启动定时任务，每日上报天气数据
+const startScheduleWeatherDay = require('./schedule/schedule-task-weather-day');
+startScheduleWeatherDay();
+
 module.exports = app;

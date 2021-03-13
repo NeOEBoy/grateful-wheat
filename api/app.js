@@ -81,8 +81,8 @@ startScheduleBusinessMonth();
 const startScheduleCheckinDay = require('./schedule/schedule-task-checkin-day');
 startScheduleCheckinDay();
 /// 启动定时任务，每日上报抽奖数据
-const startScheduleLotteryDay = require('./schedule/schedule-task-lottery-day');
-startScheduleLotteryDay();
+// const startScheduleLotteryDay = require('./schedule/schedule-task-lottery-day');
+// startScheduleLotteryDay();
 
 /// 启动定时任务，每日上报天气数据
 const startScheduleWeatherDay = require('./schedule/schedule-task-weather-day');

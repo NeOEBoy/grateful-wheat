@@ -19,7 +19,7 @@ const KShopArray = [
 
 /// 下面的分类属于外购品，给合作商批发价
 const KOutsideCategorys = [
-  '外购品', '弯麦耗材', '南靖康盛贸易'
+  '外购品', '弯麦耗材', '南靖康盛'
 ];
 
 const makeORString = (column, row, OutsideCategorys) => {

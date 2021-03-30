@@ -19,7 +19,7 @@ const KShopArray = [
 
 /// 下面的分类属于外购品，给合作商批发价
 const KOutsideCategorys = [
-  '外购品', '弯麦耗材', '南靖康盛'
+  '外购品', '弯麦耗材', '高端零食'
 ];
 
 const makeORString = (column, row, OutsideCategorys) => {
@@ -633,6 +633,7 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     console.log('正在查询<' + totalNumberInfo.code + totalNumberInfo.name + '>的商品详细信息！');
     let productInfo = await getProductInfo(thePOSPALAUTH30220, totalNumberInfo.code);
     if (productInfo) {
+      totalNumberInfo.name = productInfo.name;
       totalNumberInfo.category = productInfo.category;
       totalNumberInfo.specification = productInfo.specification;
       totalNumberInfo.unit = productInfo.productUnit;
@@ -1138,6 +1139,7 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     console.log('正在查询<' + discardNumberInfo.code + discardNumberInfo.name + '>的销售信息！');
     let productInfo = await getProductInfo(thePOSPALAUTH30220, discardNumberInfo.code);
     if (productInfo) {
+      discardNumberInfo.name = productInfo.name;
       discardNumberInfo.category = productInfo.category;
       discardNumberInfo.specification = productInfo.specification;
       discardNumberInfo.unit = productInfo.productUnit;

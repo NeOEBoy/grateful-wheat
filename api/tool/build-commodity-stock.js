@@ -14,12 +14,13 @@ const KShopArray = [
   { index: 1, name: '教育局店', userId: '3995767' },
   { index: 2, name: '旧镇店', userId: '3995771' },
   { index: 3, name: '江滨店', userId: '4061089' },
-  { index: 4, name: '汤泉世纪店', userId: '4061092' }
+  { index: 4, name: '汤泉世纪店', userId: '4061092' },
+  { index: 5, name: '假日店', userId: '4339546' }
 ];
 
 /// 下面的分类属于外购品，给合作商批发价
 const KOutsideCategorys = [
-  '外购品', '弯麦耗材', '高端零食'
+  '外购品', '弯麦耗材', '传统零食', '高端零食'
 ];
 
 const makeORString = (column, row, OutsideCategorys) => {
@@ -653,7 +654,15 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.row = totalNumberInfo.serialNum + firstRow - 1;
     excelRowItem.data = [];
     excelRowItem.data.push({ column: 'B', value: totalNumberInfo.serialNum });
-    excelRowItem.data.push({ column: 'C', value: totalNumberInfo.name });
+
+    let nameItem = {};
+    nameItem.column = 'C';
+    nameItem.value = totalNumberInfo.name;
+    if (totalNumberInfo.price && totalNumberInfo.memberPrice &&
+      totalNumberInfo.price !== totalNumberInfo.memberPrice) {
+      nameItem.fillColor = 'FF92D050';
+    }
+    excelRowItem.data.push(nameItem);
     excelRowItem.data.push({ column: 'D', value: totalNumberInfo.category });
     excelRowItem.data.push({ column: 'E', value: totalNumberInfo.specification });
     excelRowItem.data.push({ column: 'F', value: totalNumberInfo.unit });
@@ -662,8 +671,7 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'I', value: totalNumberInfo.wholePrice, numFmt: '0.00' });
     let costPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
       + excelRowItem.row
-      + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
-      + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
+      + ',G' + excelRowItem.row + '*0.7)';
     excelRowItem.data.push({ column: 'J', value: { formula: costPriceFormula, result: '公式' }, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'K', value: totalNumberInfo.enterNumber, numFmt: '0' });
     excelRowItem.data.push({ column: 'L', value: totalNumberInfo.returnNumber, numFmt: '0' });
@@ -1168,8 +1176,7 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'I', value: discardNumberInfo.wholePrice, numFmt: '0.00' });
     let discardPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
       + excelRowItem.row
-      + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
-      + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
+      + ',G' + excelRowItem.row + '*0.7)';
     excelRowItem.data.push({ column: 'J', value: { formula: discardPriceFormula, result: '公式' }, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'K', value: discardNumberInfo.discardNumber, numFmt: '0' });
 
@@ -1505,6 +1512,15 @@ const insertItemToWorkSheet = (excelRowInformation, worksheet) => {
         bottom: { style: 'thin' },
         right: { style: 'thin' }
       };
+      //FF92D050
+      let fillColor = columnItemInfo.fillColor;
+      if (fillColor) {
+        columnItemCell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: fillColor }
+        };
+      }
     }
   }
 }
@@ -2058,7 +2074,7 @@ const excute = () => {
   var args = process.argv.splice(2);
   // args[0]='877461508' args[1]='品类优惠测试券'
   if (args.length !== 2) {
-    console.log('参数错误，第1参数：店名(教育局店|旧镇店|江滨店|汤泉世纪店|...)，第2个参数：月份(2020.12)');
+    console.log('参数错误，第1参数：店名(教育局店|旧镇店|江滨店|汤泉世纪店|假日店|...)，第2个参数：月份(2020.12)');
   } else {
     for (let index = 0; index < KShopArray.length; ++index) {
       let shop = KShopArray[index];

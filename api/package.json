@@ -17,6 +17,7 @@
     "http-errors": "~1.6.3",
     "images": "^3.2.3",
     "jade": "~1.11.0",
+    "lunar-javascript": "^1.2.2",
     "moment": "^2.29.1",
     "mongoose": "^5.11.2",
     "morgan": "~1.9.1",

@@ -1,10 +1,11 @@
 const schedule = require('node-schedule');
 const fetch = require('node-fetch');
-const { LunarDate } = require('../util/lunar-date-util');
 const { dateFormat } = require('../util/date-util');
 const {
   signIn
 } = require('../third/pospal');
+const { Solar } = require('lunar-javascript')
+
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
@@ -41,15 +42,16 @@ const getTomorrowDateAndWeather = async () => {
         if (tomorrowDaily) {
           var dt = new Date(); // 注意第二个参数月的范围是 [0, 11]
           dt.setTime(dt.getTime() + 24 * 60 * 60 * 1000);
-          let dateStr = 'A明天日期：';
+          let dateStr = 'A明天日期：阳历';
           dateStr += dateFormat("YYYY-mm-dd", dt);
           dateStr += ' | ';
           var a = new Array("日", "一", "二", "三", "四", "五", "六");
           var week = dt.getDay();
           dateStr += '周' + a[week];
-          dateStr += ' | ';
-          var ld = new LunarDate(dt);
-          dateStr += ld.lYear + "(" + ld.aYear + ")年" + ' ' + ld.lMonth + "月" + ld.lDay;
+          dateStr += ' | 阴历';
+          let solar = Solar.fromDate(dt);
+          const lunar = solar.getLunar();
+          dateStr += lunar.getYearInChinese() + "年" + lunar.getMonthInChinese() + "月" + lunar.getDayInChinese();
           dateAndWeather.push(dateStr);
 
           let weatherStr = '';
@@ -107,7 +109,7 @@ const saveProductAndSync = async (thePOSPALAUTH30220, name, specification) => {
     }
   });
   const saveProductResponseJson = await saveProductResponse.json();
-  console.log(saveProductResponseJson);
+  // console.log(saveProductResponseJson);
 
   if (saveProductResponseJson && saveProductResponseJson.successed) {
     if (saveProductResponseJson.syncStores) {
@@ -126,7 +128,7 @@ const saveProductAndSync = async (thePOSPALAUTH30220, name, specification) => {
           }
         });
         const syncProductResponseJson = await syncProductResponse.json();
-        console.log(syncProductResponseJson);
+        // console.log(syncProductResponseJson);
       };
 
       for (let i = 0; i < saveProductResponseJson.syncStores.length; ++i) {

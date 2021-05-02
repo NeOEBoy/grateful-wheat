@@ -22,7 +22,8 @@ const KShopArray = [
   { index: 2, name: '旧镇店', userId: '3995771' },
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉世纪店', userId: '4061092' },
-  { index: 5, name: '假日店', userId: '4339546' }
+  { index: 5, name: '假日店', userId: '4339546' },
+  { index: 6, name: '狮头店', userId: '4359267' }
 ];
 /**
  * categoryId为数组格式 %22id1%22,%22id2%22,%22id3%22

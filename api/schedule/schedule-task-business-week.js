@@ -23,7 +23,8 @@ const KShopArray = [
   { index: 2, name: '旧镇店', userId: '3995771' },
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉世纪店', userId: '4061092' },
-  { index: 5, name: '假日店', userId: '4339546' }
+  { index: 5, name: '假日店', userId: '4339546' },
+  { index: 6, name: '狮头店', userId: '4359267' }
 ];
 const KReportWebhookUrl =
   'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=ccc40998-537a-497f-99cc-b0d57329dc34';

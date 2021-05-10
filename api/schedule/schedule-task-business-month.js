@@ -1037,7 +1037,7 @@ const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   productsaleurl += beginDateTime;
   productsaleurl += '&endDateTime=';
   productsaleurl += endDateTime;
-  return '> ' + '[热卖商品排行](' + productsaleurl + ')';
+  return '> ' + '[热卖商品](' + productsaleurl + ')';
 }
 
 const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
@@ -1049,7 +1049,7 @@ const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
   productdiscardurl += beginDateTime;
   productdiscardurl += '&endDateTime=';
   productdiscardurl += endDateTime;
-  return '> ' + '[报损商品排行](' + productdiscardurl + ')';
+  return '> ' + '[报损商品](' + productdiscardurl + ')';
 }
 
 const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {
@@ -1061,7 +1061,7 @@ const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {
   productsaleanddiscardurl += beginDateTime;
   productsaleanddiscardurl += '&endDateTime=';
   productsaleanddiscardurl += endDateTime;
-  return ' | ' + '[报损率排行](' + productsaleanddiscardurl + ')';
+  return ' | ' + '[报损率](' + productsaleanddiscardurl + ')';
 }
 
 const makeCouponSummaryMark = (id, beginDateTime, endDateTime) => {
@@ -1073,7 +1073,7 @@ const makeCouponSummaryMark = (id, beginDateTime, endDateTime) => {
   couponsummaryurl += beginDateTime;
   couponsummaryurl += '&endDateTime=';
   couponsummaryurl += endDateTime;
-  return '> ' + '[优惠劵核销排行](' + couponsummaryurl + ')';
+  return '> ' + '[优惠劵核销](' + couponsummaryurl + ')';
 }
 
 const doSendToCompanyGroup = async (content) => {

@@ -21,7 +21,11 @@ const KShopArray = [
 
 /// 下面的分类属于外购品，给合作商批发价
 const KOutsideCategorys = [
-  '外购品', '弯麦耗材', '传统零食', '高端零食'
+  '外购品',
+  '弯麦耗材',
+  '弯麦包装',
+  '弯麦传统零食',
+  '弯麦高端零食'
 ];
 
 const makeORString = (column, row, OutsideCategorys) => {
@@ -135,39 +139,40 @@ const makeExcelCommonTitle = (worksheet) => {
       bottom: { style: 'mediumDashed' }
     };
   }
-  lastRow++;
-  {
-    const timeRow1 = worksheet.getRow(lastRow);
-    timeRow1.height = 22;
+  /// 暂时去掉对账时间栏
+  // lastRow++;
+  // {
+  //   const timeRow1 = worksheet.getRow(lastRow);
+  //   timeRow1.height = 22;
 
-    worksheet.mergeCells('B' + lastRow + ':F' + lastRow);
-    let time1Cell = worksheet.getCell('B' + lastRow);
-    time1Cell.value = '对账时间：';
-    time1Cell.font = { size: 10, bold: true, name: '等线' };
-    time1Cell.alignment = { horizontal: 'right', vertical: 'middle' }
-    time1Cell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    time1Cell.border = {
-      bottom: { style: 'mediumDashed' }
-    };
+  //   worksheet.mergeCells('B' + lastRow + ':F' + lastRow);
+  //   let time1Cell = worksheet.getCell('B' + lastRow);
+  //   time1Cell.value = '对账时间：';
+  //   time1Cell.font = { size: 10, bold: true, name: '等线' };
+  //   time1Cell.alignment = { horizontal: 'right', vertical: 'middle' }
+  //   time1Cell.fill = {
+  //     type: 'pattern',
+  //     pattern: 'solid',
+  //     fgColor: { argb: 'FFACB9CA' }
+  //   };
+  //   time1Cell.border = {
+  //     bottom: { style: 'mediumDashed' }
+  //   };
 
-    worksheet.mergeCells('G' + lastRow + ':P' + lastRow);
-    let time2Cell = worksheet.getCell('G' + lastRow);
-    time2Cell.value = '';
-    time2Cell.font = { size: 10, bold: false, name: '等线' };
-    time2Cell.alignment = { horizontal: 'left', vertical: 'middle' }
-    time2Cell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FFACB9CA' }
-    };
-    time2Cell.border = {
-      bottom: { style: 'mediumDashed' }
-    };
-  }
+  //   worksheet.mergeCells('G' + lastRow + ':P' + lastRow);
+  //   let time2Cell = worksheet.getCell('G' + lastRow);
+  //   time2Cell.value = '';
+  //   time2Cell.font = { size: 10, bold: false, name: '等线' };
+  //   time2Cell.alignment = { horizontal: 'left', vertical: 'middle' }
+  //   time2Cell.fill = {
+  //     type: 'pattern',
+  //     pattern: 'solid',
+  //     fgColor: { argb: 'FFACB9CA' }
+  //   };
+  //   time2Cell.border = {
+  //     bottom: { style: 'mediumDashed' }
+  //   };
+  // }
   return lastRow;
 }
 
@@ -672,7 +677,8 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'I', value: totalNumberInfo.wholePrice, numFmt: '0.00' });
     let costPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
       + excelRowItem.row
-      + ',G' + excelRowItem.row + '*0.7)';
+      + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
+      + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
     excelRowItem.data.push({ column: 'J', value: { formula: costPriceFormula, result: '公式' }, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'K', value: totalNumberInfo.enterNumber, numFmt: '0' });
     excelRowItem.data.push({ column: 'L', value: totalNumberInfo.returnNumber, numFmt: '0' });
@@ -1177,7 +1183,8 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'I', value: discardNumberInfo.wholePrice, numFmt: '0.00' });
     let discardPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
       + excelRowItem.row
-      + ',G' + excelRowItem.row + '*0.7)';
+      + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
+      + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
     excelRowItem.data.push({ column: 'J', value: { formula: discardPriceFormula, result: '公式' }, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'K', value: discardNumberInfo.discardNumber, numFmt: '0' });
 

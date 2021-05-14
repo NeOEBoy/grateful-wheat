@@ -1822,14 +1822,23 @@ const getProductInfo = async (thePOSPALAUTH30220, code) => {
         let productPrice = rightTbodyTRItem.td[productPriceIndex]._;
         productPrice = productPrice.trim();
         productPrice = parseFloat(productPrice);
+        if(productCode === '2007021637558') { // 解忧蛋糕价格改为38
+          productPrice = 38;
+        }
         // console.log(productPrice);
         let productMemberPrice = rightTbodyTRItem.td[productMemberPriceIndex]._;
         productMemberPrice = productMemberPrice.trim();
         productMemberPrice = parseFloat(productMemberPrice);
+        if(productCode === '2007021637558') { // 解忧蛋糕价格改为38
+          productMemberPrice = 38;
+        }
         // console.log(productMemberPrice);
         let productWholePrice = rightTbodyTRItem.td[productWholePriceIndex]._;
         productWholePrice = productWholePrice.trim();
         productWholePrice = parseFloat(productWholePrice);
+        if(productCode === '2007021637558') { // 解忧蛋糕价格改为38
+          productWholePrice = 38;
+        }
         // console.log(productWholePrice);
 
         productInfo = {

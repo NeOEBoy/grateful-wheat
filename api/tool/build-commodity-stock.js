@@ -639,7 +639,7 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     totalNumberInfo.memberPrice = 0;
     totalNumberInfo.wholePrice = 0;
 
-    console.log('正在查询<' + totalNumberInfo.code + totalNumberInfo.name + '>的商品详细信息！');
+    console.log('正在查询<' + totalNumberInfo.code + '-' + totalNumberInfo.name + '>的商品详细信息！');
     let productInfo = await getProductInfo(thePOSPALAUTH30220, totalNumberInfo.code);
     if (productInfo) {
       totalNumberInfo.name = productInfo.name;
@@ -677,17 +677,26 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'G', value: totalNumberInfo.price, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'H', value: totalNumberInfo.memberPrice, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'I', value: totalNumberInfo.wholePrice, numFmt: '0.00' });
-    let costPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
-      + excelRowItem.row
-      + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
-      + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
+
+    let costPriceFormula;
+    if (SHOP_USERID === KShopArray[2].userId) { /// 旧镇店算会员价
+      costPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
+        + excelRowItem.row
+        + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
+        + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
+    } else {
+      costPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
+        + excelRowItem.row
+        + ',G' + excelRowItem.row + '*0.7)';
+    }
+
     excelRowItem.data.push({ column: 'J', value: { formula: costPriceFormula, result: '公式' }, numFmt: '0.00' });
-    excelRowItem.data.push({ column: 'K', value: totalNumberInfo.enterNumber, numFmt: '0' });
-    excelRowItem.data.push({ column: 'L', value: totalNumberInfo.returnNumber, numFmt: '0' });
-    excelRowItem.data.push({ column: 'M', value: totalNumberInfo.outNumber, numFmt: '0' });
+    excelRowItem.data.push({ column: 'K', value: totalNumberInfo.enterNumber, numFmt: '0.00' });
+    excelRowItem.data.push({ column: 'L', value: totalNumberInfo.returnNumber, numFmt: '0.00' });
+    excelRowItem.data.push({ column: 'M', value: totalNumberInfo.outNumber, numFmt: '0.00' });
     let finalNumberFormula = 'K' + excelRowItem.row
       + '-L' + excelRowItem.row + '-M' + excelRowItem.row;
-    excelRowItem.data.push({ column: 'N', value: { formula: finalNumberFormula, result: '公式' }, numFmt: '0' });
+    excelRowItem.data.push({ column: 'N', value: { formula: finalNumberFormula, result: '公式' }, numFmt: '0.00' });
     let totalPriceFormula = 'J' + excelRowItem.row + '*N' + excelRowItem.row;
     excelRowItem.data.push({ column: 'O', value: { formula: totalPriceFormula, result: '公式' }, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'P', value: '' });
@@ -786,7 +795,7 @@ const makeExcelInfo2Meta = (worksheet, lastRow) => {
   if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
     return lastRow;
   }
-  
+
   // console.log('makeExcelInfo2Meta lastRow =' + lastRow);
   lastRow++;
   {
@@ -1191,10 +1200,19 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     excelRowItem.data.push({ column: 'G', value: discardNumberInfo.price, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'H', value: discardNumberInfo.memberPrice, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'I', value: discardNumberInfo.wholePrice, numFmt: '0.00' });
-    let discardPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
-      + excelRowItem.row
-      + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
-      + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
+
+    let discardPriceFormula;
+    if (SHOP_USERID === KShopArray[2].userId) { /// 旧镇店算会员价
+      discardPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
+        + excelRowItem.row
+        + ',IF(H' + excelRowItem.row + '<G' + excelRowItem.row
+        + ',H' + excelRowItem.row + ',G' + excelRowItem.row + ')*0.7)';
+    } else {
+      discardPriceFormula = 'IF(' + makeORString('D', excelRowItem.row, KOutsideCategorys) + ',I'
+        + excelRowItem.row
+        + ',G' + excelRowItem.row + '*0.7)';
+    }
+
     excelRowItem.data.push({ column: 'J', value: { formula: discardPriceFormula, result: '公式' }, numFmt: '0.00' });
     excelRowItem.data.push({ column: 'K', value: discardNumberInfo.discardNumber, numFmt: '0' });
 
@@ -1671,7 +1689,7 @@ const getProductTransferNumberInfo = async (thePOSPALAUTH30220, stockFlowType) =
           let productName = tbodyTRArray[index].td[productNameIndex];
           // console.log(productName);
           let productNumber = tbodyTRArray[index].td[productNumberIndex]._;
-          productNumber = parseInt(productNumber);
+          productNumber = parseFloat(productNumber);
           // console.log(productNumber);
 
           let enterNumberInfoItem = { code: productCode, name: productName, number: productNumber };
@@ -1967,7 +1985,7 @@ const getDiscardProductList = async (thePOSPALAUTH30220) => {
           let productName = tbodyTRArray[index].td[productNameIndex];
           // console.log(productName);
           let discardNumber = tbodyTRArray[index].td[discardNumberIndex]._;
-          discardNumber = parseInt(discardNumber);
+          discardNumber = parseFloat(discardNumber);
           // console.log(discardNumber);
 
           let numberInfoItem = { code: productCode, name: productName, discardNumber: discardNumber };

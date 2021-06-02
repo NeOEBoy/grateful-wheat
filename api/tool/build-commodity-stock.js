@@ -5,7 +5,8 @@ const moment = require('moment');
 
 let THEInfo1NameCell; let THEInfo2NameCell;
 let THEInfo1TotalCell; let THEInfo2TotalCell;
-let SHOP_NAME; let SHOP_USERID; let QUERYMONTH;
+let SHOP_NAME; let SHOP_USERID; let QUERY_MONTH;
+let QUERY_MONTH_BEGIN; let QUERY_MONTH_END;
 
 /// 增加门店这里添加一下
 KShopHeadUserId = '3995763'; // 总部账号
@@ -16,7 +17,8 @@ const KShopArray = [
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉世纪店', userId: '4061092' },
   { index: 5, name: '假日店', userId: '4339546' },
-  { index: 6, name: '狮头店', userId: '4359267' }
+  { index: 6, name: '狮头店', userId: '4359267' },
+  { index: 7, name: '盘陀店', userId: '4382444' }
 ];
 
 /// 下面的分类属于外购品，给合作商批发价
@@ -113,7 +115,7 @@ const makeExcelCommonTitle = (worksheet) => {
 
     worksheet.mergeCells('B' + lastRow + ':F' + lastRow);
     let month1Cell = worksheet.getCell('B' + lastRow);
-    month1Cell.value = '对账月份：';
+    month1Cell.value = '对账时间：';
     month1Cell.font = { size: 10, bold: true, name: '等线' };
     month1Cell.alignment = { horizontal: 'right', vertical: 'middle' }
     month1Cell.fill = {
@@ -127,7 +129,7 @@ const makeExcelCommonTitle = (worksheet) => {
 
     worksheet.mergeCells('G' + lastRow + ':P' + lastRow);
     let month2Cell = worksheet.getCell('G' + lastRow);
-    month2Cell.value = QUERYMONTH + '.';
+    month2Cell.value = QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '；';
     month2Cell.font = { size: 10, bold: false, name: '等线' };
     month2Cell.alignment = { horizontal: 'left', vertical: 'middle' }
     month2Cell.fill = {
@@ -781,6 +783,10 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
 }
 
 const makeExcelInfo2Meta = (worksheet, lastRow) => {
+  if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
+    return lastRow;
+  }
+  
   // console.log('makeExcelInfo2Meta lastRow =' + lastRow);
   lastRow++;
   {
@@ -1137,6 +1143,10 @@ const makeExcelInfo2Meta = (worksheet, lastRow) => {
 }
 
 const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
+  if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
+    return lastRow;
+  }
+
   // console.log('正在查询报损信息！');
   let numberInfoArray = await getDiscardProductList(thePOSPALAUTH30220);
   // console.log(numberInfoArray);
@@ -1151,7 +1161,7 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     discardNumberInfo.memberPrice = 0;
     discardNumberInfo.wholePrice = 0;
 
-    console.log('正在查询<' + discardNumberInfo.code + discardNumberInfo.name + '>的销售信息！');
+    console.log('正在查询<' + discardNumberInfo.code + '-' + discardNumberInfo.name + '>的销售信息！');
     let productInfo = await getProductInfo(thePOSPALAUTH30220, discardNumberInfo.code);
     if (productInfo) {
       discardNumberInfo.name = productInfo.name;
@@ -1297,6 +1307,10 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
 }
 
 const makeExcelInfo4Meta = (worksheet, lastRow) => {
+  if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
+    return lastRow;
+  }
+
   lastRow++;
   /// 空行
   {
@@ -1418,29 +1432,31 @@ const makeExcelInfo4Data = (worksheet, lastRow) => {
   };
   excelRowInformation.push(excelRow1Item);
 
-  lastRow++;
-  let excelRow2Item = {
-    row: lastRow,
-    data: [
-      {
-        column: 'K', merge: 'K' + lastRow + ':L' + lastRow,
-        value: {
-          formula: THEInfo2NameCell,
-          result: '公式'
-        }
-      },
-      {
-        column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
-        value: {
-          formula: '-IF(' + THEInfo2TotalCell + '<' + THEInfo1TotalCell + '*0.025,'
-            + THEInfo2TotalCell + ',' + THEInfo1TotalCell + '*0.025)',
-          result: '公式'
-        }, numFmt: '0.00'
-      },
-      { column: 'P', value: '以进货额0.025为限' }
-    ]
-  };
-  excelRowInformation.push(excelRow2Item);
+  if (SHOP_USERID !== KShopArray[7].userId) { /// 盘陀店不用报损统计
+    lastRow++;
+    let excelRow2Item = {
+      row: lastRow,
+      data: [
+        {
+          column: 'K', merge: 'K' + lastRow + ':L' + lastRow,
+          value: {
+            formula: THEInfo2NameCell,
+            result: '公式'
+          }
+        },
+        {
+          column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
+          value: {
+            formula: '-IF(' + THEInfo2TotalCell + '<' + THEInfo1TotalCell + '*0.025,'
+              + THEInfo2TotalCell + ',' + THEInfo1TotalCell + '*0.025)',
+            result: '公式'
+          }, numFmt: '0.00'
+        },
+        { column: 'P', value: '以进货额0.025为限' }
+      ]
+    };
+    excelRowInformation.push(excelRow2Item);
+  }
 
   lastRow++;
   let excelRowFooter1Item = {
@@ -1576,8 +1592,8 @@ const getProductTransferNumberInfo = async (thePOSPALAUTH30220, stockFlowType) =
   loadProductStockFlowByPageBodyStr += '&nextStockFlowUserId='; // 全部出库门店
   loadProductStockFlowByPageBodyStr += '&supplierUid=';
 
-  let beginDay = moment(QUERYMONTH, 'YYYY.MM').startOf('month').format("YYYY.MM.DD");
-  let endDay = moment(QUERYMONTH, 'YYYY.MM').endOf('month').format("YYYY.MM.DD");
+  let beginDay = QUERY_MONTH_BEGIN;
+  let endDay = QUERY_MONTH_END;
 
   loadProductStockFlowByPageBodyStr += '&beginTime=' + beginDay + '+00%3A00%3A00';
   loadProductStockFlowByPageBodyStr += '&endTime=' + endDay + '+23%3A59%3A59';
@@ -1822,23 +1838,33 @@ const getProductInfo = async (thePOSPALAUTH30220, code) => {
         let productPrice = rightTbodyTRItem.td[productPriceIndex]._;
         productPrice = productPrice.trim();
         productPrice = parseFloat(productPrice);
-        if(productCode === '2007021637558') { // 解忧蛋糕价格改为38
-          productPrice = 38;
+
+        if (SHOP_USERID === KShopArray[2].userId) { // 旧镇店
+          if (productCode === '2007021637558') { // 解忧蛋糕价格改为38
+            productPrice = 38;
+          }
         }
+
         // console.log(productPrice);
         let productMemberPrice = rightTbodyTRItem.td[productMemberPriceIndex]._;
         productMemberPrice = productMemberPrice.trim();
         productMemberPrice = parseFloat(productMemberPrice);
-        if(productCode === '2007021637558') { // 解忧蛋糕价格改为38
-          productMemberPrice = 38;
+        if (SHOP_USERID === KShopArray[2].userId) { // 旧镇店
+          if (productCode === '2007021637558') { // 解忧蛋糕价格改为38
+            productMemberPrice = 38;
+          }
         }
+
         // console.log(productMemberPrice);
         let productWholePrice = rightTbodyTRItem.td[productWholePriceIndex]._;
         productWholePrice = productWholePrice.trim();
         productWholePrice = parseFloat(productWholePrice);
-        if(productCode === '2007021637558') { // 解忧蛋糕价格改为38
-          productWholePrice = 38;
+        if (SHOP_USERID === KShopArray[2].userId) { // 旧镇店
+          if (productCode === '2007021637558') { // 解忧蛋糕价格改为38
+            productWholePrice = 38;
+          }
         }
+
         // console.log(productWholePrice);
 
         productInfo = {
@@ -1865,8 +1891,8 @@ const getDiscardProductList = async (thePOSPALAUTH30220) => {
   loadDiscardProductCountListBodyStr += '&categoryUids=%5B%5D';
   loadDiscardProductCountListBodyStr += '&reasonName=';
 
-  let beginDay = moment(QUERYMONTH, 'YYYY.MM').startOf('month').format("YYYY.MM.DD");
-  let endDay = moment(QUERYMONTH, 'YYYY.MM').endOf('month').format("YYYY.MM.DD");
+  let beginDay = QUERY_MONTH_BEGIN;
+  let endDay = QUERY_MONTH_END;
 
   loadDiscardProductCountListBodyStr += '&beginDateTime=' + beginDay + '+00%3A00%3A00';
   loadDiscardProductCountListBodyStr += '&endDateTime=' + endDay + '+23%3A59%3A59';
@@ -2040,8 +2066,8 @@ const MergeClassification = (totalNumberInfoArray) => {
 }
 
 const startBuild = async () => {
-  let beginDay = moment(QUERYMONTH, 'YYYY.MM').startOf('month').format("YYYY.MM.DD");
-  let endDay = moment(QUERYMONTH, 'YYYY.MM').endOf('month').format("YYYY.MM.DD");
+  let beginDay = QUERY_MONTH_BEGIN;
+  let endDay = QUERY_MONTH_END;
   console.log('准备提取<<' + SHOP_NAME + '>>，从<<' + beginDay + '>>到<<' + endDay + '>>的进货数据！！！');
 
   /// 登录并获取验证信息
@@ -2082,9 +2108,9 @@ const startBuild = async () => {
   console.log('准备构建合计表格内容！');
   theLastRow = makeExcelInfo4Data(worksheet, theLastRow);
 
-  await workbook.xlsx.writeFile('./' + SHOP_NAME + '_' + QUERYMONTH + '_' + '进货对账表.xlsx');
+  await workbook.xlsx.writeFile('./' + SHOP_NAME + '_' + QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '_' + '进货对账表.xlsx');
 
-  console.log('提取完毕，请查看<<' + SHOP_NAME + '_' + QUERYMONTH + '_' + '进货对账表.xlsx>>文件！！！');
+  console.log('提取完毕，请查看<<' + SHOP_NAME + '_' + QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '_' + '进货对账表.xlsx>>文件！！！');
 }
 
 const excute = () => {
@@ -2110,8 +2136,17 @@ const excute = () => {
       console.log('第2参数错误，请输入正确月份(如：2020.12)');
       return;
     }
-    QUERYMONTH = args[1];
-
+    QUERY_MONTH = args[1];
+    if (QUERY_MONTH.indexOf('~') === -1) { ///不包含~，月份格式：2021.5
+      QUERY_MONTH_BEGIN = moment(QUERY_MONTH, 'YYYY.MM').startOf('month').format("YYYY.MM.DD");
+      QUERY_MONTH_END = moment(QUERY_MONTH, 'YYYY.MM').endOf('month').format("YYYY.MM.DD");
+    } else { ///包含~，日期格式：2021.5.1~2021.5.4
+      let query_month_Array = QUERY_MONTH.split('~');
+      if (query_month_Array.length === 2) {
+        QUERY_MONTH_BEGIN = query_month_Array[0];
+        QUERY_MONTH_END = query_month_Array[1];
+      }
+    }
     startBuild();
   }
 }

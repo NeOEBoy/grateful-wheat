@@ -792,10 +792,6 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
 }
 
 const makeExcelInfo2Meta = (worksheet, lastRow) => {
-  if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
-    return lastRow;
-  }
-
   // console.log('makeExcelInfo2Meta lastRow =' + lastRow);
   lastRow++;
   {
@@ -1152,10 +1148,6 @@ const makeExcelInfo2Meta = (worksheet, lastRow) => {
 }
 
 const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
-  if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
-    return lastRow;
-  }
-
   // console.log('正在查询报损信息！');
   let numberInfoArray = await getDiscardProductList(thePOSPALAUTH30220);
   // console.log(numberInfoArray);
@@ -1325,10 +1317,6 @@ const makeExcelInfo2Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
 }
 
 const makeExcelInfo4Meta = (worksheet, lastRow) => {
-  if (SHOP_USERID === KShopArray[7].userId) { /// 盘陀店不用报损统计
-    return lastRow;
-  }
-
   lastRow++;
   /// 空行
   {
@@ -1450,31 +1438,29 @@ const makeExcelInfo4Data = (worksheet, lastRow) => {
   };
   excelRowInformation.push(excelRow1Item);
 
-  if (SHOP_USERID !== KShopArray[7].userId) { /// 盘陀店不用报损统计
-    lastRow++;
-    let excelRow2Item = {
-      row: lastRow,
-      data: [
-        {
-          column: 'K', merge: 'K' + lastRow + ':L' + lastRow,
-          value: {
-            formula: THEInfo2NameCell,
-            result: '公式'
-          }
-        },
-        {
-          column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
-          value: {
-            formula: '-IF(' + THEInfo2TotalCell + '<' + THEInfo1TotalCell + '*0.025,'
-              + THEInfo2TotalCell + ',' + THEInfo1TotalCell + '*0.025)',
-            result: '公式'
-          }, numFmt: '0.00'
-        },
-        { column: 'P', value: '以进货额0.025为限' }
-      ]
-    };
-    excelRowInformation.push(excelRow2Item);
-  }
+  lastRow++;
+  let excelRow2Item = {
+    row: lastRow,
+    data: [
+      {
+        column: 'K', merge: 'K' + lastRow + ':L' + lastRow,
+        value: {
+          formula: THEInfo2NameCell,
+          result: '公式'
+        }
+      },
+      {
+        column: 'M', merge: 'M' + lastRow + ':O' + lastRow,
+        value: {
+          formula: '-IF(' + THEInfo2TotalCell + '<' + THEInfo1TotalCell + '*0.025,'
+            + THEInfo2TotalCell + ',' + THEInfo1TotalCell + '*0.025)',
+          result: '公式'
+        }, numFmt: '0.00'
+      },
+      { column: 'P', value: '以进货额0.025为限' }
+    ]
+  };
+  excelRowInformation.push(excelRow2Item);
 
   lastRow++;
   let excelRowFooter1Item = {

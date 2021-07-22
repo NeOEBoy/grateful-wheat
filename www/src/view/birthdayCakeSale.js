@@ -1461,11 +1461,11 @@ class birthdayCakeSale extends React.Component {
                                             {
                                                 (rank === 1 || rank === 2 || rank === 3) ? (
                                                     <div style={{
-                                                        backgroundColor: '#848482', borderRadius: 25,
+                                                        backgroundColor: '#848482', borderRadius: 20,
                                                         position: 'absolute', zIndex: 999
                                                     }}>
                                                         <Image style={{
-                                                            width: 50, height: 50,
+                                                            width: 40, height: 40,
                                                         }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
                                                     </div>
                                                 ) : (<div></div>)
@@ -1570,11 +1570,11 @@ class birthdayCakeSale extends React.Component {
                                                                 {
                                                                     (rank === 1 || rank === 2 || rank === 3) ? (
                                                                         <div style={{
-                                                                            backgroundColor: '#848482', borderRadius: 25,
+                                                                            backgroundColor: '#848482', borderRadius: 20,
                                                                             position: 'absolute', zIndex: 999
                                                                         }}>
                                                                             <Image style={{
-                                                                                width: 50, height: 50,
+                                                                                width: 40, height: 40,
                                                                             }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
                                                                         </div>
                                                                     ) : (<div></div>)

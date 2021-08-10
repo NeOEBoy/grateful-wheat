@@ -27,7 +27,8 @@ const KOutsideCategorys = [
   '弯麦耗材',
   '弯麦包装',
   '弯麦传统零食',
-  '弯麦高端零食'
+  '弯麦高端零食',
+  '弯麦半成品'
 ];
 
 const makeORString = (column, row, OutsideCategorys) => {
@@ -1843,31 +1844,15 @@ const getProductInfo = async (thePOSPALAUTH30220, code) => {
         productPrice = productPrice.trim();
         productPrice = parseFloat(productPrice);
 
-        if (SHOP_USERID === KShopArray[2].userId) { // 旧镇店
-          if (productCode === '2007021637558') { // 解忧蛋糕价格改为38
-            productPrice = 38;
-          }
-        }
-
         // console.log(productPrice);
         let productMemberPrice = rightTbodyTRItem.td[productMemberPriceIndex]._;
         productMemberPrice = productMemberPrice.trim();
         productMemberPrice = parseFloat(productMemberPrice);
-        if (SHOP_USERID === KShopArray[2].userId) { // 旧镇店
-          if (productCode === '2007021637558') { // 解忧蛋糕价格改为38
-            productMemberPrice = 38;
-          }
-        }
 
         // console.log(productMemberPrice);
         let productWholePrice = rightTbodyTRItem.td[productWholePriceIndex]._;
         productWholePrice = productWholePrice.trim();
         productWholePrice = parseFloat(productWholePrice);
-        if (SHOP_USERID === KShopArray[2].userId) { // 旧镇店
-          if (productCode === '2007021637558') { // 解忧蛋糕价格改为38
-            productWholePrice = 38;
-          }
-        }
 
         // console.log(productWholePrice);
 

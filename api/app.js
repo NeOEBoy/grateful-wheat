@@ -88,4 +88,8 @@ startScheduleCheckinDay();
 const startScheduleWeatherDay = require('./schedule/schedule-task-weather-day');
 startScheduleWeatherDay();
 
+/// 启动定时任务，每日检查报货情况
+const startScheduleOrderReminder = require('./schedule/schedule-task-order-reminder-day');
+startScheduleOrderReminder();
+
 module.exports = app;

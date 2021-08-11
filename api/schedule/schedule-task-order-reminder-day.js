@@ -34,7 +34,7 @@ const KShopArray = [
 
 const startScheduleOrderReminder = async () => {
     // 秒、分、时、日、月、周几
-    // 自动检查现烤报货
+    // 自动检查是否报货
     try {
         if (KForTest) {
             console.log('中午-开始检查...');
@@ -57,15 +57,9 @@ const startScheduleOrderReminder = async () => {
                 await starOrderReminderAtNoon();
                 console.log('中午-检查结束...');
             });
-            /// 中午报货第三次检查 每天14时0分0秒
-            schedule.scheduleJob('0 0 14 * * *', async () => {
-                console.log('中午-开始检查...');
-                await starOrderReminderAtNoon();
-                console.log('中午-检查结束...');
-            });
 
-            /// 午夜报货第一次检查 每天22时45分0秒
-            schedule.scheduleJob('0 45 22 * * *', async () => {
+            /// 午夜报货第一次检查 每天22时40分0秒
+            schedule.scheduleJob('0 40 22 * * *', async () => {
                 console.log('中午-开始检查...');
                 await starOrderReminderAtMidNight();
                 console.log('中午-检查结束...');
@@ -105,7 +99,9 @@ const starOrderReminderAtNoon = async () => {
                 if (deleteResult.successed) console.log('删除通知成功');
             }
         }
-        // break;
+
+        // 仅教育局店
+        break;
     }
 }
 
@@ -139,7 +135,8 @@ const starOrderReminderAtMidNight = async () => {
                 if (deleteResult.successed) console.log('删除通知成功');
             }
         }
-        // break;
+        // 仅教育局店
+        break;
     }
 }
 

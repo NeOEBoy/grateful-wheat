@@ -2,6 +2,7 @@
 const fetch = require('node-fetch');
 const parseStringPromise = require('xml2js').parseStringPromise;
 const moment = require('moment');
+const schedule = require('node-schedule');
 
 const {
     signIn
@@ -38,36 +39,36 @@ const startScheduleOrderReminder = async () => {
     try {
         if (KForTest) {
             console.log('中午-开始检查...');
-            await starOrderReminderAtNoon();
+            await startOrderReminderAtNoon();
             console.log('中午-检查结束...');
 
             console.log('午夜-开始检查...');
-            await starOrderReminderAtMidNight();
+            await startOrderReminderAtMidNight();
             console.log('午夜-检查结束...');
         } else {
-            /// 中午报货第一次检查 每天13时0分0秒
-            schedule.scheduleJob('0 0 13 * * *', async () => {
+            /// 中午报货第一次检查 每天13时00分00秒
+            schedule.scheduleJob('00 00 13 * * *', async () => {
                 console.log('中午-开始检查...');
-                await starOrderReminderAtNoon();
+                await startOrderReminderAtNoon();
                 console.log('中午-检查结束...');
             });
-            /// 中午报货第二次检查 每天13时30分0秒
-            schedule.scheduleJob('0 30 13 * * *', async () => {
+            /// 中午报货第二次检查 每天13时30分00秒
+            schedule.scheduleJob('00 30 13 * * *', async () => {
                 console.log('中午-开始检查...');
-                await starOrderReminderAtNoon();
+                await startOrderReminderAtNoon();
                 console.log('中午-检查结束...');
             });
 
-            /// 午夜报货第一次检查 每天22时40分0秒
-            schedule.scheduleJob('0 40 22 * * *', async () => {
+            /// 午夜报货第一次检查 每天22时40分00秒
+            schedule.scheduleJob('00 40 22 * * *', async () => {
                 console.log('中午-开始检查...');
-                await starOrderReminderAtMidNight();
+                await startOrderReminderAtMidNight();
                 console.log('中午-检查结束...');
             });
-            /// 午夜报货第二次检查 每天23时0分0秒
-            schedule.scheduleJob('0 0 23 * * *', async () => {
+            /// 午夜报货第二次检查 每天23时00分00秒
+            schedule.scheduleJob('00 00 23 * * *', async () => {
                 console.log('中午-开始检查...');
-                await starOrderReminderAtMidNight();
+                await startOrderReminderAtMidNight();
                 console.log('中午-检查结束...');
             });
         }
@@ -76,7 +77,7 @@ const startScheduleOrderReminder = async () => {
     }
 }
 
-const starOrderReminderAtNoon = async () => {
+const startOrderReminderAtNoon = async () => {
     /// 1.登录并获取验证信息
     const thePOSPALAUTH30220 = await signIn();
 
@@ -105,7 +106,7 @@ const starOrderReminderAtNoon = async () => {
     }
 }
 
-const starOrderReminderAtMidNight = async () => {
+const startOrderReminderAtMidNight = async () => {
     /// 1.登录并获取验证信息
     const thePOSPALAUTH30220 = await signIn();
 

@@ -134,7 +134,7 @@ class ProductSale extends React.Component {
     return (
       <div style={{ height: window.innerHeight, overflow: "auto" }}>
         <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
-          热卖商品
+          热卖
           <br />
           <Dropdown
             overlay={

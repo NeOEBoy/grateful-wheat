@@ -120,7 +120,7 @@ class ProductDiscard extends React.Component {
           locale={{ emptyText: '暂时没有数据' }}
           header={
             <div style={{ textAlign: 'center', fontSize: 24, fontWeight: "bold" }}>
-              报损商品
+              报损
               <br />
               <Dropdown
                 overlay={

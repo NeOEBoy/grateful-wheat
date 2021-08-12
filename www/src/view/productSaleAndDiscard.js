@@ -34,6 +34,8 @@ const KShopArray = [
 const KFreshlyBakedCategoryID = '%221593049816479739965%22';
 /// 吐司
 const KToastCategoryID = '%221593049854760654816%22';
+/// 餐包
+const KMealPackageCategoryID = '%221626767161867698544%22';
 /// 西点
 const KWestCategoryID = '%221592989355905414162%22';
 /// 常温
@@ -48,12 +50,13 @@ const KAllCategoryID =
   KHomoeothermyCategoryID + ',' +
   KDryCategoryID;
 const KCategoryArray = [
-  { index: 0, name: '全部面包', categoryId: KAllCategoryID },
-  { index: 1, name: '现烤', categoryId: KFreshlyBakedCategoryID },
-  { index: 2, name: '吐司餐包', categoryId: KToastCategoryID },
-  { index: 3, name: '西点蛋糕', categoryId: KWestCategoryID },
-  { index: 4, name: '常温蛋糕', categoryId: KHomoeothermyCategoryID },
-  { index: 5, name: '干点', categoryId: KDryCategoryID }
+  { index: 0, name: '全部', categoryId: KAllCategoryID },
+  { index: 1, name: '现烤类', categoryId: KFreshlyBakedCategoryID },
+  { index: 2, name: '吐司类', categoryId: KToastCategoryID },
+  { index: 3, name: '餐包类', categoryId: KMealPackageCategoryID },
+  { index: 4, name: '西点类', categoryId: KWestCategoryID },
+  { index: 5, name: '常温类', categoryId: KHomoeothermyCategoryID },
+  { index: 6, name: '干点类', categoryId: KDryCategoryID }
 ];
 
 class productSaleAndDiscard extends React.Component {
@@ -214,6 +217,7 @@ class productSaleAndDiscard extends React.Component {
                     let category3 = KCategoryArray[3];
                     let category4 = KCategoryArray[4];
                     let category5 = KCategoryArray[5];
+                    let category6 = KCategoryArray[6];
 
                     return (
                       <Menu onClick={async ({ key }) => {
@@ -226,6 +230,7 @@ class productSaleAndDiscard extends React.Component {
                         <Menu.Item key={category3.index}>{category3.name}</Menu.Item>
                         <Menu.Item key={category4.index}>{category4.name}</Menu.Item>
                         <Menu.Item key={category5.index}>{category5.name}</Menu.Item>
+                        <Menu.Item key={category6.index}>{category6.name}</Menu.Item>
                       </Menu>)
                   }
                 } trigger={['click']}>

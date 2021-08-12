@@ -21,7 +21,8 @@ const KShopArray = [
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉世纪店', userId: '4061092' },
   { index: 5, name: '假日店', userId: '4339546' },
-  { index: 6, name: '狮头店', userId: '4359267' }
+  { index: 6, name: '狮头店', userId: '4359267' },
+  { index: 7, name: '盘陀店', userId: '4382444' }
 ];
 
 class CouponSummary extends React.Component {
@@ -121,6 +122,9 @@ class CouponSummary extends React.Component {
                     let shop2 = KShopArray[2];
                     let shop3 = KShopArray[3];
                     let shop4 = KShopArray[4];
+                    let shop5 = KShopArray[5];
+                    let shop6 = KShopArray[6];
+                    let shop7 = KShopArray[7];
 
                     return (
                       <Menu onClick={async ({ key }) => {
@@ -132,6 +136,9 @@ class CouponSummary extends React.Component {
                         <Menu.Item key={shop2.index}>{shop2.name}</Menu.Item>
                         <Menu.Item key={shop3.index}>{shop3.name}</Menu.Item>
                         <Menu.Item key={shop4.index}>{shop4.name}</Menu.Item>
+                        <Menu.Item key={shop5.index}>{shop5.name}</Menu.Item>
+                        <Menu.Item key={shop6.index}>{shop6.name}</Menu.Item>
+                        <Menu.Item key={shop7.index}>{shop7.name}</Menu.Item>
                       </Menu>)
                   }
                 } trigger={['click']}>

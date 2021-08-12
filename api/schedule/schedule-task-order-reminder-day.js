@@ -102,7 +102,7 @@ const startOrderReminderAtNoon = async () => {
         }
 
         // 仅教育局店
-        break;
+        // break;
     }
 }
 
@@ -137,7 +137,7 @@ const startOrderReminderAtMidNight = async () => {
             }
         }
         // 仅教育局店
-        break;
+        // break;
     }
 }
 

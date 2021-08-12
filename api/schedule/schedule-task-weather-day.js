@@ -157,14 +157,14 @@ const dostartScheduleWeather = async () => {
 
 const startScheduleWeather = async () => {
   // 秒、分、时、日、月、周几
-  // 每时0分1秒自动更新
   try {
     if (KForTest) {
       console.log('开始同步...');
       await dostartScheduleWeather();
       console.log('同步结束...');
     } else {
-      schedule.scheduleJob('1 0 * * * *', async () => {
+      // This runs at minute 5 past every 2 hours
+      schedule.scheduleJob('5 */2 * * *', async () => {
         console.log('开始同步...');
         await dostartScheduleWeather();
         console.log('同步结束...');

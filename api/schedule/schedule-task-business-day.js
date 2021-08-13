@@ -1038,7 +1038,7 @@ const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   productsaleurl += beginDateTime;
   productsaleurl += '&endDateTime=';
   productsaleurl += endDateTime;
-  return '> ' + '[热卖商品](' + productsaleurl + ')';
+  return '> ' + '[热卖](' + productsaleurl + ')';
 }
 
 const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
@@ -1050,7 +1050,7 @@ const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
   productdiscardurl += beginDateTime;
   productdiscardurl += '&endDateTime=';
   productdiscardurl += endDateTime;
-  return '> ' + '[报损商品](' + productdiscardurl + ')';
+  return '> ' + '[报损](' + productdiscardurl + ')';
 }
 
 const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {

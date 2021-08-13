@@ -4,6 +4,7 @@ import ProductDiscard from "./view/productDiscard";
 import ProductSaleAndDiscard from "./view/productSaleAndDiscard.js";
 import CouponSummary from "./view/couponSummary";
 import DIYReserve from "./view/diyReserve";
+import PrintProductionPlan from "./view/printProductionPlan";
 
 import {
   BrowserRouter as Router,
@@ -32,6 +33,7 @@ function Inside4QueryParams() {
       <Route path="/productsaleanddiscard" children={<ProductSaleAndDiscard query={query} />} />
       <Route path="/couponsummary" children={<CouponSummary query={query} />} />
       <Route path="/diyreserve" children={<DIYReserve query={query} />} />
+      <Route path="/printproductionplan" children={<PrintProductionPlan query={query} />} />
     </div>
   );
 }

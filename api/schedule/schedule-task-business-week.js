@@ -137,8 +137,8 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
     if (store.userId === KShopHeadUserId) return;
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
-    totalContent += makeProductSaleMark(store.userId, beginDateTime, endDateTime);
-    totalContent += '\n';
+    // totalContent += makeProductSaleMark(store.userId, beginDateTime, endDateTime);
+    // totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     productSaleMoneyTotalMoney += storeMoney;
@@ -215,9 +215,9 @@ const buildProductSaleString4WorkweixinAndSend = async (businessSummaryObj4workw
     if (store.userId === KShopHeadUserId) return;
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
-    totalContent += makeProductDiscardMark(store.userId, beginDateTime, endDateTime);
-    totalContent += makeProductSaleAndDiscardMark(store.userId, beginDateTime, endDateTime);
-    totalContent += '\n';
+    // totalContent += makeProductDiscardMark(store.userId, beginDateTime, endDateTime);
+    // totalContent += makeProductSaleAndDiscardMark(store.userId, beginDateTime, endDateTime);
+    // totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     productDiscardMoneyTotalMoney += storeMoney;
@@ -248,8 +248,8 @@ const buildCouponString4WorkweixinAndSend = async (businessSummaryObj4workweixin
     if (store.userId === KShopHeadUserId) return;
 
     totalContent += '> ' + store.name + ':<font color=\"info\"> ' + store.money + '</font>\n';
-    totalContent += makeCouponSummaryMark(store.userId, beginDateTime, endDateTime);
-    totalContent += '\n';
+    // totalContent += makeCouponSummaryMark(store.userId, beginDateTime, endDateTime);
+    // totalContent += '\n';
 
     let storeMoney = parseFloat(store.money);
     couponMoneyTotalMoney += storeMoney;
@@ -1038,7 +1038,7 @@ const makeProductSaleMark = (id, beginDateTime, endDateTime) => {
   productsaleurl += beginDateTime;
   productsaleurl += '&endDateTime=';
   productsaleurl += endDateTime;
-  return '> ' + '[热卖](' + productsaleurl + ')';
+  return '> ' + '[热卖商品](' + productsaleurl + ')';
 }
 
 const makeProductDiscardMark = (id, beginDateTime, endDateTime) => {
@@ -1062,7 +1062,7 @@ const makeProductSaleAndDiscardMark = (id, beginDateTime, endDateTime) => {
   productsaleanddiscardurl += beginDateTime;
   productsaleanddiscardurl += '&endDateTime=';
   productsaleanddiscardurl += endDateTime;
-  return ' | ' + '[报损率](' + productsaleanddiscardurl + ')';
+  return '  |  ' + '[报损率](' + productsaleanddiscardurl + ')';
 }
 
 const makeCouponSummaryMark = (id, beginDateTime, endDateTime) => {

@@ -19,8 +19,10 @@ class PrintProductionPlan extends React.Component {
         let columnItem = {};
         columnItem.shopNameTitle = '-生产车间-';
         columnItem.productionPlanTitle = '|15号弯麦现烤|';
+        columnItem.productNameTitle = '品名';
+        columnItem.productNumber = '数量';
         let productArray = [];
-        for (let index = 0; index < 28; index++) {
+        for (let index = 0; index < 25; index++) {
             let product = [];
             product.push(index + '名');
             product.push(index + '数');
@@ -31,9 +33,10 @@ class PrintProductionPlan extends React.Component {
 
 
         let columnItem1 = {};
-        columnItem1.shopNameTitle = '-教育局店-';
+        columnItem1.shopNameTitle = '-生产车间-';
         columnItem1.productionPlanTitle = '|15号弯麦现烤|';
-
+        columnItem1.productNameTitle = '品名';
+        columnItem1.productNumber = '数量';
         let productArray1 = [];
         for (let index = 0; index < 4; index++) {
             let product = [];
@@ -43,6 +46,21 @@ class PrintProductionPlan extends React.Component {
         }
         columnItem1.productArray = productArray1;
         dataSource.push(columnItem1);
+
+        let columnItem2 = {};
+        columnItem2.shopNameTitle = '-生产车间-';
+        columnItem2.productionPlanTitle = '|15号弯麦现烤|';
+        columnItem2.productNameTitle = '品名';
+        columnItem2.productNumber = '数量';
+        let productArray2 = [];
+        for (let index = 0; index < 10; index++) {
+            let product = [];
+            product.push(index + '名');
+            product.push(index + '数');
+            productArray2.push(product);
+        }
+        columnItem2.productArray = productArray2;
+        dataSource.push(columnItem2);
 
         this.setState({ dataSource: dataSource });
     }
@@ -104,8 +122,8 @@ class PrintProductionPlan extends React.Component {
                                                         <th colSpan='2' style={{ width: 200, textAlign: 'center' }}>{columnData.shopNameTitle}</th>
                                                     </tr>
                                                     <tr>
-                                                        <th style={{ width: 140, textAlign: 'center', fontWeight: 'bold' }}>-名称-</th>
-                                                        <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>-数量-</th>
+                                                        <th style={{ width: 140, textAlign: 'center', fontWeight: 'bold' }}>{columnData.productNameTitle}</th>
+                                                        <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>{columnData.productNumber}</th>
                                                     </tr>
 
                                                 </th>

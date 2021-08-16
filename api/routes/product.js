@@ -5,7 +5,8 @@ const {
   signIn,
   getProductSaleList,
   getProductDiscardList,
-  getProductSaleAndDiscardList
+  getProductSaleAndDiscardList,
+  getProductOrderList
 } = require('../third/pospal');
 
 /* GET users listing. */
@@ -37,6 +38,31 @@ router.get('/saleList', async function (req, res, next) {
       pageSize,
       keyword);
     res.send(productSaleResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/orderList', async function (req, res, next) {
+  try {
+    let userId = req.query.userId;
+    let templateId = req.query.templateId;
+    let beginDateTime = req.query.beginDateTime;
+    let endDateTime = req.query.endDateTime;
+
+    if (!beginDateTime || !endDateTime) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let productOrderResponseJson = await getProductOrderList(
+      thePOSPALAUTH30220,
+      userId,
+      templateId,
+      beginDateTime,
+      endDateTime);
+    res.send(productOrderResponseJson);
   } catch (err) {
     next(err)
   }

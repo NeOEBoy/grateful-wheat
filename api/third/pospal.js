@@ -50,6 +50,194 @@ const signIn = async () => {
   return thePOSPALAUTH30220;
 };
 
+const getProductOrderList = async (
+  thePOSPALAUTH30220,
+  userId,
+  templateId,
+  beginDateTime,
+  endDateTime
+) => {
+  console.log('getProductOrderList begin');
+
+  try {
+    let orderListUrl = 'https://beta33.pospal.cn/StockFlow/LoadProductRequestByPage';
+
+    let orderListBodyStr = '';
+    orderListBodyStr += 'productrequesttemplateId=';
+    orderListBodyStr += templateId;
+    orderListBodyStr += '&orderNumber=';
+    orderListBodyStr += '&remarks=';
+    orderListBodyStr += '&customerKeyword=';
+    orderListBodyStr += '&userId=';
+    orderListBodyStr += userId;
+    orderListBodyStr += '&categoryUids=%5B%5D';
+    orderListBodyStr += '&supplierUid=';
+    orderListBodyStr += '&status=100';
+    orderListBodyStr += '&timeType=100';
+    orderListBodyStr += '&beginTime=';
+    orderListBodyStr += escape(beginDateTime);
+    orderListBodyStr += '&endTime=';
+    orderListBodyStr += escape(endDateTime);
+    orderListBodyStr += '&isChainStoreSupplyOrder=';
+    orderListBodyStr += '&chainStoreSupplyOrderNo=';
+    orderListBodyStr += '&receiveName=';
+    orderListBodyStr += '&pageIndex=1';
+    orderListBodyStr += '&pageSize=50';
+    orderListBodyStr += '&orderColumn=';
+    orderListBodyStr += '&asc=false';
+
+    const orderListResponse = await fetch(orderListUrl, {
+      method: 'POST', body: orderListBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const orderListResponseJson = await orderListResponse.json();
+
+    let productOrderList = [];
+
+    if (orderListResponseJson.successed) {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + orderListResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        let orderSerialNumberIndex = -1;
+        let orderTimeIndex = -1;
+        let expectTimeIndex = -1;
+        let templateNameIndex = -1;
+        let orderTypeIndex = -1;
+        let orderCashierIndex = -1;
+        let orderShopIndex = -1;
+        let prepareShopIndex = -1;
+        let statusIndex = -1;
+        let remarkIndex = -1;
+
+        let procuctOrderTitleTh = result.root.thead[0].tr[0].th;
+        // console.log(procuctOrderTitleTh);
+        let procuctOrderTitleThLength = procuctOrderTitleTh.length;
+        for (let index = 0; index < procuctOrderTitleThLength; ++index) {
+          let titleName = procuctOrderTitleTh[index]._;
+          if (titleName) {
+            titleName = titleName.replace(/\r\n/g, "").trim();
+            if (titleName === '订货单号') {
+              orderSerialNumberIndex = index;
+              continue;
+            }
+            if (titleName === '订货时间') {
+              orderTimeIndex = index;
+              continue;
+            }
+            if (titleName === '期望到货时间') {
+              expectTimeIndex = index;
+              continue;
+            }
+            if (titleName === '模板名称') {
+              templateNameIndex = index;
+              continue;
+            }
+            if (titleName === '订货单类型') {
+              orderTypeIndex = index;
+              continue;
+            }
+            if (titleName === '订货员') {
+              orderCashierIndex = index;
+              continue;
+            }
+            if (titleName === '订货门店') {
+              orderShopIndex = index;
+              continue;
+            }
+            if (titleName === '配货门店') {
+              prepareShopIndex = index;
+              continue;
+            }
+            if (titleName === '状态') {
+              statusIndex = index;
+              continue;
+            }
+            if (titleName === '备注') {
+              remarkIndex = index;
+              continue;
+            }
+          }
+        }
+
+        // console.log(orderSerialNumberIndex);
+        // console.log(orderTimeIndex);
+        // console.log(expectTimeIndex);
+        // console.log(templateNameIndex);
+        // console.log(orderTypeIndex);
+        // console.log(orderCashierIndex);
+        // console.log(orderShopIndex);
+        // console.log(statusIndex);
+        // console.log(remarkIndex);
+
+        let procuctOrderDataTh = result.root.tbody[0].tr;
+        // console.log(procuctOrderDataTh);
+        procuctOrderDataTh.forEach(element => {
+          let productOrderItem = {};
+
+          productOrderItem.key = procuctOrderDataTh.indexOf(element) + 1;
+
+          let orderSerialNumber = element.td[orderSerialNumberIndex]._;
+          // console.log(orderSerialNumber);
+          productOrderItem.orderSerialNumber = orderSerialNumber;
+
+          let orderTime = element.td[orderTimeIndex]._;
+          // console.log(orderTime);
+          productOrderItem.orderTime = orderTime;
+
+          let expectTime = element.td[expectTimeIndex]._;
+          // console.log(expectTime);
+          productOrderItem.expectTime = expectTime;
+
+          let templateName = element.td[templateNameIndex]._;
+          // console.log(templateName);
+          productOrderItem.templateName = templateName;
+
+          let orderType = element.td[orderTypeIndex];
+          // console.log(orderType);
+          productOrderItem.orderType = orderType;
+
+          let orderCashier = element.td[orderCashierIndex]._;
+          // console.log(orderCashier);
+          productOrderItem.orderCashier = orderCashier;
+
+          let orderShop = element.td[orderShopIndex].span[0]._;
+          // console.log(orderShop);
+          productOrderItem.orderShop = orderShop;
+
+          let prepareShop = element.td[prepareShopIndex];
+          // console.log(prepareShop);
+          productOrderItem.prepareShop = prepareShop;
+
+          let status = element.td[statusIndex].span[0]._;
+          // console.log(status);
+          productOrderItem.status = status;
+
+          let remark = element.td[remarkIndex]._;
+          // console.log(remark);
+          productOrderItem.remark = remark;
+
+
+          productOrderList.push(productOrderItem);
+        });
+      }
+    }
+
+    return { errCode: 0, list: productOrderList };
+  } catch (e) {
+    return { errCode: -1 };
+  }
+  return { errCode: -1 };
+}
+
 const getProductSaleList = async (
   thePOSPALAUTH30220,
   beginDateTime,
@@ -79,7 +267,6 @@ const getProductSaleList = async (
   productSaleBody += '&pageSize=' + pageSize;
   productSaleBody += '&orderColumn=totoalProductNum';
   productSaleBody += '&asc=false';
-  console.log(productSaleBody);
 
   const productSaleResponse = await fetch(productSaleUrl, {
     method: 'POST', body: productSaleBody,
@@ -797,7 +984,7 @@ const getMemberList = async (thePOSPALAUTH30220, keyword) => {
           if (memberName) memberName = memberName.replace(/\r\n/g, "").trim();
           if (!memberName) {
             memberName = element.td[memberNameIndex];
-            if(memberName) memberName = memberName.replace(/\r\n/g, "").trim();
+            if (memberName) memberName = memberName.replace(/\r\n/g, "").trim();
           }
           // console.log(memberName);
           memberItem.memberName = memberName;
@@ -879,6 +1066,7 @@ const sendSMS = async (phoneNumber, templateParam1) => {
 module.exports = {
   signIn,
   getProductSaleList,
+  getProductOrderList,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,

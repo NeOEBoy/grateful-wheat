@@ -183,7 +183,7 @@ const getProductOrderList = async (
         procuctOrderDataTh.forEach(element => {
           let productOrderItem = {};
 
-          productOrderItem.key = procuctOrderDataTh.indexOf(element) + 1;
+          // productOrderItem.key = procuctOrderDataTh.indexOf(element) + 1;
 
           let orderSerialNumber = element.td[orderSerialNumberIndex]._;
           // console.log(orderSerialNumber);

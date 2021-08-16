@@ -5,10 +5,11 @@ import {
     Dropdown,
     DatePicker,
     Table,
-    message
+    message,
+    Popconfirm
 } from 'antd';
 
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
@@ -103,6 +104,14 @@ const columns = [
     },
 ];
 
+const KAllOrderShopName = ['001 - 弯麦(教育局店)',
+    '002 - 弯麦(旧镇店)',
+    '003 - 弯麦(江滨店)',
+    '004 - 弯麦(汤泉店)',
+    '005 - 弯麦(假日店)',
+    '006 - 弯麦(狮头店)',
+    '007 - 弯麦(盘陀店)'];
+
 class MakeProductionPlan extends React.Component {
     constructor(props) {
         super(props);
@@ -113,7 +122,9 @@ class MakeProductionPlan extends React.Component {
             shop: KShopArray[0],
             template: KTemplateArray[0],
             beginDateTime: moment().startOf('day'),
-            endDateTime: moment().endOf('day')
+            endDateTime: moment().endOf('day'),
+            selectedRowKeys: [],
+            noYetOrderList: []
         };
     }
 
@@ -123,20 +134,41 @@ class MakeProductionPlan extends React.Component {
 
     async fetchOrderList() {
         try {
-            this.setState({ listData: [], loading: true }, async () => {
+            this.setState({
+                listData: [], loading: true,
+                selectedRowKeys: []
+            }, async () => {
                 const { shop, template, beginDateTime, endDateTime } = this.state;
-                let orderList = [];
+                let orderList = []; let keys = []; let noYetOrder = KAllOrderShopName;
                 let beginDateTimeStr = beginDateTime.format('YYYY.MM.DD%2BHH:mm:ss');
                 let endDateTimeStr = endDateTime.format('YYYY.MM.DD%2BHH:mm:ss');;
                 const productOrder = await getProductOrderList(shop.userId, template.templateId, beginDateTimeStr, endDateTimeStr);
+                console.log(productOrder);
+
                 if (productOrder && productOrder.errCode === 0) {
                     orderList = productOrder.list;
+
+                    let alreadyOrderList = [];
+                    orderList.forEach(order => {
+                        order.key = orderList.indexOf(order) + 1;
+                        keys.push(order.key);
+                        alreadyOrderList.push(order.orderShop);
+                    });
+
+                    noYetOrder = [];
+                    KAllOrderShopName.forEach(orderItem => {
+                        if (alreadyOrderList.indexOf(orderItem) === -1) {
+                            noYetOrder.push(orderItem);
+                        }
+                    });
                 }
                 // console.log(productOrder);
 
                 this.setState({
                     listData: orderList,
+                    selectedRowKeys: keys,
                     loading: false,
+                    noYetOrderList: noYetOrder
                 });
             });
         } catch (err) {
@@ -146,97 +178,142 @@ class MakeProductionPlan extends React.Component {
         }
     }
 
+    onSelectChange = selectedRowKeys => {
+        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        this.setState({ selectedRowKeys });
+    };
+
+    handleMakePlan(e) {
+        console.log('handleMakePlan');
+    };
+
     render() {
         const { listData, shop, template, loading,
-            beginDateTime, endDateTime } = this.state;
+            beginDateTime, endDateTime, selectedRowKeys,
+            noYetOrderList } = this.state;
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onSelectChange,
+        };
 
+        let noYetOrderText = noYetOrderList.join(' | ');
         return (
-            <div style={{ marginLeft: 30, marginTop: 30, marginRight: 30, marginBottom: 30 }}>
-                <Dropdown
-                    style={{ marginLeft: 0 }}
-                    overlay={
-                        () => {
-                            return (<Menu onClick={async ({ key }) => {
-                                this.setState({ shop: KShopArray[key] }, async () => {
-                                    await this.fetchOrderList();
-                                });
-                            }} >
-                                {
-                                    KShopArray.map((shop) => {
-                                        return (<Menu.Item key={shop.index}>
-                                            {shop.name}
-                                        </Menu.Item>);
-                                    })
-                                }
-                            </Menu>)
-                        }
-                    } arrow trigger={['click']} disabled={loading}>
-                    <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                        {shop.name}
-                        <DownOutlined />
-                    </Button>
-                </Dropdown>
-                <Dropdown
-                    overlay={
-                        () => {
-                            return (<Menu onClick={async ({ key }) => {
-                                this.setState({ template: KTemplateArray[key] }, async () => {
-                                    await this.fetchOrderList();
-                                });
-                            }} >
-                                {
-                                    KTemplateArray.map((template) => {
-                                        return (<Menu.Item key={template.index}>
-                                            {template.name}
-                                        </Menu.Item>);
-                                    })
-                                }
-                            </Menu>)
-                        }
-                    } arrow trigger={['click']} disabled={loading}>
-                    <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
-                        {template.name}
-                        <DownOutlined />
-                    </Button>
-                </Dropdown>
-                <RangePicker
-                    style={{ marginLeft: 10 }}
-                    size='small'
-                    locale={locale}
-                    bordered={true}
-                    placeholder={['开始时间', '结束时间']}
-                    inputReadOnly={true}
-                    disabled={loading}
-                    defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'), moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                    showTime={{
-                        hideDisabledOptions: true,
-                        defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
-                        showTime: true,
-                        showHour: true,
-                        showMinute: true,
-                        showSecond: true
-                    }}
-                    onChange={(data) => {
-                        // console.log(data);
-                    }}
-                    onOk={async (data) => {
-                        if (data.length >= 2 && data[0] && data[1]) {
-                            if (data[0] > data[1]) {
-                                message.info('请输入正确时间');
-                                return;
+            <div>
+                <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 50, backgroundColor: 'lightgray' }}>
+                    <Popconfirm title="确定打印生产单？"
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        onConfirm={this.handleMakePlan}>
+                        <Button type='primary' style={{ width: 200, height: 30, marginLeft: 50, marginTop: 10 }}>打印</Button>
+                    </Popconfirm>
+
+                    <span style={{ marginLeft: 20, color: 'red' }}>
+                        {noYetOrderText}
+                    </span>
+                    <span style={{ marginLeft: 20, color: 'green' }}>未报货</span>
+                </div>
+                <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
+                    <Dropdown
+                        style={{ marginLeft: 0 }}
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ shop: KShopArray[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KShopArray.map((shop) => {
+                                            return (<Menu.Item key={shop.index}>
+                                                {shop.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
                             }
-                            this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
-                                await this.fetchOrderList();
-                            });
-                        }
-                    }}
-                />
-                <Button
-                    danger style={{ width: 180, marginLeft: 10 }} type='primary'
-                    onClick={async (e) => { await this.fetchOrderList(); }}>
-                    查询
-                </Button>
-                <Table style={{ marginTop: 10 }} loading={loading} dataSource={listData} columns={columns} pagination={false} bordered />;
+                        } arrow trigger={['click']} disabled={loading}>
+                        <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                            {shop.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <Dropdown
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ template: KTemplateArray[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KTemplateArray.map((template) => {
+                                            return (<Menu.Item key={template.index}>
+                                                {template.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['click']} disabled={loading}>
+                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                            {template.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <RangePicker
+                        style={{ marginLeft: 10 }}
+                        size='small'
+                        locale={locale}
+                        bordered={true}
+                        placeholder={['开始时间', '结束时间']}
+                        inputReadOnly={true}
+                        disabled={loading}
+                        defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'), moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                        showTime={{
+                            hideDisabledOptions: true,
+                            defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                            showTime: true,
+                            showHour: true,
+                            showMinute: true,
+                            showSecond: true
+                        }}
+                        onChange={(data) => {
+                            // console.log(data);
+                        }}
+                        onOk={async (data) => {
+                            if (data.length >= 2 && data[0] && data[1]) {
+                                if (data[0] > data[1]) {
+                                    message.info('请输入正确时间');
+                                    return;
+                                }
+                                this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
+                                    await this.fetchOrderList();
+                                });
+                            }
+                        }}
+                    />
+                    <Button
+                        danger style={{ width: 180, marginLeft: 10 }} type='primary'
+                        onClick={async (e) => { await this.fetchOrderList(); }}>
+                        查询
+                    </Button>
+                    <Table style={{ marginTop: 10 }}
+                        loading={loading}
+                        dataSource={listData}
+                        columns={columns}
+                        rowSelection={rowSelection}
+                        pagination={false} bordered
+                        footer={() => {
+                            return (
+                                <div>
+                                    <div style={{ textAlign: 'center', height: 50 }}>
+                                        ---心里慢慢都是你---
+                                    </div>
+                                    <div style={{ height: 50 }}>
+                                    </div>
+                                </div>
+                            )
+                        }} />
+                </div>
             </div>
         );
     }

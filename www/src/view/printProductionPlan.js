@@ -125,7 +125,6 @@ class PrintProductionPlan extends React.Component {
                                                         <th style={{ width: 140, textAlign: 'center', fontWeight: 'bold' }}>{columnData.productNameTitle}</th>
                                                         <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>{columnData.productNumber}</th>
                                                     </tr>
-
                                                 </th>
                                             </tr>
                                         </thead>

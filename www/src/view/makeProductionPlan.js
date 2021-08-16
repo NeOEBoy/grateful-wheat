@@ -34,83 +34,117 @@ const KTemplateArray = [
     { index: 4, name: '吐司餐包类', templateId: '182' }
 ];
 
-const columns = [
+const orderColumns = [
     {
         title: '序',
         dataIndex: 'key',
         key: 'key',
-        width: 50
+        width: 40,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '订货单号',
         dataIndex: 'orderSerialNumber',
         key: 'orderSerialNumber',
-        width: 200
+        width: 180,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '订货时间',
         dataIndex: 'orderTime',
         key: 'orderTime',
-        width: 160
+        width: 150,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '期望到货时间	',
         dataIndex: 'expectTime',
         key: 'expectTime',
-        width: 160
-    },
-    {
-        title: '模板名称',
-        dataIndex: 'templateName',
-        key: 'templateName',
-        width: 150
+        width: 100,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '订货单类型',
         dataIndex: 'orderType',
         key: 'orderType',
-        width: 160
+        width: 140,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '订货收银员',
         dataIndex: 'orderCashier',
         key: 'orderCashier',
-        width: 120
+        width: 120,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
-
+    {
+        title: '模板名称',
+        dataIndex: 'templateName',
+        key: 'templateName',
+        width: 120,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
+    },
     {
         title: '订货门店',
         dataIndex: 'orderShop',
         key: 'orderShop',
-        width: 100
+        width: 200,
+        render: (text) => {
+            return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>;
+        }
     },
     {
         title: '配货门店',
         dataIndex: 'prepareShop',
         key: 'prepareShop',
-        width: 100
+        width: 100,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '状态',
         dataIndex: 'status',
         key: 'status',
-        width: 100
+        width: 100,
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
     {
         title: '备注',
         dataIndex: 'remark',
         key: 'remark',
-        width: '*'
+        width: '*',
+        render: (text) => {
+            return <span style={{ fontSize: 10 }}>{text}</span>;
+        }
     },
 ];
 
-const KAllOrderShopName = ['001 - 弯麦(教育局店)',
+const KAllOrderShopName = [
+    '001 - 弯麦(教育局店)',
     '002 - 弯麦(旧镇店)',
     '003 - 弯麦(江滨店)',
     '004 - 弯麦(汤泉店)',
     '005 - 弯麦(假日店)',
     '006 - 弯麦(狮头店)',
-    '007 - 弯麦(盘陀店)'];
+    '007 - 弯麦(盘陀店)'
+];
 
 class MakeProductionPlan extends React.Component {
     constructor(props) {
@@ -191,25 +225,29 @@ class MakeProductionPlan extends React.Component {
         const { listData, shop, template, loading,
             beginDateTime, endDateTime, selectedRowKeys,
             noYetOrderList } = this.state;
+
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange,
         };
 
         let noYetOrderText = noYetOrderList.join(' | ');
+        let disablePrint = selectedRowKeys.length <= 0;
         return (
             <div>
                 <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 50, backgroundColor: 'lightgray' }}>
-                    <Popconfirm title="确定打印生产单？"
+                    <Popconfirm
+                        disabled={disablePrint}
+                        title="确定生成并打印生产单？"
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         onConfirm={this.handleMakePlan}>
-                        <Button type='primary' style={{ width: 200, height: 30, marginLeft: 50, marginTop: 10 }}>打印</Button>
+                        <Button danger disabled={disablePrint} type='primary' style={{ width: 180, height: 30, marginLeft: 50, marginTop: 10 }}>生成并打印生产单</Button>
                     </Popconfirm>
 
-                    <span style={{ marginLeft: 20, color: 'red' }}>
+                    <span style={{ marginLeft: 20, color: 'red', fontSize: 18, fontWeight: 'bold' }}>
                         {noYetOrderText}
                     </span>
-                    <span style={{ marginLeft: 20, color: 'green' }}>未报货</span>
+                    <span style={{ marginLeft: 20, color: 'darkmagenta' }}>未报货</span>
                 </div>
                 <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
                     <Dropdown
@@ -292,21 +330,21 @@ class MakeProductionPlan extends React.Component {
                         }}
                     />
                     <Button
-                        danger style={{ width: 180, marginLeft: 10 }} type='primary'
+                        style={{ width: 180, marginLeft: 10 }} type='primary'
                         onClick={async (e) => { await this.fetchOrderList(); }}>
                         查询
                     </Button>
                     <Table style={{ marginTop: 10 }}
                         loading={loading}
                         dataSource={listData}
-                        columns={columns}
+                        columns={orderColumns}
                         rowSelection={rowSelection}
                         pagination={false} bordered
                         footer={() => {
                             return (
                                 <div>
                                     <div style={{ textAlign: 'center', height: 50 }}>
-                                        ---心里慢慢都是你---
+                                        ---心里满满都是你---
                                     </div>
                                     <div style={{ height: 50 }}>
                                     </div>

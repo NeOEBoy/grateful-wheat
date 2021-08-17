@@ -4,6 +4,7 @@ var createError = require('http-errors');
 const {
   signIn,
   getProductSaleList,
+  getProductOrderItem,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getProductOrderList
@@ -63,6 +64,23 @@ router.get('/orderList', async function (req, res, next) {
       beginDateTime,
       endDateTime);
     res.send(productOrderResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/orderItems', async function (req, res, next) {
+  try {
+    let orderId = req.query.orderId;
+
+    if (!orderId) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let productOrderItemResponseJson = await getProductOrderItem(thePOSPALAUTH30220, orderId);
+    res.send(productOrderItemResponseJson);
   } catch (err) {
     next(err)
   }

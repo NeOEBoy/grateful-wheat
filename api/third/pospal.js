@@ -57,7 +57,7 @@ const getProductOrderList = async (
   beginDateTime,
   endDateTime
 ) => {
-  console.log('getProductOrderList begin');
+  // console.log('getProductOrderList begin');
 
   try {
     let orderListUrl = 'https://beta33.pospal.cn/StockFlow/LoadProductRequestByPage';
@@ -181,9 +181,15 @@ const getProductOrderList = async (
         let procuctOrderDataTh = result.root.tbody[0].tr;
         // console.log(procuctOrderDataTh);
         procuctOrderDataTh.forEach(element => {
+          // console.log(element);
+
           let productOrderItem = {};
 
           // productOrderItem.key = procuctOrderDataTh.indexOf(element) + 1;
+
+          let orderId = element.$.DATA;
+          // console.log(orderId);
+          productOrderItem.orderId = orderId;
 
           let orderSerialNumber = element.td[orderSerialNumberIndex]._;
           // console.log(orderSerialNumber);
@@ -213,6 +219,11 @@ const getProductOrderList = async (
           // console.log(orderShop);
           productOrderItem.orderShop = orderShop;
 
+          let pre3OrderShop = orderShop.substring(0, 3);
+          if (pre3OrderShop) {
+            productOrderItem.orderShopIndex = parseInt(pre3OrderShop);
+          }
+
           let prepareShop = element.td[prepareShopIndex];
           // console.log(prepareShop);
           productOrderItem.prepareShop = prepareShop;
@@ -225,7 +236,6 @@ const getProductOrderList = async (
           // console.log(remark);
           productOrderItem.remark = remark;
 
-
           productOrderList.push(productOrderItem);
         });
       }
@@ -233,6 +243,112 @@ const getProductOrderList = async (
 
     return { errCode: 0, list: productOrderList };
   } catch (e) {
+    return { errCode: -1 };
+  }
+  return { errCode: -1 };
+}
+
+const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
+  try {
+    let orderItemsUrl = 'https://beta33.pospal.cn/StockFlow/LoadProductRequestWithItems';
+
+    let orderItemsBodyStr = '';
+    orderItemsBodyStr += 'productRequestId=';
+    orderItemsBodyStr += orderId;
+    orderItemsBodyStr += '&groupBySupplier=false';
+    orderItemsBodyStr += '&groupStockPositionKey=';
+    orderItemsBodyStr += '&withWeigh=false';
+    // console.log(thePOSPALAUTH30220);
+    // console.log(orderItemsBodyStr);
+
+    const orderItemsResponse = await fetch(orderItemsUrl, {
+      method: 'POST', body: orderItemsBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const orderItemsResponseJson = await orderItemsResponse.json();
+
+    // console.log(orderItemsResponseJson);
+
+    let productItems = [];
+    if (orderItemsResponseJson.successed) {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + orderItemsResponseJson.view + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        const orderItemTable = result.root.input[2].input[2].input[2].div[2].div[0].div[0].table[0];
+        if (orderItemTable) {
+          let orderProductNameIndex = -1;
+          let barcodeIndex = -1;
+          let orderNumberIndex = -1;
+
+          let thead = orderItemTable.thead;
+          let procuctOrderItemsTh = thead[0].tr[0].th;
+          // console.log(procuctOrderItemsTh);
+          let procuctOrderItemsThLength = procuctOrderItemsTh.length;
+          for (let index = 0; index < procuctOrderItemsThLength; ++index) {
+            let titleName = procuctOrderItemsTh[index]._;
+            if (titleName) {
+              titleName = titleName.replace(/\r\n/g, "").trim();
+
+              if (titleName === '商品名称') {
+                orderProductNameIndex = index;
+                continue;
+              }
+
+              if (titleName === '条码') {
+                barcodeIndex = index;
+                continue;
+              }
+
+              if (titleName === '请求量') {
+                orderNumberIndex = index;
+                continue;
+              }
+            }
+          }
+
+          // console.log(orderProductNameIndex);
+          // console.log(barcodeIndex);
+          console.log(orderNumberIndex);
+
+          let procuctOrderDataTh = orderItemTable.tbody[0].tr;
+          // console.log(procuctOrderDataTh);
+          procuctOrderDataTh.forEach(element => {
+            // console.log(element);
+
+            let productOrderItem = {};
+
+            productOrderItem.serialNumber = procuctOrderDataTh.indexOf(element) + 1;
+
+            let orderProductName = element.td[orderProductNameIndex]._;
+            // console.log(orderProductName);
+            productOrderItem.orderProductName = orderProductName;
+
+            let barcode = element.td[barcodeIndex]._;
+            // console.log(barcode);
+            productOrderItem.barcode = barcode;
+
+            let orderNumber = element.td[orderNumberIndex].span[0]._;
+            // console.log(orderNumber);
+            productOrderItem.orderNumber = parseInt(orderNumber);
+
+            productItems.push(productOrderItem);
+          });
+        }
+      }
+    }
+    return { errCode: 0, items: productItems };
+  } catch (err) {
+    console.log('error');
+
     return { errCode: -1 };
   }
   return { errCode: -1 };
@@ -1067,6 +1183,7 @@ module.exports = {
   signIn,
   getProductSaleList,
   getProductOrderList,
+  getProductOrderItem,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,

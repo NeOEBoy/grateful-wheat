@@ -5,15 +5,15 @@ import {
     Dropdown,
     DatePicker,
     Table,
-    message,
-    Popconfirm
+    message
 } from 'antd';
 
-import { DownOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
+import { DownOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
-import { getProductOrderList } from '../api/api';
+import { getProductOrderList, getProductOrderItems } from '../api/api';
 const { RangePicker } = DatePicker;
 
 const KShopArray = [
@@ -21,7 +21,7 @@ const KShopArray = [
     { index: 1, name: '001-教育局店', userId: '3995767' },
     { index: 2, name: '002-旧镇店', userId: '3995771' },
     { index: 3, name: '003-江滨店', userId: '4061089' },
-    { index: 4, name: '004-汤泉世纪店', userId: '4061092' },
+    { index: 4, name: '004-汤泉店', userId: '4061092' },
     { index: 5, name: '005-假日店', userId: '4339546' },
     { index: 6, name: '006-狮头店', userId: '4359267' },
     { index: 7, name: '007-盘陀店', userId: '4382444' }
@@ -102,7 +102,7 @@ const orderColumns = [
         title: '订货门店',
         dataIndex: 'orderShop',
         key: 'orderShop',
-        width: 200,
+        width: 180,
         render: (text) => {
             return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>;
         }
@@ -154,11 +154,13 @@ class MakeProductionPlan extends React.Component {
             listData: [],
             loading: false,
             shop: KShopArray[0],
-            template: KTemplateArray[0],
+            template: KTemplateArray[1],
             beginDateTime: moment().startOf('day'),
             endDateTime: moment().endOf('day'),
             selectedRowKeys: [],
-            noYetOrderList: []
+            noYetOrderList: [],
+            makingPlan: false,
+            printData: []
         };
     }
 
@@ -177,11 +179,14 @@ class MakeProductionPlan extends React.Component {
                 let beginDateTimeStr = beginDateTime.format('YYYY.MM.DD%2BHH:mm:ss');
                 let endDateTimeStr = endDateTime.format('YYYY.MM.DD%2BHH:mm:ss');;
                 const productOrder = await getProductOrderList(shop.userId, template.templateId, beginDateTimeStr, endDateTimeStr);
-                console.log(productOrder);
+                // console.log(productOrder);
 
                 if (productOrder && productOrder.errCode === 0) {
                     orderList = productOrder.list;
 
+                    orderList = orderList.sort((item1, item2) => {
+                        return item1.orderShopIndex - item2.orderShopIndex;
+                    });
                     let alreadyOrderList = [];
                     orderList.forEach(order => {
                         order.key = orderList.indexOf(order) + 1;
@@ -213,145 +218,346 @@ class MakeProductionPlan extends React.Component {
     }
 
     onSelectChange = selectedRowKeys => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        // console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
     };
 
-    handleMakePlan(e) {
-        console.log('handleMakePlan');
+    handleMakePlan = async (e) => {
+        // console.log('handleMakePlan');
+
+        this.setState({ makingPlan: true }, async () => {
+            /// 1.获取每家店的订货信息
+            let allData = [];
+            const { listData } = this.state;
+            for (let index = 0; index < listData.length; ++index) {
+                let orderItem = listData[index];
+                if (orderItem) {
+                    const orderItems = await getProductOrderItems(orderItem.orderId);
+                    if (orderItems.errCode === 0 && orderItems.items) {
+                        let item = {};
+                        item.orderShop = orderItem.orderShop;
+                        item.templateName = this.state.template.name;
+                        item.items = orderItems.items;
+
+                        allData.push(item);
+                    } else {
+                        allData = [];
+                        message.error('获取<' + orderItem.orderShop + '>订货产品出错，请检查！');
+                        break;
+                    }
+                }
+            }
+            /// 2.合并所有店的订货信息
+            let totalOrderItem = {};
+            totalOrderItem.orderShop = '000 - 弯麦(生产车间)';
+            totalOrderItem.templateName = this.state.template.name;
+            let totalItems = [];
+            for (let i = 0; i < allData.length; ++i) {
+                let items = allData[i].items;
+                for (let j = 0; j < items.length; ++j) {
+                    let itemObj = items[j];
+
+                    let itemBarcode = itemObj.barcode;
+                    let posInTotalItems = -1;
+                    for (let ii = 0; ii < totalItems.length; ++ii) {
+                        if (totalItems[ii].barcode === itemBarcode) {
+                            posInTotalItems = ii;
+                            break;
+                        }
+                    }
+                    if (posInTotalItems !== -1) {
+                        let newNumber = totalItems[posInTotalItems].orderNumber + itemObj.orderNumber;
+                        totalItems[posInTotalItems].orderNumber = newNumber;
+                    } else {
+                        let newItemObject = {};
+                        newItemObject.serialNumber = totalItems.length;
+                        newItemObject.orderProductName = itemObj.orderProductName;
+                        newItemObject.barcode = itemObj.barcode;
+                        newItemObject.orderNumber = itemObj.orderNumber;
+
+                        totalItems.push(newItemObject);
+                    }
+                }
+            }
+            totalOrderItem.items = totalItems;
+            allData.unshift(totalOrderItem);
+
+            /// 3.整理订货信息使得适合A4打印
+            let allDataAfter = [];
+            for (let i = 0; i < allData.length; ++i) {
+                let allDataItem = allData[i].items;
+                for (let j = 0; j < allDataItem.length; ++j) {
+                    if (j % 25 === 0) {
+                        let allDataAfterItem = {};
+                        allDataAfterItem.orderShop = allData[i].orderShop;
+                        allDataAfterItem.templateName = allData[i].templateName;
+                        allDataAfterItem.items = [];
+
+                        allDataAfter.push(allDataAfterItem);
+                    }
+                    allDataAfter[allDataAfter.length - 1].items.push(allDataItem[j]);
+                }
+            }
+
+            this.setState({ makingPlan: false, printData: allDataAfter });
+        });
+    };
+
+    printPreprew = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.ADD_PRINT_HTM(50, 0, "90%", 700, strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.PREVIEW();
+        }
+    };
+
+    printDirect = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.ADD_PRINT_HTM(50, 0, "90%", 700, strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.PRINT();
+        }
     };
 
     render() {
         const { listData, shop, template, loading,
             beginDateTime, endDateTime, selectedRowKeys,
-            noYetOrderList } = this.state;
+            noYetOrderList, makingPlan, printData } = this.state;
 
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange,
         };
 
-        let noYetOrderText = noYetOrderList.join(' | ');
-        let disablePrint = selectedRowKeys.length <= 0;
+        let noYetOrderText = '无';
+        if (noYetOrderList && noYetOrderList.length > 0) {
+            noYetOrderText = noYetOrderList.join(' | ');
+        }
+        let disablePrint = selectedRowKeys.length <= 0 || makingPlan;
+
+        let printShow = printData && printData.length > 0;
+
         return (
             <div>
-                <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 50, backgroundColor: 'lightgray' }}>
-                    <Popconfirm
-                        disabled={disablePrint}
-                        title="确定生成并打印生产单？"
-                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                        onConfirm={this.handleMakePlan}>
-                        <Button danger disabled={disablePrint} type='primary' style={{ width: 180, height: 30, marginLeft: 50, marginTop: 10 }}>生成并打印生产单</Button>
-                    </Popconfirm>
+                {!printShow ? (<div>
+                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单打印模块</div>
+                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 80, backgroundColor: 'lightgray' }}>
+                        <Button danger disabled={disablePrint} type='primary'
+                            onClick={this.handleMakePlan}
+                            style={{ width: 180, height: 30, marginLeft: 50, marginTop: 10 }}>
+                            {makingPlan ? '生成中...' : '打印生产单'}
+                        </Button>
 
-                    <span style={{ marginLeft: 20, color: 'red', fontSize: 18, fontWeight: 'bold' }}>
-                        {noYetOrderText}
-                    </span>
-                    <span style={{ marginLeft: 20, color: 'darkmagenta' }}>未报货</span>
-                </div>
-                <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
-                    <Dropdown
-                        style={{ marginLeft: 0 }}
-                        overlay={
-                            () => {
-                                return (<Menu onClick={async ({ key }) => {
-                                    this.setState({ shop: KShopArray[key] }, async () => {
-                                        await this.fetchOrderList();
-                                    });
-                                }} >
-                                    {
-                                        KShopArray.map((shop) => {
-                                            return (<Menu.Item key={shop.index}>
-                                                {shop.name}
-                                            </Menu.Item>);
-                                        })
-                                    }
-                                </Menu>)
-                            }
-                        } arrow trigger={['click']} disabled={loading}>
-                        <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                            {shop.name}
-                            <DownOutlined />
-                        </Button>
-                    </Dropdown>
-                    <Dropdown
-                        overlay={
-                            () => {
-                                return (<Menu onClick={async ({ key }) => {
-                                    this.setState({ template: KTemplateArray[key] }, async () => {
-                                        await this.fetchOrderList();
-                                    });
-                                }} >
-                                    {
-                                        KTemplateArray.map((template) => {
-                                            return (<Menu.Item key={template.index}>
-                                                {template.name}
-                                            </Menu.Item>);
-                                        })
-                                    }
-                                </Menu>)
-                            }
-                        } arrow trigger={['click']} disabled={loading}>
-                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
-                            {template.name}
-                            <DownOutlined />
-                        </Button>
-                    </Dropdown>
-                    <RangePicker
-                        style={{ marginLeft: 10 }}
-                        size='small'
-                        locale={locale}
-                        bordered={true}
-                        placeholder={['开始时间', '结束时间']}
-                        inputReadOnly={true}
-                        disabled={loading}
-                        defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'), moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                        showTime={{
-                            hideDisabledOptions: true,
-                            defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
-                            showTime: true,
-                            showHour: true,
-                            showMinute: true,
-                            showSecond: true
-                        }}
-                        onChange={(data) => {
-                            // console.log(data);
-                        }}
-                        onOk={async (data) => {
-                            if (data.length >= 2 && data[0] && data[1]) {
-                                if (data[0] > data[1]) {
-                                    message.info('请输入正确时间');
-                                    return;
+                        <span>
+                            <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                            <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderText}</span>
+                            <br />
+                            <span style={{ marginLeft: 250, color: 'tomato', fontSize: 8 }}>报货模板:</span>
+                            <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{template.name}</span>
+                        </span>
+                    </div>
+                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
+                        <Dropdown
+                            style={{ marginLeft: 0 }}
+                            overlay={
+                                () => {
+                                    return (<Menu onClick={async ({ key }) => {
+                                        this.setState({ shop: KShopArray[key] }, async () => {
+                                            await this.fetchOrderList();
+                                        });
+                                    }} >
+                                        {
+                                            KShopArray.map((shop) => {
+                                                return (<Menu.Item key={shop.index}>
+                                                    {shop.name}
+                                                </Menu.Item>);
+                                            })
+                                        }
+                                    </Menu>)
                                 }
-                                this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
-                                    await this.fetchOrderList();
-                                });
-                            }
-                        }}
-                    />
-                    <Button
-                        style={{ width: 180, marginLeft: 10 }} type='primary'
-                        onClick={async (e) => { await this.fetchOrderList(); }}>
-                        查询
-                    </Button>
-                    <Table style={{ marginTop: 10 }}
-                        loading={loading}
-                        dataSource={listData}
-                        columns={orderColumns}
-                        rowSelection={rowSelection}
-                        pagination={false} bordered
-                        footer={() => {
-                            return (
+                            } arrow trigger={['click']} disabled={loading}>
+                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                                {shop.name}
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                        <Dropdown
+                            overlay={
+                                () => {
+                                    return (<Menu onClick={async ({ key }) => {
+                                        this.setState({ template: KTemplateArray[key] }, async () => {
+                                            await this.fetchOrderList();
+                                        });
+                                    }} >
+                                        {
+                                            KTemplateArray.map((template) => {
+                                                return (<Menu.Item key={template.index}>
+                                                    {template.name}
+                                                </Menu.Item>);
+                                            })
+                                        }
+                                    </Menu>)
+                                }
+                            } arrow trigger={['click']} disabled={loading}>
+                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                                {template.name}
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                        <RangePicker
+                            style={{ marginLeft: 10 }}
+                            size='small'
+                            locale={locale}
+                            bordered={true}
+                            placeholder={['开始时间', '结束时间']}
+                            inputReadOnly={true}
+                            disabled={loading}
+                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'), moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                            showTime={{
+                                hideDisabledOptions: true,
+                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                                showTime: true,
+                                showHour: true,
+                                showMinute: true,
+                                showSecond: true
+                            }}
+                            onChange={(data) => {
+                                // console.log(data);
+                            }}
+                            onOk={async (data) => {
+                                if (data.length >= 2 && data[0] && data[1]) {
+                                    if (data[0] > data[1]) {
+                                        message.info('请输入正确时间');
+                                        return;
+                                    }
+                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }
+                            }}
+                        />
+                        <Button
+                            style={{ width: 180, marginLeft: 10 }} type='primary'
+                            onClick={async (e) => { await this.fetchOrderList(); }}>
+                            查询
+                        </Button>
+                        <Table style={{ marginTop: 10 }}
+                            loading={loading}
+                            dataSource={listData}
+                            columns={orderColumns}
+                            rowSelection={rowSelection}
+                            pagination={false} bordered
+                            footer={() => {
+                                return (
+                                    <div>
+                                        <div style={{ textAlign: 'center', height: 50 }}>
+                                            ---心里满满都是你---
+                                        </div>
+                                        <div style={{ height: 50 }}>
+                                        </div>
+                                    </div>
+                                )
+                            }} />
+                    </div>
+                </div>) :
+                    (
+                        <div style={{ marginLeft: 10, marginTop: 10 }}>
+
+                            <div id="printConfig"
+                                style={{ float: 'left', borderStyle: 'none', width: 90 }}>
                                 <div>
-                                    <div style={{ textAlign: 'center', height: 50 }}>
-                                        ---心里满满都是你---
-                                    </div>
-                                    <div style={{ height: 50 }}>
-                                    </div>
+                                    <Button type="primary"
+                                        style={{ width: 90, height: 80 }}
+                                        onClick={() => {
+                                            this.setState({ printData: [], printShow: false });
+                                        }}>
+                                        <div style={{ fontSize: 16 }}>
+                                            后退
+                                        </div>
+                                    </Button>
                                 </div>
-                            )
-                        }} />
-                </div>
+                                <Button type="primary"
+                                    style={{ marginTop: 10, width: 90, height: 80 }}
+                                    onClick={this.printPreprew}>
+                                    <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                        打印预览
+                                    </div>
+                                </Button>
+                                <Button type="primary"
+                                    danger
+                                    style={{ marginTop: 10, width: 90, height: 80 }}
+                                    onClick={this.printDirect}>
+                                    <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                        直接打印
+                                    </div>
+                                </Button>
+                            </div>
+
+                            <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dashed', width: 1380 }}>
+                                <div style={{ width: 1330, marginTop: 50, marginLeft: 20 }}>
+                                </div>
+
+                                <div id="printTable" style={{ marginLeft: 20, width: 1330 }}>
+                                    <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, borderStyle: 'dotted' }} />
+                                    {
+                                        printData.map((columnData) => {
+                                            let productArray = columnData.items;
+                                            return (<div style={{ float: 'left', height: 875 }}>
+                                                <table border='1' borderCollapse='collapse' cellSpacing='1' cellPadding='2' style={{ float: 'left' }}>
+                                                    <thead>
+                                                        <tr>
+                                                            <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                {columnData.templateName}
+                                                                <tr>
+                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>{columnData.orderShop}</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                    <th style={{ width: 100, textAlign: 'center', fontWeight: 'bold' }}>条码</th>
+                                                                    <th style={{ width: 130, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                    <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                </tr>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {
+                                                            productArray.map((productItem) => {
+                                                                return (<tr>
+                                                                    <th style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{productItem.serialNumber}</th>
+                                                                    <th style={{ width: 100, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
+                                                                    <th style={{ width: 130, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
+                                                                    <th style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber}</th>
+                                                                </tr>)
+                                                            })
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                                <div style={{ float: 'left', border: 7, marginLeft: 0, marginRight: 0, height: 800, borderStyle: 'dotted' }} />
+                                            </div>)
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
             </div>
         );
     }

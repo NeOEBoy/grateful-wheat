@@ -15,7 +15,7 @@ const KShopArray = [
   { index: 1, name: '教育局店', userId: '3995767' },
   { index: 2, name: '旧镇店', userId: '3995771' },
   { index: 3, name: '江滨店', userId: '4061089' },
-  { index: 4, name: '汤泉世纪店', userId: '4061092' },
+  { index: 4, name: '汤泉店', userId: '4061092' },
   { index: 5, name: '假日店', userId: '4339546' },
   { index: 6, name: '狮头店', userId: '4359267' },
   { index: 7, name: '盘陀店', userId: '4382444' }
@@ -2106,7 +2106,7 @@ const excute = () => {
   var args = process.argv.splice(2);
   // args[0]='877461508' args[1]='品类优惠测试券'
   if (args.length !== 2) {
-    console.log('参数错误，第1参数：店名(教育局店|旧镇店|江滨店|汤泉世纪店|假日店|...)，第2个参数：月份(2020.12)');
+    console.log('参数错误，第1参数：店名(教育局店|旧镇店|江滨店|汤泉店|假日店|...)，第2个参数：月份(2020.12)');
   } else {
     for (let index = 0; index < KShopArray.length; ++index) {
       let shop = KShopArray[index];
@@ -2117,7 +2117,7 @@ const excute = () => {
       }
     }
     if (SHOP_USERID === undefined) {
-      console.log('第1参数错误，请输入正确店名(如：教育局店|旧镇店|江滨店|汤泉世纪店|...)');
+      console.log('第1参数错误，请输入正确店名(如：教育局店|旧镇店|江滨店|汤泉店|...)');
       return;
     }
 

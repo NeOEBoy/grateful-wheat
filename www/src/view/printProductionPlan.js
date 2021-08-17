@@ -91,13 +91,25 @@ class PrintProductionPlan extends React.Component {
                     <div style={{ background: 'lightgray', padding: 10, fontWeight: 'bold' }}>
                         点击下方按钮打印右侧内容
                     </div>
-                    <Button type="primary"
-                        style={{ width: 90, height: 80 }}
-                        onClick={this.printPreprew}>
-                        <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                            打印预览
-                        </div>
-                    </Button>
+                    <div>
+                        <Button type="primary"
+                            style={{ width: 90, height: 80 }}
+                            onClick={this.printPreprew}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                打印预览
+                            </div>
+                        </Button>
+                    </div>
+
+                    <div>
+                        <Button
+                            style={{ width: 90, height: 80 }}
+                            onClick={this.printPreprew}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                直接打印
+                            </div>
+                        </Button>
+                    </div>
                 </div>
 
                 <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dashed', width: 1380 }}>

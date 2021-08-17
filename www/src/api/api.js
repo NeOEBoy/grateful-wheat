@@ -99,6 +99,16 @@ const getProductOrderList = async (userId, templateId, beginDateTime,endDateTime
   return productOrderJson;
 }
 
+const getProductOrderItems = async (orderId)=>{
+  let productOrderItemUrl = KApiHost + '/product/orderItems';
+  productOrderItemUrl += '?orderId=';
+  productOrderItemUrl += orderId;
+
+  const productOrderItemsResponse = await fetch(productOrderItemUrl);
+  const productOrderItemsJson = await productOrderItemsResponse.json();
+  return productOrderItemsJson;
+}
+
 const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
   let diyCouponListUrl = KApiHost + '/coupon/diyCouponList';
 
@@ -265,6 +275,7 @@ export {
   getProductSaleAndDiscardList,
   getCouponSummaryList,
   getProductOrderList,
+  getProductOrderItems,
   getDIYCouponList,
   getMemberListByKeyword,
   saveRemarkToCoupon,

@@ -326,8 +326,6 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
 
             let productOrderItem = {};
 
-            productOrderItem.serialNumber = procuctOrderDataTh.indexOf(element) + 1;
-
             let orderProductName = element.td[orderProductNameIndex]._;
             // console.log(orderProductName);
             productOrderItem.orderProductName = orderProductName;
@@ -335,6 +333,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             let barcode = element.td[barcodeIndex]._;
             // console.log(barcode);
             productOrderItem.barcode = barcode;
+            productOrderItem.barcodeSimple5 = barcode.substring(barcode.length-5, barcode.length);
 
             let orderNumber = element.td[orderNumberIndex].span[0]._;
             // console.log(orderNumber);

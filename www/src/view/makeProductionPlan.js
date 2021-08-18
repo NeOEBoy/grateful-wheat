@@ -155,12 +155,12 @@ class MakeProductionPlan extends React.Component {
             loading: false,
             shop: KShopArray[0],
             template: KTemplateArray[1],
-            beginDateTime: moment().startOf('day'),
-            endDateTime: moment().endOf('day'),
+            beginDateTime: moment().subtract(1, 'days').startOf('day'),
+            endDateTime: moment().subtract(1, 'days').endOf('day'),
             selectedRowKeys: [],
             noYetOrderList: [],
-            makingPlan: false,
-            printData: []
+            printData: [],
+            makeButtonText: '打印生产单'
         };
     }
 
@@ -225,21 +225,60 @@ class MakeProductionPlan extends React.Component {
     handleMakePlan = async (e) => {
         // console.log('handleMakePlan');
 
-        this.setState({ makingPlan: true }, async () => {
-            /// 1.获取每家店的订货信息
+        this.setState({ makeButtonText: '准备打印...' }, async () => {
             let allData = [];
             const { listData } = this.state;
             for (let index = 0; index < listData.length; ++index) {
                 let orderItem = listData[index];
                 if (orderItem) {
+                    /// 1.获取每家店的订货信息
+                    this.setState({ makeButtonText: '获取' + orderItem.orderShop + '...' })
                     const orderItems = await getProductOrderItems(orderItem.orderId);
                     if (orderItems.errCode === 0 && orderItems.items) {
-                        let item = {};
-                        item.orderShop = orderItem.orderShop;
-                        item.templateName = this.state.template.name;
-                        item.items = orderItems.items;
+                        let existInAllData = false;
+                        let i;
+                        for (i = 0; i < allData.length; ++i) {
+                            if (allData[i].orderShop === orderItem.orderShop &&
+                                allData[i].templateName === orderItem.templateName) {
+                                existInAllData = true;
+                                break;
+                            }
+                        }
+                        /// 2.合并同一订货门店同一模板订单的商品信息
+                        if (existInAllData) {
+                            let theExistDataItems = allData[i].items;
+                            let toBeDealItems = orderItems.items;
+                            for (let i = 0; i < toBeDealItems.length; ++i) {
+                                let toBeDealItem = toBeDealItems[i];
+                                let posInTheExistDataItems = -1;
+                                for (let j = 0; j < theExistDataItems.length; ++j) {
+                                    let productItem = theExistDataItems[j];
+                                    if (productItem.barcode === toBeDealItem.barcode) {
+                                        posInTheExistDataItems = j;
+                                        break;
+                                    }
+                                }
 
-                        allData.push(item);
+                                if (posInTheExistDataItems !== -1) {
+                                    let newNumber = theExistDataItems[posInTheExistDataItems].orderNumber + toBeDealItem.orderNumber;
+                                    theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
+                                } else {
+                                    let newItemObject = {};
+                                    newItemObject.orderProductName = toBeDealItem.orderProductName;
+                                    newItemObject.barcode = toBeDealItem.barcode;
+                                    newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
+                                    newItemObject.orderNumber = toBeDealItem.orderNumber;
+
+                                    theExistDataItems.push(newItemObject);
+                                }
+                            }
+                        } else {
+                            let item = {};
+                            item.orderShop = orderItem.orderShop;
+                            item.templateName = orderItem.templateName;
+                            item.items = orderItems.items;
+                            allData.push(item);
+                        }
                     } else {
                         allData = [];
                         message.error('获取<' + orderItem.orderShop + '>订货产品出错，请检查！');
@@ -247,7 +286,8 @@ class MakeProductionPlan extends React.Component {
                     }
                 }
             }
-            /// 2.合并所有店的订货信息
+            /// 3.合并所有店的订货信息至生产车间
+            this.setState({ makeButtonText: '合并至生产车间...' })
             let totalOrderItem = {};
             totalOrderItem.orderShop = '000 - 弯麦(生产车间)';
             totalOrderItem.templateName = this.state.template.name;
@@ -270,9 +310,9 @@ class MakeProductionPlan extends React.Component {
                         totalItems[posInTotalItems].orderNumber = newNumber;
                     } else {
                         let newItemObject = {};
-                        newItemObject.serialNumber = totalItems.length;
                         newItemObject.orderProductName = itemObj.orderProductName;
                         newItemObject.barcode = itemObj.barcode;
+                        newItemObject.barcodeSimple5 = itemObj.barcodeSimple5;
                         newItemObject.orderNumber = itemObj.orderNumber;
 
                         totalItems.push(newItemObject);
@@ -282,24 +322,58 @@ class MakeProductionPlan extends React.Component {
             totalOrderItem.items = totalItems;
             allData.unshift(totalOrderItem);
 
-            /// 3.整理订货信息使得适合A4打印
-            let allDataAfter = [];
+            /// 4.整理订货信息补上订货量是0的商品
+            let allDataAfterFix0 = [];
             for (let i = 0; i < allData.length; ++i) {
-                let allDataItem = allData[i].items;
-                for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 25 === 0) {
-                        let allDataAfterItem = {};
-                        allDataAfterItem.orderShop = allData[i].orderShop;
-                        allDataAfterItem.templateName = allData[i].templateName;
-                        allDataAfterItem.items = [];
-
-                        allDataAfter.push(allDataAfterItem);
-                    }
-                    allDataAfter[allDataAfter.length - 1].items.push(allDataItem[j]);
+                let allDataColumn = allData[i];
+                if (allDataColumn.orderShop === '000 - 弯麦(生产车间)') {
+                    allDataAfterFix0.push(allDataColumn);
+                    continue;
                 }
+
+                let oneDataObj ={};
+                oneDataObj.orderShop = allDataColumn.orderShop;
+                oneDataObj.templateName = allDataColumn.templateName;
+                oneDataObj.items=[];
+                for (let j = 0; j < totalOrderItem.items.length; ++j) {
+                    let oneItem = totalOrderItem.items[j];
+                    if (oneItem) {
+                        let newItemObject = {};
+                        newItemObject.orderProductName = oneItem.orderProductName;
+                        newItemObject.barcode = oneItem.barcode;
+                        newItemObject.barcodeSimple5 = oneItem.barcodeSimple5;
+                        newItemObject.orderNumber = 0;
+                        for (let k = 0; k < allDataColumn.items.length; ++k) {
+                            let antherOneItem = allDataColumn.items[k];
+                            if(newItemObject.barcode === antherOneItem.barcode) {
+                                newItemObject.orderNumber = antherOneItem.orderNumber;
+                                break;
+                            }
+                        }
+
+                        oneDataObj.items.push(newItemObject);
+                    }
+                }
+                allDataAfterFix0.push(oneDataObj);
             }
 
-            this.setState({ makingPlan: false, printData: allDataAfter });
+            /// 5.整理订货信息使得适合A4打印
+            let allDataAfterA4 = [];
+            for (let i = 0; i < allDataAfterFix0.length; ++i) {
+                let allDataItem = allDataAfterFix0[i].items;
+                for (let j = 0; j < allDataItem.length; ++j) {
+                    if (j % 25 === 0) {///每列25个商品
+                        let allDataAfterItem = {};
+                        allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
+                        allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
+                        allDataAfterItem.items = [];
+
+                        allDataAfterA4.push(allDataAfterItem);
+                    }
+                    allDataAfterA4[allDataAfterA4.length - 1].items.push(allDataItem[j]);
+                }
+            }
+            this.setState({ makeButtonText: '打印生产单', printData: allDataAfterA4 });
         });
     };
 
@@ -338,7 +412,7 @@ class MakeProductionPlan extends React.Component {
     render() {
         const { listData, shop, template, loading,
             beginDateTime, endDateTime, selectedRowKeys,
-            noYetOrderList, makingPlan, printData } = this.state;
+            noYetOrderList, makeButtonText, printData } = this.state;
 
         const rowSelection = {
             selectedRowKeys,
@@ -349,7 +423,7 @@ class MakeProductionPlan extends React.Component {
         if (noYetOrderList && noYetOrderList.length > 0) {
             noYetOrderText = noYetOrderList.join(' | ');
         }
-        let disablePrint = selectedRowKeys.length <= 0 || makingPlan;
+        let disablePrint = selectedRowKeys.length <= 0 || makeButtonText !== '打印生产单';
 
         let printShow = printData && printData.length > 0;
 
@@ -360,15 +434,15 @@ class MakeProductionPlan extends React.Component {
                     <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 80, backgroundColor: 'lightgray' }}>
                         <Button danger disabled={disablePrint} type='primary'
                             onClick={this.handleMakePlan}
-                            style={{ width: 180, height: 30, marginLeft: 50, marginTop: 10 }}>
-                            {makingPlan ? '生成中...' : '打印生产单'}
+                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                            {makeButtonText}
                         </Button>
 
                         <span>
                             <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
                             <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderText}</span>
                             <br />
-                            <span style={{ marginLeft: 250, color: 'tomato', fontSize: 8 }}>报货模板:</span>
+                            <span style={{ marginLeft: 280, color: 'tomato', fontSize: 8 }}>报货模板:</span>
                             <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{template.name}</span>
                         </span>
                     </div>
@@ -478,7 +552,6 @@ class MakeProductionPlan extends React.Component {
                 </div>) :
                     (
                         <div style={{ marginLeft: 10, marginTop: 10 }}>
-
                             <div id="printConfig"
                                 style={{ float: 'left', borderStyle: 'none', width: 90 }}>
                                 <div>
@@ -509,48 +582,51 @@ class MakeProductionPlan extends React.Component {
                                 </Button>
                             </div>
 
-                            <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dashed', width: 1380 }}>
-                                <div style={{ width: 1330, marginTop: 50, marginLeft: 20 }}>
-                                </div>
-
-                                <div id="printTable" style={{ marginLeft: 20, width: 1330 }}>
-                                    <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, borderStyle: 'dotted' }} />
+                            <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dashed', width: 1280 }}>
+                                <div id="printTable" style={{ marginTop: 50, marginLeft: 20, width: 1330, backgroundColor: 'green' }}>
                                     {
                                         printData.map((columnData) => {
+                                            // return (<div style={{height: 875}}></div>);
                                             let productArray = columnData.items;
-                                            return (<div style={{ float: 'left', height: 875 }}>
-                                                <table border='1' borderCollapse='collapse' cellSpacing='1' cellPadding='2' style={{ float: 'left' }}>
-                                                    <thead>
-                                                        <tr>
-                                                            <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                {columnData.templateName}
+                                            return (
+                                                <div>
+                                                    <div style={{ float: 'left', height: 875, zIndex: 10 }}>
+                                                        <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, width: 13 }} />
+                                                        <table border='1' borderCollapse='collapse' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                            <thead>
                                                                 <tr>
-                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>{columnData.orderShop}</th>
+                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                        {columnData.templateName}
+                                                                        <tr>
+                                                                            <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>{columnData.orderShop}</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                            <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                            <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                            <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                        </tr>
+                                                                    </th>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                    <th style={{ width: 100, textAlign: 'center', fontWeight: 'bold' }}>条码</th>
-                                                                    <th style={{ width: 130, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                    <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
-                                                                </tr>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {
-                                                            productArray.map((productItem) => {
-                                                                return (<tr>
-                                                                    <th style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{productItem.serialNumber}</th>
-                                                                    <th style={{ width: 100, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
-                                                                    <th style={{ width: 130, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
-                                                                    <th style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber}</th>
-                                                                </tr>)
-                                                            })
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                                <div style={{ float: 'left', border: 7, marginLeft: 0, marginRight: 0, height: 800, borderStyle: 'dotted' }} />
-                                            </div>)
+                                                            </thead>
+                                                            <tbody>
+                                                                {
+                                                                    productArray.map((productItem) => {
+                                                                        let serialNum = productArray.indexOf(productItem) + 1;
+                                                                        return (<tr>
+                                                                            <th style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
+                                                                            <th style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                            <th style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
+                                                                            <th style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber}</th>
+                                                                        </tr>)
+                                                                    })
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                        <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, width: 13 }} />
+                                                    </div>
+                                                </div>
+                                            )
                                         })
                                     }
                                 </div>

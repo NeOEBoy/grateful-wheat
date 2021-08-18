@@ -33,7 +33,6 @@ const KTemplateArray = [
     { index: 3, name: '常温类', templateId: '183' },
     { index: 4, name: '吐司餐包类', templateId: '182' }
 ];
-
 const orderColumns = [
     {
         title: '序',
@@ -135,7 +134,6 @@ const orderColumns = [
         }
     },
 ];
-
 const KAllOrderShopName = [
     '001 - 弯麦(教育局店)',
     '002 - 弯麦(旧镇店)',
@@ -145,7 +143,24 @@ const KAllOrderShopName = [
     '006 - 弯麦(狮头店)',
     '007 - 弯麦(盘陀店)'
 ];
-
+// templateId-barcode
+const KSortIdArray = {
+    /// 现烤
+    '187-2006251756022': 1, //高钙片
+    '187-2006261548488': 2, //鸡排三明治
+    '187-2006291720144': 3, //焗烤三明治
+    '187-2007261431428': 4, //奶酪杯
+    '187-2007171555580': 5, //全麦熏鸡三明治
+    '187-2006251720443': 6, //手工蛋挞
+    /// 吐司餐包
+    '182-2106241432414': 1, //枫糖小吐司
+    '182-2106281603003': 2, //红豆小吐司		
+    '182-2106281600071': 3, //坚果小吐司			
+    '182-2106281603355': 4, //南瓜小吐司				
+    '182-2106241433091': 5, //松松小吐司					
+    '182-2106281601535': 6, //椰蓉小吐司				
+    '182-2010291510063': 7, //纯奶拉丝大吐司					
+};
 class MakeProductionPlan extends React.Component {
     constructor(props) {
         super(props);
@@ -155,8 +170,8 @@ class MakeProductionPlan extends React.Component {
             loading: false,
             shop: KShopArray[0],
             template: KTemplateArray[1],
-            beginDateTime: moment().subtract(1, 'days').startOf('day'),
-            endDateTime: moment().subtract(1, 'days').endOf('day'),
+            beginDateTime: moment().startOf('day'),
+            endDateTime: moment().endOf('day'),
             selectedRowKeys: [],
             noYetOrderList: [],
             printData: [],
@@ -227,7 +242,7 @@ class MakeProductionPlan extends React.Component {
 
         this.setState({ makeButtonText: '准备打印...' }, async () => {
             let allData = [];
-            const { listData } = this.state;
+            const { listData, template } = this.state;
             for (let index = 0; index < listData.length; ++index) {
                 let orderItem = listData[index];
                 if (orderItem) {
@@ -264,10 +279,12 @@ class MakeProductionPlan extends React.Component {
                                     theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
                                 } else {
                                     let newItemObject = {};
+                                    newItemObject.categoryName = toBeDealItem.categoryName;
                                     newItemObject.orderProductName = toBeDealItem.orderProductName;
                                     newItemObject.barcode = toBeDealItem.barcode;
                                     newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
+                                    newItemObject.sortId = toBeDealItem.sortId;
 
                                     theExistDataItems.push(newItemObject);
                                 }
@@ -277,6 +294,11 @@ class MakeProductionPlan extends React.Component {
                             item.orderShop = orderItem.orderShop;
                             item.templateName = orderItem.templateName;
                             item.items = orderItems.items;
+                            for (let i = 0; i < orderItems.items.length; ++i) {
+                                let templateAndBarcode = template.templateId + '-' + orderItems.items[i].barcode;
+                                let sortInfo = KSortIdArray[templateAndBarcode];
+                                orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
+                            }
                             allData.push(item);
                         }
                     } else {
@@ -310,16 +332,44 @@ class MakeProductionPlan extends React.Component {
                         totalItems[posInTotalItems].orderNumber = newNumber;
                     } else {
                         let newItemObject = {};
+                        newItemObject.categoryName = itemObj.categoryName;
                         newItemObject.orderProductName = itemObj.orderProductName;
                         newItemObject.barcode = itemObj.barcode;
                         newItemObject.barcodeSimple5 = itemObj.barcodeSimple5;
                         newItemObject.orderNumber = itemObj.orderNumber;
+                        newItemObject.sortId = itemObj.sortId;
 
                         totalItems.push(newItemObject);
                     }
                 }
             }
-            totalOrderItem.items = totalItems;
+
+            /// 同一分类的放在一起
+            let totalItemsAfterFixCategory = [];
+            for (let i = 0; i < totalItems.length; ++i) {
+                let oneItem = totalItems[i];
+
+                let pos = -1;
+                for (let j = totalItemsAfterFixCategory.length - 1; j >= 0; --j) {
+                    if (totalItemsAfterFixCategory[j].categoryName === oneItem.categoryName) {
+                        pos = j;
+                        break;
+                    }
+                }
+
+                if (pos !== -1) {
+                    totalItemsAfterFixCategory.splice(pos + 1, 0, oneItem);
+                } else {
+                    totalItemsAfterFixCategory.push(oneItem);
+                }
+
+            }
+            /// 根据设定排序号排序
+            totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
+                return item1.sortId - item2.sortId;
+            });
+
+            totalOrderItem.items = totalItemsAfterFixCategory;
             allData.unshift(totalOrderItem);
 
             /// 4.整理订货信息补上订货量是0的商品
@@ -331,21 +381,23 @@ class MakeProductionPlan extends React.Component {
                     continue;
                 }
 
-                let oneDataObj ={};
+                let oneDataObj = {};
                 oneDataObj.orderShop = allDataColumn.orderShop;
                 oneDataObj.templateName = allDataColumn.templateName;
-                oneDataObj.items=[];
+                oneDataObj.items = [];
                 for (let j = 0; j < totalOrderItem.items.length; ++j) {
                     let oneItem = totalOrderItem.items[j];
                     if (oneItem) {
                         let newItemObject = {};
+                        newItemObject.categoryName = oneItem.categoryName;
                         newItemObject.orderProductName = oneItem.orderProductName;
                         newItemObject.barcode = oneItem.barcode;
                         newItemObject.barcodeSimple5 = oneItem.barcodeSimple5;
+                        newItemObject.sortId = oneItem.sortId;
                         newItemObject.orderNumber = 0;
                         for (let k = 0; k < allDataColumn.items.length; ++k) {
                             let antherOneItem = allDataColumn.items[k];
-                            if(newItemObject.barcode === antherOneItem.barcode) {
+                            if (newItemObject.barcode === antherOneItem.barcode) {
                                 newItemObject.orderNumber = antherOneItem.orderNumber;
                                 break;
                             }
@@ -362,7 +414,7 @@ class MakeProductionPlan extends React.Component {
             for (let i = 0; i < allDataAfterFix0.length; ++i) {
                 let allDataItem = allDataAfterFix0[i].items;
                 for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 25 === 0) {///每列25个商品
+                    if (j % 28 === 0) {///28
                         let allDataAfterItem = {};
                         allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
@@ -374,6 +426,8 @@ class MakeProductionPlan extends React.Component {
                 }
             }
             this.setState({ makeButtonText: '打印生产单', printData: allDataAfterA4 });
+
+            console.log(allDataAfterA4);
         });
     };
 
@@ -583,16 +637,17 @@ class MakeProductionPlan extends React.Component {
                             </div>
 
                             <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dashed', width: 1280 }}>
-                                <div id="printTable" style={{ marginTop: 50, marginLeft: 20, width: 1330, backgroundColor: 'green' }}>
+                                <div id="printTable" style={{ marginTop: 50, marginLeft: 20, width: 1330 }}>
                                     {
                                         printData.map((columnData) => {
                                             // return (<div style={{height: 875}}></div>);
                                             let productArray = columnData.items;
+                                            let index = printData.indexOf(columnData);
                                             return (
-                                                <div>
+                                                <div key={index}>
                                                     <div style={{ float: 'left', height: 875, zIndex: 10 }}>
                                                         <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, width: 13 }} />
-                                                        <table border='1' borderCollapse='collapse' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                        <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                             <thead>
                                                                 <tr>
                                                                     <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
@@ -613,12 +668,13 @@ class MakeProductionPlan extends React.Component {
                                                                 {
                                                                     productArray.map((productItem) => {
                                                                         let serialNum = productArray.indexOf(productItem) + 1;
-                                                                        return (<tr>
-                                                                            <th style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
-                                                                            <th style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                            <th style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
-                                                                            <th style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber}</th>
-                                                                        </tr>)
+                                                                        return (
+                                                                            <tr key={serialNum}>
+                                                                                <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
+                                                                                <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
+                                                                                <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 20 }}>{productItem.orderNumber}</th>
+                                                                            </tr>)
                                                                     })
                                                                 }
                                                             </tbody>

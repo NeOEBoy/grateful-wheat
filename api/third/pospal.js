@@ -317,7 +317,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
 
           // console.log(orderProductNameIndex);
           // console.log(barcodeIndex);
-          console.log(orderNumberIndex);
+          // console.log(orderNumberIndex);
 
           let procuctOrderDataTh = orderItemTable.tbody[0].tr;
           // console.log(procuctOrderDataTh);
@@ -325,6 +325,11 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             // console.log(element);
 
             let productOrderItem = {};
+
+            let dataJson = element.$['DATA-JSON'];
+            let dataJsonObj = JSON.parse(dataJson);
+            // console.log(dataJsonObj.categoryName);
+            productOrderItem.categoryName = dataJsonObj.categoryName;
 
             let orderProductName = element.td[orderProductNameIndex]._;
             // console.log(orderProductName);

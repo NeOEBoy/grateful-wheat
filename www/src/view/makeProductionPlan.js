@@ -427,7 +427,7 @@ class MakeProductionPlan extends React.Component {
             }
             this.setState({ makeButtonText: '打印生产单', printData: allDataAfterA4 });
 
-            console.log(allDataAfterA4);
+            // console.log(allDataAfterA4);
         });
     };
 
@@ -652,16 +652,18 @@ class MakeProductionPlan extends React.Component {
                                                                 <tr>
                                                                     <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
                                                                         {columnData.templateName}
-                                                                        <tr>
-                                                                            <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>{columnData.orderShop}</th>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                            <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
-                                                                            <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                            <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
-                                                                        </tr>
                                                                     </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                        {columnData.orderShop}
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                    <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                    <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                    <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

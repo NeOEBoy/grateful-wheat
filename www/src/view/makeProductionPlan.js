@@ -293,6 +293,7 @@ class MakeProductionPlan extends React.Component {
                             let item = {};
                             item.orderShop = orderItem.orderShop;
                             item.templateName = orderItem.templateName;
+                            item.expectTime = orderItem.expectTime;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = template.templateId + '-' + orderItems.items[i].barcode;
@@ -313,6 +314,9 @@ class MakeProductionPlan extends React.Component {
             let totalOrderItem = {};
             totalOrderItem.orderShop = '000 - 弯麦(生产车间)';
             totalOrderItem.templateName = this.state.template.name;
+            if (allData && allData.length > 0) {
+                totalOrderItem.expectTime = allData[0].expectTime;
+            }
             let totalItems = [];
             for (let i = 0; i < allData.length; ++i) {
                 let items = allData[i].items;
@@ -362,7 +366,6 @@ class MakeProductionPlan extends React.Component {
                 } else {
                     totalItemsAfterFixCategory.push(oneItem);
                 }
-
             }
             /// 根据设定排序号排序
             totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
@@ -384,6 +387,7 @@ class MakeProductionPlan extends React.Component {
                 let oneDataObj = {};
                 oneDataObj.orderShop = allDataColumn.orderShop;
                 oneDataObj.templateName = allDataColumn.templateName;
+                oneDataObj.expectTime = allDataColumn.expectTime;
                 oneDataObj.items = [];
                 for (let j = 0; j < totalOrderItem.items.length; ++j) {
                     let oneItem = totalOrderItem.items[j];
@@ -414,10 +418,11 @@ class MakeProductionPlan extends React.Component {
             for (let i = 0; i < allDataAfterFix0.length; ++i) {
                 let allDataItem = allDataAfterFix0[i].items;
                 for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 28 === 0) {///28
+                    if (j % 27 === 0) {///27
                         let allDataAfterItem = {};
                         allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
+                        allDataAfterItem.expectTime = allDataAfterFix0[i].expectTime;
                         allDataAfterItem.items = [];
 
                         allDataAfterA4.push(allDataAfterItem);
@@ -680,6 +685,11 @@ class MakeProductionPlan extends React.Component {
                                                                     })
                                                                 }
                                                             </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th colSpan='4'>{columnData.expectTime}</th>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                         <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, width: 13 }} />
                                                     </div>

@@ -463,7 +463,7 @@ class MakeProductionPlan extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(44, 0, "90%", 700, strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PRINT();
         }
     };
@@ -482,28 +482,33 @@ class MakeProductionPlan extends React.Component {
         if (noYetOrderList && noYetOrderList.length > 0) {
             noYetOrderText = noYetOrderList.join(' | ');
         }
-        let disablePrint = selectedRowKeys.length <= 0 || makeButtonText !== '打印生产单';
+        let disablePrint = shop.userId !== '' || selectedRowKeys.length <= 0 || makeButtonText !== '打印生产单';
 
         let printShow = printData && printData.length > 0;
 
         return (
             <div>
                 {!printShow ? (<div>
-                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单打印模块</div>
-                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 80, backgroundColor: 'lightgray' }}>
-                        <Button danger disabled={disablePrint} type='primary'
-                            onClick={this.handleMakePlan}
-                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                            {makeButtonText}
-                        </Button>
+                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
+                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 100, backgroundColor: 'lightgray' }}>
+                        <div>
+                            <Button danger disabled={disablePrint} type='primary'
+                                onClick={this.handleMakePlan}
+                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                {makeButtonText}
+                            </Button>
 
-                        <span>
-                            <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
-                            <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderText}</span>
-                            <br />
-                            <span style={{ marginLeft: 280, color: 'tomato', fontSize: 8 }}>报货模板:</span>
-                            <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{template.name}</span>
-                        </span>
+                            <span>
+                                <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                                <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderText}</span>
+                            </span>
+                        </div>
+                        <div>
+                            <Button danger disabled type='primary'
+                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                打印配货单
+                            </Button>
+                        </div>
                     </div>
                     <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
                         <Dropdown

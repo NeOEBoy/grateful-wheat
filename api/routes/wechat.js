@@ -83,12 +83,12 @@ router.get('/templateSendToSomePeople', async function (req, res, next) {
         }
 
         /// 王荣慧，Kate，教育局1号
-        // const openIds = [
-        //     "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",
-        //     "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",
-        //     "oBO-bs7Oiijwq5vi-CfGfW0CaIC0"];
         const openIds = [
-            "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E"];
+            "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",
+            "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",
+            "oBO-bs7Oiijwq5vi-CfGfW0CaIC0"];
+        // const openIds = [
+        //     "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E"];
         for (let index = 0; index < openIds.length; ++index) {
             let openId = openIds[index];
             let templateBody = makeCakeOrderTemplateBody(openId,

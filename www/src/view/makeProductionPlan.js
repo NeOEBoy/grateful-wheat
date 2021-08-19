@@ -418,7 +418,7 @@ class MakeProductionPlan extends React.Component {
             for (let i = 0; i < allDataAfterFix0.length; ++i) {
                 let allDataItem = allDataAfterFix0[i].items;
                 for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 27 === 0) {///27
+                    if (j % 29 === 0) {///29
                         let allDataAfterItem = {};
                         allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
@@ -447,7 +447,7 @@ class MakeProductionPlan extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(50, 0, "90%", 700, strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PREVIEW();
         }
     };
@@ -463,7 +463,7 @@ class MakeProductionPlan extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(50, 0, "90%", 700, strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(44, 0, "90%", 700, strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PRINT();
         }
     };
@@ -641,58 +641,55 @@ class MakeProductionPlan extends React.Component {
                                 </Button>
                             </div>
 
-                            <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dashed', width: 1280 }}>
-                                <div id="printTable" style={{ marginTop: 50, marginLeft: 20, width: 1330 }}>
+                            <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
+                                <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
                                     {
                                         printData.map((columnData) => {
-                                            // return (<div style={{height: 875}}></div>);
                                             let productArray = columnData.items;
                                             let index = printData.indexOf(columnData);
                                             return (
-                                                <div key={index}>
-                                                    <div style={{ float: 'left', height: 875, zIndex: 10 }}>
-                                                        <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, width: 13 }} />
-                                                        <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                        {columnData.templateName}
-                                                                    </th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                        {columnData.orderShop}
-                                                                    </th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                    <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
-                                                                    <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                    <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {
-                                                                    productArray.map((productItem) => {
-                                                                        let serialNum = productArray.indexOf(productItem) + 1;
-                                                                        return (
-                                                                            <tr key={serialNum}>
-                                                                                <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
-                                                                                <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
-                                                                                <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 20 }}>{productItem.orderNumber}</th>
-                                                                            </tr>)
-                                                                    })
-                                                                }
-                                                            </tbody>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th colSpan='4'>{columnData.expectTime}</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                        <div style={{ float: 'left', marginLeft: 0, marginRight: 0, height: 800, width: 13 }} />
-                                                    </div>
+                                                <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
+                                                    <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                    <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                        <thead>
+                                                            <tr>
+                                                                <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                    {columnData.templateName}
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                    {columnData.orderShop}
+                                                                </th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {
+                                                                productArray.map((productItem) => {
+                                                                    let serialNum = productArray.indexOf(productItem) + 1;
+                                                                    return (
+                                                                        <tr key={serialNum}>
+                                                                            <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
+                                                                            <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                            <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
+                                                                            <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                        </tr>)
+                                                                })
+                                                            }
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th colSpan='4'>{columnData.expectTime}</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                    <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
                                                 </div>
                                             )
                                         })

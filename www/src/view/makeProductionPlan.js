@@ -51,6 +51,13 @@ const KAllOrderShopName = [
     KAllShops[6].name,
     KAllShops[7].name,
 ];
+/// 报货模板名字
+const KAllOrderTemplateName = [
+    KOrderTemplates[1].name,
+    KOrderTemplates[2].name,
+    KOrderTemplates[3].name,
+    KOrderTemplates[4].name,
+];
 // 排序优先级（格式为templateId-barcode）
 const KSortIdArray = {
     /// 现烤
@@ -83,8 +90,10 @@ class MakeProductionPlan extends React.Component {
             endDateTime: moment().endOf('day'),
             selectedRowKeys: [],
             noyetOrderShops: [],
+            noyetOrderTemplates: [],
             allDataToBePrint: [],
-            productionButtonText: '打印生产单'
+            productionButtonText: '打印生产单',
+            distributionButtonText: '打印配货单'
         };
     }
 
@@ -98,7 +107,10 @@ class MakeProductionPlan extends React.Component {
                 alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys: []
             }, async () => {
                 const { currentShop, currentTemplate, beginDateTime, endDateTime } = this.state;
-                let orderList = []; let keys = []; let noyetOrderShops = KAllOrderShopName;
+                let orderList = [];
+                let keys = [];
+                let noyetOrderShops = KAllOrderShopName;
+                let noyetOrderTemplates = KAllOrderTemplateName;
                 let beginDateTimeStr = beginDateTime.format('YYYY.MM.DD%2BHH:mm:ss');
                 let endDateTimeStr = endDateTime.format('YYYY.MM.DD%2BHH:mm:ss');;
                 const productOrder = await getProductOrderList(currentShop.userId, currentTemplate.templateId, beginDateTimeStr, endDateTimeStr);
@@ -111,16 +123,29 @@ class MakeProductionPlan extends React.Component {
                         return item1.orderShopIndex - item2.orderShopIndex;
                     });
                     let alreadyOrderShops = [];
+                    let alreadyOrderTemplates = [];
                     orderList.forEach(order => {
                         order.key = orderList.indexOf(order) + 1;
                         keys.push(order.key);
-                        alreadyOrderShops.push(order.orderShop);
+
+                        if (alreadyOrderShops.indexOf(order.orderShop) === -1) {
+                            alreadyOrderShops.push(order.orderShop);
+                        }
+                        if (alreadyOrderTemplates.indexOf(order.templateName) === -1) {
+                            alreadyOrderTemplates.push(order.templateName);
+                        }
                     });
 
                     noyetOrderShops = [];
                     KAllOrderShopName.forEach(orderItem => {
                         if (alreadyOrderShops.indexOf(orderItem) === -1) {
                             noyetOrderShops.push(orderItem);
+                        }
+                    });
+                    noyetOrderTemplates = [];
+                    KAllOrderTemplateName.forEach(orderItem => {
+                        if (alreadyOrderTemplates.indexOf(orderItem) === -1) {
+                            noyetOrderTemplates.push(orderItem);
                         }
                     });
                 }
@@ -130,7 +155,8 @@ class MakeProductionPlan extends React.Component {
                     alreadyOrderListData: orderList,
                     selectedRowKeys: keys,
                     alreadyOrderLoading: false,
-                    noyetOrderShops: noyetOrderShops
+                    noyetOrderShops: noyetOrderShops,
+                    noyetOrderTemplates: noyetOrderTemplates
                 });
             });
         } catch (err) {
@@ -383,20 +409,36 @@ class MakeProductionPlan extends React.Component {
         const {
             alreadyOrderListData, currentShop, currentTemplate,
             alreadyOrderLoading, beginDateTime, endDateTime, selectedRowKeys,
-            noyetOrderShops, productionButtonText, allDataToBePrint } = this.state;
+            noyetOrderShops, noyetOrderTemplates, productionButtonText,
+            distributionButtonText, allDataToBePrint } = this.state;
 
         const rowSelection = {
             selectedRowKeys,
             onChange: this.onSelectChange,
         };
 
-        let noYetOrderText = '无';
+        let noYetOrderShopNames = '无';
         if (noyetOrderShops && noyetOrderShops.length > 0) {
-            noYetOrderText = noyetOrderShops.join(' | ');
+            noYetOrderShopNames = noyetOrderShops.join(' | ');
         }
-        let disableProductionPrint = currentShop.userId !== '' || selectedRowKeys.length <= 0 || productionButtonText !== '打印生产单';
-
+        let disableProductionPrint =
+            currentShop.userId !== '' ||
+            currentTemplate.templateId === '' ||
+            selectedRowKeys.length <= 0 ||
+            productionButtonText !== '打印生产单';
         let productionPrintShow = allDataToBePrint && allDataToBePrint.length > 0;
+        let notyetOrderShopInfoShow = currentShop.userId === '';
+
+        let noYetOrderTemplateNames = '无';
+        if (noyetOrderTemplates && noyetOrderTemplates.length > 0) {
+            noYetOrderTemplateNames = noyetOrderTemplates.join(' | ');
+        }
+        let disableDistributionButtonPrint =
+            currentShop.userId === '' ||
+            currentTemplate.templateId !== '' ||
+            selectedRowKeys.length <= 0 ||
+            distributionButtonText !== '打印配货单';
+        let notyetOrderTemplateInfoShow = currentTemplate.templateId === '';
 
         return (
             <div>
@@ -410,16 +452,25 @@ class MakeProductionPlan extends React.Component {
                                 {productionButtonText}
                             </Button>
 
-                            <span>
-                                <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
-                                <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderText}</span>
-                            </span>
+                            {
+                                notyetOrderShopInfoShow ? (<span>
+                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
+                                </span>) : (<span></span>)
+                            }
                         </div>
                         <div>
-                            <Button danger disabled type='primary'
+                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
                                 style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                打印配货单
+                                {distributionButtonText}
                             </Button>
+
+                            {
+                                notyetOrderTemplateInfoShow ? (<span>
+                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
+                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
+                                </span>) : (<span></span>)
+                            }
                         </div>
                     </div>
                     <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>

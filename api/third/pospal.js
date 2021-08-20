@@ -338,7 +338,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             let barcode = element.td[barcodeIndex]._;
             // console.log(barcode);
             productOrderItem.barcode = barcode;
-            productOrderItem.barcodeSimple5 = barcode.substring(barcode.length-5, barcode.length);
+            productOrderItem.barcodeSimple5 = barcode.substring(barcode.length - 5, barcode.length);
 
             let orderNumber = element.td[orderNumberIndex].span[0]._;
             // console.log(orderNumber);
@@ -356,6 +356,50 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
     return { errCode: -1 };
   }
   return { errCode: -1 };
+}
+
+const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
+  // console.log('findTemplate start');
+
+  try {
+    let findTemplateUrl = 'https://beta33.pospal.cn/ProductRequest/FindTemplate';
+
+    let findTemplateBodyStr = '';
+    findTemplateBodyStr += 'userId=3995763';
+    findTemplateBodyStr += '&templateUid=';
+    findTemplateBodyStr += templateUid;
+
+    const findTemplateResponse = await fetch(findTemplateUrl, {
+      method: 'POST', body: findTemplateBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const findTemplateResponseJson = await findTemplateResponse.json();
+    // console.log(findTemplateResponseJson);
+
+    let list = [];
+    if (findTemplateResponseJson.successed && findTemplateResponseJson.template) {
+      // console.log(findTemplateResponseJson.template.items);
+      let items = findTemplateResponseJson.template.items;
+      for (let i = 0; i < items.length; ++i) {
+        let item = items[i];
+        let product = item.product;
+        if (product.categoryName === '弯麦订货参考') continue;
+        let productItem = {};
+        productItem.name = product.name;
+        productItem.barcode = product.barcode;
+        productItem.barcodeSimple5 = product.barcode.substring(product.barcode.length - 5, product.barcode.length);
+        productItem.categoryName = product.categoryName;
+
+        list.push(productItem);
+      }
+    }
+    return { errCode: 0, list: list };
+  } catch (err) {
+    return { errCode: -1 };
+  }
 }
 
 const getProductSaleList = async (
@@ -1188,6 +1232,7 @@ module.exports = {
   getProductSaleList,
   getProductOrderList,
   getProductOrderItem,
+  findTemplate,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,

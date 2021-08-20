@@ -109,6 +109,16 @@ const getProductOrderItems = async (orderId)=>{
   return productOrderItemsJson;
 }
 
+const findTemplate = async (templateUid)=>{
+  let findTemplateUrl = KApiHost + '/product/findTemplate';
+  findTemplateUrl += '?templateUid=';
+  findTemplateUrl += templateUid;
+
+  const findTemplateResponse = await fetch(findTemplateUrl);
+  const findTemplateResponseJson = await findTemplateResponse.json();
+  return findTemplateResponseJson;
+}
+
 const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
   let diyCouponListUrl = KApiHost + '/coupon/diyCouponList';
 
@@ -276,6 +286,7 @@ export {
   getCouponSummaryList,
   getProductOrderList,
   getProductOrderItems,
+  findTemplate,
   getDIYCouponList,
   getMemberListByKeyword,
   saveRemarkToCoupon,

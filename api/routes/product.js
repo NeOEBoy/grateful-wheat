@@ -7,7 +7,8 @@ const {
   getProductOrderItem,
   getProductDiscardList,
   getProductSaleAndDiscardList,
-  getProductOrderList
+  getProductOrderList,
+  findTemplate
 } = require('../third/pospal');
 
 /* GET users listing. */
@@ -81,6 +82,25 @@ router.get('/orderItems', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let productOrderItemResponseJson = await getProductOrderItem(thePOSPALAUTH30220, orderId);
     res.send(productOrderItemResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/findTemplate', async function(req, res, next) {
+  try {
+    // console.log('router findTemplate start');
+
+    let templateUid = req.query.templateUid;
+
+    if (!templateUid) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let findTemplateResponseJson = await findTemplate(thePOSPALAUTH30220, templateUid);
+    res.send(findTemplateResponseJson);
   } catch (err) {
     next(err)
   }

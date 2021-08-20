@@ -5,7 +5,7 @@ import { DownOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
-import { getProductOrderList, getProductOrderItems } from '../api/api';
+import { getProductOrderList, getProductOrderItems, findTemplate } from '../api/api';
 const { RangePicker } = DatePicker;
 
 /// 门店信息
@@ -21,11 +21,11 @@ const KAllShops = [
 ];
 /// 模板信息
 const KOrderTemplates = [
-    { index: 0, name: '全部模板', templateId: '' },
-    { index: 1, name: '现烤类', templateId: '187' },
-    { index: 2, name: '西点类', templateId: '189' },
-    { index: 3, name: '常温类', templateId: '183' },
-    { index: 4, name: '吐司餐包类', templateId: '182' }
+    { index: 0, name: '全部模板', templateId: '', templateUid: '' },
+    { index: 1, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
+    { index: 2, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
+    { index: 3, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
+    { index: 4, name: '吐司餐包类', templateId: '182', templateUid: '1595077405589137749' }
 ];
 /// 订单列表头配置
 const KOrderColumns4Table = [
@@ -84,14 +84,15 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[0],
-            currentTemplate: KOrderTemplates[1],
-            beginDateTime: moment().startOf('day'),
-            endDateTime: moment().endOf('day'),
+            currentShop: KAllShops[1],
+            currentTemplate: KOrderTemplates[0],
+            beginDateTime: moment().subtract(1, 'day').startOf('day'),
+            endDateTime: moment().subtract(1, 'day').endOf('day'),
             selectedRowKeys: [],
             noyetOrderShops: [],
             noyetOrderTemplates: [],
-            allDataToBePrint: [],
+            allProductionDataToBePrint: [],
+            allDistributionDataToBePrint: [],
             productionButtonText: '打印生产单',
             distributionButtonText: '打印配货单'
         };
@@ -171,24 +172,26 @@ class MakeProductionPlan extends React.Component {
         this.setState({ selectedRowKeys });
     };
 
-    handleMakePlan = async (e) => {
-        // console.log('handleMakePlan');
+    handleProductionPrint = async (e) => {
+        // console.log('handleProductionPrint e' = e);
 
         this.setState({ productionButtonText: '准备打印...' }, async () => {
             let allData = [];
             const { alreadyOrderListData, currentTemplate, selectedRowKeys } = this.state;
+
+            /// 1.获取每家店的订货信息
+            this.setState({ productionButtonText: '准备获取...' });
             for (let index = 0; index < alreadyOrderListData.length; ++index) {
                 let orderItem = alreadyOrderListData[index];
                 if (orderItem) {
                     /// 未打钩的过滤掉
                     if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
 
-                    /// 1.获取每家店的订货信息
-                    this.setState({ productionButtonText: '获取' + orderItem.orderShop + '...' })
+                    this.setState({ productionButtonText: '获取' + orderItem.orderShop + '...' });
                     const orderItems = await getProductOrderItems(orderItem.orderId);
                     if (orderItems.errCode === 0 && orderItems.items) {
-                        let existInAllData = false;
-                        let i;
+                        /// 1.1 合并同一订货门店同一模板订单的商品信息
+                        let existInAllData = false; let i;
                         for (i = 0; i < allData.length; ++i) {
                             if (allData[i].orderShop === orderItem.orderShop &&
                                 allData[i].templateName === orderItem.templateName) {
@@ -196,7 +199,6 @@ class MakeProductionPlan extends React.Component {
                                 break;
                             }
                         }
-                        /// 2.合并同一订货门店同一模板订单的商品信息
                         if (existInAllData) {
                             let theExistDataItems = allData[i].items;
                             let toBeDealItems = orderItems.items;
@@ -246,11 +248,12 @@ class MakeProductionPlan extends React.Component {
                     }
                 }
             }
-            /// 3.合并所有店的订货信息至生产车间
+
+            /// 2.合并所有店的订货信息至生产车间
             this.setState({ productionButtonText: '合并至生产车间...' })
             let totalOrderItem = {};
             totalOrderItem.orderShop = '000 - 弯麦(生产车间)';
-            totalOrderItem.templateName = this.state.currentTemplate.name;
+            totalOrderItem.templateName = currentTemplate.name;
             if (allData && allData.length > 0) {
                 totalOrderItem.expectTime = allData[0].expectTime;
             }
@@ -285,10 +288,47 @@ class MakeProductionPlan extends React.Component {
                 }
             }
 
-            /// 同一分类的放在一起
+            /// 3.使用模板对应商品
+            let totalItemsAfterFixTemplate = totalItems;
+            let findResult = await findTemplate(currentTemplate.templateUid);
+            if (findResult.errCode === 0 && findResult.list.length > 0) {
+                // console.log(findResult.list);
+                let findResultList = findResult.list;
+                totalItemsAfterFixTemplate = [];
+                for (let i = 0; i < findResultList.length; ++i) {
+                    let pos = -1;
+                    for (let j = 0; j < totalItems.length; ++j) {
+                        if (findResultList[i].barcode === totalItems[j].barcode) {
+                            pos = j;
+                            break;
+                        }
+                    }
+
+                    let newItemObject = {};
+                    if (pos !== -1) {
+                        newItemObject.categoryName = totalItems[pos].categoryName;
+                        newItemObject.orderProductName = totalItems[pos].orderProductName;
+                        newItemObject.barcode = totalItems[pos].barcode;
+                        newItemObject.barcodeSimple5 = totalItems[pos].barcodeSimple5;
+                        newItemObject.sortId = totalItems[pos].sortId;
+                        newItemObject.orderNumber = totalItems[pos].orderNumber;
+                    } else {
+                        newItemObject.categoryName = findResultList[i].categoryName;
+                        newItemObject.orderProductName = findResultList[i].name;
+                        newItemObject.barcode = findResultList[i].barcode;
+                        newItemObject.barcodeSimple5 = findResultList[i].barcodeSimple5;
+                        newItemObject.sortId = 200;
+                        newItemObject.orderNumber = 0;
+                    }
+
+                    totalItemsAfterFixTemplate.push(newItemObject);
+                }
+            }
+
+            /// 4.排序使得同一分类的放在一起
             let totalItemsAfterFixCategory = [];
-            for (let i = 0; i < totalItems.length; ++i) {
-                let oneItem = totalItems[i];
+            for (let i = 0; i < totalItemsAfterFixTemplate.length; ++i) {
+                let oneItem = totalItemsAfterFixTemplate[i];
 
                 let pos = -1;
                 for (let j = totalItemsAfterFixCategory.length - 1; j >= 0; --j) {
@@ -304,7 +344,7 @@ class MakeProductionPlan extends React.Component {
                     totalItemsAfterFixCategory.push(oneItem);
                 }
             }
-            /// 根据设定排序号排序
+            /// 5.根据设定排序号再次排序
             totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
                 return item1.sortId - item2.sortId;
             });
@@ -312,7 +352,7 @@ class MakeProductionPlan extends React.Component {
             totalOrderItem.items = totalItemsAfterFixCategory;
             allData.unshift(totalOrderItem);
 
-            /// 4.整理订货信息补上订货量是0的商品
+            /// 6.整理所有门店订货信息补上订货量是0的商品
             let allDataAfterFix0 = [];
             for (let i = 0; i < allData.length; ++i) {
                 let allDataColumn = allData[i];
@@ -350,7 +390,7 @@ class MakeProductionPlan extends React.Component {
                 allDataAfterFix0.push(oneDataObj);
             }
 
-            /// 5.整理订货信息使得适合A4打印
+            /// 7.整理订货信息使得适合A4打印
             let allDataAfterA4 = [];
             for (let i = 0; i < allDataAfterFix0.length; ++i) {
                 let allDataItem = allDataAfterFix0[i].items;
@@ -367,9 +407,205 @@ class MakeProductionPlan extends React.Component {
                     allDataAfterA4[allDataAfterA4.length - 1].items.push(allDataItem[j]);
                 }
             }
-            this.setState({ productionButtonText: '打印生产单', allDataToBePrint: allDataAfterA4 });
+            this.setState({ productionButtonText: '打印生产单', allProductionDataToBePrint: allDataAfterA4 });
 
             // console.log(allDataAfterA4);
+        });
+    };
+
+    handleDistributionPrint = async (e) => {
+        // console.log('handleProductionPrint e' = e);
+
+        this.setState({ distributionButtonText: '准备打印...' }, async () => {
+            let allData = [];
+            const { alreadyOrderListData, selectedRowKeys } = this.state;
+
+            /// 1.获取每家店的订货信息
+            this.setState({ distributionButtonText: '准备获取...' });
+            for (let index = 0; index < alreadyOrderListData.length; ++index) {
+                let orderItem = alreadyOrderListData[index];
+                if (orderItem) {
+                    /// 未打钩的过滤掉
+                    if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+
+                    this.setState({ distributionButtonText: '获取' + orderItem.templateName + '...' });
+                    const orderItems = await getProductOrderItems(orderItem.orderId);
+                    if (orderItems.errCode === 0 && orderItems.items) {
+                        let templatePos = -1;
+                        for (let kk = 0; kk < KOrderTemplates.length; ++kk) {
+                            if (KOrderTemplates[kk].name === orderItem.templateName) {
+                                templatePos = kk;
+                                break;
+                            }
+                        }
+                        if (templatePos === -1) return;
+
+                        /// 1.1 合并同一订货门店同一模板订单的商品信息
+                        let existInAllData = false; let i;
+                        for (i = 0; i < allData.length; ++i) {
+                            if (allData[i].orderShop === orderItem.orderShop &&
+                                allData[i].templateName === orderItem.templateName) {
+                                existInAllData = true;
+                                break;
+                            }
+                        }
+                        if (existInAllData) {
+                            let theExistDataItems = allData[i].items;
+                            let toBeDealItems = orderItems.items;
+                            for (let i = 0; i < toBeDealItems.length; ++i) {
+                                let toBeDealItem = toBeDealItems[i];
+                                let posInTheExistDataItems = -1;
+                                for (let j = 0; j < theExistDataItems.length; ++j) {
+                                    let productItem = theExistDataItems[j];
+                                    if (productItem.barcode === toBeDealItem.barcode) {
+                                        posInTheExistDataItems = j;
+                                        break;
+                                    }
+                                }
+
+                                if (posInTheExistDataItems !== -1) {
+                                    let newNumber = theExistDataItems[posInTheExistDataItems].orderNumber + toBeDealItem.orderNumber;
+                                    theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
+                                } else {
+                                    let newItemObject = {};
+                                    newItemObject.categoryName = toBeDealItem.categoryName;
+                                    newItemObject.orderProductName = toBeDealItem.orderProductName;
+                                    newItemObject.barcode = toBeDealItem.barcode;
+                                    newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
+                                    newItemObject.orderNumber = toBeDealItem.orderNumber;
+                                    newItemObject.sortId = toBeDealItem.sortId;
+
+                                    theExistDataItems.push(newItemObject);
+                                }
+                            }
+                        } else {
+                            let item = {};
+                            item.orderShop = orderItem.orderShop;
+                            item.templateName = orderItem.templateName;
+                            item.expectTime = orderItem.expectTime;
+                            item.items = orderItems.items;
+                            for (let i = 0; i < orderItems.items.length; ++i) {
+                                let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + orderItems.items[i].barcode;
+                                let sortInfo = KSortIdArray[templateAndBarcode];
+                                orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
+                            }
+                            allData.push(item);
+                        }
+                    } else {
+                        allData = [];
+                        message.error('获取<' + orderItem.orderShop + '>订货产品出错，请检查！');
+                        break;
+                    }
+                }
+            }
+
+            /// 2.使用模板对应商品
+            this.setState({ distributionButtonText: '整理模板中...' });
+            let newAllData = [];
+            for (let i = 0; i < allData.length; ++i) {
+                let allDataItems = allData[i].items;
+                let totalItemsAfterFixTemplate = allDataItems;
+
+                let templatePos = -1;
+                for (let kk = 0; kk < KOrderTemplates.length; ++kk) {
+                    if (KOrderTemplates[kk].name === allData[i].templateName) {
+                        templatePos = kk;
+                        break;
+                    }
+                }
+                if (templatePos === -1) return;
+
+                let findResult = await findTemplate(KOrderTemplates[templatePos].templateUid);
+                // console.log(findResult);
+                if (findResult.errCode === 0 && findResult.list.length > 0) {
+                    let findResultList = findResult.list;
+                    totalItemsAfterFixTemplate = [];
+                    for (let j = 0; j < findResultList.length; ++j) {
+                        let pos = -1;
+                        for (let mm = 0; mm < allDataItems.length; ++mm) {
+                            if (findResultList[j].barcode === allDataItems[mm].barcode) {
+                                pos = mm;
+                                break;
+                            }
+                        }
+
+                        let newItemObject = {};
+                        if (pos !== -1) {
+                            newItemObject.categoryName = allDataItems[pos].categoryName;
+                            newItemObject.orderProductName = allDataItems[pos].orderProductName;
+                            newItemObject.barcode = allDataItems[pos].barcode;
+                            newItemObject.barcodeSimple5 = allDataItems[pos].barcodeSimple5;
+                            newItemObject.sortId = allDataItems[pos].sortId;
+                            newItemObject.orderNumber = allDataItems[pos].orderNumber;
+                        } else {
+                            newItemObject.categoryName = findResultList[j].categoryName;
+                            newItemObject.orderProductName = findResultList[j].name;
+                            newItemObject.barcode = findResultList[j].barcode;
+                            newItemObject.barcodeSimple5 = findResultList[j].barcodeSimple5;
+                            newItemObject.sortId = 200;
+                            newItemObject.orderNumber = 0;
+                        }
+
+                        totalItemsAfterFixTemplate.push(newItemObject);
+                    }
+                    // console.log(totalItemsAfterFixTemplate);
+                    /// 排序使得同一分类的放在一起
+                    let totalItemsAfterFixCategory = [];
+                    for (let i = 0; i < totalItemsAfterFixTemplate.length; ++i) {
+                        let oneItem = totalItemsAfterFixTemplate[i];
+
+                        let pos = -1;
+                        for (let j = totalItemsAfterFixCategory.length - 1; j >= 0; --j) {
+                            if (totalItemsAfterFixCategory[j].categoryName === oneItem.categoryName) {
+                                pos = j;
+                                break;
+                            }
+                        }
+
+                        if (pos !== -1) {
+                            totalItemsAfterFixCategory.splice(pos + 1, 0, oneItem);
+                        } else {
+                            totalItemsAfterFixCategory.push(oneItem);
+                        }
+                    }
+                    // console.log(totalItemsAfterFixCategory);
+                    /// 根据设定排序号再次排序
+                    totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
+                        return item1.sortId - item2.sortId;
+                    });
+                    // console.log(totalItemsAfterFixCategory);
+
+                    let oneDataObj = {};
+                    oneDataObj.orderShop = allData[i].orderShop;
+                    oneDataObj.templateName = allData[i].templateName;
+                    oneDataObj.expectTime = allData[i].expectTime;
+                    oneDataObj.items = totalItemsAfterFixCategory;
+
+                    newAllData.push(oneDataObj);
+                }
+            }
+
+            /// 3.整理订货信息使得适合A4打印
+            // console.log(newAllData);
+            this.setState({ distributionButtonText: '整理A4中...' });
+            let allDataAfterA4 = [];
+            for (let i = 0; i < newAllData.length; ++i) {
+                let allDataItem = newAllData[i].items;
+                for (let j = 0; j < allDataItem.length; ++j) {
+                    if (j % 29 === 0) {///29
+                        let allDataAfterItem = {};
+                        allDataAfterItem.orderShop = newAllData[i].orderShop;
+                        allDataAfterItem.templateName = newAllData[i].templateName;
+                        allDataAfterItem.expectTime = newAllData[i].expectTime;
+                        allDataAfterItem.items = [];
+
+                        allDataAfterA4.push(allDataAfterItem);
+                    }
+                    allDataAfterA4[allDataAfterA4.length - 1].items.push(allDataItem[j]);
+                }
+            }
+            // console.log(allDataAfterA4);
+            this.setState({ distributionButtonText: '打印配货单', allDistributionDataToBePrint: allDataAfterA4 });
         });
     };
 
@@ -410,7 +646,8 @@ class MakeProductionPlan extends React.Component {
             alreadyOrderListData, currentShop, currentTemplate,
             alreadyOrderLoading, beginDateTime, endDateTime, selectedRowKeys,
             noyetOrderShops, noyetOrderTemplates, productionButtonText,
-            distributionButtonText, allDataToBePrint } = this.state;
+            distributionButtonText, allProductionDataToBePrint,
+            allDistributionDataToBePrint } = this.state;
 
         const rowSelection = {
             selectedRowKeys,
@@ -426,7 +663,7 @@ class MakeProductionPlan extends React.Component {
             currentTemplate.templateId === '' ||
             selectedRowKeys.length <= 0 ||
             productionButtonText !== '打印生产单';
-        let productionPrintShow = allDataToBePrint && allDataToBePrint.length > 0;
+        let productionPrintShow = allProductionDataToBePrint && allProductionDataToBePrint.length > 0;
         let notyetOrderShopInfoShow = currentShop.userId === '';
 
         let noYetOrderTemplateNames = '无';
@@ -438,234 +675,331 @@ class MakeProductionPlan extends React.Component {
             currentTemplate.templateId !== '' ||
             selectedRowKeys.length <= 0 ||
             distributionButtonText !== '打印配货单';
+        let distributionPrintShow = allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0;
         let notyetOrderTemplateInfoShow = currentTemplate.templateId === '';
 
         return (
             <div>
-                {!productionPrintShow ? (<div>
-                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
-                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 100, backgroundColor: 'lightgray' }}>
-                        <div>
-                            <Button danger disabled={disableProductionPrint} type='primary'
-                                onClick={this.handleMakePlan}
-                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                {productionButtonText}
-                            </Button>
-
-                            {
-                                notyetOrderShopInfoShow ? (<span>
-                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
-                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
-                                </span>) : (<span></span>)
-                            }
-                        </div>
-                        <div>
-                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
-                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                {distributionButtonText}
-                            </Button>
-
-                            {
-                                notyetOrderTemplateInfoShow ? (<span>
-                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
-                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
-                                </span>) : (<span></span>)
-                            }
-                        </div>
-                    </div>
-                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
-                        <Dropdown
-                            style={{ marginLeft: 0 }}
-                            overlay={
-                                () => {
-                                    return (<Menu onClick={async ({ key }) => {
-                                        this.setState({ currentShop: KAllShops[key] }, async () => {
-                                            await this.fetchOrderList();
-                                        });
-                                    }} >
-                                        {
-                                            KAllShops.map((shop) => {
-                                                return (<Menu.Item key={shop.index}>
-                                                    {shop.name}
-                                                </Menu.Item>);
-                                            })
-                                        }
-                                    </Menu>)
-                                }
-                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                                {currentShop.name}
-                                <DownOutlined />
-                            </Button>
-                        </Dropdown>
-                        <Dropdown
-                            overlay={
-                                () => {
-                                    return (<Menu onClick={async ({ key }) => {
-                                        this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
-                                            await this.fetchOrderList();
-                                        });
-                                    }} >
-                                        {
-                                            KOrderTemplates.map((template) => {
-                                                return (<Menu.Item key={template.index}>
-                                                    {template.name}
-                                                </Menu.Item>);
-                                            })
-                                        }
-                                    </Menu>)
-                                }
-                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
-                                {currentTemplate.name}
-                                <DownOutlined />
-                            </Button>
-                        </Dropdown>
-                        <RangePicker
-                            style={{ marginLeft: 10 }}
-                            size='small'
-                            locale={locale}
-                            bordered={true}
-                            placeholder={['开始时间', '结束时间']}
-                            inputReadOnly={true}
-                            disabled={alreadyOrderLoading}
-                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                            showTime={{
-                                hideDisabledOptions: true,
-                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
-                                showTime: true,
-                                showHour: true,
-                                showMinute: true,
-                                showSecond: true
-                            }}
-                            onChange={(data) => {
-                                // console.log(data);
-                            }}
-                            onOk={async (data) => {
-                                if (data.length >= 2 && data[0] && data[1]) {
-                                    if (data[0] > data[1]) {
-                                        message.info('请输入正确时间');
-                                        return;
-                                    }
-                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
-                                        await this.fetchOrderList();
-                                    });
-                                }
-                            }}
-                        />
-                        <Button
-                            style={{ width: 180, marginLeft: 10 }} type='primary'
-                            onClick={async (e) => { await this.fetchOrderList(); }}>
-                            查询
-                        </Button>
-                        <Table style={{ marginTop: 10 }}
-                            loading={alreadyOrderLoading}
-                            dataSource={alreadyOrderListData}
-                            columns={KOrderColumns4Table}
-                            rowSelection={rowSelection}
-                            pagination={false} bordered
-                            footer={() => {
-                                return (
+                {
+                    distributionPrintShow ?
+                        (
+                            <div style={{ marginLeft: 10, marginTop: 10 }}>
+                                <div id="printConfig"
+                                    style={{ float: 'left', borderStyle: 'none', width: 90 }}>
                                     <div>
-                                        <div style={{ textAlign: 'center', height: 50 }}>
-                                            ---心里满满都是你---
-                                        </div>
-                                        <div style={{ height: 50 }}>
-                                        </div>
+                                        <Button type="primary"
+                                            style={{ width: 90, height: 80 }}
+                                            onClick={() => {
+                                                this.setState({ allDistributionDataToBePrint: [] });
+                                            }}>
+                                            <div style={{ fontSize: 16 }}>
+                                                后退
+                                            </div>
+                                        </Button>
                                     </div>
-                                )
-                            }} />
-                    </div>
-                </div>) :
-                    (
-                        <div style={{ marginLeft: 10, marginTop: 10 }}>
-                            <div id="printConfig"
-                                style={{ float: 'left', borderStyle: 'none', width: 90 }}>
-                                <div>
                                     <Button type="primary"
-                                        style={{ width: 90, height: 80 }}
-                                        onClick={() => {
-                                            this.setState({ allDataToBePrint: [], productionPrintShow: false });
-                                        }}>
-                                        <div style={{ fontSize: 16 }}>
-                                            后退
+                                        style={{ marginTop: 10, width: 90, height: 80 }}
+                                        onClick={this.productPrintPreprew}>
+                                        <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                            打印预览
+                                        </div>
+                                    </Button>
+                                    <Button type="primary" danger
+                                        style={{ marginTop: 10, width: 90, height: 80 }}
+                                        onClick={this.productPrintDirect}>
+                                        <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                            直接打印
                                         </div>
                                     </Button>
                                 </div>
-                                <Button type="primary"
-                                    style={{ marginTop: 10, width: 90, height: 80 }}
-                                    onClick={this.productPrintPreprew}>
-                                    <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                        打印预览
-                                    </div>
-                                </Button>
-                                <Button type="primary" danger
-                                    style={{ marginTop: 10, width: 90, height: 80 }}
-                                    onClick={this.productPrintDirect}>
-                                    <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                        直接打印
-                                    </div>
-                                </Button>
-                            </div>
 
-                            <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
-                                <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
-                                    {
-                                        allDataToBePrint.map((columnData) => {
-                                            let productArray = columnData.items;
-                                            let index = allDataToBePrint.indexOf(columnData);
-                                            return (
-                                                <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                    <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
-                                                    <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
-                                                        <thead>
-                                                            <tr>
-                                                                <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                    {columnData.templateName}
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                    {columnData.orderShop}
-                                                                </th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
-                                                                <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {
-                                                                productArray.map((productItem) => {
-                                                                    let serialNum = productArray.indexOf(productItem) + 1;
-                                                                    return (
-                                                                        <tr key={serialNum}>
-                                                                            <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
-                                                                            <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                            <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
-                                                                            <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
-                                                                        </tr>)
-                                                                })
-                                                            }
-                                                        </tbody>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th colSpan='4'>{columnData.expectTime}</th>
-                                                            </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                    <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
-                                                </div>
-                                            )
-                                        })
-                                    }
+                                <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
+                                    <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
+                                        {
+                                            allDistributionDataToBePrint.map((columnData) => {
+                                                let productArray = columnData.items;
+                                                let index = allDistributionDataToBePrint.indexOf(columnData);
+                                                return (
+                                                    <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
+                                                        <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                        <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                        {columnData.templateName}
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                        {columnData.orderShop}
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                    <th style={{ width: 50, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                    <th style={{ width: 180, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                    <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {
+                                                                    productArray.map((productItem) => {
+                                                                        let serialNum = productArray.indexOf(productItem) + 1;
+                                                                        return (
+                                                                            <tr key={serialNum}>
+                                                                                <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
+                                                                                <th key='2' style={{ width: 50, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                <th key='3' style={{ width: 180, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
+                                                                                <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                            </tr>)
+                                                                    })
+                                                                }
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th colSpan='4'>{columnData.expectTime}</th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                        <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
+                        :
+                        !productionPrintShow ?
+                            (
+                                <div>
+                                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
+                                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 100, backgroundColor: 'lightgray' }}>
+                                        <div>
+                                            <Button danger disabled={disableProductionPrint} type='primary'
+                                                onClick={this.handleProductionPrint}
+                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                                {productionButtonText}
+                                            </Button>
+
+                                            {
+                                                notyetOrderShopInfoShow ? (<span>
+                                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
+                                                </span>) : (<span></span>)
+                                            }
+                                        </div>
+                                        <div>
+                                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
+                                                onClick={this.handleDistributionPrint}
+                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                                {distributionButtonText}
+                                            </Button>
+
+                                            {
+                                                notyetOrderTemplateInfoShow ? (<span>
+                                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
+                                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
+                                                </span>) : (<span></span>)
+                                            }
+                                        </div>
+                                    </div>
+                                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
+                                        <Dropdown
+                                            style={{ marginLeft: 0 }}
+                                            overlay={
+                                                () => {
+                                                    return (<Menu onClick={async ({ key }) => {
+                                                        this.setState({ currentShop: KAllShops[key] }, async () => {
+                                                            await this.fetchOrderList();
+                                                        });
+                                                    }} >
+                                                        {
+                                                            KAllShops.map((shop) => {
+                                                                return (<Menu.Item key={shop.index}>
+                                                                    {shop.name}
+                                                                </Menu.Item>);
+                                                            })
+                                                        }
+                                                    </Menu>)
+                                                }
+                                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                                                {currentShop.name}
+                                                <DownOutlined />
+                                            </Button>
+                                        </Dropdown>
+                                        <Dropdown
+                                            overlay={
+                                                () => {
+                                                    return (<Menu onClick={async ({ key }) => {
+                                                        this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
+                                                            await this.fetchOrderList();
+                                                        });
+                                                    }} >
+                                                        {
+                                                            KOrderTemplates.map((template) => {
+                                                                return (<Menu.Item key={template.index}>
+                                                                    {template.name}
+                                                                </Menu.Item>);
+                                                            })
+                                                        }
+                                                    </Menu>)
+                                                }
+                                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                                                {currentTemplate.name}
+                                                <DownOutlined />
+                                            </Button>
+                                        </Dropdown>
+                                        <RangePicker
+                                            style={{ marginLeft: 10 }}
+                                            size='small'
+                                            locale={locale}
+                                            bordered={true}
+                                            placeholder={['开始时间', '结束时间']}
+                                            inputReadOnly={true}
+                                            disabled={alreadyOrderLoading}
+                                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
+                                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                                            showTime={{
+                                                hideDisabledOptions: true,
+                                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                                                showTime: true,
+                                                showHour: true,
+                                                showMinute: true,
+                                                showSecond: true
+                                            }}
+                                            onChange={(data) => {
+                                                // console.log(data);
+                                            }}
+                                            onOk={async (data) => {
+                                                if (data.length >= 2 && data[0] && data[1]) {
+                                                    if (data[0] > data[1]) {
+                                                        message.info('请输入正确时间');
+                                                        return;
+                                                    }
+                                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
+                                                        await this.fetchOrderList();
+                                                    });
+                                                }
+                                            }}
+                                        />
+                                        <Button
+                                            style={{ width: 180, marginLeft: 10 }} type='primary'
+                                            onClick={async (e) => { await this.fetchOrderList(); }}>
+                                            查询
+                                        </Button>
+                                        <Table style={{ marginTop: 10 }}
+                                            loading={alreadyOrderLoading}
+                                            dataSource={alreadyOrderListData}
+                                            columns={KOrderColumns4Table}
+                                            rowSelection={rowSelection}
+                                            pagination={false} bordered
+                                            footer={() => {
+                                                return (
+                                                    <div>
+                                                        <div style={{ textAlign: 'center', height: 50 }}>
+                                                            ---心里满满都是你---
+                                                        </div>
+                                                        <div style={{ height: 50 }}>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }} />
+                                    </div>
+                                </div>
+                            )
+                            :
+                            (
+                                <div style={{ marginLeft: 10, marginTop: 10 }}>
+                                    <div id="printConfig"
+                                        style={{ float: 'left', borderStyle: 'none', width: 90 }}>
+                                        <div>
+                                            <Button type="primary"
+                                                style={{ width: 90, height: 80 }}
+                                                onClick={() => {
+                                                    this.setState({ allProductionDataToBePrint: []});
+                                                }}>
+                                                <div style={{ fontSize: 16 }}>
+                                                    后退
+                                                </div>
+                                            </Button>
+                                        </div>
+                                        <Button type="primary"
+                                            style={{ marginTop: 10, width: 90, height: 80 }}
+                                            onClick={this.productPrintPreprew}>
+                                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                                打印预览
+                                            </div>
+                                        </Button>
+                                        <Button type="primary" danger
+                                            style={{ marginTop: 10, width: 90, height: 80 }}
+                                            onClick={this.productPrintDirect}>
+                                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                                直接打印
+                                            </div>
+                                        </Button>
+                                    </div>
+
+                                    <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
+                                        <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
+                                            {
+                                                allProductionDataToBePrint.map((columnData) => {
+                                                    let productArray = columnData.items;
+                                                    let index = allProductionDataToBePrint.indexOf(columnData);
+                                                    return (
+                                                        <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
+                                                            <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                            <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                            {columnData.templateName}
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                            {columnData.orderShop}
+                                                                        </th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                        <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                        <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                        <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {
+                                                                        productArray.map((productItem) => {
+                                                                            let serialNum = productArray.indexOf(productItem) + 1;
+                                                                            return (
+                                                                                <tr key={serialNum}>
+                                                                                    <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
+                                                                                    <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                    <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
+                                                                                    <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                </tr>)
+                                                                        })
+                                                                    }
+                                                                </tbody>
+                                                                <tfoot>
+                                                                    <tr>
+                                                                        <th colSpan='4'>{columnData.expectTime}</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                            <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            )
                 }
             </div>
         );

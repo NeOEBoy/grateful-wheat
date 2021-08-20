@@ -58,7 +58,7 @@ const KAllOrderTemplateName = [
     KOrderTemplates[3].name,
     KOrderTemplates[4].name,
 ];
-// 排序优先级（格式为templateId-barcode）
+/// 排序优先级（格式为templateId-barcode）
 const KSortIdArray = {
     /// 现烤
     '187-2006251756022': 1, //高钙片
@@ -84,8 +84,8 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[1],
-            currentTemplate: KOrderTemplates[0],
+            currentShop: KAllShops[0],
+            currentTemplate: KOrderTemplates[1],
             beginDateTime: moment().subtract(1, 'day').startOf('day'),
             endDateTime: moment().subtract(1, 'day').endOf('day'),
             selectedRowKeys: [],
@@ -317,7 +317,11 @@ class MakeProductionPlan extends React.Component {
                         newItemObject.orderProductName = findResultList[i].name;
                         newItemObject.barcode = findResultList[i].barcode;
                         newItemObject.barcodeSimple5 = findResultList[i].barcodeSimple5;
-                        newItemObject.sortId = 200;
+
+                        let templateAndBarcode = currentTemplate.templateId + '-' + newItemObject.barcode;
+                        let sortInfo = KSortIdArray[templateAndBarcode];
+                        newItemObject.sortId = sortInfo ? sortInfo : 200;
+
                         newItemObject.orderNumber = 0;
                     }
 
@@ -361,33 +365,34 @@ class MakeProductionPlan extends React.Component {
                     continue;
                 }
 
-                let oneDataObj = {};
-                oneDataObj.orderShop = allDataColumn.orderShop;
-                oneDataObj.templateName = allDataColumn.templateName;
-                oneDataObj.expectTime = allDataColumn.expectTime;
-                oneDataObj.items = [];
-                for (let j = 0; j < totalOrderItem.items.length; ++j) {
-                    let oneItem = totalOrderItem.items[j];
-                    if (oneItem) {
-                        let newItemObject = {};
-                        newItemObject.categoryName = oneItem.categoryName;
-                        newItemObject.orderProductName = oneItem.orderProductName;
-                        newItemObject.barcode = oneItem.barcode;
-                        newItemObject.barcodeSimple5 = oneItem.barcodeSimple5;
-                        newItemObject.sortId = oneItem.sortId;
-                        newItemObject.orderNumber = 0;
-                        for (let k = 0; k < allDataColumn.items.length; ++k) {
-                            let antherOneItem = allDataColumn.items[k];
-                            if (newItemObject.barcode === antherOneItem.barcode) {
-                                newItemObject.orderNumber = antherOneItem.orderNumber;
-                                break;
-                            }
-                        }
+                /// 不加入每个门店，只保留合并后的车间
+                // let oneDataObj = {};
+                // oneDataObj.orderShop = allDataColumn.orderShop;
+                // oneDataObj.templateName = allDataColumn.templateName;
+                // oneDataObj.expectTime = allDataColumn.expectTime;
+                // oneDataObj.items = [];
+                // for (let j = 0; j < totalOrderItem.items.length; ++j) {
+                //     let oneItem = totalOrderItem.items[j];
+                //     if (oneItem) {
+                //         let newItemObject = {};
+                //         newItemObject.categoryName = oneItem.categoryName;
+                //         newItemObject.orderProductName = oneItem.orderProductName;
+                //         newItemObject.barcode = oneItem.barcode;
+                //         newItemObject.barcodeSimple5 = oneItem.barcodeSimple5;
+                //         newItemObject.sortId = oneItem.sortId;
+                //         newItemObject.orderNumber = 0;
+                //         for (let k = 0; k < allDataColumn.items.length; ++k) {
+                //             let antherOneItem = allDataColumn.items[k];
+                //             if (newItemObject.barcode === antherOneItem.barcode) {
+                //                 newItemObject.orderNumber = antherOneItem.orderNumber;
+                //                 break;
+                //             }
+                //         }
 
-                        oneDataObj.items.push(newItemObject);
-                    }
-                }
-                allDataAfterFix0.push(oneDataObj);
+                //         oneDataObj.items.push(newItemObject);
+                //     }
+                // }
+                // allDataAfterFix0.push(oneDataObj);
             }
 
             /// 7.整理订货信息使得适合A4打印
@@ -395,7 +400,7 @@ class MakeProductionPlan extends React.Component {
             for (let i = 0; i < allDataAfterFix0.length; ++i) {
                 let allDataItem = allDataAfterFix0[i].items;
                 for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 29 === 0) {///29
+                    if (j % 17 === 0) {
                         let allDataAfterItem = {};
                         allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
@@ -542,7 +547,11 @@ class MakeProductionPlan extends React.Component {
                             newItemObject.orderProductName = findResultList[j].name;
                             newItemObject.barcode = findResultList[j].barcode;
                             newItemObject.barcodeSimple5 = findResultList[j].barcodeSimple5;
-                            newItemObject.sortId = 200;
+
+                            let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + findResultList[j].barcode;
+                            let sortInfo = KSortIdArray[templateAndBarcode];
+                            newItemObject.sortId = sortInfo ? sortInfo : 200;
+
                             newItemObject.orderNumber = 0;
                         }
 
@@ -573,7 +582,7 @@ class MakeProductionPlan extends React.Component {
                     totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
                         return item1.sortId - item2.sortId;
                     });
-                    // console.log(totalItemsAfterFixCategory);
+                    console.log(totalItemsAfterFixCategory);
 
                     let oneDataObj = {};
                     oneDataObj.orderShop = allData[i].orderShop;
@@ -721,24 +730,26 @@ class MakeProductionPlan extends React.Component {
                                                 let index = allDistributionDataToBePrint.indexOf(columnData);
                                                 return (
                                                     <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                        <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                        <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
                                                         <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                             <thead>
                                                                 <tr>
-                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                        {columnData.templateName}
-                                                                    </th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
+                                                                    <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
                                                                         {columnData.orderShop}
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                    <th style={{ width: 50, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
-                                                                    <th style={{ width: 180, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                    <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                    <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
+                                                                        {columnData.templateName}
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style={{ textAlign: 'center' }}>简</th>
+                                                                    <th style={{ textAlign: 'center' }}>名</th>
+                                                                    <th style={{ textAlign: 'center' }}>数</th>
+                                                                    <th style={{ textAlign: 'center' }}>配</th>
+                                                                    <th style={{ textAlign: 'center' }}>配</th>
+                                                                    <th style={{ textAlign: 'center' }}>配</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -747,21 +758,23 @@ class MakeProductionPlan extends React.Component {
                                                                         let serialNum = productArray.indexOf(productItem) + 1;
                                                                         return (
                                                                             <tr key={serialNum}>
-                                                                                <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
-                                                                                <th key='2' style={{ width: 50, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                <th key='3' style={{ width: 180, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
-                                                                                <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                <th key='1' style={{ textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                <th key='2' style={{ textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                                <th key='3' style={{ textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                <th key='4' style={{ textAlign: 'center', fontSize: 16 }}></th>
+                                                                                <th key='5' style={{ textAlign: 'center', fontSize: 16 }}></th>
+                                                                                <th key='6' style={{ textAlign: 'center', fontSize: 16 }}></th>
                                                                             </tr>)
                                                                     })
                                                                 }
                                                             </tbody>
                                                             <tfoot>
                                                                 <tr>
-                                                                    <th colSpan='4'>{columnData.expectTime}</th>
+                                                                    <th colSpan='7'>{columnData.expectTime}</th>
                                                                 </tr>
                                                             </tfoot>
                                                         </table>
-                                                        <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                        <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
                                                     </div>
                                                 )
                                             })
@@ -920,7 +933,7 @@ class MakeProductionPlan extends React.Component {
                                             <Button type="primary"
                                                 style={{ width: 90, height: 80 }}
                                                 onClick={() => {
-                                                    this.setState({ allProductionDataToBePrint: []});
+                                                    this.setState({ allProductionDataToBePrint: [] });
                                                 }}>
                                                 <div style={{ fontSize: 16 }}>
                                                     后退
@@ -955,13 +968,13 @@ class MakeProductionPlan extends React.Component {
                                                             <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                                 <thead>
                                                                     <tr>
-                                                                        <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                            {columnData.templateName}
+                                                                        <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                            {columnData.orderShop}
                                                                         </th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th colSpan='4' style={{ width: 280, textAlign: 'center' }}>
-                                                                            {columnData.orderShop}
+                                                                        <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                            {columnData.templateName}
                                                                         </th>
                                                                     </tr>
                                                                     <tr>
@@ -977,10 +990,10 @@ class MakeProductionPlan extends React.Component {
                                                                             let serialNum = productArray.indexOf(productItem) + 1;
                                                                             return (
                                                                                 <tr key={serialNum}>
-                                                                                    <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 14 }}>{serialNum}</th>
-                                                                                    <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                    <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderProductName}</th>
-                                                                                    <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 18 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                    <th key='1' style={{ width: 20, height: 44, textAlign: 'center', fontSize: 25 }}>{serialNum}</th>
+                                                                                    <th key='2' style={{ width: 60, height: 44, textAlign: 'center', fontSize: 25 }}>{productItem.barcodeSimple5}</th>
+                                                                                    <th key='3' style={{ width: 170, height: 44, textAlign: 'center', fontSize: 25 }}>{productItem.orderProductName}</th>
+                                                                                    <th key='4' style={{ width: 30, height: 44, textAlign: 'center', fontSize: 25 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
                                                                                 </tr>)
                                                                         })
                                                                     }

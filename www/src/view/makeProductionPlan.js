@@ -84,8 +84,8 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[1],
-            currentTemplate: KOrderTemplates[0],
+            currentShop: KAllShops[0],
+            currentTemplate: KOrderTemplates[1],
             beginDateTime: moment().startOf('day'),
             endDateTime: moment().endOf('day'),
             timePickerOpen: false,

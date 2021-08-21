@@ -32,7 +32,7 @@ const KOrderColumns4Table = [
     { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '订货单号', dataIndex: 'orderSerialNumber', key: 'orderSerialNumber', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '订货时间', dataIndex: 'orderTime', key: 'orderTime', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '期望到货时间	', dataIndex: 'expectTime', key: 'expectTime', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '期望到货', dataIndex: 'expectTime', key: 'expectTime', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -84,17 +84,19 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[0],
-            currentTemplate: KOrderTemplates[1],
-            beginDateTime: moment().subtract(1, 'day').startOf('day'),
-            endDateTime: moment().subtract(1, 'day').endOf('day'),
+            currentShop: KAllShops[1],
+            currentTemplate: KOrderTemplates[0],
+            beginDateTime: moment().startOf('day'),
+            endDateTime: moment().endOf('day'),
+            timePickerOpen: false,
             selectedRowKeys: [],
             noyetOrderShops: [],
             noyetOrderTemplates: [],
             allProductionDataToBePrint: [],
             allDistributionDataToBePrint: [],
             productionButtonText: '打印生产单',
-            distributionButtonText: '打印配货单'
+            distributionButtonText: '打印配货单',
+            submitButtonText: '录入配货单'
         };
     }
 
@@ -618,6 +620,10 @@ class MakeProductionPlan extends React.Component {
         });
     };
 
+    handleSubmit = async (e) => {
+        message.warning('开发中...')
+    }
+
     productPrintPreprew = () => {
         let LODOP = getLodop();
 
@@ -653,8 +659,8 @@ class MakeProductionPlan extends React.Component {
     render() {
         const {
             alreadyOrderListData, currentShop, currentTemplate,
-            alreadyOrderLoading, beginDateTime, endDateTime, selectedRowKeys,
-            noyetOrderShops, noyetOrderTemplates, productionButtonText,
+            alreadyOrderLoading, beginDateTime, endDateTime, timePickerOpen, selectedRowKeys,
+            noyetOrderShops, noyetOrderTemplates, productionButtonText, submitButtonText,
             distributionButtonText, allProductionDataToBePrint,
             allDistributionDataToBePrint } = this.state;
 
@@ -686,6 +692,12 @@ class MakeProductionPlan extends React.Component {
             distributionButtonText !== '打印配货单';
         let distributionPrintShow = allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0;
         let notyetOrderTemplateInfoShow = currentTemplate.templateId === '';
+
+        let disableSubmitButton =
+            currentShop.userId === '' ||
+            currentTemplate.templateId !== '' ||
+            selectedRowKeys.length <= 0 ||
+            submitButtonText !== '录入配货单';
 
         return (
             <div>
@@ -744,12 +756,13 @@ class MakeProductionPlan extends React.Component {
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th style={{ textAlign: 'center' }}>简</th>
-                                                                    <th style={{ textAlign: 'center' }}>名</th>
-                                                                    <th style={{ textAlign: 'center' }}>数</th>
-                                                                    <th style={{ textAlign: 'center' }}>配</th>
-                                                                    <th style={{ textAlign: 'center' }}>配</th>
-                                                                    <th style={{ textAlign: 'center' }}>配</th>
+                                                                    <th style={{ textAlign: 'center', fontSize: 14 }}>简码</th>
+                                                                    <th style={{ textAlign: 'center' }}>品名</th>
+                                                                    <th style={{ textAlign: 'center', fontSize: 10 }}>订货量</th>
+                                                                    <th style={{ textAlign: 'center' }}>早</th>
+                                                                    <th style={{ textAlign: 'center' }}>中</th>
+                                                                    <th style={{ textAlign: 'center' }}>晚</th>
+                                                                    <th style={{ textAlign: 'center', fontSize: 12 }}>备注</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -757,13 +770,14 @@ class MakeProductionPlan extends React.Component {
                                                                     productArray.map((productItem) => {
                                                                         let serialNum = productArray.indexOf(productItem) + 1;
                                                                         return (
-                                                                            <tr key={serialNum}>
-                                                                                <th key='1' style={{ textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                <th key='2' style={{ textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                                <th key='3' style={{ textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
-                                                                                <th key='4' style={{ textAlign: 'center', fontSize: 16 }}></th>
-                                                                                <th key='5' style={{ textAlign: 'center', fontSize: 16 }}></th>
-                                                                                <th key='6' style={{ textAlign: 'center', fontSize: 16 }}></th>
+                                                                            <tr key={serialNum} style={{ height: 24 }}>
+                                                                                <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
+                                                                                <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                                <th key='5' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                                <th key='6' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                                <th key='7' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
                                                                             </tr>)
                                                                     })
                                                                 }
@@ -788,7 +802,7 @@ class MakeProductionPlan extends React.Component {
                             (
                                 <div>
                                     <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
-                                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 100, backgroundColor: 'lightgray' }}>
+                                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
                                         <div>
                                             <Button danger disabled={disableProductionPrint} type='primary'
                                                 onClick={this.handleProductionPrint}
@@ -815,6 +829,13 @@ class MakeProductionPlan extends React.Component {
                                                     <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
                                                 </span>) : (<span></span>)
                                             }
+                                        </div>
+                                        <div>
+                                            <Button danger disabled={disableSubmitButton} type='primary'
+                                                onClick={this.handleSubmit}
+                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                                {submitButtonText}
+                                            </Button>
                                         </div>
                                     </div>
                                     <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
@@ -866,6 +887,10 @@ class MakeProductionPlan extends React.Component {
                                             </Button>
                                         </Dropdown>
                                         <RangePicker
+                                            open={timePickerOpen}
+                                            onOpenChange={(open) => {
+                                                this.setState({ timePickerOpen: open });
+                                            }}
                                             style={{ marginLeft: 10 }}
                                             size='small'
                                             locale={locale}
@@ -873,6 +898,8 @@ class MakeProductionPlan extends React.Component {
                                             placeholder={['开始时间', '结束时间']}
                                             inputReadOnly={true}
                                             disabled={alreadyOrderLoading}
+                                            value={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
+                                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
                                             defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
                                             moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
                                             showTime={{
@@ -882,9 +909,6 @@ class MakeProductionPlan extends React.Component {
                                                 showHour: true,
                                                 showMinute: true,
                                                 showSecond: true
-                                            }}
-                                            onChange={(data) => {
-                                                // console.log(data);
                                             }}
                                             onOk={async (data) => {
                                                 if (data.length >= 2 && data[0] && data[1]) {
@@ -897,11 +921,39 @@ class MakeProductionPlan extends React.Component {
                                                     });
                                                 }
                                             }}
+                                            renderExtraFooter={() => (
+                                                <span>
+                                                    <Button size="small" type="primary" onClick={(e) => {
+                                                        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+                                                        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+                                                        // console.log(yesterdayBegin);
+                                                        // console.log(yesterdayEnd);
+
+                                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
+                                                            await this.fetchOrderList();
+                                                        });
+                                                    }}>
+                                                        昨天
+                                                    </Button>
+                                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                                        let yesterdayBegin = moment().startOf('day');
+                                                        let yesterdayEnd = moment().endOf('day');
+                                                        // console.log(yesterdayBegin);
+                                                        // console.log(yesterdayEnd);
+
+                                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
+                                                            await this.fetchOrderList();
+                                                        });
+                                                    }}>
+                                                        今天
+                                                    </Button>
+                                                </span>
+                                            )}
                                         />
                                         <Button
                                             style={{ width: 180, marginLeft: 10 }} type='primary'
                                             onClick={async (e) => { await this.fetchOrderList(); }}>
-                                            查询
+                                            查询门店订货单
                                         </Button>
                                         <Table style={{ marginTop: 10 }}
                                             loading={alreadyOrderLoading}

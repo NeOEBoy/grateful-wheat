@@ -400,7 +400,7 @@ class MakeProductionPlan extends React.Component {
             for (let i = 0; i < allDataAfterFix0.length; ++i) {
                 let allDataItem = allDataAfterFix0[i].items;
                 for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 17 === 0) {
+                    if (j % 29 === 0) {
                         let allDataAfterItem = {};
                         allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
@@ -795,7 +795,6 @@ class MakeProductionPlan extends React.Component {
                                                 style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
                                                 {productionButtonText}
                                             </Button>
-
                                             {
                                                 notyetOrderShopInfoShow ? (<span>
                                                     <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
@@ -990,10 +989,10 @@ class MakeProductionPlan extends React.Component {
                                                                             let serialNum = productArray.indexOf(productItem) + 1;
                                                                             return (
                                                                                 <tr key={serialNum}>
-                                                                                    <th key='1' style={{ width: 20, height: 44, textAlign: 'center', fontSize: 25 }}>{serialNum}</th>
-                                                                                    <th key='2' style={{ width: 60, height: 44, textAlign: 'center', fontSize: 25 }}>{productItem.barcodeSimple5}</th>
-                                                                                    <th key='3' style={{ width: 170, height: 44, textAlign: 'center', fontSize: 25 }}>{productItem.orderProductName}</th>
-                                                                                    <th key='4' style={{ width: 30, height: 44, textAlign: 'center', fontSize: 25 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                    <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
+                                                                                    <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                    <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                                    <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
                                                                                 </tr>)
                                                                         })
                                                                     }

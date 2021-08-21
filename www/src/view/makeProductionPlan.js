@@ -41,6 +41,11 @@ const KOrderColumns4Table = [
     { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
 ];
+/// 调货列表头配置
+const KTransferColumns4Table = [
+    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '品名', dataIndex: 'name', key: 'name', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+];
 /// 报货门店名字
 const KAllOrderShopName = [
     KAllShops[1].name,
@@ -84,8 +89,8 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[0],
-            currentTemplate: KOrderTemplates[1],
+            currentShop: KAllShops[1],
+            currentTemplate: KOrderTemplates[0],
             beginDateTime: moment().startOf('day'),
             endDateTime: moment().endOf('day'),
             timePickerOpen: false,
@@ -94,9 +99,10 @@ class MakeProductionPlan extends React.Component {
             noyetOrderTemplates: [],
             allProductionDataToBePrint: [],
             allDistributionDataToBePrint: [],
+            allProductionDataToBeTransfer: [],
             productionButtonText: '打印生产单',
             distributionButtonText: '打印配货单',
-            submitButtonText: '录入配货单'
+            transferButtonText: '录入配货单'
         };
     }
 
@@ -621,7 +627,19 @@ class MakeProductionPlan extends React.Component {
     };
 
     handleSubmit = async (e) => {
-        message.warning('开发中...')
+        // message.warning('开发中...');
+        let aaa = [];
+
+        let a = {};
+        a.barcode = '123'; a.name='刀塔';
+
+        let b = {};
+        b.barcode = '345'; b.name='刀塔2';
+
+        aaa.push(a);
+        aaa.push(b);
+
+        this.setState({ allProductionDataToBeTransfer: aaa })
     }
 
     productPrintPreprew = () => {
@@ -660,8 +678,8 @@ class MakeProductionPlan extends React.Component {
         const {
             alreadyOrderListData, currentShop, currentTemplate,
             alreadyOrderLoading, beginDateTime, endDateTime, timePickerOpen, selectedRowKeys,
-            noyetOrderShops, noyetOrderTemplates, productionButtonText, submitButtonText,
-            distributionButtonText, allProductionDataToBePrint,
+            noyetOrderShops, noyetOrderTemplates, productionButtonText, transferButtonText,
+            distributionButtonText, allProductionDataToBePrint, allProductionDataToBeTransfer,
             allDistributionDataToBePrint } = this.state;
 
         const rowSelection = {
@@ -697,285 +715,53 @@ class MakeProductionPlan extends React.Component {
             currentShop.userId === '' ||
             currentTemplate.templateId !== '' ||
             selectedRowKeys.length <= 0 ||
-            submitButtonText !== '录入配货单';
+            transferButtonText !== '录入配货单';
+
+        let transferButtonShow = allProductionDataToBeTransfer && allProductionDataToBeTransfer.length > 0;
 
         return (
             <div>
                 {
-                    distributionPrintShow ?
+                    transferButtonShow ?
                         (
-                            <div style={{ marginLeft: 10, marginTop: 10 }}>
-                                <div id="printConfig"
-                                    style={{ float: 'left', borderStyle: 'none', width: 90 }}>
-                                    <div>
-                                        <Button type="primary"
-                                            style={{ width: 90, height: 80 }}
-                                            onClick={() => {
-                                                this.setState({ allDistributionDataToBePrint: [] });
-                                            }}>
-                                            <div style={{ fontSize: 16 }}>
-                                                后退
-                                            </div>
-                                        </Button>
-                                    </div>
+                            <div>
+                                <div style={{ marginLeft: 10, marginTop: 10 }}>
                                     <Button type="primary"
-                                        style={{ marginTop: 10, width: 90, height: 80 }}
-                                        onClick={this.productPrintPreprew}>
-                                        <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                            打印预览
+                                        style={{ width: 80, height: 40 }}
+                                        onClick={() => {
+                                            this.setState({ allProductionDataToBeTransfer: [] });
+                                        }}>
+                                        <div style={{ fontSize: 16 }}>
+                                            后退
                                         </div>
                                     </Button>
-                                    <Button type="primary" danger
-                                        style={{ marginTop: 10, width: 90, height: 80 }}
-                                        onClick={this.productPrintDirect}>
-                                        <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                            直接打印
-                                        </div>
-                                    </Button>
+                                    <span style={{ marginLeft: 10 }}>从</span>
+                                    <span style={{ marginLeft: 10 }}>总部</span>
+                                    <span style={{ marginLeft: 10 }}>调往</span>
+                                    <span style={{ marginLeft: 10, marginRight: 10 }}>教育局店</span>
                                 </div>
 
-                                <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
-                                    <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
-                                        {
-                                            allDistributionDataToBePrint.map((columnData) => {
-                                                let productArray = columnData.items;
-                                                let index = allDistributionDataToBePrint.indexOf(columnData);
-                                                return (
-                                                    <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                        <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
-                                                        <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
-                                                                        {columnData.orderShop}
-                                                                    </th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
-                                                                        {columnData.templateName}
-                                                                    </th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th style={{ textAlign: 'center', fontSize: 14 }}>简码</th>
-                                                                    <th style={{ textAlign: 'center' }}>品名</th>
-                                                                    <th style={{ textAlign: 'center', fontSize: 10 }}>订货量</th>
-                                                                    <th style={{ textAlign: 'center' }}>早</th>
-                                                                    <th style={{ textAlign: 'center' }}>中</th>
-                                                                    <th style={{ textAlign: 'center' }}>晚</th>
-                                                                    <th style={{ textAlign: 'center', fontSize: 12 }}>备注</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {
-                                                                    productArray.map((productItem) => {
-                                                                        let serialNum = productArray.indexOf(productItem) + 1;
-                                                                        return (
-                                                                            <tr key={serialNum} style={{ height: 24 }}>
-                                                                                <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
-                                                                                <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
-                                                                                <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                <th key='5' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                <th key='6' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                <th key='7' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                            </tr>)
-                                                                    })
-                                                                }
-                                                            </tbody>
-                                                            <tfoot>
-                                                                <tr>
-                                                                    <th colSpan='7'>{columnData.expectTime}</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                        <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
+                                <div>
+                                    <Table style={{ marginTop: 10 }}
+                                        dataSource={allProductionDataToBeTransfer}
+                                        columns={KTransferColumns4Table}
+                                        pagination={false} bordered
+                                        footer={() => {
+                                            return (
+                                                <div>
+                                                    <div style={{ textAlign: 'center', height: 50 }}>
+                                                        ---心里满满都是你---
                                                     </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
+                                                    <div style={{ height: 50 }}>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }} />
                                 </div>
                             </div>
                         )
                         :
-                        !productionPrintShow ?
-                            (
-                                <div>
-                                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
-                                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
-                                        <div>
-                                            <Button danger disabled={disableProductionPrint} type='primary'
-                                                onClick={this.handleProductionPrint}
-                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                                {productionButtonText}
-                                            </Button>
-                                            {
-                                                notyetOrderShopInfoShow ? (<span>
-                                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
-                                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
-                                                </span>) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div>
-                                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
-                                                onClick={this.handleDistributionPrint}
-                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                                {distributionButtonText}
-                                            </Button>
-
-                                            {
-                                                notyetOrderTemplateInfoShow ? (<span>
-                                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
-                                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
-                                                </span>) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div>
-                                            <Button danger disabled={disableSubmitButton} type='primary'
-                                                onClick={this.handleSubmit}
-                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                                {submitButtonText}
-                                            </Button>
-                                        </div>
-                                    </div>
-                                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
-                                        <Dropdown
-                                            style={{ marginLeft: 0 }}
-                                            overlay={
-                                                () => {
-                                                    return (<Menu onClick={async ({ key }) => {
-                                                        this.setState({ currentShop: KAllShops[key] }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }} >
-                                                        {
-                                                            KAllShops.map((shop) => {
-                                                                return (<Menu.Item key={shop.index}>
-                                                                    {shop.name}
-                                                                </Menu.Item>);
-                                                            })
-                                                        }
-                                                    </Menu>)
-                                                }
-                                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                                                {currentShop.name}
-                                                <DownOutlined />
-                                            </Button>
-                                        </Dropdown>
-                                        <Dropdown
-                                            overlay={
-                                                () => {
-                                                    return (<Menu onClick={async ({ key }) => {
-                                                        this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }} >
-                                                        {
-                                                            KOrderTemplates.map((template) => {
-                                                                return (<Menu.Item key={template.index}>
-                                                                    {template.name}
-                                                                </Menu.Item>);
-                                                            })
-                                                        }
-                                                    </Menu>)
-                                                }
-                                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
-                                                {currentTemplate.name}
-                                                <DownOutlined />
-                                            </Button>
-                                        </Dropdown>
-                                        <RangePicker
-                                            open={timePickerOpen}
-                                            onOpenChange={(open) => {
-                                                this.setState({ timePickerOpen: open });
-                                            }}
-                                            style={{ marginLeft: 10 }}
-                                            size='small'
-                                            locale={locale}
-                                            bordered={true}
-                                            placeholder={['开始时间', '结束时间']}
-                                            inputReadOnly={true}
-                                            disabled={alreadyOrderLoading}
-                                            value={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                                            showTime={{
-                                                hideDisabledOptions: true,
-                                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
-                                                showTime: true,
-                                                showHour: true,
-                                                showMinute: true,
-                                                showSecond: true
-                                            }}
-                                            onOk={async (data) => {
-                                                if (data.length >= 2 && data[0] && data[1]) {
-                                                    if (data[0] > data[1]) {
-                                                        message.info('请输入正确时间');
-                                                        return;
-                                                    }
-                                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
-                                                        await this.fetchOrderList();
-                                                    });
-                                                }
-                                            }}
-                                            renderExtraFooter={() => (
-                                                <span>
-                                                    <Button size="small" type="primary" onClick={(e) => {
-                                                        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
-                                                        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
-                                                        // console.log(yesterdayBegin);
-                                                        // console.log(yesterdayEnd);
-
-                                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }}>
-                                                        昨天
-                                                    </Button>
-                                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
-                                                        let yesterdayBegin = moment().startOf('day');
-                                                        let yesterdayEnd = moment().endOf('day');
-                                                        // console.log(yesterdayBegin);
-                                                        // console.log(yesterdayEnd);
-
-                                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }}>
-                                                        今天
-                                                    </Button>
-                                                </span>
-                                            )}
-                                        />
-                                        <Button
-                                            style={{ width: 180, marginLeft: 10 }} type='primary'
-                                            onClick={async (e) => { await this.fetchOrderList(); }}>
-                                            查询门店订货单
-                                        </Button>
-                                        <Table style={{ marginTop: 10 }}
-                                            loading={alreadyOrderLoading}
-                                            dataSource={alreadyOrderListData}
-                                            columns={KOrderColumns4Table}
-                                            rowSelection={rowSelection}
-                                            pagination={false} bordered
-                                            footer={() => {
-                                                return (
-                                                    <div>
-                                                        <div style={{ textAlign: 'center', height: 50 }}>
-                                                            ---心里满满都是你---
-                                                        </div>
-                                                        <div style={{ height: 50 }}>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }} />
-                                    </div>
-                                </div>
-                            )
-                            :
+                        distributionPrintShow ?
                             (
                                 <div style={{ marginLeft: 10, marginTop: 10 }}>
                                     <div id="printConfig"
@@ -984,7 +770,7 @@ class MakeProductionPlan extends React.Component {
                                             <Button type="primary"
                                                 style={{ width: 90, height: 80 }}
                                                 onClick={() => {
-                                                    this.setState({ allProductionDataToBePrint: [] });
+                                                    this.setState({ allDistributionDataToBePrint: [] });
                                                 }}>
                                                 <div style={{ fontSize: 16 }}>
                                                     后退
@@ -1010,29 +796,32 @@ class MakeProductionPlan extends React.Component {
                                     <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
                                         <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
                                             {
-                                                allProductionDataToBePrint.map((columnData) => {
+                                                allDistributionDataToBePrint.map((columnData) => {
                                                     let productArray = columnData.items;
-                                                    let index = allProductionDataToBePrint.indexOf(columnData);
+                                                    let index = allDistributionDataToBePrint.indexOf(columnData);
                                                     return (
                                                         <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                            <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                            <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
                                                             <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                                 <thead>
                                                                     <tr>
-                                                                        <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                        <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
                                                                             {columnData.orderShop}
                                                                         </th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                        <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
                                                                             {columnData.templateName}
                                                                         </th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                        <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
-                                                                        <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                        <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                        <th style={{ textAlign: 'center', fontSize: 14 }}>简码</th>
+                                                                        <th style={{ textAlign: 'center' }}>品名</th>
+                                                                        <th style={{ textAlign: 'center', fontSize: 10 }}>订货量</th>
+                                                                        <th style={{ textAlign: 'center' }}>早</th>
+                                                                        <th style={{ textAlign: 'center' }}>中</th>
+                                                                        <th style={{ textAlign: 'center' }}>晚</th>
+                                                                        <th style={{ textAlign: 'center', fontSize: 12 }}>备注</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -1040,22 +829,25 @@ class MakeProductionPlan extends React.Component {
                                                                         productArray.map((productItem) => {
                                                                             let serialNum = productArray.indexOf(productItem) + 1;
                                                                             return (
-                                                                                <tr key={serialNum}>
-                                                                                    <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
-                                                                                    <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                    <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                                    <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                <tr key={serialNum} style={{ height: 24 }}>
+                                                                                    <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                    <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
+                                                                                    <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                    <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                                    <th key='5' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                                    <th key='6' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                                    <th key='7' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
                                                                                 </tr>)
                                                                         })
                                                                     }
                                                                 </tbody>
                                                                 <tfoot>
                                                                     <tr>
-                                                                        <th colSpan='4'>{columnData.expectTime}</th>
+                                                                        <th colSpan='7'>{columnData.expectTime}</th>
                                                                     </tr>
                                                                 </tfoot>
                                                             </table>
-                                                            <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                            <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
                                                         </div>
                                                     )
                                                 })
@@ -1064,6 +856,273 @@ class MakeProductionPlan extends React.Component {
                                     </div>
                                 </div>
                             )
+                            :
+                            !productionPrintShow ?
+                                (
+                                    <div>
+                                        <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
+                                        <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
+                                            <div>
+                                                <Button danger disabled={disableProductionPrint} type='primary'
+                                                    onClick={this.handleProductionPrint}
+                                                    style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                                    {productionButtonText}
+                                                </Button>
+                                                {
+                                                    notyetOrderShopInfoShow ? (<span>
+                                                        <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                                                        <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
+                                                    </span>) : (<span></span>)
+                                                }
+                                            </div>
+                                            <div>
+                                                <Button danger disabled={disableDistributionButtonPrint} type='primary'
+                                                    onClick={this.handleDistributionPrint}
+                                                    style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                                    {distributionButtonText}
+                                                </Button>
+
+                                                {
+                                                    notyetOrderTemplateInfoShow ? (<span>
+                                                        <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
+                                                        <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
+                                                    </span>) : (<span></span>)
+                                                }
+                                            </div>
+                                            <div>
+                                                <Button danger disabled={disableSubmitButton} type='primary'
+                                                    onClick={this.handleSubmit}
+                                                    style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                                    {transferButtonText}
+                                                </Button>
+                                            </div>
+                                        </div>
+                                        <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
+                                            <Dropdown
+                                                style={{ marginLeft: 0 }}
+                                                overlay={
+                                                    () => {
+                                                        return (<Menu onClick={async ({ key }) => {
+                                                            this.setState({ currentShop: KAllShops[key] }, async () => {
+                                                                await this.fetchOrderList();
+                                                            });
+                                                        }} >
+                                                            {
+                                                                KAllShops.map((shop) => {
+                                                                    return (<Menu.Item key={shop.index}>
+                                                                        {shop.name}
+                                                                    </Menu.Item>);
+                                                                })
+                                                            }
+                                                        </Menu>)
+                                                    }
+                                                } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                                                <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                                                    {currentShop.name}
+                                                    <DownOutlined />
+                                                </Button>
+                                            </Dropdown>
+                                            <Dropdown
+                                                overlay={
+                                                    () => {
+                                                        return (<Menu onClick={async ({ key }) => {
+                                                            this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
+                                                                await this.fetchOrderList();
+                                                            });
+                                                        }} >
+                                                            {
+                                                                KOrderTemplates.map((template) => {
+                                                                    return (<Menu.Item key={template.index}>
+                                                                        {template.name}
+                                                                    </Menu.Item>);
+                                                                })
+                                                            }
+                                                        </Menu>)
+                                                    }
+                                                } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                                                <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                                                    {currentTemplate.name}
+                                                    <DownOutlined />
+                                                </Button>
+                                            </Dropdown>
+                                            <RangePicker
+                                                open={timePickerOpen}
+                                                onOpenChange={(open) => {
+                                                    this.setState({ timePickerOpen: open });
+                                                }}
+                                                style={{ marginLeft: 10 }}
+                                                size='small'
+                                                locale={locale}
+                                                bordered={true}
+                                                placeholder={['开始时间', '结束时间']}
+                                                inputReadOnly={true}
+                                                disabled={alreadyOrderLoading}
+                                                value={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
+                                                moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                                                defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
+                                                moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                                                showTime={{
+                                                    hideDisabledOptions: true,
+                                                    defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                                                    showTime: true,
+                                                    showHour: true,
+                                                    showMinute: true,
+                                                    showSecond: true
+                                                }}
+                                                onOk={async (data) => {
+                                                    if (data.length >= 2 && data[0] && data[1]) {
+                                                        if (data[0] > data[1]) {
+                                                            message.info('请输入正确时间');
+                                                            return;
+                                                        }
+                                                        this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
+                                                            await this.fetchOrderList();
+                                                        });
+                                                    }
+                                                }}
+                                                renderExtraFooter={() => (
+                                                    <span>
+                                                        <Button size="small" type="primary" onClick={(e) => {
+                                                            let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+                                                            let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+                                                            // console.log(yesterdayBegin);
+                                                            // console.log(yesterdayEnd);
+
+                                                            this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
+                                                                await this.fetchOrderList();
+                                                            });
+                                                        }}>
+                                                            昨天
+                                                        </Button>
+                                                        <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                                            let yesterdayBegin = moment().startOf('day');
+                                                            let yesterdayEnd = moment().endOf('day');
+                                                            // console.log(yesterdayBegin);
+                                                            // console.log(yesterdayEnd);
+
+                                                            this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
+                                                                await this.fetchOrderList();
+                                                            });
+                                                        }}>
+                                                            今天
+                                                        </Button>
+                                                    </span>
+                                                )}
+                                            />
+                                            <Button
+                                                style={{ width: 180, marginLeft: 10 }} type='primary'
+                                                onClick={async (e) => { await this.fetchOrderList(); }}>
+                                                查询门店订货单
+                                            </Button>
+                                            <Table style={{ marginTop: 10 }}
+                                                loading={alreadyOrderLoading}
+                                                dataSource={alreadyOrderListData}
+                                                columns={KOrderColumns4Table}
+                                                rowSelection={rowSelection}
+                                                pagination={false} bordered
+                                                footer={() => {
+                                                    return (
+                                                        <div>
+                                                            <div style={{ textAlign: 'center', height: 50 }}>
+                                                                ---心里满满都是你---
+                                                            </div>
+                                                            <div style={{ height: 50 }}>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }} />
+                                        </div>
+                                    </div>
+                                )
+                                :
+                                (
+                                    <div style={{ marginLeft: 10, marginTop: 10 }}>
+                                        <div id="printConfig"
+                                            style={{ float: 'left', borderStyle: 'none', width: 90 }}>
+                                            <div>
+                                                <Button type="primary"
+                                                    style={{ width: 90, height: 80 }}
+                                                    onClick={() => {
+                                                        this.setState({ allProductionDataToBePrint: [] });
+                                                    }}>
+                                                    <div style={{ fontSize: 16 }}>
+                                                        后退
+                                                    </div>
+                                                </Button>
+                                            </div>
+                                            <Button type="primary"
+                                                style={{ marginTop: 10, width: 90, height: 80 }}
+                                                onClick={this.productPrintPreprew}>
+                                                <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                                    打印预览
+                                                </div>
+                                            </Button>
+                                            <Button type="primary" danger
+                                                style={{ marginTop: 10, width: 90, height: 80 }}
+                                                onClick={this.productPrintDirect}>
+                                                <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                                    直接打印
+                                                </div>
+                                            </Button>
+                                        </div>
+
+                                        <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
+                                            <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
+                                                {
+                                                    allProductionDataToBePrint.map((columnData) => {
+                                                        let productArray = columnData.items;
+                                                        let index = allProductionDataToBePrint.indexOf(columnData);
+                                                        return (
+                                                            <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
+                                                                <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                                <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                                {columnData.orderShop}
+                                                                            </th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                                {columnData.templateName}
+                                                                            </th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                            <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                            <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                            <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {
+                                                                            productArray.map((productItem) => {
+                                                                                let serialNum = productArray.indexOf(productItem) + 1;
+                                                                                return (
+                                                                                    <tr key={serialNum}>
+                                                                                        <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
+                                                                                        <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                        <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                                        <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                    </tr>)
+                                                                            })
+                                                                        }
+                                                                    </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th colSpan='4'>{columnData.expectTime}</th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                                <div style={{ float: 'left', marginLeft: 0, width: 18, height: 920 }} />
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
                 }
             </div>
         );

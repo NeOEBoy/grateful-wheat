@@ -1,11 +1,13 @@
-import React from 'react';
-import { Button, Menu, Dropdown, DatePicker, Table, message } from 'antd';
+import React, { useContext, useRef } from 'react';
+import { Button, Menu, Dropdown, DatePicker, Table, message, Form, Input, Space } from 'antd';
+import Highlighter from 'react-highlight-words';
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 import { getProductOrderList, getProductOrderItems, findTemplate } from '../api/api';
+
 const { RangePicker } = DatePicker;
 
 /// 门店信息
@@ -41,11 +43,7 @@ const KOrderColumns4Table = [
     { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
 ];
-/// 调货列表头配置
-const KTransferColumns4Table = [
-    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '品名', dataIndex: 'name', key: 'name', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
-];
+
 /// 报货门店名字
 const KAllOrderShopName = [
     KAllShops[1].name,
@@ -82,6 +80,81 @@ const KSortIdArray = {
     '182-2010291510063': 7, //纯奶拉丝大吐司					
 };
 
+/// 带编辑功能的行
+const EditableContext4Transfer = React.createContext(null);
+/// 带编辑功能的行
+const EditableRow4Transfer = ({ index, ...props }) => {
+    const [form] = Form.useForm();
+    return (
+        <Form form={form} component={false}>
+            <EditableContext4Transfer.Provider value={form}>
+                <tr {...props} />
+            </EditableContext4Transfer.Provider>
+        </Form>
+    );
+};
+/// 带编辑功能的单元格
+const EditableCell4Transfer = ({
+    title, editable, children, dataIndex, record, handleEditableCellSave, handleEditableCellNextFocus, ...restProps
+}) => {
+    // console.log(record);
+    const inputRef = useRef(null);
+    const form = useContext(EditableContext4Transfer);
+
+    /// 根据是否编辑状态设置焦点
+    if (inputRef && inputRef.current) {
+        setTimeout(() => {
+            if (record && record['editing']) {
+                inputRef.current && inputRef.current.select();
+            } else {
+                inputRef.current && inputRef.current.blur();
+            }
+        }, (0));
+    }
+
+    const handleOnPressEnter = async () => {
+        try {
+            // const values = await form.validateFields();
+            // handleEditableCellSave({ ...record, ...values }, dataIndex);
+            handleEditableCellNextFocus();
+        } catch (errInfo) {
+            console.log('Save failed:', errInfo);
+        }
+    };
+
+    const handleOnBlur = async () => {
+        try {
+            const values = await form.validateFields();
+            handleEditableCellSave({ ...record, ...values }, dataIndex);
+        } catch (errInfo) {
+            console.log('Save failed:', errInfo);
+        }
+    }
+
+    let childNode = children;
+
+    if (editable) {
+        childNode = (
+            <Form.Item
+                style={{
+                    margin: 0,
+                }}
+                name={dataIndex}
+                rules={[
+                    {
+                        required: true,
+                        message: `${title} is required.`,
+                    },
+                ]}
+                initialValue={record[dataIndex]}>
+                <Input id={record['key']} ref={inputRef} onPressEnter={handleOnPressEnter} onBlur={handleOnBlur} />
+            </Form.Item>
+        );
+    }
+
+    return <td {...restProps}>{childNode}</td>;
+};
+
 class MakeProductionPlan extends React.Component {
     constructor(props) {
         super(props);
@@ -91,8 +164,8 @@ class MakeProductionPlan extends React.Component {
             alreadyOrderLoading: false,
             currentShop: KAllShops[1],
             currentTemplate: KOrderTemplates[0],
-            beginDateTime: moment().startOf('day'),
-            endDateTime: moment().endOf('day'),
+            beginDateTime: moment().subtract(1, 'day').startOf('day'),
+            endDateTime: moment().subtract(1, 'day').endOf('day'),
             timePickerOpen: false,
             selectedRowKeys: [],
             noyetOrderShops: [],
@@ -102,7 +175,10 @@ class MakeProductionPlan extends React.Component {
             allProductionDataToBeTransfer: [],
             productionButtonText: '打印生产单',
             distributionButtonText: '打印配货单',
-            transferButtonText: '录入配货单'
+            transferButtonText: '录入配货单',
+            searchText: '',
+            nextFocusItems: [],
+            currentFocusItem: {}
         };
     }
 
@@ -176,7 +252,7 @@ class MakeProductionPlan extends React.Component {
     }
 
     onSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        // console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
     };
 
@@ -590,7 +666,7 @@ class MakeProductionPlan extends React.Component {
                     totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
                         return item1.sortId - item2.sortId;
                     });
-                    console.log(totalItemsAfterFixCategory);
+                    // console.log(totalItemsAfterFixCategory);
 
                     let oneDataObj = {};
                     oneDataObj.orderShop = allData[i].orderShop;
@@ -631,15 +707,27 @@ class MakeProductionPlan extends React.Component {
         let aaa = [];
 
         let a = {};
-        a.barcode = '123'; a.name='刀塔';
+        a.key = 1;
+        a.barcode = '123'; a.name = '123'; a.ordernumber = '2';
 
         let b = {};
-        b.barcode = '345'; b.name='刀塔2';
+        b.key = 2;
+        b.barcode = '345'; b.name = '345'; b.ordernumber = '3';
+        let c = {};
+        c.key = 3;
+        c.barcode = '789'; c.name = '789'; c.ordernumber = '4';
 
         aaa.push(a);
         aaa.push(b);
+        aaa.push(c);
 
-        this.setState({ allProductionDataToBeTransfer: aaa })
+        this.setState({ allProductionDataToBeTransfer: aaa });
+
+        // let bbbb = aaa;
+        // setTimeout(() => {
+        //     b.editing = false;
+        //     this.forceUpdate();
+        // }, (5000));
     }
 
     productPrintPreprew = () => {
@@ -674,9 +762,149 @@ class MakeProductionPlan extends React.Component {
         }
     };
 
+    handleEditableCellSave = (row, dataIndex) => {
+        console.log('handleEditableCellSave');
+
+        let allProductionDataToBeTransfer = this.state.allProductionDataToBeTransfer;
+        for (let i = 0; i < allProductionDataToBeTransfer.length; ++i) {
+            let item = allProductionDataToBeTransfer[i];
+            if (item.key === row.key) {
+                item[dataIndex] = row[dataIndex];
+                break;
+            }
+        }
+
+        console.log(this.state.allProductionDataToBeTransfer);
+    };
+
+    handleEditableCellNextFocus = () => {
+        console.log('handleEditableCellNextFocus');
+
+        let nextFocusItems = this.state.nextFocusItems;
+        let focusIndex = -1;
+
+        for (let i = 0; i < nextFocusItems.length; ++i) {
+            let element = nextFocusItems[i];
+            if (element.editing) {
+                focusIndex = i;
+                break;
+            }
+        }
+
+        if (focusIndex !== -1) {
+            nextFocusItems[focusIndex].editing = false;
+
+            if (focusIndex === nextFocusItems.length - 1) {
+                focusIndex = -1;
+
+                if (this.searchInput) {
+                    this.searchInput.select();
+                }
+            } else {
+                focusIndex++;
+            }
+
+            if (focusIndex !== -1) {
+                nextFocusItems[focusIndex].editing = true;
+            }
+        }
+
+        // console.log(nextFocusItems);
+
+        this.setState({ nextFocusItems: nextFocusItems }, () => {
+            // this.forceUpdate();
+
+            // console.log(this.state.allProductionDataToBeTransfer);
+        });
+    }
+
+    handleFilterInputChange = (e) => {
+        // console.log(e);
+        let newText = e.target.value;
+        this.setState({ searchText: newText });
+        // this._confirm({ closeDropdown: false });
+    };
+
+    getColumnSearchProps = dataIndex => ({
+        filterDropdownVisible: true,
+        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+            <div style={{ padding: 8, width: 120 }}>
+                <Input
+                    ref={node => {
+                        this.searchInput = node;
+                        if (this.searchInput) {
+                            this.searchInput.focus();
+                        }
+                    }}
+                    placeholder={`搜索简码`}
+                    value={this.state.searchText}
+                    onChange={(e) => {
+                        setSelectedKeys(e.target.value ? [e.target.value] : []);
+                        confirm();
+
+                        this.setState({
+                            searchText: e.target.value
+                        });
+                    }}
+                    onPressEnter={(e) => {
+                        console.log('搜索简码 onPressEnter');
+
+                        this.searchInput.blur();
+
+                        this.setState({ nextFocusItems: [] }, () => {
+                            let allProductionDataToBeTransfer = this.state.allProductionDataToBeTransfer;
+                            let nextFocusItems = [];
+                            allProductionDataToBeTransfer.forEach(element => {
+                                if (element.barcode.indexOf(this.state.searchText) !== -1) {
+                                    nextFocusItems.push(element);
+                                }
+                            });
+
+                            if (nextFocusItems && nextFocusItems.length > 0) {
+                                nextFocusItems[0].editing = true;
+
+                                this.setState({ nextFocusItems: nextFocusItems }, () => {
+                                });
+                            }
+                        });
+                    }}
+                    style={{ marginBottom: 8, display: 'block' }}
+                />
+                <Space>
+                    <Button onClick={() => {
+                        clearFilters();
+                        this.setState({ searchText: '' });
+                    }} size="small" style={{ width: 100 }}>
+                        重置
+                    </Button>
+                </Space>
+            </div>
+        ),
+        filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
+        onFilter: (value, record) => {
+            return record[dataIndex]
+                ? record[dataIndex].toString().includes(value)
+                : '';
+        },
+        onFilterDropdownVisibleChange: visible => {
+            if (visible) {
+                setTimeout(() => this.searchInput.select(), 100);
+            }
+        },
+        render: text =>
+        (
+            <Highlighter
+                highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+                searchWords={[this.state.searchText]}
+                autoEscape
+                textToHighlight={text ? text.toString() : ''}
+            />
+        )
+    });
+
     render() {
         const {
-            alreadyOrderListData, currentShop, currentTemplate,
+            alreadyOrderListData, currentShop, currentTemplate, searchText,
             alreadyOrderLoading, beginDateTime, endDateTime, timePickerOpen, selectedRowKeys,
             noyetOrderShops, noyetOrderTemplates, productionButtonText, transferButtonText,
             distributionButtonText, allProductionDataToBePrint, allProductionDataToBeTransfer,
@@ -719,6 +947,41 @@ class MakeProductionPlan extends React.Component {
 
         let transferButtonShow = allProductionDataToBeTransfer && allProductionDataToBeTransfer.length > 0;
 
+
+        /// 调货列表头配置
+        const KTransferColumns4Table = [
+            {
+                title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 100, editingIndex: 'editing',
+                ...this.getColumnSearchProps('barcode'),
+            },
+            { title: '品名', dataIndex: 'name', key: 'name', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'ordernumber', key: 'ordernumber', width: 100, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+        ];
+
+        const components = {
+            body: {
+                row: EditableRow4Transfer,
+                cell: EditableCell4Transfer,
+            },
+        };
+        const transferColumns4TableEditable = KTransferColumns4Table.map((col) => {
+            if (!col.editable) {
+                return col;
+            }
+
+            return {
+                ...col,
+                onCell: (record) => ({
+                    record,
+                    editable: col.editable,
+                    dataIndex: col.dataIndex,
+                    title: col.title,
+                    handleEditableCellSave: this.handleEditableCellSave,
+                    handleEditableCellNextFocus: this.handleEditableCellNextFocus
+                }),
+            };
+        });
+
         return (
             <div>
                 {
@@ -743,8 +1006,10 @@ class MakeProductionPlan extends React.Component {
 
                                 <div>
                                     <Table style={{ marginTop: 10 }}
+                                        components={components}
+                                        rowClassName={() => 'editable-row'}
                                         dataSource={allProductionDataToBeTransfer}
-                                        columns={KTransferColumns4Table}
+                                        columns={transferColumns4TableEditable}
                                         pagination={false} bordered
                                         footer={() => {
                                             return (
@@ -881,7 +1146,6 @@ class MakeProductionPlan extends React.Component {
                                                     style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
                                                     {distributionButtonText}
                                                 </Button>
-
                                                 {
                                                     notyetOrderTemplateInfoShow ? (<span>
                                                         <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
@@ -1078,20 +1342,20 @@ class MakeProductionPlan extends React.Component {
                                                                 <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                                     <thead>
                                                                         <tr>
-                                                                            <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                            <th colSpan='4' style={{ width: 420, textAlign: 'center' }}>
                                                                                 {columnData.orderShop}
                                                                             </th>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th colSpan='4' style={{ width: 400, textAlign: 'center' }}>
+                                                                            <th colSpan='4' style={{ width: 420, textAlign: 'center' }}>
                                                                                 {columnData.templateName}
                                                                             </th>
                                                                         </tr>
                                                                         <tr>
-                                                                            <th style={{ width: 20, textAlign: 'center', fontWeight: 'bold' }}>序</th>
-                                                                            <th style={{ width: 60, textAlign: 'center', fontWeight: 'bold' }}>简码</th>
-                                                                            <th style={{ width: 170, textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                                            <th style={{ width: 30, textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                                            <th style={{ textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                                            <th style={{ textAlign: 'center', fontWeight: 'bold' }}>简码</th>
+                                                                            <th style={{ textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                                            <th style={{ textAlign: 'center', fontWeight: 'bold' }}>数</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -1101,9 +1365,9 @@ class MakeProductionPlan extends React.Component {
                                                                                 return (
                                                                                     <tr key={serialNum}>
                                                                                         <th key='1' style={{ width: 20, height: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
-                                                                                        <th key='2' style={{ width: 60, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
-                                                                                        <th key='3' style={{ width: 170, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                                        <th key='4' style={{ width: 30, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                                        <th key='2' style={{ width: 80, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                        <th key='3' style={{ width: 180, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                                        <th key='4' style={{ width: 40, height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
                                                                                     </tr>)
                                                                             })
                                                                         }
@@ -1128,5 +1392,7 @@ class MakeProductionPlan extends React.Component {
         );
     }
 }
+
+
 
 export default MakeProductionPlan;

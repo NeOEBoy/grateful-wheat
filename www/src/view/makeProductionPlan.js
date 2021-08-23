@@ -82,7 +82,13 @@ const KSortIdArray = {
     '182-2106281601535': 6, //椰蓉小吐司				
     '182-2010291510063': 7, //纯奶拉丝大吐司					
 };
-
+/// 模板cache
+const KTemplateData = {
+    '1595310806940367327': [],
+    '1595397637628133418': [],
+    '1595077654714716554': [],
+    '1595077405589137749': []
+};
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
 /// 带编辑功能的行
@@ -98,7 +104,11 @@ const EditableRow4Transfer = ({ index, ...props }) => {
 };
 /// 带编辑功能的单元格
 const EditableCell4Transfer = ({
-    title, editable, children, dataIndex, record, handleEditableCellSave, handleEditableCellNextFocus, ...restProps
+    title, editable, children, dataIndex, record,
+    handleEditableCellSave,
+    handleEditableCellNextFocus,
+    handleEditableCellCurrentFocus,
+    ...restProps
 }) => {
     // console.log(record);
     const inputRef = useRef(null);
@@ -109,8 +119,6 @@ const EditableCell4Transfer = ({
         setTimeout(() => {
             if (record && record['editing']) {
                 inputRef.current && inputRef.current.select();
-            } else {
-                inputRef.current && inputRef.current.blur();
             }
         }, (0));
     }
@@ -124,6 +132,15 @@ const EditableCell4Transfer = ({
             console.log('Save failed:', errInfo);
         }
     };
+
+    const handleOnFocus = async () => {
+        try {
+            const values = await form.validateFields();
+            handleEditableCellCurrentFocus({ ...record, ...values });
+        } catch (errInfo) {
+            console.log('Save failed:', errInfo);
+        }
+    }
 
     const handleOnBlur = async () => {
         try {
@@ -146,11 +163,15 @@ const EditableCell4Transfer = ({
                 rules={[
                     {
                         required: true,
-                        message: `${title} is required.`,
+                        message: `${title} 必须输入一个数字.`,
+                        pattern: /^[0-9]+$/
                     },
                 ]}
                 initialValue={record[dataIndex]}>
-                <Input id={record['key']} ref={inputRef} onPressEnter={handleOnPressEnter} onBlur={handleOnBlur} />
+                <Input id={record['key']} ref={inputRef}
+                    onPressEnter={handleOnPressEnter}
+                    onFocus={handleOnFocus}
+                    onBlur={handleOnBlur} />
             </Form.Item>
         );
     }
@@ -172,8 +193,8 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[0],
-            currentTemplate: KOrderTemplates[1],
+            currentShop: KAllShops[1],
+            currentTemplate: KOrderTemplates[0],
             beginDateTime: beginDateTime,
             endDateTime: endDateTime,
             timePickerOpen: false,
@@ -181,22 +202,56 @@ class MakeProductionPlan extends React.Component {
             noyetOrderShops: [],
             noyetOrderTemplates: [],
             allProductionDataToBePrint: [],
-            allDistributionDataToBePrint: [],
-            allProductionDataToBeTransfer: [],
             productionButtonText: '打印生产单',
+            allDistributionDataToBePrint: [],
             distributionButtonText: '打印配货单',
+            allProductionDataToBeTransfer: [],
             transferButtonText: '录入配货单',
             searchText: '',
             nextFocusItems: [],
             currentFocusItem: {}
         };
+
+        this._searchInput = null;
     }
 
     async componentDidMount() {
         await this.fetchOrderList();
     }
 
-    async fetchOrderList() {
+    productPrintPreprew = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.PREVIEW();
+        }
+    };
+
+    productPrintDirect = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.PRINT();
+        }
+    };
+
+    fetchOrderList = async () => {
         try {
             this.setState({
                 alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys: []
@@ -261,7 +316,7 @@ class MakeProductionPlan extends React.Component {
         }
     }
 
-    onSelectChange = (selectedRowKeys) => {
+    onOrderItemSelectChange = (selectedRowKeys) => {
         // console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
     };
@@ -384,7 +439,7 @@ class MakeProductionPlan extends React.Component {
 
             /// 3.使用模板对应商品
             let totalItemsAfterFixTemplate = totalItems;
-            let findResult = await findTemplate(currentTemplate.templateUid);
+            let findResult = await this.findTemplateCache(currentTemplate.templateUid);
             if (findResult.errCode === 0 && findResult.list.length > 0) {
                 // console.log(findResult.list);
                 let findResultList = findResult.list;
@@ -614,7 +669,7 @@ class MakeProductionPlan extends React.Component {
                 }
                 if (templatePos === -1) return;
 
-                let findResult = await findTemplate(KOrderTemplates[templatePos].templateUid);
+                let findResult = await this.findTemplateCache(KOrderTemplates[templatePos].templateUid);
                 // console.log(findResult);
                 if (findResult.errCode === 0 && findResult.list.length > 0) {
                     let findResultList = findResult.list;
@@ -712,65 +767,183 @@ class MakeProductionPlan extends React.Component {
         });
     };
 
-    handleSubmit = async (e) => {
-        // message.warning('开发中...');
-        let aaa = [];
+    findTemplateCache = async (templateUid) => {
+        let templateList = KTemplateData[templateUid];
+        if (templateList.length > 0) {
+            return { errCode: 0, list: templateList };
+        }
 
-        let a = {};
-        a.key = 1;
-        a.barcode = '123'; a.name = '123'; a.ordernumber = '2';
+        let findResult = await findTemplate(templateUid);
+        if (findResult.errCode === 0 && findResult.list.length > 0) {
+            KTemplateData[templateUid] = findResult.list;
+            return findResult;
+        }
 
-        let b = {};
-        b.key = 2;
-        b.barcode = '345'; b.name = '345'; b.ordernumber = '3';
-        let c = {};
-        c.key = 3;
-        c.barcode = '789'; c.name = '789'; c.ordernumber = '4';
+        return { errCode: -1 };
+    };
 
-        aaa.push(a);
-        aaa.push(b);
-        aaa.push(c);
+    /// 录入配货单
+    handleTransfer = async (e) => {
+        this.setState({ transferButtonText: '准备录入...' }, async () => {
+            let allData = [];
+            const { alreadyOrderListData, currentTemplate, selectedRowKeys } = this.state;
 
-        this.setState({ allProductionDataToBeTransfer: aaa });
+            /// 1.获取每家店的订货信息，整合成allData
+            this.setState({ transferButtonText: '准备获取...' });
+            for (let index = 0; index < alreadyOrderListData.length; ++index) {
+                let orderItem = alreadyOrderListData[index];
+                if (orderItem) {
+                    /// 未打钩的过滤掉
+                    if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
 
-        // let bbbb = aaa;
-        // setTimeout(() => {
-        //     b.editing = false;
-        //     this.forceUpdate();
-        // }, (5000));
+                    const orderItems = await getProductOrderItems(orderItem.orderId);
+                    if (orderItems.errCode === 0 && orderItems.items) {
+                        /// 1.1 合并同一订货门店同一模板订单的商品信息
+                        let existInAllData = false; let i;
+                        for (i = 0; i < allData.length; ++i) {
+                            if (allData[i].orderShop === orderItem.orderShop &&
+                                allData[i].templateName === orderItem.templateName) {
+                                existInAllData = true;
+                                break;
+                            }
+                        }
+                        if (existInAllData) {
+                            let theExistDataItems = allData[i].items;
+                            let toBeDealItems = orderItems.items;
+                            for (let i = 0; i < toBeDealItems.length; ++i) {
+                                let toBeDealItem = toBeDealItems[i];
+                                let posInTheExistDataItems = -1;
+                                for (let j = 0; j < theExistDataItems.length; ++j) {
+                                    let productItem = theExistDataItems[j];
+                                    if (productItem.barcode === toBeDealItem.barcode) {
+                                        posInTheExistDataItems = j;
+                                        break;
+                                    }
+                                }
+
+                                if (posInTheExistDataItems !== -1) {
+                                    let newNumber = theExistDataItems[posInTheExistDataItems].orderNumber + toBeDealItem.orderNumber;
+                                    theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
+                                } else {
+                                    let newItemObject = {};
+                                    newItemObject.categoryName = toBeDealItem.categoryName;
+                                    newItemObject.orderProductName = toBeDealItem.orderProductName;
+                                    newItemObject.barcode = toBeDealItem.barcode;
+                                    newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
+                                    newItemObject.orderNumber = toBeDealItem.orderNumber;
+                                    newItemObject.sortId = toBeDealItem.sortId;
+
+                                    theExistDataItems.push(newItemObject);
+                                }
+                            }
+                        } else {
+                            let item = {};
+                            item.orderShop = orderItem.orderShop;
+                            item.templateName = orderItem.templateName;
+
+                            /// 设置模板Uid
+                            for (let i = 0; i < KOrderTemplates.length; ++i) {
+                                if (KOrderTemplates[i].name === orderItem.templateName) {
+                                    item.templateUid = KOrderTemplates[i].templateUid;
+                                    break;
+                                }
+                            }
+                            item.expectTime = orderItem.expectTime;
+                            item.items = orderItems.items;
+                            for (let i = 0; i < orderItems.items.length; ++i) {
+                                let templateAndBarcode = currentTemplate.templateId + '-' + orderItems.items[i].barcode;
+                                let sortInfo = KSortIdArray[templateAndBarcode];
+                                orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
+                            }
+                            allData.push(item);
+                        }
+                    } else {
+                        allData = [];
+                        message.error('获取<' + orderItem.orderShop + '>订货产品出错，请检查！');
+                        break;
+                    }
+                }
+            }
+            // console.log(allData);
+            /// 2.根据allData按照模板排序，加入订货为0的数据
+            this.setState({ transferButtonText: '按照模板排序...' });
+            let allDataAfterTemplate = []
+            for (let index = 0; index < allData.length; ++index) {
+                let allDataItem = allData[index];
+                let allDataItemItems = allDataItem.items;
+
+                let allDataItemAfterTemplate = {};
+                allDataItemAfterTemplate.orderShop = allDataItem.orderShop;
+                allDataItemAfterTemplate.templateName = allDataItem.templateName;
+                allDataItemAfterTemplate.expectTime = allDataItem.expectTime;
+                allDataItemAfterTemplate.templateUid = allDataItem.templateUid;
+
+                this.setState({ transferButtonText: `查找-${allDataItem.templateName}-模板...` });
+                let findResult = await this.findTemplateCache(allDataItem.templateUid);
+                if (findResult.errCode === 0 && findResult.list.length > 0) {
+                    // console.log(findResult.list);
+                    let findResultList = findResult.list;
+                    let totalItemsAfterFixTemplate = [];
+                    for (let i = 0; i < findResultList.length; ++i) {
+                        let pos = -1;
+                        for (let j = 0; j < allDataItemItems.length; ++j) {
+                            if (findResultList[i].barcode === allDataItemItems[j].barcode) {
+                                pos = j;
+                                break;
+                            }
+                        }
+
+                        let newItemObject = {};
+                        if (pos !== -1) {
+                            newItemObject.categoryName = allDataItemItems[pos].categoryName;
+                            newItemObject.orderProductName = allDataItemItems[pos].orderProductName;
+                            newItemObject.barcode = allDataItemItems[pos].barcode;
+                            newItemObject.barcodeSimple5 = allDataItemItems[pos].barcodeSimple5;
+                            newItemObject.sortId = allDataItemItems[pos].sortId;
+                            newItemObject.orderNumber = allDataItemItems[pos].orderNumber;
+                            newItemObject.transferNumber = 0;
+                        } else {
+                            newItemObject.categoryName = findResultList[i].categoryName;
+                            newItemObject.orderProductName = findResultList[i].name;
+                            newItemObject.barcode = findResultList[i].barcode;
+                            newItemObject.barcodeSimple5 = findResultList[i].barcodeSimple5;
+
+                            let templateAndBarcode = currentTemplate.templateId + '-' + newItemObject.barcode;
+                            let sortInfo = KSortIdArray[templateAndBarcode];
+                            newItemObject.sortId = sortInfo ? sortInfo : 200;
+
+                            newItemObject.orderNumber = 0;
+                            newItemObject.transferNumber = 0;
+                        }
+
+                        totalItemsAfterFixTemplate.push(newItemObject);
+                    }
+
+                    allDataItemAfterTemplate.items = totalItemsAfterFixTemplate;
+                }
+
+                allDataAfterTemplate.push(allDataItemAfterTemplate);
+            }
+            // console.log(allDataAfterTemplate);
+
+            this.setState({ transferButtonText: '整理商品...' });
+            let transferData = []; let key = 0;
+            for (let index = 0; index < allDataAfterTemplate.length; ++index) {
+                let allDataAfterTemplateItem = allDataAfterTemplate[index];
+                let allDataAfterTemplateItemItems = allDataAfterTemplateItem.items;
+                for (let jj = 0; jj < allDataAfterTemplateItemItems.length; ++jj) {
+                    let allDataAfterTemplateItemItemsItem = allDataAfterTemplateItemItems[jj];
+                    if (allDataAfterTemplateItemItemsItem.orderNumber > 0) {
+                        allDataAfterTemplateItemItemsItem.key = ++key;
+                        transferData.push(allDataAfterTemplateItemItemsItem);
+                    }
+                }
+            }
+            // console.log(transferData);
+
+            this.setState({ transferButtonText: '录入配货单', allProductionDataToBeTransfer: transferData });
+        });
     }
-
-    productPrintPreprew = () => {
-        let LODOP = getLodop();
-
-        if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
-            LODOP.PREVIEW();
-        }
-    };
-
-    productPrintDirect = () => {
-        let LODOP = getLodop();
-
-        if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
-            LODOP.PRINT();
-        }
-    };
 
     handleEditableCellSave = (row, dataIndex) => {
         console.log('handleEditableCellSave');
@@ -784,48 +957,59 @@ class MakeProductionPlan extends React.Component {
             }
         }
 
-        console.log(this.state.allProductionDataToBeTransfer);
+        // console.log(this.state.allProductionDataToBeTransfer);
     };
 
     handleEditableCellNextFocus = () => {
         console.log('handleEditableCellNextFocus');
 
-        let nextFocusItems = this.state.nextFocusItems;
-        let focusIndex = -1;
+        let nextFocusItemsTemp = this.state.nextFocusItems;
+        // console.log(nextFocusItemsTemp);
 
-        for (let i = 0; i < nextFocusItems.length; ++i) {
-            let element = nextFocusItems[i];
+        let lastFocusIndex = -1;
+
+        for (let i = 0; i < nextFocusItemsTemp.length; ++i) {
+            let element = nextFocusItemsTemp[i];
             if (element.editing) {
-                focusIndex = i;
+                lastFocusIndex = i;
                 break;
             }
         }
 
-        if (focusIndex !== -1) {
-            nextFocusItems[focusIndex].editing = false;
-
-            if (focusIndex === nextFocusItems.length - 1) {
-                focusIndex = -1;
-
-                if (this.searchInput) {
-                    this.searchInput.select();
-                }
-            } else {
-                focusIndex++;
-            }
-
-            if (focusIndex !== -1) {
-                nextFocusItems[focusIndex].editing = true;
+        let newFocusIndex = lastFocusIndex + 1;
+        if (newFocusIndex >= 0 && newFocusIndex < nextFocusItemsTemp.length) {
+            nextFocusItemsTemp[newFocusIndex].editing = true;
+        } else {
+            console.log('this._searchInput.select();');
+            if (this._searchInput) {
+                this._searchInput.select();
             }
         }
 
-        // console.log(nextFocusItems);
+        if (lastFocusIndex >= 0 && lastFocusIndex < nextFocusItemsTemp.length) {
+            nextFocusItemsTemp[lastFocusIndex].editing = false;
+        }
 
-        this.setState({ nextFocusItems: nextFocusItems }, () => {
+        // console.log(nextFocusItemsTemp);
+
+        this.setState({ nextFocusItems: nextFocusItemsTemp }, () => {
             // this.forceUpdate();
 
             // console.log(this.state.allProductionDataToBeTransfer);
         });
+    }
+
+    handleEditableCellCurrentFocus = (row) => {
+        let nextFocusItemsTemp = this.state.nextFocusItems;
+
+        for (let i = 0; i < nextFocusItemsTemp.length; ++i) {
+            let item = nextFocusItemsTemp[i];
+            item.editing = false;
+            if (item.key === row.key) {
+                item.editing = true;
+            }
+        }
+        this.forceUpdate();
     }
 
     handleFilterInputChange = (e) => {
@@ -841,14 +1025,16 @@ class MakeProductionPlan extends React.Component {
             <div style={{ padding: 8, width: 120 }}>
                 <Input
                     ref={node => {
-                        this.searchInput = node;
-                        if (this.searchInput) {
-                            this.searchInput.focus();
+                        if (!this._searchInput && node) {
+                            this._searchInput = node;
+                            this._searchInput.focus();
                         }
                     }}
                     placeholder={`搜索简码`}
                     value={this.state.searchText}
                     onChange={(e) => {
+                        console.log('搜索简码 onChange');
+
                         setSelectedKeys(e.target.value ? [e.target.value] : []);
                         confirm();
 
@@ -856,24 +1042,51 @@ class MakeProductionPlan extends React.Component {
                             searchText: e.target.value
                         });
                     }}
-                    onPressEnter={(e) => {
-                        console.log('搜索简码 onPressEnter');
+                    onFocus={(e) => {
+                        console.log('搜索简码 onFocus');
 
-                        this.searchInput.blur();
+                        let nextFocusItemsTemp = this.state.nextFocusItems;
+                        nextFocusItemsTemp.forEach(item => {
+                            item.editing = false;
+                        });
 
                         this.setState({ nextFocusItems: [] }, () => {
                             let allProductionDataToBeTransfer = this.state.allProductionDataToBeTransfer;
-                            let nextFocusItems = [];
+                            let nextFocusItemsTemp = [];
                             allProductionDataToBeTransfer.forEach(element => {
                                 if (element.barcode.indexOf(this.state.searchText) !== -1) {
-                                    nextFocusItems.push(element);
+                                    nextFocusItemsTemp.push(element);
                                 }
                             });
 
-                            if (nextFocusItems && nextFocusItems.length > 0) {
-                                nextFocusItems[0].editing = true;
+                            if (nextFocusItemsTemp && nextFocusItemsTemp.length > 0) {
+                                this.setState({ nextFocusItems: nextFocusItemsTemp }, () => {
+                                });
+                            }
+                        });
+                    }}
+                    onPressEnter={(e) => {
+                        console.log('搜索简码 onPressEnter');
 
-                                this.setState({ nextFocusItems: nextFocusItems }, () => {
+                        let nextFocusItemsTemp = this.state.nextFocusItems;
+                        nextFocusItemsTemp.forEach(item => {
+                            item.editing = false;
+                        });
+
+                        this.setState({ nextFocusItems: [] }, () => {
+                            let allProductionDataToBeTransfer = this.state.allProductionDataToBeTransfer;
+                            let nextFocusItemsTemp = [];
+                            allProductionDataToBeTransfer.forEach(element => {
+                                if (element.barcode.indexOf(this.state.searchText) !== -1) {
+                                    nextFocusItemsTemp.push(element);
+                                }
+                            });
+
+                            if (nextFocusItemsTemp && nextFocusItemsTemp.length > 0) {
+                                nextFocusItemsTemp[0].editing = true;
+
+                                // console.log(nextFocusItemsTemp);
+                                this.setState({ nextFocusItems: nextFocusItemsTemp }, () => {
                                 });
                             }
                         });
@@ -896,11 +1109,6 @@ class MakeProductionPlan extends React.Component {
                 ? record[dataIndex].toString().includes(value)
                 : '';
         },
-        onFilterDropdownVisibleChange: visible => {
-            if (visible) {
-                setTimeout(() => this.searchInput.select(), 100);
-            }
-        },
         render: text =>
         (
             <Highlighter
@@ -914,7 +1122,7 @@ class MakeProductionPlan extends React.Component {
 
     render() {
         const {
-            alreadyOrderListData, currentShop, currentTemplate, searchText,
+            alreadyOrderListData, currentShop, currentTemplate,
             alreadyOrderLoading, beginDateTime, endDateTime, timePickerOpen, selectedRowKeys,
             noyetOrderShops, noyetOrderTemplates, productionButtonText, transferButtonText,
             distributionButtonText, allProductionDataToBePrint, allProductionDataToBeTransfer,
@@ -922,7 +1130,7 @@ class MakeProductionPlan extends React.Component {
 
         const rowSelection = {
             selectedRowKeys,
-            onChange: this.onSelectChange,
+            onChange: this.onOrderItemSelectChange,
         };
 
         let noYetOrderShopNames = '无';
@@ -961,11 +1169,14 @@ class MakeProductionPlan extends React.Component {
         /// 调货列表头配置
         const KTransferColumns4Table = [
             {
-                title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 100, editingIndex: 'editing',
+                title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 280, editingIndex: 'editing',
                 ...this.getColumnSearchProps('barcode'),
             },
-            { title: '品名', dataIndex: 'name', key: 'name', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'ordernumber', key: 'ordernumber', width: 100, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 160, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
         ];
 
         const components = {
@@ -987,7 +1198,8 @@ class MakeProductionPlan extends React.Component {
                     dataIndex: col.dataIndex,
                     title: col.title,
                     handleEditableCellSave: this.handleEditableCellSave,
-                    handleEditableCellNextFocus: this.handleEditableCellNextFocus
+                    handleEditableCellNextFocus: this.handleEditableCellNextFocus,
+                    handleEditableCellCurrentFocus: this.handleEditableCellCurrentFocus
                 }),
             };
         });
@@ -1002,7 +1214,8 @@ class MakeProductionPlan extends React.Component {
                                     <Button type="primary"
                                         style={{ width: 80, height: 40 }}
                                         onClick={() => {
-                                            this.setState({ allProductionDataToBeTransfer: [] });
+                                            this._searchInput = null;
+                                            this.setState({ allProductionDataToBeTransfer: [], searchText: '' });
                                         }}>
                                         <div style={{ fontSize: 16 }}>
                                             后退
@@ -1015,12 +1228,13 @@ class MakeProductionPlan extends React.Component {
                                 </div>
 
                                 <div>
-                                    <Table style={{ marginTop: 10 }}
+                                    <Table style={{ marginTop: 10, marginLeft: 10, marginRight: 10 }}
                                         components={components}
                                         rowClassName={() => 'editable-row'}
                                         dataSource={allProductionDataToBeTransfer}
                                         columns={transferColumns4TableEditable}
                                         pagination={false} bordered
+                                        scroll={{ y: 500, scrollToFirstRowOnChange: true }}
                                         footer={() => {
                                             return (
                                                 <div>
@@ -1165,7 +1379,7 @@ class MakeProductionPlan extends React.Component {
                                             </div>
                                             <div>
                                                 <Button danger disabled={disableSubmitButton} type='primary'
-                                                    onClick={this.handleSubmit}
+                                                    onClick={this.handleTransfer}
                                                     style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
                                                     {transferButtonText}
                                                 </Button>

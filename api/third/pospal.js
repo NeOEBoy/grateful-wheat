@@ -288,6 +288,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           let orderProductNameIndex = -1;
           let barcodeIndex = -1;
           let orderNumberIndex = -1;
+          let specificationIndex = -1;
 
           let thead = orderItemTable.thead;
           let procuctOrderItemsTh = thead[0].tr[0].th;
@@ -312,12 +313,18 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
                 orderNumberIndex = index;
                 continue;
               }
+
+              if (titleName === '规格') {
+                specificationIndex = index;
+                continue;
+              }
             }
           }
 
           // console.log(orderProductNameIndex);
           // console.log(barcodeIndex);
           // console.log(orderNumberIndex);
+          // console.log(specificationIndex);
 
           let procuctOrderDataTh = orderItemTable.tbody[0].tr;
           // console.log(procuctOrderDataTh);
@@ -335,10 +342,14 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             // console.log(orderProductName);
             productOrderItem.orderProductName = orderProductName;
 
+            let specification = element.td[specificationIndex]._;
+            // console.log(specification);
+            productOrderItem.specification = specification;
+
             let barcode = element.td[barcodeIndex]._;
             // console.log(barcode);
             productOrderItem.barcode = barcode;
-            productOrderItem.barcodeSimple5 = barcode.substring(barcode.length - 5, barcode.length);
+            productOrderItem.barcodeSimple = barcode.substring(barcode.length - 4, barcode.length);
 
             let orderNumber = element.td[orderNumberIndex].span[0]._;
             // console.log(orderNumber);
@@ -390,7 +401,7 @@ const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
         let productItem = {};
         productItem.name = product.name;
         productItem.barcode = product.barcode;
-        productItem.barcodeSimple5 = product.barcode.substring(product.barcode.length - 5, product.barcode.length);
+        productItem.barcodeSimple = product.barcode.substring(product.barcode.length - 4, product.barcode.length);
         productItem.categoryName = product.categoryName;
 
         list.push(productItem);
@@ -399,6 +410,133 @@ const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
     return { errCode: 0, list: list };
   } catch (err) {
     return { errCode: -1 };
+  }
+}
+
+const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
+  try {
+    let LoadProductsByPageUrl = 'https://beta33.pospal.cn/Product/LoadProductsByPage';
+
+    let LoadProductsByPageBodyStr = '';
+    LoadProductsByPageBodyStr += 'userId=3995763';
+    LoadProductsByPageBodyStr += '&keyword=';
+    LoadProductsByPageBodyStr += keyword;
+    LoadProductsByPageBodyStr += '&groupBySpu=false';
+    LoadProductsByPageBodyStr += '&productbrand=';
+    LoadProductsByPageBodyStr += '&categorysJson=%5B%5D';
+    LoadProductsByPageBodyStr += '&enable=1';
+    LoadProductsByPageBodyStr += '&supplierUid=';
+    LoadProductsByPageBodyStr += '&productTagUidsJson=%5B%5D';
+    LoadProductsByPageBodyStr += '&categoryType=';
+    LoadProductsByPageBodyStr += '&pageIndex=1';
+    LoadProductsByPageBodyStr += '&pageSize=50';
+    LoadProductsByPageBodyStr += '&orderColumn=';
+    LoadProductsByPageBodyStr += '&asc=false';
+
+
+    const LoadProductsByPageResponse = await fetch(LoadProductsByPageUrl, {
+      method: 'POST', body: LoadProductsByPageBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const LoadProductsByPageResponseJson = await LoadProductsByPageResponse.json();
+    // console.log(LoadProductsByPageResponseJson);
+
+    let productItems = [];
+    if (LoadProductsByPageResponseJson.successed) {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + LoadProductsByPageResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        console.log(result);
+
+        let barcodeIndex = -1;
+        let categoryNameIndex = -1;
+        let productNameIndex = -1;
+        let specificationIndex = -1;
+        let priceIndex = -1;
+
+        let procuctsTitleTh = result.root.thead[0].tr[0].th;
+        // console.log(procuctsTitleTh);
+        let procuctsTitleThLength = procuctsTitleTh.length;
+        for (let index = 0; index < procuctsTitleThLength; ++index) {
+          let titleName = procuctsTitleTh[index]._;
+          if (titleName) {
+            titleName = titleName.replace(/\r\n/g, "").trim();
+            // console.log(titleName);
+            if (titleName === '条码') {
+              barcodeIndex = index;
+              continue;
+            }
+            if (titleName === '分类') {
+              categoryNameIndex = index;
+              continue;
+            }
+            if (titleName === '商品名称') {
+              productNameIndex = index;
+              continue;
+            }
+            if (titleName === '规格') {
+              specificationIndex = index;
+              continue;
+            }
+            if (titleName === '销售价') {
+              priceIndex = index;
+              continue;
+            }
+          }
+        }
+
+        // console.log(barcodeIndex);
+        // console.log(categoryNameIndex);
+        // console.log(productNameIndex);
+        // console.log(specificationIndex);
+        // console.log(priceIndex);
+
+        let procuctsDataTh = result.root.tbody[0].tr;
+        // console.log(procuctOrderDataTh);
+        procuctsDataTh.forEach(element => {
+          // console.log(element);
+
+          let productItem = {};
+
+          productItem.key = procuctsDataTh.indexOf(element) + 1;
+
+          let barcode = element.td[barcodeIndex];
+          // console.log(barcode);
+          productItem.barcode = barcode;
+
+          let categoryName = element.td[categoryNameIndex];
+          // console.log(barcode);
+          productItem.categoryName = categoryName;
+
+          let productName = element.td[productNameIndex];
+          // console.log(productName);
+          productItem.productName = productName;
+          
+          let specification = element.td[specificationIndex];
+          // console.log(specification);
+          productItem.specification = specification;
+
+          let price = element.td[priceIndex]._;
+          // console.log(price);
+          productItem.price = price;
+
+          productItems.push(productItem);
+        });
+      }
+    }
+
+    return { errCode: 0, items: productItems };
+  } catch (e) {
+    return { errCode: -1, items: [] };
   }
 }
 
@@ -1233,6 +1371,7 @@ module.exports = {
   getProductOrderList,
   getProductOrderItem,
   findTemplate,
+  loadProductsByKeyword,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,

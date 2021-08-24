@@ -8,7 +8,8 @@ const {
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getProductOrderList,
-  findTemplate
+  findTemplate,
+  loadProductsByKeyword
 } = require('../third/pospal');
 
 /* GET users listing. */
@@ -101,6 +102,25 @@ router.get('/findTemplate', async function(req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let findTemplateResponseJson = await findTemplate(thePOSPALAUTH30220, templateUid);
     res.send(findTemplateResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/loadProductsByKeyword', async function(req, res, next) {
+  try {
+    // console.log('router loadProductsByKeyword start');
+
+    let keyword = req.query.keyword;
+
+    if (!keyword) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let loadProductsByKeywordResponseJson = await loadProductsByKeyword(thePOSPALAUTH30220, keyword);
+    res.send(loadProductsByKeywordResponseJson);
   } catch (err) {
     next(err)
   }

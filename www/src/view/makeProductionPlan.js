@@ -1,13 +1,16 @@
 import React, { useContext, useRef } from 'react';
-import { Button, Menu, Dropdown, DatePicker, Table, message, Form, Input, Space } from 'antd';
+import {
+    Button, Menu, Dropdown, DatePicker, Table,
+    message, Form, Input, Space, Modal
+} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
-import { getProductOrderList, getProductOrderItems, findTemplate } from '../api/api';
-
+import { getProductOrderList, getProductOrderItems, findTemplate, loadProductsByKeyword } from '../api/api';
+const { Search } = Input;
 const { RangePicker } = DatePicker;
 
 /**--------------------配置信息--------------------*/
@@ -46,7 +49,6 @@ const KOrderColumns4Table = [
     { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
 ];
-
 /// 报货门店名字
 const KAllOrderShopName = [
     KAllShops[1].name,
@@ -89,6 +91,17 @@ const KTemplateData = {
     '1595077654714716554': [],
     '1595077405589137749': []
 };
+
+/// 增加商品列表头配置
+const KAddProductionColumns4Table = [
+    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '品名', dataIndex: 'productName', key: 'productName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
+    { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '规格', dataIndex: 'specification', key: 'specification', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '销售价', dataIndex: 'price', key: 'price', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+];
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
 /// 带编辑功能的行
@@ -209,7 +222,12 @@ class MakeProductionPlan extends React.Component {
             transferButtonText: '录入配货单',
             searchText: '',
             nextFocusItems: [],
-            currentFocusItem: {}
+            currentFocusItem: {},
+            filterDropdownVisible4Transfer: true,
+            isAddProductionModalVisible: false,
+            searchProductDataToBeAdd: [],
+            searchingProductData: false,
+            searchText4AddProduct: '',
         };
 
         this._searchInput = null;
@@ -370,7 +388,7 @@ class MakeProductionPlan extends React.Component {
                                     newItemObject.categoryName = toBeDealItem.categoryName;
                                     newItemObject.orderProductName = toBeDealItem.orderProductName;
                                     newItemObject.barcode = toBeDealItem.barcode;
-                                    newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
+                                    newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
                                     newItemObject.sortId = toBeDealItem.sortId;
 
@@ -428,7 +446,7 @@ class MakeProductionPlan extends React.Component {
                         newItemObject.categoryName = itemObj.categoryName;
                         newItemObject.orderProductName = itemObj.orderProductName;
                         newItemObject.barcode = itemObj.barcode;
-                        newItemObject.barcodeSimple5 = itemObj.barcodeSimple5;
+                        newItemObject.barcodeSimple = itemObj.barcodeSimple;
                         newItemObject.orderNumber = itemObj.orderNumber;
                         newItemObject.sortId = itemObj.sortId;
 
@@ -458,14 +476,14 @@ class MakeProductionPlan extends React.Component {
                         newItemObject.categoryName = totalItems[pos].categoryName;
                         newItemObject.orderProductName = totalItems[pos].orderProductName;
                         newItemObject.barcode = totalItems[pos].barcode;
-                        newItemObject.barcodeSimple5 = totalItems[pos].barcodeSimple5;
+                        newItemObject.barcodeSimple = totalItems[pos].barcodeSimple;
                         newItemObject.sortId = totalItems[pos].sortId;
                         newItemObject.orderNumber = totalItems[pos].orderNumber;
                     } else {
                         newItemObject.categoryName = findResultList[i].categoryName;
                         newItemObject.orderProductName = findResultList[i].name;
                         newItemObject.barcode = findResultList[i].barcode;
-                        newItemObject.barcodeSimple5 = findResultList[i].barcodeSimple5;
+                        newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
 
                         let templateAndBarcode = currentTemplate.templateId + '-' + newItemObject.barcode;
                         let sortInfo = KSortIdArray[templateAndBarcode];
@@ -527,7 +545,7 @@ class MakeProductionPlan extends React.Component {
                         newItemObject.categoryName = oneItem.categoryName;
                         newItemObject.orderProductName = oneItem.orderProductName;
                         newItemObject.barcode = oneItem.barcode;
-                        newItemObject.barcodeSimple5 = oneItem.barcodeSimple5;
+                        newItemObject.barcodeSimple = oneItem.barcodeSimple;
                         newItemObject.sortId = oneItem.sortId;
                         newItemObject.orderNumber = 0;
                         for (let k = 0; k < allDataColumn.items.length; ++k) {
@@ -625,7 +643,7 @@ class MakeProductionPlan extends React.Component {
                                     newItemObject.categoryName = toBeDealItem.categoryName;
                                     newItemObject.orderProductName = toBeDealItem.orderProductName;
                                     newItemObject.barcode = toBeDealItem.barcode;
-                                    newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
+                                    newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
                                     newItemObject.sortId = toBeDealItem.sortId;
 
@@ -688,14 +706,14 @@ class MakeProductionPlan extends React.Component {
                             newItemObject.categoryName = allDataItems[pos].categoryName;
                             newItemObject.orderProductName = allDataItems[pos].orderProductName;
                             newItemObject.barcode = allDataItems[pos].barcode;
-                            newItemObject.barcodeSimple5 = allDataItems[pos].barcodeSimple5;
+                            newItemObject.barcodeSimple = allDataItems[pos].barcodeSimple;
                             newItemObject.sortId = allDataItems[pos].sortId;
                             newItemObject.orderNumber = allDataItems[pos].orderNumber;
                         } else {
                             newItemObject.categoryName = findResultList[j].categoryName;
                             newItemObject.orderProductName = findResultList[j].name;
                             newItemObject.barcode = findResultList[j].barcode;
-                            newItemObject.barcodeSimple5 = findResultList[j].barcodeSimple5;
+                            newItemObject.barcodeSimple = findResultList[j].barcodeSimple;
 
                             let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + findResultList[j].barcode;
                             let sortInfo = KSortIdArray[templateAndBarcode];
@@ -828,8 +846,9 @@ class MakeProductionPlan extends React.Component {
                                     let newItemObject = {};
                                     newItemObject.categoryName = toBeDealItem.categoryName;
                                     newItemObject.orderProductName = toBeDealItem.orderProductName;
+                                    newItemObject.specification = toBeDealItem.specification;
                                     newItemObject.barcode = toBeDealItem.barcode;
-                                    newItemObject.barcodeSimple5 = toBeDealItem.barcodeSimple5;
+                                    newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
                                     newItemObject.sortId = toBeDealItem.sortId;
 
@@ -897,16 +916,18 @@ class MakeProductionPlan extends React.Component {
                         if (pos !== -1) {
                             newItemObject.categoryName = allDataItemItems[pos].categoryName;
                             newItemObject.orderProductName = allDataItemItems[pos].orderProductName;
+                            newItemObject.specification = allDataItemItems[pos].specification;
                             newItemObject.barcode = allDataItemItems[pos].barcode;
-                            newItemObject.barcodeSimple5 = allDataItemItems[pos].barcodeSimple5;
+                            newItemObject.barcodeSimple = allDataItemItems[pos].barcodeSimple;
                             newItemObject.sortId = allDataItemItems[pos].sortId;
                             newItemObject.orderNumber = allDataItemItems[pos].orderNumber;
                             newItemObject.transferNumber = 0;
                         } else {
                             newItemObject.categoryName = findResultList[i].categoryName;
                             newItemObject.orderProductName = findResultList[i].name;
+                            newItemObject.specification = findResultList[i].specification;
                             newItemObject.barcode = findResultList[i].barcode;
-                            newItemObject.barcodeSimple5 = findResultList[i].barcodeSimple5;
+                            newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
 
                             let templateAndBarcode = currentTemplate.templateId + '-' + newItemObject.barcode;
                             let sortInfo = KSortIdArray[templateAndBarcode];
@@ -1020,9 +1041,9 @@ class MakeProductionPlan extends React.Component {
     };
 
     getColumnSearchProps = dataIndex => ({
-        filterDropdownVisible: true,
+        filterDropdownVisible: this.state.filterDropdownVisible4Transfer,
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-            <div style={{ padding: 8, width: 120 }}>
+            <div style={{ padding: 8, width: 160 }}>
                 <Input
                     ref={node => {
                         if (!this._searchInput && node) {
@@ -1030,7 +1051,7 @@ class MakeProductionPlan extends React.Component {
                             this._searchInput.focus();
                         }
                     }}
-                    placeholder={`搜索简码`}
+                    placeholder={`输入简码（后四位）`}
                     value={this.state.searchText}
                     onChange={(e) => {
                         console.log('搜索简码 onChange');
@@ -1054,7 +1075,7 @@ class MakeProductionPlan extends React.Component {
                             let allProductionDataToBeTransfer = this.state.allProductionDataToBeTransfer;
                             let nextFocusItemsTemp = [];
                             allProductionDataToBeTransfer.forEach(element => {
-                                if (element.barcode.indexOf(this.state.searchText) !== -1) {
+                                if (element.barcodeSimple.indexOf(this.state.searchText) !== -1) {
                                     nextFocusItemsTemp.push(element);
                                 }
                             });
@@ -1077,7 +1098,7 @@ class MakeProductionPlan extends React.Component {
                             let allProductionDataToBeTransfer = this.state.allProductionDataToBeTransfer;
                             let nextFocusItemsTemp = [];
                             allProductionDataToBeTransfer.forEach(element => {
-                                if (element.barcode.indexOf(this.state.searchText) !== -1) {
+                                if (element.barcodeSimple.indexOf(this.state.searchText) !== -1) {
                                     nextFocusItemsTemp.push(element);
                                 }
                             });
@@ -1105,9 +1126,8 @@ class MakeProductionPlan extends React.Component {
         ),
         filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
         onFilter: (value, record) => {
-            return record[dataIndex]
-                ? record[dataIndex].toString().includes(value)
-                : '';
+            let simple = record[dataIndex].substring(record[dataIndex].length - 4, record[dataIndex].length);
+            return simple ? simple.includes(value) : '';
         },
         render: text =>
         (
@@ -1120,15 +1140,41 @@ class MakeProductionPlan extends React.Component {
         )
     });
 
+    handleAddProductionModalOk = () => {
+        this.setState({ isAddProductionModalVisible: false, filterDropdownVisible4Transfer: true });
+    };
+
+    handleAddProductionModalCancel = () => {
+        this.setState({ isAddProductionModalVisible: false, filterDropdownVisible4Transfer: true });
+    };
+
+    onAddProductSearch = async () => {
+        console.log('onAddProductSearch begin');
+
+        if(this.state.searchText4AddProduct.length <= 0){
+            message.error('请输入正确的商品');
+            return;
+        }
+
+        this.setState({ searchingProductData: true, searchProductDataToBeAdd:[] });
+        let loadProductResult = await loadProductsByKeyword(this.state.searchText4AddProduct);
+        if (loadProductResult.errCode === 0 && loadProductResult.items) {
+            this.setState({ searchProductDataToBeAdd: loadProductResult.items });
+        }
+        this.setState({ searchingProductData: false });
+
+        console.log(loadProductResult);
+    }
+
     render() {
         const {
-            alreadyOrderListData, currentShop, currentTemplate,
+            alreadyOrderListData, currentShop, currentTemplate, isAddProductionModalVisible,
             alreadyOrderLoading, beginDateTime, endDateTime, timePickerOpen, selectedRowKeys,
             noyetOrderShops, noyetOrderTemplates, productionButtonText, transferButtonText,
             distributionButtonText, allProductionDataToBePrint, allProductionDataToBeTransfer,
-            allDistributionDataToBePrint } = this.state;
+            allDistributionDataToBePrint, searchProductDataToBeAdd, searchingProductData, searchText4AddProduct } = this.state;
 
-        const rowSelection = {
+        const alreadyOrderRowSelection = {
             selectedRowKeys,
             onChange: this.onOrderItemSelectChange,
         };
@@ -1168,14 +1214,16 @@ class MakeProductionPlan extends React.Component {
 
         /// 调货列表头配置
         const KTransferColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             {
-                title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 280, editingIndex: 'editing',
+                title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 300, editingIndex: 'editing',
                 ...this.getColumnSearchProps('barcode'),
             },
-            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
             { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 160, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '规格', dataIndex: 'specification', key: 'specification', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
         ];
 
@@ -1221,13 +1269,52 @@ class MakeProductionPlan extends React.Component {
                                             后退
                                         </div>
                                     </Button>
-                                    <span style={{ marginLeft: 10 }}>从</span>
-                                    <span style={{ marginLeft: 10 }}>总部</span>
-                                    <span style={{ marginLeft: 10 }}>调往</span>
-                                    <span style={{ marginLeft: 10, marginRight: 10 }}>教育局店</span>
+                                    <span style={{ marginLeft: 10 }}>总部==</span>
+                                    <span style={{ marginLeft: 0 }}>{`调往=>`}</span>
+                                    <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
+
+                                    <Button type="primary" danger
+                                        style={{ width: 60, height: 30 }}
+                                        onClick={() => {
+                                            this.setState({ isAddProductionModalVisible: true, filterDropdownVisible4Transfer: false, searchProductDataToBeAdd: [] });
+                                        }}>
+                                        <div style={{ fontSize: 8 }}>
+                                            +商品
+                                        </div>
+                                    </Button>
                                 </div>
 
                                 <div>
+                                    <Modal
+                                        width={1000}
+                                        style={{ top: 20 }}
+                                        title={
+                                            (<div>
+                                                <span>
+                                                    添加商品
+                                                </span>
+                                                <span>
+                                                    <Search style={{ width: 240 }}
+                                                        value={searchText4AddProduct}
+                                                        onChange={(e)=>{this.setState({searchText4AddProduct: e.target.value})}}
+                                                        placeholder='输入商品名称或条码'
+                                                        enterButton="搜索"
+                                                        size='middle'
+                                                        onSearch={this.onAddProductSearch}>
+                                                    </Search>
+                                                </span>
+                                            </div>)}
+                                        visible={isAddProductionModalVisible}
+                                        onOk={this.handleAddProductionModalOk}
+                                        onCancel={this.handleAddProductionModalCancel}>
+                                        <Table
+                                            loading={searchingProductData}
+                                            dataSource={searchProductDataToBeAdd}
+                                            columns={KAddProductionColumns4Table}
+                                            bordered pagination={false}
+                                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
+                                        />
+                                    </Modal>
                                     <Table style={{ marginTop: 10, marginLeft: 10, marginRight: 10 }}
                                         components={components}
                                         rowClassName={() => 'editable-row'}
@@ -1235,17 +1322,16 @@ class MakeProductionPlan extends React.Component {
                                         columns={transferColumns4TableEditable}
                                         pagination={false} bordered
                                         scroll={{ y: 500, scrollToFirstRowOnChange: true }}
-                                        footer={() => {
-                                            return (
-                                                <div>
-                                                    <div style={{ textAlign: 'center', height: 50 }}>
-                                                        ---心里满满都是你---
-                                                    </div>
-                                                    <div style={{ height: 50 }}>
-                                                    </div>
+                                        footer={() => (
+                                            <div>
+                                                <div style={{ textAlign: 'center', height: 50 }}>
+                                                    ---心里满满都是你---
                                                 </div>
-                                            )
-                                        }} />
+                                                <div style={{ height: 50 }}>
+                                                </div>
+                                            </div>
+                                        )}
+                                    />
                                 </div>
                             </div>
                         )
@@ -1319,7 +1405,7 @@ class MakeProductionPlan extends React.Component {
                                                                             let serialNum = productArray.indexOf(productItem) + 1;
                                                                             return (
                                                                                 <tr key={serialNum} style={{ height: 24 }}>
-                                                                                    <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple5}</th>
+                                                                                    <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple}</th>
                                                                                     <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
                                                                                     <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
                                                                                     <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
@@ -1506,7 +1592,7 @@ class MakeProductionPlan extends React.Component {
                                                 loading={alreadyOrderLoading}
                                                 dataSource={alreadyOrderListData}
                                                 columns={KOrderColumns4Table}
-                                                rowSelection={rowSelection}
+                                                rowSelection={alreadyOrderRowSelection}
                                                 pagination={false} bordered
                                                 footer={() => {
                                                     return (
@@ -1612,7 +1698,5 @@ class MakeProductionPlan extends React.Component {
         );
     }
 }
-
-
 
 export default MakeProductionPlan;

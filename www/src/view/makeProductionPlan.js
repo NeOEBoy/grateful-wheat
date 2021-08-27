@@ -1221,7 +1221,9 @@ class MakeProductionPlan extends React.Component {
 
         /// 放弃焦点
         record.editing = false;
-        this._searchInput4AddProduct && this._searchInput4AddProduct.select();
+        if (this._searchInput4AddProduct) {
+            this._searchInput4AddProduct.select();
+        }
 
         let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
         let position = -1;

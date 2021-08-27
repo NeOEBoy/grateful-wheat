@@ -9,7 +9,10 @@ import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
-import { getProductOrderList, getProductOrderItems, findTemplate, loadProductsByKeyword } from '../api/api';
+import {
+    getProductOrderList, getProductOrderItems,
+    findTemplate, loadProductsByKeyword
+} from '../api/api';
 const { Search } = Input;
 const { RangePicker } = DatePicker;
 
@@ -92,16 +95,6 @@ const KTemplateData = {
     '1595077405589137749': []
 };
 
-/// 增加商品列表头配置
-const KAddProductionColumns4Table = [
-    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '品名', dataIndex: 'productName', key: 'productName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-    { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '规格', dataIndex: 'specification', key: 'specification', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '销售价', dataIndex: 'price', key: 'price', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
-];
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
 /// 带编辑功能的行
@@ -122,66 +115,163 @@ const EditableCell4Transfer = ({
     handleEditableCellCurrentFocus,
     ...restProps
 }) => {
-    // console.log(record);
+    let childNode = children;
+
     const inputRef = useRef(null);
     const form = useContext(EditableContext4Transfer);
 
-    /// 根据是否编辑状态设置焦点
-    if (inputRef && inputRef.current) {
-        setTimeout(() => {
-            if (record && record['editing']) {
-                inputRef.current && inputRef.current.select();
-            }
-        }, (0));
-    }
+    if (record) {
+        console.log(record);
 
-    /// 变化时自动保存数据
-    const handleOnChange = async () => {
-        try {
-            const values = await form.validateFields();
-            record[dataIndex] = values[dataIndex];
-        } catch (errInfo) {
-            console.log('Save failed:', errInfo);
+        /// 根据是否编辑状态设置焦点
+        if (inputRef && inputRef.current) {
+            setTimeout(() => {
+                if (record && record['editing']) {
+                    inputRef.current && inputRef.current.select();
+                }
+            }, (0));
         }
-    };
 
-    /// Enter按下时处理光标
-    const handleOnPressEnter = () => {
-        handleEditableCellNextFocus();
-    };
+        /// 变化时自动保存数据
+        const handleOnChange = async () => {
+            try {
+                const values = await form.validateFields();
+                record[dataIndex] = values[dataIndex];
+            } catch (errInfo) {
+                console.log('Save failed:', errInfo);
+            }
+        };
 
-    /// 获得焦点时整理焦点
-    const handleOnFocus = async () => {
-        handleEditableCellCurrentFocus(record);
-    }
+        /// Enter按下时处理光标
+        const handleOnPressEnter = () => {
+            handleEditableCellNextFocus();
+        };
 
-    let childNode = children;
+        /// 获得焦点时整理焦点
+        const handleOnFocus = async () => {
+            handleEditableCellCurrentFocus(record);
+        }
 
-    if (editable) {
-        childNode = (
-            <Form.Item
-                style={{
-                    margin: 0,
-                }}
-                name={dataIndex}
-                rules={[
-                    {
-                        required: true,
-                        message: `${title} 请输入整数.`,
-                        pattern: /^[0-9]+$/
-                    },
-                ]}
-                initialValue={record[dataIndex]}>
-                <Input id={record['key']} ref={inputRef}
-                    onChange={handleOnChange}
-                    onPressEnter={handleOnPressEnter}
-                    onFocus={handleOnFocus} />
-            </Form.Item>
-        );
+
+        if (editable) {
+            let initialValue = record[dataIndex];
+            // console.log('EditableCell4Transfer initialValue=' + initialValue);
+            childNode = (
+                <Form.Item
+                    style={{
+                        margin: 0,
+                    }}
+                    name={dataIndex}
+                    rules={[
+                        {
+                            required: true,
+                            message: `${title} 请输入整数.`,
+                            pattern: /^[0-9]+$/
+                        },
+                    ]}
+                    initialValue={initialValue}>
+                    <Input id={record && record['key']} ref={inputRef}
+                        onChange={handleOnChange}
+                        onPressEnter={handleOnPressEnter}
+                        onFocus={handleOnFocus} />
+                </Form.Item>
+            );
+        }
     }
 
     return <td {...restProps}>{childNode}</td>;
 };
+
+
+/// 带编辑功能的行
+const EditableContext4AddProduct = React.createContext(null);
+/// 带编辑功能的行
+const EditableRow4AddProduct = ({ index, ...props }) => {
+    const [form] = Form.useForm();
+    return (
+        <Form form={form} component={false}>
+            <EditableContext4AddProduct.Provider value={form}>
+                <tr {...props} />
+            </EditableContext4AddProduct.Provider>
+        </Form>
+    );
+};
+/// 带编辑功能的单元格
+const EditableCell4AddProduct = ({
+    title, editable, children, dataIndex, record,
+    handleEditableCellNextFocus,
+    handleEditableCellCurrentFocus,
+    ...restProps
+}) => {
+    let childNode = children;
+    const inputRef = useRef(null);
+    const form = useContext(EditableContext4AddProduct);
+
+    if (record) {
+        console.log(record);
+
+        /// 根据是否编辑状态设置焦点
+        if (inputRef && inputRef.current) {
+            setTimeout(() => {
+                if (record && record['editing']) {
+                    inputRef.current && inputRef.current.select();
+                }
+            }, (0));
+        }
+
+        /// 变化时自动保存数据
+        const handleOnChange = async () => {
+            try {
+                const values = await form.validateFields();
+                record[dataIndex] = values[dataIndex];
+            } catch (errInfo) {
+                console.log('Save failed:', errInfo);
+            }
+        };
+
+        /// Enter按下时处理光标
+        const handleOnPressEnter = () => {
+            handleEditableCellNextFocus();
+        };
+
+        /// 获得焦点时整理焦点
+        const handleOnFocus = async () => {
+            handleEditableCellCurrentFocus(record);
+        }
+
+
+        let initialValue = record[dataIndex];
+        // console.log('EditableCell4AddProduct initialValue=' + initialValue);
+        if (editable) {
+            childNode = (
+                <Form.Item
+                    style={{
+                        margin: 0,
+                    }}
+                    name={dataIndex}
+                    rules={[
+                        {
+                            required: true,
+                            message: `${title} 请输入整数.`,
+                            pattern: /^[0-9]+$/
+                        },
+                    ]}
+                    initialValue={initialValue}>
+                    <Input id={record && record['key']}
+                        ref={inputRef}
+                        disabled={record.disabledInput}
+                        onChange={handleOnChange}
+                        onPressEnter={handleOnPressEnter}
+                        onFocus={handleOnFocus} />
+                </Form.Item>
+            );
+        }
+    }
+
+
+    return <td {...restProps}>{childNode}</td>;
+};
+
 
 class MakeProductionPlan extends React.Component {
     constructor(props) {
@@ -223,6 +313,7 @@ class MakeProductionPlan extends React.Component {
         this._searchInput = null;
         this._searchInput4AddProduct = null;
         this._searchText4Transfer = '';
+        this._lastSearchText4AddProduct = '';
     }
 
     async componentDidMount() {
@@ -376,13 +467,7 @@ class MakeProductionPlan extends React.Component {
                                     let newNumber = theExistDataItems[posInTheExistDataItems].orderNumber + toBeDealItem.orderNumber;
                                     theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
                                 } else {
-                                    let newItemObject = {};
-                                    newItemObject.categoryName = toBeDealItem.categoryName;
-                                    newItemObject.orderProductName = toBeDealItem.orderProductName;
-                                    newItemObject.barcode = toBeDealItem.barcode;
-                                    newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
-                                    newItemObject.orderNumber = toBeDealItem.orderNumber;
-                                    newItemObject.sortId = toBeDealItem.sortId;
+                                    let newItemObject = { ...toBeDealItem };
 
                                     theExistDataItems.push(newItemObject);
                                 }
@@ -434,13 +519,7 @@ class MakeProductionPlan extends React.Component {
                         let newNumber = totalItems[posInTotalItems].orderNumber + itemObj.orderNumber;
                         totalItems[posInTotalItems].orderNumber = newNumber;
                     } else {
-                        let newItemObject = {};
-                        newItemObject.categoryName = itemObj.categoryName;
-                        newItemObject.orderProductName = itemObj.orderProductName;
-                        newItemObject.barcode = itemObj.barcode;
-                        newItemObject.barcodeSimple = itemObj.barcodeSimple;
-                        newItemObject.orderNumber = itemObj.orderNumber;
-                        newItemObject.sortId = itemObj.sortId;
+                        let newItemObject = { ...itemObj };
 
                         totalItems.push(newItemObject);
                     }
@@ -842,6 +921,7 @@ class MakeProductionPlan extends React.Component {
                                     newItemObject.barcode = toBeDealItem.barcode;
                                     newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
+                                    newItemObject.transferPrice = toBeDealItem.transferPrice;
                                     newItemObject.sortId = toBeDealItem.sortId;
 
                                     theExistDataItems.push(newItemObject);
@@ -914,12 +994,14 @@ class MakeProductionPlan extends React.Component {
                             newItemObject.sortId = allDataItemItems[pos].sortId;
                             newItemObject.orderNumber = allDataItemItems[pos].orderNumber;
                             newItemObject.transferNumber = 0;
+                            newItemObject.transferPrice = allDataItemItems[pos].transferPrice;
                         } else {
                             newItemObject.categoryName = findResultList[i].categoryName;
                             newItemObject.orderProductName = findResultList[i].name;
                             newItemObject.specification = findResultList[i].specification;
                             newItemObject.barcode = findResultList[i].barcode;
                             newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
+                            newItemObject.transferPrice = findResultList[i].transferPrice;
 
                             let templateAndBarcode = currentTemplate.templateId + '-' + newItemObject.barcode;
                             let sortInfo = KSortIdArray[templateAndBarcode];
@@ -994,17 +1076,71 @@ class MakeProductionPlan extends React.Component {
         for (let i = 0; i < transferItems4NextFocusTemp.length; ++i) {
             let item = transferItems4NextFocusTemp[i];
             item.editing = false;
-            if (item === record) {
+            if (item.barcode === record.barcode) {
                 item.editing = true;
             }
         }
         this.forceUpdate();
     };
 
+    handleEditableCell4AddProductNextFocus = () => {
+        console.log('handleEditableCell4AddProductNextFocus');
+
+        let searchProductDataToBeAddTemp = this.state.searchProductDataToBeAdd;
+
+        let lastFocusIndex = -1;
+        for (let i = 0; i < searchProductDataToBeAddTemp.length; ++i) {
+            let element = searchProductDataToBeAddTemp[i];
+            if (element.editing) {
+                lastFocusIndex = i;
+                break;
+            }
+        }
+
+        let newFocusIndex = lastFocusIndex;
+
+        while (true) {
+            newFocusIndex++;
+
+            if (newFocusIndex >= searchProductDataToBeAddTemp.length) {
+                if (this._searchInput4AddProduct) {
+                    this._searchInput4AddProduct.select();
+                }
+                break;
+            }
+
+            let item = searchProductDataToBeAddTemp[newFocusIndex];
+            if (!item.disabledInput) {
+                item.editing = true;
+                break;
+            }
+        }
+
+        if (lastFocusIndex >= 0 && lastFocusIndex < searchProductDataToBeAddTemp.length) {
+            searchProductDataToBeAddTemp[lastFocusIndex].editing = false;
+        }
+
+        this.forceUpdate();
+    };
+
+    handleEditableCell4AddProductCurrentFocus = (record) => {
+        console.log('handleEditableCell4AddProductCurrentFocus record=' + record);
+        let searchProductDataToBeAddTemp = this.state.searchProductDataToBeAdd;
+        for (let i = 0; i < searchProductDataToBeAddTemp.length; ++i) {
+            let item = searchProductDataToBeAddTemp[i];
+            item.editing = false;
+            if (item.barcode === record.barcode) {
+                item.editing = true;
+            }
+        }
+        this.forceUpdate();
+        console.log(searchProductDataToBeAddTemp);
+    };
+
     getColumnSearchProps = dataIndex => ({
         filterDropdownVisible: this.state.filterDropdownVisible4Transfer,
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-            <div style={{ padding: 8, width: 160 }}>
+            <div style={{ padding: 8, width: 130 }}>
                 <Input
                     ref={node => {
                         if (!this._searchInput && node) {
@@ -1012,7 +1148,7 @@ class MakeProductionPlan extends React.Component {
                             this._searchInput.focus();
                         }
                     }}
-                    placeholder={`输入简码（后四位）`}
+                    placeholder={`输入简码`}
                     value={this._searchText4Transfer}
                     onChange={(e) => {
                         console.log('输入简码 onChange');
@@ -1021,6 +1157,10 @@ class MakeProductionPlan extends React.Component {
                         confirm();
 
                         this._searchText4Transfer = e.target.value;
+
+                        if (this._addProductButton) {
+                            this._addProductButton.disabled = this._searchText4Transfer.length > 0;
+                        }
                     }}
                     onFocus={(e) => {
                         console.log('输入简码 onFocus e = ' + e);
@@ -1073,39 +1213,154 @@ class MakeProductionPlan extends React.Component {
         this.setState({ addProductionSelectedRowKeys: selectedRowKeys });
     };
 
+    onAddProductSelect = (record, selected, selectedRows, nativeEvent) => {
+        // console.log('onAddProductSelect record: ', record);
+        // console.log('onAddProductSelect selected: ', selected);
+        // console.log('onAddProductSelect selectedRows: ', selectedRows);
+        // console.log('onAddProductSelect nativeEvent: ', nativeEvent);
+
+        /// 放弃焦点
+        record.editing = false;
+        this._searchInput4AddProduct && this._searchInput4AddProduct.select();
+
+        let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
+        let position = -1;
+        for (let i = 0; i < allProductionDataToBeTransferTemp.length; ++i) {
+            let currentItem = allProductionDataToBeTransferTemp[i];
+            if (currentItem.barcode === record.barcode) {
+                position = i;
+                break;
+            }
+        }
+
+        if (selected) {
+            record.disabledInput = true;
+            if (position === -1) {
+                let newItem4Transfer = {};
+                newItem4Transfer.barcode = record.barcode;
+                newItem4Transfer.barcodeSimple = record.barcode.substring(record.barcode.length - 4, record.barcode.length);
+                newItem4Transfer.categoryName = record.categoryName;
+                newItem4Transfer.editing = false;
+                newItem4Transfer.transferPrice = record.price;
+                newItem4Transfer.orderProductName = record.productName;
+                newItem4Transfer.specification = record.specification;
+                newItem4Transfer.orderNumber = record.transferNumber;
+                newItem4Transfer.transferNumber = record.transferNumber;
+                newItem4Transfer.sortId = 200;
+                newItem4Transfer.remark = '新增';
+                newItem4Transfer.key = allProductionDataToBeTransferTemp.length + 1;
+
+                let allProductionDataAfterAdd = []; let transferItems4NextFocusTemp = [];
+                allProductionDataToBeTransferTemp.forEach(product => {
+                    product.editing = false;
+                    let newProduct = { ...product };
+                    allProductionDataAfterAdd.push(newProduct);
+                    transferItems4NextFocusTemp.push(product);
+                });
+                allProductionDataAfterAdd.push(newItem4Transfer);
+                transferItems4NextFocusTemp.push(newItem4Transfer);
+
+                this.setState({
+                    allProductionDataToBeTransfer: allProductionDataAfterAdd,
+                    transferItems4NextFocus: transferItems4NextFocusTemp
+                });
+                console.log(allProductionDataAfterAdd);
+            }
+        } else {
+            record.disabledInput = false;
+            if (position !== -1) {
+                let existItem = allProductionDataToBeTransferTemp[position];
+
+                let allProductionDataAfterRemove = [];
+                let transferItems4NextFocusTemp = [];
+                let keyIndex = 0;
+
+                for (let jj = 0; jj < allProductionDataToBeTransferTemp.length; ++jj) {
+                    let product = allProductionDataToBeTransferTemp[jj];
+                    if (product.barcode === existItem.barcode) continue;
+
+                    ++keyIndex; product.key = keyIndex;
+                    let pro = { ...product };
+                    allProductionDataAfterRemove.push(pro);
+                    transferItems4NextFocusTemp.push(pro);
+                }
+
+                this.setState({
+                    allProductionDataToBeTransfer: allProductionDataAfterRemove,
+                    transferItems4NextFocus: transferItems4NextFocusTemp
+                });
+            }
+        }
+    };
+
     handleAddProductionModalOk = () => {
         this.setState({ isAddProductionModalVisible: false });
         this.setState({ filterDropdownVisible4Transfer: true });
 
         setTimeout(() => {
             this._searchInput.select();
-        }, 500);
+        }, 1000);
     };
 
     handleAddProductionModalCancel = () => {
-        this.setState({ isAddProductionModalVisible: false });
-        this.setState({ filterDropdownVisible4Transfer: true });
+        this.handleAddProductionModalOk();
+    }
+    onAddProductSearch = async (text, e) => {
+        console.log('onAddProductSearch text = ' + text + '; e=' + e.key);
 
-        setTimeout(() => {
-            this._searchInput.select();
-        }, 500);
-
-    };
-
-    onAddProductSearch = async () => {
-        let addProductSearchText = this._searchInput4AddProduct &&
-            this._searchInput4AddProduct.state.value;
-        if (!addProductSearchText || addProductSearchText.length <= 0) {
+        if (!text || text.length <= 0) {
             message.error('请输入正确的商品名称或条码');
             return;
         }
 
-        this.setState({ searchingProductData: true, searchProductDataToBeAdd: [] });
-        let loadProductResult = await loadProductsByKeyword(addProductSearchText);
-        if (loadProductResult.errCode === 0 && loadProductResult.items && loadProductResult.items.length > 0) {
-            this.setState({ searchProductDataToBeAdd: loadProductResult.items });
+        const { searchProductDataToBeAdd } = this.state;
+        let searchOrJump = 'search';
+        if (e.key === 'Enter') {
+            if (this._lastSearchText4AddProduct !== text) {
+                searchOrJump = 'search';
+            } else if (searchProductDataToBeAdd.length > 0) {
+                searchOrJump = 'setAndJump';
+            }
         }
-        this.setState({ searchingProductData: false });
+
+        if (searchOrJump === 'search') {
+            this.setState({ searchingProductData: true, searchProductDataToBeAdd: [] });
+            this._lastSearchText4AddProduct = text;
+            let loadProductResult = await loadProductsByKeyword(text);
+            if (loadProductResult.errCode === 0 && loadProductResult.items && loadProductResult.items.length > 0) {
+                let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
+
+                let selectKeys = [];
+
+                loadProductResult.items.forEach(item => {
+                    item.transferNumber = 0;
+                    item.editing = false;
+
+                    allProductionDataToBeTransferTemp.forEach(product => {
+                        if (item.barcode === product.barcode) {
+                            if (selectKeys.indexOf(item.key) === -1) {
+                                item.disabledInput = true;
+                                selectKeys.push(item.key);
+                            }
+                        }
+                    });
+                });
+
+                this.setState({ searchProductDataToBeAdd: loadProductResult.items, addProductionSelectedRowKeys: selectKeys });
+            }
+            this.setState({ searchingProductData: false });
+        } else if (searchOrJump === 'setAndJump') {
+            const { searchProductDataToBeAdd } = this.state;
+
+            for (let ii = 0; ii < searchProductDataToBeAdd.length; ++ii) {
+                let product = searchProductDataToBeAdd[ii];
+                if (product && !(product.disabledInput)) {
+                    product.editing = true;
+                }
+            }
+            this.forceUpdate();
+            // console.log(this.state.searchProductDataToBeAdd)
+        }
     }
 
     render() {
@@ -1159,15 +1414,25 @@ class MakeProductionPlan extends React.Component {
         const KTransferColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             {
-                title: '简码', dataIndex: 'barcodeSimple', key: 'barcodeSimple', width: 300, editingIndex: 'editing',
+                title: '简码', dataIndex: 'barcodeSimple', key: 'barcodeSimple', width: 200, editingIndex: 'editing',
                 ...this.getColumnSearchProps('barcodeSimple'),
             },
             { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
             { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 160, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '规格', dataIndex: 'specification', key: 'specification', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+            {
+                title: '备注', dataIndex: 'remark', key: 'remark', width: '*',
+                render: (text) => {
+                    return text === '新增' ? (<span style={{
+                        fontSize: 14, color: 'skyblue',
+                        backgroundColor: 'yellow', fontWeight: 'bold'
+                    }}>{text}</span>) :
+                        <span style={{ fontSize: 10 }}>{text}</span>;
+                }
+            }
         ];
 
         const components4Transfer = {
@@ -1195,9 +1460,46 @@ class MakeProductionPlan extends React.Component {
         });
 
         const addProductRowSelection = {
+            hideSelectAll: true,
             selectedRowKeys: addProductionSelectedRowKeys,
             onChange: this.onAddProductionSelectChange,
+            onSelect: this.onAddProductSelect
         };
+
+
+        /// 增加商品列表头配置
+        const KAddProductionColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '品名', dataIndex: 'productName', key: 'productName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
+            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '销售价', dataIndex: 'price', key: 'price', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+        ];
+        const components4AddProduct = {
+            body: {
+                row: EditableRow4AddProduct,
+                cell: EditableCell4AddProduct,
+            },
+        };
+        const addProductColumns4TableEditable = KAddProductionColumns4Table.map((col) => {
+            if (!col.editable) {
+                return col;
+            }
+
+            return {
+                ...col,
+                onCell: (record) => ({
+                    record,
+                    editable: col.editable,
+                    dataIndex: col.dataIndex,
+                    title: col.title,
+                    handleEditableCellNextFocus: this.handleEditableCell4AddProductNextFocus,
+                    handleEditableCellCurrentFocus: this.handleEditableCell4AddProductCurrentFocus
+                }),
+            };
+        });
 
         return (
             <div>
@@ -1223,6 +1525,11 @@ class MakeProductionPlan extends React.Component {
 
                                     <Button type="primary" danger
                                         style={{ width: 60, height: 30 }}
+                                        ref={(node) => {
+                                            if (!this._addProductButton && node) {
+                                                this._addProductButton = node;
+                                            }
+                                        }}
                                         onClick={() => {
                                             this._searchInput = null;
                                             this.setState({
@@ -1247,29 +1554,35 @@ class MakeProductionPlan extends React.Component {
                                                 </span>
                                                 <Search
                                                     style={{ width: 240, marginLeft: 20 }}
-                                                    ref={(search) => {
-                                                        search && search.focus();
-
-                                                        this._searchInput4AddProduct = search;
+                                                    ref={(node) => {
+                                                        if (!this._searchInput4AddProduct && node) {
+                                                            node && node.focus();
+                                                            this._searchInput4AddProduct = node;
+                                                        }
                                                     }}
                                                     enterButton
                                                     placeholder='输入商品名称'
-                                                    onSearch={() => this.onAddProductSearch()}>
+                                                    onSearch={(text, e) => this.onAddProductSearch(text, e)}>
                                                 </Search>
                                             </div>)}
                                         visible={isAddProductionModalVisible}
                                         onOk={this.handleAddProductionModalOk}
-                                        onCancel={this.handleAddProductionModalCancel}>
+                                        onCancel={this.handleAddProductionModalCancel}
+                                        okText='完毕'
+                                        cancelButtonProps={{ hidden: true }}>
                                         <Table
+                                            size='small'
                                             rowSelection={addProductRowSelection}
                                             loading={searchingProductData}
                                             dataSource={searchProductDataToBeAdd}
-                                            columns={KAddProductionColumns4Table}
+                                            components={components4AddProduct}
+                                            columns={addProductColumns4TableEditable}
                                             bordered pagination={false}
                                             scroll={{ y: 360, scrollToFirstRowOnChange: true }}
                                         />
                                     </Modal>
                                     <Table style={{ marginTop: 10, marginLeft: 10, marginRight: 10 }}
+                                        size='small'
                                         components={components4Transfer}
                                         rowClassName={() => 'editable-row'}
                                         dataSource={allProductionDataToBeTransfer}
@@ -1543,6 +1856,7 @@ class MakeProductionPlan extends React.Component {
                                                 查询门店订货单
                                             </Button>
                                             <Table style={{ marginTop: 10 }}
+                                                size='small'
                                                 loading={alreadyOrderLoading}
                                                 dataSource={alreadyOrderListData}
                                                 columns={KOrderColumns4Table}

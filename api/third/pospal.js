@@ -289,6 +289,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           let barcodeIndex = -1;
           let orderNumberIndex = -1;
           let specificationIndex = -1;
+          let transferPriceIndex = -1;
 
           let thead = orderItemTable.thead;
           let procuctOrderItemsTh = thead[0].tr[0].th;
@@ -318,6 +319,11 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
                 specificationIndex = index;
                 continue;
               }
+
+              if(titleName === '配货价') {
+                transferPriceIndex = index;
+                continue;
+              }
             }
           }
 
@@ -325,6 +331,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           // console.log(barcodeIndex);
           // console.log(orderNumberIndex);
           // console.log(specificationIndex);
+          // console.log(transferPriceIndex);
 
           let procuctOrderDataTh = orderItemTable.tbody[0].tr;
           // console.log(procuctOrderDataTh);
@@ -354,6 +361,10 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             let orderNumber = element.td[orderNumberIndex].span[0]._;
             // console.log(orderNumber);
             productOrderItem.orderNumber = parseInt(orderNumber);
+
+            let transferPrice = element.td[transferPriceIndex].input[0].$.VALUE;
+            // console.log(parseFloat(transferPrice));
+            productOrderItem.transferPrice = parseFloat(transferPrice)
 
             productItems.push(productOrderItem);
           });

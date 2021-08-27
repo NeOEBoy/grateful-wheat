@@ -1299,7 +1299,7 @@ class MakeProductionPlan extends React.Component {
 
         setTimeout(() => {
             this._searchInput.select();
-        }, 1000);
+        }, 100);
     };
 
     handleAddProductionModalCancel = () => {

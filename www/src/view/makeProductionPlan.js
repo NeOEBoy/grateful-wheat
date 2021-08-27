@@ -95,6 +95,16 @@ const KTemplateData = {
     '1595077405589137749': []
 };
 
+const KProductTransferPreviewColumns4Table = [
+    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
+    { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+];
+
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
 /// 带编辑功能的行
@@ -121,7 +131,7 @@ const EditableCell4Transfer = ({
     const form = useContext(EditableContext4Transfer);
 
     if (record) {
-        console.log(record);
+        // console.log(record);
 
         /// 根据是否编辑状态设置焦点
         if (inputRef && inputRef.current) {
@@ -208,7 +218,7 @@ const EditableCell4AddProduct = ({
     const form = useContext(EditableContext4AddProduct);
 
     if (record) {
-        console.log(record);
+        // console.log(record);
 
         /// 根据是否编辑状态设置焦点
         if (inputRef && inputRef.current) {
@@ -307,7 +317,9 @@ class MakeProductionPlan extends React.Component {
             isAddProductionModalVisible: false,
             searchProductDataToBeAdd: [],
             searchingProductData: false,
-            addProductionSelectedRowKeys: []
+            addProductionSelectedRowKeys: [],
+            allProductionDataRealToBeTransfer: [],
+            productTransferPreviewShow: false
         };
 
         this._searchInput = null;
@@ -1041,7 +1053,7 @@ class MakeProductionPlan extends React.Component {
     }
 
     handleEditableCellNextFocus = () => {
-        console.log('handleEditableCellNextFocus');
+        // console.log('handleEditableCellNextFocus');
 
         let transferItems4NextFocusTemp = this.state.transferItems4NextFocus;
 
@@ -1084,7 +1096,7 @@ class MakeProductionPlan extends React.Component {
     };
 
     handleEditableCell4AddProductNextFocus = () => {
-        console.log('handleEditableCell4AddProductNextFocus');
+        // console.log('handleEditableCell4AddProductNextFocus');
 
         let searchProductDataToBeAddTemp = this.state.searchProductDataToBeAdd;
 
@@ -1124,7 +1136,7 @@ class MakeProductionPlan extends React.Component {
     };
 
     handleEditableCell4AddProductCurrentFocus = (record) => {
-        console.log('handleEditableCell4AddProductCurrentFocus record=' + record);
+        // console.log('handleEditableCell4AddProductCurrentFocus record=' + record);
         let searchProductDataToBeAddTemp = this.state.searchProductDataToBeAdd;
         for (let i = 0; i < searchProductDataToBeAddTemp.length; ++i) {
             let item = searchProductDataToBeAddTemp[i];
@@ -1134,7 +1146,7 @@ class MakeProductionPlan extends React.Component {
             }
         }
         this.forceUpdate();
-        console.log(searchProductDataToBeAddTemp);
+        // console.log(searchProductDataToBeAddTemp);
     };
 
     getColumnSearchProps = dataIndex => ({
@@ -1151,7 +1163,7 @@ class MakeProductionPlan extends React.Component {
                     placeholder={`输入简码`}
                     value={this._searchText4Transfer}
                     onChange={(e) => {
-                        console.log('输入简码 onChange');
+                        // console.log('输入简码 onChange');
 
                         setSelectedKeys(e.target.value ? [e.target.value] : []);
                         confirm();
@@ -1163,10 +1175,10 @@ class MakeProductionPlan extends React.Component {
                         }
                     }}
                     onFocus={(e) => {
-                        console.log('输入简码 onFocus e = ' + e);
+                        // console.log('输入简码 onFocus e = ' + e);
                     }}
                     onPressEnter={(e) => {
-                        console.log('搜索简码 onPressEnter e = ' + e);
+                        // console.log('搜索简码 onPressEnter e = ' + e);
 
                         /// 将符合条件的条目放到items4NextFocus
                         this.setState({ transferItems4NextFocus: [] }, () => {
@@ -1209,7 +1221,7 @@ class MakeProductionPlan extends React.Component {
     });
 
     onAddProductionSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
+        // console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ addProductionSelectedRowKeys: selectedRowKeys });
     };
 
@@ -1266,7 +1278,7 @@ class MakeProductionPlan extends React.Component {
                     allProductionDataToBeTransfer: allProductionDataAfterAdd,
                     transferItems4NextFocus: transferItems4NextFocusTemp
                 });
-                console.log(allProductionDataAfterAdd);
+                // console.log(allProductionDataAfterAdd);
             }
         } else {
             record.disabledInput = false;
@@ -1308,7 +1320,7 @@ class MakeProductionPlan extends React.Component {
         this.handleAddProductionModalOk();
     }
     onAddProductSearch = async (text, e) => {
-        console.log('onAddProductSearch text = ' + text + '; e=' + e.key);
+        // console.log('onAddProductSearch text = ' + text + '; e=' + e.key);
 
         if (!text || text.length <= 0) {
             message.error('请输入正确的商品名称或条码');
@@ -1365,6 +1377,50 @@ class MakeProductionPlan extends React.Component {
         }
     }
 
+    handleProductionTransferPreview = async () => {
+        // console.log('handleProductionTransferPreview begin');
+
+        const allDataToBeTransfer = this.state.allProductionDataToBeTransfer;
+        let allProductionDataRealToBeTransferTemp = [];
+        let key = 0;
+        allDataToBeTransfer.forEach(oneItem => {
+            oneItem.editing = false;
+
+            if (oneItem.transferNumber > 0) {
+                ++key;
+                let newItem = { ...oneItem };
+                newItem.key = key;
+                allProductionDataRealToBeTransferTemp.push(newItem);
+            }
+        });
+        this.setState({
+            allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp,
+            productTransferPreviewShow: true, filterDropdownVisible4Transfer: false
+        });
+    }
+
+    handleProductTransferPreviewCancel = async () => {
+        this.setState({
+            productTransferPreviewShow: false,
+        }, () => {
+            this.setState({
+                allProductionDataRealToBeTransfer: [],
+                filterDropdownVisible4Transfer: true
+            })
+        });
+    }
+
+    handleProductTransferPreviewOK = async () => {
+        
+        let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
+        console.log(allProductionDataRealToBeTransfer);
+
+
+
+        this.handleProductTransferPreviewCancel();
+
+    }
+
     render() {
         const {
             alreadyOrderListData, currentShop, currentTemplate, isAddProductionModalVisible,
@@ -1372,7 +1428,7 @@ class MakeProductionPlan extends React.Component {
             noyetOrderShops, noyetOrderTemplates, productionButtonText, transferButtonText,
             distributionButtonText, allProductionDataToBePrint, allProductionDataToBeTransfer,
             allDistributionDataToBePrint, searchProductDataToBeAdd, searchingProductData,
-            addProductionSelectedRowKeys
+            addProductionSelectedRowKeys, allProductionDataRealToBeTransfer, productTransferPreviewShow
         } = this.state;
 
         const alreadyOrderRowSelection = {
@@ -1509,6 +1565,19 @@ class MakeProductionPlan extends React.Component {
                     transferButtonShow ?
                         (
                             <div>
+                                <div style={{
+                                    zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed',
+                                    width: '100%', height: 60, backgroundColor: 'lightgray'
+                                }}>
+                                    <div>
+                                        <Button danger type='primary'
+                                            onClick={this.handleProductionTransferPreview}
+                                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                            配货预览
+                                        </Button>
+                                    </div>
+                                </div>
+
                                 <div style={{ marginLeft: 10, marginTop: 10 }}>
                                     <Button type="primary"
                                         style={{ width: 80, height: 40 }}
@@ -1548,7 +1617,9 @@ class MakeProductionPlan extends React.Component {
                                 <div>
                                     <Modal
                                         width={1000}
-                                        style={{ top: 20 }}
+                                        centered
+                                        keyboard
+                                        maskClosable={false}
                                         title={
                                             (<div>
                                                 <span>
@@ -1590,17 +1661,39 @@ class MakeProductionPlan extends React.Component {
                                         dataSource={allProductionDataToBeTransfer}
                                         columns={transferColumns4TableEditable}
                                         pagination={false} bordered
-                                        scroll={{ y: 500, scrollToFirstRowOnChange: true }}
+                                        scroll={{ y: 550, scrollToFirstRowOnChange: true }}
                                         footer={() => (
                                             <div>
-                                                <div style={{ textAlign: 'center', height: 50 }}>
+                                                <div style={{ textAlign: 'center', height: 20 }}>
                                                     ---心里满满都是你---
                                                 </div>
-                                                <div style={{ height: 50 }}>
+                                                <div style={{ height: 20 }}>
                                                 </div>
                                             </div>
                                         )}
                                     />
+                                </div>
+
+                                <div>
+                                    <Modal
+                                        width={1000}
+                                        centered
+                                        keyboard
+                                        maskClosable={false}
+                                        title='配货预览'
+                                        visible={productTransferPreviewShow}
+                                        onCancel={() => {this.handleProductTransferPreviewCancel()}}
+                                        onOk={() => this.handleProductTransferPreviewOK()}
+                                        okText='---确定出货---'
+                                    >
+                                        <Table
+                                            size='small'
+                                            dataSource={allProductionDataRealToBeTransfer}
+                                            columns={KProductTransferPreviewColumns4Table}
+                                            bordered pagination={false}
+                                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
+                                        />
+                                    </Modal>
                                 </div>
                             </div>
                         )

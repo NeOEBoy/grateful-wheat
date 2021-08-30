@@ -234,6 +234,7 @@ const getProductOrderList = async (
 
           let remark = element.td[remarkIndex]._;
           // console.log(remark);
+          remark = remark.replace(/\r\n/g, "").trim();
           productOrderItem.remark = remark;
 
           productOrderList.push(productOrderItem);

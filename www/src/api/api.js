@@ -83,7 +83,7 @@ const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
   return couponSummaryListJson;
 }
 
-const getProductOrderList = async (userId, templateId, beginDateTime,endDateTime) => {
+const getProductOrderList = async (userId, templateId, beginDateTime, endDateTime) => {
   let productOrderUrl = KApiHost + '/product/orderList';
   productOrderUrl += '?userId=';
   productOrderUrl += userId;
@@ -99,7 +99,7 @@ const getProductOrderList = async (userId, templateId, beginDateTime,endDateTime
   return productOrderJson;
 }
 
-const getProductOrderItems = async (orderId)=>{
+const getProductOrderItems = async (orderId) => {
   let productOrderItemUrl = KApiHost + '/product/orderItems';
   productOrderItemUrl += '?orderId=';
   productOrderItemUrl += orderId;
@@ -109,7 +109,7 @@ const getProductOrderItems = async (orderId)=>{
   return productOrderItemsJson;
 }
 
-const findTemplate = async (templateUid)=>{
+const findTemplate = async (templateUid) => {
   let findTemplateUrl = KApiHost + '/product/findTemplate';
   findTemplateUrl += '?templateUid=';
   findTemplateUrl += templateUid;
@@ -119,7 +119,7 @@ const findTemplate = async (templateUid)=>{
   return findTemplateResponseJson;
 }
 
-const loadProductsByKeyword = async (keyword)=>{
+const loadProductsByKeyword = async (keyword) => {
   let loadProductsByKeywordUrl = KApiHost + '/product/loadProductsByKeyword';
   loadProductsByKeywordUrl += '?keyword=';
   loadProductsByKeywordUrl += keyword;
@@ -127,6 +127,19 @@ const loadProductsByKeyword = async (keyword)=>{
   const loadProductsByKeywordResponse = await fetch(loadProductsByKeywordUrl);
   const loadProductsByKeywordResponseJson = await loadProductsByKeywordResponse.json();
   return loadProductsByKeywordResponseJson;
+}
+
+const createStockFlowOut = async (toUserId, items) => {
+  let createStockFlowOutUrl = KApiHost + '/product/createStockFlowOut';
+  let createStockFlowOutBody = {};
+  createStockFlowOutBody.toUserId = toUserId;
+  createStockFlowOutBody.items = items;
+
+  const createStockFlowOutResponse = await fetch(createStockFlowOutUrl, {
+    method: 'post', body: JSON.stringify(createStockFlowOutBody), headers: { 'Content-Type': 'application/json' }
+  });
+  const createStockFlowOutResponseJson = await createStockFlowOutResponse.json();
+  return createStockFlowOutResponseJson;
 }
 
 const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
@@ -236,7 +249,7 @@ const sendSMSAndJoinToEvent = async (
   phoneNumber, templateParam1,
   couponId, memberName, eventId) => {
   let sendSMSAndJoinToEventUrl = KApiHost + '/coupon/sendSMSAndJoinToEvent';
-  
+
   sendSMSAndJoinToEventUrl += '?phoneNumber='
   sendSMSAndJoinToEventUrl += phoneNumber;
   sendSMSAndJoinToEventUrl += '&templateParam1=';
@@ -298,6 +311,7 @@ export {
   getProductOrderItems,
   findTemplate,
   loadProductsByKeyword,
+  createStockFlowOut,
   getDIYCouponList,
   getMemberListByKeyword,
   saveRemarkToCoupon,

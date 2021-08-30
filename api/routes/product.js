@@ -9,7 +9,8 @@ const {
   getProductSaleAndDiscardList,
   getProductOrderList,
   findTemplate,
-  loadProductsByKeyword
+  loadProductsByKeyword,
+  createStockFlowOut
 } = require('../third/pospal');
 
 /* GET users listing. */
@@ -88,7 +89,7 @@ router.get('/orderItems', async function (req, res, next) {
   }
 });
 
-router.get('/findTemplate', async function(req, res, next) {
+router.get('/findTemplate', async function (req, res, next) {
   try {
     // console.log('router findTemplate start');
 
@@ -107,7 +108,7 @@ router.get('/findTemplate', async function(req, res, next) {
   }
 });
 
-router.get('/loadProductsByKeyword', async function(req, res, next) {
+router.get('/loadProductsByKeyword', async function (req, res, next) {
   try {
     // console.log('router loadProductsByKeyword start');
 
@@ -121,6 +122,28 @@ router.get('/loadProductsByKeyword', async function(req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let loadProductsByKeywordResponseJson = await loadProductsByKeyword(thePOSPALAUTH30220, keyword);
     res.send(loadProductsByKeywordResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.post('/createStockFlowOut', async function (req, res, next) {
+  try {
+    console.log('router createStockFlowOut start');
+
+    let toUserId = req.body.toUserId;
+    // console.log('toUserId = ' + toUserId);
+    let items = req.body.items;
+    // console.log('items = ' + items);
+
+    if (!toUserId) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let createStockFlowOutResponseJson = await createStockFlowOut(thePOSPALAUTH30220, toUserId, items);
+    res.send(createStockFlowOutResponseJson);
   } catch (err) {
     next(err)
   }

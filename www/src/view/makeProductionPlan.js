@@ -11,7 +11,8 @@ import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 import {
     getProductOrderList, getProductOrderItems,
-    findTemplate, loadProductsByKeyword
+    findTemplate, loadProductsByKeyword,
+    createStockFlowOut
 } from '../api/api';
 const { Search } = Input;
 const { RangePicker } = DatePicker;
@@ -192,7 +193,6 @@ const EditableCell4Transfer = ({
     return <td {...restProps}>{childNode}</td>;
 };
 
-
 /// 带编辑功能的行
 const EditableContext4AddProduct = React.createContext(null);
 /// 带编辑功能的行
@@ -281,7 +281,6 @@ const EditableCell4AddProduct = ({
 
     return <td {...restProps}>{childNode}</td>;
 };
-
 
 class MakeProductionPlan extends React.Component {
     constructor(props) {
@@ -1411,14 +1410,29 @@ class MakeProductionPlan extends React.Component {
     }
 
     handleProductTransferPreviewOK = async () => {
-        
+        console.log('handleProductTransferPreviewOK begin');
+
         let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
-        console.log(allProductionDataRealToBeTransfer);
+        // console.log(allProductionDataRealToBeTransfer);
 
+        let toUserId = this.state.currentShop.userId;
+        let items = [];
+        allProductionDataRealToBeTransfer.forEach(product => {
+            let item = {};
+            item.barcode = product.barcode;
+            item.quantity = product.transferNumber;
+            items.push(item);
+        });
 
+        let result = await createStockFlowOut(toUserId, items);
+        // console.log(result);
+        if (result && result.errCode === 0) {
+            message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~')
+        } else {
+            message.error('配货失败~');
+        }
 
         this.handleProductTransferPreviewCancel();
-
     }
 
     render() {
@@ -1524,7 +1538,6 @@ class MakeProductionPlan extends React.Component {
             onSelect: this.onAddProductSelect
         };
 
-
         /// 增加商品列表头配置
         const KAddProductionColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -1559,6 +1572,8 @@ class MakeProductionPlan extends React.Component {
             };
         });
 
+        let disableTransferPreviewOk = allProductionDataRealToBeTransfer &&
+            allProductionDataRealToBeTransfer.length <= 0;
         return (
             <div>
                 {
@@ -1682,9 +1697,10 @@ class MakeProductionPlan extends React.Component {
                                         maskClosable={false}
                                         title='配货预览'
                                         visible={productTransferPreviewShow}
-                                        onCancel={() => {this.handleProductTransferPreviewCancel()}}
+                                        onCancel={() => { this.handleProductTransferPreviewCancel() }}
                                         onOk={() => this.handleProductTransferPreviewOK()}
                                         okText='---确定出货---'
+                                        okButtonProps={{ disabled: disableTransferPreviewOk }}
                                     >
                                         <Table
                                             size='small'

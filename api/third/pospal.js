@@ -320,7 +320,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
                 continue;
               }
 
-              if(titleName === '配货价') {
+              if (titleName === '配货价') {
                 transferPriceIndex = index;
                 continue;
               }
@@ -531,7 +531,7 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
           let productName = element.td[productNameIndex];
           // console.log(productName);
           productItem.productName = productName;
-          
+
           let specification = element.td[specificationIndex];
           // console.log(specification);
           productItem.specification = specification;
@@ -548,6 +548,55 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
     return { errCode: 0, items: productItems };
   } catch (e) {
     return { errCode: -1, items: [] };
+  }
+}
+
+const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
+  try {
+    let createStockFlowOutUrl = 'https://beta33.pospal.cn/StockFlow/CreateStockFlowOut';
+
+    let createStockFlowOutBodyStr = '';
+    createStockFlowOutBodyStr += 'stockOrderJson=';
+    let stockOrderJsonObj = {};
+    stockOrderJsonObj.stockflowTypeNumber = "13";
+    stockOrderJsonObj.fromUserId = "3995763";
+    stockOrderJsonObj.toUserId = toUserId;
+    stockOrderJsonObj.items = items;
+    stockOrderJsonObj.rationPriceType = "3";
+    stockOrderJsonObj.remarks = "";
+    stockOrderJsonObj.needCorfirm = "0";
+
+    let uid19 = '';
+    for (let ii = 0; ii < 19; ++ii) {
+      let sigle = Math.floor(Math.random() * 10);
+      uid19 += sigle.toString();
+      console.log(uid19);
+    }
+    stockOrderJsonObj.uid = uid19;
+
+    let stockOrderJsonStr = JSON.stringify(stockOrderJsonObj);
+    stockOrderJsonStr = escape(stockOrderJsonStr);
+    createStockFlowOutBodyStr += stockOrderJsonStr;
+    // console.log(createStockFlowOutBodyStr);
+    // 'stockOrderJson=%7B%22stockflowTypeNumber%22%3A%2213%22%2C%22fromUserId%22%3A%223995763%22%2C%22toUserId%22%3A%223995767%22%2C%22items%22%3A%5B%7B%22barcode%22%3A%222007181638433%22%2C%22quantity%22%3A%221%22%7D%5D%7D'
+
+    const createStockFlowOutResponse = await fetch(createStockFlowOutUrl, {
+      method: 'POST', body: createStockFlowOutBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const createStockFlowOutResponseJson = await createStockFlowOutResponse.json();
+    // console.log(createStockFlowOutResponseJson);
+    if (createStockFlowOutResponseJson.successed) {
+      return { errCode: 0, sn: createStockFlowOutResponseJson.sn };
+    }
+
+    return { errCode: -1 };
+  } catch (e) {
+    console.log('createStockFlowOut e = ' + e)
+    return { errCode: -1 };
   }
 }
 
@@ -1383,6 +1432,7 @@ module.exports = {
   getProductOrderItem,
   findTemplate,
   loadProductsByKeyword,
+  createStockFlowOut,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,

@@ -181,7 +181,9 @@ const EditableCell4Transfer = ({
                         },
                     ]}
                     initialValue={initialValue}>
-                    <Input id={record && record['key']} ref={inputRef}
+                    <Input id={record && record['key']}
+                        ref={inputRef}
+                        autoComplete='off'
                         onChange={handleOnChange}
                         onPressEnter={handleOnPressEnter}
                         onFocus={handleOnFocus} />
@@ -269,6 +271,7 @@ const EditableCell4AddProduct = ({
                     initialValue={initialValue}>
                     <Input id={record && record['key']}
                         ref={inputRef}
+                        autoComplete='off'
                         disabled={record.disabledInput}
                         onChange={handleOnChange}
                         onPressEnter={handleOnPressEnter}
@@ -1159,6 +1162,7 @@ class MakeProductionPlan extends React.Component {
                             this._searchInput.focus();
                         }
                     }}
+                    autoComplete='off'
                     placeholder={`输入简码`}
                     value={this._searchText4Transfer}
                     onChange={(e) => {
@@ -1413,7 +1417,7 @@ class MakeProductionPlan extends React.Component {
         console.log('handleProductTransferPreviewOK begin');
 
         let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
-        // console.log(allProductionDataRealToBeTransfer);
+        console.log(allProductionDataRealToBeTransfer);
 
         let toUserId = this.state.currentShop.userId;
         let items = [];
@@ -1421,6 +1425,7 @@ class MakeProductionPlan extends React.Component {
             let item = {};
             item.barcode = product.barcode;
             item.quantity = product.transferNumber;
+            item.buyPrice = product.transferPrice;
             items.push(item);
         });
 

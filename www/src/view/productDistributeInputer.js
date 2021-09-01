@@ -698,7 +698,7 @@ class ProductDistributeInputer extends React.Component {
     }
 
     handleProductTransferPreviewOK = async () => {
-        console.log('handleProductTransferPreviewOK begin');
+        // console.log('handleProductTransferPreviewOK begin');
 
         let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
         console.log(allProductionDataRealToBeTransfer);
@@ -886,13 +886,6 @@ class ProductDistributeInputer extends React.Component {
             };
         });
 
-        const addProductRowSelection = {
-            hideSelectAll: true,
-            selectedRowKeys: addProductionSelectedRowKeys,
-            onChange: this.onAddProductionSelectChange,
-            onSelect: this.onAddProductSelect
-        };
-
         /// 增加商品列表头配置
         const KAddProductionColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -926,6 +919,13 @@ class ProductDistributeInputer extends React.Component {
                 }),
             };
         });
+
+        const addProductRowSelection = {
+            hideSelectAll: true,
+            selectedRowKeys: addProductionSelectedRowKeys,
+            onChange: this.onAddProductionSelectChange,
+            onSelect: this.onAddProductSelect
+        };
 
         return (
             <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>

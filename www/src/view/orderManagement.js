@@ -13,7 +13,7 @@ import {
 const { RangePicker } = DatePicker;
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = true;
 
 /// 门店信息
 const KAllShops = [
@@ -66,7 +66,7 @@ const KAllOrderTemplateName = [
     KOrderTemplates[4].name,
 ];
 
-class MakeProductionPlan extends React.Component {
+class OrderManagement extends React.Component {
     constructor(props) {
         super(props);
 
@@ -80,8 +80,8 @@ class MakeProductionPlan extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[0],
-            currentTemplate: KOrderTemplates[1],
+            currentShop: KAllShops[1],
+            currentTemplate: KOrderTemplates[0],
             beginDateTime: beginDateTime,
             endDateTime: endDateTime,
             timePickerOpen: false,
@@ -476,4 +476,4 @@ class MakeProductionPlan extends React.Component {
     }
 }
 
-export default MakeProductionPlan;
+export default OrderManagement;

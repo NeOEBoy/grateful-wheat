@@ -4,8 +4,10 @@ import ProductDiscard from "./view/productDiscard";
 import ProductSaleAndDiscard from "./view/productSaleAndDiscard.js";
 import CouponSummary from "./view/couponSummary";
 import DIYReserve from "./view/diyReserve";
-import ProductionPlanPrinter from "./view/productionPlanPrinter";
 import OrderManagement from "./view/orderManagement";
+import ProductionPlanPrinter from "./view/productionPlanPrinter";
+import ProductDistributePrinter from "./view/productDistributePrinter";
+import ProductDistributeInputer from "./view/productDistributeInputer";
 
 import {
   BrowserRouter as Router,
@@ -23,6 +25,7 @@ import zhCN from 'antd/es/locale/zh_CN';
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
+
 function Inside4QueryParams() {
   let query = useQuery();
 
@@ -36,9 +39,12 @@ function Inside4QueryParams() {
       <Route path="/diyreserve" children={<DIYReserve query={query} />} />
       <Route path="/productionPlanPrinter" children={<ProductionPlanPrinter query={query} />} />
       <Route path="/orderManagement" children={<OrderManagement query={query} />} />
+      <Route path="/productDistributePrinter" children={<ProductDistributePrinter query={query} />} />
+      <Route path="/productDistributeInputer" children={<ProductDistributeInputer query={query} />} />
     </div>
   );
 }
+
 export default function RouterApp() {
   return (
     <ConfigProvider locale={zhCN}>

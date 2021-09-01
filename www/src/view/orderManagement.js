@@ -1,20 +1,15 @@
-import React, { useContext, useRef } from 'react';
+import React from 'react';
 import {
     Button, Menu, Dropdown, DatePicker, Table,
-    message, Form, Input, Modal
+    message
 } from 'antd';
-import Highlighter from 'react-highlight-words';
-import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 import {
-    getProductOrderList, getProductOrderItems,
-    findTemplate, loadProductsByKeyword,
-    createStockFlowOut
+    getProductOrderList
 } from '../api/api';
-const { Search } = Input;
 const { RangePicker } = DatePicker;
 
 /**--------------------配置信息--------------------*/
@@ -70,220 +65,6 @@ const KAllOrderTemplateName = [
     KOrderTemplates[3].name,
     KOrderTemplates[4].name,
 ];
-/// 排序优先级（格式为templateId-barcode）
-const KSortIdArray = {
-    /// 现烤
-    '187-2006251756022': 1, //高钙片
-    '187-2006291720144': 2, //焗烤三明治
-    '187-2007261431428': 3, //奶酪杯
-    '187-2006261548488': 4, //鸡排三明治
-    '187-2006251720443': 5, //手工蛋挞
-    '187-2007171555580': 6, //全麦熏鸡三明治
-    /// 吐司餐包
-    '182-2106241432414': 1, //枫糖小吐司
-    '182-2106281603003': 2, //红豆小吐司		
-    '182-2106281600071': 3, //坚果小吐司			
-    '182-2106281603355': 4, //南瓜小吐司				
-    '182-2106241433091': 5, //松松小吐司					
-    '182-2106281601535': 6, //椰蓉小吐司				
-    '182-2010291510063': 7, //纯奶拉丝大吐司					
-};
-/// 模板cache
-const KTemplateData = {
-    '1595310806940367327': [],
-    '1595397637628133418': [],
-    '1595077654714716554': [],
-    '1595077405589137749': []
-};
-
-const KProductTransferPreviewColumns4Table = [
-    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-    { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-];
-
-/// 带编辑功能的行
-const EditableContext4Transfer = React.createContext(null);
-/// 带编辑功能的行
-const EditableRow4Transfer = ({ index, ...props }) => {
-    const [form] = Form.useForm();
-    return (
-        <Form form={form} component={false}>
-            <EditableContext4Transfer.Provider value={form}>
-                <tr {...props} />
-            </EditableContext4Transfer.Provider>
-        </Form>
-    );
-};
-/// 带编辑功能的单元格
-const EditableCell4Transfer = ({
-    title, editable, children, dataIndex, record,
-    handleEditableCellNextFocus,
-    handleEditableCellCurrentFocus,
-    ...restProps
-}) => {
-    let childNode = children;
-
-    const inputRef = useRef(null);
-    const form = useContext(EditableContext4Transfer);
-
-    if (record) {
-        // console.log(record);
-
-        /// 根据是否编辑状态设置焦点
-        if (inputRef && inputRef.current) {
-            setTimeout(() => {
-                if (record && record['editing']) {
-                    inputRef.current && inputRef.current.select();
-                }
-            }, (0));
-        }
-
-        /// 变化时自动保存数据
-        const handleOnChange = async () => {
-            try {
-                const values = await form.validateFields();
-                record[dataIndex] = values[dataIndex];
-            } catch (errInfo) {
-                console.log('Save failed:', errInfo);
-            }
-        };
-
-        /// Enter按下时处理光标
-        const handleOnPressEnter = () => {
-            handleEditableCellNextFocus();
-        };
-
-        /// 获得焦点时整理焦点
-        const handleOnFocus = async () => {
-            handleEditableCellCurrentFocus(record);
-        }
-
-
-        if (editable) {
-            let initialValue = record[dataIndex];
-            // console.log('EditableCell4Transfer initialValue=' + initialValue);
-            childNode = (
-                <Form.Item
-                    style={{
-                        margin: 0,
-                    }}
-                    name={dataIndex}
-                    rules={[
-                        {
-                            required: true,
-                            message: `${title} 请输入整数.`,
-                            pattern: /^[0-9]+$/
-                        },
-                    ]}
-                    initialValue={initialValue}>
-                    <Input id={record && record['key']}
-                        ref={inputRef}
-                        autoComplete='off'
-                        onChange={handleOnChange}
-                        onPressEnter={handleOnPressEnter}
-                        onFocus={handleOnFocus} />
-                </Form.Item>
-            );
-        }
-    }
-
-    return <td {...restProps}>{childNode}</td>;
-};
-
-/// 带编辑功能的行
-const EditableContext4AddProduct = React.createContext(null);
-/// 带编辑功能的行
-const EditableRow4AddProduct = ({ index, ...props }) => {
-    const [form] = Form.useForm();
-    return (
-        <Form form={form} component={false}>
-            <EditableContext4AddProduct.Provider value={form}>
-                <tr {...props} />
-            </EditableContext4AddProduct.Provider>
-        </Form>
-    );
-};
-/// 带编辑功能的单元格
-const EditableCell4AddProduct = ({
-    title, editable, children, dataIndex, record,
-    handleEditableCellNextFocus,
-    handleEditableCellCurrentFocus,
-    ...restProps
-}) => {
-    let childNode = children;
-    const inputRef = useRef(null);
-    const form = useContext(EditableContext4AddProduct);
-
-    if (record) {
-        // console.log(record);
-
-        /// 根据是否编辑状态设置焦点
-        if (inputRef && inputRef.current) {
-            setTimeout(() => {
-                if (record && record['editing']) {
-                    inputRef.current && inputRef.current.select();
-                }
-            }, (0));
-        }
-
-        /// 变化时自动保存数据
-        const handleOnChange = async () => {
-            try {
-                const values = await form.validateFields();
-                record[dataIndex] = values[dataIndex];
-            } catch (errInfo) {
-                console.log('Save failed:', errInfo);
-            }
-        };
-
-        /// Enter按下时处理光标
-        const handleOnPressEnter = () => {
-            handleEditableCellNextFocus();
-        };
-
-        /// 获得焦点时整理焦点
-        const handleOnFocus = async () => {
-            handleEditableCellCurrentFocus(record);
-        }
-
-
-        let initialValue = record[dataIndex];
-        // console.log('EditableCell4AddProduct initialValue=' + initialValue);
-        if (editable) {
-            childNode = (
-                <Form.Item
-                    style={{
-                        margin: 0,
-                    }}
-                    name={dataIndex}
-                    rules={[
-                        {
-                            required: true,
-                            message: `${title} 请输入整数.`,
-                            pattern: /^[0-9]+$/
-                        },
-                    ]}
-                    initialValue={initialValue}>
-                    <Input id={record && record['key']}
-                        ref={inputRef}
-                        autoComplete='off'
-                        disabled={record.disabledInput}
-                        onChange={handleOnChange}
-                        onPressEnter={handleOnPressEnter}
-                        onFocus={handleOnFocus} />
-                </Form.Item>
-            );
-        }
-    }
-
-
-    return <td {...restProps}>{childNode}</td>;
-};
 
 class MakeProductionPlan extends React.Component {
     constructor(props) {
@@ -306,63 +87,13 @@ class MakeProductionPlan extends React.Component {
             timePickerOpen: false,
             selectedRowKeys: [],
             noyetOrderShops: [],
-            noyetOrderTemplates: [],
-            allDistributionDataToBePrint: [],
-            distributionButtonText: '打印配货单',
-            allProductionDataToBeTransfer: [],
-            transferButtonText: '录入配货单',
-            transferItems4NextFocus: [],
-            currentFocusItem: {},
-            filterDropdownVisible4Transfer: true,
-            isAddProductionModalVisible: false,
-            searchProductDataToBeAdd: [],
-            searchingProductData: false,
-            addProductionSelectedRowKeys: [],
-            allProductionDataRealToBeTransfer: [],
-            productTransferPreviewShow: false
+            noyetOrderTemplates: []
         };
-
-        this._searchInput = null;
-        this._searchInput4AddProduct = null;
-        this._searchText4Transfer = '';
-        this._lastSearchText4AddProduct = '';
     }
 
     async componentDidMount() {
         await this.fetchOrderList();
     }
-
-    productPrintPreprew = () => {
-        let LODOP = getLodop();
-
-        if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
-            LODOP.PREVIEW();
-        }
-    };
-
-    productPrintDirect = () => {
-        let LODOP = getLodop();
-
-        if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
-            LODOP.PRINT();
-        }
-    };
 
     fetchOrderList = async () => {
         try {
@@ -434,8 +165,8 @@ class MakeProductionPlan extends React.Component {
         this.setState({ selectedRowKeys });
     };
 
-    handleProductionPrint1 = async (e) => {
-        console.log('handleProductionPrint1 e' + e);
+    handleProductionPrint = async (e) => {
+        // console.log('handleProductionPrint e' + e);
 
         let paramValueObj = {};
 
@@ -457,7 +188,7 @@ class MakeProductionPlan extends React.Component {
         // console.log(paramStr);
 
         let productionPlanPrinterUrl = 'http://localhost:4000/productionPlanPrinter';
-        // if (!KForTest) productionPlanPrinterUrl = 'http://gratefulwheat.ruyue.xyz/productionPlanPrinter';
+        if (!KForTest) productionPlanPrinterUrl = 'http://gratefulwheat.ruyue.xyz/productionPlanPrinter';
 
         productionPlanPrinterUrl += '?';
         productionPlanPrinterUrl += paramStr;
@@ -465,783 +196,72 @@ class MakeProductionPlan extends React.Component {
     };
 
     handleDistributionPrint = async (e) => {
-        // console.log('handleDistributionPrint e' = e);
+        // console.log('handleDistributionPrint e' + e);
 
-        this.setState({ distributionButtonText: '准备打印...' }, async () => {
-            let allData = [];
-            const { alreadyOrderListData, selectedRowKeys } = this.state;
+        let paramValueObj = {};
 
-            /// 1.获取每家店的订货信息
-            this.setState({ distributionButtonText: '准备获取...' });
-            for (let index = 0; index < alreadyOrderListData.length; ++index) {
-                let orderItem = alreadyOrderListData[index];
-                if (orderItem) {
-                    /// 未打钩的过滤掉
-                    if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+        const { alreadyOrderListData, selectedRowKeys } = this.state;
+        let alreadyOrderListDataAfterFilter = [];
+        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
+            let orderItem = alreadyOrderListData[ii];
+            if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+            alreadyOrderListDataAfterFilter.push(orderItem);
+        }
 
-                    this.setState({ distributionButtonText: '获取' + orderItem.templateName + '...' });
-                    const orderItems = await getProductOrderItems(orderItem.orderId);
-                    if (orderItems.errCode === 0 && orderItems.items) {
-                        let templatePos = -1;
-                        for (let kk = 0; kk < KOrderTemplates.length; ++kk) {
-                            if (KOrderTemplates[kk].name === orderItem.templateName) {
-                                templatePos = kk;
-                                break;
-                            }
-                        }
-                        if (templatePos === -1) return;
+        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
 
-                        /// 1.1 合并同一订货门店同一模板订单的商品信息
-                        let existInAllData = false; let i;
-                        for (i = 0; i < allData.length; ++i) {
-                            if (allData[i].orderShop === orderItem.orderShop &&
-                                allData[i].templateName === orderItem.templateName) {
-                                existInAllData = true;
-                                break;
-                            }
-                        }
-                        if (existInAllData) {
-                            let theExistDataItems = allData[i].items;
-                            let toBeDealItems = orderItems.items;
-                            for (let i = 0; i < toBeDealItems.length; ++i) {
-                                let toBeDealItem = toBeDealItems[i];
-                                let posInTheExistDataItems = -1;
-                                for (let j = 0; j < theExistDataItems.length; ++j) {
-                                    let productItem = theExistDataItems[j];
-                                    if (productItem.barcode === toBeDealItem.barcode) {
-                                        posInTheExistDataItems = j;
-                                        break;
-                                    }
-                                }
+        let paramValueStr = JSON.stringify(paramValueObj);
+        // console.log('paramValueStr = ' + paramValueStr);
 
-                                if (posInTheExistDataItems !== -1) {
-                                    let newNumber = theExistDataItems[posInTheExistDataItems].orderNumber + toBeDealItem.orderNumber;
-                                    theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
-                                } else {
-                                    let newItemObject = {};
-                                    newItemObject.categoryName = toBeDealItem.categoryName;
-                                    newItemObject.orderProductName = toBeDealItem.orderProductName;
-                                    newItemObject.barcode = toBeDealItem.barcode;
-                                    newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
-                                    newItemObject.orderNumber = toBeDealItem.orderNumber;
-                                    newItemObject.sortId = toBeDealItem.sortId;
+        let paramStr = 'param=' + escape(paramValueStr);
+        // console.log(paramStr);
 
-                                    theExistDataItems.push(newItemObject);
-                                }
-                            }
-                        } else {
-                            let item = {};
-                            item.orderShop = orderItem.orderShop;
-                            item.templateName = orderItem.templateName;
-                            item.expectTime = orderItem.expectTime;
-                            item.items = orderItems.items;
-                            for (let i = 0; i < orderItems.items.length; ++i) {
-                                let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + orderItems.items[i].barcode;
-                                let sortInfo = KSortIdArray[templateAndBarcode];
-                                orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
-                            }
-                            allData.push(item);
-                        }
-                    } else {
-                        allData = [];
-                        message.error('获取<' + orderItem.orderShop + '>订货产品出错，请检查！');
-                        break;
-                    }
-                }
-            }
+        let productDistributePrinterUrl = 'http://localhost:4000/productDistributePrinter';
+        if (!KForTest) productDistributePrinterUrl = 'http://gratefulwheat.ruyue.xyz/productDistributePrinter';
 
-            /// 2.使用模板对应商品
-            this.setState({ distributionButtonText: '整理模板中...' });
-            let newAllData = [];
-            for (let i = 0; i < allData.length; ++i) {
-                let allDataItems = allData[i].items;
-                let totalItemsAfterFixTemplate = allDataItems;
-
-                let templatePos = -1;
-                for (let kk = 0; kk < KOrderTemplates.length; ++kk) {
-                    if (KOrderTemplates[kk].name === allData[i].templateName) {
-                        templatePos = kk;
-                        break;
-                    }
-                }
-                if (templatePos === -1) return;
-
-                let findResult = await this.findTemplateCache(KOrderTemplates[templatePos].templateUid);
-                // console.log(findResult);
-                if (findResult.errCode === 0 && findResult.list.length > 0) {
-                    let findResultList = findResult.list;
-                    totalItemsAfterFixTemplate = [];
-                    for (let j = 0; j < findResultList.length; ++j) {
-                        let pos = -1;
-                        for (let mm = 0; mm < allDataItems.length; ++mm) {
-                            if (findResultList[j].barcode === allDataItems[mm].barcode) {
-                                pos = mm;
-                                break;
-                            }
-                        }
-
-                        let newItemObject = {};
-                        if (pos !== -1) {
-                            newItemObject.categoryName = allDataItems[pos].categoryName;
-                            newItemObject.orderProductName = allDataItems[pos].orderProductName;
-                            newItemObject.barcode = allDataItems[pos].barcode;
-                            newItemObject.barcodeSimple = allDataItems[pos].barcodeSimple;
-                            newItemObject.sortId = allDataItems[pos].sortId;
-                            newItemObject.orderNumber = allDataItems[pos].orderNumber;
-                        } else {
-                            newItemObject.categoryName = findResultList[j].categoryName;
-                            newItemObject.orderProductName = findResultList[j].name;
-                            newItemObject.barcode = findResultList[j].barcode;
-                            newItemObject.barcodeSimple = findResultList[j].barcodeSimple;
-
-                            let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + findResultList[j].barcode;
-                            let sortInfo = KSortIdArray[templateAndBarcode];
-                            newItemObject.sortId = sortInfo ? sortInfo : 200;
-
-                            newItemObject.orderNumber = 0;
-                        }
-
-                        totalItemsAfterFixTemplate.push(newItemObject);
-                    }
-                    // console.log(totalItemsAfterFixTemplate);
-                    /// 排序使得同一分类的放在一起
-                    let totalItemsAfterFixCategory = [];
-                    for (let i = 0; i < totalItemsAfterFixTemplate.length; ++i) {
-                        let oneItem = totalItemsAfterFixTemplate[i];
-
-                        let pos = -1;
-                        for (let j = totalItemsAfterFixCategory.length - 1; j >= 0; --j) {
-                            if (totalItemsAfterFixCategory[j].categoryName === oneItem.categoryName) {
-                                pos = j;
-                                break;
-                            }
-                        }
-
-                        if (pos !== -1) {
-                            totalItemsAfterFixCategory.splice(pos + 1, 0, oneItem);
-                        } else {
-                            totalItemsAfterFixCategory.push(oneItem);
-                        }
-                    }
-                    // console.log(totalItemsAfterFixCategory);
-                    /// 根据设定排序号再次排序
-                    totalItemsAfterFixCategory = totalItemsAfterFixCategory.sort((item1, item2) => {
-                        return item1.sortId - item2.sortId;
-                    });
-                    // console.log(totalItemsAfterFixCategory);
-
-                    let oneDataObj = {};
-                    oneDataObj.orderShop = allData[i].orderShop;
-                    oneDataObj.templateName = allData[i].templateName;
-                    oneDataObj.expectTime = allData[i].expectTime;
-                    oneDataObj.items = totalItemsAfterFixCategory;
-
-                    newAllData.push(oneDataObj);
-                }
-            }
-
-            /// 3.整理订货信息使得适合A4打印
-            // console.log(newAllData);
-            this.setState({ distributionButtonText: '整理A4中...' });
-            let allDataAfterA4 = [];
-            for (let i = 0; i < newAllData.length; ++i) {
-                let allDataItem = newAllData[i].items;
-                for (let j = 0; j < allDataItem.length; ++j) {
-                    if (j % 29 === 0) {///29
-                        let allDataAfterItem = {};
-                        allDataAfterItem.orderShop = newAllData[i].orderShop;
-                        allDataAfterItem.templateName = newAllData[i].templateName;
-                        allDataAfterItem.expectTime = newAllData[i].expectTime;
-                        allDataAfterItem.items = [];
-
-                        allDataAfterA4.push(allDataAfterItem);
-                    }
-                    allDataAfterA4[allDataAfterA4.length - 1].items.push(allDataItem[j]);
-                }
-            }
-            // console.log(allDataAfterA4);
-            this.setState({ distributionButtonText: '打印配货单', allDistributionDataToBePrint: allDataAfterA4 });
-        });
+        productDistributePrinterUrl += '?';
+        productDistributePrinterUrl += paramStr;
+        window.location.href = productDistributePrinterUrl;
     };
 
-    findTemplateCache = async (templateUid) => {
-        let templateList = KTemplateData[templateUid];
-        if (templateList.length > 0) {
-            return { errCode: 0, list: templateList };
+    handleDistributionInput = async (e) => {
+        // console.log('handleDistributionInput e' + e);
+
+        let paramValueObj = {};
+
+        const { alreadyOrderListData, currentTemplate,
+            currentShop, selectedRowKeys } = this.state;
+        let alreadyOrderListDataAfterFilter = [];
+        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
+            let orderItem = alreadyOrderListData[ii];
+            if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+            alreadyOrderListDataAfterFilter.push(orderItem);
         }
 
-        let findResult = await findTemplate(templateUid);
-        if (findResult.errCode === 0 && findResult.list.length > 0) {
-            KTemplateData[templateUid] = findResult.list;
-            return findResult;
-        }
+        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
+        paramValueObj.template = currentTemplate;
+        paramValueObj.shop = currentShop;
 
-        return { errCode: -1 };
+        let paramValueStr = JSON.stringify(paramValueObj);
+        // console.log('paramValueStr = ' + paramValueStr);
+
+        let paramStr = 'param=' + escape(paramValueStr);
+        // console.log(paramStr);
+
+        let productionPlanInputerUrl = 'http://localhost:4000/productDistributeInputer';
+        if (!KForTest) productionPlanInputerUrl = 'http://gratefulwheat.ruyue.xyz/productDistributeInputer';
+
+        productionPlanInputerUrl += '?';
+        productionPlanInputerUrl += paramStr;
+        window.location.href = productionPlanInputerUrl;
     };
-
-    /// 录入配货单
-    handleTransfer = async (e) => {
-        this.setState({ transferButtonText: '准备录入...' }, async () => {
-            let allData = [];
-            const { alreadyOrderListData, currentTemplate, selectedRowKeys } = this.state;
-
-            /// 1.获取每家店的订货信息，整合成allData
-            this.setState({ transferButtonText: '准备获取...' });
-            for (let index = 0; index < alreadyOrderListData.length; ++index) {
-                let orderItem = alreadyOrderListData[index];
-                if (orderItem) {
-                    /// 未打钩的过滤掉
-                    if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
-
-                    const orderItems = await getProductOrderItems(orderItem.orderId);
-                    if (orderItems.errCode === 0 && orderItems.items) {
-                        /// 1.1 合并同一订货门店同一模板订单的商品信息
-                        let existInAllData = false; let i;
-                        for (i = 0; i < allData.length; ++i) {
-                            if (allData[i].orderShop === orderItem.orderShop &&
-                                allData[i].templateName === orderItem.templateName) {
-                                existInAllData = true;
-                                break;
-                            }
-                        }
-                        if (existInAllData) {
-                            let theExistDataItems = allData[i].items;
-                            let toBeDealItems = orderItems.items;
-                            for (let i = 0; i < toBeDealItems.length; ++i) {
-                                let toBeDealItem = toBeDealItems[i];
-                                let posInTheExistDataItems = -1;
-                                for (let j = 0; j < theExistDataItems.length; ++j) {
-                                    let productItem = theExistDataItems[j];
-                                    if (productItem.barcode === toBeDealItem.barcode) {
-                                        posInTheExistDataItems = j;
-                                        break;
-                                    }
-                                }
-
-                                if (posInTheExistDataItems !== -1) {
-                                    let newNumber = theExistDataItems[posInTheExistDataItems].orderNumber + toBeDealItem.orderNumber;
-                                    theExistDataItems[posInTheExistDataItems].orderNumber = newNumber;
-                                } else {
-                                    let newItemObject = {};
-                                    newItemObject.categoryName = toBeDealItem.categoryName;
-                                    newItemObject.orderProductName = toBeDealItem.orderProductName;
-                                    newItemObject.specification = toBeDealItem.specification;
-                                    newItemObject.barcode = toBeDealItem.barcode;
-                                    newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
-                                    newItemObject.orderNumber = toBeDealItem.orderNumber;
-                                    newItemObject.transferPrice = toBeDealItem.transferPrice;
-                                    newItemObject.sortId = toBeDealItem.sortId;
-
-                                    theExistDataItems.push(newItemObject);
-                                }
-                            }
-                        } else {
-                            let item = {};
-                            item.orderShop = orderItem.orderShop;
-                            item.templateName = orderItem.templateName;
-
-                            /// 设置模板Uid
-                            for (let i = 0; i < KOrderTemplates.length; ++i) {
-                                if (KOrderTemplates[i].name === orderItem.templateName) {
-                                    item.templateUid = KOrderTemplates[i].templateUid;
-                                    break;
-                                }
-                            }
-                            item.expectTime = orderItem.expectTime;
-                            item.items = orderItems.items;
-                            for (let i = 0; i < orderItems.items.length; ++i) {
-                                let templateAndBarcode = currentTemplate.templateId + '-' + orderItems.items[i].barcode;
-                                let sortInfo = KSortIdArray[templateAndBarcode];
-                                orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
-                            }
-                            allData.push(item);
-                        }
-                    } else {
-                        allData = [];
-                        message.error('获取<' + orderItem.orderShop + '>订货产品出错，请检查！');
-                        break;
-                    }
-                }
-            }
-            // console.log(allData);
-            /// 2.根据allData按照模板排序，加入订货为0的数据
-            this.setState({ transferButtonText: '按照模板排序...' });
-            let allDataAfterTemplate = []
-            for (let index = 0; index < allData.length; ++index) {
-                let allDataItem = allData[index];
-                let allDataItemItems = allDataItem.items;
-
-                let allDataItemAfterTemplate = {};
-                allDataItemAfterTemplate.orderShop = allDataItem.orderShop;
-                allDataItemAfterTemplate.templateName = allDataItem.templateName;
-                allDataItemAfterTemplate.expectTime = allDataItem.expectTime;
-                allDataItemAfterTemplate.templateUid = allDataItem.templateUid;
-
-                this.setState({ transferButtonText: `查找-${allDataItem.templateName}-模板...` });
-                let findResult = await this.findTemplateCache(allDataItem.templateUid);
-                if (findResult.errCode === 0 && findResult.list.length > 0) {
-                    // console.log(findResult.list);
-                    let findResultList = findResult.list;
-                    let totalItemsAfterFixTemplate = [];
-                    for (let i = 0; i < findResultList.length; ++i) {
-                        let pos = -1;
-                        for (let j = 0; j < allDataItemItems.length; ++j) {
-                            if (findResultList[i].barcode === allDataItemItems[j].barcode) {
-                                pos = j;
-                                break;
-                            }
-                        }
-
-                        let newItemObject = {};
-                        if (pos !== -1) {
-                            newItemObject.categoryName = allDataItemItems[pos].categoryName;
-                            newItemObject.orderProductName = allDataItemItems[pos].orderProductName;
-                            newItemObject.specification = allDataItemItems[pos].specification;
-                            newItemObject.barcode = allDataItemItems[pos].barcode;
-                            newItemObject.barcodeSimple = allDataItemItems[pos].barcodeSimple;
-                            newItemObject.sortId = allDataItemItems[pos].sortId;
-                            newItemObject.orderNumber = allDataItemItems[pos].orderNumber;
-                            newItemObject.transferNumber = 0;
-                            newItemObject.transferPrice = allDataItemItems[pos].transferPrice;
-                        } else {
-                            newItemObject.categoryName = findResultList[i].categoryName;
-                            newItemObject.orderProductName = findResultList[i].name;
-                            newItemObject.specification = findResultList[i].specification;
-                            newItemObject.barcode = findResultList[i].barcode;
-                            newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
-                            newItemObject.transferPrice = findResultList[i].transferPrice;
-
-                            let templateAndBarcode = currentTemplate.templateId + '-' + newItemObject.barcode;
-                            let sortInfo = KSortIdArray[templateAndBarcode];
-                            newItemObject.sortId = sortInfo ? sortInfo : 200;
-
-                            newItemObject.orderNumber = 0;
-                            newItemObject.transferNumber = 0;
-                        }
-
-                        totalItemsAfterFixTemplate.push(newItemObject);
-                    }
-
-                    allDataItemAfterTemplate.items = totalItemsAfterFixTemplate;
-                }
-
-                allDataAfterTemplate.push(allDataItemAfterTemplate);
-            }
-            // console.log(allDataAfterTemplate);
-
-            this.setState({ transferButtonText: '整理商品...' });
-            let transferData = []; let key = 0;
-            for (let index = 0; index < allDataAfterTemplate.length; ++index) {
-                let allDataAfterTemplateItem = allDataAfterTemplate[index];
-                let allDataAfterTemplateItemItems = allDataAfterTemplateItem.items;
-                for (let jj = 0; jj < allDataAfterTemplateItemItems.length; ++jj) {
-                    let allDataAfterTemplateItemItemsItem = allDataAfterTemplateItemItems[jj];
-                    if (allDataAfterTemplateItemItemsItem.orderNumber > 0) {
-                        allDataAfterTemplateItemItemsItem.key = ++key;
-                        transferData.push(allDataAfterTemplateItemItemsItem);
-                    }
-                }
-            }
-            // console.log(transferData);
-
-            this.setState({ transferButtonText: '录入配货单', allProductionDataToBeTransfer: transferData });
-        });
-    }
-
-    handleEditableCellNextFocus = () => {
-        // console.log('handleEditableCellNextFocus');
-
-        let transferItems4NextFocusTemp = this.state.transferItems4NextFocus;
-
-        let lastFocusIndex = -1;
-        for (let i = 0; i < transferItems4NextFocusTemp.length; ++i) {
-            let element = transferItems4NextFocusTemp[i];
-            if (element.editing) {
-                lastFocusIndex = i;
-                break;
-            }
-        }
-
-        let newFocusIndex = lastFocusIndex + 1;
-        if (newFocusIndex >= 0 && newFocusIndex < transferItems4NextFocusTemp.length) {
-            transferItems4NextFocusTemp[newFocusIndex].editing = true;
-        } else {
-            if (this._searchInput) {
-                this._searchInput.select();
-            }
-        }
-
-        if (lastFocusIndex >= 0 && lastFocusIndex < transferItems4NextFocusTemp.length) {
-            transferItems4NextFocusTemp[lastFocusIndex].editing = false;
-        }
-
-        this.setState({ transferItems4NextFocus: transferItems4NextFocusTemp });
-    };
-
-    handleEditableCellCurrentFocus = (record) => {
-        let transferItems4NextFocusTemp = this.state.transferItems4NextFocus;
-
-        for (let i = 0; i < transferItems4NextFocusTemp.length; ++i) {
-            let item = transferItems4NextFocusTemp[i];
-            item.editing = false;
-            if (item.barcode === record.barcode) {
-                item.editing = true;
-            }
-        }
-        this.forceUpdate();
-    };
-
-    handleEditableCell4AddProductNextFocus = () => {
-        // console.log('handleEditableCell4AddProductNextFocus');
-
-        let searchProductDataToBeAddTemp = this.state.searchProductDataToBeAdd;
-
-        let lastFocusIndex = -1;
-        for (let i = 0; i < searchProductDataToBeAddTemp.length; ++i) {
-            let element = searchProductDataToBeAddTemp[i];
-            if (element.editing) {
-                lastFocusIndex = i;
-                break;
-            }
-        }
-
-        let newFocusIndex = lastFocusIndex;
-
-        while (true) {
-            newFocusIndex++;
-
-            if (newFocusIndex >= searchProductDataToBeAddTemp.length) {
-                if (this._searchInput4AddProduct) {
-                    this._searchInput4AddProduct.select();
-                }
-                break;
-            }
-
-            let item = searchProductDataToBeAddTemp[newFocusIndex];
-            if (!item.disabledInput) {
-                item.editing = true;
-                break;
-            }
-        }
-
-        if (lastFocusIndex >= 0 && lastFocusIndex < searchProductDataToBeAddTemp.length) {
-            searchProductDataToBeAddTemp[lastFocusIndex].editing = false;
-        }
-
-        this.forceUpdate();
-    };
-
-    handleEditableCell4AddProductCurrentFocus = (record) => {
-        // console.log('handleEditableCell4AddProductCurrentFocus record=' + record);
-        let searchProductDataToBeAddTemp = this.state.searchProductDataToBeAdd;
-        for (let i = 0; i < searchProductDataToBeAddTemp.length; ++i) {
-            let item = searchProductDataToBeAddTemp[i];
-            item.editing = false;
-            if (item.barcode === record.barcode) {
-                item.editing = true;
-            }
-        }
-        this.forceUpdate();
-        // console.log(searchProductDataToBeAddTemp);
-    };
-
-    getColumnSearchProps = dataIndex => ({
-        filterDropdownVisible: this.state.filterDropdownVisible4Transfer,
-        filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
-            <div style={{ padding: 8, width: 130 }}>
-                <Input
-                    ref={node => {
-                        if (!this._searchInput && node) {
-                            this._searchInput = node;
-                            this._searchInput.focus();
-                        }
-                    }}
-                    autoComplete='off'
-                    placeholder={`输入简码`}
-                    value={this._searchText4Transfer}
-                    onChange={(e) => {
-                        // console.log('输入简码 onChange');
-
-                        setSelectedKeys(e.target.value ? [e.target.value] : []);
-                        confirm();
-
-                        this._searchText4Transfer = e.target.value;
-
-                        if (this._addProductButton) {
-                            this._addProductButton.disabled = this._searchText4Transfer.length > 0;
-                        }
-                    }}
-                    onFocus={(e) => {
-                        // console.log('输入简码 onFocus e = ' + e);
-                    }}
-                    onPressEnter={(e) => {
-                        // console.log('搜索简码 onPressEnter e = ' + e);
-
-                        /// 将符合条件的条目放到items4NextFocus
-                        this.setState({ transferItems4NextFocus: [] }, () => {
-                            let transferItems4NextFocusTemp = [];
-                            this.state.allProductionDataToBeTransfer.forEach(element => {
-                                if (element.barcodeSimple.indexOf(this._searchText4Transfer) !== -1) {
-                                    transferItems4NextFocusTemp.push(element);
-                                }
-                            });
-
-                            if (transferItems4NextFocusTemp.length > 0) {
-                                transferItems4NextFocusTemp[0].editing = true;
-                                this.setState({ transferItems4NextFocus: transferItems4NextFocusTemp });
-                            }
-                        });
-                    }}
-                    style={{ marginBottom: 8, display: 'block' }}
-                />
-            </div>
-        ),
-        filterIcon: filtered => <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />,
-        onFilter: (value, record) => {
-            let simple = record[dataIndex].toString();
-            return simple ? simple.includes(value) : '';
-        },
-        onFilterDropdownVisibleChange: visible => {
-            if (visible && this._searchInput) {
-                setTimeout(() => this._searchInput && this._searchInput.select(), 100);
-            }
-        },
-        render: text =>
-        (
-            <Highlighter
-                highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-                searchWords={[this._searchText4Transfer]}
-                autoEscape
-                textToHighlight={text ? text.toString() : ''}
-            />
-        )
-    });
-
-    onAddProductionSelectChange = (selectedRowKeys) => {
-        // console.log('selectedRowKeys changed: ', selectedRowKeys);
-        this.setState({ addProductionSelectedRowKeys: selectedRowKeys });
-    };
-
-    onAddProductSelect = (record, selected, selectedRows, nativeEvent) => {
-        // console.log('onAddProductSelect record: ', record);
-        // console.log('onAddProductSelect selected: ', selected);
-        // console.log('onAddProductSelect selectedRows: ', selectedRows);
-        // console.log('onAddProductSelect nativeEvent: ', nativeEvent);
-
-        /// 放弃焦点
-        record.editing = false;
-        if (this._searchInput4AddProduct) {
-            this._searchInput4AddProduct.select();
-        }
-
-        let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
-        let position = -1;
-        for (let i = 0; i < allProductionDataToBeTransferTemp.length; ++i) {
-            let currentItem = allProductionDataToBeTransferTemp[i];
-            if (currentItem.barcode === record.barcode) {
-                position = i;
-                break;
-            }
-        }
-
-        if (selected) {
-            record.disabledInput = true;
-            if (position === -1) {
-                let newItem4Transfer = {};
-                newItem4Transfer.barcode = record.barcode;
-                newItem4Transfer.barcodeSimple = record.barcode.substring(record.barcode.length - 4, record.barcode.length);
-                newItem4Transfer.categoryName = record.categoryName;
-                newItem4Transfer.editing = false;
-                newItem4Transfer.transferPrice = record.price;
-                newItem4Transfer.orderProductName = record.productName;
-                newItem4Transfer.specification = record.specification;
-                newItem4Transfer.orderNumber = record.transferNumber;
-                newItem4Transfer.transferNumber = record.transferNumber;
-                newItem4Transfer.sortId = 200;
-                newItem4Transfer.remark = '新增';
-                newItem4Transfer.key = allProductionDataToBeTransferTemp.length + 1;
-
-                let allProductionDataAfterAdd = []; let transferItems4NextFocusTemp = [];
-                allProductionDataToBeTransferTemp.forEach(product => {
-                    product.editing = false;
-                    let newProduct = { ...product };
-                    allProductionDataAfterAdd.push(newProduct);
-                    transferItems4NextFocusTemp.push(product);
-                });
-                allProductionDataAfterAdd.push(newItem4Transfer);
-                transferItems4NextFocusTemp.push(newItem4Transfer);
-
-                this.setState({
-                    allProductionDataToBeTransfer: allProductionDataAfterAdd,
-                    transferItems4NextFocus: transferItems4NextFocusTemp
-                });
-                // console.log(allProductionDataAfterAdd);
-            }
-        } else {
-            record.disabledInput = false;
-            if (position !== -1) {
-                let existItem = allProductionDataToBeTransferTemp[position];
-
-                let allProductionDataAfterRemove = [];
-                let transferItems4NextFocusTemp = [];
-                let keyIndex = 0;
-
-                for (let jj = 0; jj < allProductionDataToBeTransferTemp.length; ++jj) {
-                    let product = allProductionDataToBeTransferTemp[jj];
-                    if (product.barcode === existItem.barcode) continue;
-
-                    ++keyIndex; product.key = keyIndex;
-                    let pro = { ...product };
-                    allProductionDataAfterRemove.push(pro);
-                    transferItems4NextFocusTemp.push(pro);
-                }
-
-                this.setState({
-                    allProductionDataToBeTransfer: allProductionDataAfterRemove,
-                    transferItems4NextFocus: transferItems4NextFocusTemp
-                });
-            }
-        }
-    };
-
-    handleAddProductionModalOk = () => {
-        this.setState({ isAddProductionModalVisible: false });
-        this.setState({ filterDropdownVisible4Transfer: true });
-
-        setTimeout(() => {
-            this._searchInput.select();
-        }, 100);
-    };
-
-    handleAddProductionModalCancel = () => {
-        this.handleAddProductionModalOk();
-    }
-    onAddProductSearch = async (text, e) => {
-        // console.log('onAddProductSearch text = ' + text + '; e=' + e.key);
-
-        if (!text || text.length <= 0) {
-            message.error('请输入正确的商品名称或条码');
-            return;
-        }
-
-        const { searchProductDataToBeAdd } = this.state;
-        let searchOrJump = 'search';
-        if (e.key === 'Enter') {
-            if (this._lastSearchText4AddProduct !== text) {
-                searchOrJump = 'search';
-            } else if (searchProductDataToBeAdd.length > 0) {
-                searchOrJump = 'setAndJump';
-            }
-        }
-
-        if (searchOrJump === 'search') {
-            this.setState({ searchingProductData: true, searchProductDataToBeAdd: [] });
-            this._lastSearchText4AddProduct = text;
-            let loadProductResult = await loadProductsByKeyword(text);
-            if (loadProductResult.errCode === 0 && loadProductResult.items && loadProductResult.items.length > 0) {
-                let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
-
-                let selectKeys = [];
-
-                loadProductResult.items.forEach(item => {
-                    item.transferNumber = 0;
-                    item.editing = false;
-
-                    allProductionDataToBeTransferTemp.forEach(product => {
-                        if (item.barcode === product.barcode) {
-                            if (selectKeys.indexOf(item.key) === -1) {
-                                item.disabledInput = true;
-                                selectKeys.push(item.key);
-                            }
-                        }
-                    });
-                });
-
-                this.setState({ searchProductDataToBeAdd: loadProductResult.items, addProductionSelectedRowKeys: selectKeys });
-            }
-            this.setState({ searchingProductData: false });
-        } else if (searchOrJump === 'setAndJump') {
-            const { searchProductDataToBeAdd } = this.state;
-
-            for (let ii = 0; ii < searchProductDataToBeAdd.length; ++ii) {
-                let product = searchProductDataToBeAdd[ii];
-                if (product && !(product.disabledInput)) {
-                    product.editing = true;
-                }
-            }
-            this.forceUpdate();
-            // console.log(this.state.searchProductDataToBeAdd)
-        }
-    }
-
-    handleProductionTransferPreview = async () => {
-        // console.log('handleProductionTransferPreview begin');
-
-        const allDataToBeTransfer = this.state.allProductionDataToBeTransfer;
-        let allProductionDataRealToBeTransferTemp = [];
-        let key = 0;
-        allDataToBeTransfer.forEach(oneItem => {
-            oneItem.editing = false;
-
-            if (oneItem.transferNumber > 0) {
-                ++key;
-                let newItem = { ...oneItem };
-                newItem.key = key;
-                allProductionDataRealToBeTransferTemp.push(newItem);
-            }
-        });
-        this.setState({
-            allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp,
-            productTransferPreviewShow: true, filterDropdownVisible4Transfer: false
-        });
-    }
-
-    handleProductTransferPreviewCancel = async () => {
-        this.setState({
-            productTransferPreviewShow: false,
-        }, () => {
-            this.setState({
-                allProductionDataRealToBeTransfer: [],
-                filterDropdownVisible4Transfer: true
-            })
-        });
-    }
-
-    handleProductTransferPreviewOK = async () => {
-        console.log('handleProductTransferPreviewOK begin');
-
-        let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
-        console.log(allProductionDataRealToBeTransfer);
-
-        let toUserId = this.state.currentShop.userId;
-        let items = [];
-        allProductionDataRealToBeTransfer.forEach(product => {
-            let item = {};
-            item.barcode = product.barcode;
-            item.quantity = product.transferNumber;
-            item.buyPrice = product.transferPrice;
-            items.push(item);
-        });
-
-        let result = await createStockFlowOut(toUserId, items);
-        // console.log(result);
-        if (result && result.errCode === 0) {
-            message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~')
-        } else {
-            message.error('配货失败~');
-        }
-
-        this.handleProductTransferPreviewCancel();
-    }
 
     render() {
         const {
-            alreadyOrderListData, currentShop, currentTemplate, isAddProductionModalVisible,
-            alreadyOrderLoading, beginDateTime, endDateTime, timePickerOpen, selectedRowKeys,
-            noyetOrderShops, noyetOrderTemplates, transferButtonText,
-            distributionButtonText, allProductionDataToBeTransfer,
-            allDistributionDataToBePrint, searchProductDataToBeAdd, searchingProductData,
-            addProductionSelectedRowKeys, allProductionDataRealToBeTransfer, productTransferPreviewShow
+            alreadyOrderListData, currentShop, currentTemplate,
+            alreadyOrderLoading, beginDateTime, endDateTime,
+            timePickerOpen, selectedRowKeys,
+            noyetOrderShops, noyetOrderTemplates,
         } = this.state;
 
         const alreadyOrderRowSelection = {
@@ -1267,524 +287,190 @@ class MakeProductionPlan extends React.Component {
         let disableDistributionButtonPrint =
             currentShop.userId === '' ||
             currentTemplate.templateId !== '' ||
-            selectedRowKeys.length <= 0 ||
-            distributionButtonText !== '打印配货单';
-        let distributionPrintShow = allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0;
+            selectedRowKeys.length <= 0;
         let notyetOrderTemplateInfoShow = currentTemplate.templateId === '';
 
         let disableSubmitButton =
             currentShop.userId === '' ||
             currentTemplate.templateId !== '' ||
-            selectedRowKeys.length <= 0 ||
-            transferButtonText !== '录入配货单';
+            selectedRowKeys.length <= 0;
 
-        let transferButtonShow = allProductionDataToBeTransfer && allProductionDataToBeTransfer.length > 0;
-
-        /// 调货列表头配置
-        const KTransferColumns4Table = [
-            { title: '序', dataIndex: 'key', key: 'key', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            {
-                title: '简码', dataIndex: 'barcodeSimple', key: 'barcodeSimple', width: 200, editingIndex: 'editing',
-                ...this.getColumnSearchProps('barcodeSimple'),
-            },
-            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 160, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '规格', dataIndex: 'specification', key: 'specification', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            {
-                title: '备注', dataIndex: 'remark', key: 'remark', width: '*',
-                render: (text) => {
-                    return text === '新增' ? (<span style={{
-                        fontSize: 14, color: 'skyblue',
-                        backgroundColor: 'yellow', fontWeight: 'bold'
-                    }}>{text}</span>) :
-                        <span style={{ fontSize: 10 }}>{text}</span>;
-                }
-            }
-        ];
-
-        const components4Transfer = {
-            body: {
-                row: EditableRow4Transfer,
-                cell: EditableCell4Transfer,
-            },
-        };
-        const transferColumns4TableEditable = KTransferColumns4Table.map((col) => {
-            if (!col.editable) {
-                return col;
-            }
-
-            return {
-                ...col,
-                onCell: (record) => ({
-                    record,
-                    editable: col.editable,
-                    dataIndex: col.dataIndex,
-                    title: col.title,
-                    handleEditableCellNextFocus: this.handleEditableCellNextFocus,
-                    handleEditableCellCurrentFocus: this.handleEditableCellCurrentFocus
-                }),
-            };
-        });
-
-        const addProductRowSelection = {
-            hideSelectAll: true,
-            selectedRowKeys: addProductionSelectedRowKeys,
-            onChange: this.onAddProductionSelectChange,
-            onSelect: this.onAddProductSelect
-        };
-
-        /// 增加商品列表头配置
-        const KAddProductionColumns4Table = [
-            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '品名', dataIndex: 'productName', key: 'productName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '销售价', dataIndex: 'price', key: 'price', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-        ];
-        const components4AddProduct = {
-            body: {
-                row: EditableRow4AddProduct,
-                cell: EditableCell4AddProduct,
-            },
-        };
-        const addProductColumns4TableEditable = KAddProductionColumns4Table.map((col) => {
-            if (!col.editable) {
-                return col;
-            }
-
-            return {
-                ...col,
-                onCell: (record) => ({
-                    record,
-                    editable: col.editable,
-                    dataIndex: col.dataIndex,
-                    title: col.title,
-                    handleEditableCellNextFocus: this.handleEditableCell4AddProductNextFocus,
-                    handleEditableCellCurrentFocus: this.handleEditableCell4AddProductCurrentFocus
-                }),
-            };
-        });
-
-        let disableTransferPreviewOk = allProductionDataRealToBeTransfer &&
-            allProductionDataRealToBeTransfer.length <= 0;
         return (
             <div>
-                {
-                    transferButtonShow ?
-                        (
-                            <div>
-                                <div style={{
-                                    zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed',
-                                    width: '100%', height: 60, backgroundColor: 'lightgray'
-                                }}>
+                <div>
+                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
+                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
+                        <div>
+                            <Button danger disabled={disableProductionPrint} type='primary'
+                                onClick={this.handleProductionPrint}
+                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                打印生产单
+                            </Button>
+                            {
+                                notyetOrderShopInfoShow ? (<span>
+                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
+                                </span>) : (<span></span>)
+                            }
+                        </div>
+                        <div>
+                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
+                                onClick={this.handleDistributionPrint}
+                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                打印配货单
+                            </Button>
+                            {
+                                notyetOrderTemplateInfoShow ? (<span>
+                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
+                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
+                                </span>) : (<span></span>)
+                            }
+                        </div>
+                        <div>
+                            <Button danger disabled={disableSubmitButton} type='primary'
+                                onClick={this.handleDistributionInput}
+                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                录入配货单
+                            </Button>
+                        </div>
+                    </div>
+                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
+                        <Dropdown
+                            style={{ marginLeft: 0 }}
+                            overlay={
+                                () => {
+                                    return (<Menu onClick={async ({ key }) => {
+                                        this.setState({ currentShop: KAllShops[key] }, async () => {
+                                            await this.fetchOrderList();
+                                        });
+                                    }} >
+                                        {
+                                            KAllShops.map((shop) => {
+                                                return (<Menu.Item key={shop.index}>
+                                                    {shop.name}
+                                                </Menu.Item>);
+                                            })
+                                        }
+                                    </Menu>)
+                                }
+                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                                {currentShop.name}
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                        <Dropdown
+                            overlay={
+                                () => {
+                                    return (<Menu onClick={async ({ key }) => {
+                                        this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
+                                            await this.fetchOrderList();
+                                        });
+                                    }} >
+                                        {
+                                            KOrderTemplates.map((template) => {
+                                                return (<Menu.Item key={template.index}>
+                                                    {template.name}
+                                                </Menu.Item>);
+                                            })
+                                        }
+                                    </Menu>)
+                                }
+                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                                {currentTemplate.name}
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                        <RangePicker
+                            open={timePickerOpen}
+                            onOpenChange={(open) => {
+                                this.setState({ timePickerOpen: open });
+                            }}
+                            style={{ marginLeft: 10 }}
+                            size='small'
+                            locale={locale}
+                            bordered={true}
+                            placeholder={['开始时间', '结束时间']}
+                            inputReadOnly={true}
+                            disabled={alreadyOrderLoading}
+                            value={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
+                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
+                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
+                            showTime={{
+                                hideDisabledOptions: true,
+                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                                showTime: true,
+                                showHour: true,
+                                showMinute: true,
+                                showSecond: true
+                            }}
+                            onOk={async (data) => {
+                                if (data.length >= 2 && data[0] && data[1]) {
+                                    if (data[0] > data[1]) {
+                                        message.info('请输入正确时间');
+                                        return;
+                                    }
+                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }
+                            }}
+                            renderExtraFooter={() => (
+                                <span>
+                                    <Button size="small" type="primary" onClick={(e) => {
+                                        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+                                        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+                                        // console.log(yesterdayBegin);
+                                        // console.log(yesterdayEnd);
+
+                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
+                                            await this.fetchOrderList();
+                                        });
+                                    }}>
+                                        昨天
+                                    </Button>
+                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                        let yesterdayBegin = moment().startOf('day');
+                                        let yesterdayEnd = moment().endOf('day');
+                                        // console.log(yesterdayBegin);
+                                        // console.log(yesterdayEnd);
+
+                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
+                                            await this.fetchOrderList();
+                                        });
+                                    }}>
+                                        今天
+                                    </Button>
+                                </span>
+                            )}
+                        />
+                        <Button
+                            style={{ width: 180, marginLeft: 10 }} type='primary'
+                            onClick={async (e) => { await this.fetchOrderList(); }}>
+                            查询门店订货单
+                        </Button>
+                        <Table style={{ marginTop: 10 }}
+                            size='small'
+                            loading={alreadyOrderLoading}
+                            dataSource={alreadyOrderListData}
+                            columns={KOrderColumns4Table}
+                            rowSelection={alreadyOrderRowSelection}
+                            pagination={false} bordered
+                            footer={() => {
+                                return (
                                     <div>
-                                        <Button danger type='primary'
-                                            onClick={this.handleProductionTransferPreview}
-                                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                            配货预览
-                                        </Button>
-                                    </div>
-                                </div>
-
-                                <div style={{ marginLeft: 10, marginTop: 10 }}>
-                                    <Button type="primary"
-                                        style={{ width: 80, height: 40 }}
-                                        onClick={() => {
-                                            this._searchInput = null;
-                                            this._searchText4Transfer = '';
-                                            this.setState({ allProductionDataToBeTransfer: [] });
-                                        }}>
-                                        <div style={{ fontSize: 16 }}>
-                                            后退
+                                        <div style={{ textAlign: 'center', height: 50 }}>
+                                            ---心里满满都是你---
                                         </div>
-                                    </Button>
-                                    <span style={{ marginLeft: 10 }}>总部==</span>
-                                    <span style={{ marginLeft: 0 }}>{`调往=>`}</span>
-                                    <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
-
-                                    <Button type="primary" danger
-                                        style={{ width: 60, height: 30 }}
-                                        ref={(node) => {
-                                            if (!this._addProductButton && node) {
-                                                this._addProductButton = node;
-                                            }
-                                        }}
-                                        onClick={() => {
-                                            this._searchInput = null;
-                                            this.setState({
-                                                addProductionSelectedRowKeys: [], isAddProductionModalVisible: true,
-                                                filterDropdownVisible4Transfer: false, searchProductDataToBeAdd: []
-                                            });
-                                        }}>
-                                        <div style={{ fontSize: 8 }}>
-                                            +商品
-                                        </div>
-                                    </Button>
-                                </div>
-
-                                <div>
-                                    <Modal
-                                        width={1000}
-                                        centered
-                                        keyboard
-                                        maskClosable={false}
-                                        title={
-                                            (<div>
-                                                <span>
-                                                    添加商品
-                                                </span>
-                                                <Search
-                                                    style={{ width: 240, marginLeft: 20 }}
-                                                    ref={(node) => {
-                                                        if (!this._searchInput4AddProduct && node) {
-                                                            node && node.focus();
-                                                            this._searchInput4AddProduct = node;
-                                                        }
-                                                    }}
-                                                    enterButton
-                                                    placeholder='输入商品名称'
-                                                    onSearch={(text, e) => this.onAddProductSearch(text, e)}>
-                                                </Search>
-                                            </div>)}
-                                        visible={isAddProductionModalVisible}
-                                        onOk={this.handleAddProductionModalOk}
-                                        onCancel={this.handleAddProductionModalCancel}
-                                        okText='完毕'
-                                        cancelButtonProps={{ hidden: true }}>
-                                        <Table
-                                            size='small'
-                                            rowSelection={addProductRowSelection}
-                                            loading={searchingProductData}
-                                            dataSource={searchProductDataToBeAdd}
-                                            components={components4AddProduct}
-                                            columns={addProductColumns4TableEditable}
-                                            bordered pagination={false}
-                                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
-                                        />
-                                    </Modal>
-                                    <Table style={{ marginTop: 10, marginLeft: 10, marginRight: 10 }}
-                                        size='small'
-                                        components={components4Transfer}
-                                        rowClassName={() => 'editable-row'}
-                                        dataSource={allProductionDataToBeTransfer}
-                                        columns={transferColumns4TableEditable}
-                                        pagination={false} bordered
-                                        scroll={{ y: 550, scrollToFirstRowOnChange: true }}
-                                        footer={() => (
-                                            <div>
-                                                <div style={{ textAlign: 'center', height: 20 }}>
-                                                    ---心里满满都是你---
-                                                </div>
-                                                <div style={{ height: 20 }}>
-                                                </div>
-                                            </div>
-                                        )}
-                                    />
-                                </div>
-
-                                <div>
-                                    <Modal
-                                        width={1000}
-                                        centered
-                                        keyboard
-                                        maskClosable={false}
-                                        title='配货预览'
-                                        visible={productTransferPreviewShow}
-                                        onCancel={() => { this.handleProductTransferPreviewCancel() }}
-                                        onOk={() => this.handleProductTransferPreviewOK()}
-                                        okText='---确定出货---'
-                                        okButtonProps={{ disabled: disableTransferPreviewOk }}
-                                    >
-                                        <Table
-                                            size='small'
-                                            dataSource={allProductionDataRealToBeTransfer}
-                                            columns={KProductTransferPreviewColumns4Table}
-                                            bordered pagination={false}
-                                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
-                                        />
-                                    </Modal>
-                                </div>
-                            </div>
-                        )
-                        :
-                        distributionPrintShow ?
-                            (
-                                <div style={{ marginLeft: 10, marginTop: 10 }}>
-                                    <div id="printConfig"
-                                        style={{ float: 'left', borderStyle: 'none', width: 90 }}>
-                                        <div>
-                                            <Button type="primary"
-                                                style={{ width: 90, height: 80 }}
-                                                onClick={() => {
-                                                    this.setState({ allDistributionDataToBePrint: [] });
-                                                }}>
-                                                <div style={{ fontSize: 16 }}>
-                                                    后退
-                                                </div>
-                                            </Button>
-                                        </div>
-                                        <Button type="primary"
-                                            style={{ marginTop: 10, width: 90, height: 80 }}
-                                            onClick={this.productPrintPreprew}>
-                                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                                打印预览
-                                            </div>
-                                        </Button>
-                                        <Button type="primary" danger
-                                            style={{ marginTop: 10, width: 90, height: 80 }}
-                                            onClick={this.productPrintDirect}>
-                                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                                直接打印
-                                            </div>
-                                        </Button>
-                                    </div>
-
-                                    <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
-                                        <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
-                                            {
-                                                allDistributionDataToBePrint.map((columnData) => {
-                                                    let productArray = columnData.items;
-                                                    let index = allDistributionDataToBePrint.indexOf(columnData);
-                                                    return (
-                                                        <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                            <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
-                                                            <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
-                                                                            {columnData.orderShop}
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
-                                                                            {columnData.templateName}
-                                                                        </th>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th style={{ textAlign: 'center', fontSize: 14 }}>简码</th>
-                                                                        <th style={{ textAlign: 'center' }}>品名</th>
-                                                                        <th style={{ textAlign: 'center', fontSize: 10 }}>订货量</th>
-                                                                        <th style={{ textAlign: 'center' }}>早</th>
-                                                                        <th style={{ textAlign: 'center' }}>中</th>
-                                                                        <th style={{ textAlign: 'center' }}>晚</th>
-                                                                        <th style={{ textAlign: 'center', fontSize: 12 }}>备注</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {
-                                                                        productArray.map((productItem) => {
-                                                                            let serialNum = productArray.indexOf(productItem) + 1;
-                                                                            return (
-                                                                                <tr key={serialNum} style={{ height: 24 }}>
-                                                                                    <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple}</th>
-                                                                                    <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
-                                                                                    <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8 }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
-                                                                                    <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                    <th key='5' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                    <th key='6' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                    <th key='7' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                                </tr>)
-                                                                        })
-                                                                    }
-                                                                </tbody>
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <th colSpan='7'>{columnData.expectTime}</th>
-                                                                    </tr>
-                                                                </tfoot>
-                                                            </table>
-                                                            <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
+                                        <div style={{ height: 50 }}>
                                         </div>
                                     </div>
-                                </div>
-                            )
-                            :
-                            (
-                                <div>
-                                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
-                                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
-                                        <div>
-                                            <Button danger disabled={disableProductionPrint} type='primary'
-                                                onClick={this.handleProductionPrint1}
-                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                                打印生产单
-                                            </Button>
-                                            {
-                                                notyetOrderShopInfoShow ? (<span>
-                                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
-                                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
-                                                </span>) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div>
-                                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
-                                                onClick={this.handleDistributionPrint}
-                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                                {distributionButtonText}
-                                            </Button>
-                                            {
-                                                notyetOrderTemplateInfoShow ? (<span>
-                                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
-                                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
-                                                </span>) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div>
-                                            <Button danger disabled={disableSubmitButton} type='primary'
-                                                onClick={this.handleTransfer}
-                                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                                {transferButtonText}
-                                            </Button>
-                                        </div>
-                                    </div>
-                                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
-                                        <Dropdown
-                                            style={{ marginLeft: 0 }}
-                                            overlay={
-                                                () => {
-                                                    return (<Menu onClick={async ({ key }) => {
-                                                        this.setState({ currentShop: KAllShops[key] }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }} >
-                                                        {
-                                                            KAllShops.map((shop) => {
-                                                                return (<Menu.Item key={shop.index}>
-                                                                    {shop.name}
-                                                                </Menu.Item>);
-                                                            })
-                                                        }
-                                                    </Menu>)
-                                                }
-                                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                                                {currentShop.name}
-                                                <DownOutlined />
-                                            </Button>
-                                        </Dropdown>
-                                        <Dropdown
-                                            overlay={
-                                                () => {
-                                                    return (<Menu onClick={async ({ key }) => {
-                                                        this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }} >
-                                                        {
-                                                            KOrderTemplates.map((template) => {
-                                                                return (<Menu.Item key={template.index}>
-                                                                    {template.name}
-                                                                </Menu.Item>);
-                                                            })
-                                                        }
-                                                    </Menu>)
-                                                }
-                                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
-                                                {currentTemplate.name}
-                                                <DownOutlined />
-                                            </Button>
-                                        </Dropdown>
-                                        <RangePicker
-                                            open={timePickerOpen}
-                                            onOpenChange={(open) => {
-                                                this.setState({ timePickerOpen: open });
-                                            }}
-                                            style={{ marginLeft: 10 }}
-                                            size='small'
-                                            locale={locale}
-                                            bordered={true}
-                                            placeholder={['开始时间', '结束时间']}
-                                            inputReadOnly={true}
-                                            disabled={alreadyOrderLoading}
-                                            value={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                                            showTime={{
-                                                hideDisabledOptions: true,
-                                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
-                                                showTime: true,
-                                                showHour: true,
-                                                showMinute: true,
-                                                showSecond: true
-                                            }}
-                                            onOk={async (data) => {
-                                                if (data.length >= 2 && data[0] && data[1]) {
-                                                    if (data[0] > data[1]) {
-                                                        message.info('请输入正确时间');
-                                                        return;
-                                                    }
-                                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
-                                                        await this.fetchOrderList();
-                                                    });
-                                                }
-                                            }}
-                                            renderExtraFooter={() => (
-                                                <span>
-                                                    <Button size="small" type="primary" onClick={(e) => {
-                                                        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
-                                                        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
-                                                        // console.log(yesterdayBegin);
-                                                        // console.log(yesterdayEnd);
-
-                                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }}>
-                                                        昨天
-                                                    </Button>
-                                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
-                                                        let yesterdayBegin = moment().startOf('day');
-                                                        let yesterdayEnd = moment().endOf('day');
-                                                        // console.log(yesterdayBegin);
-                                                        // console.log(yesterdayEnd);
-
-                                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
-                                                            await this.fetchOrderList();
-                                                        });
-                                                    }}>
-                                                        今天
-                                                    </Button>
-                                                </span>
-                                            )}
-                                        />
-                                        <Button
-                                            style={{ width: 180, marginLeft: 10 }} type='primary'
-                                            onClick={async (e) => { await this.fetchOrderList(); }}>
-                                            查询门店订货单
-                                        </Button>
-                                        <Table style={{ marginTop: 10 }}
-                                            size='small'
-                                            loading={alreadyOrderLoading}
-                                            dataSource={alreadyOrderListData}
-                                            columns={KOrderColumns4Table}
-                                            rowSelection={alreadyOrderRowSelection}
-                                            pagination={false} bordered
-                                            footer={() => {
-                                                return (
-                                                    <div>
-                                                        <div style={{ textAlign: 'center', height: 50 }}>
-                                                            ---心里满满都是你---
-                                                        </div>
-                                                        <div style={{ height: 50 }}>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }} />
-                                    </div>
-                                </div>
-                            )
-                }
+                                )
+                            }} />
+                    </div>
+                </div>
             </div>
         );
     }

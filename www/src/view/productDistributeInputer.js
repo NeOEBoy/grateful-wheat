@@ -6,6 +6,8 @@ import {
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
+import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
+import moment from 'moment';
 
 import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
@@ -242,6 +244,7 @@ class ProductDistributeInputer extends React.Component {
             productSpinning: false,
             transferItems4NextFocus: [],
             filterDropdownVisible4Transfer: true,
+            productTransferPrintShow: false
         };
         this._searchInput = null;
         this._searchInput4AddProduct = null;
@@ -613,6 +616,8 @@ class ProductDistributeInputer extends React.Component {
             allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp,
             productTransferPreviewShow: true, filterDropdownVisible4Transfer: false
         });
+
+        this.setState({ productTransferPrintShow: true })
     };
 
     onAddProductSearch = async (text, e) => {
@@ -821,6 +826,38 @@ class ProductDistributeInputer extends React.Component {
         // console.log(searchProductDataToBeAddTemp);
     };
 
+    productPrintPreprew = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+            LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "");
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            // LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.ADD_PRINT_HTM(20, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.PREVIEW();
+        }
+    };
+
+    productPrintDirect = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+            LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "");
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            // LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.ADD_PRINT_HTM(20, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.PRINT();
+        }
+    };
+
     render() {
         const {
             allProductionDataToBeTransfer,
@@ -833,6 +870,7 @@ class ProductDistributeInputer extends React.Component {
             currentShop,
             productSpinTipText,
             productSpinning,
+            productTransferPrintShow
         } = this.state;
 
         let disableTransferPreviewOk = allProductionDataRealToBeTransfer &&
@@ -927,99 +965,61 @@ class ProductDistributeInputer extends React.Component {
             onSelect: this.onAddProductSelect
         };
 
+        let currentTimeStr = moment().format('YYYY-MM-DD HH:mm a');
         return (
-            <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
-                <div>
-                    <div style={{
-                        zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed',
-                        width: '100%', height: 60, backgroundColor: 'lightgray'
-                    }}>
-                        <div>
-                            <Button danger type='primary'
-                                onClick={this.handleProductionTransferPreview}
-                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                配货预览
+            <div>
+                <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
+                    <div>
+                        <div style={{
+                            zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed',
+                            width: '100%', height: 60, backgroundColor: 'lightgray'
+                        }}>
+                            <div>
+                                <Button danger type='primary'
+                                    onClick={this.handleProductionTransferPreview}
+                                    style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                    配货预览
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div style={{ marginLeft: 10, marginTop: 10 }}>
+                            <Button type="primary"
+                                style={{ width: 80, height: 40 }}
+                                onClick={() => {
+                                    window.history.go(-1)
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 500);
+                                }}>
+                                <div style={{ fontSize: 16 }}>
+                                    后退
+                                </div>
+                            </Button>
+                            <span style={{ marginLeft: 10 }}>总部==</span>
+                            <span style={{ marginLeft: 0 }}>{`调往=>`}</span>
+                            <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
+
+                            <Button type="primary" danger
+                                style={{ width: 60, height: 30 }}
+                                ref={(node) => {
+                                    if (!this._addProductButton && node) {
+                                        this._addProductButton = node;
+                                    }
+                                }}
+                                onClick={() => {
+                                    this._searchInput = null;
+                                    this.setState({
+                                        addProductionSelectedRowKeys: [], isAddProductionModalVisible: true,
+                                        filterDropdownVisible4Transfer: false, searchProductDataToBeAdd: []
+                                    });
+                                }}>
+                                <div style={{ fontSize: 8 }}>
+                                    +商品
+                                </div>
                             </Button>
                         </div>
-                    </div>
 
-                    <div style={{ marginLeft: 10, marginTop: 10 }}>
-                        <Button type="primary"
-                            style={{ width: 80, height: 40 }}
-                            onClick={() => {
-                                window.history.go(-1)
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 500);
-                            }}>
-                            <div style={{ fontSize: 16 }}>
-                                后退
-                            </div>
-                        </Button>
-                        <span style={{ marginLeft: 10 }}>总部==</span>
-                        <span style={{ marginLeft: 0 }}>{`调往=>`}</span>
-                        <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
-
-                        <Button type="primary" danger
-                            style={{ width: 60, height: 30 }}
-                            ref={(node) => {
-                                if (!this._addProductButton && node) {
-                                    this._addProductButton = node;
-                                }
-                            }}
-                            onClick={() => {
-                                this._searchInput = null;
-                                this.setState({
-                                    addProductionSelectedRowKeys: [], isAddProductionModalVisible: true,
-                                    filterDropdownVisible4Transfer: false, searchProductDataToBeAdd: []
-                                });
-                            }}>
-                            <div style={{ fontSize: 8 }}>
-                                +商品
-                            </div>
-                        </Button>
-                    </div>
-
-                    <div>
-                        <Modal
-                            width={1000}
-                            centered
-                            keyboard
-                            maskClosable={false}
-                            title={
-                                (<div>
-                                    <span>
-                                        添加商品
-                                    </span>
-                                    <Search
-                                        style={{ width: 240, marginLeft: 20 }}
-                                        ref={(node) => {
-                                            if (!this._searchInput4AddProduct && node) {
-                                                node && node.focus();
-                                                this._searchInput4AddProduct = node;
-                                            }
-                                        }}
-                                        enterButton
-                                        placeholder='输入商品名称'
-                                        onSearch={(text, e) => this.onAddProductSearch(text, e)}>
-                                    </Search>
-                                </div>)}
-                            visible={isAddProductionModalVisible}
-                            onOk={this.handleAddProductionModalOk}
-                            onCancel={this.handleAddProductionModalCancel}
-                            okText='完毕'
-                            cancelButtonProps={{ hidden: true }}>
-                            <Table
-                                size='small'
-                                rowSelection={addProductRowSelection}
-                                loading={searchingProductData}
-                                dataSource={searchProductDataToBeAdd}
-                                components={components4AddProduct}
-                                columns={addProductColumns4TableEditable}
-                                bordered pagination={false}
-                                scroll={{ y: 360, scrollToFirstRowOnChange: true }}
-                            />
-                        </Modal>
                         <Table style={{ marginTop: 10, marginLeft: 10, marginRight: 10 }}
                             size='small'
                             components={components4Transfer}
@@ -1039,31 +1039,165 @@ class ProductDistributeInputer extends React.Component {
                             )}
                         />
                     </div>
+                </Spin>
 
-                    <div>
-                        <Modal
-                            width={1000}
-                            centered
-                            keyboard
-                            maskClosable={false}
-                            title='配货预览'
-                            visible={productTransferPreviewShow}
-                            onCancel={() => { this.handleProductTransferPreviewCancel() }}
-                            onOk={() => this.handleProductTransferPreviewOK()}
-                            okText='---确定出货---'
-                            okButtonProps={{ disabled: disableTransferPreviewOk }}
-                        >
-                            <Table
-                                size='small'
-                                dataSource={allProductionDataRealToBeTransfer}
-                                columns={KProductTransferPreviewColumns4Table}
-                                bordered pagination={false}
-                                scroll={{ y: 360, scrollToFirstRowOnChange: true }}
-                            />
-                        </Modal>
-                    </div>
+                <div>
+                    <Modal
+                        width={1000}
+                        centered
+                        keyboard
+                        maskClosable={false}
+                        title={
+                            (<div>
+                                <span>
+                                    添加商品
+                                </span>
+                                <Search
+                                    style={{ width: 240, marginLeft: 20 }}
+                                    ref={(node) => {
+                                        if (!this._searchInput4AddProduct && node) {
+                                            node && node.focus();
+                                            this._searchInput4AddProduct = node;
+                                        }
+                                    }}
+                                    enterButton
+                                    placeholder='输入商品名称'
+                                    onSearch={(text, e) => this.onAddProductSearch(text, e)}>
+                                </Search>
+                            </div>)}
+                        visible={isAddProductionModalVisible}
+                        onOk={this.handleAddProductionModalOk}
+                        onCancel={this.handleAddProductionModalCancel}
+                        okText='完毕'
+                        cancelButtonProps={{ hidden: true }}>
+                        <Table
+                            size='small'
+                            rowSelection={addProductRowSelection}
+                            loading={searchingProductData}
+                            dataSource={searchProductDataToBeAdd}
+                            components={components4AddProduct}
+                            columns={addProductColumns4TableEditable}
+                            bordered pagination={false}
+                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
+                        />
+                    </Modal>
+
                 </div>
-            </Spin>
+
+                <div>
+                    <Modal
+                        width={1300}
+                        centered
+                        keyboard
+                        maskClosable={false}
+                        title={(
+                            <div>
+                                <span>配货预览</span>
+
+                                <Button danger type='link' style={{ marginLeft: 20 }} onClick={(e) => {
+                                    this.setState({ productTransferPrintShow: true })
+                                }}>
+                                    点击打印
+                                </Button>
+                            </div>
+                        )}
+                        visible={productTransferPreviewShow}
+                        onCancel={() => { this.handleProductTransferPreviewCancel() }}
+                        onOk={() => this.handleProductTransferPreviewOK()}
+                        okText='---确定出货---'
+                        okButtonProps={{ disabled: disableTransferPreviewOk }}
+                    >
+                        <Table
+                            style={{ height: 480 }}
+                            size='small'
+                            dataSource={allProductionDataRealToBeTransfer}
+                            columns={KProductTransferPreviewColumns4Table}
+                            bordered pagination={false}
+                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
+                        />
+                    </Modal>
+                </div>
+
+                <div>
+                    <Modal
+                        width={1000}
+                        centered
+                        keyboard
+                        maskClosable={false}
+                        title={(<div style={{ height: 0 }}></div>)}
+                        closable={false}
+                        visible={productTransferPrintShow}
+                        footer={[
+                            <Button key="back" onClick={(e) => this.setState({ productTransferPrintShow: false })}>
+                                取消
+                            </Button>,
+                            <Button key="submit" type="primary" danger onClick={(e) => this.productPrintDirect()}>
+                                直接打印
+                            </Button>,
+                            <Button
+                                key="link"
+                                type="primary"
+                                onClick={(e) => this.productPrintPreprew()}
+                            >
+                                打印预览
+                            </Button>
+                        ]}>
+                        <div id="printDiv" style={{ width: '100%', height: 500, borderStyle: 'dotted', }}>
+                            <div style={{ marginLeft: 50, marginTop: 20, width: 800, backgroundColor: 'transparent' }}>
+                                <div>
+                                    <span style={{ fontSize: 30 }}>门店出货单</span>
+                                </div>
+                                <div>
+                                    <span>收货门店：</span>
+                                    <span>{currentShop.name}</span>
+
+                                    <span style={{ marginLeft: 100 }}>出单时间：</span>
+                                    <span>{currentTimeStr}</span>
+                                </div>
+                                <div>
+
+                                </div>
+                                <div>
+                                    {
+                                        <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                            <thead>
+                                                <tr>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>序</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>条码</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>品名</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>数量</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>分类</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>规格</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>备注</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    allProductionDataRealToBeTransfer.map((productItem) => {
+                                                        console.log(productItem)
+                                                        let serialNum = allProductionDataRealToBeTransfer.indexOf(productItem) + 1;
+                                                        return (
+                                                            <tr key={serialNum}>
+                                                                <th key='1' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
+                                                                <th key='2' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
+                                                                <th key='3' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
+                                                                <th key='5' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
+                                                                <th key='6' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
+                                                                <th key='7' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}></th>
+
+                                                            </tr>)
+                                                    })
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </Modal>
+                </div>
+            </div>
         );
     };
 };

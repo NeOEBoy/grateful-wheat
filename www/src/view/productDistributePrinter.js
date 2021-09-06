@@ -343,7 +343,7 @@ class ProductDistributePrinter extends React.Component {
                                                 <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                     <thead>
                                                         <tr>
-                                                            <th colSpan='7' style={{ width: 323, textAlign: 'center' }}>
+                                                            <th colSpan='7' style={{ width: 323, textAlign: 'center', backgroundColor:'yellow' }}>
                                                                 {columnData.orderShop}
                                                             </th>
                                                         </tr>

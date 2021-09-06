@@ -13,7 +13,7 @@ import {
 const { RangePicker } = DatePicker;
 
 /**--------------------配置信息--------------------*/
-const KForTest = true;
+const KForTest = false;
 
 /// 门店信息
 const KAllShops = [
@@ -80,8 +80,8 @@ class OrderManagement extends React.Component {
         this.state = {
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[1],
-            currentTemplate: KOrderTemplates[0],
+            currentShop: KAllShops[0],
+            currentTemplate: KOrderTemplates[1],
             beginDateTime: beginDateTime,
             endDateTime: endDateTime,
             timePickerOpen: false,
@@ -330,7 +330,7 @@ class OrderManagement extends React.Component {
                             <Button danger disabled={disableSubmitButton} type='primary'
                                 onClick={this.handleDistributionInput}
                                 style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                录入配货单
+                                开始配货
                             </Button>
                         </div>
                     </div>

@@ -90,7 +90,8 @@ const EditableCell4Transfer = ({
         const handleOnChange = async () => {
             try {
                 const values = await form.validateFields();
-                record[dataIndex] = values[dataIndex];
+                let newData = parseInt(values[dataIndex]);
+                record[dataIndex] = newData;
             } catch (errInfo) {
                 console.log('Save failed:', errInfo);
             }
@@ -178,7 +179,8 @@ const EditableCell4AddProduct = ({
         const handleOnChange = async () => {
             try {
                 const values = await form.validateFields();
-                record[dataIndex] = values[dataIndex];
+                let newData = parseInt(values[dataIndex]);
+                record[dataIndex] = newData;
             } catch (errInfo) {
                 console.log('Save failed:', errInfo);
             }
@@ -547,8 +549,8 @@ class ProductDistributeInputer extends React.Component {
                 newItem4Transfer.transferPrice = record.price;
                 newItem4Transfer.orderProductName = record.productName;
                 newItem4Transfer.specification = record.specification;
-                newItem4Transfer.orderNumber = record.transferNumber;
-                newItem4Transfer.transferNumber = record.transferNumber;
+                newItem4Transfer.orderNumber = parseInt(record.transferNumber);
+                newItem4Transfer.transferNumber = parseInt(record.transferNumber);
                 newItem4Transfer.sortId = 200;
                 newItem4Transfer.remark = '新增';
                 newItem4Transfer.key = allProductionDataToBeTransferTemp.length + 1;
@@ -617,7 +619,7 @@ class ProductDistributeInputer extends React.Component {
             productTransferPreviewShow: true, filterDropdownVisible4Transfer: false
         });
 
-        this.setState({ productTransferPrintShow: true })
+        // this.setState({ productTransferPrintShow: true })
     };
 
     onAddProductSearch = async (text, e) => {
@@ -996,8 +998,7 @@ class ProductDistributeInputer extends React.Component {
                                     后退
                                 </div>
                             </Button>
-                            <span style={{ marginLeft: 10 }}>总部==</span>
-                            <span style={{ marginLeft: 0 }}>{`调往=>`}</span>
+                            <span style={{ marginLeft: 10 }}>{`弯麦(总部)->`}</span>
                             <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
 
                             <Button type="primary" danger
@@ -1094,7 +1095,10 @@ class ProductDistributeInputer extends React.Component {
                             <div>
                                 <span>配货预览</span>
 
-                                <Button danger type='link' style={{ marginLeft: 20 }} onClick={(e) => {
+                                <span style={{ marginLeft: 10 }}>{`弯麦(总部)->`}</span>
+                                <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
+
+                                <Button danger type='primary' style={{ marginLeft: 20 }} onClick={(e) => {
                                     this.setState({ productTransferPrintShow: true })
                                 }}>
                                     点击打印
@@ -1108,12 +1112,12 @@ class ProductDistributeInputer extends React.Component {
                         okButtonProps={{ disabled: disableTransferPreviewOk }}
                     >
                         <Table
-                            style={{ height: 480 }}
+                            style={{ height: 480, backgroundColor: 'transparent' }}
                             size='small'
                             dataSource={allProductionDataRealToBeTransfer}
                             columns={KProductTransferPreviewColumns4Table}
                             bordered pagination={false}
-                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
+                            scroll={{ y: 440, scrollToFirstRowOnChange: true }}
                         />
                     </Modal>
                 </div>
@@ -1124,6 +1128,7 @@ class ProductDistributeInputer extends React.Component {
                         centered
                         keyboard
                         maskClosable={false}
+                        maskStyle={{ backgroundColor: 'white' }}
                         title={(<div style={{ height: 0 }}></div>)}
                         closable={false}
                         visible={productTransferPrintShow}
@@ -1142,8 +1147,8 @@ class ProductDistributeInputer extends React.Component {
                                 打印预览
                             </Button>
                         ]}>
-                        <div id="printDiv" style={{ width: '100%', height: 500, borderStyle: 'dotted', }}>
-                            <div style={{ marginLeft: 50, marginTop: 20, width: 800, backgroundColor: 'transparent' }}>
+                        <div id="printDiv" style={{ width: '100%', height: 500, borderStyle: 'dotted' }}>
+                            <div style={{ marginLeft: 50, marginTop: 20, width: 800, minHeight: 500, maxHeight: 5000, backgroundColor: 'transparent' }}>
                                 <div>
                                     <span style={{ fontSize: 30 }}>门店出货单</span>
                                 </div>
@@ -1153,9 +1158,6 @@ class ProductDistributeInputer extends React.Component {
 
                                     <span style={{ marginLeft: 100 }}>出单时间：</span>
                                     <span>{currentTimeStr}</span>
-                                </div>
-                                <div>
-
                                 </div>
                                 <div>
                                     {

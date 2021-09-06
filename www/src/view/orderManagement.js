@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    Button, Menu, Dropdown, DatePicker, Table,
-    message
+    Button, Menu, Dropdown,
+    DatePicker, Table, message
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
@@ -298,7 +298,7 @@ class OrderManagement extends React.Component {
         return (
             <div>
                 <div>
-                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产单 | 配货单 打印模块</div>
+                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产 VS 配货</div>
                     <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
                         <div>
                             <Button danger disabled={disableProductionPrint} type='primary'

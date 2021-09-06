@@ -1,7 +1,7 @@
 
 import React, { useContext, useRef } from 'react';
 import {
-    Button, Table, Spin,
+    Button, Table, Spin, Popconfirm,
     message, Form, Input, Modal
 } from 'antd';
 import Highlighter from 'react-highlight-words';
@@ -39,15 +39,6 @@ const KSortIdArray = {
     '182-2106281601535': 6, //椰蓉小吐司				
     '182-2010291510063': 7, //纯奶拉丝大吐司					
 };
-const KProductTransferPreviewColumns4Table = [
-    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-    { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-];
 
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
@@ -67,6 +58,7 @@ const EditableCell4Transfer = ({
     title, editable, children, dataIndex, record,
     handleEditableCellNextFocus,
     handleEditableCellCurrentFocus,
+    handleEditableCellCurrentEnter,
     ...restProps
 }) => {
     let childNode = children;
@@ -100,13 +92,13 @@ const EditableCell4Transfer = ({
         /// Enter按下时处理光标
         const handleOnPressEnter = () => {
             handleEditableCellNextFocus();
+            handleEditableCellCurrentEnter(record, dataIndex);
         };
 
         /// 获得焦点时整理焦点
         const handleOnFocus = async () => {
             handleEditableCellCurrentFocus(record);
         }
-
 
         if (editable) {
             let initialValue = record[dataIndex];
@@ -236,7 +228,6 @@ class ProductDistributeInputer extends React.Component {
         this.state = {
             allProductionDataToBeTransfer: [],
             allProductionDataRealToBeTransfer: [],
-            productTransferPreviewShow: false,
             searchProductDataToBeAdd: [],
             searchingProductData: false,
             isAddProductionModalVisible: false,
@@ -255,7 +246,7 @@ class ProductDistributeInputer extends React.Component {
     };
 
     componentDidMount = async () => {
-        console.log('componentDidMount begin');
+        // console.log('componentDidMount begin');
 
         let query = this.props.query;
         if (query) {
@@ -435,7 +426,10 @@ class ProductDistributeInputer extends React.Component {
             }
             // console.log(transferData);
 
-            this.setState({ productSpinning: false, productSpinTipText: '', allProductionDataToBeTransfer: transferData });
+            this.setState({
+                productSpinning: false, productSpinTipText: '',
+                allProductionDataToBeTransfer: transferData
+            });
         });
     };
 
@@ -464,9 +458,36 @@ class ProductDistributeInputer extends React.Component {
                         if (this._addProductButton) {
                             this._addProductButton.disabled = this._searchText4Transfer.length > 0;
                         }
+
+                        this.setState({ transferItems4NextFocus: [] }, () => {
+                            let transferItems4NextFocusTemp = [];
+                            this.state.allProductionDataToBeTransfer.forEach(element => {
+                                if (element.barcodeSimple.indexOf(this._searchText4Transfer) !== -1) {
+                                    element.editing = false;
+                                    transferItems4NextFocusTemp.push(element);
+                                }
+                            });
+
+                            if (transferItems4NextFocusTemp.length > 0) {
+                                this.setState({ transferItems4NextFocus: transferItems4NextFocusTemp });
+                            }
+                        });
                     }}
                     onFocus={(e) => {
                         // console.log('输入简码 onFocus e = ' + e);
+                        this.setState({ transferItems4NextFocus: [] }, () => {
+                            let transferItems4NextFocusTemp = [];
+                            this.state.allProductionDataToBeTransfer.forEach(element => {
+                                if (element.barcodeSimple.indexOf(this._searchText4Transfer) !== -1) {
+                                    element.editing = false;
+                                    transferItems4NextFocusTemp.push(element);
+                                }
+                            });
+
+                            if (transferItems4NextFocusTemp.length > 0) {
+                                this.setState({ transferItems4NextFocus: transferItems4NextFocusTemp });
+                            }
+                        });
                     }}
                     onPressEnter={(e) => {
                         // console.log('搜索简码 onPressEnter e = ' + e);
@@ -476,6 +497,7 @@ class ProductDistributeInputer extends React.Component {
                             let transferItems4NextFocusTemp = [];
                             this.state.allProductionDataToBeTransfer.forEach(element => {
                                 if (element.barcodeSimple.indexOf(this._searchText4Transfer) !== -1) {
+                                    element.editing = false;
                                     transferItems4NextFocusTemp.push(element);
                                 }
                             });
@@ -516,7 +538,7 @@ class ProductDistributeInputer extends React.Component {
         this.setState({ addProductionSelectedRowKeys: selectedRowKeys });
     };
 
-    onAddProductSelect = (record, selected, selectedRows, nativeEvent) => {
+    onAddProductSelect = (record, selected) => {
         // console.log('onAddProductSelect record: ', record);
         // console.log('onAddProductSelect selected: ', selected);
         // console.log('onAddProductSelect selectedRows: ', selectedRows);
@@ -528,102 +550,58 @@ class ProductDistributeInputer extends React.Component {
             this._searchInput4AddProduct.select();
         }
 
-        let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
-        let position = -1;
-        for (let i = 0; i < allProductionDataToBeTransferTemp.length; ++i) {
-            let currentItem = allProductionDataToBeTransferTemp[i];
-            if (currentItem.barcode === record.barcode) {
-                position = i;
-                break;
-            }
-        }
-
+        let allProductionDataRealToBeTransferTemp = this.state.allProductionDataRealToBeTransfer;
         if (selected) {
             record.disabledInput = true;
-            if (position === -1) {
-                let newItem4Transfer = {};
-                newItem4Transfer.barcode = record.barcode;
-                newItem4Transfer.barcodeSimple = record.barcode.substring(record.barcode.length - 4, record.barcode.length);
-                newItem4Transfer.categoryName = record.categoryName;
-                newItem4Transfer.editing = false;
-                newItem4Transfer.transferPrice = record.price;
-                newItem4Transfer.orderProductName = record.productName;
-                newItem4Transfer.specification = record.specification;
-                newItem4Transfer.orderNumber = parseInt(record.transferNumber);
-                newItem4Transfer.transferNumber = parseInt(record.transferNumber);
-                newItem4Transfer.sortId = 200;
-                newItem4Transfer.remark = '新增';
-                newItem4Transfer.key = allProductionDataToBeTransferTemp.length + 1;
+            let newItem4Transfer = {};
+            newItem4Transfer.barcode = record.barcode;
+            newItem4Transfer.barcodeSimple = record.barcode.substring(record.barcode.length - 4, record.barcode.length);
+            newItem4Transfer.categoryName = record.categoryName;
+            newItem4Transfer.editing = false;
+            newItem4Transfer.transferPrice = record.price;
+            newItem4Transfer.orderProductName = record.productName;
+            newItem4Transfer.specification = record.specification;
+            newItem4Transfer.orderNumber = parseInt(record.orderNumber);
+            newItem4Transfer.transferNumber = parseInt(record.transferNumber);
+            newItem4Transfer.sortId = 200;
+            newItem4Transfer.remark = '新增';
+            let key = 0;
+            newItem4Transfer.key = ++key;
 
-                let allProductionDataAfterAdd = []; let transferItems4NextFocusTemp = [];
-                allProductionDataToBeTransferTemp.forEach(product => {
-                    product.editing = false;
-                    let newProduct = { ...product };
-                    allProductionDataAfterAdd.push(newProduct);
-                    transferItems4NextFocusTemp.push(product);
-                });
-                allProductionDataAfterAdd.push(newItem4Transfer);
-                transferItems4NextFocusTemp.push(newItem4Transfer);
-
-                this.setState({
-                    allProductionDataToBeTransfer: allProductionDataAfterAdd,
-                    transferItems4NextFocus: transferItems4NextFocusTemp
-                });
-                // console.log(allProductionDataAfterAdd);
+            let allProductionDataAfterAdd = [];
+            allProductionDataAfterAdd.push(newItem4Transfer);
+            for (let ii = 0; ii < allProductionDataRealToBeTransferTemp.length; ++ii) {
+                let item = allProductionDataRealToBeTransferTemp[ii];
+                if (item.barcode !== newItem4Transfer.barcode) {
+                    item.key = ++key;
+                    allProductionDataAfterAdd.push(item);
+                }
             }
+
+            this.setState({
+                allProductionDataRealToBeTransfer: allProductionDataAfterAdd
+            });
+            // console.log(allProductionDataAfterAdd);
         } else {
             record.disabledInput = false;
-            if (position !== -1) {
-                let existItem = allProductionDataToBeTransferTemp[position];
-
-                let allProductionDataAfterRemove = [];
-                let transferItems4NextFocusTemp = [];
-                let keyIndex = 0;
-
-                for (let jj = 0; jj < allProductionDataToBeTransferTemp.length; ++jj) {
-                    let product = allProductionDataToBeTransferTemp[jj];
-                    if (product.barcode === existItem.barcode) continue;
-
-                    ++keyIndex; product.key = keyIndex;
-                    let pro = { ...product };
-                    allProductionDataAfterRemove.push(pro);
-                    transferItems4NextFocusTemp.push(pro);
+            let allProductionDataAfterRemove = [];
+            let key = 0;
+            for (let ii = 0; ii < allProductionDataRealToBeTransferTemp.length; ++ii) {
+                let item = allProductionDataRealToBeTransferTemp[ii];
+                if (item.barcode !== record.barcode) {
+                    item.key = ++key;
+                    allProductionDataAfterRemove.push(item);
                 }
-
-                this.setState({
-                    allProductionDataToBeTransfer: allProductionDataAfterRemove,
-                    transferItems4NextFocus: transferItems4NextFocusTemp
-                });
             }
+
+            this.setState({
+                allProductionDataRealToBeTransfer: allProductionDataAfterRemove
+            });
         }
     };
 
-    handleProductionTransferPreview = async () => {
-        // console.log('handleProductionTransferPreview begin');
-
-        const allDataToBeTransfer = this.state.allProductionDataToBeTransfer;
-        let allProductionDataRealToBeTransferTemp = [];
-        let key = 0;
-        allDataToBeTransfer.forEach(oneItem => {
-            oneItem.editing = false;
-
-            if (oneItem.transferNumber > 0) {
-                ++key;
-                let newItem = { ...oneItem };
-                newItem.key = key;
-                allProductionDataRealToBeTransferTemp.push(newItem);
-            }
-        });
-        this.setState({
-            allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp,
-            productTransferPreviewShow: true, filterDropdownVisible4Transfer: false
-        });
-
-        // this.setState({ productTransferPrintShow: true })
-    };
-
-    onAddProductSearch = async (text, e) => {
-        // console.log('onAddProductSearch text = ' + text + '; e=' + e.key);
+    handleAddProductOnSearch = async (text, e) => {
+        // console.log('handleAddProductOnSearch text = ' + text + '; e=' + e.key);
 
         if (!text || text.length <= 0) {
             message.error('请输入正确的商品名称或条码');
@@ -645,15 +623,16 @@ class ProductDistributeInputer extends React.Component {
             this._lastSearchText4AddProduct = text;
             let loadProductResult = await loadProductsByKeyword(text);
             if (loadProductResult.errCode === 0 && loadProductResult.items && loadProductResult.items.length > 0) {
-                let allProductionDataToBeTransferTemp = this.state.allProductionDataToBeTransfer;
+                let allProductionDataRealToBeTransferTemp = this.state.allProductionDataRealToBeTransfer;
 
                 let selectKeys = [];
 
                 loadProductResult.items.forEach(item => {
                     item.transferNumber = 0;
                     item.editing = false;
+                    item.orderNumber = 0;
 
-                    allProductionDataToBeTransferTemp.forEach(product => {
+                    allProductionDataRealToBeTransferTemp.forEach(product => {
                         if (item.barcode === product.barcode) {
                             if (selectKeys.indexOf(item.key) === -1) {
                                 item.disabledInput = true;
@@ -680,7 +659,7 @@ class ProductDistributeInputer extends React.Component {
         }
     };
 
-    handleAddProductionModalOk = () => {
+    handleAddProductionModalonOk = () => {
         this.setState({ isAddProductionModalVisible: false });
         this.setState({ filterDropdownVisible4Transfer: true });
 
@@ -689,26 +668,11 @@ class ProductDistributeInputer extends React.Component {
         }, 100);
     };
 
-    handleAddProductionModalCancel = () => {
-        this.handleAddProductionModalOk();
-    };
-
-    handleProductTransferPreviewCancel = async () => {
-        this.setState({
-            productTransferPreviewShow: false,
-        }, () => {
-            this.setState({
-                allProductionDataRealToBeTransfer: [],
-                filterDropdownVisible4Transfer: true
-            })
-        });
-    }
-
-    handleProductTransferPreviewOK = async () => {
-        // console.log('handleProductTransferPreviewOK begin');
+    handleProductTransferConfirm = async () => {
+        console.log('handleProductTransferConfirm begin');
 
         let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
-        console.log(allProductionDataRealToBeTransfer);
+        // console.log(allProductionDataRealToBeTransfer);
 
         let toUserId = this.state.currentShop.userId;
         let items = [];
@@ -720,6 +684,8 @@ class ProductDistributeInputer extends React.Component {
             items.push(item);
         });
 
+        // console.log(items);
+
         let result = await createStockFlowOut(toUserId, items);
         // console.log(result);
         if (result && result.errCode === 0) {
@@ -727,8 +693,6 @@ class ProductDistributeInputer extends React.Component {
         } else {
             message.error('配货失败~');
         }
-
-        this.handleProductTransferPreviewCancel();
     }
 
     handleEditableCellNextFocus = () => {
@@ -772,6 +736,42 @@ class ProductDistributeInputer extends React.Component {
             }
         }
         this.forceUpdate();
+    };
+
+    handleEditableCellCurrentEnter = (record, dataIndex) => {
+        let number = record[dataIndex];
+        // console.log('handleEditableCellCurrentEnter begin');
+        if (number > 0) {
+            // console.log(number);
+            let newRecord = { ...record };
+            let allProductionDataRealToBeTransferTemp = [];
+            let key = 0; newRecord.key = ++key;
+            allProductionDataRealToBeTransferTemp.splice(0, 0, newRecord);
+            for (let ii = 0; ii < this.state.allProductionDataRealToBeTransfer.length; ++ii) {
+                let item = { ...this.state.allProductionDataRealToBeTransfer[ii] };
+                if (item.barcode !== newRecord.barcode) {
+                    item.key = ++key;
+                    allProductionDataRealToBeTransferTemp.push(item);
+                }
+            }
+
+            this.setState({ allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp })
+        }
+    };
+
+    handleDeleteProduct4Preview = (record) => {
+        // console.log('handleDeleteProduct4Preview begin');
+        let allProductionDataRealToBeTransferTemp = [];
+        let key = 0;
+        for (let ii = 0; ii < this.state.allProductionDataRealToBeTransfer.length; ++ii) {
+            let item = { ...this.state.allProductionDataRealToBeTransfer[ii] };
+            if (item.barcode !== record.barcode) {
+                item.key = ++key;
+                allProductionDataRealToBeTransferTemp.push(item);
+            }
+        }
+
+        this.setState({ allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp })
     };
 
     handleEditableCell4AddProductNextFocus = () => {
@@ -820,10 +820,12 @@ class ProductDistributeInputer extends React.Component {
         for (let i = 0; i < searchProductDataToBeAddTemp.length; ++i) {
             let item = searchProductDataToBeAddTemp[i];
             item.editing = false;
-            if (item.barcode === record.barcode) {
-                item.editing = true;
-            }
+            // if (item.barcode === record.barcode) {
+            //     item.editing = true;
+            // }
         }
+        record.editing = true;
+
         this.forceUpdate();
         // console.log(searchProductDataToBeAddTemp);
     };
@@ -864,7 +866,6 @@ class ProductDistributeInputer extends React.Component {
         const {
             allProductionDataToBeTransfer,
             allProductionDataRealToBeTransfer,
-            productTransferPreviewShow,
             searchProductDataToBeAdd,
             searchingProductData,
             isAddProductionModalVisible,
@@ -875,7 +876,7 @@ class ProductDistributeInputer extends React.Component {
             productTransferPrintShow
         } = this.state;
 
-        let disableTransferPreviewOk = allProductionDataRealToBeTransfer &&
+        let disableTransferPreviewOrPrint = allProductionDataRealToBeTransfer &&
             allProductionDataRealToBeTransfer.length <= 0;
 
         /// 调货列表头配置
@@ -921,7 +922,8 @@ class ProductDistributeInputer extends React.Component {
                     dataIndex: col.dataIndex,
                     title: col.title,
                     handleEditableCellNextFocus: this.handleEditableCellNextFocus,
-                    handleEditableCellCurrentFocus: this.handleEditableCellCurrentFocus
+                    handleEditableCellCurrentFocus: this.handleEditableCellCurrentFocus,
+                    handleEditableCellCurrentEnter: this.handleEditableCellCurrentEnter
                 }),
             };
         });
@@ -931,6 +933,7 @@ class ProductDistributeInputer extends React.Component {
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '品名', dataIndex: 'productName', key: 'productName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -968,6 +971,36 @@ class ProductDistributeInputer extends React.Component {
         };
 
         let currentTimeStr = moment().format('YYYY-MM-DD HH:mm a');
+
+        const KProductTransferPreviewColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            {
+                title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true,
+                render:
+                    (text, record) => {
+                        let orderN = parseInt(record['orderNumber']);
+                        let transferN = parseInt(text);
+                        let color = orderN !== 0 && orderN === transferN ? 'transparent' : 'yellow';
+                        return <span style={{ fontSize: 10, backgroundColor: color, padding: 4 }}>{text}</span>;
+                    }
+            },
+            { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            {
+                title: '操作',
+                key: 'action',
+                render: (text, record) => (
+                    <Button type='primary' danger onClick={(e) => {
+                        this.handleDeleteProduct4Preview(record);
+                    }}>删除</Button>
+                )
+            }
+        ];
+
         return (
             <div>
                 <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
@@ -978,21 +1011,30 @@ class ProductDistributeInputer extends React.Component {
                         }}>
                             <div>
                                 <Button danger type='primary'
-                                    onClick={this.handleProductionTransferPreview}
+                                    disabled={disableTransferPreviewOrPrint}
+                                    onClick={(e) => {
+                                        this.setState({ productTransferPrintShow: true, filterDropdownVisible4Transfer: false });
+                                    }}
                                     style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                    配货预览
+                                    ---打印出货单---
                                 </Button>
+
+                                <Popconfirm title="是否确定出货?"
+                                    onConfirm={this.handleProductTransferConfirm}>
+                                    <Button danger type='primary'
+                                        disabled={disableTransferPreviewOrPrint}
+                                        style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                                        ---确定出货---
+                                    </Button>
+                                </Popconfirm>
                             </div>
                         </div>
 
                         <div style={{ marginLeft: 10, marginTop: 10 }}>
                             <Button type="primary"
                                 style={{ width: 80, height: 40 }}
-                                onClick={() => {
-                                    window.history.go(-1)
-                                    setTimeout(() => {
-                                        window.location.reload();
-                                    }, 500);
+                                onClick={(e) => {
+                                    window.history.go(-1);
                                 }}>
                                 <div style={{ fontSize: 16 }}>
                                     后退
@@ -1028,14 +1070,9 @@ class ProductDistributeInputer extends React.Component {
                             dataSource={allProductionDataToBeTransfer}
                             columns={transferColumns4TableEditable}
                             pagination={false} bordered
-                            scroll={{ y: 550, scrollToFirstRowOnChange: true }}
+                            scroll={{ y: 230, scrollToFirstRowOnChange: true }}
                             footer={() => (
-                                <div>
-                                    <div style={{ textAlign: 'center', height: 20 }}>
-                                        ---心里满满都是你---
-                                    </div>
-                                    <div style={{ height: 20 }}>
-                                    </div>
+                                <div style={{ textAlign: 'center', height: 5, backgroundColor: 'gray', fontSize: 12 }}>
                                 </div>
                             )}
                         />
@@ -1043,11 +1080,30 @@ class ProductDistributeInputer extends React.Component {
                 </Spin>
 
                 <div>
+                    <Table
+                        style={{
+                            height: 480, backgroundColor: 'transparent',
+                            marginLeft: 10, marginRight: 10
+                        }}
+                        size='small'
+                        dataSource={allProductionDataRealToBeTransfer}
+                        columns={KProductTransferPreviewColumns4Table}
+                        bordered pagination={false}
+                        scroll={{ y: 240, scrollToFirstRowOnChange: true }}
+                        footer={() => (
+                            <div style={{ textAlign: 'center', height: 5, backgroundColor: 'gray', fontSize: 12 }}>
+                            </div>
+                        )}
+                    />
+                </div>
+
+                <div>
                     <Modal
                         width={1000}
                         centered
                         keyboard
                         maskClosable={false}
+                        closable={false}
                         title={
                             (<div>
                                 <span>
@@ -1063,12 +1119,11 @@ class ProductDistributeInputer extends React.Component {
                                     }}
                                     enterButton
                                     placeholder='输入商品名称'
-                                    onSearch={(text, e) => this.onAddProductSearch(text, e)}>
+                                    onSearch={(text, e) => this.handleAddProductOnSearch(text, e)}>
                                 </Search>
                             </div>)}
                         visible={isAddProductionModalVisible}
-                        onOk={this.handleAddProductionModalOk}
-                        onCancel={this.handleAddProductionModalCancel}
+                        onOk={this.handleAddProductionModalonOk}
                         okText='完毕'
                         cancelButtonProps={{ hidden: true }}>
                         <Table
@@ -1080,44 +1135,6 @@ class ProductDistributeInputer extends React.Component {
                             columns={addProductColumns4TableEditable}
                             bordered pagination={false}
                             scroll={{ y: 360, scrollToFirstRowOnChange: true }}
-                        />
-                    </Modal>
-
-                </div>
-
-                <div>
-                    <Modal
-                        width={1300}
-                        centered
-                        keyboard
-                        maskClosable={false}
-                        title={(
-                            <div>
-                                <span>配货预览</span>
-
-                                <span style={{ marginLeft: 10 }}>{`弯麦(总部)->`}</span>
-                                <span style={{ marginLeft: 0, marginRight: 10, color: 'red' }}>{currentShop.name}</span>
-
-                                <Button danger type='primary' style={{ marginLeft: 20 }} onClick={(e) => {
-                                    this.setState({ productTransferPrintShow: true })
-                                }}>
-                                    点击打印
-                                </Button>
-                            </div>
-                        )}
-                        visible={productTransferPreviewShow}
-                        onCancel={() => { this.handleProductTransferPreviewCancel() }}
-                        onOk={() => this.handleProductTransferPreviewOK()}
-                        okText='---确定出货---'
-                        okButtonProps={{ disabled: disableTransferPreviewOk }}
-                    >
-                        <Table
-                            style={{ height: 480, backgroundColor: 'transparent' }}
-                            size='small'
-                            dataSource={allProductionDataRealToBeTransfer}
-                            columns={KProductTransferPreviewColumns4Table}
-                            bordered pagination={false}
-                            scroll={{ y: 440, scrollToFirstRowOnChange: true }}
                         />
                     </Modal>
                 </div>
@@ -1133,7 +1150,11 @@ class ProductDistributeInputer extends React.Component {
                         closable={false}
                         visible={productTransferPrintShow}
                         footer={[
-                            <Button key="back" onClick={(e) => this.setState({ productTransferPrintShow: false })}>
+                            <Button key="back" onClick={(e) =>
+                                this.setState({
+                                    productTransferPrintShow: false,
+                                    filterDropdownVisible4Transfer: true
+                                })}>
                                 取消
                             </Button>,
                             <Button key="submit" type="primary" danger onClick={(e) => this.productPrintDirect()}>
@@ -1167,7 +1188,8 @@ class ProductDistributeInputer extends React.Component {
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>序</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>条码</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>数量</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>订货量</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>配货量</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>分类</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>规格</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>备注</th>
@@ -1176,18 +1198,18 @@ class ProductDistributeInputer extends React.Component {
                                             <tbody>
                                                 {
                                                     allProductionDataRealToBeTransfer.map((productItem) => {
-                                                        console.log(productItem)
+                                                        // console.log(productItem)
                                                         let serialNum = allProductionDataRealToBeTransfer.indexOf(productItem) + 1;
                                                         return (
                                                             <tr key={serialNum}>
                                                                 <th key='1' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
                                                                 <th key='2' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
                                                                 <th key='3' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
-                                                                <th key='5' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
-                                                                <th key='6' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
-                                                                <th key='7' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}></th>
-
+                                                                <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
+                                                                <th key='5' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
+                                                                <th key='6' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
+                                                                <th key='7' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
+                                                                <th key='8' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}></th>
                                                             </tr>)
                                                     })
                                                 }

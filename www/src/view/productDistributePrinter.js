@@ -9,6 +9,9 @@ import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 
+/**--------------------配置信息--------------------*/
+const KForTest = false;
+
 /// 模板信息
 const KOrderTemplates = [
     { index: 0, name: '全部模板', templateId: '', templateUid: '' },
@@ -44,33 +47,39 @@ class ProductDistributePrinter extends React.Component {
             productSpinTipText: '',
             productSpinning: false
         }
+        this._template = undefined;
+        this._shop = undefined;
+        this._beginDateTime = undefined;
+        this._endDateTime = undefined;
     };
 
     componentDidMount = async () => {
         // console.log('componentDidMount begin');
-
         let query = this.props.query;
-        if (query) {
-            let paramValueStr = query.get('param');
-            // console.log(paramValueStr);
+        let paramValueStr = query && query.get('param');
+        // console.log(paramValueStr);
+        if (paramValueStr) {
             paramValueStr = unescape(paramValueStr);
             // console.log(paramValueStr);
             let paramValueObj = JSON.parse(paramValueStr);
-            let orderList = paramValueObj.orderList;
+            this._template = paramValueObj.template;
+            this._shop = paramValueObj.shop;
+            this._beginDateTime = paramValueObj.beginDateTime;
+            this._endDateTime = paramValueObj.endDateTime;
+            this._orderList = paramValueObj.orderList;
 
-            console.log(orderList);
-            this.refresh(orderList);
+            this.refresh();
         }
     };
 
-    refresh = async (orderList) => {
+    refresh = async () => {
         this.setState({ productSpinning: true, productSpinTipText: '准备打印...' }, async () => {
             let allData = [];
 
             /// 1.获取每家店的订货信息
             this.setState({ productSpinTipText: '准备获取...' });
-            for (let index = 0; index < orderList.length; ++index) {
-                let orderItem = orderList[index];
+            for (let index = 0; index < this._orderList.length; ++index) {
+                let orderItem = this._orderList[index];
                 if (orderItem) {
 
                     this.setState({ productSpinTipText: '获取' + orderItem.templateName + '...' });
@@ -290,6 +299,26 @@ class ProductDistributePrinter extends React.Component {
         }
     };
 
+    handleBack = (e) => {
+        let paramValueObj = {};
+        paramValueObj.template = this._template;
+        paramValueObj.shop = this._shop;
+        paramValueObj.beginDateTime = this._beginDateTime;
+        paramValueObj.endDateTime = this._endDateTime;
+
+        let paramValueStr = JSON.stringify(paramValueObj);
+        // console.log('paramValueStr = ' + paramValueStr);
+
+        let paramStr = 'param=' + escape(paramValueStr);
+
+        let orderManagementUrl = 'http://localhost:4000/orderManagement';
+        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
+
+        orderManagementUrl += '?';
+        orderManagementUrl += paramStr;
+        window.location.replace(orderManagementUrl);
+    };
+
     render() {
         const { allDistributionDataToBePrint,
             productSpinTipText,
@@ -304,12 +333,7 @@ class ProductDistributePrinter extends React.Component {
                             <div>
                                 <Button type="primary"
                                     style={{ width: 90, height: 80 }}
-                                    onClick={() => {
-                                        window.history.go(-1)
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 500);
-                                    }}>
+                                    onClick={(e) => this.handleBack(e)}>
                                     <div style={{ fontSize: 16 }}>
                                         后退
                                     </div>
@@ -343,7 +367,7 @@ class ProductDistributePrinter extends React.Component {
                                                 <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                     <thead>
                                                         <tr>
-                                                            <th colSpan='7' style={{ width: 323, textAlign: 'center', backgroundColor:'yellow' }}>
+                                                            <th colSpan='7' style={{ width: 323, textAlign: 'center', backgroundColor: 'yellow' }}>
                                                                 {columnData.orderShop}
                                                             </th>
                                                         </tr>

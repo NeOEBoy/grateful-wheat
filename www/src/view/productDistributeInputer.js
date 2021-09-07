@@ -13,6 +13,9 @@ import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from 
 import { findTemplateWithCache } from '../api/cache';
 const { Search } = Input;
 
+/**--------------------配置信息--------------------*/
+const KForTest = false;
+
 /// 模板信息
 const KOrderTemplates = [
     { index: 0, name: '全部模板', templateId: '', templateUid: '' },
@@ -243,37 +246,41 @@ class ProductDistributeInputer extends React.Component {
         this._searchInput4AddProduct = null;
         this._searchText4Transfer = '';
         this._lastSearchText4AddProduct = '';
+
+        this._template = undefined;
+        this._beginDateTime = undefined;
+        this._endDateTime = undefined;
     };
 
     componentDidMount = async () => {
         // console.log('componentDidMount begin');
 
         let query = this.props.query;
-        if (query) {
-            let paramValueStr = query.get('param');
+        let paramValueStr = query && query.get('param');
+        if (paramValueStr) {
             // console.log(paramValueStr);
             paramValueStr = unescape(paramValueStr);
             // console.log(paramValueStr);
             let paramValueObj = JSON.parse(paramValueStr);
             let shop = paramValueObj.shop;
-            let template = paramValueObj.template;
-            let orderList = paramValueObj.orderList;
             this.setState({ currentShop: shop });
-            // console.log(shop);
-            // console.log(template);
-            // console.log(orderList);
-            this.refresh(template, orderList);
+            this._template = paramValueObj.template;
+            this._beginDateTime = paramValueObj.beginDateTime;
+            this._endDateTime = paramValueObj.endDateTime;
+            this._orderList = paramValueObj.orderList;
+
+            this.refresh();
         }
     };
 
-    refresh = async (template, orderList) => {
+    refresh = async () => {
         this.setState({ productSpinning: true, productSpinTipText: '准备录入...' }, async () => {
             let allData = [];
 
             /// 1.获取每家店的订货信息，整合成allData
             this.setState({ productSpinTipText: '准备获取...' });
-            for (let index = 0; index < orderList.length; ++index) {
-                let orderItem = orderList[index];
+            for (let index = 0; index < this._orderList.length; ++index) {
+                let orderItem = this._orderList[index];
                 if (orderItem) {
                     const orderItems = await getProductOrderItems(orderItem.orderId);
                     if (orderItems.errCode === 0 && orderItems.items) {
@@ -332,7 +339,7 @@ class ProductDistributeInputer extends React.Component {
                             item.expectTime = orderItem.expectTime;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
-                                let templateAndBarcode = template.templateId + '-' + orderItems.items[i].barcode;
+                                let templateAndBarcode = this._template.templateId + '-' + orderItems.items[i].barcode;
                                 let sortInfo = KSortIdArray[templateAndBarcode];
                                 orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
                             }
@@ -393,7 +400,7 @@ class ProductDistributeInputer extends React.Component {
                             newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
                             newItemObject.transferPrice = findResultList[i].transferPrice;
 
-                            let templateAndBarcode = template.templateId + '-' + newItemObject.barcode;
+                            let templateAndBarcode = this._template.templateId + '-' + newItemObject.barcode;
                             let sortInfo = KSortIdArray[templateAndBarcode];
                             newItemObject.sortId = sortInfo ? sortInfo : 200;
 
@@ -841,7 +848,7 @@ class ProductDistributeInputer extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "");
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
             // LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(20, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(50, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PREVIEW();
         }
     };
@@ -857,9 +864,29 @@ class ProductDistributeInputer extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "");
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
             // LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(20, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(50, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PRINT();
         }
+    };
+
+    handleBack = (e) => {
+        let paramValueObj = {};
+        paramValueObj.template = this._template;
+        paramValueObj.shop = this.state.currentShop;
+        paramValueObj.beginDateTime = this._beginDateTime;
+        paramValueObj.endDateTime = this._endDateTime;
+
+        let paramValueStr = JSON.stringify(paramValueObj);
+        // console.log('paramValueStr = ' + paramValueStr);
+
+        let paramStr = 'param=' + escape(paramValueStr);
+
+        let orderManagementUrl = 'http://localhost:4000/orderManagement';
+        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
+
+        orderManagementUrl += '?';
+        orderManagementUrl += paramStr;
+        window.location.replace(orderManagementUrl);
     };
 
     render() {
@@ -887,8 +914,8 @@ class ProductDistributeInputer extends React.Component {
                 ...this.getColumnSearchProps('barcodeSimple'),
             },
             { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 160, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 14 }}>{text}</span>; } },
+            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 160, editable: true, render: (text) => { return <span style={{ fontSize: 16 }}>{text}</span>; } },
             { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '规格', dataIndex: 'specification', key: 'specification', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -933,8 +960,8 @@ class ProductDistributeInputer extends React.Component {
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '品名', dataIndex: 'productName', key: 'productName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 14 }}>{text}</span>; } },
+            { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 16 }}>{text}</span>; } },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '销售价', dataIndex: 'price', key: 'price', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -975,8 +1002,8 @@ class ProductDistributeInputer extends React.Component {
         const KProductTransferPreviewColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '品名', dataIndex: 'orderProductName', key: 'orderProductName', width: 160, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 14 }}>{text}</span>; } },
             {
                 title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true,
                 render:
@@ -984,7 +1011,7 @@ class ProductDistributeInputer extends React.Component {
                         let orderN = parseInt(record['orderNumber']);
                         let transferN = parseInt(text);
                         let color = orderN !== 0 && orderN === transferN ? 'transparent' : 'yellow';
-                        return <span style={{ fontSize: 10, backgroundColor: color, padding: 4 }}>{text}</span>;
+                        return <span style={{ fontSize: 16, backgroundColor: color, padding: 4 }}>{text}</span>;
                     }
             },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -1033,9 +1060,7 @@ class ProductDistributeInputer extends React.Component {
                         <div style={{ marginLeft: 10, marginTop: 10 }}>
                             <Button type="primary"
                                 style={{ width: 80, height: 40 }}
-                                onClick={(e) => {
-                                    window.history.go(-1);
-                                }}>
+                                onClick={(e) => this.handleBack(e)}>
                                 <div style={{ fontSize: 16 }}>
                                     后退
                                 </div>

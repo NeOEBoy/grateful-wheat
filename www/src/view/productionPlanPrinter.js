@@ -8,6 +8,9 @@ import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 
+/**--------------------配置信息--------------------*/
+const KForTest = false;
+
 /// 排序优先级（格式为templateId-barcode）
 const KSortIdArray = {
     /// 现烤
@@ -36,35 +39,41 @@ class ProductionPlanPrinter extends React.Component {
             productSpinning: false,
             allProductionDataToBePrint: [],
         }
+
+        this._orderList = undefined;
+        this._template = undefined;
+        this._shop = undefined;
+        this._beginDateTime = undefined;
+        this._endDateTime = undefined;
     };
 
     componentDidMount = async () => {
         // console.log('componentDidMount begin');
-
         let query = this.props.query;
-        if (query) {
-            let paramValueStr = query.get('param');
+        let paramValueStr = query && query.get('param');
+        if (paramValueStr) {
             // console.log(paramValueStr);
             paramValueStr = unescape(paramValueStr);
             // console.log(paramValueStr);
             let paramValueObj = JSON.parse(paramValueStr);
-            let template = paramValueObj.template;
-            let orderList = paramValueObj.orderList;
+            this._template = paramValueObj.template;
+            this._shop = paramValueObj.shop;
+            this._beginDateTime = paramValueObj.beginDateTime;
+            this._endDateTime = paramValueObj.endDateTime;
+            this._orderList = paramValueObj.orderList;
 
-            // console.log(template);
-            // console.log(orderList);
-            this.refresh(template, orderList);
+            this.refresh();
         }
     };
 
-    refresh = async (template, orderList) => {
+    refresh = async () => {
         this.setState({ productSpinning: true, productSpinTipText: '准备打印...' }, async () => {
             let allData = [];
 
             /// 1.获取每家店的订货信息
             this.setState({ productSpinTipText: '准备获取...' });
-            for (let index = 0; index < orderList.length; ++index) {
-                let orderItem = orderList[index];
+            for (let index = 0; index < this._orderList.length; ++index) {
+                let orderItem = this._orderList[index];
                 if (orderItem) {
                     this.setState({ productSpinTipText: '获取' + orderItem.orderShop + '...' });
                     const orderItems = await getProductOrderItems(orderItem.orderId);
@@ -108,7 +117,7 @@ class ProductionPlanPrinter extends React.Component {
                             item.expectTime = orderItem.expectTime;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
-                                let templateAndBarcode = template.templateId + '-' + orderItems.items[i].barcode;
+                                let templateAndBarcode = this._template.templateId + '-' + orderItems.items[i].barcode;
                                 let sortInfo = KSortIdArray[templateAndBarcode];
                                 orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
                             }
@@ -126,7 +135,7 @@ class ProductionPlanPrinter extends React.Component {
             this.setState({ productSpinTipText: '合并至生产车间...' })
             let totalOrderItem = {};
             totalOrderItem.orderShop = '000 - 弯麦(生产车间)';
-            totalOrderItem.templateName = template.name;
+            totalOrderItem.templateName = this._template.name;
             if (allData && allData.length > 0) {
                 totalOrderItem.expectTime = allData[0].expectTime;
             }
@@ -157,7 +166,7 @@ class ProductionPlanPrinter extends React.Component {
 
             /// 3.使用模板对应商品
             let totalItemsAfterFixTemplate = totalItems;
-            let findResult = await findTemplateWithCache(template.templateUid);
+            let findResult = await findTemplateWithCache(this._template.templateUid);
             if (findResult.errCode === 0 && findResult.list.length > 0) {
                 // console.log(findResult.list);
                 let findResultList = findResult.list;
@@ -185,7 +194,7 @@ class ProductionPlanPrinter extends React.Component {
                         newItemObject.barcode = findResultList[i].barcode;
                         newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
 
-                        let templateAndBarcode = template.templateId + '-' + newItemObject.barcode;
+                        let templateAndBarcode = this._template.templateId + '-' + newItemObject.barcode;
                         let sortInfo = KSortIdArray[templateAndBarcode];
                         newItemObject.sortId = sortInfo ? sortInfo : 200;
 
@@ -317,6 +326,26 @@ class ProductionPlanPrinter extends React.Component {
         }
     };
 
+    handleBack = (e) => {
+        let paramValueObj = {};
+        paramValueObj.template = this._template;
+        paramValueObj.shop = this._shop;
+        paramValueObj.beginDateTime = this._beginDateTime;
+        paramValueObj.endDateTime = this._endDateTime;
+
+        let paramValueStr = JSON.stringify(paramValueObj);
+        // console.log('paramValueStr = ' + paramValueStr);
+
+        let paramStr = 'param=' + escape(paramValueStr);
+
+        let orderManagementUrl = 'http://localhost:4000/orderManagement';
+        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
+
+        orderManagementUrl += '?';
+        orderManagementUrl += paramStr;
+        window.location.replace(orderManagementUrl);
+    };
+
     render() {
         const { allProductionDataToBePrint,
             productSpinTipText,
@@ -331,12 +360,7 @@ class ProductionPlanPrinter extends React.Component {
                             <div>
                                 <Button type="primary"
                                     style={{ width: 90, height: 80 }}
-                                    onClick={() => {
-                                        window.history.go(-1)
-                                        setTimeout(() => {
-                                            window.location.reload();
-                                        }, 500);
-                                    }}>
+                                    onClick={(e) => this.handleBack(e)}>
                                     <div style={{ fontSize: 16 }}>
                                         后退
                                     </div>

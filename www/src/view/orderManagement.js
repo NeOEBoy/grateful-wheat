@@ -92,6 +92,22 @@ class OrderManagement extends React.Component {
     }
 
     async componentDidMount() {
+        let query = this.props.query;
+        let paramValueStr = query && query.get('param');
+        // console.log(paramValueStr);
+        if (paramValueStr) {
+            paramValueStr = unescape(paramValueStr);
+            // console.log(paramValueStr);
+            let paramValueObj = JSON.parse(paramValueStr);
+
+            this.setState({
+                currentTemplate: paramValueObj.template,
+                currentShop: paramValueObj.shop,
+                beginDateTime: moment(paramValueObj.beginDateTime),
+                endDateTime: moment(paramValueObj.endDateTime)
+            });
+        }
+
         await this.fetchOrderList();
     }
 
@@ -170,7 +186,8 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate, selectedRowKeys } = this.state;
+        const { alreadyOrderListData, currentShop, currentTemplate,
+            selectedRowKeys, beginDateTime, endDateTime } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
@@ -180,6 +197,9 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate;
+        paramValueObj.shop = currentShop;
+        paramValueObj.beginDateTime = beginDateTime;
+        paramValueObj.endDateTime = endDateTime;
 
         let paramValueStr = JSON.stringify(paramValueObj);
         // console.log('paramValueStr = ' + paramValueStr);
@@ -192,7 +212,8 @@ class OrderManagement extends React.Component {
 
         productionPlanPrinterUrl += '?';
         productionPlanPrinterUrl += paramStr;
-        window.location.href = productionPlanPrinterUrl;
+        /// 采用覆盖方式跳转新页面，不产生历史记录
+        window.location.replace(productionPlanPrinterUrl);
     };
 
     handleDistributionPrint = async (e) => {
@@ -200,7 +221,9 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, selectedRowKeys } = this.state;
+        const { alreadyOrderListData, currentTemplate,
+            currentShop, beginDateTime, endDateTime,
+            selectedRowKeys } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
@@ -209,6 +232,10 @@ class OrderManagement extends React.Component {
         }
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
+        paramValueObj.template = currentTemplate;
+        paramValueObj.shop = currentShop;
+        paramValueObj.beginDateTime = beginDateTime;
+        paramValueObj.endDateTime = endDateTime;
 
         let paramValueStr = JSON.stringify(paramValueObj);
         // console.log('paramValueStr = ' + paramValueStr);
@@ -221,7 +248,7 @@ class OrderManagement extends React.Component {
 
         productDistributePrinterUrl += '?';
         productDistributePrinterUrl += paramStr;
-        window.location.href = productDistributePrinterUrl;
+        window.location.replace(productDistributePrinterUrl);
     };
 
     handleDistributionInput = async (e) => {
@@ -229,8 +256,8 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate,
-            currentShop, selectedRowKeys } = this.state;
+        const { alreadyOrderListData, currentTemplate, currentShop,
+            beginDateTime, endDateTime, selectedRowKeys } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
@@ -241,6 +268,8 @@ class OrderManagement extends React.Component {
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate;
         paramValueObj.shop = currentShop;
+        paramValueObj.beginDateTime = beginDateTime;
+        paramValueObj.endDateTime = endDateTime;
 
         let paramValueStr = JSON.stringify(paramValueObj);
         // console.log('paramValueStr = ' + paramValueStr);
@@ -253,7 +282,7 @@ class OrderManagement extends React.Component {
 
         productionPlanInputerUrl += '?';
         productionPlanInputerUrl += paramStr;
-        window.location.href = productionPlanInputerUrl;
+        window.location.replace(productionPlanInputerUrl);
     };
 
     render() {
@@ -353,7 +382,7 @@ class OrderManagement extends React.Component {
                                         }
                                     </Menu>)
                                 }
-                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                            } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
                             <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
                                 {currentShop.name}
                                 <DownOutlined />
@@ -376,7 +405,7 @@ class OrderManagement extends React.Component {
                                         }
                                     </Menu>)
                                 }
-                            } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                            } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
                             <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
                                 {currentTemplate.name}
                                 <DownOutlined />
@@ -451,7 +480,8 @@ class OrderManagement extends React.Component {
                             onClick={async (e) => { await this.fetchOrderList(); }}>
                             查询门店订货单
                         </Button>
-                        <Table style={{ marginTop: 10 }}
+                        <Table
+                            style={{ marginTop: 10 }}
                             size='small'
                             loading={alreadyOrderLoading}
                             dataSource={alreadyOrderListData}

@@ -10,10 +10,12 @@ import moment from 'moment';
 import {
     getProductOrderList
 } from '../api/api';
+import { getTest } from '../api/util';
+
 const { RangePicker } = DatePicker;
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = getTest();
 
 /// 门店信息
 const KAllShops = [

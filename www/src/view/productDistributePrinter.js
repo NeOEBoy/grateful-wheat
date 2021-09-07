@@ -7,10 +7,12 @@ import {
 } from 'antd';
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
+import { getTest } from '../api/util';
+
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = getTest();
 
 /// 模板信息
 const KOrderTemplates = [
@@ -137,6 +139,7 @@ class ProductDistributePrinter extends React.Component {
                             item.orderShop = orderItem.orderShop;
                             item.templateName = orderItem.templateName;
                             item.expectTime = orderItem.expectTime;
+                            item.orderTime = orderItem.orderTime;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + orderItems.items[i].barcode;
@@ -237,6 +240,7 @@ class ProductDistributePrinter extends React.Component {
                     oneDataObj.orderShop = allData[i].orderShop;
                     oneDataObj.templateName = allData[i].templateName;
                     oneDataObj.expectTime = allData[i].expectTime;
+                    oneDataObj.orderTime = allData[i].orderTime;
                     oneDataObj.items = totalItemsAfterFixCategory;
 
                     newAllData.push(oneDataObj);
@@ -255,6 +259,7 @@ class ProductDistributePrinter extends React.Component {
                         allDataAfterItem.orderShop = newAllData[i].orderShop;
                         allDataAfterItem.templateName = newAllData[i].templateName;
                         allDataAfterItem.expectTime = newAllData[i].expectTime;
+                        allDataAfterItem.orderTime = newAllData[i].orderTime;
                         allDataAfterItem.items = [];
 
                         allDataAfterA4.push(allDataAfterItem);
@@ -367,7 +372,7 @@ class ProductDistributePrinter extends React.Component {
                                                 <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                     <thead>
                                                         <tr>
-                                                            <th colSpan='7' style={{ width: 323, textAlign: 'center', backgroundColor: 'yellow' }}>
+                                                            <th colSpan='7' style={{ width: 323, textAlign: 'center', backgroundColor: 'lightgrey' }}>
                                                                 {columnData.orderShop}
                                                             </th>
                                                         </tr>
@@ -405,7 +410,10 @@ class ProductDistributePrinter extends React.Component {
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <th colSpan='7'>{columnData.expectTime}</th>
+                                                            <th colSpan='7'>{`订货时间：${columnData.orderTime}`}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colSpan='7'>{`期望到货：${columnData.expectTime}`}</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

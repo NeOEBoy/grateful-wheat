@@ -11,10 +11,12 @@ import moment from 'moment';
 
 import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
+import { getTest } from '../api/util';
+
 const { Search } = Input;
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = getTest();
 
 /// 模板信息
 const KOrderTemplates = [

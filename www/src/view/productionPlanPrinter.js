@@ -6,10 +6,12 @@ import {
 } from 'antd';
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
+import { getTest } from '../api/util';
+
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 
 /**--------------------配置信息--------------------*/
-const KForTest = false;
+const KForTest = getTest();
 
 /// 排序优先级（格式为templateId-barcode）
 const KSortIdArray = {
@@ -115,6 +117,7 @@ class ProductionPlanPrinter extends React.Component {
                             item.orderShop = orderItem.orderShop;
                             item.templateName = orderItem.templateName;
                             item.expectTime = orderItem.expectTime;
+                            item.orderTime = orderItem.orderTime;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = this._template.templateId + '-' + orderItems.items[i].barcode;
@@ -138,6 +141,7 @@ class ProductionPlanPrinter extends React.Component {
             totalOrderItem.templateName = this._template.name;
             if (allData && allData.length > 0) {
                 totalOrderItem.expectTime = allData[0].expectTime;
+                totalOrderItem.orderTime = allData[0].orderTime;               
             }
             let totalItems = [];
             for (let i = 0; i < allData.length; ++i) {
@@ -246,6 +250,7 @@ class ProductionPlanPrinter extends React.Component {
                 oneDataObj.orderShop = allDataColumn.orderShop;
                 oneDataObj.templateName = allDataColumn.templateName;
                 oneDataObj.expectTime = allDataColumn.expectTime;
+                oneDataObj.orderTime = allDataColumn.orderTime;
                 oneDataObj.items = [];
                 for (let j = 0; j < totalOrderItem.items.length; ++j) {
                     let oneItem = totalOrderItem.items[j];
@@ -281,6 +286,7 @@ class ProductionPlanPrinter extends React.Component {
                         allDataAfterItem.orderShop = allDataAfterFix0[i].orderShop;
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
                         allDataAfterItem.expectTime = allDataAfterFix0[i].expectTime;
+                        allDataAfterItem.orderTime = allDataAfterFix0[i].orderTime;
                         allDataAfterItem.items = [];
 
                         allDataAfterA4.push(allDataAfterItem);
@@ -394,7 +400,7 @@ class ProductionPlanPrinter extends React.Component {
                                                 <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                     <thead>
                                                         <tr>
-                                                            <th colSpan='2' style={{ width: 318, textAlign: 'center' }}>
+                                                            <th colSpan='2' style={{ width: 318, textAlign: 'center', backgroundColor:'lightyellow' }}>
                                                                 {columnData.orderShop}
                                                             </th>
                                                         </tr>
@@ -405,7 +411,7 @@ class ProductionPlanPrinter extends React.Component {
                                                         </tr>
                                                         <tr>
                                                             <th style={{ textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                            <th style={{ textAlign: 'center', fontWeight: 'bold' }}>数</th>
+                                                            <th style={{ textAlign: 'center', fontWeight: 'bold' }}>订货量</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -422,7 +428,10 @@ class ProductionPlanPrinter extends React.Component {
                                                     </tbody>
                                                     <tfoot>
                                                         <tr>
-                                                            <th colSpan='2'>{columnData.expectTime}</th>
+                                                            <th colSpan='2'>{`订货时间：${columnData.orderTime}`}</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colSpan='2'>{`期望到货：${columnData.expectTime}`}</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>

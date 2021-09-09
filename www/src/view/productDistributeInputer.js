@@ -13,8 +13,8 @@ import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from 
 import { findTemplateWithCache } from '../api/cache';
 import {
     getTest,
-    getNeedlePrinterName,
-    getPageName4NeedlePrinter
+    getPageName4NeedlePrinter,
+    getNeedlePrinterIndex
 } from '../api/util';
 
 const { Search } = Input;
@@ -851,10 +851,9 @@ class ProductDistributeInputer extends React.Component {
             let strStyle =
                 `<style>
                 </style> `;
-            LODOP.SET_PRINT_MODE("WINDOW_DEFPRINTER", getNeedlePrinterName());
-            LODOP.SET_PRINT_MODE("WINDOW_DEFPAGESIZE:" + getNeedlePrinterName(), getPageName4NeedlePrinter());
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
+            LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex());
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, getPageName4NeedlePrinter());
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
         }
 

@@ -1,5 +1,5 @@
 const getTest = () => {
-  return true;
+  return false;
 };
 
 // 'HP DeskJet 3630 series' 或者 'EPSON LQ-735K ESC/P2'

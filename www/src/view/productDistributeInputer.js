@@ -11,7 +11,11 @@ import moment from 'moment';
 
 import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
-import { getTest } from '../api/util';
+import {
+    getTest,
+    getNeedlePrinterName,
+    getPageName4NeedlePrinter
+} from '../api/util';
 
 const { Search } = Input;
 
@@ -839,7 +843,7 @@ class ProductDistributeInputer extends React.Component {
         // console.log(searchProductDataToBeAddTemp);
     };
 
-    productPrintPreprew = () => {
+    getLodopAfterInit = () => {
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -847,26 +851,28 @@ class ProductDistributeInputer extends React.Component {
             let strStyle =
                 `<style>
                 </style> `;
-            LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            // LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(50, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.SET_PRINT_MODE("WINDOW_DEFPRINTER", getNeedlePrinterName());
+            LODOP.SET_PRINT_MODE("WINDOW_DEFPAGESIZE:" + getNeedlePrinterName(), getPageName4NeedlePrinter());
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
+            LODOP.SET_PRINT_PAGESIZE(1, 0, 0, getPageName4NeedlePrinter());
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+        }
+
+        return LODOP;
+    };
+
+    productPrintPreprew = () => {
+        let LODOP = this.getLodopAfterInit();
+
+        if (LODOP) {
             LODOP.PREVIEW();
         }
     };
 
     productPrintDirect = () => {
-        let LODOP = getLodop();
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-            LODOP.SET_PRINT_PAGESIZE(1, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            // LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(50, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PRINT();
         }
     };
@@ -1176,27 +1182,32 @@ class ProductDistributeInputer extends React.Component {
                         title={(<div style={{ height: 0 }}></div>)}
                         closable={false}
                         visible={productTransferPrintShow}
-                        footer={[
-                            <Button key="back" onClick={(e) =>
-                                this.setState({
-                                    productTransferPrintShow: false,
-                                    filterDropdownVisible4Transfer: true
-                                })}>
-                                取消
-                            </Button>,
-                            <Button key="submit" type="primary" danger onClick={(e) => this.productPrintDirect()}>
-                                直接打印
-                            </Button>,
-                            <Button
-                                key="link"
-                                type="primary"
-                                onClick={(e) => this.productPrintPreprew()}
-                            >
-                                打印预览
-                            </Button>
-                        ]}>
+                        footer={
+                            (<div style={{ marginRight: 120, marginBottom: 20, marginTop: 20 }}>
+                                <Button key="back" onClick={(e) =>
+                                    this.setState({
+                                        productTransferPrintShow: false,
+                                        filterDropdownVisible4Transfer: true
+                                    })}>
+                                    取消
+                                </Button>,
+                                <Button key="submit" type="primary" danger onClick={(e) => this.productPrintDirect()}>
+                                    直接打印
+                                </Button>,
+                                <Button
+                                    key="link"
+                                    type="primary"
+                                    onClick={(e) => this.productPrintPreprew()}
+                                >
+                                    打印预览
+                                </Button>
+                            </div>)
+                        }>
                         <div id="printDiv" style={{ width: '100%', height: 500, borderStyle: 'dotted' }}>
-                            <div style={{ marginLeft: 50, marginTop: 20, width: 800, minHeight: 500, maxHeight: 5000, backgroundColor: 'transparent' }}>
+                            <div style={{
+                                marginLeft: 10, marginTop: 0, marginRight: 10,
+                                backgroundColor: 'transparent'
+                            }}>
                                 <div>
                                     <span style={{ fontSize: 30 }}>门店出货单</span>
                                 </div>
@@ -1229,14 +1240,14 @@ class ProductDistributeInputer extends React.Component {
                                                         let serialNum = allProductionDataRealToBeTransfer.indexOf(productItem) + 1;
                                                         return (
                                                             <tr key={serialNum}>
-                                                                <th key='1' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
-                                                                <th key='2' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
-                                                                <th key='3' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                <th key='1' style={{ height: 20, width: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
+                                                                <th key='2' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
+                                                                <th key='3' style={{ height: 20, width: 200, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
                                                                 <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
                                                                 <th key='5' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
-                                                                <th key='6' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
-                                                                <th key='7' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
-                                                                <th key='8' style={{ height: 20, width: 100, textAlign: 'center', fontSize: 16 }}></th>
+                                                                <th key='6' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
+                                                                <th key='7' style={{ height: 20, width: 200, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
+                                                                <th key='8' style={{ height: 20, width: 80, textAlign: 'center', fontSize: 16 }}></th>
                                                             </tr>)
                                                     })
                                                 }
@@ -1248,7 +1259,7 @@ class ProductDistributeInputer extends React.Component {
                         </div>
                     </Modal>
                 </div>
-            </div>
+            </div >
         );
     };
 };

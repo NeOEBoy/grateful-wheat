@@ -7,7 +7,11 @@ import {
 } from 'antd';
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
-import { getTest } from '../api/util';
+import {
+    getTest,
+    getA4PrinterName,
+    getPageName4A4Printer
+} from '../api/util';
 
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 
@@ -272,7 +276,7 @@ class ProductDistributePrinter extends React.Component {
         });
     };
 
-    productPrintPreprew = () => {
+    getLodopAfterInit = () => {
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -280,26 +284,29 @@ class ProductDistributePrinter extends React.Component {
             let strStyle =
                 `<style>
                 </style> `;
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
+            LODOP.SET_PRINT_MODE("WINDOW_DEFPRINTER", getA4PrinterName());
+            LODOP.SET_PRINT_MODE("WINDOW_DEFPAGESIZE:" + getA4PrinterName(), getPageName4A4Printer());
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4A4Printer());
             LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+        }
+
+        return LODOP;
+    };
+
+    productPrintPreprew = () => {
+        let LODOP = this.getLodopAfterInit();
+
+        if (LODOP) {
             LODOP.PREVIEW();
         }
     };
 
     productPrintDirect = () => {
-        let LODOP = getLodop();
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, "");
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 1000, 800, '');
-            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", strStyle + document.getElementById("printDiv").innerHTML);
             LODOP.PRINT();
         }
     };

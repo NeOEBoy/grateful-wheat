@@ -10,7 +10,13 @@ import moment from 'moment';
 import {
     getProductOrderList
 } from '../api/api';
-import { getTest } from '../api/util';
+import {
+    getTest,
+    getAllShop,
+    getAllOrderShopName,
+    getOrderTemplates,
+    getAllOrderTemplateName
+} from '../api/util';
 
 const { RangePicker } = DatePicker;
 
@@ -18,24 +24,9 @@ const { RangePicker } = DatePicker;
 const KForTest = getTest();
 
 /// 门店信息
-const KAllShops = [
-    { index: 0, name: '全部门店', userId: '' },
-    { index: 1, name: '001 - 弯麦(教育局店)', userId: '3995767' },
-    { index: 2, name: '002 - 弯麦(旧镇店)', userId: '3995771' },
-    { index: 3, name: '003 - 弯麦(江滨店)', userId: '4061089' },
-    { index: 4, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
-    { index: 5, name: '005 - 弯麦(假日店)', userId: '4339546' },
-    { index: 6, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 7, name: '007 - 弯麦(盘陀店)', userId: '4382444' }
-];
+const KAllShops = getAllShop();
 /// 模板信息
-const KOrderTemplates = [
-    { index: 0, name: '全部模板', templateId: '', templateUid: '' },
-    { index: 1, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
-    { index: 2, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
-    { index: 3, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
-    { index: 4, name: '吐司餐包类', templateId: '182', templateUid: '1595077405589137749' }
-];
+const KOrderTemplates = getOrderTemplates();
 /// 订单列表头配置
 const KOrderColumns4Table = [
     { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -51,22 +42,9 @@ const KOrderColumns4Table = [
     { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
 ];
 /// 报货门店名字
-const KAllOrderShopName = [
-    KAllShops[1].name,
-    KAllShops[2].name,
-    KAllShops[3].name,
-    KAllShops[4].name,
-    KAllShops[5].name,
-    KAllShops[6].name,
-    KAllShops[7].name,
-];
+const KAllOrderShopName = getAllOrderShopName();
 /// 报货模板名字
-const KAllOrderTemplateName = [
-    KOrderTemplates[1].name,
-    KOrderTemplates[2].name,
-    KOrderTemplates[3].name,
-    KOrderTemplates[4].name,
-];
+const KAllOrderTemplateName = getAllOrderTemplateName();
 
 class OrderManagement extends React.Component {
     constructor(props) {

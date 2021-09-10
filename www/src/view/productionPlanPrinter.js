@@ -9,7 +9,8 @@ import { findTemplateWithCache } from '../api/cache';
 import {
     getTest,
     getPageName4A4Printer,
-    getA4PrinterIndex
+    getA4PrinterIndex,
+    getProductSortIdArray
 } from '../api/util';
 
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
@@ -18,23 +19,7 @@ import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 const KForTest = getTest();
 
 /// 排序优先级（格式为templateId-barcode）
-const KSortIdArray = {
-    /// 现烤
-    '187-2006251756022': 1, //高钙片
-    '187-2006291720144': 2, //焗烤三明治
-    '187-2007261431428': 3, //奶酪杯
-    '187-2006261548488': 4, //鸡排三明治
-    '187-2006251720443': 5, //手工蛋挞
-    '187-2007171555580': 6, //全麦熏鸡三明治
-    /// 吐司餐包
-    '182-2106241432414': 1, //枫糖小吐司
-    '182-2106281603003': 2, //红豆小吐司		
-    '182-2106281600071': 3, //坚果小吐司			
-    '182-2106281603355': 4, //南瓜小吐司				
-    '182-2106241433091': 5, //松松小吐司					
-    '182-2106281601535': 6, //椰蓉小吐司				
-    '182-2010291510063': 7, //纯奶拉丝大吐司					
-};
+const KProductSortIdArray = getProductSortIdArray();
 
 class ProductionPlanPrinter extends React.Component {
     constructor(props) {
@@ -125,7 +110,7 @@ class ProductionPlanPrinter extends React.Component {
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = this._template.templateId + '-' + orderItems.items[i].barcode;
-                                let sortInfo = KSortIdArray[templateAndBarcode];
+                                let sortInfo = KProductSortIdArray[templateAndBarcode];
                                 orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
                             }
                             allData.push(item);
@@ -203,7 +188,7 @@ class ProductionPlanPrinter extends React.Component {
                         newItemObject.barcodeSimple = findResultList[i].barcodeSimple;
 
                         let templateAndBarcode = this._template.templateId + '-' + newItemObject.barcode;
-                        let sortInfo = KSortIdArray[templateAndBarcode];
+                        let sortInfo = KProductSortIdArray[templateAndBarcode];
                         newItemObject.sortId = sortInfo ? sortInfo : 200;
 
                         newItemObject.orderNumber = 0;

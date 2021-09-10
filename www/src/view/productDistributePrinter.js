@@ -11,6 +11,9 @@ import {
     getTest,
     getPageName4A4Printer,
     getA4PrinterIndex,
+    getOrderTemplates,
+    getProductSortIdArray,
+    getTemplateSortIdArray
 } from '../api/util';
 
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
@@ -19,31 +22,10 @@ import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 const KForTest = getTest();
 
 /// 模板信息
-const KOrderTemplates = [
-    { index: 0, name: '全部模板', templateId: '', templateUid: '' },
-    { index: 1, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
-    { index: 2, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
-    { index: 3, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
-    { index: 4, name: '吐司餐包类', templateId: '182', templateUid: '1595077405589137749' }
-];
+const KOrderTemplates = getOrderTemplates();
 /// 排序优先级（格式为templateId-barcode）
-const KSortIdArray = {
-    /// 现烤
-    '187-2006251756022': 1, //高钙片
-    '187-2006291720144': 2, //焗烤三明治
-    '187-2007261431428': 3, //奶酪杯
-    '187-2006261548488': 4, //鸡排三明治
-    '187-2006251720443': 5, //手工蛋挞
-    '187-2007171555580': 6, //全麦熏鸡三明治
-    /// 吐司餐包
-    '182-2106241432414': 1, //枫糖小吐司
-    '182-2106281603003': 2, //红豆小吐司		
-    '182-2106281600071': 3, //坚果小吐司			
-    '182-2106281603355': 4, //南瓜小吐司				
-    '182-2106241433091': 5, //松松小吐司					
-    '182-2106281601535': 6, //椰蓉小吐司				
-    '182-2010291510063': 7, //纯奶拉丝大吐司					
-};
+const KProductSortIdArray = getProductSortIdArray();
+const KTemplateSortIdArray = getTemplateSortIdArray();
 
 class ProductDistributePrinter extends React.Component {
     constructor(props) {
@@ -73,7 +55,7 @@ class ProductDistributePrinter extends React.Component {
             this._beginDateTime = paramValueObj.beginDateTime;
             this._endDateTime = paramValueObj.endDateTime;
             this._orderList = paramValueObj.orderList;
-
+            // console.log(this._orderList);
             this.refresh();
         }
     };
@@ -147,7 +129,7 @@ class ProductDistributePrinter extends React.Component {
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + orderItems.items[i].barcode;
-                                let sortInfo = KSortIdArray[templateAndBarcode];
+                                let sortInfo = KProductSortIdArray[templateAndBarcode];
                                 orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
                             }
                             allData.push(item);
@@ -205,7 +187,7 @@ class ProductDistributePrinter extends React.Component {
                             newItemObject.barcodeSimple = findResultList[j].barcodeSimple;
 
                             let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + findResultList[j].barcode;
-                            let sortInfo = KSortIdArray[templateAndBarcode];
+                            let sortInfo = KProductSortIdArray[templateAndBarcode];
                             newItemObject.sortId = sortInfo ? sortInfo : 200;
 
                             newItemObject.orderNumber = 0;
@@ -251,19 +233,32 @@ class ProductDistributePrinter extends React.Component {
                 }
             }
 
-            /// 3.整理订货信息使得适合A4打印
+            /// 3.排序订货信息
             // console.log(newAllData);
+            this.setState({ productSpinTipText: '排序中...' });
+            let allDataAfterSort = [];
+            for (let i = 0; i < newAllData.length; ++i) {
+                let allDataOneItem = newAllData[i];
+                allDataOneItem.sortId = KTemplateSortIdArray[allDataOneItem.templateName];
+                allDataAfterSort.push(allDataOneItem);
+            }
+
+            allDataAfterSort = allDataAfterSort.sort((item1, item2) => {
+                return item1.sortId - item2.sortId;
+            });
+
+            /// 4.整理订货信息使得适合A4打印
             this.setState({ productSpinTipText: '整理A4中...' });
             let allDataAfterA4 = [];
-            for (let i = 0; i < newAllData.length; ++i) {
-                let allDataItem = newAllData[i].items;
+            for (let i = 0; i < allDataAfterSort.length; ++i) {
+                let allDataItem = allDataAfterSort[i].items;
                 for (let j = 0; j < allDataItem.length; ++j) {
                     if (j % 29 === 0) {///29
                         let allDataAfterItem = {};
-                        allDataAfterItem.orderShop = newAllData[i].orderShop;
-                        allDataAfterItem.templateName = newAllData[i].templateName;
-                        allDataAfterItem.expectTime = newAllData[i].expectTime;
-                        allDataAfterItem.orderTime = newAllData[i].orderTime;
+                        allDataAfterItem.orderShop = allDataAfterSort[i].orderShop;
+                        allDataAfterItem.templateName = allDataAfterSort[i].templateName;
+                        allDataAfterItem.expectTime = allDataAfterSort[i].expectTime;
+                        allDataAfterItem.orderTime = allDataAfterSort[i].orderTime;
                         allDataAfterItem.items = [];
 
                         allDataAfterA4.push(allDataAfterItem);

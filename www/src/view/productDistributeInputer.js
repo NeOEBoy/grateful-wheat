@@ -14,8 +14,12 @@ import { findTemplateWithCache } from '../api/cache';
 import {
     getTest,
     getPageName4NeedlePrinter,
-    getNeedlePrinterIndex
+    getNeedlePrinterIndex,
+    getOrderTemplates,
+    getProductSortIdArray
 } from '../api/util';
+
+import diAudioSrc from '../api/di.wav';
 
 const { Search } = Input;
 
@@ -23,31 +27,9 @@ const { Search } = Input;
 const KForTest = getTest();
 
 /// 模板信息
-const KOrderTemplates = [
-    { index: 0, name: '全部模板', templateId: '', templateUid: '' },
-    { index: 1, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
-    { index: 2, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
-    { index: 3, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
-    { index: 4, name: '吐司餐包类', templateId: '182', templateUid: '1595077405589137749' }
-];
+const KOrderTemplates = getOrderTemplates();
 /// 排序优先级（格式为templateId-barcode）
-const KSortIdArray = {
-    /// 现烤
-    '187-2006251756022': 1, //高钙片
-    '187-2006291720144': 2, //焗烤三明治
-    '187-2007261431428': 3, //奶酪杯
-    '187-2006261548488': 4, //鸡排三明治
-    '187-2006251720443': 5, //手工蛋挞
-    '187-2007171555580': 6, //全麦熏鸡三明治
-    /// 吐司餐包
-    '182-2106241432414': 1, //枫糖小吐司
-    '182-2106281603003': 2, //红豆小吐司		
-    '182-2106281600071': 3, //坚果小吐司			
-    '182-2106281603355': 4, //南瓜小吐司				
-    '182-2106241433091': 5, //松松小吐司					
-    '182-2106281601535': 6, //椰蓉小吐司				
-    '182-2010291510063': 7, //纯奶拉丝大吐司					
-};
+const KProductSortIdArray = getProductSortIdArray();
 
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
@@ -346,7 +328,7 @@ class ProductDistributeInputer extends React.Component {
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = this._template.templateId + '-' + orderItems.items[i].barcode;
-                                let sortInfo = KSortIdArray[templateAndBarcode];
+                                let sortInfo = KProductSortIdArray[templateAndBarcode];
                                 orderItems.items[i].sortId = sortInfo ? sortInfo : 200;
                             }
                             allData.push(item);
@@ -407,7 +389,7 @@ class ProductDistributeInputer extends React.Component {
                             newItemObject.transferPrice = findResultList[i].transferPrice;
 
                             let templateAndBarcode = this._template.templateId + '-' + newItemObject.barcode;
-                            let sortInfo = KSortIdArray[templateAndBarcode];
+                            let sortInfo = KProductSortIdArray[templateAndBarcode];
                             newItemObject.sortId = sortInfo ? sortInfo : 200;
 
                             newItemObject.orderNumber = 0;
@@ -518,6 +500,8 @@ class ProductDistributeInputer extends React.Component {
                             if (transferItems4NextFocusTemp.length > 0) {
                                 transferItems4NextFocusTemp[0].editing = true;
                                 this.setState({ transferItems4NextFocus: transferItems4NextFocusTemp });
+                            } else {
+                                new Audio(diAudioSrc).play();
                             }
                         });
                     }}
@@ -682,7 +666,7 @@ class ProductDistributeInputer extends React.Component {
     };
 
     handleProductTransferConfirm = async () => {
-        console.log('handleProductTransferConfirm begin');
+        // console.log('handleProductTransferConfirm begin');
 
         let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
         // console.log(allProductionDataRealToBeTransfer);
@@ -702,9 +686,12 @@ class ProductDistributeInputer extends React.Component {
         let result = await createStockFlowOut(toUserId, items);
         // console.log(result);
         if (result && result.errCode === 0) {
-            message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~')
+            message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~');
+            setTimeout(() => {
+                this.handleBack();
+            }, 2000);
         } else {
-            message.error('配货失败~');
+            message.error('配货失败，请查看失败原因~');
         }
     }
 
@@ -769,6 +756,8 @@ class ProductDistributeInputer extends React.Component {
             }
 
             this.setState({ allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp })
+        } else {
+            new Audio(diAudioSrc).play();
         }
     };
 
@@ -876,7 +865,7 @@ class ProductDistributeInputer extends React.Component {
         }
     };
 
-    handleBack = (e) => {
+    handleBack = () => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
         paramValueObj.shop = this.state.currentShop;
@@ -1053,7 +1042,7 @@ class ProductDistributeInputer extends React.Component {
                                     ---打印出货单---
                                 </Button>
 
-                                <Popconfirm title="是否确定出货?"
+                                <Popconfirm title={`是否确定出货？`}
                                     onConfirm={this.handleProductTransferConfirm}>
                                     <Button danger type='primary'
                                         disabled={disableTransferPreviewOrPrint}
@@ -1067,7 +1056,7 @@ class ProductDistributeInputer extends React.Component {
                         <div style={{ marginLeft: 10, marginTop: 10 }}>
                             <Button type="primary"
                                 style={{ width: 80, height: 40 }}
-                                onClick={(e) => this.handleBack(e)}>
+                                onClick={(e) => this.handleBack()}>
                                 <div style={{ fontSize: 16 }}>
                                     后退
                                 </div>
@@ -1237,13 +1226,16 @@ class ProductDistributeInputer extends React.Component {
                                                     allProductionDataRealToBeTransfer.map((productItem) => {
                                                         // console.log(productItem)
                                                         let serialNum = allProductionDataRealToBeTransfer.indexOf(productItem) + 1;
+                                                        let transferNumberBGcolor = productItem.transferNumber !== 0 &&
+                                                            productItem.transferNumber === productItem.orderNumber
+                                                            ? 'transparent' : 'yellow';
                                                         return (
                                                             <tr key={serialNum}>
                                                                 <th key='1' style={{ height: 20, width: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
                                                                 <th key='2' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
                                                                 <th key='3' style={{ height: 20, width: 200, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
                                                                 <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
-                                                                <th key='5' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
+                                                                <th key='5' style={{ backgroundColor: transferNumberBGcolor, height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
                                                                 <th key='6' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
                                                                 <th key='7' style={{ height: 20, width: 200, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
                                                                 <th key='8' style={{ height: 20, width: 80, textAlign: 'center', fontSize: 16 }}></th>

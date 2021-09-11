@@ -301,8 +301,7 @@ class OrderManagement extends React.Component {
 
         let disableSubmitButton =
             currentShop.userId === '' ||
-            currentTemplate.templateId !== '' ||
-            selectedRowKeys.length <= 0;
+            currentTemplate.templateId !== '';
 
         return (
             <div>

@@ -442,7 +442,7 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
     LoadProductsByPageBodyStr += '&categoryType=';
     LoadProductsByPageBodyStr += '&pageIndex=1';
     LoadProductsByPageBodyStr += '&pageSize=50';
-    LoadProductsByPageBodyStr += '&orderColumn=';
+    LoadProductsByPageBodyStr += '&orderColumn=name';
     LoadProductsByPageBodyStr += '&asc=false';
 
 

@@ -140,6 +140,7 @@ const EditableCell4AddProduct = ({
     title, editable, children, dataIndex, record,
     handleEditableCellNextFocus,
     handleEditableCellCurrentFocus,
+    handleEditableCellOnChangeAddOrRemove,
     ...restProps
 }) => {
     let childNode = children;
@@ -166,6 +167,15 @@ const EditableCell4AddProduct = ({
                 record[dataIndex] = newData;
             } catch (errInfo) {
                 console.log('Save failed:', errInfo);
+
+                let lastStr = errInfo.values[dataIndex].substring(errInfo.values[dataIndex].length - 1);
+                let addOrRemove;
+                if (lastStr === '+') {
+                    addOrRemove = 'add';
+                } else if (lastStr === '-') {
+                    addOrRemove = 'remove';
+                }
+                handleEditableCellOnChangeAddOrRemove(addOrRemove, record);
             }
         };
 
@@ -178,7 +188,6 @@ const EditableCell4AddProduct = ({
         const handleOnFocus = async () => {
             handleEditableCellCurrentFocus(record);
         }
-
 
         let initialValue = record[dataIndex];
         // console.log('EditableCell4AddProduct initialValue=' + initialValue);
@@ -200,7 +209,6 @@ const EditableCell4AddProduct = ({
                     <Input id={record && record['key']}
                         ref={inputRef}
                         autoComplete='off'
-                        disabled={record.disabledInput}
                         onChange={handleOnChange}
                         onPressEnter={handleOnPressEnter}
                         onFocus={handleOnFocus} />
@@ -228,12 +236,17 @@ class ProductDistributeInputer extends React.Component {
             productSpinning: false,
             transferItems4NextFocus: [],
             filterDropdownVisible4Transfer: true,
-            productTransferPrintShow: false
+            productTransferPrintShow: false,
+            productTransferConfirmText: '---确定出货---'
         };
         this._searchInput = null;
         this._searchInput4AddProduct = null;
         this._searchText4Transfer = '';
+        this._lastSearchText4Transfer = '';
         this._lastSearchText4AddProduct = '';
+
+        this._searchText4AddProduct4onChange = '';
+        this._lastSearchText4AddProduct4onChange = '';
 
         this._template = undefined;
         this._beginDateTime = undefined;
@@ -413,10 +426,10 @@ class ProductDistributeInputer extends React.Component {
                 let allDataAfterTemplateItemItems = allDataAfterTemplateItem.items;
                 for (let jj = 0; jj < allDataAfterTemplateItemItems.length; ++jj) {
                     let allDataAfterTemplateItemItemsItem = allDataAfterTemplateItemItems[jj];
-                    if (allDataAfterTemplateItemItemsItem.orderNumber > 0) {
-                        allDataAfterTemplateItemItemsItem.key = ++key;
-                        transferData.push(allDataAfterTemplateItemItemsItem);
-                    }
+                    // if (allDataAfterTemplateItemItemsItem.orderNumber > 0) {
+                    allDataAfterTemplateItemItemsItem.key = ++key;
+                    transferData.push(allDataAfterTemplateItemItemsItem);
+                    // }
                 }
             }
             // console.log(transferData);
@@ -440,19 +453,31 @@ class ProductDistributeInputer extends React.Component {
                         }
                     }}
                     autoComplete='off'
-                    placeholder={`输入简码`}
+                    size='large'
+                    placeholder={`+添加商品`}
                     value={this._searchText4Transfer}
                     onChange={(e) => {
-                        // console.log('输入简码 onChange');
+                        // console.log('输入简码 onChange e.target=' + e.target);
+
+                        let z_reg = /^[0-9]+$/;
+                        let isInter = z_reg.test(e.target.value);
+                        if (e.target.value !== '' && !isInter) {
+                            if (e.target.value.substring(e.target.value.length - 1) === '+') {
+                                this.handleAddProduct();
+                            } else {
+                                new Audio(diAudioSrc).play();
+                            }
+                            this._searchText4Transfer = this._lastSearchText4Transfer;
+                            return;
+                        }
+                        // console.log('isInter=' + isInter);
+
 
                         setSelectedKeys(e.target.value ? [e.target.value] : []);
                         confirm();
 
                         this._searchText4Transfer = e.target.value;
-
-                        if (this._addProductButton) {
-                            this._addProductButton.disabled = this._searchText4Transfer.length > 0;
-                        }
+                        this._lastSearchText4Transfer = e.target.value;
 
                         this.setState({ transferItems4NextFocus: [] }, () => {
                             let transferItems4NextFocusTemp = [];
@@ -516,7 +541,7 @@ class ProductDistributeInputer extends React.Component {
         },
         onFilterDropdownVisibleChange: visible => {
             if (visible && this._searchInput) {
-                setTimeout(() => this._searchInput && this._searchInput.select(), 100);
+                setTimeout(() => this._searchInput && this._searchInput.select(), 300);
             }
         },
         render: text =>
@@ -549,7 +574,6 @@ class ProductDistributeInputer extends React.Component {
 
         let allProductionDataRealToBeTransferTemp = this.state.allProductionDataRealToBeTransfer;
         if (selected) {
-            record.disabledInput = true;
             let newItem4Transfer = {};
             newItem4Transfer.barcode = record.barcode;
             newItem4Transfer.barcodeSimple = record.barcode.substring(record.barcode.length - 4, record.barcode.length);
@@ -578,9 +602,7 @@ class ProductDistributeInputer extends React.Component {
             this.setState({
                 allProductionDataRealToBeTransfer: allProductionDataAfterAdd
             });
-            // console.log(allProductionDataAfterAdd);
         } else {
-            record.disabledInput = false;
             let allProductionDataAfterRemove = [];
             let key = 0;
             for (let ii = 0; ii < allProductionDataRealToBeTransferTemp.length; ++ii) {
@@ -632,7 +654,6 @@ class ProductDistributeInputer extends React.Component {
                     allProductionDataRealToBeTransferTemp.forEach(product => {
                         if (item.barcode === product.barcode) {
                             if (selectKeys.indexOf(item.key) === -1) {
-                                item.disabledInput = true;
                                 selectKeys.push(item.key);
                             }
                         }
@@ -647,7 +668,7 @@ class ProductDistributeInputer extends React.Component {
 
             for (let ii = 0; ii < searchProductDataToBeAdd.length; ++ii) {
                 let product = searchProductDataToBeAdd[ii];
-                if (product && !(product.disabledInput)) {
+                if (product) {
                     product.editing = true;
                 }
             }
@@ -657,16 +678,17 @@ class ProductDistributeInputer extends React.Component {
     };
 
     handleAddProductionModalonOk = () => {
-        this.setState({ isAddProductionModalVisible: false });
-        this.setState({ filterDropdownVisible4Transfer: true });
-
-        setTimeout(() => {
-            this._searchInput.select();
-        }, 100);
+        this.setState({ isAddProductionModalVisible: false, filterDropdownVisible4Transfer: true }, () => {
+            setTimeout(() => {
+                this._searchInput && this._searchInput.select();
+            }, 400);
+        });
     };
 
     handleProductTransferConfirm = async () => {
         // console.log('handleProductTransferConfirm begin');
+
+        this.setState({ productTransferConfirmText: '配货信息发送中....' });
 
         let allProductionDataRealToBeTransfer = this.state.allProductionDataRealToBeTransfer;
         // console.log(allProductionDataRealToBeTransfer);
@@ -688,9 +710,11 @@ class ProductDistributeInputer extends React.Component {
         if (result && result.errCode === 0) {
             message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~');
             setTimeout(() => {
+                this.setState({ productTransferConfirmText: '---确定出货---' });
                 this.handleBack();
-            }, 2000);
+            }, 1000);
         } else {
+            this.setState({ productTransferConfirmText: '---确定出货---' });
             message.error('配货失败，请查看失败原因~');
         }
     }
@@ -803,10 +827,8 @@ class ProductDistributeInputer extends React.Component {
             }
 
             let item = searchProductDataToBeAddTemp[newFocusIndex];
-            if (!item.disabledInput) {
-                item.editing = true;
-                break;
-            }
+            item.editing = true;
+            break;
         }
 
         if (lastFocusIndex >= 0 && lastFocusIndex < searchProductDataToBeAddTemp.length) {
@@ -832,6 +854,26 @@ class ProductDistributeInputer extends React.Component {
         // console.log(searchProductDataToBeAddTemp);
     };
 
+    handleEditableCellAddProductOnChangeAddOrRemove = (addOrRemove, record) => {
+        if (addOrRemove === 'add') {
+            this.onAddProductSelect(record, true);
+
+            let selectKeys = [...this.state.addProductionSelectedRowKeys];
+            if (selectKeys.indexOf(record.key) === -1) {
+                selectKeys.push(record.key);
+            }
+            this.setState({ addProductionSelectedRowKeys: selectKeys });
+        } else if (addOrRemove === 'remove') {
+            this.onAddProductSelect(record, false);
+
+            let selectKeys = [...this.state.addProductionSelectedRowKeys];
+            if (selectKeys.indexOf(record.key) !== -1) {
+                selectKeys.splice(selectKeys.indexOf(record.key), 1);
+            }
+            this.setState({ addProductionSelectedRowKeys: selectKeys });
+        }
+    };
+
     getLodopAfterInit = () => {
         let LODOP = getLodop();
 
@@ -843,7 +885,7 @@ class ProductDistributeInputer extends React.Component {
             LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex());
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, getPageName4NeedlePrinter());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", '95%', strStyle + document.getElementById("printDiv").innerHTML);
         }
 
         return LODOP;
@@ -885,6 +927,20 @@ class ProductDistributeInputer extends React.Component {
         window.location.replace(orderManagementUrl);
     };
 
+    handleAddProduct = () => {
+        // this._searchInput = null;
+        this.setState({
+            addProductionSelectedRowKeys: [], isAddProductionModalVisible: true,
+            filterDropdownVisible4Transfer: false, searchProductDataToBeAdd: []
+        });
+        setTimeout(() => {
+            if (this._searchInput4AddProduct) {
+                this._searchInput4AddProduct.select();
+                this._searchInput4AddProduct.setState({ value: '' });
+            }
+        }, 0);
+    };
+
     render() {
         const {
             allProductionDataToBeTransfer,
@@ -896,11 +952,14 @@ class ProductDistributeInputer extends React.Component {
             currentShop,
             productSpinTipText,
             productSpinning,
-            productTransferPrintShow
+            productTransferPrintShow,
+            productTransferConfirmText
         } = this.state;
 
-        let disableTransferPreviewOrPrint = allProductionDataRealToBeTransfer &&
-            allProductionDataRealToBeTransfer.length <= 0;
+        let disableTransferPreviewOrPrint =
+            (allProductionDataRealToBeTransfer &&
+                allProductionDataRealToBeTransfer.length <= 0) ||
+            productTransferConfirmText !== '---确定出货---';
 
         /// 调货列表头配置
         const KTransferColumns4Table = [
@@ -981,7 +1040,8 @@ class ProductDistributeInputer extends React.Component {
                     dataIndex: col.dataIndex,
                     title: col.title,
                     handleEditableCellNextFocus: this.handleEditableCell4AddProductNextFocus,
-                    handleEditableCellCurrentFocus: this.handleEditableCell4AddProductCurrentFocus
+                    handleEditableCellCurrentFocus: this.handleEditableCell4AddProductCurrentFocus,
+                    handleEditableCellOnChangeAddOrRemove: this.handleEditableCellAddProductOnChangeAddOrRemove
                 }),
             };
         });
@@ -1043,11 +1103,12 @@ class ProductDistributeInputer extends React.Component {
                                 </Button>
 
                                 <Popconfirm title={`是否确定出货？`}
-                                    onConfirm={this.handleProductTransferConfirm}>
+                                    onConfirm={this.handleProductTransferConfirm}
+                                    disabled={disableTransferPreviewOrPrint}>
                                     <Button danger type='primary'
                                         disabled={disableTransferPreviewOrPrint}
                                         style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                        ---确定出货---
+                                        {productTransferConfirmText}
                                     </Button>
                                 </Popconfirm>
                             </div>
@@ -1066,17 +1127,8 @@ class ProductDistributeInputer extends React.Component {
 
                             <Button type="primary" danger
                                 style={{ width: 60, height: 30 }}
-                                ref={(node) => {
-                                    if (!this._addProductButton && node) {
-                                        this._addProductButton = node;
-                                    }
-                                }}
                                 onClick={() => {
-                                    this._searchInput = null;
-                                    this.setState({
-                                        addProductionSelectedRowKeys: [], isAddProductionModalVisible: true,
-                                        filterDropdownVisible4Transfer: false, searchProductDataToBeAdd: []
-                                    });
+                                    this.handleAddProduct();
                                 }}>
                                 <div style={{ fontSize: 8 }}>
                                     +商品
@@ -1122,7 +1174,7 @@ class ProductDistributeInputer extends React.Component {
                     <Modal
                         width={1000}
                         centered
-                        keyboard
+                        keyboard={true}
                         maskClosable={false}
                         closable={false}
                         title={
@@ -1139,8 +1191,27 @@ class ProductDistributeInputer extends React.Component {
                                         }
                                     }}
                                     enterButton
-                                    placeholder='输入商品名称'
-                                    onSearch={(text, e) => this.handleAddProductOnSearch(text, e)}>
+                                    placeholder='-返回'
+                                    onSearch={(text, e) => this.handleAddProductOnSearch(text, e)}
+                                    onChange={(e) => {
+                                        // console.log('onChange start');
+
+                                        if (e.target.value !== '') {
+                                            let lastStr = e.target.value.substring(e.target.value.length - 1);
+                                            if (lastStr === '-') {
+                                                this.handleAddProductionModalonOk();
+                                                return;
+                                            } else if (lastStr === '+' ||
+                                                lastStr === '*' || lastStr === '/' || lastStr === '.') {
+                                                new Audio(diAudioSrc).play();
+                                                return;
+                                            }
+                                            // console.log(e.target.value);
+                                        }
+
+                                        this._searchText4AddProduct4onChange = e.target.value;
+                                        this._lastSearchText4AddProduct4onChange = e.target.value;
+                                    }}>
                                 </Search>
                             </div>)}
                         visible={isAddProductionModalVisible}
@@ -1155,7 +1226,7 @@ class ProductDistributeInputer extends React.Component {
                             components={components4AddProduct}
                             columns={addProductColumns4TableEditable}
                             bordered pagination={false}
-                            scroll={{ y: 360, scrollToFirstRowOnChange: true }}
+                            scroll={{ y: 400, scrollToFirstRowOnChange: true }}
                         />
                     </Modal>
                 </div>

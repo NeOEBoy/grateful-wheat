@@ -76,6 +76,17 @@ const getTemplateSortIdArray = () => {
   };
 };
 
+const getFlowType = () => {
+  return [
+    { index: 0, name: '全部货单', flowTypeId: '' },
+    { index: 1, name: '门店进货单', flowTypeId: '12' },
+    { index: 2, name: '普通调货单', flowTypeId: '10' },
+    { index: 3, name: '调拨退货单', flowTypeId: '23' },
+    { index: 4, name: '普通出库单', flowTypeId: '17' },
+    { index: 5, name: '采购退货单', flowTypeId: '14' },
+  ];
+};
+
 // 'HP DeskJet 3630 series' 或者 'EPSON LQ-735K ESC/P2'
 const getA4PrinterName = () => {
   return 'HP DeskJet 3630 series';
@@ -107,6 +118,7 @@ export {
   getAllOrderShopName,
   getOrderTemplates,
   getAllOrderTemplateName,
+  getFlowType,
   getProductSortIdArray,
   getTemplateSortIdArray,
   getA4PrinterName,

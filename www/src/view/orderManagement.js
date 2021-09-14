@@ -1,21 +1,24 @@
 import React from 'react';
 import {
-    Button, Menu, Dropdown,
-    DatePicker, Table, message
+    Button, Menu, Dropdown, Space,
+    DatePicker, Table, message, Modal
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import 'moment/locale/zh-cn';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import moment from 'moment';
 import {
-    getProductOrderList
+    getProductOrderList,
+    getProductFlowList,
+    getFlowDetail
 } from '../api/api';
 import {
     getTest,
     getAllShop,
     getAllOrderShopName,
     getOrderTemplates,
-    getAllOrderTemplateName
+    getAllOrderTemplateName,
+    getFlowType,
 } from '../api/util';
 
 const { RangePicker } = DatePicker;
@@ -27,48 +30,61 @@ const KForTest = getTest();
 const KAllShops = getAllShop();
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
-/// 订单列表头配置
-const KOrderColumns4Table = [
-    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '订货单号', dataIndex: 'orderSerialNumber', key: 'orderSerialNumber', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '订货时间', dataIndex: 'orderTime', key: 'orderTime', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '期望到货', dataIndex: 'expectTime', key: 'expectTime', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 180, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
-    { title: '配货门店', dataIndex: 'prepareShop', key: 'prepareShop', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-    { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
-];
+
 /// 报货门店名字
 const KAllOrderShopName = getAllOrderShopName();
 /// 报货模板名字
 const KAllOrderTemplateName = getAllOrderTemplateName();
+/// 货单类型
+const KFlowType = getFlowType();
 
 class OrderManagement extends React.Component {
     constructor(props) {
         super(props);
 
-        let beginDateTime = moment().startOf('day');
-        let endDateTime = moment().endOf('day');
-
+        let beginDateTime4OrderList4init = moment().startOf('day');
+        let endDateTime4OrderList4init = moment().endOf('day');
         if (KForTest) {
-            beginDateTime = moment().subtract(1, 'day').startOf('day');
-            endDateTime = moment().subtract(1, 'day').endOf('day');
+            beginDateTime4OrderList4init = moment().subtract(1, 'day').startOf('day');
+            endDateTime4OrderList4init = moment().subtract(1, 'day').endOf('day');
         }
+
+        let beginDateTime4FlowList4init = moment().startOf('day');
+        let endDateTime4FlowList4init = moment().endOf('day');
+
         this.state = {
+            /// 订单列表
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop: KAllShops[0],
-            currentTemplate: KOrderTemplates[1],
-            beginDateTime: beginDateTime,
-            endDateTime: endDateTime,
-            timePickerOpen: false,
-            selectedRowKeys: [],
+            currentShop4OrderList: KAllShops[0],
+            currentTemplate4OrderList: KOrderTemplates[1],
+            beginDateTime4OrderList: beginDateTime4OrderList4init,
+            endDateTime4OrderList: endDateTime4OrderList4init,
+            timePickerOpen4OrderList: false,
+            selectedRowKeys4OrderList: [],
             noyetOrderShops: [],
-            noyetOrderTemplates: []
+            noyetOrderTemplates: [],
+
+            /// 货流管理
+            currentShop4FlowList: KAllShops[0],
+            currentFlowType: KFlowType[0],
+            beginDateTime4FlowList: beginDateTime4FlowList4init,
+            endDateTime4FlowList: endDateTime4FlowList4init,
+            timePickerOpen4FlowList: false,
+            flowListData: [],
+            flowListLoading: false,
+
+            /// 货流详情
+            flowDetailData: [],
+            flowDetailLoading: false,
+            flowDetailModalVisible: false
         };
+
+        this._currentFlowId = '';
+        this._currentFlowDetailStatus = [];
+        this._currentTransferFrom = '';
+        this._currentTransferTo = '';
+        this._currentFlowType = '';
     }
 
     async componentDidMount() {
@@ -81,29 +97,31 @@ class OrderManagement extends React.Component {
             let paramValueObj = JSON.parse(paramValueStr);
 
             this.setState({
-                currentTemplate: paramValueObj.template,
-                currentShop: paramValueObj.shop,
-                beginDateTime: moment(paramValueObj.beginDateTime),
-                endDateTime: moment(paramValueObj.endDateTime)
+                currentTemplate4OrderList: paramValueObj.template,
+                currentShop4OrderList: paramValueObj.shop,
+                beginDateTime4OrderList: moment(paramValueObj.beginDateTime),
+                endDateTime4OrderList: moment(paramValueObj.endDateTime)
             });
         }
 
         await this.fetchOrderList();
-    }
+        await this.fetchFlowList();
+    };
 
     fetchOrderList = async () => {
         try {
             this.setState({
-                alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys: []
+                alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys4OrderList: []
             }, async () => {
-                const { currentShop, currentTemplate, beginDateTime, endDateTime } = this.state;
+                const { currentShop4OrderList, currentTemplate4OrderList,
+                    beginDateTime4OrderList, endDateTime4OrderList } = this.state;
                 let orderList = [];
                 let keys = [];
                 let noyetOrderShops = KAllOrderShopName;
                 let noyetOrderTemplates = KAllOrderTemplateName;
-                let beginDateTimeStr = beginDateTime.format('YYYY.MM.DD%2BHH:mm:ss');
-                let endDateTimeStr = endDateTime.format('YYYY.MM.DD%2BHH:mm:ss');;
-                const productOrder = await getProductOrderList(currentShop.userId, currentTemplate.templateId, beginDateTimeStr, endDateTimeStr);
+                let beginDateTimeStr = beginDateTime4OrderList.format('YYYY.MM.DD%2BHH:mm:ss');
+                let endDateTimeStr = endDateTime4OrderList.format('YYYY.MM.DD%2BHH:mm:ss');
+                const productOrder = await getProductOrderList(currentShop4OrderList.userId, currentTemplate4OrderList.templateId, beginDateTimeStr, endDateTimeStr);
                 // console.log(productOrder);
 
                 if (productOrder && productOrder.errCode === 0) {
@@ -143,7 +161,7 @@ class OrderManagement extends React.Component {
 
                 this.setState({
                     alreadyOrderListData: orderList,
-                    selectedRowKeys: keys,
+                    selectedRowKeys4OrderList: keys,
                     alreadyOrderLoading: false,
                     noyetOrderShops: noyetOrderShops,
                     noyetOrderTemplates: noyetOrderTemplates
@@ -154,11 +172,56 @@ class OrderManagement extends React.Component {
                 alreadyOrderLoading: false
             });
         }
-    }
+    };
+
+    fetchFlowList = async () => {
+        try {
+            this.setState({ flowListData: [], flowListLoading: true }, async () => {
+                const { currentShop4FlowList, currentFlowType,
+                    beginDateTime4FlowList, endDateTime4FlowList } = this.state;
+
+                let flowList = [];
+                let beginDateTimeStr = beginDateTime4FlowList.format('YYYY.MM.DD%2BHH:mm:ss');
+                let endDateTimeStr = endDateTime4FlowList.format('YYYY.MM.DD%2BHH:mm:ss');
+                const flowListResult = await getProductFlowList(currentShop4FlowList.userId, currentFlowType.flowTypeId, beginDateTimeStr, endDateTimeStr);
+                console.log(flowListResult);
+
+                if (flowListResult && flowListResult.errCode === 0) {
+                    flowList = flowListResult.list;
+                }
+
+                this.setState({
+                    flowListData: flowList,
+                    flowListLoading: false
+                });
+            });
+        } catch (err) {
+            this.setState({
+                flowListLoading: false
+            });
+        }
+    };
+
+    fetchFlowDetail = async () => {
+        try {
+            this.setState({ flowDetailData: [], flowDetailLoading: true }, async () => {
+                let flowDetailResult = await getFlowDetail(this._currentFlowId);
+                let list = [];
+                if (flowDetailResult && flowDetailResult.errCode === 0) {
+                    list = flowDetailResult.list;
+                    console.log(list);
+                }
+
+                this.setState({ flowDetailData: list, flowDetailLoading: false });
+            });
+        } catch (err) {
+            this.setState({ flowDetailLoading: false });
+        }
+    };
 
     onOrderItemSelectChange = (selectedRowKeys) => {
-        // console.log('selectedRowKeys changed: ', selectedRowKeys);
-        this.setState({ selectedRowKeys });
+        // console.log('onOrderItemSelectChange: ', selectedRowKeys);
+        this.setState({ selectedRowKeys4OrderList: selectedRowKeys });
     };
 
     handleProductionPrint = async (e) => {
@@ -166,20 +229,20 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentShop, currentTemplate,
-            selectedRowKeys, beginDateTime, endDateTime } = this.state;
+        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
+            selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
             alreadyOrderListDataAfterFilter.push(orderItem);
         }
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate;
-        paramValueObj.shop = currentShop;
-        paramValueObj.beginDateTime = beginDateTime;
-        paramValueObj.endDateTime = endDateTime;
+        paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.shop = currentShop4OrderList;
+        paramValueObj.beginDateTime = beginDateTime4OrderList;
+        paramValueObj.endDateTime = endDateTime4OrderList;
 
         let paramValueStr = JSON.stringify(paramValueObj);
         // console.log('paramValueStr = ' + paramValueStr);
@@ -201,21 +264,21 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate,
-            currentShop, beginDateTime, endDateTime,
-            selectedRowKeys } = this.state;
+        const { alreadyOrderListData, currentTemplate4OrderList,
+            currentShop4OrderList, beginDateTime4OrderList, endDateTime4OrderList,
+            selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
             alreadyOrderListDataAfterFilter.push(orderItem);
         }
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate;
-        paramValueObj.shop = currentShop;
-        paramValueObj.beginDateTime = beginDateTime;
-        paramValueObj.endDateTime = endDateTime;
+        paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.shop = currentShop4OrderList;
+        paramValueObj.beginDateTime = beginDateTime4OrderList;
+        paramValueObj.endDateTime = endDateTime4OrderList;
 
         let paramValueStr = JSON.stringify(paramValueObj);
         // console.log('paramValueStr = ' + paramValueStr);
@@ -236,20 +299,20 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate, currentShop,
-            beginDateTime, endDateTime, selectedRowKeys } = this.state;
+        const { alreadyOrderListData, currentTemplate4OrderList, currentShop4OrderList,
+            beginDateTime4OrderList, endDateTime4OrderList, selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys.indexOf(orderItem.key) === -1) continue;
+            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
             alreadyOrderListDataAfterFilter.push(orderItem);
         }
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate;
-        paramValueObj.shop = currentShop;
-        paramValueObj.beginDateTime = beginDateTime;
-        paramValueObj.endDateTime = endDateTime;
+        paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.shop = currentShop4OrderList;
+        paramValueObj.beginDateTime = beginDateTime4OrderList;
+        paramValueObj.endDateTime = endDateTime4OrderList;
 
         let paramValueStr = JSON.stringify(paramValueObj);
         // console.log('paramValueStr = ' + paramValueStr);
@@ -267,14 +330,16 @@ class OrderManagement extends React.Component {
 
     render() {
         const {
-            alreadyOrderListData, currentShop, currentTemplate,
-            alreadyOrderLoading, beginDateTime, endDateTime,
-            timePickerOpen, selectedRowKeys,
-            noyetOrderShops, noyetOrderTemplates,
+            alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
+            alreadyOrderLoading, beginDateTime4OrderList, endDateTime4OrderList,
+            timePickerOpen4OrderList, selectedRowKeys4OrderList, noyetOrderShops,
+            noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
+            currentFlowType, beginDateTime4FlowList, endDateTime4FlowList,
+            timePickerOpen4FlowList, flowDetailModalVisible, flowDetailData, flowDetailLoading
         } = this.state;
 
         const alreadyOrderRowSelection = {
-            selectedRowKeys,
+            selectedRowKeys: selectedRowKeys4OrderList,
             onChange: this.onOrderItemSelectChange,
         };
 
@@ -283,203 +348,475 @@ class OrderManagement extends React.Component {
             noYetOrderShopNames = noyetOrderShops.join(' | ');
         }
         let disableProductionPrint =
-            currentShop.userId !== '' ||
-            currentTemplate.templateId === '' ||
-            selectedRowKeys.length <= 0;
+            currentShop4OrderList.userId !== '' ||
+            currentTemplate4OrderList.templateId === '' ||
+            selectedRowKeys4OrderList.length <= 0;
 
-        let notyetOrderShopInfoShow = currentShop.userId === '';
+        let notyetOrderShopInfoShow = currentShop4OrderList.userId === '';
 
         let noYetOrderTemplateNames = '无';
         if (noyetOrderTemplates && noyetOrderTemplates.length > 0) {
             noYetOrderTemplateNames = noyetOrderTemplates.join(' | ');
         }
         let disableDistributionButtonPrint =
-            currentShop.userId === '' ||
-            currentTemplate.templateId !== '' ||
-            selectedRowKeys.length <= 0;
-        let notyetOrderTemplateInfoShow = currentTemplate.templateId === '';
+            currentShop4OrderList.userId === '' ||
+            currentTemplate4OrderList.templateId !== '' ||
+            selectedRowKeys4OrderList.length <= 0;
+        let notyetOrderTemplateInfoShow = currentTemplate4OrderList.templateId === '';
 
         let disableSubmitButton =
-            currentShop.userId === '' ||
-            currentTemplate.templateId !== '';
+            currentShop4OrderList.userId === '' ||
+            currentTemplate4OrderList.templateId !== '';
+
+        /// 订单列表头配置
+        const KOrderColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货单号', dataIndex: 'orderSerialNumber', key: 'orderSerialNumber', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货时间', dataIndex: 'orderTime', key: 'orderTime', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '期望到货', dataIndex: 'expectTime', key: 'expectTime', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 180, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+            { title: '配货门店', dataIndex: 'prepareShop', key: 'prepareShop', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+        ];
+
+        /// 货流管理列表头配置
+        const KFlowListColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '货流单号', dataIndex: 'flowNumber', key: 'flowNumber', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '下单时间', dataIndex: 'flowTime', key: 'flowTime', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '货单类型', dataIndex: 'flowType', key: 'flowType', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '出货方', dataIndex: 'transferFrom', key: 'transferFrom', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '进货方', dataIndex: 'transferTo', key: 'transferTo', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            {
+                title: '状态', dataIndex: 'transferStatus', key: 'transferStatus', width: 320,
+                render: (text, record) => {
+                    let bg = 'transparent';
+                    let bg0 = 'transparent';
+                    let fg0 = 'gray';
+                    let bg1 = 'transparent';
+                    let fg1 = 'gray';
+                    if (record.flowType === '调货单') {
+                        bg0 = text[1] ? 'transparent' : 'yellow';
+                        fg0 = text[1] ? 'gray' : 'black';
+                        bg1 = text[1].indexOf('已拒绝收货') === -1 ? 'transparent' : 'red';
+                        fg1 = text[1].indexOf('已拒绝收货') === -1 ? 'gray' : 'white';
+                    }
+
+                    return (
+                        <div style={{ backgroundColor: bg }}>
+                            <div style={{ fontSize: 6, color: fg0, backgroundColor: bg0 }}>{text[0]}</div>
+                            <div style={{ fontSize: 6, color: fg1, backgroundColor: bg1 }}>{text[1]}</div>
+                        </div>
+                    )
+                }
+            },
+            {
+                title: '操作', dataIndex: 'action', key: 'action', width: 80,
+                render: (text, record) => {
+                    return (
+                        <Space size="middle">
+                            <Button size='small' onClick={(e) => {
+                                this._currentFlowId = record.flowId;
+                                this._currentFlowDetailStatus = record.transferStatus;
+                                this._currentTransferFrom = record.transferFrom;
+                                this._currentTransferTo = record.transferTo;
+                                this._currentFlowType = record.flowType;
+                                this.setState({ flowDetailModalVisible: true }, () => {
+                                    this.fetchFlowDetail();
+                                })
+                            }}>查看</Button>
+                        </Space>
+                    )
+                }
+            },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
+        ];
+
+        const KFlowDetailColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '条码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '名称', dataIndex: 'name', key: 'name', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '类别', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '出货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+        ];
+
+        let showAction = false;
+        if (this._currentFlowType === '调货单' ||
+            this._currentFlowType === '调拨退货单') {
+            if (this._currentFlowDetailStatus[0].length > 0 &&
+                this._currentFlowDetailStatus[1].length <= 0) {
+                showAction = true;
+            }
+        }
 
         return (
             <div>
-                <div>
-                    <div style={{ marginLeft: 30, marginTop: 10, fontSize: 20 }}>生产 VS 配货</div>
-                    <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
-                        <div>
-                            <Button danger disabled={disableProductionPrint} type='primary'
-                                onClick={this.handleProductionPrint}
-                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                打印生产单
-                            </Button>
-                            {
-                                notyetOrderShopInfoShow ? (<span>
-                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
-                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
-                                </span>) : (<span></span>)
-                            }
-                        </div>
-                        <div>
-                            <Button danger disabled={disableDistributionButtonPrint} type='primary'
-                                onClick={this.handleDistributionPrint}
-                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                打印配货单
-                            </Button>
-                            {
-                                notyetOrderTemplateInfoShow ? (<span>
-                                    <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
-                                    <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
-                                </span>) : (<span></span>)
-                            }
-                        </div>
-                        <div>
-                            <Button danger disabled={disableSubmitButton} type='primary'
-                                onClick={this.handleDistributionInput}
-                                style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
-                                开始配货
-                            </Button>
-                        </div>
-                    </div>
-                    <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
-                        <Dropdown
-                            style={{ marginLeft: 0 }}
-                            overlay={
-                                () => {
-                                    return (<Menu onClick={async ({ key }) => {
-                                        this.setState({ currentShop: KAllShops[key] }, async () => {
-                                            await this.fetchOrderList();
-                                        });
-                                    }} >
-                                        {
-                                            KAllShops.map((shop) => {
-                                                return (<Menu.Item key={shop.index}>
-                                                    {shop.name}
-                                                </Menu.Item>);
-                                            })
-                                        }
-                                    </Menu>)
-                                }
-                            } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
-                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                                {currentShop.name}
-                                <DownOutlined />
-                            </Button>
-                        </Dropdown>
-                        <Dropdown
-                            overlay={
-                                () => {
-                                    return (<Menu onClick={async ({ key }) => {
-                                        this.setState({ currentTemplate: KOrderTemplates[key] }, async () => {
-                                            await this.fetchOrderList();
-                                        });
-                                    }} >
-                                        {
-                                            KOrderTemplates.map((template) => {
-                                                return (<Menu.Item key={template.index}>
-                                                    {template.name}
-                                                </Menu.Item>);
-                                            })
-                                        }
-                                    </Menu>)
-                                }
-                            } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
-                            <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
-                                {currentTemplate.name}
-                                <DownOutlined />
-                            </Button>
-                        </Dropdown>
-                        <RangePicker
-                            open={timePickerOpen}
-                            onOpenChange={(open) => {
-                                this.setState({ timePickerOpen: open });
-                            }}
-                            style={{ marginLeft: 10 }}
-                            size='small'
-                            locale={locale}
-                            bordered={true}
-                            placeholder={['开始时间', '结束时间']}
-                            inputReadOnly={true}
-                            disabled={alreadyOrderLoading}
-                            value={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                            defaultValue={[moment(beginDateTime, 'YYYY-MM-DD+HH:mm:ss'),
-                            moment(endDateTime, 'YYYY-MM-DD+HH:mm:ss')]}
-                            showTime={{
-                                hideDisabledOptions: true,
-                                defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
-                                showTime: true,
-                                showHour: true,
-                                showMinute: true,
-                                showSecond: true
-                            }}
-                            onOk={async (data) => {
-                                if (data.length >= 2 && data[0] && data[1]) {
-                                    if (data[0] > data[1]) {
-                                        message.info('请输入正确时间');
-                                        return;
-                                    }
-                                    this.setState({ beginDateTime: data[0], endDateTime: data[1] }, async () => {
-                                        await this.fetchOrderList();
-                                    });
-                                }
-                            }}
-                            renderExtraFooter={() => (
-                                <span>
-                                    <Button size="small" type="primary" onClick={(e) => {
-                                        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
-                                        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
-                                        // console.log(yesterdayBegin);
-                                        // console.log(yesterdayEnd);
-
-                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
-                                            await this.fetchOrderList();
-                                        });
-                                    }}>
-                                        昨天
-                                    </Button>
-                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
-                                        let yesterdayBegin = moment().startOf('day');
-                                        let yesterdayEnd = moment().endOf('day');
-                                        // console.log(yesterdayBegin);
-                                        // console.log(yesterdayEnd);
-
-                                        this.setState({ beginDateTime: yesterdayBegin, endDateTime: yesterdayEnd, timePickerOpen: false }, async () => {
-                                            await this.fetchOrderList();
-                                        });
-                                    }}>
-                                        今天
-                                    </Button>
-                                </span>
-                            )}
-                        />
-                        <Button
-                            style={{ width: 180, marginLeft: 10 }} type='primary'
-                            onClick={async (e) => { await this.fetchOrderList(); }}>
-                            查询门店订货单
+                <div style={{ marginLeft: 30, marginTop: 5, fontSize: 18 }}>生产 VS 配货</div>
+                <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
+                    <div>
+                        <Button danger disabled={disableProductionPrint} type='primary'
+                            onClick={this.handleProductionPrint}
+                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                            打印生产单
                         </Button>
-                        <Table
-                            style={{ marginTop: 10 }}
-                            size='small'
-                            loading={alreadyOrderLoading}
-                            dataSource={alreadyOrderListData}
-                            columns={KOrderColumns4Table}
-                            rowSelection={alreadyOrderRowSelection}
-                            pagination={false} bordered
-                            footer={() => {
-                                return (
-                                    <div>
-                                        <div style={{ textAlign: 'center', height: 50 }}>
-                                            ---心里满满都是你---
-                                        </div>
-                                        <div style={{ height: 50 }}>
-                                        </div>
-                                    </div>
-                                )
-                            }} />
+                        {
+                            notyetOrderShopInfoShow ? (<span>
+                                <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货门店:</span>
+                                <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderShopNames}</span>
+                            </span>) : (<span></span>)
+                        }
+                    </div>
+                    <div>
+                        <Button danger disabled={disableDistributionButtonPrint} type='primary'
+                            onClick={this.handleDistributionPrint}
+                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                            打印配货单
+                        </Button>
+                        {
+                            notyetOrderTemplateInfoShow ? (<span>
+                                <span style={{ marginLeft: 10, color: 'tomato', fontSize: 8 }}>未报货模板:</span>
+                                <span style={{ marginLeft: 5, color: 'red', fontSize: 14, fontWeight: 'bold' }}>{noYetOrderTemplateNames}</span>
+                            </span>) : (<span></span>)
+                        }
+                    </div>
+                    <div>
+                        <Button danger disabled={disableSubmitButton} type='primary'
+                            onClick={this.handleDistributionInput}
+                            style={{ width: 210, height: 30, marginLeft: 50, marginTop: 10 }}>
+                            开始配货
+                        </Button>
                     </div>
                 </div>
+                <div style={{ marginLeft: 30, marginTop: 0, marginRight: 30, marginBottom: 0 }}>
+                    <Dropdown
+                        style={{ marginLeft: 0 }}
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentShop4OrderList: KAllShops[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KAllShops.map((shop) => {
+                                            return (<Menu.Item key={shop.index}>
+                                                {shop.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
+                        <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                            {currentShop4OrderList.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <Dropdown
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentTemplate4OrderList: KOrderTemplates[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KOrderTemplates.map((template) => {
+                                            return (<Menu.Item key={template.index}>
+                                                {template.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
+                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                            {currentTemplate4OrderList.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <RangePicker
+                        open={timePickerOpen4OrderList}
+                        onOpenChange={(open) => {
+                            this.setState({ timePickerOpen4OrderList: open });
+                        }}
+                        style={{ marginLeft: 10 }}
+                        size='small'
+                        locale={locale}
+                        bordered={true}
+                        placeholder={['开始时间', '结束时间']}
+                        inputReadOnly={true}
+                        disabled={alreadyOrderLoading}
+                        value={[moment(beginDateTime4OrderList, 'YYYY-MM-DD+HH:mm:ss'),
+                        moment(endDateTime4OrderList, 'YYYY-MM-DD+HH:mm:ss')]}
+                        defaultValue={[moment(beginDateTime4OrderList, 'YYYY-MM-DD+HH:mm:ss'),
+                        moment(endDateTime4OrderList, 'YYYY-MM-DD+HH:mm:ss')]}
+                        showTime={{
+                            hideDisabledOptions: true,
+                            defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                            showTime: true,
+                            showHour: true,
+                            showMinute: true,
+                            showSecond: true
+                        }}
+                        onOk={async (data) => {
+                            if (data.length >= 2 && data[0] && data[1]) {
+                                if (data[0] > data[1]) {
+                                    message.info('请输入正确时间');
+                                    return;
+                                }
+                                this.setState({ beginDateTime4OrderList: data[0], endDateTime4OrderList: data[1] }, async () => {
+                                    await this.fetchOrderList();
+                                });
+                            }
+                        }}
+                        renderExtraFooter={() => (
+                            <span>
+                                <Button size="small" type="primary" onClick={(e) => {
+                                    let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+                                    let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+                                    // console.log(yesterdayBegin);
+                                    // console.log(yesterdayEnd);
+
+                                    this.setState({ beginDateTime4OrderList: yesterdayBegin, endDateTime4OrderList: yesterdayEnd, timePickerOpen4OrderList: false }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }}>
+                                    昨天
+                                </Button>
+                                <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                    let yesterdayBegin = moment().startOf('day');
+                                    let yesterdayEnd = moment().endOf('day');
+                                    // console.log(yesterdayBegin);
+                                    // console.log(yesterdayEnd);
+
+                                    this.setState({ beginDateTime4OrderList: yesterdayBegin, endDateTime4OrderList: yesterdayEnd, timePickerOpen4OrderList: false }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }}>
+                                    今天
+                                </Button>
+                            </span>
+                        )}
+                    />
+                    <Button
+                        style={{ width: 180, marginLeft: 10 }} type='primary'
+                        onClick={async (e) => { await this.fetchOrderList(); }}>
+                        查询订货单
+                    </Button>
+                    <Table
+                        style={{ marginTop: 10 }}
+                        size='small'
+                        loading={alreadyOrderLoading}
+                        dataSource={alreadyOrderListData}
+                        columns={KOrderColumns4Table}
+                        rowSelection={alreadyOrderRowSelection}
+                        pagination={false} bordered
+                        scroll={{ y: 150, scrollToFirstRowOnChange: true }}
+                        footer={() => {
+                            return (
+                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                    {`总共${alreadyOrderListData.length}项`}
+                                </div>
+                            )
+                        }} />
+                </div>
+                <div style={{ marginLeft: 30, marginTop: 10, marginRight: 30, marginBottom: 30 }}>
+                    <Dropdown
+                        style={{ marginLeft: 0 }}
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentShop4FlowList: KAllShops[key] }, async () => {
+                                        await this.fetchFlowList();
+                                    });
+                                }} >
+                                    {
+                                        KAllShops.map((shop) => {
+                                            return (<Menu.Item key={shop.index}>
+                                                {shop.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['hover']} disabled={flowListLoading}>
+                        <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                            {currentShop4FlowList.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <Dropdown
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentFlowType: KFlowType[key] }, async () => {
+                                        await this.fetchFlowList();
+                                    });
+                                }} >
+                                    {
+                                        KFlowType.map((flow) => {
+                                            return (<Menu.Item key={flow.index}>
+                                                {flow.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['hover']} disabled={flowListLoading}>
+                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                            {currentFlowType.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <RangePicker
+                        open={timePickerOpen4FlowList}
+                        onOpenChange={(open) => {
+                            this.setState({ timePickerOpen4FlowList: open });
+                        }}
+                        style={{ marginLeft: 10 }}
+                        size='small'
+                        locale={locale}
+                        bordered={true}
+                        placeholder={['开始时间', '结束时间']}
+                        inputReadOnly={true}
+                        disabled={flowListLoading}
+                        value={[moment(beginDateTime4FlowList, 'YYYY-MM-DD+HH:mm:ss'),
+                        moment(endDateTime4FlowList, 'YYYY-MM-DD+HH:mm:ss')]}
+                        defaultValue={[moment(beginDateTime4FlowList, 'YYYY-MM-DD+HH:mm:ss'),
+                        moment(endDateTime4FlowList, 'YYYY-MM-DD+HH:mm:ss')]}
+                        showTime={{
+                            hideDisabledOptions: true,
+                            defaultValue: [moment('00:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+                            showTime: true,
+                            showHour: true,
+                            showMinute: true,
+                            showSecond: true
+                        }}
+                        onOk={async (data) => {
+                            if (data.length >= 2 && data[0] && data[1]) {
+                                if (data[0] > data[1]) {
+                                    message.info('请输入正确时间');
+                                    return;
+                                }
+                                this.setState({ beginDateTime4FlowList: data[0], endDateTime4FlowList: data[1] }, async () => {
+                                    await this.fetchFlowList();
+                                });
+                            }
+                        }}
+                        renderExtraFooter={() => (
+                            <span>
+                                <Button size="small" type="primary" onClick={(e) => {
+                                    let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+                                    let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+                                    // console.log(yesterdayBegin);
+                                    // console.log(yesterdayEnd);
+
+                                    this.setState({
+                                        beginDateTime4FlowList: yesterdayBegin,
+                                        endDateTime4FlowList: yesterdayEnd,
+                                        timePickerOpen4FlowList: false
+                                    }, async () => {
+                                        await this.fetchFlowList();
+                                    });
+                                }}>
+                                    昨天
+                                </Button>
+                                <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                    let yesterdayBegin = moment().startOf('day');
+                                    let yesterdayEnd = moment().endOf('day');
+                                    // console.log(yesterdayBegin);
+                                    // console.log(yesterdayEnd);
+
+                                    this.setState({
+                                        beginDateTime4FlowList: yesterdayBegin,
+                                        endDateTime4FlowList: yesterdayEnd,
+                                        timePickerOpen4FlowList: false
+                                    }, async () => {
+                                        await this.fetchFlowList();
+                                    });
+                                }}>
+                                    今天
+                                </Button>
+                            </span>
+                        )}
+                    />
+                    <Button
+                        style={{ width: 180, marginLeft: 10 }} type='primary'
+                        onClick={async (e) => { await this.fetchFlowList(); }}>
+                        查询货流单
+                    </Button>
+                    <Table
+                        style={{ marginTop: 10 }}
+                        size='small'
+                        loading={flowListLoading}
+                        dataSource={flowListData}
+                        columns={KFlowListColumns4Table}
+                        pagination={false} bordered
+                        scroll={{ y: 160, scrollToFirstRowOnChange: true }}
+                        footer={() => {
+                            return (
+                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                    {`总共${flowListData.length}项`}
+                                </div>
+                            )
+                        }} />
+                </div>
+
+                <Modal
+                    width={1000}
+                    centered
+                    keyboard={true}
+                    maskClosable={false}
+                    title={(
+                        <div>
+                            <div style={{ color: 'green', fontSize: 10 }}>{`${this._currentTransferFrom}=>${this._currentTransferTo}`}</div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{this._currentFlowDetailStatus[0]}</div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{this._currentFlowDetailStatus[1]}</div>
+                        </div>
+                    )}
+                    visible={flowDetailModalVisible}
+                    onCancel={() => {
+                        this.setState({ flowDetailModalVisible: false });
+                    }}
+                    footer={
+                        (
+                            showAction ? (<div style={{ marginRight: 10, marginBottom: 20, marginTop: 20 }}>
+                                <Space>
+                                    <Button key="notify" type="primary" danger disabled onClick={(e) => { }}>
+                                        通知
+                                    </Button>
+                                    <Button key="refuse" type="primary" danger disabled onClick={(e) => { }}>
+                                        拒绝收货
+                                    </Button>
+                                    <Button key="confirm" type="primary" danger disabled onClick={(e) => { }}>
+                                        确认收货
+                                    </Button>
+                                </Space>
+                            </div>) : <div></div>
+                        )
+                    }>
+                    <Table
+                        style={{ marginTop: 10 }}
+                        size='small'
+                        loading={flowDetailLoading}
+                        dataSource={flowDetailData}
+                        columns={KFlowDetailColumns4Table}
+                        pagination={false} bordered
+                        scroll={{ y: 400, scrollToFirstRowOnChange: true }}
+                        footer={() => {
+                            return (
+                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                    {`总共${flowDetailData.length}项`}
+                                </div>
+                            )
+                        }} />
+                </Modal>
             </div>
         );
     }

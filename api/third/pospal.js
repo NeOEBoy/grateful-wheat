@@ -601,6 +601,225 @@ const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
   }
 }
 
+const getProductFlowList = async (
+  thePOSPALAUTH30220,
+  userId,
+  flowTypeId,
+  beginDateTime,
+  endDateTime) => {
+  try {
+    // console.log('thePOSPALAUTH30220 = ' + thePOSPALAUTH30220);
+    // console.log('userId = ' + userId);
+    // console.log('flowTypeId = ' + flowTypeId);
+    // console.log('beginDateTime = ' + beginDateTime);
+    // console.log('endDateTime = ' + endDateTime);
+    let loadStockFlowByPageUrl = 'https://beta33.pospal.cn/StockFlow/LoadStockFlowByPage';
+
+    let stockFlowListBodyStr = '';
+    stockFlowListBodyStr += 'userId=';
+    stockFlowListBodyStr += userId;
+    stockFlowListBodyStr += '&stockFlowType=';
+    stockFlowListBodyStr += flowTypeId;
+    stockFlowListBodyStr += '&beginTime=';
+    stockFlowListBodyStr += escape(beginDateTime);
+    stockFlowListBodyStr += '&endTime=';
+    stockFlowListBodyStr += escape(endDateTime);
+    stockFlowListBodyStr += '&stockFlowState=';
+    stockFlowListBodyStr += '&supplierUid=';
+    stockFlowListBodyStr += '&cashierUid=';
+    stockFlowListBodyStr += '&sn=';
+    stockFlowListBodyStr += '&pageIndex=1';
+    stockFlowListBodyStr += '&pageSize=500';
+    stockFlowListBodyStr += '&orderColumn=';
+    stockFlowListBodyStr += '&asc=false';
+
+    const flowListResponse = await fetch(loadStockFlowByPageUrl, {
+      method: 'POST', body: stockFlowListBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const flowListResponseJson = await flowListResponse.json();
+    // console.log(flowListResponseJson);
+    let productFlowList = [];
+    if (flowListResponseJson && flowListResponseJson.successed) {
+      var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+        + flowListResponseJson.contentView + '</root>';
+      // console.log(xml);
+      let result = await parseStringPromise(xml,
+        {
+          strict: false, // 为true可能解析不正确
+          normalizeTags: true
+        });
+      if (result) {
+        let flowIdIndex = -1;
+        let flowSerialNumberIndex = -1;
+        let flowNumberIndex = -1;
+        let flowTimeIndex = -1;
+        let flowTypeIndex = -1;
+        let transferFromIndex = -1;
+        let transferToIndex = -1;
+        let transferStatusIndex = -1;
+
+        let procuctFlowTitleTh = result.root.thead[0].tr[0].th;
+        // console.log(procuctFlowTitleTh);
+        let procuctFlowTitleThLength = procuctFlowTitleTh.length;
+        for (let index = 0; index < procuctFlowTitleThLength; ++index) {
+          let titleName = procuctFlowTitleTh[index]._;
+          if (titleName) {
+            titleName = titleName.replace(/\r\n/g, "").trim();
+            if (titleName === '序号') {
+              flowSerialNumberIndex = index;
+              continue;
+            }
+            if (titleName === '货流单号') {
+              flowNumberIndex = index;
+              continue;
+            }
+            if (titleName === '下单时间') {
+              flowTimeIndex = index;
+              continue;
+            }
+            if (titleName === '货单类型') {
+              flowTypeIndex = index;
+              continue;
+            }
+            if (titleName === '出货方') {
+              transferFromIndex = index;
+              continue;
+            }
+            if (titleName === '进货方') {
+              transferToIndex = index;
+              continue;
+            }
+            if (titleName === '状态') {
+              transferStatusIndex = index;
+              continue;
+            }
+          }
+        }
+
+        // console.log(flowIdIndex);
+        // console.log(flowSerialNumberIndex);
+        // console.log(flowNumberIndex);
+        // console.log(flowTimeIndex);
+        // console.log(flowTypeIndex);
+        // console.log(transferFromIndex);
+        // console.log(transferToIndex);
+        // console.log(transferStatusIndex);
+
+        let procuctFlowDataTh = result.root.tbody[0].tr;
+        // console.log(procuctOrderDataTh);
+        procuctFlowDataTh.forEach(element => {
+          // console.log(element);
+
+          let productFlowItem = {};
+
+          let flowId = element.$.DATA;
+          // console.log(flowId);
+          productFlowItem.flowId = flowId;
+
+          let flowSerialNumber = element.td[flowSerialNumberIndex]._;
+          // console.log(flowSerialNumber);
+          productFlowItem.key = flowSerialNumber;
+
+          let flowNumber = element.td[flowNumberIndex]._;
+          // console.log(flowNumber);
+          productFlowItem.flowNumber = flowNumber;
+
+          let flowTime = element.td[flowTimeIndex]._;
+          // console.log(flowTime);
+          productFlowItem.flowTime = flowTime;
+
+          let flowType = element.td[flowTypeIndex]._;
+          flowType = flowType.replace(/\r\n/g, "").trim();
+          // console.log(flowType);
+          productFlowItem.flowType = flowType;
+
+          let transferFrom = element.td[transferFromIndex];
+          transferFrom = transferFrom.replace(/\r\n/g, "").trim();
+          // console.log(transferFrom);
+          productFlowItem.transferFrom = transferFrom;
+
+          let transferTo = element.td[transferToIndex];
+          transferTo = transferTo.replace(/\r\n/g, "").trim();
+          // console.log(transferTo);
+          productFlowItem.transferTo = transferTo;
+
+          let transferStatusTd = element.td[transferStatusIndex];
+          if (transferStatusTd) {
+            let transferStatusSpan = transferStatusTd.span;
+            if (transferStatusSpan) {
+              let transferStatus1 = transferStatusSpan[0] && transferStatusSpan[0]._;
+              let transferStatus2 = transferStatusSpan[1] && transferStatusSpan[1]._;
+              productFlowItem.transferStatus = [];
+              productFlowItem.transferStatus.push(transferStatus1 ? transferStatus1 : '');
+              productFlowItem.transferStatus.push(transferStatus2 ? transferStatus2 : '');
+              // console.log(productFlowItem.transferStatus);
+            }
+          }
+          productFlowList.push(productFlowItem);
+        });
+      }
+    }
+    return { errCode: 0, list: productFlowList };
+  } catch (e) {
+    console.log(e);
+    return { errCode: -1 };
+  }
+
+  return { errCode: -1 };
+};
+
+const getProductFlowDetail = async (thePOSPALAUTH30220, flowId) => {
+  try {
+    // console.log('thePOSPALAUTH30220 = ' + thePOSPALAUTH30220);
+    // console.log('flowId = ' + flowId);
+    let loadStockFlowUrl = 'https://beta33.pospal.cn/StockFlow/LoadStockFlow';
+
+    let loadStockFlowBodyStr = '';
+    loadStockFlowBodyStr += 'id=';
+    loadStockFlowBodyStr += flowId;
+
+    const flowDetailResponse = await fetch(loadStockFlowUrl, {
+      method: 'POST', body: loadStockFlowBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const flowDetailResponseJson = await flowDetailResponse.json();
+    // console.log(flowDetailResponseJson);
+
+    let productList = [];
+    if (flowDetailResponseJson && flowDetailResponseJson.successed) {
+      let detailModel = flowDetailResponseJson.model;
+      // console.log(detailModel);
+      let detailStockFlowItems = detailModel.stockFlowItems;
+      console.log(detailStockFlowItems.length);
+      detailStockFlowItems.forEach(element => {
+        // console.log(element);
+        let product = element.product;
+        // console.log(product);
+
+        let transferProduct = {};
+        transferProduct.key = detailStockFlowItems.indexOf(element) + 1;
+        transferProduct.name = product.name;
+        transferProduct.barcode = product.barcode;
+        transferProduct.categoryName = product.categoryName;
+        transferProduct.transferNumber = element.updateStock;
+
+        productList.push(transferProduct);
+      });
+    }
+    return { errCode: 0, list: productList };
+  } catch (err) {
+    return { errCode: -1 };
+  }
+  return { errCode: -1 };
+};
+
 const getProductSaleList = async (
   thePOSPALAUTH30220,
   beginDateTime,
@@ -1434,6 +1653,8 @@ module.exports = {
   findTemplate,
   loadProductsByKeyword,
   createStockFlowOut,
+  getProductFlowList,
+  getProductFlowDetail,
   getProductDiscardList,
   getProductSaleAndDiscardList,
   getCouponSummaryList,

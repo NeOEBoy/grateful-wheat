@@ -10,7 +10,9 @@ const {
   getProductOrderList,
   findTemplate,
   loadProductsByKeyword,
-  createStockFlowOut
+  createStockFlowOut,
+  getProductFlowList,
+  getProductFlowDetail
 } = require('../third/pospal');
 
 /* GET users listing. */
@@ -144,6 +146,49 @@ router.post('/createStockFlowOut', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let createStockFlowOutResponseJson = await createStockFlowOut(thePOSPALAUTH30220, toUserId, items);
     res.send(createStockFlowOutResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/flowList', async function (req, res, next) {
+  try {
+    let userId = req.query.userId;
+    let flowTypeId = req.query.flowTypeId;
+    let beginDateTime = req.query.beginDateTime;
+    let endDateTime = req.query.endDateTime;
+
+    if (!beginDateTime || !endDateTime) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let productFlowListResponseJson = await getProductFlowList(
+      thePOSPALAUTH30220,
+      userId,
+      flowTypeId,
+      beginDateTime,
+      endDateTime);
+    res.send(productFlowListResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/flowDetail', async function (req, res, next) {
+  try {
+    let flowId = req.query.flowId;
+    if (!flowId) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let productFlowDetailResponseJson = await getProductFlowDetail(
+      thePOSPALAUTH30220,
+      flowId);
+    res.send(productFlowDetailResponseJson);
   } catch (err) {
     next(err)
   }

@@ -142,6 +142,37 @@ const createStockFlowOut = async (toUserId, items) => {
   return createStockFlowOutResponseJson;
 }
 
+const getProductFlowList = async (userId, flowTypeId, beginDateTime, endDateTime) => {
+  // console.log('userId = ' + userId);
+  // console.log('flowTypeId = ' + flowTypeId);
+  // console.log('beginDateTime = ' + beginDateTime);
+  // console.log('endDateTime = ' + endDateTime);
+
+  let productFlowListUrl = KApiHost + '/product/flowList';
+  productFlowListUrl += '?userId=';
+  productFlowListUrl += userId;
+  productFlowListUrl += '&flowTypeId=';
+  productFlowListUrl += flowTypeId;
+  productFlowListUrl += '&beginDateTime=';
+  productFlowListUrl += beginDateTime;
+  productFlowListUrl += '&endDateTime=';
+  productFlowListUrl += endDateTime;
+
+  const productFlowListResponse = await fetch(productFlowListUrl);
+  const productFlowListResponseJson = await productFlowListResponse.json();
+  return productFlowListResponseJson;
+}
+
+const getFlowDetail = async (flowId) => {
+  let productFlowDetailUrl = KApiHost + '/product/flowDetail';
+  productFlowDetailUrl += '?flowId=';
+  productFlowDetailUrl += flowId;
+
+  const productFlowDetailResponse = await fetch(productFlowDetailUrl);
+  const productFlowDetailResponseJson = await productFlowDetailResponse.json();
+  return productFlowDetailResponseJson;
+}
+
 const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
   let diyCouponListUrl = KApiHost + '/coupon/diyCouponList';
 
@@ -308,6 +339,8 @@ export {
   getProductSaleAndDiscardList,
   getCouponSummaryList,
   getProductOrderList,
+  getProductFlowList,
+  getFlowDetail,
   getProductOrderItems,
   findTemplate,
   loadProductsByKeyword,

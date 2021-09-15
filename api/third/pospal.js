@@ -629,7 +629,7 @@ const getProductFlowList = async (
     stockFlowListBodyStr += '&cashierUid=';
     stockFlowListBodyStr += '&sn=';
     stockFlowListBodyStr += '&pageIndex=1';
-    stockFlowListBodyStr += '&pageSize=500';
+    stockFlowListBodyStr += '&pageSize=1000'; // 假定1000
     stockFlowListBodyStr += '&orderColumn=';
     stockFlowListBodyStr += '&asc=false';
 

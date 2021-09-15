@@ -30,7 +30,6 @@ const KForTest = getTest();
 const KAllShops = getAllShop();
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
-
 /// 报货门店名字
 const KAllOrderShopName = getAllOrderShopName();
 /// 报货模板名字
@@ -82,6 +81,8 @@ class OrderManagement extends React.Component {
 
         this._currentFlowId = '';
         this._currentFlowDetailStatus = [];
+        this._currentFlowConfirmText = '';
+        this._currentFlowRefuseText = '';
         this._currentTransferFrom = '';
         this._currentTransferTo = '';
         this._currentFlowType = '';
@@ -451,6 +452,13 @@ class OrderManagement extends React.Component {
             if (this._currentFlowDetailStatus[0].length > 0 &&
                 this._currentFlowDetailStatus[1].length <= 0) {
                 showAction = true;
+                if (this._currentFlowDetailStatus[0].indexOf('待确认出货') !== -1) {
+                    this._currentFlowConfirmText = '确认出货';
+                    this._currentFlowRefuseText = '拒绝出货';
+                } else if (this._currentFlowDetailStatus[0].indexOf('已完成出货') !== -1) {
+                    this._currentFlowConfirmText = '确认收货';
+                    this._currentFlowRefuseText = '拒绝收货';
+                }
             }
         }
 
@@ -788,14 +796,11 @@ class OrderManagement extends React.Component {
                         (
                             showAction ? (<div style={{ marginRight: 10, marginBottom: 20, marginTop: 20 }}>
                                 <Space>
-                                    <Button key="notify" type="primary" danger disabled onClick={(e) => { }}>
-                                        通知
-                                    </Button>
                                     <Button key="refuse" type="primary" danger disabled onClick={(e) => { }}>
-                                        拒绝收货
+                                        {this._currentFlowRefuseText}
                                     </Button>
                                     <Button key="confirm" type="primary" danger disabled onClick={(e) => { }}>
-                                        确认收货
+                                        {this._currentFlowConfirmText}
                                     </Button>
                                 </Space>
                             </div>) : <div></div>

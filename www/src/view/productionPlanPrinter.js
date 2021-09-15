@@ -8,9 +8,10 @@ import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
     getTest,
-    getPageName4A4Printer,
-    getA4PrinterIndex,
-    getProductSortIdArray
+    getNeedlePrinterIndex,
+    getPageName4NeedlePrinter,
+    getProductSortIdArray,
+    getJustPrintWorkshopTemplates
 } from '../api/util';
 
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
@@ -20,6 +21,8 @@ const KForTest = getTest();
 
 /// 排序优先级（格式为templateId-barcode）
 const KProductSortIdArray = getProductSortIdArray();
+
+const KJustPrintWorkshopTemplates = getJustPrintWorkshopTemplates();
 
 class ProductionPlanPrinter extends React.Component {
     constructor(props) {
@@ -234,7 +237,11 @@ class ProductionPlanPrinter extends React.Component {
                     continue;
                 }
 
-                /// 不加入每个门店，只保留合并后的车间 todo
+                /// 不加入每个门店，只保留合并后的车间
+                if (KJustPrintWorkshopTemplates.indexOf(allDataColumn.templateName) !== -1) {
+                    continue;
+                }
+
                 let oneDataObj = {};
                 oneDataObj.orderShop = allDataColumn.orderShop;
                 oneDataObj.templateName = allDataColumn.templateName;
@@ -297,10 +304,11 @@ class ProductionPlanPrinter extends React.Component {
             let strStyle =
                 `<style>
                 </style> `;
-            LODOP.SET_PRINTER_INDEX(getA4PrinterIndex());
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4A4Printer());
+            LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex());
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4NeedlePrinter());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
             LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
         }
 
@@ -344,9 +352,11 @@ class ProductionPlanPrinter extends React.Component {
     };
 
     render() {
-        const { allProductionDataToBePrint,
+        const {
+            allProductionDataToBePrint,
             productSpinTipText,
-            productSpinning } = this.state;
+            productSpinning
+        } = this.state;
 
         return (
             <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
@@ -379,15 +389,15 @@ class ProductionPlanPrinter extends React.Component {
                             </Button>
                         </div>
 
-                        <div id="printDiv" style={{ float: 'left', marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
-                            <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
+                        <div id="printDiv" style={{ float: 'left', marginLeft: 0, borderStyle: 'dotted', width: 420, height: 980 }}>
+                            <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 410, height: 949, backgroundColor: 'transparent' }}>
                                 {
                                     allProductionDataToBePrint.map((columnData) => {
                                         let productArray = columnData.items;
                                         let index = allProductionDataToBePrint.indexOf(columnData);
                                         return (
-                                            <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                <div style={{ float: 'left', marginLeft: 0, width: 8, height: 920 }} />
+                                            <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 10, height: 949 }}>
+                                                <div style={{ float: 'left', marginLeft: 0, width: 38, height: 949, backgroundColor: 'transparent' }} />
                                                 <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
                                                     <thead>
                                                         <tr>
@@ -426,7 +436,7 @@ class ProductionPlanPrinter extends React.Component {
                                                         </tr>
                                                     </tfoot>
                                                 </table>
-                                                <div style={{ float: 'left', marginLeft: 0, width: 8, height: 920 }} />
+                                                <div style={{ float: 'left', marginLeft: 0, width: 38, height: 949, backgroundColor: 'transparent' }} />
                                             </div>
                                         )
                                     })

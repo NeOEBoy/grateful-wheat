@@ -76,6 +76,10 @@ const getTemplateSortIdArray = () => {
   };
 };
 
+const getJustPrintWorkshopTemplates = () => {
+  return ['常温类', '吐司餐包类'];
+};
+
 const getFlowType = () => {
   return [
     { index: 0, name: '全部货单', flowTypeId: '' },
@@ -121,6 +125,7 @@ export {
   getFlowType,
   getProductSortIdArray,
   getTemplateSortIdArray,
+  getJustPrintWorkshopTemplates,
   getA4PrinterName,
   getA4PrinterIndex,
   getPageName4A4Printer,

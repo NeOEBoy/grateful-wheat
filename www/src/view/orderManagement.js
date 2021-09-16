@@ -10,7 +10,9 @@ import moment from 'moment';
 import {
     getProductOrderList,
     getProductFlowList,
-    getFlowDetail
+    getFlowDetail,
+    refuseStockFlow,
+    confirmStockFlow
 } from '../api/api';
 import {
     getTest,
@@ -76,7 +78,11 @@ class OrderManagement extends React.Component {
             /// 货流详情
             flowDetailData: [],
             flowDetailLoading: false,
-            flowDetailModalVisible: false
+            flowDetailModalVisible: false,
+
+            refuseFlowLoading: false,
+            confirmFlowLoading: false,
+            unHandleFlowSNs: []
         };
 
         this._currentFlowId = '';
@@ -185,15 +191,29 @@ class OrderManagement extends React.Component {
                 let beginDateTimeStr = beginDateTime4FlowList.format('YYYY.MM.DD%2BHH:mm:ss');
                 let endDateTimeStr = endDateTime4FlowList.format('YYYY.MM.DD%2BHH:mm:ss');
                 const flowListResult = await getProductFlowList(currentShop4FlowList.userId, currentFlowType.flowTypeId, beginDateTimeStr, endDateTimeStr);
-                console.log(flowListResult);
+                // console.log(flowListResult);
 
+                let unHandleFlowSNsTemp = [];
                 if (flowListResult && flowListResult.errCode === 0) {
                     flowList = flowListResult.list;
+
+                    flowList.forEach(element => {
+                        if (element.transferTo === '弯麦(总部)') {
+                            let transferStatus = element.transferStatus;
+                            let flowType = element.flowType;
+                            if (flowType === '调货单' || flowType === '调拨退货单') {
+                                if (transferStatus[1].length <= 0) {
+                                    unHandleFlowSNsTemp.push(element.key);
+                                }
+                            }
+                        }
+                    });
                 }
 
                 this.setState({
                     flowListData: flowList,
-                    flowListLoading: false
+                    flowListLoading: false,
+                    unHandleFlowSNs: unHandleFlowSNsTemp
                 });
             });
         } catch (err) {
@@ -210,7 +230,7 @@ class OrderManagement extends React.Component {
                 let list = [];
                 if (flowDetailResult && flowDetailResult.errCode === 0) {
                     list = flowDetailResult.list;
-                    console.log(list);
+                    // console.log(list);
                 }
 
                 this.setState({ flowDetailData: list, flowDetailLoading: false });
@@ -336,7 +356,8 @@ class OrderManagement extends React.Component {
             timePickerOpen4OrderList, selectedRowKeys4OrderList, noyetOrderShops,
             noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
             currentFlowType, beginDateTime4FlowList, endDateTime4FlowList,
-            timePickerOpen4FlowList, flowDetailModalVisible, flowDetailData, flowDetailLoading
+            timePickerOpen4FlowList, flowDetailModalVisible, flowDetailData, flowDetailLoading,
+            refuseFlowLoading, confirmFlowLoading, unHandleFlowSNs
         } = this.state;
 
         const alreadyOrderRowSelection = {
@@ -391,7 +412,13 @@ class OrderManagement extends React.Component {
             { title: '下单时间', dataIndex: 'flowTime', key: 'flowTime', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '货单类型', dataIndex: 'flowType', key: 'flowType', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '出货方', dataIndex: 'transferFrom', key: 'transferFrom', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '进货方', dataIndex: 'transferTo', key: 'transferTo', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            {
+                title: '进货方', dataIndex: 'transferTo', key: 'transferTo', width: 100,
+                render: (text) => {
+                    let fg = text === '弯麦(总部)' ? 'red' : 'black';
+                    return <span style={{ fontSize: 10, color: fg }}>{text}</span>;
+                }
+            },
             {
                 title: '状态', dataIndex: 'transferStatus', key: 'transferStatus', width: 320,
                 render: (text, record) => {
@@ -400,7 +427,8 @@ class OrderManagement extends React.Component {
                     let fg0 = 'gray';
                     let bg1 = 'transparent';
                     let fg1 = 'gray';
-                    if (record.flowType === '调货单') {
+                    if (record.flowType === '调货单' ||
+                        record.flowType === '调拨退货单') {
                         bg0 = text[1] ? 'transparent' : 'yellow';
                         fg0 = text[1] ? 'gray' : 'black';
                         bg1 = text[1].indexOf('已拒绝收货') === -1 ? 'transparent' : 'red';
@@ -618,6 +646,7 @@ class OrderManagement extends React.Component {
                     />
                     <Button
                         style={{ width: 180, marginLeft: 10 }} type='primary'
+                        disabled={alreadyOrderLoading}
                         onClick={async (e) => { await this.fetchOrderList(); }}>
                         查询订货单
                     </Button>
@@ -764,9 +793,11 @@ class OrderManagement extends React.Component {
                     />
                     <Button
                         style={{ width: 180, marginLeft: 10 }} type='primary'
+                        disabled={flowListLoading}
                         onClick={async (e) => { await this.fetchFlowList(); }}>
                         查询货流单
                     </Button>
+                    {unHandleFlowSNs.length > 0 ? (<Button style={{ marginLeft: 10 }} danger>{`总部：序号【${unHandleFlowSNs}】调拨单要处理`}</Button>) : <div></div>}
                     <Table
                         style={{ marginTop: 10 }}
                         size='small'
@@ -791,7 +822,11 @@ class OrderManagement extends React.Component {
                     maskClosable={false}
                     title={(
                         <div>
-                            <div style={{ color: 'green', fontSize: 10 }}>{`${this._currentTransferFrom}=>${this._currentTransferTo}`}</div>
+                            <div style={{ color: 'green', fontSize: 10 }}>
+                                {this._currentTransferFrom !== '-' ?
+                                    `${this._currentTransferFrom}=>${this._currentTransferTo}` : `${this._currentTransferTo}`}
+                            </div>
+
                             <div style={{ color: 'gray', fontSize: 8 }}>{this._currentFlowDetailStatus[0]}</div>
                             <div style={{ color: 'gray', fontSize: 8 }}>{this._currentFlowDetailStatus[1]}</div>
                         </div>
@@ -804,10 +839,38 @@ class OrderManagement extends React.Component {
                         (
                             showAction ? (<div style={{ marginRight: 10, marginBottom: 20, marginTop: 20 }}>
                                 <Space>
-                                    <Button key="refuse" type="primary" danger disabled onClick={(e) => { }}>
+                                    <Button key="refuse" type="primary" danger disabled={refuseFlowLoading} onClick={async (e) => {
+                                        let originText = this._currentFlowRefuseText;
+                                        this._currentFlowRefuseText = '发送中';
+                                        this.setState({ refuseFlowLoading: true });
+                                        let result = await refuseStockFlow(this._currentFlowId);
+                                        if (result && result.errCode === 0) {
+                                            this._currentFlowRefuseText = '';
+                                            this._currentFlowDetailStatus[1] = '已拒绝收货';
+                                            message.success('拒绝收货成功~');
+                                        } else {
+                                            this._currentFlowRefuseText = originText;
+                                            message.error('拒绝收货失败~');
+                                        }
+                                        this.setState({ refuseFlowLoading: false });
+                                    }}>
                                         {this._currentFlowRefuseText}
                                     </Button>
-                                    <Button key="confirm" type="primary" danger disabled onClick={(e) => { }}>
+                                    <Button key="confirm" type="primary" danger disabled={confirmFlowLoading} onClick={async (e) => {
+                                        let originText = this._currentFlowConfirmText;
+                                        this._currentFlowConfirmText = '发送中';
+                                        this.setState({ confirmFlowLoading: true });
+                                        let result = await confirmStockFlow(this._currentFlowId);
+                                        if (result && result.errCode === 0) {
+                                            this._currentFlowConfirmText = '';
+                                            this._currentFlowDetailStatus[1] = '已完成收货';
+                                            message.success('确认收货成功~');
+                                        } else {
+                                            this._currentFlowConfirmText = originText;
+                                            message.error('确认收货失败~');
+                                        }
+                                        this.setState({ confirmFlowLoading: false });
+                                    }}>
                                         {this._currentFlowConfirmText}
                                     </Button>
                                 </Space>

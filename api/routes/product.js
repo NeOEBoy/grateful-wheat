@@ -11,6 +11,8 @@ const {
   findTemplate,
   loadProductsByKeyword,
   createStockFlowOut,
+  refuseStockFlow,
+  confirmStockFlow,
   getProductFlowList,
   getProductFlowDetail
 } = require('../third/pospal');
@@ -146,6 +148,42 @@ router.post('/createStockFlowOut', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let createStockFlowOutResponseJson = await createStockFlowOut(thePOSPALAUTH30220, toUserId, items);
     res.send(createStockFlowOutResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/refuseStockFlow', async function (req, res, next) {
+  try {
+    console.log('router refuseStockFlow start');
+
+    let flowId = req.query.flowId;
+    if (!flowId) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let refuseStockFlowResponseJson = await refuseStockFlow(thePOSPALAUTH30220, flowId);
+    res.send(refuseStockFlowResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/confirmStockFlow', async function(req, res, next) {
+  try {
+    console.log('router confirmStockFlow start');
+
+    let flowId = req.query.flowId;
+    if (!flowId) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let confirmStockFlowResponseJson = await confirmStockFlow(thePOSPALAUTH30220, flowId);
+    res.send(confirmStockFlowResponseJson);
   } catch (err) {
     next(err)
   }

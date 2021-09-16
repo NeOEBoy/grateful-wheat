@@ -886,7 +886,7 @@ class ProductDistributeInputer extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, getPageName4NeedlePrinter());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", '95%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(20, 0, "100%", '95%', strStyle + document.getElementById("printDiv").innerHTML);
         }
 
         return LODOP;
@@ -1265,7 +1265,7 @@ class ProductDistributeInputer extends React.Component {
                         }>
                         <div id="printDiv" style={{ width: '100%', height: 500, borderStyle: 'dotted' }}>
                             <div style={{
-                                marginLeft: 10, marginTop: 0, marginRight: 10,
+                                marginLeft: 10, marginTop: 10, marginRight: 10,
                                 backgroundColor: 'transparent'
                             }}>
                                 <div>

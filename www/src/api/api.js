@@ -142,6 +142,26 @@ const createStockFlowOut = async (toUserId, items) => {
   return createStockFlowOutResponseJson;
 }
 
+const refuseStockFlow = async (flowId) => {
+  let refuseStockFlowUrl = KApiHost + '/product/refuseStockFlow';
+  refuseStockFlowUrl += '?flowId='
+  refuseStockFlowUrl += flowId;
+
+  const refuseStockFlowResponse = await fetch(refuseStockFlowUrl);
+  const refuseStockFlowResponseJson = await refuseStockFlowResponse.json();
+  return refuseStockFlowResponseJson;
+}
+
+const confirmStockFlow = async (flowId) => {
+  let confirmStockFlowUrl = KApiHost + '/product/confirmStockFlow';
+  confirmStockFlowUrl += '?flowId='
+  confirmStockFlowUrl += flowId;
+
+  const confirmStockFlowResponse = await fetch(confirmStockFlowUrl);
+  const confirmStockFlowResponseJson = await confirmStockFlowResponse.json();
+  return confirmStockFlowResponseJson;
+}
+
 const getProductFlowList = async (userId, flowTypeId, beginDateTime, endDateTime) => {
   // console.log('userId = ' + userId);
   // console.log('flowTypeId = ' + flowTypeId);
@@ -345,6 +365,8 @@ export {
   findTemplate,
   loadProductsByKeyword,
   createStockFlowOut,
+  refuseStockFlow,
+  confirmStockFlow,
   getDIYCouponList,
   getMemberListByKeyword,
   saveRemarkToCoupon,

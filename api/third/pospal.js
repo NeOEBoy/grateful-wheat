@@ -247,7 +247,7 @@ const getProductOrderList = async (
     return { errCode: -1 };
   }
   return { errCode: -1 };
-}
+};
 
 const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
   try {
@@ -379,7 +379,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
     return { errCode: -1 };
   }
   return { errCode: -1 };
-}
+};
 
 const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
   // console.log('findTemplate start');
@@ -423,7 +423,7 @@ const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
   } catch (err) {
     return { errCode: -1 };
   }
-}
+};
 
 const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
   try {
@@ -550,7 +550,7 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
   } catch (e) {
     return { errCode: -1, items: [] };
   }
-}
+};
 
 const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
   try {
@@ -571,7 +571,7 @@ const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
     for (let ii = 0; ii < 19; ++ii) {
       let sigle = Math.floor(Math.random() * 10);
       uid19 += sigle.toString();
-      console.log(uid19);
+      // console.log(uid19);
     }
     stockOrderJsonObj.uid = uid19;
 
@@ -599,7 +599,65 @@ const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
     console.log('createStockFlowOut e = ' + e)
     return { errCode: -1 };
   }
-}
+};
+
+const refuseStockFlow = async (thePOSPALAUTH30220, flowId) => {
+  try {
+    let refuseStockFlowUrl = 'https://beta33.pospal.cn/StockFlow/RefuseStockFlowInFromOtherStore';
+
+    let refuseStockFlowBodyStr = '';
+    refuseStockFlowBodyStr += 'stockFlowInId=';
+    refuseStockFlowBodyStr += (++flowId);
+
+    const refuseStockFlowResponse = await fetch(refuseStockFlowUrl, {
+      method: 'POST', body: refuseStockFlowBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    const refuseStockFlowResponseJson = await refuseStockFlowResponse.json();
+    // console.log(refuseStockFlowResponseJson);
+    if (refuseStockFlowResponseJson.successed) {
+      return { errCode: 0 };
+    }
+
+    return { errCode: -1 };
+  } catch (e) {
+    console.log('refuseStockFlow e = ' + e)
+    return { errCode: -1 };
+  }
+};
+
+const confirmStockFlow = async (thePOSPALAUTH30220, flowId) => {
+  try {
+    let confirmStockFlowUrl = 'https://beta33.pospal.cn/StockFlow/ConfirmStockFlowIn';
+
+    let confirmStockFlowBodyStr = '';
+    confirmStockFlowBodyStr += 'stockFlowId=';
+    confirmStockFlowBodyStr += (++flowId);
+
+    const confirmStockFlowResponse = await fetch(confirmStockFlowUrl, {
+      method: 'POST', body: confirmStockFlowBodyStr,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    console.log(confirmStockFlowResponse);
+
+    const confirmStockFlowResponseJson = await confirmStockFlowResponse.json();
+    console.log(confirmStockFlowResponseJson);
+    if (confirmStockFlowResponseJson.successed) {
+      return { errCode: 0 };
+    }
+
+    return { errCode: -1 };
+  } catch (e) {
+    console.log('confirmStockFlow e = ' + e)
+    return { errCode: -1 };
+  }
+};
 
 const getProductFlowList = async (
   thePOSPALAUTH30220,
@@ -1653,6 +1711,8 @@ module.exports = {
   findTemplate,
   loadProductsByKeyword,
   createStockFlowOut,
+  refuseStockFlow,
+  confirmStockFlow,
   getProductFlowList,
   getProductFlowDetail,
   getProductDiscardList,

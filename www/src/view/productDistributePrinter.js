@@ -307,6 +307,11 @@ class ProductDistributePrinter extends React.Component {
         }
     };
 
+    productPrintDirectAndBack = ()=>{
+        this.productPrintDirect();
+        this.handleBack();
+    };
+
     handleBack = (e) => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
@@ -356,7 +361,7 @@ class ProductDistributePrinter extends React.Component {
                             </Button>
                             <Button type="primary" danger
                                 style={{ marginTop: 10, width: 90, height: 80 }}
-                                onClick={this.productPrintDirect}>
+                                onClick={this.productPrintDirectAndBack}>
                                 <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
                                     直接打印
                                 </div>

@@ -908,6 +908,14 @@ class ProductDistributeInputer extends React.Component {
         }
     };
 
+    productPrintDirectAndBack = () => {
+        this.productPrintDirect();
+        this.setState({
+            productTransferPrintShow: false,
+            filterDropdownVisible4Transfer: true
+        })
+    };
+
     handleBack = () => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
@@ -1251,7 +1259,7 @@ class ProductDistributeInputer extends React.Component {
                                     })}>
                                     取消
                                 </Button>,
-                                <Button key="submit" type="primary" danger onClick={(e) => this.productPrintDirect()}>
+                                <Button key="submit" type="primary" danger onClick={(e) => this.productPrintDirectAndBack()}>
                                     直接打印
                                 </Button>,
                                 <Button

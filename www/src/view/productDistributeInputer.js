@@ -16,7 +16,8 @@ import {
     getPageName4NeedlePrinter,
     getNeedlePrinterIndex,
     getOrderTemplates,
-    getProductSortIdArray
+    getProductSortIdArray,
+    getAllOrderShopName
 } from '../api/util';
 
 import diAudioSrc from '../api/di.wav';
@@ -30,6 +31,16 @@ const KForTest = getTest();
 const KOrderTemplates = getOrderTemplates();
 /// 排序优先级（格式为templateId-barcode）
 const KProductSortIdArray = getProductSortIdArray();
+
+/// 下面的分类属于外购品，给合作商批发价
+const KOutsideCategorys = [
+    '外购品',
+    '弯麦耗材',
+    '弯麦包装',
+    '弯麦传统零食',
+    '弯麦高端零食',
+    '弯麦半成品'
+];
 
 /// 带编辑功能的行
 const EditableContext4Transfer = React.createContext(null);
@@ -227,6 +238,7 @@ class ProductDistributeInputer extends React.Component {
         this.state = {
             allProductionDataToBeTransfer: [],
             allProductionDataRealToBeTransfer: [],
+            allProductionDataRealToBeTransferAdding: false,
             searchProductDataToBeAdd: [],
             searchingProductData: false,
             isAddProductionModalVisible: false,
@@ -584,6 +596,15 @@ class ProductDistributeInputer extends React.Component {
             newItem4Transfer.specification = record.specification;
             newItem4Transfer.orderNumber = parseInt(record.orderNumber);
             newItem4Transfer.transferNumber = parseInt(record.transferNumber);
+            newItem4Transfer.price = record.price;
+            newItem4Transfer.memberPrice = record.memberPrice;
+            newItem4Transfer.wholePrice = record.wholePrice;
+            newItem4Transfer.partnerPrice = this.makePartnerPriceByCategory(
+                record.categoryName,
+                newItem4Transfer.price,
+                newItem4Transfer.memberPrice,
+                newItem4Transfer.wholePrice);
+
             newItem4Transfer.sortId = 200;
             newItem4Transfer.remark = '新增';
             let key = 0;
@@ -762,24 +783,50 @@ class ProductDistributeInputer extends React.Component {
         this.forceUpdate();
     };
 
-    handleEditableCellCurrentEnter = (record, dataIndex) => {
+    handleEditableCellCurrentEnter = async (record, dataIndex) => {
         let number = record[dataIndex];
         // console.log('handleEditableCellCurrentEnter begin');
         if (number > 0) {
             // console.log(number);
             let newRecord = { ...record };
-            let allProductionDataRealToBeTransferTemp = [];
-            let key = 0; newRecord.key = ++key;
-            allProductionDataRealToBeTransferTemp.splice(0, 0, newRecord);
-            for (let ii = 0; ii < this.state.allProductionDataRealToBeTransfer.length; ++ii) {
-                let item = { ...this.state.allProductionDataRealToBeTransfer[ii] };
-                if (item.barcode !== newRecord.barcode) {
-                    item.key = ++key;
-                    allProductionDataRealToBeTransferTemp.push(item);
-                }
+
+            this.setState({ allProductionDataRealToBeTransferAdding: true });
+            let result = await loadProductsByKeyword(newRecord.barcode);
+            let productInfo;
+            if (!result || result.errCode !== 0 || result.items.length !== 1) {
+                message.warning('查找商品信息失败~');
+                return;
+            } else {
+                productInfo = result.items[0];
             }
 
-            this.setState({ allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp })
+            if (productInfo) {
+                newRecord.specification = productInfo.specification;
+                newRecord.price = productInfo.price;
+                newRecord.memberPrice = productInfo.memberPrice;
+                newRecord.wholePrice = productInfo.wholePrice;
+                newRecord.partnerPrice = this.makePartnerPriceByCategory(
+                    productInfo.categoryName,
+                    productInfo.price,
+                    productInfo.memberPrice,
+                    productInfo.wholePrice);
+
+                let allProductionDataRealToBeTransferTemp = [];
+                let key = 0; newRecord.key = ++key;
+                allProductionDataRealToBeTransferTemp.splice(0, 0, newRecord);
+                for (let ii = 0; ii < this.state.allProductionDataRealToBeTransfer.length; ++ii) {
+                    let item = { ...this.state.allProductionDataRealToBeTransfer[ii] };
+                    if (item.barcode !== newRecord.barcode) {
+                        item.key = ++key;
+                        allProductionDataRealToBeTransferTemp.push(item);
+                    }
+                }
+
+                this.setState({
+                    allProductionDataRealToBeTransferAdding: false,
+                    allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp
+                });
+            }
         } else {
             new Audio(diAudioSrc).play();
         }
@@ -874,6 +921,23 @@ class ProductDistributeInputer extends React.Component {
         }
     };
 
+    makePartnerPriceByCategory = (categoryName, price, memberPrice, wholePrice) => {
+        let partnerPrice = price;
+        if (KOutsideCategorys.indexOf(categoryName) === -1) {
+            let oriPrice = price;
+            if (this.state.currentShop.name === getAllOrderShopName()[1]) {//旧镇
+                oriPrice = (memberPrice < price ? memberPrice : price);
+            }
+
+            partnerPrice = oriPrice * 0.7;
+        } else {
+            partnerPrice = wholePrice;
+        }
+
+        partnerPrice = parseFloat(partnerPrice.toFixed(2));
+        return partnerPrice;
+    };
+
     getLodopAfterInit = () => {
         let LODOP = getLodop();
 
@@ -950,10 +1014,27 @@ class ProductDistributeInputer extends React.Component {
         }, 0);
     };
 
+    makeTotalPrice = () => {
+        let totalPrice = 0;
+        this.state.allProductionDataRealToBeTransfer.forEach(element => {
+            totalPrice += element.price;
+        });
+        return totalPrice;
+    };
+
+    makePartnerPrice = () => {
+        let totalPartnerPrice = 0.0;
+        this.state.allProductionDataRealToBeTransfer.forEach(element => {
+            totalPartnerPrice += element.partnerPrice;
+        });
+        return totalPartnerPrice;
+    };
+
     render() {
         const {
             allProductionDataToBeTransfer,
             allProductionDataRealToBeTransfer,
+            allProductionDataRealToBeTransferAdding,
             searchProductDataToBeAdd,
             searchingProductData,
             isAddProductionModalVisible,
@@ -1024,11 +1105,14 @@ class ProductDistributeInputer extends React.Component {
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '条形码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '品名', dataIndex: 'productName', key: 'productName', width: 120, render: (text) => { return <span style={{ fontSize: 14, color: 'red' }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 14 }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 60, render: (text) => { return <span style={{ fontSize: 14 }}>{text}</span>; } },
             { title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true, render: (text) => { return <span style={{ fontSize: 16 }}>{text}</span>; } },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '销售价', dataIndex: 'price', key: 'price', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '销售价', dataIndex: 'price', key: 'price', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '会员价', dataIndex: 'memberPrice', key: 'memberPrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '批发价', dataIndex: 'wholePrice', key: 'wholePrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
         ];
         const components4AddProduct = {
             body: {
@@ -1081,7 +1165,10 @@ class ProductDistributeInputer extends React.Component {
             },
             { title: '分类', dataIndex: 'categoryName', key: 'categoryName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '规格', dataIndex: 'specification', key: 'specification', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '销售价', dataIndex: 'price', key: 'price', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '会员价', dataIndex: 'memberPrice', key: 'memberPrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '批发价', dataIndex: 'wholePrice', key: 'wholePrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '加盟价', dataIndex: 'partnerPrice', key: 'partnerPrice', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             {
                 title: '操作',
                 key: 'action',
@@ -1090,7 +1177,8 @@ class ProductDistributeInputer extends React.Component {
                         this.handleDeleteProduct4Preview(record);
                     }}>删除</Button>
                 )
-            }
+            },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
         ];
 
         return (
@@ -1154,7 +1242,8 @@ class ProductDistributeInputer extends React.Component {
                             pagination={false} bordered
                             scroll={{ y: 230, scrollToFirstRowOnChange: true }}
                             footer={() => (
-                                <div style={{ textAlign: 'center', height: 5, backgroundColor: 'gray', fontSize: 12 }}>
+                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                    {`总共${allProductionDataToBeTransfer.length}项`}
                                 </div>
                             )}
                         />
@@ -1168,12 +1257,14 @@ class ProductDistributeInputer extends React.Component {
                             marginLeft: 10, marginRight: 10
                         }}
                         size='small'
+                        loading={allProductionDataRealToBeTransferAdding}
                         dataSource={allProductionDataRealToBeTransfer}
                         columns={KProductTransferPreviewColumns4Table}
                         bordered pagination={false}
                         scroll={{ y: 240, scrollToFirstRowOnChange: true }}
                         footer={() => (
-                            <div style={{ textAlign: 'center', height: 5, backgroundColor: 'gray', fontSize: 12 }}>
+                            <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                {`总共${allProductionDataRealToBeTransfer.length}项`}
                             </div>
                         )}
                     />
@@ -1181,7 +1272,7 @@ class ProductDistributeInputer extends React.Component {
 
                 <div>
                     <Modal
-                        width={1000}
+                        width={1200}
                         centered
                         keyboard={true}
                         maskClosable={false}
@@ -1298,6 +1389,8 @@ class ProductDistributeInputer extends React.Component {
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>配货量</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>分类</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>规格</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>销售价</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>加盟价</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>备注</th>
                                                 </tr>
                                             </thead>
@@ -1313,15 +1406,28 @@ class ProductDistributeInputer extends React.Component {
                                                             <tr key={serialNum}>
                                                                 <th key='1' style={{ height: 20, width: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
                                                                 <th key='2' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
-                                                                <th key='3' style={{ height: 20, width: 200, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                <th key='3' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
                                                                 <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
                                                                 <th key='5' style={{ backgroundColor: transferNumberBGcolor, height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
                                                                 <th key='6' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
-                                                                <th key='7' style={{ height: 20, width: 200, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
-                                                                <th key='8' style={{ height: 20, width: 80, textAlign: 'center', fontSize: 16 }}></th>
+                                                                <th key='7' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
+                                                                <th key='8' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.price}</th>
+                                                                <th key='9' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPrice}</th>
+                                                                <th key='10' style={{ height: 20, width: '*', textAlign: 'center', fontSize: 16 }}></th>
                                                             </tr>)
                                                     })
                                                 }
+                                                <tr key='total'>
+                                                    <th key='1' colSpan='7' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
+                                                        总计
+                                                    </th>
+                                                    <th key='2' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
+                                                        {this.makeTotalPrice().toFixed(2)}
+                                                    </th>
+                                                    <th key='3' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
+                                                        {this.makePartnerPrice().toFixed(2)}
+                                                    </th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     }

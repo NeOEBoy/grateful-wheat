@@ -467,13 +467,15 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
           normalizeTags: true
         });
       if (result) {
-        console.log(result);
+        // console.log(result);
 
         let barcodeIndex = -1;
         let categoryNameIndex = -1;
         let productNameIndex = -1;
         let specificationIndex = -1;
         let priceIndex = -1;
+        let memberPriceIndex = -1;
+        let wholePriceIndex = -1;
 
         let procuctsTitleTh = result.root.thead[0].tr[0].th;
         // console.log(procuctsTitleTh);
@@ -503,6 +505,14 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
               priceIndex = index;
               continue;
             }
+            if (titleName === '会员价') {
+              memberPriceIndex = index;
+              continue;
+            }
+            if (titleName === '批发价') {
+              wholePriceIndex = index;
+              continue;
+            }
           }
         }
 
@@ -511,6 +521,8 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
         // console.log(productNameIndex);
         // console.log(specificationIndex);
         // console.log(priceIndex);
+        // console.log(memberPriceIndex);
+        // console.log(wholePriceIndex);
 
         let procuctsDataTh = result.root.tbody[0].tr;
         // console.log(procuctOrderDataTh);
@@ -539,7 +551,17 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
 
           let price = element.td[priceIndex]._;
           // console.log(price);
-          productItem.price = price;
+          productItem.price = parseFloat(price);
+
+          let memberPrice = element.td[memberPriceIndex]._;
+          memberPrice = memberPrice.replace(/\r\n/g, "").trim();
+          // console.log(memberPrice);
+          productItem.memberPrice = parseFloat(memberPrice);
+
+          let wholePrice = element.td[wholePriceIndex]._;
+          wholePrice = wholePrice.replace(/\r\n/g, "").trim();
+          // console.log(wholePrice);
+          productItem.wholePrice = parseFloat(wholePrice);
 
           productItems.push(productItem);
         });

@@ -886,7 +886,7 @@ class ProductDistributeInputer extends React.Component {
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, getPageName4NeedlePrinter());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
-            LODOP.ADD_PRINT_HTM(20, 0, "100%", '95%', strStyle + document.getElementById("printDiv").innerHTML);
+            LODOP.ADD_PRINT_HTM(10, 0, "100%", '95%', strStyle + document.getElementById("printDiv").innerHTML);
         }
 
         return LODOP;

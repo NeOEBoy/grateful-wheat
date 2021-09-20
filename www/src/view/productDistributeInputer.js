@@ -92,9 +92,16 @@ const EditableCell4Transfer = ({
         };
 
         /// Enter按下时处理光标
-        const handleOnPressEnter = () => {
-            handleEditableCellNextFocus();
-            handleEditableCellCurrentEnter(record, dataIndex);
+        const handleOnPressEnter = async () => {
+            try {
+                /// 如果验证不通过，则警告
+                await form.validateFields();
+                handleEditableCellNextFocus();
+                handleEditableCellCurrentEnter(record, dataIndex);
+            } catch (errInfo) {
+                console.log('Save failed:', errInfo);
+                new Audio(diAudioSrc).play();
+            }
         };
 
         /// 获得焦点时整理焦点
@@ -174,7 +181,7 @@ const EditableCell4AddProduct = ({
         const handleOnChange = async () => {
             try {
                 const values = await form.validateFields();
-                let newData = parseInt(values[dataIndex]);
+                let newData = parseFloat(values[dataIndex]);
                 record[dataIndex] = newData;
             } catch (errInfo) {
                 console.log('Save failed:', errInfo);
@@ -191,8 +198,14 @@ const EditableCell4AddProduct = ({
         };
 
         /// Enter按下时处理光标
-        const handleOnPressEnter = () => {
-            handleEditableCellNextFocus();
+        const handleOnPressEnter = async () => {
+            try {
+                await form.validateFields();
+                handleEditableCellNextFocus();
+            } catch (error) {
+                console.log('Save failed:', error);
+                new Audio(diAudioSrc).play();
+            }
         };
 
         /// 获得焦点时整理焦点
@@ -212,8 +225,8 @@ const EditableCell4AddProduct = ({
                     rules={[
                         {
                             required: true,
-                            message: `${title} 请输入整数.`,
-                            pattern: /^[0-9]+$/
+                            message: `${title} 请输入数(允许包含2位小数).`,
+                            pattern: /^(([1-9]{1}\d*)|(0{1}))(\.\d{0,2})?$/
                         },
                     ]}
                     initialValue={initialValue}>
@@ -594,8 +607,8 @@ class ProductDistributeInputer extends React.Component {
             newItem4Transfer.transferPrice = record.price;
             newItem4Transfer.orderProductName = record.productName;
             newItem4Transfer.specification = record.specification;
-            newItem4Transfer.orderNumber = parseInt(record.orderNumber);
-            newItem4Transfer.transferNumber = parseInt(record.transferNumber);
+            newItem4Transfer.orderNumber = parseFloat(record.orderNumber);
+            newItem4Transfer.transferNumber = parseFloat(record.transferNumber);
             newItem4Transfer.price = record.price;
             newItem4Transfer.memberPrice = record.memberPrice;
             newItem4Transfer.wholePrice = record.wholePrice;
@@ -604,6 +617,8 @@ class ProductDistributeInputer extends React.Component {
                 newItem4Transfer.price,
                 newItem4Transfer.memberPrice,
                 newItem4Transfer.wholePrice);
+            newItem4Transfer.partnerPriceTotal = parseFloat(
+                (newItem4Transfer.partnerPrice * newItem4Transfer.transferNumber).toFixed(2));
 
             newItem4Transfer.sortId = 200;
             newItem4Transfer.remark = '新增';
@@ -810,6 +825,8 @@ class ProductDistributeInputer extends React.Component {
                     productInfo.price,
                     productInfo.memberPrice,
                     productInfo.wholePrice);
+                newRecord.partnerPriceTotal = parseFloat(
+                    (newRecord.partnerPrice * newRecord.transferNumber).toFixed(2));
 
                 let allProductionDataRealToBeTransferTemp = [];
                 let key = 0; newRecord.key = ++key;
@@ -1030,6 +1047,14 @@ class ProductDistributeInputer extends React.Component {
         return totalPartnerPrice;
     };
 
+    makePartnerPriceTotal = () => {
+        let totalPartnerPriceTotal = 0.0;
+        this.state.allProductionDataRealToBeTransfer.forEach(element => {
+            totalPartnerPriceTotal += element.partnerPriceTotal;
+        });
+        return totalPartnerPriceTotal;
+    };
+
     render() {
         const {
             allProductionDataToBeTransfer,
@@ -1157,8 +1182,8 @@ class ProductDistributeInputer extends React.Component {
                 title: '配货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, editable: true,
                 render:
                     (text, record) => {
-                        let orderN = parseInt(record['orderNumber']);
-                        let transferN = parseInt(text);
+                        let orderN = parseFloat(record['orderNumber']);
+                        let transferN = parseFloat(text);
                         let color = orderN !== 0 && orderN === transferN ? 'transparent' : 'yellow';
                         return <span style={{ fontSize: 16, backgroundColor: color, padding: 4 }}>{text}</span>;
                     }
@@ -1385,12 +1410,13 @@ class ProductDistributeInputer extends React.Component {
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>序</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>条码</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>品名</th>
-                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>订货量</th>
-                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>配货量</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 12 }}>订货量</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 12 }}>配货量</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>分类</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>规格</th>
-                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>销售价</th>
-                                                    <th style={{ textAlign: 'center', fontWeight: 'bold' }}>加盟价</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 12 }}>销售价</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 12 }}>加盟价</th>
+                                                    <th style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 12 }}>进货总价</th>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>备注</th>
                                                 </tr>
                                             </thead>
@@ -1407,25 +1433,23 @@ class ProductDistributeInputer extends React.Component {
                                                                 <th key='1' style={{ height: 20, width: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
                                                                 <th key='2' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
                                                                 <th key='3' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                <th key='4' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
-                                                                <th key='5' style={{ backgroundColor: transferNumberBGcolor, height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
+                                                                <th key='4' style={{ height: 20, width: 30, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
+                                                                <th key='5' style={{ backgroundColor: transferNumberBGcolor, height: 20, width: 30, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
                                                                 <th key='6' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
                                                                 <th key='7' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
                                                                 <th key='8' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.price}</th>
                                                                 <th key='9' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPrice}</th>
-                                                                <th key='10' style={{ height: 20, width: '*', textAlign: 'center', fontSize: 16 }}></th>
+                                                                <th key='10' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPriceTotal}</th>
+                                                                <th key='11' style={{ height: 20, width: '*', textAlign: 'center', fontSize: 16 }}></th>
                                                             </tr>)
                                                     })
                                                 }
                                                 <tr key='total'>
-                                                    <th key='1' colSpan='7' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
+                                                    <th key='1' colSpan='9' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
                                                         总计
                                                     </th>
                                                     <th key='2' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
-                                                        {this.makeTotalPrice().toFixed(2)}
-                                                    </th>
-                                                    <th key='3' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
-                                                        {this.makePartnerPrice().toFixed(2)}
+                                                        {this.makePartnerPriceTotal().toFixed(2)}
                                                     </th>
                                                 </tr>
                                             </tbody>

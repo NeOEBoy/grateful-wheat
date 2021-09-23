@@ -95,7 +95,12 @@ const EditableCell4Transfer = ({
         const handleOnPressEnter = async () => {
             try {
                 /// 如果验证不通过，则警告
-                await form.validateFields();
+                const values = await form.validateFields();
+                let newData = parseInt(values[dataIndex]);
+                if (newData > 1000) { /// 超过1000个警告一下
+                    new Audio(diAudioSrc).play();
+                    return;
+                }
                 handleEditableCellNextFocus();
                 handleEditableCellCurrentEnter(record, dataIndex);
             } catch (errInfo) {
@@ -536,6 +541,10 @@ class ProductDistributeInputer extends React.Component {
                     }}
                     onPressEnter={(e) => {
                         // console.log('搜索简码 onPressEnter e = ' + e);
+                        if (this._searchText4Transfer.length !== 4) {
+                            new Audio(diAudioSrc).play();
+                            return;
+                        }
 
                         /// 将符合条件的条目放到items4NextFocus
                         this.setState({ transferItems4NextFocus: [] }, () => {
@@ -741,17 +750,24 @@ class ProductDistributeInputer extends React.Component {
 
         // console.log(items);
 
-        let result = await createStockFlowOut(toUserId, items);
-        // console.log(result);
-        if (result && result.errCode === 0) {
-            message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~');
-            setTimeout(() => {
+        try {
+            let result = await createStockFlowOut(toUserId, items);
+            // console.log(result);
+            if (result && result.errCode === 0) {
+                message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~');
+                setTimeout(() => {
+                    this.setState({ productTransferConfirmText: '---确定出货---' });
+                    this.handleBack();
+                }, 1000);
+            } else {
                 this.setState({ productTransferConfirmText: '---确定出货---' });
-                this.handleBack();
-            }, 1000);
-        } else {
+                // 模态对话框
+                Modal.error({ title: '配货失败，请查看失败原因~' });
+            }
+        } catch (error) { /// 可能有超时错误
             this.setState({ productTransferConfirmText: '---确定出货---' });
-            message.error('配货失败，请查看失败原因~');
+            // 模态对话框
+            Modal.error({ title: error.toString() });
         }
     }
 

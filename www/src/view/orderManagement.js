@@ -82,7 +82,8 @@ class OrderManagement extends React.Component {
 
             refuseFlowLoading: false,
             confirmFlowLoading: false,
-            unHandleFlowSNs: []
+            baseShopUnHandleFlowSNs: [],
+            allShopUnHandleFlowSNs: []
         };
 
         this._currentFlowId = '';
@@ -193,17 +194,19 @@ class OrderManagement extends React.Component {
                 const flowListResult = await getProductFlowList(currentShop4FlowList.userId, currentFlowType.flowTypeId, beginDateTimeStr, endDateTimeStr);
                 // console.log(flowListResult);
 
-                let unHandleFlowSNsTemp = [];
+                let baseShopUnHandleFlowSNsTemp = [];
+                let allShopUnHandleFlowSNsTemp = [];
                 if (flowListResult && flowListResult.errCode === 0) {
                     flowList = flowListResult.list;
 
                     flowList.forEach(element => {
-                        if (element.transferTo === '弯麦(总部)') {
-                            let transferStatus = element.transferStatus;
-                            let flowType = element.flowType;
-                            if (flowType === '调货单' || flowType === '调拨退货单') {
-                                if (transferStatus[1].length <= 0) {
-                                    unHandleFlowSNsTemp.push(element.key);
+                        let transferStatus = element.transferStatus;
+                        let flowType = element.flowType;
+                        if (flowType === '调货单' || flowType === '调拨退货单') {
+                            if (transferStatus[1].length <= 0) {
+                                allShopUnHandleFlowSNsTemp.push(element.key);
+                                if (element.transferTo === '弯麦(总部)') {
+                                    baseShopUnHandleFlowSNsTemp.push(element.key);
                                 }
                             }
                         }
@@ -213,7 +216,8 @@ class OrderManagement extends React.Component {
                 this.setState({
                     flowListData: flowList,
                     flowListLoading: false,
-                    unHandleFlowSNs: unHandleFlowSNsTemp
+                    baseShopUnHandleFlowSNs: baseShopUnHandleFlowSNsTemp,
+                    allShopUnHandleFlowSNs: allShopUnHandleFlowSNsTemp
                 });
             });
         } catch (err) {
@@ -357,7 +361,7 @@ class OrderManagement extends React.Component {
             noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
             currentFlowType, beginDateTime4FlowList, endDateTime4FlowList,
             timePickerOpen4FlowList, flowDetailModalVisible, flowDetailData, flowDetailLoading,
-            refuseFlowLoading, confirmFlowLoading, unHandleFlowSNs
+            refuseFlowLoading, confirmFlowLoading, baseShopUnHandleFlowSNs, allShopUnHandleFlowSNs
         } = this.state;
 
         const alreadyOrderRowSelection = {
@@ -797,7 +801,7 @@ class OrderManagement extends React.Component {
                         onClick={async (e) => { await this.fetchFlowList(); }}>
                         查询货流单
                     </Button>
-                    {unHandleFlowSNs.length > 0 ? (<Button style={{ marginLeft: 10 }} danger>{`总部：序号【${unHandleFlowSNs}】调拨单要处理`}</Button>) : <div></div>}
+                    {baseShopUnHandleFlowSNs.length > 0 ? (<Button style={{ marginLeft: 10 }} danger>{`弯麦(总部)：序号【${baseShopUnHandleFlowSNs}】调货单要处理`}</Button>) : <div></div>}
                     <Table
                         style={{ marginTop: 10 }}
                         size='small'
@@ -809,7 +813,10 @@ class OrderManagement extends React.Component {
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    {`总共${flowListData.length}项`}
+                                    <span>{`总共${flowListData.length}项`}</span>
+                                    {allShopUnHandleFlowSNs.length > 0 ? <Button size='small' danger style={{ marginLeft: 10, fontSize: 13, color: 'red' }}>
+                                        {`序号【${allShopUnHandleFlowSNs}】调货单未处理`
+                                        }</Button> : <span></span>}
                                 </div>
                             )
                         }} />

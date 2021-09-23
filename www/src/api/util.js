@@ -92,24 +92,44 @@ const getFlowType = () => {
 };
 
 // 'HP DeskJet 3630 series' 或者 'EPSON LQ-735K ESC/P2'
+const KA4PrinterName = 'HP DeskJet 3630 series';
 const getA4PrinterName = () => {
-  return 'HP DeskJet 3630 series';
+  return KA4PrinterName;
 };
 
-const getA4PrinterIndex = () => {
-  return 0;
+const getA4PrinterIndex = (LODOP) => {
+  let a4PrinterIndex = -1;
+  var iPrinterCount = LODOP.GET_PRINTER_COUNT();
+  for (let i = 0; i < iPrinterCount; i++) {
+    let name = LODOP.GET_PRINTER_NAME(i);
+    if (name === KA4PrinterName) {
+      a4PrinterIndex = i;
+      break;
+    }
+  };
+  return a4PrinterIndex;
 };
 
 const getPageName4A4Printer = () => {
   return 'A4';
 };
 
+const KNeedlePrinterName = 'EPSON LQ-735K ESC/P2';
 const getNeedlePrinterName = () => {
-  return 'EPSON LQ-735K ESC/P2';
+  return KNeedlePrinterName;
 };
 
-const getNeedlePrinterIndex = () => {
-  return 1;
+const getNeedlePrinterIndex = (LODOP) => {
+  let needlePrinterIndex = -1;
+  var iPrinterCount = LODOP.GET_PRINTER_COUNT();
+  for (let i = 0; i < iPrinterCount; i++) {
+    let name = LODOP.GET_PRINTER_NAME(i);
+    if (name === KNeedlePrinterName) {
+      needlePrinterIndex = i;
+      break;
+    }
+  };
+  return needlePrinterIndex;
 };
 
 const getPageName4NeedlePrinter = () => {

@@ -304,7 +304,7 @@ class ProductionPlanPrinter extends React.Component {
             let strStyle =
                 `<style>
                 </style> `;
-            LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex());
+            LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex(LODOP));
             LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4NeedlePrinter());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
@@ -331,7 +331,7 @@ class ProductionPlanPrinter extends React.Component {
         }
     };
 
-    productPrintDirectAndBack = ()=> {
+    productPrintDirectAndBack = () => {
         this.productPrintDirect();
         this.handleBack();
     };

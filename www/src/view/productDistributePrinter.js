@@ -280,7 +280,7 @@ class ProductDistributePrinter extends React.Component {
                 `<style>
                 </style> `;
 
-            LODOP.SET_PRINTER_INDEX(getA4PrinterIndex());
+            LODOP.SET_PRINTER_INDEX(getA4PrinterIndex(LODOP));
             LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4A4Printer());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示

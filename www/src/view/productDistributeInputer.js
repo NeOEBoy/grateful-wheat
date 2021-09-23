@@ -979,7 +979,7 @@ class ProductDistributeInputer extends React.Component {
             let strStyle =
                 `<style>
                 </style> `;
-            LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex());
+            LODOP.SET_PRINTER_INDEX(getNeedlePrinterIndex(LODOP));
             LODOP.SET_PRINT_PAGESIZE(1, 0, 0, getPageName4NeedlePrinter());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口

@@ -184,7 +184,7 @@ class OrderManagement extends React.Component {
 
     fetchFlowList = async () => {
         try {
-            this.setState({ flowListData: [], flowListLoading: true }, async () => {
+            this.setState({ flowListLoading: true }, async () => {
                 const { currentShop4FlowList, currentFlowType,
                     beginDateTime4FlowList, endDateTime4FlowList } = this.state;
 
@@ -809,7 +809,7 @@ class OrderManagement extends React.Component {
                         dataSource={flowListData}
                         columns={KFlowListColumns4Table}
                         pagination={false} bordered
-                        scroll={{ y: 160, scrollToFirstRowOnChange: true }}
+                        scroll={{ y: 160, scrollToFirstRowOnChange:true }}
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
@@ -855,6 +855,7 @@ class OrderManagement extends React.Component {
                                             this._currentFlowRefuseText = '';
                                             this._currentFlowDetailStatus[1] = '已拒绝收货';
                                             message.success('拒绝收货成功~');
+                                            await this.fetchFlowList();
                                         } else {
                                             this._currentFlowRefuseText = originText;
                                             message.error('拒绝收货失败~');
@@ -872,6 +873,7 @@ class OrderManagement extends React.Component {
                                             this._currentFlowConfirmText = '';
                                             this._currentFlowDetailStatus[1] = '已完成收货';
                                             message.success('确认收货成功~');
+                                            await this.fetchFlowList();
                                         } else {
                                             this._currentFlowConfirmText = originText;
                                             message.error('确认收货失败~');

@@ -1420,7 +1420,7 @@ class ProductDistributeInputer extends React.Component {
                                 </div>
                                 <div>
                                     {
-                                        <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                        <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                             <thead>
                                                 <tr>
                                                     <th style={{ textAlign: 'center', fontWeight: 'bold' }}>序</th>

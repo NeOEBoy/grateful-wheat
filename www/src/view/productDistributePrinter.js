@@ -307,7 +307,7 @@ class ProductDistributePrinter extends React.Component {
         }
     };
 
-    productPrintDirectAndBack = ()=>{
+    productPrintDirectAndBack = () => {
         this.productPrintDirect();
         this.handleBack();
     };
@@ -377,7 +377,7 @@ class ProductDistributePrinter extends React.Component {
                                         return (
                                             <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
                                                 <div style={{ float: 'left', marginLeft: 0, width: 6, height: 920 }} />
-                                                <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                     <thead>
                                                         <tr>
                                                             <th colSpan='7' style={{ width: 323, textAlign: 'center', backgroundColor: 'lightgrey' }}>

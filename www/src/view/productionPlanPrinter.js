@@ -403,7 +403,7 @@ class ProductionPlanPrinter extends React.Component {
                                         return (
                                             <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 10, height: 949 }}>
                                                 <div style={{ float: 'left', marginLeft: 0, width: 38, height: 949, backgroundColor: 'transparent' }} />
-                                                <table border='1' cellSpacing='0' cellPadding='2' style={{ float: 'left' }}>
+                                                <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                     <thead>
                                                         <tr>
                                                             <th colSpan='2' style={{ width: 318, textAlign: 'center', backgroundColor: 'lightyellow' }}>

@@ -353,6 +353,24 @@ class OrderManagement extends React.Component {
         window.location.replace(productionPlanInputerUrl);
     };
 
+    getDayTip = (begin, end) => {
+        let dayTip = '';
+
+        let todayBegin = moment().startOf('day');
+        let todayEnd = moment().endOf('day');
+
+        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+
+        if (begin.diff(todayBegin, 'milliseconds') === 0 && end.diff(todayEnd) === 0) {
+            dayTip = '今天';
+        } else if (begin.diff(yesterdayBegin, 'milliseconds') === 0 && end.diff(yesterdayEnd) === 0) {
+            dayTip = '昨天';
+        }
+
+        return dayTip;
+    };
+
     render() {
         const {
             alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
@@ -648,6 +666,9 @@ class OrderManagement extends React.Component {
                             </span>
                         )}
                     />
+                    <span style={{ marginLeft: 5, marginRight: 5, color: 'red', fontSize: 15 }}>
+                        {this.getDayTip(beginDateTime4OrderList, endDateTime4OrderList)}
+                    </span>
                     <Button
                         style={{ width: 180, marginLeft: 10 }} type='primary'
                         disabled={alreadyOrderLoading}
@@ -795,6 +816,9 @@ class OrderManagement extends React.Component {
                             </span>
                         )}
                     />
+                    <span style={{ marginLeft: 5, marginRight: 5, color: 'red', fontSize: 15 }}>
+                        {this.getDayTip(beginDateTime4FlowList, endDateTime4FlowList)}
+                    </span>
                     <Button
                         style={{ width: 180, marginLeft: 10 }} type='primary'
                         disabled={flowListLoading}
@@ -809,7 +833,7 @@ class OrderManagement extends React.Component {
                         dataSource={flowListData}
                         columns={KFlowListColumns4Table}
                         pagination={false} bordered
-                        scroll={{ y: 160, scrollToFirstRowOnChange:true }}
+                        scroll={{ y: 160, scrollToFirstRowOnChange: true }}
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>

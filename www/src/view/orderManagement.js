@@ -571,7 +571,7 @@ class OrderManagement extends React.Component {
                                     }
                                 </Menu>)
                             }
-                        } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
+                        } arrow trigger={['click']} disabled={alreadyOrderLoading}>
                         <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
                             {currentShop4OrderList.name}
                             <DownOutlined />
@@ -596,7 +596,7 @@ class OrderManagement extends React.Component {
                                     }
                                 </Menu>)
                             }
-                        } arrow trigger={['hover']} disabled={alreadyOrderLoading}>
+                        } arrow trigger={['click']} disabled={alreadyOrderLoading}>
                         <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
                             {currentTemplate4OrderList.name}
                             <DownOutlined />
@@ -713,7 +713,7 @@ class OrderManagement extends React.Component {
                                     }
                                 </Menu>)
                             }
-                        } arrow trigger={['hover']} disabled={flowListLoading}>
+                        } arrow trigger={['click']} disabled={flowListLoading}>
                         <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
                             {currentShop4FlowList.name}
                             <DownOutlined />
@@ -738,7 +738,7 @@ class OrderManagement extends React.Component {
                                     }
                                 </Menu>)
                             }
-                        } arrow trigger={['hover']} disabled={flowListLoading}>
+                        } arrow trigger={['click']} disabled={flowListLoading}>
                         <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
                             {currentFlowType.name}
                             <DownOutlined />

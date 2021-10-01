@@ -269,6 +269,7 @@ class ProductDistributeInputer extends React.Component {
             allProductionDataToBeTransfer: [],
             allProductionDataRealToBeTransfer: [],
             allProductionDataRealToBeTransferAdding: false,
+            allProductionDataRealToBeTransferAddingText: '',
             searchProductDataToBeAdd: [],
             searchingProductData: false,
             isAddProductionModalVisible: false,
@@ -293,6 +294,9 @@ class ProductDistributeInputer extends React.Component {
         this._template = undefined;
         this._beginDateTime = undefined;
         this._endDateTime = undefined;
+
+        this._readyToBeAddTransfers = [];
+        this._readyToBeAddRuning = false;
     };
 
     componentDidMount = async () => {
@@ -826,52 +830,78 @@ class ProductDistributeInputer extends React.Component {
         this.forceUpdate();
     };
 
+    doAddToTransfer = async (newRecord) => {
+        this.setState({
+            allProductionDataRealToBeTransferAdding: true,
+            allProductionDataRealToBeTransferAddingText: '正在插入<<' + newRecord.orderProductName + '>>'
+        });
+        let result = await loadProductsByKeyword(newRecord.barcode);
+        let productInfo;
+        if (!result || result.errCode !== 0 || result.items.length !== 1) {
+            message.warning('查找商品信息失败~');
+            return;
+        } else {
+            productInfo = result.items[0];
+        }
+
+        if (productInfo) {
+            newRecord.specification = productInfo.specification;
+            newRecord.price = productInfo.price;
+            newRecord.memberPrice = productInfo.memberPrice;
+            newRecord.wholePrice = productInfo.wholePrice;
+            newRecord.partnerPrice = this.makePartnerPriceByCategory(
+                productInfo.categoryName,
+                productInfo.price,
+                productInfo.memberPrice,
+                productInfo.wholePrice);
+            newRecord.partnerPriceTotal = parseFloat(
+                (newRecord.partnerPrice * newRecord.transferNumber).toFixed(2));
+
+            let allProductionDataRealToBeTransferTemp = [];
+            let key = 0; newRecord.key = ++key;
+            allProductionDataRealToBeTransferTemp.splice(0, 0, newRecord);
+            for (let ii = 0; ii < this.state.allProductionDataRealToBeTransfer.length; ++ii) {
+                let item = { ...this.state.allProductionDataRealToBeTransfer[ii] };
+                if (item.barcode !== newRecord.barcode) {
+                    item.key = ++key;
+                    allProductionDataRealToBeTransferTemp.push(item);
+                }
+            }
+
+            this.setState({
+                allProductionDataRealToBeTransferAdding: false,
+                allProductionDataRealToBeTransferAddingText: '',
+                allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp
+            });
+        }
+    };
+
+    startToRunAddToTransfers = async () => {
+        let firstRecord = this._readyToBeAddTransfers[0];
+        if (!firstRecord) {
+            return;
+        }
+
+        this._readyToBeAddRuning = true;
+        let newRecord = { ...firstRecord };
+        await this.doAddToTransfer(newRecord);
+        this._readyToBeAddTransfers.shift();
+        this._readyToBeAddRuning = false;
+
+        this.startToRunAddToTransfers();
+    };
+
     handleEditableCellCurrentEnter = async (record, dataIndex) => {
         let number = record[dataIndex];
         // console.log('handleEditableCellCurrentEnter begin');
         if (number > 0) {
             // console.log(number);
-            let newRecord = { ...record };
+            this._readyToBeAddTransfers.push(record);
 
-            this.setState({ allProductionDataRealToBeTransferAdding: true });
-            let result = await loadProductsByKeyword(newRecord.barcode);
-            let productInfo;
-            if (!result || result.errCode !== 0 || result.items.length !== 1) {
-                message.warning('查找商品信息失败~');
-                return;
-            } else {
-                productInfo = result.items[0];
+            if (!this._readyToBeAddRuning) {
+                this.startToRunAddToTransfers();
             }
 
-            if (productInfo) {
-                newRecord.specification = productInfo.specification;
-                newRecord.price = productInfo.price;
-                newRecord.memberPrice = productInfo.memberPrice;
-                newRecord.wholePrice = productInfo.wholePrice;
-                newRecord.partnerPrice = this.makePartnerPriceByCategory(
-                    productInfo.categoryName,
-                    productInfo.price,
-                    productInfo.memberPrice,
-                    productInfo.wholePrice);
-                newRecord.partnerPriceTotal = parseFloat(
-                    (newRecord.partnerPrice * newRecord.transferNumber).toFixed(2));
-
-                let allProductionDataRealToBeTransferTemp = [];
-                let key = 0; newRecord.key = ++key;
-                allProductionDataRealToBeTransferTemp.splice(0, 0, newRecord);
-                for (let ii = 0; ii < this.state.allProductionDataRealToBeTransfer.length; ++ii) {
-                    let item = { ...this.state.allProductionDataRealToBeTransfer[ii] };
-                    if (item.barcode !== newRecord.barcode) {
-                        item.key = ++key;
-                        allProductionDataRealToBeTransferTemp.push(item);
-                    }
-                }
-
-                this.setState({
-                    allProductionDataRealToBeTransferAdding: false,
-                    allProductionDataRealToBeTransfer: allProductionDataRealToBeTransferTemp
-                });
-            }
         } else {
             new Audio(diAudioSrc).play();
         }
@@ -1088,6 +1118,7 @@ class ProductDistributeInputer extends React.Component {
             allProductionDataToBeTransfer,
             allProductionDataRealToBeTransfer,
             allProductionDataRealToBeTransferAdding,
+            allProductionDataRealToBeTransferAddingText,
             searchProductDataToBeAdd,
             searchingProductData,
             isAddProductionModalVisible,
@@ -1310,7 +1341,10 @@ class ProductDistributeInputer extends React.Component {
                             marginLeft: 10, marginRight: 10
                         }}
                         size='small'
-                        loading={allProductionDataRealToBeTransferAdding}
+                        loading={{
+                            spinning: allProductionDataRealToBeTransferAdding,
+                            tip: allProductionDataRealToBeTransferAddingText
+                        }}
                         dataSource={allProductionDataRealToBeTransfer}
                         columns={KProductTransferPreviewColumns4Table}
                         bordered pagination={false}

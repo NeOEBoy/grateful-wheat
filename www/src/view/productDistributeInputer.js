@@ -97,7 +97,7 @@ const EditableCell4Transfer = ({
                 /// 如果验证不通过，则警告
                 const values = await form.validateFields();
                 let newData = parseInt(values[dataIndex]);
-                if (newData > 1000) { /// 超过1000个警告一下
+                if (newData > 1000 || newData <= 0) { /// 超过1000个警告一下
                     new Audio(diAudioSrc).play();
                     return;
                 }
@@ -174,13 +174,17 @@ const EditableCell4AddProduct = ({
         // console.log(record);
 
         /// 根据是否编辑状态设置焦点
-        if (inputRef && inputRef.current) {
-            setTimeout(() => {
-                if (record && record['editing']) {
-                    inputRef.current && inputRef.current.select();
-                }
-            }, (0));
-        }
+        const setFocus = () => {
+            if (inputRef && inputRef.current) {
+                setTimeout(() => {
+                    if (record && record['editing']) {
+                        inputRef.current && inputRef.current.select();
+                    }
+                }, (0));
+            }
+        };
+
+        setFocus();
 
         /// 变化时自动保存数据
         const handleOnChange = async () => {
@@ -194,6 +198,13 @@ const EditableCell4AddProduct = ({
                 let lastStr = errInfo.values[dataIndex].substring(errInfo.values[dataIndex].length - 1);
                 let addOrRemove;
                 if (lastStr === '+') {
+                    if (record[dataIndex] > 1000 ||
+                        record[dataIndex] <= 0) {
+                        new Audio(diAudioSrc).play();
+                        setFocus();
+                        return;
+                    }
+
                     addOrRemove = 'add';
                 } else if (lastStr === '-') {
                     addOrRemove = 'remove';
@@ -205,7 +216,14 @@ const EditableCell4AddProduct = ({
         /// Enter按下时处理光标
         const handleOnPressEnter = async () => {
             try {
-                await form.validateFields();
+                /// 如果验证不通过，则警告
+                const values = await form.validateFields();
+                let newData = parseFloat(values[dataIndex]);
+                if (newData > 1000 || newData <= 0) { /// 超过1000个警告一下
+                    new Audio(diAudioSrc).play();
+                    return;
+                }
+
                 handleEditableCellNextFocus();
             } catch (error) {
                 console.log('Save failed:', error);
@@ -1410,6 +1428,12 @@ class ProductDistributeInputer extends React.Component {
                             }}>
                                 <div>
                                     <span style={{ fontSize: 30 }}>门店出货单</span>
+                                    <span style={{
+                                        marginLeft: 10, fontSize: 20, backgroundColor: 'green',
+                                        paddingLeft: 10, paddingRight: 10, color: 'white'
+                                    }}>
+                                        {`共${allProductionDataRealToBeTransfer.length}项`}
+                                    </span>
                                 </div>
                                 <div>
                                     <span>收货门店：</span>

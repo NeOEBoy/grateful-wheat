@@ -1133,7 +1133,8 @@ class ProductDistributeInputer extends React.Component {
         let disableTransferPreviewOrPrint =
             (allProductionDataRealToBeTransfer &&
                 allProductionDataRealToBeTransfer.length <= 0) ||
-            productTransferConfirmText !== '---确定出货---';
+            productTransferConfirmText !== '---确定出货---' ||
+            allProductionDataRealToBeTransferAdding;
 
         /// 调货列表头配置
         const KTransferColumns4Table = [

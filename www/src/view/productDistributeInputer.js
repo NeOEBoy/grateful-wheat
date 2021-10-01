@@ -1325,10 +1325,10 @@ class ProductDistributeInputer extends React.Component {
                             dataSource={allProductionDataToBeTransfer}
                             columns={transferColumns4TableEditable}
                             pagination={false} bordered
-                            scroll={{ y: 230, scrollToFirstRowOnChange: true }}
+                            scroll={{ y: 160, scrollToFirstRowOnChange: true }}
                             footer={() => (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    {`总共${allProductionDataToBeTransfer.length}项`}
+                                    {`总共 ${allProductionDataToBeTransfer.length} 项`}
                                 </div>
                             )}
                         />
@@ -1349,10 +1349,10 @@ class ProductDistributeInputer extends React.Component {
                         dataSource={allProductionDataRealToBeTransfer}
                         columns={KProductTransferPreviewColumns4Table}
                         bordered pagination={false}
-                        scroll={{ y: 240, scrollToFirstRowOnChange: true }}
+                        scroll={{ y: 295, scrollToFirstRowOnChange: true }}
                         footer={() => (
-                            <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                {`总共${allProductionDataRealToBeTransfer.length}项`}
+                            <div style={{ textAlign: 'center', height: 15, fontSize: 15 }}>
+                                {`总共 ${allProductionDataRealToBeTransfer.length} 项`}
                             </div>
                         )}
                     />
@@ -1499,25 +1499,25 @@ class ProductDistributeInputer extends React.Component {
                                                             ? 'transparent' : 'yellow';
                                                         return (
                                                             <tr key={serialNum}>
-                                                                <th key='1' style={{ height: 20, width: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
-                                                                <th key='2' style={{ height: 20, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
-                                                                <th key='3' style={{ height: 20, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                <th key='4' style={{ height: 20, width: 30, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
-                                                                <th key='5' style={{ backgroundColor: transferNumberBGcolor, height: 20, width: 30, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
-                                                                <th key='6' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
-                                                                <th key='7' style={{ height: 20, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
-                                                                <th key='8' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.price}</th>
-                                                                <th key='9' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPrice}</th>
-                                                                <th key='10' style={{ height: 20, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPriceTotal}</th>
-                                                                <th key='11' style={{ height: 20, width: '*', textAlign: 'center', fontSize: 16 }}></th>
+                                                                <th key='1' style={{ height: 22, width: 20, textAlign: 'center', fontSize: 16 }}>{serialNum}</th>
+                                                                <th key='2' style={{ height: 22, width: 120, textAlign: 'center', fontSize: 16 }}>{productItem.barcode}</th>
+                                                                <th key='3' style={{ height: 22, width: 160, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
+                                                                <th key='4' style={{ height: 22, width: 30, textAlign: 'center', fontSize: 16 }}>{productItem.orderNumber}</th>
+                                                                <th key='5' style={{ backgroundColor: transferNumberBGcolor, height: 22, width: 30, textAlign: 'center', fontSize: 16 }}>{productItem.transferNumber}</th>
+                                                                <th key='6' style={{ height: 22, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.categoryName}</th>
+                                                                <th key='7' style={{ height: 22, width: 140, textAlign: 'center', fontSize: 16 }}>{productItem.specification}</th>
+                                                                <th key='8' style={{ height: 22, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.price}</th>
+                                                                <th key='9' style={{ height: 22, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPrice}</th>
+                                                                <th key='10' style={{ height: 22, width: 40, textAlign: 'center', fontSize: 16 }}>{productItem.partnerPriceTotal}</th>
+                                                                <th key='11' style={{ height: 22, width: '*', textAlign: 'center', fontSize: 16 }}></th>
                                                             </tr>)
                                                     })
                                                 }
                                                 <tr key='total'>
-                                                    <th key='1' colSpan='9' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
+                                                    <th key='1' colSpan='9' style={{ height: 24, textAlign: 'center', fontSize: 16 }}>
                                                         总计
                                                     </th>
-                                                    <th key='2' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>
+                                                    <th key='2' style={{ height: 24, textAlign: 'center', fontSize: 16 }}>
                                                         {this.makePartnerPriceTotal().toFixed(2)}
                                                     </th>
                                                 </tr>

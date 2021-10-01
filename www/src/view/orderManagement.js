@@ -837,7 +837,7 @@ class OrderManagement extends React.Component {
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    <span>{`总共${flowListData.length}项`}</span>
+                                    <span>{`总共 ${flowListData.length} 项`}</span>
                                     {allShopUnHandleFlowSNs.length > 0 ? <Button size='small' danger style={{ marginLeft: 10, fontSize: 13, color: 'red' }}>
                                         {`序号【${allShopUnHandleFlowSNs}】调货单未处理`
                                         }</Button> : <span></span>}
@@ -921,7 +921,7 @@ class OrderManagement extends React.Component {
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    {`总共${flowDetailData.length}项`}
+                                    {`总共 ${flowDetailData.length} 项`}
                                 </div>
                             )
                         }} />

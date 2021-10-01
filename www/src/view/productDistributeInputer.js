@@ -217,13 +217,7 @@ const EditableCell4AddProduct = ({
         const handleOnPressEnter = async () => {
             try {
                 /// 如果验证不通过，则警告
-                const values = await form.validateFields();
-                let newData = parseFloat(values[dataIndex]);
-                if (newData > 1000 || newData <= 0) { /// 超过1000个警告一下
-                    new Audio(diAudioSrc).play();
-                    return;
-                }
-
+                await form.validateFields();
                 handleEditableCellNextFocus();
             } catch (error) {
                 console.log('Save failed:', error);

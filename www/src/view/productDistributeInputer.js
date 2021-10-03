@@ -770,11 +770,13 @@ class ProductDistributeInputer extends React.Component {
             let result = await createStockFlowOut(toUserId, items);
             // console.log(result);
             if (result && result.errCode === 0) {
-                message.success('配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~');
+                let modalInfo = Modal.success();
+                modalInfo.update({ title: '配货成功，商品已发送至<<' + this.state.currentShop.name + '>>收银机~', okButtonProps: { hidden: true } });
                 setTimeout(() => {
+                    modalInfo.destroy();
                     this.setState({ productTransferConfirmText: '---确定出货---' });
                     this.handleBack();
-                }, 1000);
+                }, 1500);
             } else {
                 this.setState({ productTransferConfirmText: '---确定出货---' });
                 // 模态对话框

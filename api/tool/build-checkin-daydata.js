@@ -554,7 +554,8 @@ const startBuild = async () => {
             theLastRow = makeExcelCheckInData(worksheet, theLastRow, userObj);
         }
 
-        await workbook.xlsx.writeFile('./' + DEPARTMENT_NAME + '_' + QUERY_MONTH_BEGIN.format("YYYY.MM.DD") + '-' + QUERY_MONTH_END.format("YYYY.MM.DD") + '_' + '打卡表.xlsx');
+        // await workbook.xlsx.writeFile('./' + DEPARTMENT_NAME + '_' + QUERY_MONTH_BEGIN.format("YYYY.MM.DD") + '-' + QUERY_MONTH_END.format("YYYY.MM.DD") + '_' + '打卡表.xlsx');
+        await workbook.xlsx.writeFile('C:/Users/Administrator/Desktop/弯麦ps1/' + DEPARTMENT_NAME + '_' + QUERY_MONTH_BEGIN.format("YYYY.MM.DD") + '-' + QUERY_MONTH_END.format("YYYY.MM.DD") + '_' + '打卡表.xlsx');
     }
 };
 

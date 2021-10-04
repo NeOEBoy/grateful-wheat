@@ -2098,7 +2098,7 @@ const startBuild = async () => {
   theLastRow = makeExcelInfo4Data(worksheet, theLastRow);
 
   // await workbook.xlsx.writeFile('./' + SHOP_NAME + '_' + QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '_' + '进货对账表.xlsx');
-  await workbook.xlsx.writeFile('C:/Users/Administrator/Desktop/银豹后台powershell/' + SHOP_NAME + '_' + QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '_' + '进货对账表.xlsx');
+  await workbook.xlsx.writeFile('C:/Users/Administrator/Desktop/弯麦ps1/' + SHOP_NAME + '_' + QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '_' + '进货对账表.xlsx');
 
   console.log('提取完毕，请查看<<' + SHOP_NAME + '_' + QUERY_MONTH_BEGIN + '~' + QUERY_MONTH_END + '_' + '进货对账表.xlsx>>文件！！！');
 }

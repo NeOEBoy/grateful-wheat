@@ -409,7 +409,7 @@ const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
       for (let i = 0; i < items.length; ++i) {
         let item = items[i];
         let product = item.product;
-        if (product.categoryName === '弯麦订货参考') continue;
+        if (product.categoryName === 'A弯麦订货参考') continue;
         let productItem = {};
         productItem.name = product.name;
         productItem.barcode = product.barcode;

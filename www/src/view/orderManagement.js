@@ -203,7 +203,8 @@ class OrderManagement extends React.Component {
                         let transferStatus = element.transferStatus;
                         let flowType = element.flowType;
                         if (flowType === '调货单' || flowType === '调拨退货单') {
-                            if (transferStatus[1].length <= 0) {
+                            if (transferStatus[1].length <= 0 &&
+                                transferStatus[0].indexOf('已拒绝出货') === -1) {
                                 allShopUnHandleFlowSNsTemp.push(element.key);
                                 if (element.transferTo === '弯麦(总部)') {
                                     baseShopUnHandleFlowSNsTemp.push(element.key);
@@ -451,8 +452,8 @@ class OrderManagement extends React.Component {
                     let fg1 = 'gray';
                     if (record.flowType === '调货单' ||
                         record.flowType === '调拨退货单') {
-                        bg0 = text[1] ? 'transparent' : 'yellow';
-                        fg0 = text[1] ? 'gray' : 'black';
+                        bg0 = (text[1] || text[0].indexOf('已拒绝出货') !== -1) ? 'transparent' : 'yellow';
+                        fg0 = (text[1] || text[0].indexOf('已拒绝出货') !== -1) ? 'gray' : 'black';
                         bg1 = text[1].indexOf('已拒绝收货') === -1 ? 'transparent' : 'red';
                         fg1 = text[1].indexOf('已拒绝收货') === -1 ? 'gray' : 'white';
                     }
@@ -501,13 +502,14 @@ class OrderManagement extends React.Component {
             this._currentFlowType === '调拨退货单') {
             if (this._currentFlowDetailStatus[0].length > 0 &&
                 this._currentFlowDetailStatus[1].length <= 0) {
-                showAction = true;
                 if (this._currentFlowDetailStatus[0].indexOf('待确认出货') !== -1) {
                     this._currentFlowConfirmText = '确认出货';
                     this._currentFlowRefuseText = '拒绝出货';
+                    showAction = true;
                 } else if (this._currentFlowDetailStatus[0].indexOf('已完成出货') !== -1) {
                     this._currentFlowConfirmText = '确认收货';
                     this._currentFlowRefuseText = '拒绝收货';
+                    showAction = true;
                 }
             }
         }

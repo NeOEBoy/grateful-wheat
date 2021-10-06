@@ -372,14 +372,14 @@ class ProductDistributePrinter extends React.Component {
                             <span style={{ marginLeft: 10, fontSize: 12, color: 'green' }}>{`订货时间：${allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0 && allDistributionDataToBePrint[0].orderTime}`}</span>
                             <span style={{ marginLeft: 20, fontSize: 12, color: 'green' }}>{`期望到货：${allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0 && allDistributionDataToBePrint[0].expectTime}`}</span>
                             <div id="printDiv" style={{ marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
-                                <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 1375, height: 964, backgroundColor: 'transparent' }}>
+                                <div id="printTable" style={{ marginTop: 0, marginLeft: 28, width: 1375, height: 964, backgroundColor: 'transparent' }}>
                                     {
                                         allDistributionDataToBePrint.map((columnData) => {
                                             let productArray = columnData.items;
                                             let index = allDistributionDataToBePrint.indexOf(columnData);
                                             return (
                                                 <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 44, height: 920 }}>
-                                                    <div style={{ float: 'left', marginLeft: 0, width: 8, height: 920 }} />
+                                                    <div style={{ float: 'left', marginLeft: 0, width: 4, height: 920 }} />
                                                     <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                         <thead>
                                                             <tr>
@@ -429,7 +429,7 @@ class ProductDistributePrinter extends React.Component {
                                                             </tr>
                                                         </tfoot>
                                                     </table>
-                                                    <div style={{ float: 'left', marginLeft: 0, width: 8, height: 920 }} />
+                                                    <div style={{ float: 'left', marginLeft: 0, width: 4, height: 920 }} />
                                                 </div>
                                             )
                                         })

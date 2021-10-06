@@ -589,12 +589,13 @@ const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
     stockOrderJsonObj.remarks = "";
     stockOrderJsonObj.needCorfirm = "0";
 
-    let uid19 = '';
-    for (let ii = 0; ii < 19; ++ii) {
+    let uid19 = '16335';
+    for (let ii = 0; ii < 14; ++ii) {
       let sigle = Math.floor(Math.random() * 10);
       uid19 += sigle.toString();
-      // console.log(uid19);
     }
+    // console.log(uid19);
+
     stockOrderJsonObj.uid = uid19;
 
     let stockOrderJsonStr = JSON.stringify(stockOrderJsonObj);

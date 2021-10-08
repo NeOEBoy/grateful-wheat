@@ -291,6 +291,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           let orderNumberIndex = -1;
           let specificationIndex = -1;
           let transferPriceIndex = -1;
+          let remarkIndex = -1;
 
           let thead = orderItemTable.thead;
           let procuctOrderItemsTh = thead[0].tr[0].th;
@@ -325,6 +326,12 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
                 transferPriceIndex = index;
                 continue;
               }
+            } else {
+              titleName = procuctOrderItemsTh[index];
+              if (titleName === '备注') {
+                remarkIndex = index;
+                continue;
+              }
             }
           }
 
@@ -333,6 +340,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           // console.log(orderNumberIndex);
           // console.log(specificationIndex);
           // console.log(transferPriceIndex);
+          // console.log(remarkIndex);
 
           let procuctOrderDataTh = orderItemTable.tbody[0].tr;
           // console.log(procuctOrderDataTh);
@@ -340,6 +348,8 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             // console.log(element);
 
             let productOrderItem = {};
+
+            productOrderItem.key = procuctOrderDataTh.indexOf(element) + 1;
 
             let dataJson = element.$['DATA-JSON'];
             let dataJsonObj = JSON.parse(dataJson);
@@ -366,6 +376,10 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             let transferPrice = element.td[transferPriceIndex].input[0].$.VALUE;
             // console.log(parseFloat(transferPrice));
             productOrderItem.transferPrice = parseFloat(transferPrice)
+
+            let remark = element.td[remarkIndex];
+            // console.log(remark);
+            productOrderItem.remark = remark;
 
             productItems.push(productOrderItem);
           });

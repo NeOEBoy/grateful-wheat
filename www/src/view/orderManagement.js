@@ -12,7 +12,8 @@ import {
     getProductFlowList,
     getFlowDetail,
     refuseStockFlow,
-    confirmStockFlow
+    confirmStockFlow,
+    getProductOrderItems
 } from '../api/api';
 import {
     getTest,
@@ -65,6 +66,10 @@ class OrderManagement extends React.Component {
             selectedRowKeys4OrderList: [],
             noyetOrderShops: [],
             noyetOrderTemplates: [],
+
+            orderDetailData: [],
+            orderDetailLoading: false,
+            orderDetailModalVisible: false,
 
             /// 货流管理
             currentShop4FlowList: KAllShops[0],
@@ -245,6 +250,22 @@ class OrderManagement extends React.Component {
         }
     };
 
+    fetchOrderDetail = async () => {
+        try {
+            this.setState({ orderDetailData: [], orderDetailLoading: true }, async () => {
+                const orderItems = await getProductOrderItems(this._currentOrderId);
+                let list = [];
+                if (orderItems && orderItems.errCode === 0 && orderItems.items) {
+                    list = orderItems.items;
+                }
+
+                this.setState({ orderDetailData: list, orderDetailLoading: false });
+            });
+        } catch (err) {
+            this.setState({ orderDetailLoading: false });
+        }
+    };
+
     onOrderItemSelectChange = (selectedRowKeys) => {
         // console.log('onOrderItemSelectChange: ', selectedRowKeys);
         this.setState({ selectedRowKeys4OrderList: selectedRowKeys });
@@ -380,7 +401,8 @@ class OrderManagement extends React.Component {
             noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
             currentFlowType, beginDateTime4FlowList, endDateTime4FlowList,
             timePickerOpen4FlowList, flowDetailModalVisible, flowDetailData, flowDetailLoading,
-            refuseFlowLoading, confirmFlowLoading, baseShopUnHandleFlowSNs, allShopUnHandleFlowSNs
+            refuseFlowLoading, confirmFlowLoading, baseShopUnHandleFlowSNs, allShopUnHandleFlowSNs,
+            orderDetailData, orderDetailLoading, orderDetailModalVisible
         } = this.state;
 
         const alreadyOrderRowSelection = {
@@ -419,12 +441,29 @@ class OrderManagement extends React.Component {
             { title: '订货单号', dataIndex: 'orderSerialNumber', key: 'orderSerialNumber', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '订货时间', dataIndex: 'orderTime', key: 'orderTime', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '期望到货', dataIndex: 'expectTime', key: 'expectTime', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 120, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 180, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+            { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 130, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
             { title: '配货门店', dataIndex: 'prepareShop', key: 'prepareShop', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            {
+                title: '操作', dataIndex: 'action', key: 'action', width: '80',
+                render: (text, record) => {
+                    return (
+                        <Space size="middle">
+                            <Button size='small' onClick={(e) => {
+                                this._currentOrderId = record.orderId;
+                                this._currentOrderShopName = record.orderShop;
+                                this._currentOrderTime = record.orderTime;
+                                this.setState({ orderDetailModalVisible: true }, () => {
+                                    this.fetchOrderDetail();
+                                })
+                            }}>查看</Button>
+                        </Space>
+                    )
+                }
+            },
             { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
         ];
 
@@ -494,6 +533,16 @@ class OrderManagement extends React.Component {
             { title: '名称', dataIndex: 'name', key: 'name', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '类别', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '出货量', dataIndex: 'transferNumber', key: 'transferNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+        ];
+
+        const KOrderDetailColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '条码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '名称', dataIndex: 'orderProductName', key: 'orderProductName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '规格', dataIndex: 'specification', key: 'specification', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '类别', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
         ];
 
@@ -848,6 +897,42 @@ class OrderManagement extends React.Component {
                         }} />
                 </div>
 
+                <Modal
+                    width={1000}
+                    centered
+                    keyboard={true}
+                    maskClosable={false}
+                    title={(
+                        <div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{this._currentOrderShopName}</div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{this._currentOrderTime}</div>
+                        </div>
+                    )}
+                    visible={orderDetailModalVisible}
+                    okText='知道了'
+                    cancelButtonProps={{ hidden: true }}
+                    onOk={() => {
+                        this.setState({ orderDetailModalVisible: false });
+                    }}
+                    onCancel={() => {
+                        this.setState({ orderDetailModalVisible: false });
+                    }}>
+                    <Table
+                        style={{ marginTop: 10 }}
+                        size='small'
+                        loading={orderDetailLoading}
+                        dataSource={orderDetailData}
+                        columns={KOrderDetailColumns4Table}
+                        pagination={false} bordered
+                        scroll={{ y: 400, scrollToFirstRowOnChange: true }}
+                        footer={() => {
+                            return (
+                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                    {`总共 ${orderDetailData.length} 项`}
+                                </div>
+                            )
+                        }} />
+                </Modal>
                 <Modal
                     width={1000}
                     centered

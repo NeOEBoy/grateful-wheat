@@ -603,8 +603,8 @@ const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
     stockOrderJsonObj.remarks = "";
     stockOrderJsonObj.needCorfirm = "0";
 
-    let uid19 = '16335';
-    for (let ii = 0; ii < 14; ++ii) {
+    let uid19 = moment().format('x');/// uid前13位为毫秒级时间戳，后6位为随机数字
+    for (let ii = 0; ii < 6; ++ii) {
       let sigle = Math.floor(Math.random() * 10);
       uid19 += sigle.toString();
     }
@@ -1740,6 +1740,38 @@ const sendSMS = async (phoneNumber, templateParam1) => {
   }
 }
 
+const loadElemeProducts = async (thePOSPALAUTH30220, userId, categoryId, status, keyword) => {
+  console.log(thePOSPALAUTH30220);
+
+  let loadElemeProductsUrl = 'https://beta33.pospal.cn/EShop/LoadElemeProducts';
+  let loadElemeProductsBody = '';
+  loadElemeProductsBody += 'userId=' + userId;
+  loadElemeProductsBody += '&categoryId=';
+  loadElemeProductsBody += categoryId;
+  loadElemeProductsBody += '&status=';
+  loadElemeProductsBody += status;
+  loadElemeProductsBody += '&keyword=';
+  loadElemeProductsBody += keyword;
+
+  console.log('loadElemeProductsBody = ' + loadElemeProductsBody);
+  loadElemeProductsBody = 'userId=3995767&categoryId=&status=&keyword=';
+
+  loadElemeProductsBody = { 'userId': '3995767', 'categoryId': '', 'status': '', 'keyword': '' };
+  // userId=3995767&categoryId=&status=&keyword=%E6%B0%B4%E6%9E%9C%E8%9B%8B%E7%B3%95
+  const loadElemeProductsResponse = await fetch(loadElemeProductsUrl, {
+    method: 'POST', body: JSON.stringify(loadElemeProductsBody),
+    headers: {
+      'Content-Type': 'application/Json',
+      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    }
+  });
+  let loadElemeProductsResponseJson = await loadElemeProductsResponse.json();
+  console.log(loadElemeProductsResponseJson);
+
+
+  return { errCode: 0 };
+}
+
 module.exports = {
   signIn,
   getProductSaleList,
@@ -1758,5 +1790,6 @@ module.exports = {
   getDIYCouponList,
   getMemberList,
   saveRemark,
-  sendSMS
+  sendSMS,
+  loadElemeProducts
 };

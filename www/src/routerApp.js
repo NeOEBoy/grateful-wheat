@@ -8,6 +8,7 @@ import OrderManagement from "./view/orderManagement";
 import ProductionPlanPrinter from "./view/productionPlanPrinter";
 import ProductDistributePrinter from "./view/productDistributePrinter";
 import ProductDistributeInputer from "./view/productDistributeInputer";
+import ProductEShop from "./view/productEShop";
 
 import {
   BrowserRouter as Router,
@@ -41,6 +42,7 @@ function Inside4QueryParams() {
       <Route path="/orderManagement" children={<OrderManagement query={query} />} />
       <Route path="/productDistributePrinter" children={<ProductDistributePrinter query={query} />} />
       <Route path="/productDistributeInputer" children={<ProductDistributeInputer query={query} />} />
+      <Route path="/productEShop" children={<ProductEShop query={query} />} />
     </div>
   );
 }

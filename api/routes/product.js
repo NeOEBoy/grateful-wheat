@@ -14,7 +14,8 @@ const {
   refuseStockFlow,
   confirmStockFlow,
   getProductFlowList,
-  getProductFlowDetail
+  getProductFlowDetail,
+  loadElemeProducts
 } = require('../third/pospal');
 
 /* GET users listing. */
@@ -171,7 +172,7 @@ router.get('/refuseStockFlow', async function (req, res, next) {
   }
 });
 
-router.get('/confirmStockFlow', async function(req, res, next) {
+router.get('/confirmStockFlow', async function (req, res, next) {
   try {
     console.log('router confirmStockFlow start');
 
@@ -279,6 +280,31 @@ router.get('/saleAndDiscardList', async function (req, res, next) {
       endDateTime,
       keyword);
     res.send(productSaleAndDiscardResponseJson);
+  } catch (err) {
+    next(err)
+  }
+});
+
+router.get('/loadElemeProducts', async function (req, res, next) {
+  try {
+    let userId = req.query.userId;
+    let categoryId = req.query.categoryId;
+    let status = req.query.status;
+    let keyword = req.query.keyword;
+
+    if (!userId) {
+      next(createError(500));
+      return;
+    }
+
+    let thePOSPALAUTH30220 = await signIn();
+    let loadElemeProductsResponseJson = await loadElemeProducts(
+      thePOSPALAUTH30220,
+      userId,
+      categoryId,
+      status,
+      keyword);
+    res.send(loadElemeProductsResponseJson);
   } catch (err) {
     next(err)
   }

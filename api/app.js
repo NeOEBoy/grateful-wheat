@@ -92,4 +92,8 @@ startScheduleWeatherDay();
 const startScheduleOrderReminder = require('./schedule/schedule-task-order-reminder-day');
 startScheduleOrderReminder();
 
+/// 启动定时任务，自动上架饿了吗商品
+const startScheduleMelody = require('./schedule/scheduler-task-melody');
+startScheduleMelody();
+
 module.exports = app;

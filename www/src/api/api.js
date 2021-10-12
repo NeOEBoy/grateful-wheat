@@ -353,6 +353,21 @@ const getLastPage = async () => {
   return getLastPageResponseJson;
 }
 
+const loadElemeProducts = async () => {
+  let loadElemeProductsUrl = KApiHost + '/product/loadElemeProducts';
+  loadElemeProductsUrl += '?userId=';
+  loadElemeProductsUrl += '3995767';
+  loadElemeProductsUrl += '&categoryId=';
+  loadElemeProductsUrl += '&status=';
+  loadElemeProductsUrl += '&keyword=';
+
+
+  // console.log(loadElemeProductsUrl);
+  const loadElemeProductsResponse = await fetch(loadElemeProductsUrl);
+  const loadElemeProductsResponseJson = await loadElemeProductsResponse.json();
+  return loadElemeProductsResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -378,5 +393,6 @@ export {
   LeaveFromEvent,
   sendSMSAndJoinToEvent,
   saveLastPage,
-  getLastPage
+  getLastPage,
+  loadElemeProducts
 };

@@ -1,10 +1,12 @@
 import React from 'react';
+// import BrithdayCakeRecommend from '../../public/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/0recommend';
+
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Image } from 'antd';
+import { loadProductsSale, loadBirthdayCakesRecommend } from '../api/api';
 
-import { loadProductsSale } from '../api/api';
 const { Panel } = Collapse;
-const KBrithdayCakeRoot = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版';
+const KBrithdayCakeRoot = '/image/弯麦-生日蛋糕-压缩版';
 class birthdayCakeSale extends React.Component {
     constructor(props) {
         super(props);
@@ -20,17 +22,33 @@ class birthdayCakeSale extends React.Component {
         ];
 
         this.state = {
-            birthdayCakeCategorys: KCategorys
+            birthdayCakeCategorys: KCategorys,
+            birthdayCakesRecommend: []
         };
     }
 
-    componentDidMount() {
+    componentDidMount = async () => {
+        let item1 = {};
+        item1.src = '/image/%E5%BC%AF%E9%BA%A6-%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95-%E5%8E%8B%E7%BC%A9%E7%89%88/%E5%BC%AF%E9%BA%A6%E5%84%BF%E7%AB%A5%E8%9B%8B%E7%B3%95/%E7%99%BD%E9%9B%AA%E5%85%AC%E4%B8%BB.jpg';
+        item1.key = 1;
 
+        let item2 = {};
+        item2.src = '/image/%E5%BC%AF%E9%BA%A6-%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95-%E5%8E%8B%E7%BC%A9%E7%89%88/%E5%BC%AF%E9%BA%A6%E5%84%BF%E7%AB%A5%E8%9B%8B%E7%B3%95/%E7%B4%A2%E8%8F%B2%E4%BA%9A.jpg';
+        item2.key = 2;
+
+        this.setState({ birthdayCakesRecommend: [item1, item2] });
+
+        let result =await loadBirthdayCakesRecommend();
+        console.log(result);
+        // let dir = KBrithdayCakeRoot + '/弯麦热销蛋糕';
+
+        // console.log(BrithdayCakeRecommend)
+
+        // fs.readdir('');
     }
 
     handleCollapseOnChange = async (key) => {
         if (!key) return;
-        // console.log(key);
 
         try {
             let categoryId = key;
@@ -94,33 +112,42 @@ class birthdayCakeSale extends React.Component {
     }
 
     render() {
-        const { birthdayCakeCategorys } = this.state;
+        const { birthdayCakeCategorys, birthdayCakesRecommend } = this.state;
 
         return (
             <div>
-                <Collapse accordion ghost
+                <div style={{ marginLeft: 20, marginTop: 10 }}>
+                    弯麦热销蛋糕
+                </div>
+                {
+                    birthdayCakesRecommend.map((item) => {
+                        return (
+                            <div key={item.key}>
+                                <Image src={item.src} />
+                            </div>)
+                    })
+                }
+
+                <Collapse
+                    accordion ghost defaultActiveKey={['1000']}
                     expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
                     onChange={this.handleCollapseOnChange}>
+
                     {
                         birthdayCakeCategorys.map((item) => {
                             return (
                                 <Panel header={item.categoryName} key={item.categoryId}>
                                     {
                                         item.productItems.map((item1) => {
-
                                             let imageSrc = KBrithdayCakeRoot;
                                             imageSrc += '/';
                                             imageSrc += item.categoryName;
                                             imageSrc += '/';
                                             imageSrc += item1.productName;
                                             imageSrc += '.jpg';
-
-                                            console.log(imageSrc);
                                             return (
                                                 <div key={item1.key}>
-                                                    <Image width={200} src={imageSrc} />
-                                                    <span>{item1.productName}</span>
-                                                    <span>{item1.saleNumber}</span>
+                                                    <Image src={imageSrc} />
                                                 </div>
                                             )
                                         })

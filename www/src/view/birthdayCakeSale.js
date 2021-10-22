@@ -36,15 +36,18 @@ class birthdayCakeSale extends React.Component {
         item2.src = '/image/%E5%BC%AF%E9%BA%A6-%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95-%E5%8E%8B%E7%BC%A9%E7%89%88/%E5%BC%AF%E9%BA%A6%E5%84%BF%E7%AB%A5%E8%9B%8B%E7%B3%95/%E7%B4%A2%E8%8F%B2%E4%BA%9A.jpg';
         item2.key = 2;
 
-        this.setState({ birthdayCakesRecommend: [item1, item2] });
+        let birthdayCakesRecommendNew = [];
+        let birthdayCakesRecommend = await loadBirthdayCakesRecommend();
+        if (birthdayCakesRecommend && birthdayCakesRecommend.length > 0) {
+            for (let ii = 0; ii < birthdayCakesRecommend.length; ++ii) {
+                let item = birthdayCakesRecommend[ii];
+                let itemNew = { ...item };
+                itemNew.key = ii + 1;
+                birthdayCakesRecommendNew.push(itemNew);
+            }
+        }
 
-        let result =await loadBirthdayCakesRecommend();
-        console.log(result);
-        // let dir = KBrithdayCakeRoot + '/弯麦热销蛋糕';
-
-        // console.log(BrithdayCakeRecommend)
-
-        // fs.readdir('');
+        this.setState({ birthdayCakesRecommend: birthdayCakesRecommendNew });
     }
 
     handleCollapseOnChange = async (key) => {
@@ -123,7 +126,8 @@ class birthdayCakeSale extends React.Component {
                     birthdayCakesRecommend.map((item) => {
                         return (
                             <div key={item.key}>
-                                <Image src={item.src} />
+                                {item.name}
+                                {/* <Image src={item.src} /> */}
                             </div>)
                     })
                 }

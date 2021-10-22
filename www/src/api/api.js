@@ -380,10 +380,9 @@ const loadProductsSale = async (categoryId) => {
 }
 
 const loadBirthdayCakesRecommend = async ()=> {
-  let loadBirthdayCakesUrl = KApiHost + '/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/0recommend.json';
+  let loadBirthdayCakesUrl = '/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/0recommend.json';
 
-  // console.log(loadBirthdayCakesUrl);
-  const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl);
+  const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, {mode: 'no-cors'});
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
   return loadBirthdayCakesResponseJson;
 }

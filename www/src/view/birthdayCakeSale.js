@@ -3,9 +3,8 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { Collapse, Image } from 'antd';
 
 import { loadProductsSale } from '../api/api';
-
 const { Panel } = Collapse;
-
+const KBrithdayCakeRoot = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版';
 class birthdayCakeSale extends React.Component {
     constructor(props) {
         super(props);
@@ -108,9 +107,18 @@ class birthdayCakeSale extends React.Component {
                                 <Panel header={item.categoryName} key={item.categoryId}>
                                     {
                                         item.productItems.map((item1) => {
+
+                                            let imageSrc = KBrithdayCakeRoot;
+                                            imageSrc += '/';
+                                            imageSrc += item.categoryName;
+                                            imageSrc += '/';
+                                            imageSrc += item1.productName;
+                                            imageSrc += '.jpg';
+
+                                            console.log(imageSrc);
                                             return (
                                                 <div key={item1.key}>
-                                                    <Image width={200} src='https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png' />
+                                                    <Image width={200} src={imageSrc} />
                                                     <span>{item1.productName}</span>
                                                     <span>{item1.saleNumber}</span>
                                                 </div>

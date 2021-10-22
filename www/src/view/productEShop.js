@@ -2,12 +2,12 @@ import React from 'react';
 import { loadElemeProducts } from '../api/api';
 
 /**--------------------配置信息--------------------*/
-const KForTest = true;
+// const KForTest = true;
 
 class ProductEShop extends React.Component {
     constructor(props) {
         super(props);
-
+        this._a = 1;
     };
 
     componentDidMount = async () => {

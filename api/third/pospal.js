@@ -1743,33 +1743,156 @@ const sendSMS = async (phoneNumber, templateParam1) => {
 const loadElemeProducts = async (thePOSPALAUTH30220, userId, categoryId, status, keyword) => {
   console.log(thePOSPALAUTH30220);
 
-  let loadElemeProductsUrl = 'https://beta33.pospal.cn/EShop/LoadElemeProducts';
-  let loadElemeProductsBody = '';
-  loadElemeProductsBody += 'userId=' + userId;
-  loadElemeProductsBody += '&categoryId=';
-  loadElemeProductsBody += categoryId;
-  loadElemeProductsBody += '&status=';
-  loadElemeProductsBody += status;
-  loadElemeProductsBody += '&keyword=';
-  loadElemeProductsBody += keyword;
+  try {
+    let loadElemeProductsUrl = 'https://beta33.pospal.cn/EShop/LoadElemeProducts';
+    let loadElemeProductsBody = '';
+    loadElemeProductsBody += 'userId=' + userId;
+    loadElemeProductsBody += '&categoryId=';
+    loadElemeProductsBody += categoryId;
+    loadElemeProductsBody += '&status=';
+    loadElemeProductsBody += status;
+    loadElemeProductsBody += '&keyword=';
+    loadElemeProductsBody += keyword;
 
-  console.log('loadElemeProductsBody = ' + loadElemeProductsBody);
-  loadElemeProductsBody = 'userId=3995767&categoryId=&status=&keyword=';
+    console.log('loadElemeProductsBody = ' + loadElemeProductsBody);
+    loadElemeProductsBody = 'userId=3995767&categoryId=&status=&keyword=';
 
-  loadElemeProductsBody = { 'userId': '3995767', 'categoryId': '', 'status': '', 'keyword': '' };
-  // userId=3995767&categoryId=&status=&keyword=%E6%B0%B4%E6%9E%9C%E8%9B%8B%E7%B3%95
-  const loadElemeProductsResponse = await fetch(loadElemeProductsUrl, {
-    method: 'POST', body: JSON.stringify(loadElemeProductsBody),
-    headers: {
-      'Content-Type': 'application/Json',
-      'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+    loadElemeProductsBody = { 'userId': '4061089', 'categoryId': '', 'status': '', 'keyword': '' };
+    // userId=3995767&categoryId=&status=&keyword=%E6%B0%B4%E6%9E%9C%E8%9B%8B%E7%B3%95
+    const loadElemeProductsResponse = await fetch(loadElemeProductsUrl, {
+      method: 'POST', body: JSON.stringify(loadElemeProductsBody),
+      headers: {
+        'Content-Type': 'application/Json',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220,
+        'Origin': 'https://beta33.pospal.cn',
+        'Referer': 'https://beta33.pospal.cn/EShop/takeAwayBinding',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'Host': 'beta33.pospal.cn'
+      }
+    });
+    let loadElemeProductsResponseJson = await loadElemeProductsResponse.json();
+    console.log(loadElemeProductsResponseJson);
+
+    return { errCode: 0 };
+  } catch (error) {
+    console.log(error);
+    return { errCode: -1 };
+  }
+}
+
+const loadProductsSale = async (thePOSPALAUTH30220, categoryId) => {
+  try {
+    // console.log(categoryId);
+
+    let loadProductsSaleUrl = 'https://beta33.pospal.cn/ReportV2/LoadProductSaleByPage';
+
+    /// 提取半年之前的数据
+    let nowMoment = moment();
+    let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
+    let beginDateTimeStr = nowMoment.subtract(180, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
+
+    // console.log(endDateTimeStr);
+    // console.log(beginDateTimeStr);
+
+    let loadProductsSaleBody = {
+      'keyword': '',
+      'isSellWell': '',
+      'beginDateTime': beginDateTimeStr,
+      'endDateTime': endDateTimeStr,
+      'productbrand': '',
+      'supplierUid': '',
+      'productTagUidsJson': '',
+      'categorysJson': '["' + categoryId + '"]',
+      'isCustomer': '',
+      'isNewly': '',
+      'pageIndex': '1',
+      'pageSize': '1000',
+      'orderColumn': 'barcode',
+      'asc': 'true'
+    };
+    const loadProductsSaleResponse = await fetch(loadProductsSaleUrl, {
+      method: 'POST', body: JSON.stringify(loadProductsSaleBody),
+      headers: {
+        'Content-Type': 'application/Json',
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
+      }
+    });
+    let loadProductsSaleResponseJson = await loadProductsSaleResponse.json();
+    // console.log(loadProductsSaleResponseJson);
+
+    let productList = [];
+    if (loadProductsSaleResponseJson.successed) {
+      try {
+        var xml = '<?xml version="1.0" encoding="UTF-8" ?><root>'
+          + loadProductsSaleResponseJson.contentView + '</root>';
+        // console.log(xml);
+        let result = await parseStringPromise(xml,
+          {
+            strict: false, // 为true可能解析不正确
+            normalizeTags: true
+          });
+        if (result) {
+          let productNameIndex = -1;
+          let saleNumberIndex = -1;
+
+          let productListDataTh = result.root.thead[0].tr[0].th;
+          // console.log(productListDataTh);
+          for (let index = 0; index < productListDataTh.length; ++index) {
+            let titleName = productListDataTh[index]._;
+            // console.log(titleName);
+            if (!titleName) {
+              continue;
+            }
+
+            titleName = titleName.replace(/\r\n/g, "").trim();
+            if (titleName === '商品名称') {
+              productNameIndex = index;
+              continue;
+            }
+            if (titleName === '销售数量') {
+              saleNumberIndex = index;
+              continue;
+            }
+          }
+
+          // console.log(productNameIndex);
+          // console.log(saleNumberIndex);
+
+          let productListDataTbody = result.root.tbody[0].tr;
+          for (let index = 0; index < productListDataTbody.length; ++index) {
+            let element = productListDataTbody[index];
+            // console.log(element);
+            let productItem = {};
+
+            productItem.key = index + 1;
+
+            /// 商品名字
+            let productName = element.td[productNameIndex]._;
+            // console.log(productName);
+            productItem.productName = productName;
+
+            /// 商品名字
+            let saleNumber = element.td[saleNumberIndex].span[0]._;
+            // console.log(saleNumber);
+            productItem.saleNumber = parseFloat(saleNumber);
+
+            productList.push(productItem);
+          }
+
+          // console.log(productListDataTbody.length);
+
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
     }
-  });
-  let loadElemeProductsResponseJson = await loadElemeProductsResponse.json();
-  console.log(loadElemeProductsResponseJson);
-
-
-  return { errCode: 0 };
+    return { errCode: 0, list: productList };
+  } catch (error) {
+    return { errCode: -1 };
+  }
 }
 
 module.exports = {
@@ -1791,5 +1914,6 @@ module.exports = {
   getMemberList,
   saveRemark,
   sendSMS,
-  loadElemeProducts
+  loadElemeProducts,
+  loadProductsSale
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-// import BrithdayCakeRecommend from '../../public/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/0recommend';
 
 import { RightCircleTwoTone } from '@ant-design/icons';
 import { Collapse, Image, Spin, Typography } from 'antd';
@@ -25,9 +24,10 @@ class birthdayCakeSale extends React.Component {
 
         this.state = {
             birthdayCakeCategorys: KCategorys,
-            birthdayCakesRecommend: [],
-            categorySpinning:false
+            birthdayCakesRecommend: []
         };
+
+        this._lastKeys = [];
     }
 
     componentDidMount = async () => {
@@ -45,11 +45,25 @@ class birthdayCakeSale extends React.Component {
         this.setState({ birthdayCakesRecommend: birthdayCakesRecommendNew });
     }
 
-    handleCollapseOnChange = async (key) => {
-        if (!key) return;
+    handleCollapseOnChange = async (keys) => {
+        if (!keys) return;
+
+        // console.log(keys);
+        let keysNew = [...keys];
+        for (let ii = 0; ii < this._lastKeys.length; ++ii) {
+            let key = this._lastKeys[ii];
+            let pos = keysNew.indexOf(key);
+            if (pos !== -1) {
+                keysNew.splice(pos, 1);
+            }
+        }
+
+        this._lastKeys = [...keys];
+        // console.log(keysNew);
+        if (keysNew.length !== 1) return;/// 只有一个展开
 
         try {
-            let categoryId = key;
+            let categoryId = keysNew[0];
             const { birthdayCakeCategorys } = this.state;
             let birthdayCakeCategoryToAdd;
             let birthdayCakeCategorysNew = [...birthdayCakeCategorys];
@@ -60,11 +74,11 @@ class birthdayCakeSale extends React.Component {
                     break;
                 }
             }
-            if (birthdayCakeCategoryToAdd && birthdayCakeCategoryToAdd.productItems.length > 0) return;
+            if (!birthdayCakeCategoryToAdd) return;
+            if (birthdayCakeCategoryToAdd.productItems.length > 0) return;
             if (birthdayCakeCategoryToAdd.spinning) return;///正在加载中...
 
             birthdayCakeCategoryToAdd.spinning = true;
-            this.setState({ categorySpinning: true });
 
             let loadResult = await loadProductsSale(categoryId);
             // console.log(loadResult);
@@ -107,7 +121,7 @@ class birthdayCakeSale extends React.Component {
                 birthdayCakeCategoryToAdd.spinning = false;
             }
 
-            this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew, categorySpinning: false });
+            this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
             // console.log(birthdayCakeCategorysNew);
         } catch (error) {
             console.log(error);
@@ -115,10 +129,11 @@ class birthdayCakeSale extends React.Component {
     }
 
     render() {
-        const { birthdayCakeCategorys, birthdayCakesRecommend, categorySpinning } = this.state;
+        const { birthdayCakeCategorys, birthdayCakesRecommend } = this.state;
 
         return (
             <div>
+                
                 <Title level={5} style={{
                     textAlign: 'center', marginTop: 0,
                     backgroundColor: '#DAA520',
@@ -134,47 +149,47 @@ class birthdayCakeSale extends React.Component {
                     })
                 }
 
-                <Spin spinning={categorySpinning}>
-                    <Collapse
-                        accordion
-                        expandIcon={({ isActive }) => <RightCircleTwoTone rotate={isActive ? 90 : 0} />}
-                        onChange={this.handleCollapseOnChange}>
-                        {
-                            birthdayCakeCategorys.map((item) => {
-                                return (
-                                    <Panel header=
+                <Collapse
+                    expandIcon={({ isActive }) => <RightCircleTwoTone rotate={isActive ? 90 : 0} />}
+                    onChange={this.handleCollapseOnChange}>
+                    {
+                        birthdayCakeCategorys.map((item) => {
+                            return (
+                                <Panel header=
+                                    {
+                                        (<span style={{ color: '#DAA520' }}>
+                                            {`${item.categoryName}（${item.productItems.length}）`}
+                                        </span>)
+                                    }
+                                    key={item.categoryId} extra={(<span style={{ fontSize: 10 }}>点击展开或关闭</span>)}>
+                                    <Spin spinning={item.spinning}>
                                         {
-                                            (<span style={{ color: '#DAA520' }}>
-                                                {`${item.categoryName}（${item.productItems.length}）`}
-                                            </span>)
+                                            item.productItems.map((item1) => {
+                                                let imageSrc = KBrithdayCakeRoot;
+                                                imageSrc += '/';
+                                                imageSrc += item.categoryName;
+                                                imageSrc += '/';
+                                                imageSrc += item1.productName;
+                                                imageSrc += '.jpg';
+                                                return (
+                                                    <div key={item1.key}>
+                                                        <Image src={imageSrc} />
+                                                    </div>
+                                                )
+                                            })
                                         }
-                                        key={item.categoryId} extra={(<span>点击查看</span>)}>
-                                        <Spin spinning={item.spinning}>
-                                            {
-                                                item.productItems.map((item1) => {
-                                                    let imageSrc = KBrithdayCakeRoot;
-                                                    imageSrc += '/';
-                                                    imageSrc += item.categoryName;
-                                                    imageSrc += '/';
-                                                    imageSrc += item1.productName;
-                                                    imageSrc += '.jpg';
-                                                    return (
-                                                        <div key={item1.key}>
-                                                            <Image src={imageSrc} />
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </Spin>
-                                    </Panel>
-                                );
-                            })
-                        }
-                    </Collapse>
-                    <div style={{ height: 30, textAlign: 'center', fontSize: 14, fontWeight: "lighter" }}>
-                        弯麦--心里满满都是你
-                    </div>
-                </Spin>
+                                    </Spin>
+                                </Panel>
+                            );
+                        })
+                    }
+                </Collapse>
+                <div style={{
+                    height: 30, textAlign: 'center', color: 'red',
+                    fontSize: 12, fontWeight: "lighter", paddingTop: 5
+                }}>
+                    添加13290768588（教育局总店微信）预定...
+                </div>
             </div>
         )
     }

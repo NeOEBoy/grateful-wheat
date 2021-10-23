@@ -1,12 +1,14 @@
 import React from 'react';
 // import BrithdayCakeRecommend from '../../public/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/0recommend';
 
-import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, Image } from 'antd';
+import { RightCircleTwoTone } from '@ant-design/icons';
+import { Collapse, Image, Spin, Typography } from 'antd';
 import { loadProductsSale, loadBirthdayCakesRecommend } from '../api/api';
 
+const { Title } = Typography;
 const { Panel } = Collapse;
 const KBrithdayCakeRoot = '/image/弯麦-生日蛋糕-压缩版';
+
 class birthdayCakeSale extends React.Component {
     constructor(props) {
         super(props);
@@ -23,19 +25,12 @@ class birthdayCakeSale extends React.Component {
 
         this.state = {
             birthdayCakeCategorys: KCategorys,
-            birthdayCakesRecommend: []
+            birthdayCakesRecommend: [],
+            categorySpinning:false
         };
     }
 
     componentDidMount = async () => {
-        let item1 = {};
-        item1.src = '/image/%E5%BC%AF%E9%BA%A6-%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95-%E5%8E%8B%E7%BC%A9%E7%89%88/%E5%BC%AF%E9%BA%A6%E5%84%BF%E7%AB%A5%E8%9B%8B%E7%B3%95/%E7%99%BD%E9%9B%AA%E5%85%AC%E4%B8%BB.jpg';
-        item1.key = 1;
-
-        let item2 = {};
-        item2.src = '/image/%E5%BC%AF%E9%BA%A6-%E7%94%9F%E6%97%A5%E8%9B%8B%E7%B3%95-%E5%8E%8B%E7%BC%A9%E7%89%88/%E5%BC%AF%E9%BA%A6%E5%84%BF%E7%AB%A5%E8%9B%8B%E7%B3%95/%E7%B4%A2%E8%8F%B2%E4%BA%9A.jpg';
-        item2.key = 2;
-
         let birthdayCakesRecommendNew = [];
         let birthdayCakesRecommend = await loadBirthdayCakesRecommend();
         if (birthdayCakesRecommend && birthdayCakesRecommend.length > 0) {
@@ -66,6 +61,10 @@ class birthdayCakeSale extends React.Component {
                 }
             }
             if (birthdayCakeCategoryToAdd && birthdayCakeCategoryToAdd.productItems.length > 0) return;
+            if (birthdayCakeCategoryToAdd.spinning) return;///正在加载中...
+
+            birthdayCakeCategoryToAdd.spinning = true;
+            this.setState({ categorySpinning: true });
 
             let loadResult = await loadProductsSale(categoryId);
             // console.log(loadResult);
@@ -105,9 +104,10 @@ class birthdayCakeSale extends React.Component {
                 })
 
                 birthdayCakeCategoryToAdd.productItems = listAfterMerge;
+                birthdayCakeCategoryToAdd.spinning = false;
             }
 
-            this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
+            this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew, categorySpinning: false });
             // console.log(birthdayCakeCategorysNew);
         } catch (error) {
             console.log(error);
@@ -115,52 +115,66 @@ class birthdayCakeSale extends React.Component {
     }
 
     render() {
-        const { birthdayCakeCategorys, birthdayCakesRecommend } = this.state;
+        const { birthdayCakeCategorys, birthdayCakesRecommend, categorySpinning } = this.state;
 
         return (
             <div>
-                <div style={{ marginLeft: 20, marginTop: 10 }}>
-                    弯麦热销蛋糕
-                </div>
+                <Title level={5} style={{
+                    textAlign: 'center', marginTop: 0,
+                    backgroundColor: '#DAA520',
+                    color: 'white',
+                    paddingTop: 5, paddingBottom: 5
+                }}>
+                    {`弯麦热销蛋糕（${birthdayCakesRecommend.length}）`}
+                </Title>
                 {
                     birthdayCakesRecommend.map((item) => {
-                        return (
-                            <div key={item.key}>
-                                {item.name}
-                                {/* <Image src={item.src} /> */}
-                            </div>)
+                        let src = "/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/" + item.name + '.jpg';
+                        return (<Image src={src} key={item.key} />);
                     })
                 }
 
-                <Collapse
-                    accordion ghost defaultActiveKey={['1000']}
-                    expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-                    onChange={this.handleCollapseOnChange}>
-
-                    {
-                        birthdayCakeCategorys.map((item) => {
-                            return (
-                                <Panel header={item.categoryName} key={item.categoryId}>
-                                    {
-                                        item.productItems.map((item1) => {
-                                            let imageSrc = KBrithdayCakeRoot;
-                                            imageSrc += '/';
-                                            imageSrc += item.categoryName;
-                                            imageSrc += '/';
-                                            imageSrc += item1.productName;
-                                            imageSrc += '.jpg';
-                                            return (
-                                                <div key={item1.key}>
-                                                    <Image src={imageSrc} />
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </Panel>
-                            );
-                        })
-                    }
-                </Collapse>
+                <Spin spinning={categorySpinning}>
+                    <Collapse
+                        accordion
+                        expandIcon={({ isActive }) => <RightCircleTwoTone rotate={isActive ? 90 : 0} />}
+                        onChange={this.handleCollapseOnChange}>
+                        {
+                            birthdayCakeCategorys.map((item) => {
+                                return (
+                                    <Panel header=
+                                        {
+                                            (<span style={{ color: '#DAA520' }}>
+                                                {`${item.categoryName}（${item.productItems.length}）`}
+                                            </span>)
+                                        }
+                                        key={item.categoryId} extra={(<span>点击查看</span>)}>
+                                        <Spin spinning={item.spinning}>
+                                            {
+                                                item.productItems.map((item1) => {
+                                                    let imageSrc = KBrithdayCakeRoot;
+                                                    imageSrc += '/';
+                                                    imageSrc += item.categoryName;
+                                                    imageSrc += '/';
+                                                    imageSrc += item1.productName;
+                                                    imageSrc += '.jpg';
+                                                    return (
+                                                        <div key={item1.key}>
+                                                            <Image src={imageSrc} />
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </Spin>
+                                    </Panel>
+                                );
+                            })
+                        }
+                    </Collapse>
+                    <div style={{ height: 30, textAlign: 'center', fontSize: 14, fontWeight: "lighter" }}>
+                        弯麦--心里满满都是你
+                    </div>
+                </Spin>
             </div>
         )
     }

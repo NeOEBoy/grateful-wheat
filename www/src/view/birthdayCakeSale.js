@@ -45,9 +45,7 @@ class birthdayCakeSale extends React.Component {
                 birthdayCakesRecommendNew.push(itemNew);
             }
         }
-
         this.setState({ birthdayCakesRecommend: birthdayCakesRecommendNew });
-
         this.updateWeixinConfig();
     }
 
@@ -170,14 +168,12 @@ class birthdayCakeSale extends React.Component {
         /**
          * 微信jssdk
          */
-        let is_weixin = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) === 'micromessenger';
-        is_weixin = true;
+        let is_weixin = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == 'micromessenger';
         if (is_weixin) {
             /**
               * 微信配置
               */
             let res = await wechatSign(document.URL.split('#')[0]);
-            console.log(res);
             if (res) {
                 /// 如果没有传递过来appid，则微信接口出错，前端不处理后续流程
                 if (!res.appId) return;
@@ -206,27 +202,29 @@ class birthdayCakeSale extends React.Component {
                      * */
                     // console.log('window.wx ready');
 
+                    let title = '弯麦蛋糕 | 最新蛋糕图册，送给热爱仪式感的你~';
+                    let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版/image4wechat.jpg';
                     // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                     window.wx.updateAppMessageShareData({
-                        title: '我是弯麦标题', // 分享标题
-                        desc: '我是弯麦描述', // 分享描述
+                        title: title, // 分享标题
+                        desc: '有颜值，有内涵，各种款式等你来挑选~', // 分享描述
                         link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                        imgUrl: 'https://scratch.ruyue.xyz/images/儒-白色背景.jpg', // 分享图标
+                        imgUrl: imgUrl, // 分享图标
                         success: function () {
                             // 设置成功
                             // console.log('window.wx.updateAppMessageShareData success');
                         },
                         fail: function (res) {
                             // 设置失败
-                            // console.log('window.wx.updateAppMessageShareData fail');
+                            // console.log('window.wx.updateAppMessageShareData fail res=' + res);
                         }
                     });
 
                     // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容
                     window.wx.updateTimelineShareData({
-                        title: '我是弯麦标题', // 分享标题
+                        title: title, // 分享标题
                         link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                        imgUrl: 'https://scratch.ruyue.xyz/images/儒-白色背景.jpg', // 分享图标
+                        imgUrl: imgUrl, // 分享图标
                         success: function () {
                             // 设置成功
                             // console.log('window.wx.updateTimelineShareData success');
@@ -254,7 +252,6 @@ class birthdayCakeSale extends React.Component {
 
         return (
             <div>
-
                 <Title level={5} style={{
                     textAlign: 'center', marginTop: 0,
                     backgroundColor: '#DAA520',

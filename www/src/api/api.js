@@ -387,6 +387,17 @@ const loadBirthdayCakesRecommend = async () => {
   return loadBirthdayCakesResponseJson;
 }
 
+const wechatSign = async (url) => {
+  let wechatSignUrl = KApiHost + '/wechat/sign';
+  wechatSignUrl += '?url=';
+  wechatSignUrl += url;
+
+  // console.log(wechatSignUrl);
+  const wechatSignResponse = await fetch(wechatSignUrl);
+  const wechatSignResponseJson = await wechatSignResponse.json();
+  return wechatSignResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -415,5 +426,6 @@ export {
   getLastPage,
   loadElemeProducts,
   loadProductsSale,
-  loadBirthdayCakesRecommend
+  loadBirthdayCakesRecommend,
+  wechatSign
 };

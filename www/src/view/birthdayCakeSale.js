@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { RightCircleTwoTone } from '@ant-design/icons';
+import { RightSquareFilled } from '@ant-design/icons';
 import { Collapse, Image, Spin, Typography } from 'antd';
 import { loadProductsSale, loadBirthdayCakesRecommend } from '../api/api';
 
@@ -47,85 +47,117 @@ class birthdayCakeSale extends React.Component {
 
     handleCollapseOnChange = async (keys) => {
         if (!keys) return;
+        // console.log('handleCollapseOnChange begin');
 
         // console.log(keys);
-        let keysNew = [...keys];
+        let keysOpened = [...keys];
         for (let ii = 0; ii < this._lastKeys.length; ++ii) {
             let key = this._lastKeys[ii];
-            let pos = keysNew.indexOf(key);
+            let pos = keysOpened.indexOf(key);
             if (pos !== -1) {
-                keysNew.splice(pos, 1);
+                keysOpened.splice(pos, 1);
             }
         }
 
+        let keysClosed = [...this._lastKeys];
+        for (let jj = 0; jj < keys.length; ++jj) {
+            let key = keys[jj];
+            let pos = keysClosed.indexOf(key);
+            if (pos !== -1) {
+                keysClosed.splice(pos, 1);
+            }
+        }
         this._lastKeys = [...keys];
-        // console.log(keysNew);
-        if (keysNew.length !== 1) return;/// 只有一个展开
 
-        try {
-            let categoryId = keysNew[0];
-            const { birthdayCakeCategorys } = this.state;
-            let birthdayCakeCategoryToAdd;
-            let birthdayCakeCategorysNew = [...birthdayCakeCategorys];
+        const { birthdayCakeCategorys } = this.state;
+        let birthdayCakeCategorysNew = [...birthdayCakeCategorys];
+
+        // console.log(keysOpened);
+        if (keysOpened.length === 1) {
+            try {
+                let categoryId = keysOpened[0];
+                let birthdayCakeCategoryToAdd;
+                for (let ii = 0; ii < birthdayCakeCategorysNew.length; ++ii) {
+                    let birthdayCakeCategory = birthdayCakeCategorysNew[ii];
+                    if (birthdayCakeCategory.categoryId === categoryId) {
+                        birthdayCakeCategoryToAdd = birthdayCakeCategory;
+                        break;
+                    }
+                }
+                if (birthdayCakeCategoryToAdd) {
+                    birthdayCakeCategoryToAdd.opened = true;
+                    this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
+                    if (birthdayCakeCategoryToAdd.productItems.length <= 0 &&
+                        !birthdayCakeCategoryToAdd.spinning) {
+                        birthdayCakeCategoryToAdd.spinning = true;
+
+                        let loadResult = await loadProductsSale(categoryId);
+                        // console.log(loadResult);
+
+                        if (loadResult.errCode === 0 && loadResult.list.length > 0) {
+                            let list = loadResult.list;
+
+                            let listAfterMerge = [];
+                            for (let jj = 0; jj < list.length; ++jj) {
+                                let one = list[jj];
+                                let productName = one.productName;
+                                let saleNumber = one.saleNumber;
+
+                                let index4ListAfterMerge = -1;
+                                for (let mm = 0; mm < listAfterMerge.length; ++mm) {
+                                    let one1 = listAfterMerge[mm];
+                                    if (one1.productName === productName) {
+                                        index4ListAfterMerge = mm;
+                                        break;
+                                    }
+                                }
+
+                                if (index4ListAfterMerge === -1) {
+                                    let oneNew = {};
+                                    oneNew.productName = productName;
+                                    oneNew.saleNumber = saleNumber;
+                                    oneNew.key = listAfterMerge.length + 1;
+                                    listAfterMerge.push(oneNew);
+                                } else {
+                                    let one = listAfterMerge[index4ListAfterMerge];
+                                    one.saleNumber = one.saleNumber + saleNumber;
+                                }
+                            }
+
+                            listAfterMerge = listAfterMerge.sort((a, b) => {
+                                return b.saleNumber - a.saleNumber;
+                            })
+
+                            birthdayCakeCategoryToAdd.productItems = listAfterMerge;
+                            birthdayCakeCategoryToAdd.spinning = false;
+                        }
+
+                        this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
+                        // console.log(birthdayCakeCategorysNew);
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        // console.log(keysClosed);
+        if (keysClosed.length === 1) {
+            let categoryId = keysClosed[0];
+            let birthdayCakeCategoryClose;
             for (let ii = 0; ii < birthdayCakeCategorysNew.length; ++ii) {
                 let birthdayCakeCategory = birthdayCakeCategorysNew[ii];
                 if (birthdayCakeCategory.categoryId === categoryId) {
-                    birthdayCakeCategoryToAdd = birthdayCakeCategory;
+                    birthdayCakeCategoryClose = birthdayCakeCategory;
                     break;
                 }
             }
-            if (!birthdayCakeCategoryToAdd) return;
-            if (birthdayCakeCategoryToAdd.productItems.length > 0) return;
-            if (birthdayCakeCategoryToAdd.spinning) return;///正在加载中...
-
-            birthdayCakeCategoryToAdd.spinning = true;
-
-            let loadResult = await loadProductsSale(categoryId);
-            // console.log(loadResult);
-
-            if (loadResult.errCode === 0 && loadResult.list.length > 0) {
-                let list = loadResult.list;
-
-                let listAfterMerge = [];
-                for (let jj = 0; jj < list.length; ++jj) {
-                    let one = list[jj];
-                    let productName = one.productName;
-                    let saleNumber = one.saleNumber;
-
-                    let index4ListAfterMerge = -1;
-                    for (let mm = 0; mm < listAfterMerge.length; ++mm) {
-                        let one1 = listAfterMerge[mm];
-                        if (one1.productName === productName) {
-                            index4ListAfterMerge = mm;
-                            break;
-                        }
-                    }
-
-                    if (index4ListAfterMerge === -1) {
-                        let oneNew = {};
-                        oneNew.productName = productName;
-                        oneNew.saleNumber = saleNumber;
-                        oneNew.key = listAfterMerge.length + 1;
-                        listAfterMerge.push(oneNew);
-                    } else {
-                        let one = listAfterMerge[index4ListAfterMerge];
-                        one.saleNumber = one.saleNumber + saleNumber;
-                    }
-                }
-
-                listAfterMerge = listAfterMerge.sort((a, b) => {
-                    return b.saleNumber - a.saleNumber;
-                })
-
-                birthdayCakeCategoryToAdd.productItems = listAfterMerge;
-                birthdayCakeCategoryToAdd.spinning = false;
+            if (birthdayCakeCategoryClose) {
+                birthdayCakeCategoryClose.opened = false;
+                this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
             }
-
-            this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
-            // console.log(birthdayCakeCategorysNew);
-        } catch (error) {
-            console.log(error);
         }
+
+        // console.log('handleCollapseOnChange end');
     }
 
     render() {
@@ -133,12 +165,12 @@ class birthdayCakeSale extends React.Component {
 
         return (
             <div>
-                
+
                 <Title level={5} style={{
                     textAlign: 'center', marginTop: 0,
                     backgroundColor: '#DAA520',
                     color: 'white',
-                    paddingTop: 5, paddingBottom: 5
+                    paddingTop: 8, paddingBottom: 8
                 }}>
                     {`弯麦热销蛋糕（${birthdayCakesRecommend.length}）`}
                 </Title>
@@ -150,18 +182,21 @@ class birthdayCakeSale extends React.Component {
                 }
 
                 <Collapse
-                    expandIcon={({ isActive }) => <RightCircleTwoTone rotate={isActive ? 90 : 0} />}
+                    expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
+                    expandIconPosition='right'
                     onChange={this.handleCollapseOnChange}>
                     {
                         birthdayCakeCategorys.map((item) => {
                             return (
                                 <Panel header=
                                     {
-                                        (<span style={{ color: '#DAA520' }}>
+                                        (<span style={{ color: 'white', fontSize: 16 }}>
                                             {`${item.categoryName}（${item.productItems.length}）`}
                                         </span>)
                                     }
-                                    key={item.categoryId} extra={(<span style={{ fontSize: 10 }}>点击展开或关闭</span>)}>
+                                    style={{ backgroundColor: '#DAA520' }}
+                                    key={item.categoryId}
+                                    extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
                                     <Spin spinning={item.spinning}>
                                         {
                                             item.productItems.map((item1) => {
@@ -185,10 +220,12 @@ class birthdayCakeSale extends React.Component {
                     }
                 </Collapse>
                 <div style={{
-                    height: 30, textAlign: 'center', color: 'red',
-                    fontSize: 12, fontWeight: "lighter", paddingTop: 5
+                    height: 40, textAlign: 'center', color: 'green',
+                    fontSize: 14, fontWeight: "lighter", paddingTop: 7
                 }}>
-                    添加13290768588（教育局总店微信）预定...
+                    <span>添加 </span>
+                    <span style={{textDecoration:'underline'}}> 13290768588 </span>
+                    <span> (教育局总店微信)预定</span>
                 </div>
             </div>
         )

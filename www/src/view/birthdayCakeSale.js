@@ -202,12 +202,12 @@ class birthdayCakeSale extends React.Component {
                      * */
                     // console.log('window.wx ready');
 
-                    let title = '弯麦蛋糕 | 最新蛋糕图册，送给热爱仪式感的你~';
+                    let title = '弯麦蛋糕 | 今年最新蛋糕图册，送给热爱仪式感的你~';
                     let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版/image4wechat.jpg';
                     // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                     window.wx.updateAppMessageShareData({
                         title: title, // 分享标题
-                        desc: '有颜值，有内涵，各种款式等你来挑选~', // 分享描述
+                        desc: '有颜值，有内涵，儿童款，女神款，男神款...各种款式等你来挑选哦~', // 分享描述
                         link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: imgUrl, // 分享图标
                         success: function () {

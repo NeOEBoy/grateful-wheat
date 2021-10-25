@@ -331,9 +331,11 @@ class birthdayCakeSale extends React.Component {
                     height: 40, textAlign: 'center', color: 'green',
                     fontSize: 14, fontWeight: "lighter", paddingTop: 7
                 }}>
-                    <span>添加 </span>
-                    <span style={{ textDecoration: 'underline' }}> 13290768588 </span>
-                    <span> (教育局总店微信)预定</span>
+                    <span>添加教育局总店</span>
+                    <span style={{ textDecoration: 'underline' }}>
+                        <a href="tel:13290768588">13290768588</a>
+                    </span>
+                    <span> (点击)预定</span>
                 </div>
             </div>
         )

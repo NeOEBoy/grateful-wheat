@@ -28,13 +28,17 @@ class birthdayCakeSale extends React.Component {
 
         this.state = {
             birthdayCakeCategorys: KCategorys,
-            birthdayCakesRecommend: []
+            birthdayCakesRecommend: [],
+            debug: 0
         };
 
         this._lastKeys = [];
     }
 
     componentDidMount = async () => {
+        let query = this.props.query;
+        let debug = query && query.get('debug');
+
         let birthdayCakesRecommendNew = [];
         let birthdayCakesRecommend = await loadBirthdayCakesRecommend();
         if (birthdayCakesRecommend && birthdayCakesRecommend.length > 0) {
@@ -45,7 +49,7 @@ class birthdayCakeSale extends React.Component {
                 birthdayCakesRecommendNew.push(itemNew);
             }
         }
-        this.setState({ birthdayCakesRecommend: birthdayCakesRecommendNew });
+        this.setState({ birthdayCakesRecommend: birthdayCakesRecommendNew, debug: debug });
         this.updateWeixinConfig();
     }
 
@@ -165,102 +169,99 @@ class birthdayCakeSale extends React.Component {
     }
 
     updateWeixinConfig = async () => {
+        /// 微信环境判断
+        let is_weixin = window.navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
+        if (!is_weixin) return;
+
         /**
-         * 微信jssdk
-         */
-        let is_weixin = navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == 'micromessenger';
-        if (is_weixin) {
+          * 微信配置
+          */
+        let res = await wechatSign(document.URL.split('#')[0]);
+        if (res) {
+            /// 如果没有传递过来appid，则微信接口出错，前端不处理后续流程
+            if (!res.appId) return;
+
             /**
-              * 微信配置
-              */
-            let res = await wechatSign(document.URL.split('#')[0]);
-            if (res) {
-                /// 如果没有传递过来appid，则微信接口出错，前端不处理后续流程
-                if (!res.appId) return;
+             * 微信JSSDK注入配置信息
+             */
+            window.wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId: res.appId, // 必填，公众号的唯一标识
+                timestamp: res.timestamp, // 必填，生成签名的时间戳
+                nonceStr: res.nonceStr, // 必填，生成签名的随机串
+                signature: res.signature,// 必填，签名
+                jsApiList: [
+                    'updateAppMessageShareData',
+                    'updateTimelineShareData'
+                ] // 必填，需要使用的JS接口列表
+            });
 
+            window.wx.ready(function () {
                 /**
-                 * 微信JSSDK注入配置信息
+                 * config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，
+                 * config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，
+                 * 则须把相关接口放在ready函数中调用来确保正确执行。
+                 * 对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+                 * */
+                // console.log('window.wx ready');
+
+                let title = '弯麦蛋糕 | 今年最新蛋糕图册，送给热爱仪式感的你~';
+                let desc = '有美味，有颜值，更有内涵，儿童款，女神款，男神款等各种款式等你来挑选哦~';
+                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版/image4wechat.jpg';
+
+                // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
+                window.wx.updateAppMessageShareData({
+                    title: title, // 分享标题
+                    desc: desc, // 分享描述
+                    link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: imgUrl, // 分享图标
+                    success: function () {
+                        // 设置成功
+                        // console.log('window.wx.updateAppMessageShareData success');
+                    },
+                    fail: function (res) {
+                        // 设置失败
+                        // console.log('window.wx.updateAppMessageShareData fail res=' + res);
+                    }
+                });
+
+                // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容
+                window.wx.updateTimelineShareData({
+                    title: title, // 分享标题
+                    link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: imgUrl, // 分享图标
+                    success: function () {
+                        // 设置成功
+                        // console.log('window.wx.updateTimelineShareData success');
+                    },
+                    fail: function () {
+                        // 设置失败
+                        // console.log('window.wx.updateTimelineShareData fail');
+                    }
+                });
+            });
+
+            window.wx.error(function (res) {
+                /**
+                 * config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，
+                 * 也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
                  */
-                window.wx.config({
-                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                    appId: res.appId, // 必填，公众号的唯一标识
-                    timestamp: res.timestamp, // 必填，生成签名的时间戳
-                    nonceStr: res.nonceStr, // 必填，生成签名的随机串
-                    signature: res.signature,// 必填，签名
-                    jsApiList: [
-                        'updateAppMessageShareData',
-                        'updateTimelineShareData'
-                    ] // 必填，需要使用的JS接口列表
-                });
-
-                window.wx.ready(function () {
-                    /**
-                     * config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，
-                     * config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，
-                     * 则须把相关接口放在ready函数中调用来确保正确执行。
-                     * 对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-                     * */
-                    // console.log('window.wx ready');
-
-                    let title = '弯麦蛋糕 | 今年最新蛋糕图册，送给热爱仪式感的你~';
-                    let desc = '有美味，有颜值，更有内涵，儿童款，女神款，男神款等各种款式等你来挑选哦~';
-                    let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版/image4wechat.jpg';
-
-                    // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
-                    window.wx.updateAppMessageShareData({
-                        title: title, // 分享标题
-                        desc: desc, // 分享描述
-                        link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                        imgUrl: imgUrl, // 分享图标
-                        success: function () {
-                            // 设置成功
-                            // console.log('window.wx.updateAppMessageShareData success');
-                        },
-                        fail: function (res) {
-                            // 设置失败
-                            // console.log('window.wx.updateAppMessageShareData fail res=' + res);
-                        }
-                    });
-
-                    // 自定义“分享到朋友圈”及“分享到QQ空间”按钮的分享内容
-                    window.wx.updateTimelineShareData({
-                        title: title, // 分享标题
-                        link: document.URL, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-                        imgUrl: imgUrl, // 分享图标
-                        success: function () {
-                            // 设置成功
-                            // console.log('window.wx.updateTimelineShareData success');
-                        },
-                        fail: function () {
-                            // 设置失败
-                            // console.log('window.wx.updateTimelineShareData fail');
-                        }
-                    });
-                });
-
-                window.wx.error(function (res) {
-                    /**
-                     * config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，
-                     * 也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-                     */
-                    console.log('window.wx error res = ' + JSON.stringify(res));
-                });
-            }
+                console.log('window.wx error res = ' + JSON.stringify(res));
+            });
         }
     }
 
     render() {
-        const { birthdayCakeCategorys, birthdayCakesRecommend } = this.state;
+        const { birthdayCakeCategorys, birthdayCakesRecommend, debug } = this.state;
 
         return (
             <div>
                 <Title level={5} style={{
                     textAlign: 'center', marginTop: 0,
-                    backgroundColor: '#DAA520',
-                    color: 'white',
-                    paddingTop: 8, paddingBottom: 8
+                    backgroundColor: '#DAA520', color: 'white',
+                    borderRadius: 15, paddingTop: 8, paddingBottom: 8
                 }}>
-                    {`弯麦热销蛋糕（${birthdayCakesRecommend.length}）`}
+                    {debug ? `弯麦热销蛋糕（${birthdayCakesRecommend.length}）` : `弯麦热销蛋糕`}
                 </Title>
                 {
                     birthdayCakesRecommend.map((item) => {
@@ -270,6 +271,7 @@ class birthdayCakeSale extends React.Component {
                 }
 
                 <Collapse
+                    bordered={true}
                     expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
                     expandIconPosition='right'
                     onChange={this.handleCollapseOnChange}>
@@ -278,11 +280,13 @@ class birthdayCakeSale extends React.Component {
                             return (
                                 <Panel header=
                                     {
-                                        (<span style={{ color: 'white', fontSize: 16 }}>
-                                            {`${item.categoryName}（${item.productItems.length}）`}
-                                        </span>)
+                                        (
+                                            <span style={{ color: 'white', fontSize: 16 }}>
+                                                {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
+                                            </span>
+                                        )
                                     }
-                                    style={{ backgroundColor: '#DAA520' }}
+                                    style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
                                     key={item.categoryId}
                                     extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
                                     <Spin spinning={item.spinning}>
@@ -295,9 +299,25 @@ class birthdayCakeSale extends React.Component {
                                                 imageSrc += item1.productName;
                                                 imageSrc += '.jpg';
                                                 return (
-                                                    <div key={item1.key}>
-                                                        <Image src={imageSrc} />
-                                                    </div>
+                                                    <span key={item1.key} >
+                                                        {debug ? (
+                                                            <span>
+                                                                <div style={{ color: 'red', fontSize: 14 }}>{item1.productName}</div>
+                                                                <div style={{ color: 'green', fontSize: 12 }}>{`半年内销售数量：${item1.saleNumber}`}</div>
+                                                                <Image src={imageSrc} onError={(e) => {
+                                                                    /// 图片加载不成功时隐藏
+                                                                    e.target.style.display = 'none';
+                                                                }} />
+                                                            </span>
+                                                        ) : (
+                                                            <span>
+                                                                <Image src={imageSrc} onError={(e) => {
+                                                                    /// 图片加载不成功时隐藏
+                                                                    e.target.style.display = 'none';
+                                                                }} />
+                                                            </span>
+                                                        )}
+                                                    </span>
                                                 )
                                             })
                                         }

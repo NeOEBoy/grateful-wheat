@@ -10,7 +10,7 @@ import {
 
 const { Title } = Typography;
 const { Panel } = Collapse;
-const KBrithdayCakeRoot = '/image/弯麦-生日蛋糕-压缩版';
+const KBrithdayCakeRoot = '/image/弯麦生日蛋糕';
 
 class birthdayCakeSale extends React.Component {
     constructor(props) {
@@ -207,7 +207,7 @@ class birthdayCakeSale extends React.Component {
 
                 let title = '弯麦蛋糕 | 今年最新蛋糕图册，送给热爱仪式感的你~';
                 let desc = '有美味，有颜值，更有内涵，儿童款，女神款，男神款等各种款式等你来挑选哦~';
-                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦-生日蛋糕-压缩版/image4wechat.jpg';
+                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦生日蛋糕/image4wechat.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                 window.wx.updateAppMessageShareData({
@@ -265,7 +265,7 @@ class birthdayCakeSale extends React.Component {
                 </Title>
                 {
                     birthdayCakesRecommend.map((item) => {
-                        let src = "/image/弯麦-生日蛋糕-压缩版/弯麦热销蛋糕/" + item.name + '.jpg';
+                        let src = "/image/弯麦生日蛋糕/弯麦热销蛋糕/" + item.name + '.jpg';
                         return (<Image src={src} key={item.key} />);
                     })
                 }

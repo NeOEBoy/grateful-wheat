@@ -266,7 +266,7 @@ class birthdayCakeSale extends React.Component {
                 {
                     birthdayCakesRecommend.map((item) => {
                         let src = "/image/弯麦生日蛋糕/弯麦热销蛋糕/" + item.name + '.jpg';
-                        return (<Image src={src} key={item.key} />);
+                        return (<Image preview={false} src={src} key={item.key} />);
                     })
                 }
 
@@ -304,14 +304,14 @@ class birthdayCakeSale extends React.Component {
                                                             <span>
                                                                 <div style={{ color: 'red', fontSize: 14 }}>{item1.productName}</div>
                                                                 <div style={{ color: 'green', fontSize: 12 }}>{`半年内销售数量：${item1.saleNumber}`}</div>
-                                                                <Image src={imageSrc} onError={(e) => {
+                                                                <Image preview={false} src={imageSrc} onError={(e) => {
                                                                     /// 图片加载不成功时隐藏
                                                                     e.target.style.display = 'none';
                                                                 }} />
                                                             </span>
                                                         ) : (
                                                             <span>
-                                                                <Image src={imageSrc} onError={(e) => {
+                                                                <Image preview={false} src={imageSrc} onError={(e) => {
                                                                     /// 图片加载不成功时隐藏
                                                                     e.target.style.display = 'none';
                                                                 }} />

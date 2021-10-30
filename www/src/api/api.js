@@ -380,7 +380,7 @@ const loadProductsSale = async (categoryId) => {
 }
 
 const loadBirthdayCakesRecommend = async () => {
-  let loadBirthdayCakesUrl = '/image/弯麦生日蛋糕/弯麦热销蛋糕/0recommend.json';
+  let loadBirthdayCakesUrl = '/image/弯麦生日蛋糕/0-热销蛋糕/0recommend.json';
 
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();

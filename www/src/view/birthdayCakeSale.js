@@ -17,13 +17,13 @@ class birthdayCakeSale extends React.Component {
         super(props);
 
         const KCategorys = [
-            { categoryId: '1634302334442115588', categoryName: '弯麦儿童蛋糕', productItems: [] },
-            { categoryId: '1634302367129657476', categoryName: '弯麦女神蛋糕', productItems: [] },
-            { categoryId: '1634302388959605558', categoryName: '弯麦男神蛋糕', productItems: [] },
-            { categoryId: '1634302403310226908', categoryName: '弯麦家庭蛋糕', productItems: [] },
-            { categoryId: '1634302419875701981', categoryName: '弯麦情侣蛋糕', productItems: [] },
-            { categoryId: '1634302432122635916', categoryName: '弯麦祝寿蛋糕', productItems: [] },
-            { categoryId: '1634302446119593980', categoryName: '弯麦庆典派对蛋糕', productItems: [] },
+            { categoryId: '1634302334442115588', categoryName: '1-儿童蛋糕', productItems: [] },
+            { categoryId: '1634302367129657476', categoryName: '2-女神蛋糕', productItems: [] },
+            { categoryId: '1634302388959605558', categoryName: '3-男神蛋糕', productItems: [] },
+            { categoryId: '1634302403310226908', categoryName: '4-家庭蛋糕', productItems: [] },
+            { categoryId: '1634302419875701981', categoryName: '5-情侣蛋糕', productItems: [] },
+            { categoryId: '1634302432122635916', categoryName: '6-祝寿蛋糕', productItems: [] },
+            { categoryId: '1634302446119593980', categoryName: '7-庆典派对蛋糕', productItems: [] },
         ];
 
         this.state = {
@@ -261,11 +261,11 @@ class birthdayCakeSale extends React.Component {
                     backgroundColor: '#DAA520', color: 'white',
                     borderRadius: 15, paddingTop: 8, paddingBottom: 8
                 }}>
-                    {debug ? `弯麦热销蛋糕（${birthdayCakesRecommend.length}）` : `弯麦热销蛋糕`}
+                    {debug ? `0-热销蛋糕（${birthdayCakesRecommend.length}）` : `0-热销蛋糕`}
                 </Title>
                 {
                     birthdayCakesRecommend.map((item) => {
-                        let src = "/image/弯麦生日蛋糕/弯麦热销蛋糕/" + item.name + '.jpg';
+                        let src = "/image/弯麦生日蛋糕/0-热销蛋糕/" + item.name + '.jpg';
                         return (<Image preview={false} src={src} key={item.key} />);
                     })
                 }

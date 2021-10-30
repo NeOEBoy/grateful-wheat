@@ -892,7 +892,7 @@ const getProductFlowDetail = async (thePOSPALAUTH30220, flowId) => {
       let detailModel = flowDetailResponseJson.model;
       // console.log(detailModel);
       let detailStockFlowItems = detailModel.stockFlowItems;
-      console.log(detailStockFlowItems.length);
+      // console.log(detailStockFlowItems.length);
       detailStockFlowItems.forEach(element => {
         // console.log(element);
         let product = element.product;
@@ -904,6 +904,13 @@ const getProductFlowDetail = async (thePOSPALAUTH30220, flowId) => {
         transferProduct.barcode = product.barcode;
         transferProduct.categoryName = product.categoryName;
         transferProduct.transferNumber = element.updateStock;
+        transferProduct.specification = product.attribute6;
+        transferProduct.sellPrice = product.sellPrice;
+
+        let updateStockUnit = element.updateStockUnit;
+        if (updateStockUnit) {
+          transferProduct.unitName = updateStockUnit.productUnitName;
+        }
 
         productList.push(transferProduct);
       });

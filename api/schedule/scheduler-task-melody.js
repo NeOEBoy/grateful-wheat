@@ -67,10 +67,11 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
         for (let xx = 0; xx < KElemeShops.length; ++xx) {
             let elemeShop = KElemeShops[xx];
             let shopId = elemeShop.shopId;
-            if (shopId === '95839918') continue;
+            if (shopId === '95839918' || shopId === '2043804905') continue;
 
             let shopName = elemeShop.shopName;
             let itemsNeedToOnShelf = [];
+            let itemsNeedToClearStock = [];
             console.log('查询《' + shopName + '》的类别...')
             let shopCategories = await ProductService.getShopCategories(shopId);
             // console.log(shopCategories);
@@ -102,12 +103,34 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
 
                         itemsNeedToOnShelf.push(itemNeedToOnShelf);
                     }
+
+                    let itemSpecIds1 = [];
+                    for (let zz = 0; zz < specs.length; ++zz) {
+                        let spec = specs[zz];
+                        /// 银豹库存为-1时，饿了吗平台会变为9999，这里修正为0
+                        if (spec.stock > 5000) {
+                            itemSpecIds1.push(spec.specId);
+                        }
+                    }
+                    if (itemSpecIds1.length > 0) {
+                        let itemNeedToClearStock = {};
+                        itemNeedToClearStock.itemId = value.id;
+                        itemNeedToClearStock.name = value.name;
+                        itemNeedToClearStock.itemSpecIds = itemSpecIds1;
+
+                        itemsNeedToClearStock.push(itemNeedToClearStock);
+                    }
                 }
             }
             console.log(itemsNeedToOnShelf);
             if (itemsNeedToOnShelf.length > 0) {
-                console.log('上架有库存的商品...')
+                console.log('批量上架有库存的商品...')
                 await ProductService.batchOnShelf(itemsNeedToOnShelf);
+            }
+            console.log(itemsNeedToClearStock);
+            if (itemsNeedToClearStock.length > 0) {
+                console.log('批量修正库存不正的商品...')
+                await ProductService.batchClearStock(itemsNeedToClearStock);
             }
         }
     } catch (error) {

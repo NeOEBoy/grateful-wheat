@@ -433,7 +433,8 @@ class OrderManagement extends React.Component {
 
         let disableSubmitButton =
             currentShop4OrderList.userId === '' ||
-            currentTemplate4OrderList.templateId !== '';
+            currentTemplate4OrderList.templateId !== '' ||
+            alreadyOrderLoading;
 
         /// 订单列表头配置
         const KOrderColumns4Table = [

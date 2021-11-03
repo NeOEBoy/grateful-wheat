@@ -868,6 +868,22 @@ class OrderManagement extends React.Component {
                                 }}>
                                     今天
                                 </Button>
+                                <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                    let yesterdayBegin = moment().month(moment().month() - 1).startOf('month');
+                                    let yesterdayEnd = moment().month(moment().month() - 1).endOf('month');
+                                    // console.log(yesterdayBegin);
+                                    // console.log(yesterdayEnd);
+
+                                    this.setState({
+                                        beginDateTime4FlowList: yesterdayBegin,
+                                        endDateTime4FlowList: yesterdayEnd,
+                                        timePickerOpen4FlowList: false
+                                    }, async () => {
+                                        await this.fetchFlowList();
+                                    });
+                                }}>
+                                    上月
+                                </Button>
                             </span>
                         )}
                     />

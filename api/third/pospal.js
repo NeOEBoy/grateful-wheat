@@ -1764,19 +1764,13 @@ const loadElemeProducts = async (thePOSPALAUTH30220, userId, categoryId, status,
     console.log('loadElemeProductsBody = ' + loadElemeProductsBody);
     loadElemeProductsBody = 'userId=3995767&categoryId=&status=&keyword=';
 
-    loadElemeProductsBody = { 'userId': '4061089', 'categoryId': '', 'status': '', 'keyword': '' };
+    loadElemeProductsBody = { 'userId': '3995767', 'categoryId': '', 'status': '', 'keyword': '' };
     // userId=3995767&categoryId=&status=&keyword=%E6%B0%B4%E6%9E%9C%E8%9B%8B%E7%B3%95
     const loadElemeProductsResponse = await fetch(loadElemeProductsUrl, {
       method: 'POST', body: JSON.stringify(loadElemeProductsBody),
       headers: {
         'Content-Type': 'application/Json',
-        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220,
-        'Origin': 'https://beta33.pospal.cn',
-        'Referer': 'https://beta33.pospal.cn/EShop/takeAwayBinding',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-origin',
-        'Host': 'beta33.pospal.cn'
+        'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
       }
     });
     let loadElemeProductsResponseJson = await loadElemeProductsResponse.json();

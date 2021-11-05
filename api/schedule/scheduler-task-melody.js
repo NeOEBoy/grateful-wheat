@@ -29,21 +29,21 @@ const KElemeShops = [
 const getElemeConfig = () => {
     /// 实例化一个配置对象
     let config;
-    if (KForTest) {
-        /// 沙箱环境
-        config = new eleme.Config({
-            key: 'pAUpCr42Us',
-            secret: '31cb76bb0479adf7f56d6461c2b3209b7e65e5bc',
-            sandbox: true // 是否沙箱环境
-        });
-    } else {
-        /// 正式环境
-        config = new eleme.Config({
-            key: 'ACJC3zxyIp',
-            secret: '71520e2ad5bc23095ad8db91e306083540bfd52f',
-            sandbox: false // 是否沙箱环境
-        });
-    }
+    // if (KForTest) {
+    //     /// 沙箱环境
+    //     config = new eleme.Config({
+    //         key: 'pAUpCr42Us',
+    //         secret: '31cb76bb0479adf7f56d6461c2b3209b7e65e5bc',
+    //         sandbox: true // 是否沙箱环境
+    //     });
+    // } else {
+    /// 正式环境
+    config = new eleme.Config({
+        key: 'ACJC3zxyIp',
+        secret: '71520e2ad5bc23095ad8db91e306083540bfd52f',
+        sandbox: false // 是否沙箱环境
+    });
+    // }
 
     return config;
 };
@@ -146,12 +146,14 @@ const startScheduleMelodyUpdatefoodstatus = async () => {
             await doStartScheduleMelodyUpdatefoodstatus();
             console.log('结束自动上架...');
         } else {
-            // This runs at minute 5 past every 2 hours
+            //在每小时的30分运行定时任务
             let rule = new schedule.RecurrenceRule();
-            // 6点--23点
-            rule.hour = [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-            // 每隔30分钟检查一次
-            rule.minute = [0, 30];
+            rule.hour = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+            /**
+            *如果仅仅设置了hour，定时任务并不会如期望的一样在每小时的0分时运行，而是每分钟都会运行！！！
+            因此，如果你希望在每小时的固定分钟运行，就一定要设置minute！！！
+            */
+            rule.minute = 30;
             schedule.scheduleJob(rule, async () => {
                 console.log('开始自动上架...');
                 await doStartScheduleMelodyUpdatefoodstatus();

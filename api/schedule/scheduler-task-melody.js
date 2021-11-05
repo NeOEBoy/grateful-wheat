@@ -153,7 +153,7 @@ const startScheduleMelodyUpdatefoodstatus = async () => {
             *如果仅仅设置了hour，定时任务并不会如期望的一样在每小时的0分时运行，而是每分钟都会运行！！！
             因此，如果你希望在每小时的固定分钟运行，就一定要设置minute！！！
             */
-            rule.minute = 30;
+            rule.minute = 5;
             schedule.scheduleJob(rule, async () => {
                 console.log('开始自动上架...');
                 await doStartScheduleMelodyUpdatefoodstatus();

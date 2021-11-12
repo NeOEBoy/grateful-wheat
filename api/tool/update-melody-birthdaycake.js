@@ -19,7 +19,7 @@ startUpdate = async () => {
         let oAuthClient = new eleme.OAuthClient(config);
 
         /// 获取token
-        let result = await oAuthClient.getToken()
+        let result = await oAuthClient.getToken();
         resultObj = JSON.parse(result);
         let token = resultObj.access_token;
         /// 实例化远程调用的rpcClient对象
@@ -31,8 +31,7 @@ startUpdate = async () => {
         for (let ii = 0; ii < shopCategories.length; ++ii) {
             let categoryId = shopCategories[ii].id;
             let categoryName = shopCategories[ii].name;
-            if (categoryName !== '弯麦儿童蛋糕'
-                &&
+            if (categoryName !== '弯麦儿童蛋糕' &&
                 categoryName !== '弯麦女神蛋糕' &&
                 categoryName !== '弯麦男神蛋糕' &&
                 categoryName !== '弯麦家庭蛋糕' &&
@@ -51,7 +50,7 @@ startUpdate = async () => {
                 console.log(value.name);
 
                 let item = { ...value };
-                item.description = '新鲜制作，请提前2个小时预定，口感味道佳。';
+                item.description = '新鲜制作，如直接下单请提前1个小时预定，口感味道佳；如需要私人定制，可以联系 13290768588 (教育局店)。';
                 item.materials = [
                     { id: 26010, name: '淡奶油' },
                     { id: 19554, name: '鸡蛋' },

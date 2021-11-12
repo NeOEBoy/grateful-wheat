@@ -114,6 +114,7 @@ class ProductDistributePrinter extends React.Component {
                                     newItemObject.orderProductName = toBeDealItem.orderProductName;
                                     newItemObject.barcode = toBeDealItem.barcode;
                                     newItemObject.barcodeSimple = toBeDealItem.barcodeSimple;
+                                    newItemObject.barcodeMiddle = toBeDealItem.barcodeMiddle;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
                                     newItemObject.sortId = toBeDealItem.sortId;
 
@@ -178,6 +179,7 @@ class ProductDistributePrinter extends React.Component {
                             newItemObject.orderProductName = allDataItems[pos].orderProductName;
                             newItemObject.barcode = allDataItems[pos].barcode;
                             newItemObject.barcodeSimple = allDataItems[pos].barcodeSimple;
+                            newItemObject.barcodeMiddle = allDataItems[pos].barcodeMiddle;
                             newItemObject.sortId = allDataItems[pos].sortId;
                             newItemObject.orderNumber = allDataItems[pos].orderNumber;
                         } else {
@@ -185,7 +187,7 @@ class ProductDistributePrinter extends React.Component {
                             newItemObject.orderProductName = findResultList[j].name;
                             newItemObject.barcode = findResultList[j].barcode;
                             newItemObject.barcodeSimple = findResultList[j].barcodeSimple;
-
+                            newItemObject.barcodeMiddle = findResultList[j].barcodeMiddle;
                             let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + findResultList[j].barcode;
                             let sortInfo = KProductSortIdArray[templateAndBarcode];
                             newItemObject.sortId = sortInfo ? sortInfo : 200;
@@ -409,7 +411,10 @@ class ProductDistributePrinter extends React.Component {
                                                                     let orderNumberBGcolor = productItem.orderNumber > 1000 ? 'red' : 'transparent';
                                                                     return (
                                                                         <tr key={serialNum} style={{ height: 24 }}>
-                                                                            <th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple}</th>
+                                                                            {columnData.orderShop === '001 - 弯麦(教育局店)' ?
+                                                                                (<th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeMiddle}</th>)
+                                                                                :
+                                                                                (<th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple}</th>)}
                                                                             <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
                                                                             <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8, backgroundColor: orderNumberBGcolor }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
                                                                             <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>

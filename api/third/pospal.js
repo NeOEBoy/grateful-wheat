@@ -368,6 +368,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             // console.log(barcode);
             productOrderItem.barcode = barcode;
             productOrderItem.barcodeSimple = barcode.substring(barcode.length - 4, barcode.length);
+            productOrderItem.barcodeMiddle = barcode.substring(barcode.length - 6, barcode.length);
 
             let orderNumber = element.td[orderNumberIndex].span[0]._;
             // console.log(orderNumber);
@@ -428,6 +429,7 @@ const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
         productItem.name = product.name;
         productItem.barcode = product.barcode;
         productItem.barcodeSimple = product.barcode.substring(product.barcode.length - 4, product.barcode.length);
+        productItem.barcodeMiddle = product.barcode.substring(product.barcode.length - 6, product.barcode.length);
         productItem.categoryName = product.categoryName;
 
         list.push(productItem);

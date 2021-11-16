@@ -1458,18 +1458,17 @@ class ProductDistributeInputer extends React.Component {
                                 backgroundColor: 'transparent'
                             }}>
                                 <div>
-                                    <span style={{ fontSize: 30 }}>门店出货单</span>
+                                    <span style={{ fontSize: 14 }}>门店出货单</span>
                                     <span style={{
-                                        marginLeft: 10, fontSize: 20, backgroundColor: 'green',
-                                        paddingLeft: 10, paddingRight: 10, color: 'white'
+                                        marginLeft: 10, fontSize: 14, backgroundColor: 'green',
+                                        paddingLeft: 12, paddingRight: 12, color: 'white'
                                     }}>
                                         {`共${allProductionDataRealToBeTransfer.length}项`}
                                     </span>
                                 </div>
                                 <div>
                                     <span>收货门店：</span>
-                                    <span>{currentShop.name}</span>
-
+                                    <span style={{fontSize: 24, fontWeight:'bold'}}>{currentShop.name}</span>
                                     <span style={{ marginLeft: 100 }}>出单时间：</span>
                                     <span>{currentTimeStr}</span>
                                 </div>

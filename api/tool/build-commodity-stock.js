@@ -28,7 +28,8 @@ const KOutsideCategorys = [
   '弯麦包装',
   '弯麦传统零食',
   '弯麦小零食',
-  '弯麦半成品'
+  '弯麦半成品',
+  '弯麦原材料'
 ];
 
 const makeORString = (column, row, OutsideCategorys) => {

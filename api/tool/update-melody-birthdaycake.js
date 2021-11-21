@@ -1,5 +1,7 @@
 let eleme = require('eleme-openapi-sdk');
 
+let BIRTHDAYCAKE_NAME;
+
 const getElemeConfig = () => {
     /// 实例化一个配置对象
     let config = new eleme.Config({
@@ -47,6 +49,13 @@ startUpdate = async () => {
             for (let jj = 0; jj < keys.length; ++jj) {
                 let key = keys[jj];
                 let value = items[key];
+
+                if (BIRTHDAYCAKE_NAME) {
+                    if (BIRTHDAYCAKE_NAME != value.name) {
+                        continue;
+                    }
+                }
+
                 console.log(value.name);
 
                 let item = { ...value };
@@ -90,10 +99,17 @@ startUpdate = async () => {
                 await ProductService.updateItem(value.id, value.categoryId, item);
             }
         }
-
     } catch (error) {
         console.log(error);
     }
 }
 
-startUpdate();
+const excute = () => {
+    var args = process.argv.splice(2);
+    BIRTHDAYCAKE_NAME = args[0];
+
+    console.log(BIRTHDAYCAKE_NAME);
+    startUpdate();
+}
+
+excute();

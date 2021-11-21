@@ -108,7 +108,7 @@ const excute = () => {
     var args = process.argv.splice(2);
     BIRTHDAYCAKE_NAME = args[0];
 
-    console.log(BIRTHDAYCAKE_NAME);
+    // console.log(BIRTHDAYCAKE_NAME);
     startUpdate();
 }
 

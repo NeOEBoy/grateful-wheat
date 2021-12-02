@@ -59,7 +59,7 @@ startUpdate = async () => {
                 console.log(value.name);
 
                 let item = { ...value };
-                item.description = '新鲜制作，如直接下单请提前1个小时预定，口感味道佳；如需要私人定制，可以联系 13290768588 (教育局店)。';
+                item.description = '新鲜制作，如直接下单请提前1个小时预定，口感味道佳；如需要私人定制，可以联系13290768588(教育局店)。';
                 item.materials = [
                     { id: 26010, name: '淡奶油' },
                     { id: 19554, name: '鸡蛋' },

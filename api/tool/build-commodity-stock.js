@@ -668,7 +668,10 @@ const makeExcelInfo1Data = async (worksheet, thePOSPALAUTH30220, lastRow) => {
     let nameItem = {};
     nameItem.column = 'C';
     nameItem.value = totalNumberInfo.name;
-    if (totalNumberInfo.price && totalNumberInfo.memberPrice &&
+    if (totalNumberInfo.price &&
+      totalNumberInfo.price !== '-' &&
+      totalNumberInfo.memberPrice &&
+      totalNumberInfo.memberPrice !== '-' &&
       totalNumberInfo.price !== totalNumberInfo.memberPrice) {
       nameItem.fillColor = 'FF92D050';
     }
@@ -1844,13 +1847,16 @@ const getProductInfo = async (thePOSPALAUTH30220, code) => {
         let productPrice = rightTbodyTRItem.td[productPriceIndex]._;
         productPrice = productPrice.trim();
         productPrice = parseFloat(productPrice);
-
         // console.log(productPrice);
+
         let productMemberPrice = rightTbodyTRItem.td[productMemberPriceIndex]._;
         productMemberPrice = productMemberPrice.trim();
-        productMemberPrice = parseFloat(productMemberPrice);
 
+        if (productMemberPrice !== '-') {
+          productMemberPrice = parseFloat(productMemberPrice);
+        }
         // console.log(productMemberPrice);
+
         let productWholePrice = rightTbodyTRItem.td[productWholePriceIndex]._;
         productWholePrice = productWholePrice.trim();
         productWholePrice = parseFloat(productWholePrice);

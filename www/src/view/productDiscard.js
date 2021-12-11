@@ -1,3 +1,7 @@
+/*
+产品报损表
+*/
+
 import React from 'react';
 import {
   List,

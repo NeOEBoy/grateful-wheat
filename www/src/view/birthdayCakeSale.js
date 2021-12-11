@@ -1,4 +1,13 @@
+/*
+蛋糕图册链接
+http://gratefulwheat.ruyue.xyz/birthdayCakeSale?debug=1
+debug
+1 调试版
+0 正式版
+*/
+
 import React from 'react';
+import moment from 'moment';
 
 import { RightSquareFilled } from '@ant-design/icons';
 import { Collapse, Image, Spin, Typography } from 'antd';
@@ -99,7 +108,15 @@ class birthdayCakeSale extends React.Component {
                         !birthdayCakeCategoryToAdd.spinning) {
                         birthdayCakeCategoryToAdd.spinning = true;
 
-                        let loadResult = await loadProductsSale(categoryId);
+                        /// 提取半年之前的数据
+                        let nowMoment = moment();
+                        let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
+                        let beginDateTimeStr = nowMoment.subtract(180, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
+
+                        // console.log(beginDateTimeStr);
+                        // console.log(endDateTimeStr);
+
+                        let loadResult = await loadProductsSale(categoryId, '', '', beginDateTimeStr, endDateTimeStr);
                         // console.log(loadResult);
 
                         if (loadResult.errCode === 0 && loadResult.list.length > 0) {

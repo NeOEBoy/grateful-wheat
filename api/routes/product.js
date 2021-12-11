@@ -315,6 +315,10 @@ router.get('/loadElemeProducts', async function (req, res, next) {
 router.get('/loadProductsSale', async function (req, res, next) {
   try {
     let categoryId = req.query.categoryId;
+    let userId = req.query.userId;
+    let isSellWell = req.query.isSellWell;
+    let beginDateTime = req.query.beginDateTime;
+    let endDateTime = req.query.endDateTime;
 
     if (!categoryId) {
       next(createError(500));
@@ -324,7 +328,11 @@ router.get('/loadProductsSale', async function (req, res, next) {
     let thePOSPALAUTH30220 = await signIn();
     let loadProductsSaleResponseJson = await loadProductsSale(
       thePOSPALAUTH30220,
-      categoryId);
+      categoryId,
+      userId,
+      isSellWell,
+      beginDateTime,
+      endDateTime);
     res.send(loadProductsSaleResponseJson);
   } catch (err) {
     next(err)

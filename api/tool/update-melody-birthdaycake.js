@@ -1,3 +1,7 @@
+/*
+饿了吗外卖平台自动更新生日蛋糕属性
+*/
+
 let eleme = require('eleme-openapi-sdk');
 
 let BIRTHDAYCAKE_NAME;

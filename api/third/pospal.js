@@ -1785,40 +1785,49 @@ const loadElemeProducts = async (thePOSPALAUTH30220, userId, categoryId, status,
   }
 }
 
-const loadProductsSale = async (thePOSPALAUTH30220, categoryId) => {
+const loadProductsSale = async (
+  thePOSPALAUTH30220,
+  categoryId,
+  userId,
+  isSellWell,
+  beginDateTime,
+  endDateTime) => {
   try {
     // console.log(categoryId);
 
     let loadProductsSaleUrl = 'https://beta33.pospal.cn/ReportV2/LoadProductSaleByPage';
 
-    /// 提取半年之前的数据
-    let nowMoment = moment();
-    let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
-    let beginDateTimeStr = nowMoment.subtract(180, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
+    // console.log(beginDateTime);
+    // console.log(endDateTime);
+    // console.log(userId);
 
-    // console.log(endDateTimeStr);
-    // console.log(beginDateTimeStr);
+    let productSaleBody = '';
+    productSaleBody += 'keyword=';
+    if (userId) {
+      productSaleBody += '&userIds%5B%5D=' + userId;
+    }
+    productSaleBody += '&isSellWell=';
+    productSaleBody += isSellWell;
+    productSaleBody += '&beginDateTime=';
+    productSaleBody += beginDateTime;
+    productSaleBody += '&endDateTime=';
+    productSaleBody += endDateTime;
+    productSaleBody += '&productbrand=';
+    productSaleBody += '&supplierUid=';
+    productSaleBody += '&productTagUidsJson=';
+    productSaleBody += '&categorysJson=';
+    productSaleBody += '%5B' + categoryId + '%5D';
+    productSaleBody += '&isCustomer=';
+    productSaleBody += '&isNewly=';
+    productSaleBody += '&pageIndex=1';
+    productSaleBody += '&pageSize=1000';
+    productSaleBody += '&orderColumn=barcode';
+    productSaleBody += '&asc=true';
 
-    let loadProductsSaleBody = {
-      'keyword': '',
-      'isSellWell': '',
-      'beginDateTime': beginDateTimeStr,
-      'endDateTime': endDateTimeStr,
-      'productbrand': '',
-      'supplierUid': '',
-      'productTagUidsJson': '',
-      'categorysJson': '["' + categoryId + '"]',
-      'isCustomer': '',
-      'isNewly': '',
-      'pageIndex': '1',
-      'pageSize': '1000',
-      'orderColumn': 'barcode',
-      'asc': 'true'
-    };
     const loadProductsSaleResponse = await fetch(loadProductsSaleUrl, {
-      method: 'POST', body: JSON.stringify(loadProductsSaleBody),
+      method: 'POST', body: productSaleBody,
       headers: {
-        'Content-Type': 'application/Json',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'Cookie': '.POSPALAUTH30220=' + thePOSPALAUTH30220
       }
     });

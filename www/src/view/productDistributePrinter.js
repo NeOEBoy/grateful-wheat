@@ -1,3 +1,6 @@
+/*
+打印配货单
+*/
 
 import React from 'react';
 import {

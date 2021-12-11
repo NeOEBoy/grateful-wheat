@@ -1,3 +1,7 @@
+/*
+商品销售表
+*/
+
 import React from 'react';
 import {
   List,

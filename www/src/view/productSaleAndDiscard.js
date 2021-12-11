@@ -1,3 +1,6 @@
+/*
+商品报损率
+*/
 
 import React from 'react';
 import {

@@ -7,12 +7,13 @@
 import React from 'react';
 import moment from 'moment';
 import { RightSquareFilled } from '@ant-design/icons';
-import { Collapse, Spin, List } from 'antd';
+import { Collapse, Spin, List, Image } from 'antd';
 import {
     loadProductsSale
 } from '../api/api';
 // const { Title } = Typography;
 const { Panel } = Collapse;
+const KImageRoot = '/image';
 
 class ProductMenu extends React.Component {
     constructor(props) {
@@ -167,13 +168,27 @@ class ProductMenu extends React.Component {
                                         <List
                                             grid={{ gutter: 2, column: 3 }}
                                             dataSource={item.productItems}
-                                            renderItem={item => (
-                                                <List.Item>
-                                                    <div>
-                                                        <span>{item.productName}</span>
-                                                    </div>
-                                                </List.Item>
-                                            )}
+                                            renderItem={item1 => {
+                                                let imageSrc = KImageRoot;
+                                                imageSrc += '/';
+                                                imageSrc += item.categoryName;
+                                                imageSrc += '/';
+                                                imageSrc += item1.productName;
+                                                imageSrc += '.jpg';
+
+                                                // console.log(imageSrc);
+                                                return (
+                                                    <List.Item>
+                                                        <div>
+                                                            <Image preview={true} src={imageSrc} onError={(e) => {
+                                                                /// 图片加载不成功时隐藏
+                                                                // e.target.style.display = 'none';
+                                                            }} />
+                                                            <div>{item1.productName}</div>
+                                                        </div>
+                                                    </List.Item>
+                                                );
+                                            }}
                                         />
                                     </Spin>
                                 </Panel>

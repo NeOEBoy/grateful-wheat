@@ -93,7 +93,7 @@ class ProductMenu extends React.Component {
                         /// 提取7天之前的数据
                         let nowMoment = moment();
                         let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
-                        let beginDateTimeStr = nowMoment.subtract(7, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
+                        let beginDateTimeStr = nowMoment.subtract(3, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
 
                         // console.log(beginDateTimeStr);
                         // console.log(endDateTimeStr);
@@ -184,7 +184,15 @@ class ProductMenu extends React.Component {
                                                                 /// 图片加载不成功时隐藏
                                                                 // e.target.style.display = 'none';
                                                             }} />
-                                                            <div>{item1.productName}</div>
+                                                            <div style={{
+                                                                height: 40, fontSize: 10,
+                                                                color: 'white',
+                                                                paddingLeft: 4,
+                                                                paddingRight: 4,
+                                                                backgroundColor: 'darkgoldenrod'
+                                                            }}>
+                                                                {item1.productName}
+                                                            </div>
                                                         </div>
                                                     </List.Item>
                                                 );

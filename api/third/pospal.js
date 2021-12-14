@@ -1848,17 +1848,31 @@ const loadProductsSale = async (
         if (result) {
           let productNameIndex = -1;
           let saleNumberIndex = -1;
+          let specificationIndex = -1;
+          let totalPriceIndex = -1;
+          let unitIndex = -1;
 
           let productListDataTh = result.root.thead[0].tr[0].th;
           // console.log(productListDataTh);
           for (let index = 0; index < productListDataTh.length; ++index) {
             let titleName = productListDataTh[index]._;
+            if (!titleName) {
+              titleName = productListDataTh[index].toString();
+            }
             // console.log(titleName);
+
             if (!titleName) {
               continue;
             }
 
-            titleName = titleName.replace(/\r\n/g, "").trim();
+            if (titleName) {
+              titleName = titleName.replace(/\r\n/g, "");
+              if (titleName) {
+                titleName = titleName.trim();
+              }
+            }
+
+            // console.log(titleName);
             if (titleName === '商品名称') {
               productNameIndex = index;
               continue;
@@ -1867,10 +1881,25 @@ const loadProductsSale = async (
               saleNumberIndex = index;
               continue;
             }
+            if (titleName === '规格') {
+              specificationIndex = index;
+              continue;
+            }
+            if (titleName === '商品总售价') {
+              totalPriceIndex = index;
+              continue;
+            }
+            if (titleName === '单位') {
+              unitIndex = index;
+              continue;
+            }
           }
 
           // console.log(productNameIndex);
           // console.log(saleNumberIndex);
+          // console.log(specificationIndex);
+          // console.log(totalPriceIndex);
+          // console.log(unitIndex);
 
           let productListDataTbody = result.root.tbody[0].tr;
           for (let index = 0; index < productListDataTbody.length; ++index) {
@@ -1885,10 +1914,38 @@ const loadProductsSale = async (
             // console.log(productName);
             productItem.productName = productName;
 
-            /// 商品名字
+            /// 商品销售数量
             let saleNumber = element.td[saleNumberIndex].span[0]._;
             // console.log(saleNumber);
-            productItem.saleNumber = parseFloat(saleNumber);
+            saleNumber = parseFloat(saleNumber);
+            productItem.saleNumber = saleNumber;
+
+            /// 商品规格
+            // console.log(element.td[specificationIndex]);
+            let specification = element.td[specificationIndex];
+            productItem.specification = specification;
+
+            /// 商品总售价
+            // console.log(element.td[totalPriceIndex]._);
+            let totalPrice = element.td[totalPriceIndex]._;
+            totalPrice = parseFloat(totalPrice);
+            // console.log(totalPrice);
+
+            let price = totalPrice / saleNumber;
+            // console.log(price);
+
+            let a = 1; let e = 2;
+            for (; e > 0; a *= 10, e--);
+            for (; e < 0; a /= 10, e++);
+            price = Math.round(price * a) / a;
+
+            // console.log(price);
+            productItem.price = price;
+
+            /// 商品单位
+            // console.log(element.td[unitIndex]);
+            let unit = element.td[unitIndex];
+            productItem.unit = unit;
 
             productList.push(productItem);
           }

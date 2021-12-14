@@ -166,7 +166,7 @@ class ProductMenu extends React.Component {
                                     extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
                                     <Spin spinning={item.spinning}>
                                         <List
-                                            grid={{ gutter: 2, column: 3 }}
+                                            grid={{ gutter: 2, column: 2 }}
                                             dataSource={item.productItems}
                                             renderItem={item1 => {
                                                 let imageSrc = KImageRoot;
@@ -185,13 +185,39 @@ class ProductMenu extends React.Component {
                                                                 // e.target.style.display = 'none';
                                                             }} />
                                                             <div style={{
-                                                                height: 40, fontSize: 10,
-                                                                color: 'white',
                                                                 paddingLeft: 4,
                                                                 paddingRight: 4,
-                                                                backgroundColor: 'darkgoldenrod'
+                                                                backgroundColor: 'darkgoldenrod',
                                                             }}>
-                                                                {item1.productName}
+                                                                <div style={{
+                                                                    fontSize: 12,
+                                                                    color: 'white'
+                                                                }}>
+                                                                    {item1.productName}
+                                                                </div>
+                                                                <div style={{
+                                                                    fontSize: 8,
+                                                                    color: 'yellow'
+                                                                }}>
+                                                                    {item1.specification}
+                                                                </div>
+                                                                <div style={{
+                                                                    fontSize: 14,
+                                                                    color: 'red'
+                                                                }}>
+                                                                    <span>
+                                                                        ¥
+                                                                    </span>
+                                                                    <span>
+                                                                        {item1.price}
+                                                                    </span>
+                                                                    <span>
+                                                                        /
+                                                                    </span>
+                                                                    <span>
+                                                                        {item1.unit}
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </List.Item>

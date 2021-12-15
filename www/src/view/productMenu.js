@@ -28,6 +28,7 @@ class ProductMenu extends React.Component {
             { categoryId: '1593059349213583584', categoryName: '干点饼干', productItems: [] },
             { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
             { categoryId: '1611200031064132560', categoryName: '小零食', productItems: [] },
+            { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
         ];
 
         this.state = {

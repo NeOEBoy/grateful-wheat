@@ -188,8 +188,8 @@ class ProductMenu extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '弯麦美食菜单图册~';
-                let desc = '有现烤面包，西点慕斯，吐司餐包，小蛋糕，小零食，牛奶等各种美食哦~';
+                let title = '弯麦美食菜单';
+                let desc = '有现烤面包，西点慕斯，吐司餐包，小蛋糕，小零食，牛奶等各种美食哦';
                 let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/现烤面包/鸡排三明治.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容

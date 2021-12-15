@@ -154,9 +154,9 @@ class ProductMenu extends React.Component {
         return (
             <div>
                 <Title level={5} style={{
-                    textAlign: 'center', marginTop: 0, color: 'black', paddingTop: 4, paddingBottom: 0
+                    textAlign: 'center', marginTop: 4, color: 'black', paddingTop: 4, paddingBottom: 0
                 }}>
-                    弯麦烘焙-微信菜单
+                    微信菜单
                 </Title>
                 <Collapse
                     bordered={true}

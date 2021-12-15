@@ -6,12 +6,12 @@
 
 import React from 'react';
 import moment from 'moment';
-import { RightSquareFilled } from '@ant-design/icons';
-import { Collapse, Spin, List, Image } from 'antd';
+import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Collapse, Spin, List, Image, Button, Typography } from 'antd';
 import {
     loadProductsSale
 } from '../api/api';
-// const { Title } = Typography;
+const { Title } = Typography;
 const { Panel } = Collapse;
 const KImageRoot = '/image';
 
@@ -102,13 +102,21 @@ class ProductMenu extends React.Component {
                         let loadResult = await loadProductsSale(categoryId, '3995767', '1', beginDateTimeStr, endDateTimeStr);
                         // console.log(loadResult);
 
-                        if (loadResult.errCode === 0 && loadResult.list.length > 0) {
+                        if (loadResult.errCode === 0 &&
+                            loadResult.list.length > 0) {
                             let list = loadResult.list;
-                            list = list.sort((a, b) => {
+                            let newList = [];
+                            for (let i = 0; i < list.length; ++i) {
+                                let item = { ...list[i] };
+                                item.buyNumber = 0;
+                                newList.push(item);
+                            }
+
+                            newList = newList.sort((a, b) => {
                                 return b.saleNumber - a.saleNumber;
                             })
 
-                            birthdayCakeCategoryToAdd.productItems = list;
+                            birthdayCakeCategoryToAdd.productItems = newList;
                             birthdayCakeCategoryToAdd.spinning = false;
                         }
 
@@ -145,6 +153,11 @@ class ProductMenu extends React.Component {
 
         return (
             <div>
+                <Title level={5} style={{
+                    textAlign: 'center', marginTop: 0, color: 'black', paddingTop: 4, paddingBottom: 0
+                }}>
+                    弯麦烘焙-微信菜单
+                </Title>
                 <Collapse
                     bordered={true}
                     expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
@@ -177,6 +190,8 @@ class ProductMenu extends React.Component {
                                                 imageSrc += '.jpg';
 
                                                 // console.log(imageSrc);
+
+                                                let disableButton = item1.buyNumber <= 0;
                                                 return (
                                                     <List.Item>
                                                         <div>
@@ -187,23 +202,23 @@ class ProductMenu extends React.Component {
                                                             <div style={{
                                                                 paddingLeft: 4,
                                                                 paddingRight: 4,
-                                                                backgroundColor: 'darkgoldenrod',
+                                                                backgroundColor: 'transparent',
                                                             }}>
                                                                 <div style={{
-                                                                    fontSize: 12,
-                                                                    color: 'white'
+                                                                    fontSize: 14,
+                                                                    color: 'black'
                                                                 }}>
                                                                     {item1.productName}
                                                                 </div>
                                                                 <div style={{
                                                                     fontSize: 8,
-                                                                    color: 'yellow'
+                                                                    color: 'gray'
                                                                 }}>
                                                                     {item1.specification}
                                                                 </div>
                                                                 <div style={{
                                                                     fontSize: 14,
-                                                                    color: 'red'
+                                                                    color: 'black'
                                                                 }}>
                                                                     <span>
                                                                         ¥
@@ -216,6 +231,40 @@ class ProductMenu extends React.Component {
                                                                     </span>
                                                                     <span>
                                                                         {item1.unit}
+                                                                    </span>
+
+                                                                    <span style={{ float: 'right', backgroundColor: 'transparent' }}>
+                                                                        {
+                                                                            disableButton ? (<span></span>) :
+                                                                                (
+                                                                                    <span>
+                                                                                        <Button danger size='small' shape='circle' icon={<MinusOutlined />}
+                                                                                            onClick={() => {
+                                                                                                item1.buyNumber = item1.buyNumber - 1;
+                                                                                                this.forceUpdate();
+                                                                                            }} />
+                                                                                    </span>
+                                                                                )
+                                                                        }
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        {
+                                                                            disableButton ? (<span></span>) :
+                                                                                (
+                                                                                    <span>
+                                                                                        {item1.buyNumber}
+                                                                                    </span>
+                                                                                )
+                                                                        }
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        <span>
+                                                                            <Button disabled danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                                onClick={() => {
+                                                                                    item1.buyNumber = item1.buyNumber + 1;
+                                                                                    this.forceUpdate();
+                                                                                }} />
+                                                                        </span>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -230,6 +279,8 @@ class ProductMenu extends React.Component {
                         })
                     }
                 </Collapse>
+                <div style={{ height: 50 }}></div>
+                <div style={{ height: 50, position: 'fixed', backgroundColor: 'transparent', width: '100%', bottom: 0 }}></div>
             </div>
         );
     }

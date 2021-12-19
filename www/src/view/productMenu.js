@@ -637,6 +637,7 @@ class ProductMenu extends React.Component {
 
                                         this._inputRef.select();
                                         document.execCommand('Copy');
+                                        this._inputRef.blur();
 
                                         message.info('已经复制，请返回微信去粘贴并发送给教育局店客服', 10);
                                     }}>复制上述文本</Button>

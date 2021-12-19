@@ -7,11 +7,12 @@
 import React from 'react';
 import moment from 'moment';
 import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Collapse, Spin, List, Image, Button, Typography } from 'antd';
+import { Collapse, Spin, List, Image, Button, Typography, message } from 'antd';
 import {
     loadProductsSale,
     wechatSign
 } from '../api/api';
+
 const { Title } = Typography;
 const { Panel } = Collapse;
 const KImageRoot = '/image';
@@ -33,10 +34,19 @@ class ProductMenu extends React.Component {
         ];
 
         this.state = {
-            birthdayCakeCategorys: KCategorys
+            birthdayCakeCategorys: KCategorys,
+            orderList: [],
+            orderListShow: false,
+            orderListTotalPrice: 0,
+            orderListTotalCount: 0,
+            goOrderViewShow: false,
+            orderText: ''
         };
 
         this._lastKeys = [];
+        this._orderTextArea = undefined;
+        this._inputRef = null;
+
     }
 
     async componentDidMount() {
@@ -234,8 +244,126 @@ class ProductMenu extends React.Component {
         }
     }
 
+    handleIncreaseItemToCart = (item, categoryName) => {
+        item.buyNumber = item.buyNumber + 1;
+        this.forceUpdate();
+
+        // console.log(item)
+        if (item.buyNumber >= 1) {
+            const { orderList } = this.state;
+
+            let newOrderList = [...orderList];
+            let existItem;
+            for (let i = 0; i < newOrderList.length; ++i) {
+                if (newOrderList[i].barcode === item.barcode) {
+                    existItem = newOrderList[i];
+                    break;
+                }
+            }
+
+            if (!existItem) {
+                let imageSrc = KImageRoot;
+                imageSrc += '/';
+                imageSrc += categoryName;
+                imageSrc += '/';
+                imageSrc += item.productName;
+                imageSrc += '.jpg';
+                item.imageUrl = imageSrc;
+                newOrderList.push(item);
+            }
+
+            this.setState({ orderList: newOrderList });
+        }
+
+
+        setTimeout(() => {
+            const { orderList } = this.state;
+            let totalPrice = 0;
+            let totalCount = 0;
+            for (let i = 0; i < orderList.length; ++i) {
+                let item = orderList[i];
+                let tp = item.price * item.buyNumber;
+
+                tp = this.fixTo2(tp);
+                totalPrice += tp;
+
+                totalCount += item.buyNumber;
+            }
+
+            totalPrice = this.fixTo2(totalPrice);
+            this.setState({ orderListTotalPrice: totalPrice, orderListTotalCount: totalCount });
+        }, 0);
+    }
+
+    handleDecreaseItemFromCart = (item) => {
+        item.buyNumber = item.buyNumber - 1;
+        this.forceUpdate();
+
+        // console.log(item)
+        if (item.buyNumber <= 0) {
+            const { orderList } = this.state;
+
+            let newOrderList = [...orderList];
+            let existItem;
+            for (let i = 0; i < newOrderList.length; ++i) {
+                if (newOrderList[i].barcode === item.barcode) {
+                    existItem = newOrderList[i];
+                    break;
+                }
+            }
+
+            if (existItem) {
+                newOrderList.splice(newOrderList.indexOf(existItem), 1);
+            }
+
+            this.setState({ orderList: newOrderList });
+        }
+
+        setTimeout(() => {
+            const { orderList } = this.state;
+            let totalPrice = 0;
+            let totalCount = 0;
+            for (let i = 0; i < orderList.length; ++i) {
+                let item = orderList[i];
+                let tp = item.price * item.buyNumber;
+
+                tp = this.fixTo2(tp);
+                totalPrice += tp;
+
+                totalCount += item.buyNumber;
+            }
+
+            totalPrice = this.fixTo2(totalPrice);
+            this.setState({ orderListTotalPrice: totalPrice, orderListTotalCount: totalCount });
+        }, 0);
+    }
+
+    fixTo2 = (num) => {
+        let a = 1; let e = 2;
+        for (; e > 0; a *= 10, e--);
+        for (; e < 0; a /= 10, e++);
+        let newNum = Math.round(num * a) / a;
+        return newNum;
+    }
+
     render() {
-        const { birthdayCakeCategorys } = this.state;
+        const {
+            birthdayCakeCategorys,
+            orderList,
+            orderListShow,
+            orderListTotalPrice,
+            orderListTotalCount,
+            goOrderViewShow,
+            orderText } = this.state;
+
+        let disableOrderButton = false;
+        let orderButtonText = '去预定';
+        if (orderListTotalPrice < 15) {
+            disableOrderButton = false;
+            let differ = 15 - orderListTotalPrice;
+            differ = this.fixTo2(differ);
+            orderButtonText = '差¥' + differ + '起送';
+        }
 
         return (
             <div>
@@ -324,11 +452,8 @@ class ProductMenu extends React.Component {
                                                                             disableButton ? (<span></span>) :
                                                                                 (
                                                                                     <span>
-                                                                                        <Button danger size='small' shape='circle' icon={<MinusOutlined />}
-                                                                                            onClick={() => {
-                                                                                                item1.buyNumber = item1.buyNumber - 1;
-                                                                                                this.forceUpdate();
-                                                                                            }} />
+                                                                                        <Button size='small' shape='circle' icon={<MinusOutlined />}
+                                                                                            onClick={() => { this.handleDecreaseItemFromCart(item1) }} />
                                                                                     </span>
                                                                                 )
                                                                         }
@@ -345,11 +470,8 @@ class ProductMenu extends React.Component {
                                                                         &nbsp;
                                                                         &nbsp;
                                                                         <span>
-                                                                            <Button disabled danger size='small' shape='circle' icon={<PlusOutlined />}
-                                                                                onClick={() => {
-                                                                                    item1.buyNumber = item1.buyNumber + 1;
-                                                                                    this.forceUpdate();
-                                                                                }} />
+                                                                            <Button danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                                onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
                                                                         </span>
                                                                     </span>
                                                                 </div>
@@ -365,8 +487,164 @@ class ProductMenu extends React.Component {
                         })
                     }
                 </Collapse>
-                <div style={{ height: 50 }}></div>
-                <div style={{ height: 50, position: 'fixed', backgroundColor: 'transparent', width: '100%', bottom: 0 }}></div>
+                <div style={{ height: 60 }}></div>
+                <div style={{ height: 60, position: 'fixed', backgroundColor: 'white', width: '100%', bottom: 0 }}>
+                    <div style={{ float: 'left', marginTop: 4, marginLeft: 8, width: 50, height: 50 }} onClick={() => {
+                        this.setState({ orderListShow: !this.state.orderListShow })
+                    }}>
+                        <Image style={{ width: 50, height: 50 }} preview={false} src={require('../image/shoppingCart.png')} />
+                    </div>
+                    <div style={{
+                        float: 'left', width: 20, height: 16,
+                        backgroundColor: 'red', color: 'white',
+                        fontSize: 8, textAlign: 'center', borderRadius: 6
+                    }}>{orderListTotalCount}</div>
+                    <div style={{ float: 'left', marginLeft: 20, marginTop: 15, fontSize: 20, fontWeight: 'bold' }}>
+                        <span style={{ fontSize: 4 }}>¥ </span>
+                        <span style={{ fontSize: 24 }}>{orderListTotalPrice}</span>
+                    </div>
+
+                    <div style={{ float: 'right', marginRight: 10, marginTop: 10 }}>
+                        <Button disabled={disableOrderButton} type='primary'
+                            shape='round' style={{ width: 120, height: 40 }} onClick={() => {
+                                let newOrderText = '';
+
+                                for (let i = 0; i < orderList.length; ++i) {
+                                    let item = orderList[i];
+                                    newOrderText += item.productName;
+                                    newOrderText += '-';
+                                    newOrderText += item.specification;
+                                    newOrderText += '  ';
+                                    newOrderText += 'x';
+                                    newOrderText += '  ';
+                                    newOrderText += item.buyNumber;
+                                    newOrderText += '\n';
+                                }
+
+                                this.setState({ goOrderViewShow: true, orderText: newOrderText });
+                            }}>
+                            {orderButtonText}
+                        </Button>
+                    </div>
+                </div>
+
+                {
+                    orderListShow ? (
+                        <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.5)', bottom: 60 }} >
+                            <div style={{ maxHeight: '65%', overflow: 'scroll', width: '100%', position: 'absolute', backgroundColor: 'white', bottom: 0 }}>
+                                <div style={{ marginLeft: 8, marginTop: 6 }}>
+                                    <span style={{ fontSize: 8, color: 'black' }}>已选商品</span>
+                                    <Button size='small' style={{ float: 'right', right: 4 }} onClick={() => {
+                                        this.setState({ orderListShow: false })
+                                    }}>收起</Button>
+                                </div>
+                                <List
+                                    itemLayout='vertical'
+                                    dataSource={orderList}
+                                    renderItem={item => {
+                                        // console.log(imageSrc);
+                                        let totalPrice = item.price * item.buyNumber;
+
+                                        totalPrice = this.fixTo2(totalPrice)
+
+                                        return (
+                                            <div>
+                                                <div style={{ margin: 10, height: 70, backgroundColor: 'white' }}>
+                                                    <div style={{ float: 'left', width: 70, height: 70 }}>
+                                                        <Image style={{ width: 70, height: 70 }}
+                                                            preview={false} src={item.imageUrl} />
+                                                    </div>
+
+                                                    <div style={{ float: 'left', marginLeft: 10, marginTop: 4 }}>
+                                                        <div style={{ fontSize: 12 }}>{item.productName}</div>
+                                                        <div style={{ fontSize: 8 }}>{item.specification}</div>
+
+                                                        <div style={{ marginTop: 4 }}>
+                                                            <span style={{ fontSize: 4 }}>¥ </span>
+                                                            <span style={{ fontSize: 12 }}>{totalPrice}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <span style={{ float: 'right', marginTop: 25, backgroundColor: 'transparent' }}>
+                                                        {
+                                                            (
+                                                                <span>
+                                                                    <Button size='small' shape='circle' icon={<MinusOutlined />}
+                                                                        onClick={() => { this.handleDecreaseItemFromCart(item) }} />
+                                                                </span>
+                                                            )
+                                                        }
+                                                        &nbsp;
+                                                        &nbsp;
+                                                        {
+                                                            (
+                                                                <span>
+                                                                    {item.buyNumber}
+                                                                </span>
+                                                            )
+                                                        }
+                                                        &nbsp;
+                                                        &nbsp;
+                                                        <span>
+                                                            <Button danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                onClick={() => { this.handleIncreaseItemToCart(item) }} />
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        );
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    ) : (<div></div>)
+                }
+
+                {
+                    goOrderViewShow ? (
+                        <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.95)', top: 0 }}>
+                            <div style={{ width: '100%' }}>
+                                <textarea onChange={(t) => {
+                                    this.setState({ orderText: t.value });
+                                }} ref={(node) => {
+                                    this._inputRef = node;
+                                }} value={orderText} style={{ height: 240, width: '90%', marginTop: 80, marginLeft: '5%', marginRight: '5%' }}>
+                                </textarea>
+                            </div>
+
+                            <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%', marginTop: 20 }}>
+                                1：点击上方文本框，可以修改订单文本。
+                            </div>
+
+                            <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
+                                2：点击下方《取消》按钮，会关闭当前页面。
+                            </div>
+
+                            <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
+                                3：点击下方《复制上述文本》按钮，会复制上述订单文本，复制完毕后，请返回微信去粘贴订单文本并发送给教育局店微信预定。
+                            </div>
+
+                            <div style={{ marginLeft: '5%', width: '100%', marginTop: 20 }}>
+                                <span>
+                                    <Button danger onClick={() => {
+                                        this.setState({ goOrderViewShow: false });
+                                    }}>取消</Button>
+                                </span>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>
+                                    <Button type='primary' size='large' onClick={() => {
+                                        // console.log(this._inputRef);
+
+                                        this._inputRef.select();
+                                        document.execCommand('Copy');
+
+                                        message.info('已经复制，请返回微信去粘贴并发送给教育局店客服', 10);
+                                    }}>复制上述文本</Button>
+                                </span>
+                            </div>
+                        </div>
+                    ) : (<div></div>)
+                }
             </div>
         );
     }

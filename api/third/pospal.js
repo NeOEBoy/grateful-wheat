@@ -1851,6 +1851,7 @@ const loadProductsSale = async (
           let specificationIndex = -1;
           let totalPriceIndex = -1;
           let unitIndex = -1;
+          let barcodeIndex = -1;
 
           let productListDataTh = result.root.thead[0].tr[0].th;
           // console.log(productListDataTh);
@@ -1893,6 +1894,10 @@ const loadProductsSale = async (
               unitIndex = index;
               continue;
             }
+            if (titleName === '商品条码') {
+              barcodeIndex = index;
+              continue;
+            }
           }
 
           // console.log(productNameIndex);
@@ -1900,6 +1905,7 @@ const loadProductsSale = async (
           // console.log(specificationIndex);
           // console.log(totalPriceIndex);
           // console.log(unitIndex);
+          // console.log(barcodeIndex);
 
           let productListDataTbody = result.root.tbody[0].tr;
           for (let index = 0; index < productListDataTbody.length; ++index) {
@@ -1946,6 +1952,11 @@ const loadProductsSale = async (
             // console.log(element.td[unitIndex]);
             let unit = element.td[unitIndex];
             productItem.unit = unit;
+
+            /// 商品规格
+            // console.log(element.td[barcodeIndex]);
+            let barcode = element.td[barcodeIndex];
+            productItem.barcode = barcode;
 
             productList.push(productItem);
           }

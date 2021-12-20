@@ -1962,7 +1962,6 @@ const loadProductsSale = async (
           }
 
           // console.log(productListDataTbody.length);
-
         }
       }
       catch (error) {

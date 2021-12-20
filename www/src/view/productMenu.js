@@ -34,27 +34,27 @@ class ProductMenu extends React.Component {
         ];
 
         this.state = {
-            birthdayCakeCategorys: KCategorys,
+            foodCategorys: KCategorys,
             orderList: [],
             orderListShow: false,
             orderListTotalPrice: 0,
             orderListTotalCount: 0,
             goOrderViewShow: false,
-            orderText: ''
+            orderText: '',
+            debug: 0
         };
 
         this._lastKeys = [];
         this._orderTextArea = undefined;
         this._inputRef = null;
-
     }
 
     async componentDidMount() {
-        await this.initFirstPage();
-        this.updateWeixinConfig();
-    }
+        let query = this.props.query;
+        let debug = query && query.get('debug');
 
-    async initFirstPage() {
+        this.setState({ debug: debug });
+        this.updateWeixinConfig();
     }
 
     handleCollapseOnChange = async (keys) => {
@@ -81,16 +81,16 @@ class ProductMenu extends React.Component {
         }
         this._lastKeys = [...keys];
 
-        const { birthdayCakeCategorys } = this.state;
-        let birthdayCakeCategorysNew = [...birthdayCakeCategorys];
+        const { foodCategorys } = this.state;
+        let foodCategorysNew = [...foodCategorys];
 
         // console.log(keysOpened);
         if (keysOpened.length === 1) {
             try {
                 let categoryId = keysOpened[0];
                 let birthdayCakeCategoryToAdd;
-                for (let ii = 0; ii < birthdayCakeCategorysNew.length; ++ii) {
-                    let birthdayCakeCategory = birthdayCakeCategorysNew[ii];
+                for (let ii = 0; ii < foodCategorysNew.length; ++ii) {
+                    let birthdayCakeCategory = foodCategorysNew[ii];
                     if (birthdayCakeCategory.categoryId === categoryId) {
                         birthdayCakeCategoryToAdd = birthdayCakeCategory;
                         break;
@@ -98,7 +98,7 @@ class ProductMenu extends React.Component {
                 }
                 if (birthdayCakeCategoryToAdd) {
                     birthdayCakeCategoryToAdd.opened = true;
-                    this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
+                    this.setState({ foodCategorys: foodCategorysNew });
                     if (birthdayCakeCategoryToAdd.productItems.length <= 0 &&
                         !birthdayCakeCategoryToAdd.spinning) {
                         birthdayCakeCategoryToAdd.spinning = true;
@@ -133,8 +133,8 @@ class ProductMenu extends React.Component {
                             birthdayCakeCategoryToAdd.spinning = false;
                         }
 
-                        this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
-                        // console.log(birthdayCakeCategorysNew);
+                        this.setState({ foodCategorys: foodCategorysNew });
+                        // console.log(foodCategorysNew);
                     }
                 }
             } catch (error) {
@@ -145,8 +145,8 @@ class ProductMenu extends React.Component {
         if (keysClosed.length === 1) {
             let categoryId = keysClosed[0];
             let birthdayCakeCategoryClose;
-            for (let ii = 0; ii < birthdayCakeCategorysNew.length; ++ii) {
-                let birthdayCakeCategory = birthdayCakeCategorysNew[ii];
+            for (let ii = 0; ii < foodCategorysNew.length; ++ii) {
+                let birthdayCakeCategory = foodCategorysNew[ii];
                 if (birthdayCakeCategory.categoryId === categoryId) {
                     birthdayCakeCategoryClose = birthdayCakeCategory;
                     break;
@@ -154,7 +154,7 @@ class ProductMenu extends React.Component {
             }
             if (birthdayCakeCategoryClose) {
                 birthdayCakeCategoryClose.opened = false;
-                this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
+                this.setState({ foodCategorys: foodCategorysNew });
             }
         }
 
@@ -348,13 +348,14 @@ class ProductMenu extends React.Component {
 
     render() {
         const {
-            birthdayCakeCategorys,
+            foodCategorys,
             orderList,
             orderListShow,
             orderListTotalPrice,
             orderListTotalCount,
             goOrderViewShow,
-            orderText } = this.state;
+            orderText,
+            debug } = this.state;
 
         let disableOrderButton = false;
         let orderButtonText = '去预定';
@@ -378,7 +379,7 @@ class ProductMenu extends React.Component {
                     expandIconPosition='right'
                     onChange={this.handleCollapseOnChange}>
                     {
-                        birthdayCakeCategorys.map((item) => {
+                        foodCategorys.map((item) => {
                             return (
                                 <Panel header=
                                     {
@@ -411,7 +412,7 @@ class ProductMenu extends React.Component {
                                                         <div>
                                                             <Image preview={true} src={imageSrc} onError={(e) => {
                                                                 /// 图片加载不成功时隐藏
-                                                                // e.target.style.display = 'none';
+                                                                e.target.style.display = 'none';
                                                             }} />
                                                             <div style={{
                                                                 paddingLeft: 4,
@@ -476,6 +477,13 @@ class ProductMenu extends React.Component {
                                                                     </span>
                                                                 </div>
                                                             </div>
+
+                                                            {debug ? (
+                                                                <div style={{color:'red', fontSize:8}}>
+                                                                    <span>三天内销售量：</span>
+                                                                    <span>{item1.saleNumber}</span>
+                                                                </div>
+                                                            ) : (<div></div>)}
                                                         </div>
                                                     </List.Item>
                                                 );
@@ -527,7 +535,6 @@ class ProductMenu extends React.Component {
                         </Button>
                     </div>
                 </div>
-
                 {
                     orderListShow ? (
                         <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.5)', bottom: 60 }} >
@@ -599,7 +606,6 @@ class ProductMenu extends React.Component {
                         </div>
                     ) : (<div></div>)
                 }
-
                 {
                     goOrderViewShow ? (
                         <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.95)', top: 0 }}>

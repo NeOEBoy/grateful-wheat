@@ -614,7 +614,7 @@ class ProductMenu extends React.Component {
                                     this.setState({ orderText: t.value });
                                 }} ref={(node) => {
                                     this._inputRef = node;
-                                }} value={orderText} style={{ height: 240, width: '90%', marginTop: 80, marginLeft: '5%', marginRight: '5%' }}>
+                                }} value={orderText} style={{ height: 240, width: '90%', marginTop: 100, marginLeft: '5%', marginRight: '5%' }}>
                                 </textarea>
                             </div>
 
@@ -645,7 +645,7 @@ class ProductMenu extends React.Component {
                                         document.execCommand('Copy');
                                         this._inputRef.blur();
 
-                                        message.info('已经复制，请返回微信去粘贴并发送给教育局店客服', 10);
+                                        message.info('已经复制，请返回微信去粘贴并发送给教育局店客服预定', 10);
                                     }}>复制上述文本</Button>
                                 </span>
                             </div>

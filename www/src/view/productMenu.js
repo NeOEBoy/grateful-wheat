@@ -479,7 +479,7 @@ class ProductMenu extends React.Component {
                                                             </div>
 
                                                             {debug ? (
-                                                                <div style={{color:'red', fontSize:8}}>
+                                                                <div style={{ color: 'red', fontSize: 8 }}>
                                                                     <span>三天内销售量：</span>
                                                                     <span>{item1.saleNumber}</span>
                                                                 </div>

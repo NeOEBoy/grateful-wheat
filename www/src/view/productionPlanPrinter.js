@@ -435,7 +435,7 @@ class ProductionPlanPrinter extends React.Component {
                                                                     return (
                                                                         <tr key={serialNum}>
                                                                             <th key='1' style={{ height: 20, textAlign: 'center', fontSize: 16 }}>{productItem.orderProductName}</th>
-                                                                            <th key='2' style={{ height: 20, textAlign: 'center', fontSize: 16, backgroundColor: orderNumberBGcolor }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
+                                                                            <th key='2' style={{ height: 20, textAlign: 'center', fontWeight: 'lighter', fontSize: 20, backgroundColor: orderNumberBGcolor }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
                                                                         </tr>)
                                                                 })
                                                             }
@@ -457,7 +457,6 @@ class ProductionPlanPrinter extends React.Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </Spin>

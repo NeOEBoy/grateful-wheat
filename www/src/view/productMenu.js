@@ -12,6 +12,11 @@ import {
     loadProductsSale,
     wechatSign
 } from '../api/api';
+import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
+import {
+    getPageName4A4Printer,
+    getA4PrinterIndex,
+} from '../api/util';
 
 const { Title } = Typography;
 const { Panel } = Collapse;
@@ -346,6 +351,34 @@ class ProductMenu extends React.Component {
         return newNum;
     }
 
+    getLodopAfterInit = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+
+            LODOP.SET_PRINTER_INDEX(getA4PrinterIndex(LODOP));
+            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4A4Printer());
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
+            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
+            LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
+            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
+        }
+
+        return LODOP;
+    };
+
+    productPrintPreprew = () => {
+        let LODOP = this.getLodopAfterInit();
+
+        if (LODOP) {
+            LODOP.PREVIEW();
+        }
+    };
+
     render() {
         const {
             foodCategorys,
@@ -368,133 +401,145 @@ class ProductMenu extends React.Component {
 
         return (
             <div>
-                <Title level={5} style={{
-                    textAlign: 'center', marginTop: 4, color: 'black', paddingTop: 4, paddingBottom: 0
-                }}>
-                    微信菜单
-                </Title>
-                <Collapse
-                    bordered={true}
-                    expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
-                    expandIconPosition='right'
-                    onChange={this.handleCollapseOnChange}>
-                    {
-                        foodCategorys.map((item) => {
-                            return (
-                                <Panel header=
-                                    {
-                                        (
-                                            <span style={{ color: 'white', fontSize: 16 }}>
-                                                {`${item.categoryName}`}
-                                            </span>
-                                        )
-                                    }
-                                    style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
-                                    key={item.categoryId}
-                                    extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
-                                    <Spin spinning={item.spinning}>
-                                        <List
-                                            grid={{ gutter: 2, column: 2 }}
-                                            dataSource={item.productItems}
-                                            renderItem={item1 => {
-                                                let imageSrc = KImageRoot;
-                                                imageSrc += '/';
-                                                imageSrc += item.categoryName;
-                                                imageSrc += '/';
-                                                imageSrc += item1.productName;
-                                                imageSrc += '.jpg';
+                <div>
+                    <Title level={5} style={{
+                        backgroundColor: 'transparent',
+                        textAlign: 'center', marginTop: 4,
+                        color: 'black', paddingTop: 4, paddingBottom: 0
+                    }}>
+                        微信菜单
+                        <button hidden size='small' style={{ float: 'right' }}
+                            onClick={this.productPrintPreprew}>
+                            打印
+                        </button>
+                    </Title>
+                </div>
 
-                                                // console.log(imageSrc);
+                <div id='printDiv'>
+                    <Collapse
+                        bordered={true}
+                        expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
+                        expandIconPosition='right'
+                        onChange={this.handleCollapseOnChange}>
+                        {
+                            foodCategorys.map((item) => {
+                                return (
+                                    <Panel header=
+                                        {
+                                            (
+                                                <span style={{ color: 'white', fontSize: 16 }}>
+                                                    {`${item.categoryName}`}
+                                                </span>
+                                            )
+                                        }
+                                        style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
+                                        key={item.categoryId}
+                                        extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                        <Spin spinning={item.spinning}>
+                                            <List
+                                                grid={{ gutter: 2, column: 2 }}
+                                                dataSource={item.productItems}
+                                                renderItem={item1 => {
+                                                    let imageSrc = KImageRoot;
+                                                    imageSrc += '/';
+                                                    imageSrc += item.categoryName;
+                                                    imageSrc += '/';
+                                                    imageSrc += item1.productName;
+                                                    imageSrc += '.jpg';
 
-                                                let disableButton = item1.buyNumber <= 0;
-                                                return (
-                                                    <List.Item>
-                                                        <div>
-                                                            <Image preview={true} src={imageSrc} onError={(e) => {
-                                                                /// 图片加载不成功时隐藏
-                                                                e.target.style.display = 'none';
-                                                            }} />
-                                                            <div style={{
-                                                                paddingLeft: 4,
-                                                                paddingRight: 4,
-                                                                backgroundColor: 'transparent',
-                                                            }}>
-                                                                <div style={{
-                                                                    fontSize: 14,
-                                                                    color: 'black'
-                                                                }}>
-                                                                    {item1.productName}
-                                                                </div>
-                                                                <div style={{
-                                                                    fontSize: 8,
-                                                                    color: 'gray'
-                                                                }}>
-                                                                    {item1.specification}
-                                                                </div>
-                                                                <div style={{
-                                                                    fontSize: 14,
-                                                                    color: 'black'
-                                                                }}>
-                                                                    <span>
-                                                                        ¥
-                                                                    </span>
-                                                                    <span>
-                                                                        {item1.price}
-                                                                    </span>
-                                                                    <span>
-                                                                        /
-                                                                    </span>
-                                                                    <span>
-                                                                        {item1.unit}
-                                                                    </span>
+                                                    // console.log(imageSrc);
 
-                                                                    <span style={{ float: 'right', backgroundColor: 'transparent' }}>
-                                                                        {
-                                                                            disableButton ? (<span></span>) :
-                                                                                (
-                                                                                    <span>
-                                                                                        <Button size='small' shape='circle' icon={<MinusOutlined />}
-                                                                                            onClick={() => { this.handleDecreaseItemFromCart(item1) }} />
-                                                                                    </span>
-                                                                                )
-                                                                        }
-                                                                        &nbsp;
-                                                                        &nbsp;
-                                                                        {
-                                                                            disableButton ? (<span></span>) :
-                                                                                (
-                                                                                    <span>
-                                                                                        {item1.buyNumber}
-                                                                                    </span>
-                                                                                )
-                                                                        }
-                                                                        &nbsp;
-                                                                        &nbsp;
+                                                    let disableButton = item1.buyNumber <= 0;
+                                                    return (
+                                                        <List.Item>
+                                                            <div>
+                                                                <Image preview={true} src={imageSrc} onError={(e) => {
+                                                                    /// 图片加载不成功时隐藏
+                                                                    e.target.style.display = 'none';
+                                                                }} />
+                                                                <div style={{
+                                                                    paddingLeft: 4,
+                                                                    paddingRight: 4,
+                                                                    backgroundColor: 'transparent',
+                                                                }}>
+                                                                    <div style={{
+                                                                        fontSize: 14,
+                                                                        color: 'black'
+                                                                    }}>
+                                                                        {item1.productName}
+                                                                    </div>
+                                                                    <div style={{
+                                                                        fontSize: 8,
+                                                                        color: 'gray'
+                                                                    }}>
+                                                                        {item1.specification}
+                                                                    </div>
+                                                                    <div style={{
+                                                                        fontSize: 14,
+                                                                        color: 'black'
+                                                                    }}>
                                                                         <span>
-                                                                            <Button danger size='small' shape='circle' icon={<PlusOutlined />}
-                                                                                onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
+                                                                            ¥
                                                                         </span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
+                                                                        <span>
+                                                                            {item1.price}
+                                                                        </span>
+                                                                        <span>
+                                                                            /
+                                                                        </span>
+                                                                        <span>
+                                                                            {item1.unit}
+                                                                        </span>
 
-                                                            {debug ? (
-                                                                <div style={{ color: 'red', fontSize: 8 }}>
-                                                                    <span>三天内销售量：</span>
-                                                                    <span>{item1.saleNumber}</span>
+                                                                        <span style={{ float: 'right', backgroundColor: 'transparent' }}>
+                                                                            {
+                                                                                disableButton ? (<span></span>) :
+                                                                                    (
+                                                                                        <span>
+                                                                                            <Button size='small' shape='circle' icon={<MinusOutlined />}
+                                                                                                onClick={() => { this.handleDecreaseItemFromCart(item1) }} />
+                                                                                        </span>
+                                                                                    )
+                                                                            }
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            {
+                                                                                disableButton ? (<span></span>) :
+                                                                                    (
+                                                                                        <span>
+                                                                                            {item1.buyNumber}
+                                                                                        </span>
+                                                                                    )
+                                                                            }
+                                                                            &nbsp;
+                                                                            &nbsp;
+                                                                            <span>
+                                                                                <Button danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                                    onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
+                                                                            </span>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                            ) : (<div></div>)}
-                                                        </div>
-                                                    </List.Item>
-                                                );
-                                            }}
-                                        />
-                                    </Spin>
-                                </Panel>
-                            );
-                        })
-                    }
-                </Collapse>
+
+                                                                {debug ? (
+                                                                    <div style={{ color: 'red', fontSize: 8 }}>
+                                                                        <span>三天内销售量：</span>
+                                                                        <span>{item1.saleNumber}</span>
+                                                                    </div>
+                                                                ) : (<div></div>)}
+                                                            </div>
+                                                        </List.Item>
+                                                    );
+                                                }}
+                                            />
+                                        </Spin>
+                                    </Panel>
+                                );
+                            })
+                        }
+                    </Collapse>
+                </div>
+
                 <div style={{ height: 60 }}></div>
                 <div style={{ height: 60, position: 'fixed', backgroundColor: 'white', width: '100%', bottom: 0 }}>
                     <div style={{ float: 'left', marginTop: 4, marginLeft: 8, width: 50, height: 50 }} onClick={() => {
@@ -609,25 +654,32 @@ class ProductMenu extends React.Component {
                 {
                     goOrderViewShow ? (
                         <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.95)', top: 0 }}>
-                            <div style={{ width: '100%' }}>
+                            <div style={{ width: '100%', marginTop: 100 }}>
+                                <div style={{ fontWeight: 'bold', color: 'white', marginLeft: '5%', marginRight: '5%' }}>订单文字：</div>
                                 <textarea onChange={(t) => {
                                     this.setState({ orderText: t.value });
                                 }} ref={(node) => {
                                     this._inputRef = node;
-                                }} value={orderText} style={{ height: 240, width: '90%', marginTop: 100, marginLeft: '5%', marginRight: '5%' }}>
+                                }} value={orderText} style={{ height: 180, width: '90%', marginTop: 10, marginLeft: '5%', marginRight: '5%' }}>
                                 </textarea>
                             </div>
 
                             <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%', marginTop: 20 }}>
-                                1：点击上方文本框，可以修改订单文本。
+                                1：点击上方输入框，可以修改订单文字，如增加会员电话。
                             </div>
 
                             <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
-                                2：点击下方《取消》按钮，会关闭当前页面。
+                                2：点击下方《取消》按钮，可以关闭当前页面。
                             </div>
 
                             <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
-                                3：点击下方《复制上述文本》按钮，会复制上述订单文本，复制完毕后，请返回微信去粘贴订单文本并发送给教育局店微信预定。
+                                <span>
+                                    3：点击下方《复制订单文字》按钮，会复制上述订单文字，复制完毕后，请返回微信并粘贴订单文字到输入框，发送给
+                                </span>
+                                <span style={{ textDecoration: 'underline' }}>
+                                    <a href="tel:13290768588">13290768588</a>
+                                </span>
+                                <span>弯麦烘焙（教育局店）微信预定。</span>
                             </div>
 
                             <div style={{ marginLeft: '5%', width: '100%', marginTop: 20 }}>
@@ -645,8 +697,8 @@ class ProductMenu extends React.Component {
                                         document.execCommand('Copy');
                                         this._inputRef.blur();
 
-                                        message.info('已经复制，请返回微信去粘贴并发送给教育局店客服预定', 10);
-                                    }}>复制上述文本</Button>
+                                        message.info('已经复制，请返回微信并粘贴到输入框，发送给弯麦烘焙（教育局店）预定', 10);
+                                    }}>复制订单文字</Button>
                                 </span>
                             </div>
                         </div>

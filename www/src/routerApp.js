@@ -11,6 +11,7 @@ import ProductDistributeInputer from "./view/productDistributeInputer";
 import ProductManagement from "./view/productManagement";
 import BirthdayCakeSale from "./view/birthdayCakeSale";
 import ProductMenu from "./view/productMenu";
+import ProductMenu4Printer from "./view/productMenu4Printer";
 
 import {
   BrowserRouter as Router,
@@ -47,6 +48,7 @@ function Inside4QueryParams() {
       <Route path="/productManagement" children={<ProductManagement query={query} />} />
       <Route path="/birthdayCakeSale" children={<BirthdayCakeSale query={query} />} />
       <Route path="/productMenu" children={<ProductMenu query={query} />} />
+      <Route path="/productMenu4Printer" children={<ProductMenu4Printer query={query} />} />
     </div>
   );
 }

@@ -108,7 +108,7 @@ class ProductMenu extends React.Component {
                         !birthdayCakeCategoryToAdd.spinning) {
                         birthdayCakeCategoryToAdd.spinning = true;
 
-                        /// 提取7天之前的数据
+                        /// 提取3天之前的数据
                         let nowMoment = moment();
                         let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
                         let beginDateTimeStr = nowMoment.subtract(3, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
@@ -127,6 +127,7 @@ class ProductMenu extends React.Component {
                             for (let i = 0; i < list.length; ++i) {
                                 let item = { ...list[i] };
                                 item.buyNumber = 0;
+                                item.disable = false;
                                 newList.push(item);
                             }
 
@@ -455,7 +456,9 @@ class ProductMenu extends React.Component {
                                                             <div>
                                                                 <Image preview={true} src={imageSrc} onError={(e) => {
                                                                     /// 图片加载不成功时隐藏
-                                                                    e.target.style.display = 'none';
+                                                                    // e.target.style.display = 'none';
+                                                                    item1.disable = true;
+                                                                    this.forceUpdate();
                                                                 }} />
                                                                 <div style={{
                                                                     paddingLeft: 4,
@@ -514,7 +517,7 @@ class ProductMenu extends React.Component {
                                                                             &nbsp;
                                                                             &nbsp;
                                                                             <span>
-                                                                                <Button danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                                <Button disabled={item1.disable} danger size='small' shape='circle' icon={<PlusOutlined />}
                                                                                     onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
                                                                             </span>
                                                                         </span>
@@ -525,6 +528,11 @@ class ProductMenu extends React.Component {
                                                                     <div style={{ color: 'red', fontSize: 8 }}>
                                                                         <span>三天内销售量：</span>
                                                                         <span>{item1.saleNumber}</span>
+                                                                    </div>
+                                                                ) : (<div></div>)}
+                                                                {debug ? (
+                                                                    <div style={{ color: 'red', fontSize: 8 }}>
+                                                                        <span>{item1.barcode}</span>
                                                                     </div>
                                                                 ) : (<div></div>)}
                                                             </div>

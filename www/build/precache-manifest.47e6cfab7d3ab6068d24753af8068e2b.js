@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "40b0072faf5682ac57744a41450ce978",
+    "revision": "b20f0de42530c48fd418882fcc912a38",
     "url": "/index.html"
   },
   {
-    "revision": "154509da9a74e293c087",
+    "revision": "9ddc64bc87324d7d76f1",
     "url": "/static/css/2.a6ac5165.chunk.css"
   },
   {
-    "revision": "ff4ce31f446613185d76",
+    "revision": "52a8151acd4e219ae34b",
     "url": "/static/css/main.04cbb0e8.chunk.css"
   },
   {
-    "revision": "154509da9a74e293c087",
-    "url": "/static/js/2.9c2cc2a6.chunk.js"
+    "revision": "9ddc64bc87324d7d76f1",
+    "url": "/static/js/2.04f29521.chunk.js"
   },
   {
     "revision": "b1e9ece20058d3eb899d33cab605e3b6",
-    "url": "/static/js/2.9c2cc2a6.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.04f29521.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ff4ce31f446613185d76",
-    "url": "/static/js/main.723d3125.chunk.js"
+    "revision": "52a8151acd4e219ae34b",
+    "url": "/static/js/main.cce31d03.chunk.js"
   },
   {
     "revision": "7e6c1524872abf197a39",
@@ -34,5 +34,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "09b8794b275b7f8f4a5a2153647b819b",
     "url": "/static/media/shoppingCart.09b8794b.png"
+  },
+  {
+    "revision": "240c05384bbd5be3af5bec0376d681e8",
+    "url": "/static/media/教育局店个人微信.240c0538.jpg"
   }
 ]);

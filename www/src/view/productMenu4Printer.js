@@ -156,6 +156,8 @@ class ProductMenu4Printer extends React.Component {
                             {
                                 allData.map((item) => {
                                     let productPage = item.productPages;
+                                    let totalPage = allData.length;
+                                    let currentPage = allData.indexOf(item) + 1;
                                     return (
                                         <div key={item.key} style={{ backgroundColor: 'transparent', width: 1374, height: 964 }}>
                                             {
@@ -275,6 +277,28 @@ class ProductMenu4Printer extends React.Component {
                                                     textAlign: 'center'
                                                 }}>
                                                     （教育局对面）
+                                                </div>
+
+                                                <div style={{
+                                                    textAlign: 'center',
+                                                    marginTop: 40
+                                                }}>
+                                                    <Image style={{ width: 100, height: 100 }} preview={false} src={require('../image/logo.png')} />
+                                                </div>
+
+                                                <div style={{
+                                                    textAlign: 'center',
+                                                    marginTop: 40
+                                                }}>
+                                                    页码
+                                                </div>
+
+                                                <div style={{
+                                                    textAlign: 'center'
+                                                }}>
+                                                    <span>{currentPage}</span>
+                                                    <span>/</span>
+                                                    <span>{totalPage}</span>
                                                 </div>
                                             </div>
                                         </div>

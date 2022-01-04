@@ -21,11 +21,11 @@ const KCategorys = [
     { categoryId: '1593049816479739965', categoryName: '现烤面包', productItems: [] },
     { categoryId: '1592989355905414162', categoryName: '西点慕斯蛋糕', productItems: [] },
     { categoryId: '1593049881212199906', categoryName: '常温蛋糕', productItems: [] },
+    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
     { categoryId: '1593049854760654816', categoryName: '吐司面包', productItems: [] },
     { categoryId: '1626767161867698544', categoryName: '餐包面包', productItems: [] },
     { categoryId: '1593059349213583584', categoryName: '干点饼干', productItems: [] },
-    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
-    { categoryId: '1611200031064132560', categoryName: '小零食', productItems: [] },
+    // { categoryId: '1611200031064132560', categoryName: '小零食', productItems: [] },
     { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
 ];
 

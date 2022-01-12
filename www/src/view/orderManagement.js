@@ -839,56 +839,157 @@ class OrderManagement extends React.Component {
                             }
                         }}
                         renderExtraFooter={() => (
-                            <span>
-                                <Button size="small" type="primary" onClick={(e) => {
-                                    let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
-                                    let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
-                                    // console.log(yesterdayBegin);
-                                    // console.log(yesterdayEnd);
+                            <div>
+                                <span>
+                                    <Button size="small" type="primary" onClick={(e) => {
+                                        let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
+                                        let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
+                                        // console.log(yesterdayBegin);
+                                        // console.log(yesterdayEnd);
 
-                                    this.setState({
-                                        beginDateTime4FlowList: yesterdayBegin,
-                                        endDateTime4FlowList: yesterdayEnd,
-                                        timePickerOpen4FlowList: false
-                                    }, async () => {
-                                        await this.fetchFlowList();
-                                    });
-                                }}>
-                                    昨天
-                                </Button>
-                                <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
-                                    let yesterdayBegin = moment().startOf('day');
-                                    let yesterdayEnd = moment().endOf('day');
-                                    // console.log(yesterdayBegin);
-                                    // console.log(yesterdayEnd);
+                                        this.setState({
+                                            beginDateTime4FlowList: yesterdayBegin,
+                                            endDateTime4FlowList: yesterdayEnd,
+                                            timePickerOpen4FlowList: false
+                                        }, async () => {
+                                            await this.fetchFlowList();
+                                        });
+                                    }}>
+                                        昨天
+                                    </Button>
+                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                        let yesterdayBegin = moment().startOf('day');
+                                        let yesterdayEnd = moment().endOf('day');
+                                        // console.log(yesterdayBegin);
+                                        // console.log(yesterdayEnd);
 
-                                    this.setState({
-                                        beginDateTime4FlowList: yesterdayBegin,
-                                        endDateTime4FlowList: yesterdayEnd,
-                                        timePickerOpen4FlowList: false
-                                    }, async () => {
-                                        await this.fetchFlowList();
-                                    });
-                                }}>
-                                    今天
-                                </Button>
-                                <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
-                                    let yesterdayBegin = moment().month(moment().month() - 1).startOf('month');
-                                    let yesterdayEnd = moment().month(moment().month() - 1).endOf('month');
-                                    // console.log(yesterdayBegin);
-                                    // console.log(yesterdayEnd);
+                                        this.setState({
+                                            beginDateTime4FlowList: yesterdayBegin,
+                                            endDateTime4FlowList: yesterdayEnd,
+                                            timePickerOpen4FlowList: false
+                                        }, async () => {
+                                            await this.fetchFlowList();
+                                        });
+                                    }}>
+                                        今天
+                                    </Button>
+                                    <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                        let yesterdayBegin = moment().month(moment().month() - 1).startOf('month');
+                                        let yesterdayEnd = moment().month(moment().month() - 1).endOf('month');
+                                        // console.log(yesterdayBegin);
+                                        // console.log(yesterdayEnd);
 
-                                    this.setState({
-                                        beginDateTime4FlowList: yesterdayBegin,
-                                        endDateTime4FlowList: yesterdayEnd,
-                                        timePickerOpen4FlowList: false
-                                    }, async () => {
-                                        await this.fetchFlowList();
-                                    });
-                                }}>
-                                    上月
-                                </Button>
-                            </span>
+                                        this.setState({
+                                            beginDateTime4FlowList: yesterdayBegin,
+                                            endDateTime4FlowList: yesterdayEnd,
+                                            timePickerOpen4FlowList: false
+                                        }, async () => {
+                                            await this.fetchFlowList();
+                                        });
+                                    }}>
+                                        上月
+                                    </Button>
+                                </span>
+
+                                <div>
+                                    <div>
+                                        <span>本月</span>
+                                        <Button style={{ marginLeft: 5 }}
+                                            size="small" type="primary" onClick={(e) => {
+                                                let yesterdayBegin = moment().startOf('month');
+                                                let yesterdayEnd = moment().startOf('month').add(9, 'days').endOf('day');
+                                                // console.log(yesterdayBegin);
+                                                // console.log(yesterdayEnd);
+
+                                                this.setState({
+                                                    beginDateTime4FlowList: yesterdayBegin,
+                                                    endDateTime4FlowList: yesterdayEnd,
+                                                    timePickerOpen4FlowList: false
+                                                }, async () => {
+                                                    await this.fetchFlowList();
+                                                });
+                                            }}>1~10</Button>
+                                        <Button style={{ marginLeft: 5 }}
+                                            size="small" type="primary" onClick={(e) => {
+                                                let yesterdayBegin = moment().startOf('month').add(10, 'days');
+                                                let yesterdayEnd = moment().startOf('month').add(19, 'days').endOf('day');
+                                                // console.log(yesterdayBegin);
+                                                // console.log(yesterdayEnd);
+
+                                                this.setState({
+                                                    beginDateTime4FlowList: yesterdayBegin,
+                                                    endDateTime4FlowList: yesterdayEnd,
+                                                    timePickerOpen4FlowList: false
+                                                }, async () => {
+                                                    await this.fetchFlowList();
+                                                });
+                                            }}>11~20</Button>
+                                        <Button style={{ marginLeft: 5 }}
+                                            size="small" type="primary" onClick={(e) => {
+                                                let yesterdayBegin = moment().startOf('month').add(20, 'days');
+                                                let yesterdayEnd = moment().endOf('month');
+                                                // console.log(yesterdayBegin);
+                                                // console.log(yesterdayEnd);
+
+                                                this.setState({
+                                                    beginDateTime4FlowList: yesterdayBegin,
+                                                    endDateTime4FlowList: yesterdayEnd,
+                                                    timePickerOpen4FlowList: false
+                                                }, async () => {
+                                                    await this.fetchFlowList();
+                                                });
+                                            }}>21~月底</Button>
+                                    </div>
+                                    <div>
+                                        <span>上月</span>
+                                        <Button style={{ marginLeft: 5 }}
+                                            size="small" type="primary" onClick={(e) => {
+                                                let yesterdayBegin = moment().subtract(1, 'months').startOf('month');
+                                                let yesterdayEnd = moment().subtract(1, 'months').startOf('month').add(9, 'days').endOf('day');
+                                                // console.log(yesterdayBegin);
+                                                // console.log(yesterdayEnd);
+
+                                                this.setState({
+                                                    beginDateTime4FlowList: yesterdayBegin,
+                                                    endDateTime4FlowList: yesterdayEnd,
+                                                    timePickerOpen4FlowList: false
+                                                }, async () => {
+                                                    await this.fetchFlowList();
+                                                });
+                                            }}>1~10</Button>
+                                        <Button style={{ marginLeft: 5 }}
+                                            size="small" type="primary" onClick={(e) => {
+                                                let yesterdayBegin = moment().subtract(1, 'months').startOf('month').add(10, 'days');
+                                                let yesterdayEnd = moment().subtract(1, 'months').startOf('month').add(19, 'days').endOf('day');
+                                                // console.log(yesterdayBegin);
+                                                // console.log(yesterdayEnd);
+
+                                                this.setState({
+                                                    beginDateTime4FlowList: yesterdayBegin,
+                                                    endDateTime4FlowList: yesterdayEnd,
+                                                    timePickerOpen4FlowList: false
+                                                }, async () => {
+                                                    await this.fetchFlowList();
+                                                });
+                                            }}>11~20</Button>
+                                        <Button style={{ marginLeft: 5 }}
+                                            size="small" type="primary" onClick={(e) => {
+                                                let yesterdayBegin = moment().subtract(1, 'months').startOf('month').add(20, 'days');
+                                                let yesterdayEnd = moment().subtract(1, 'months').endOf('month');
+                                                // console.log(yesterdayBegin);
+                                                // console.log(yesterdayEnd);
+
+                                                this.setState({
+                                                    beginDateTime4FlowList: yesterdayBegin,
+                                                    endDateTime4FlowList: yesterdayEnd,
+                                                    timePickerOpen4FlowList: false
+                                                }, async () => {
+                                                    await this.fetchFlowList();
+                                                });
+                                            }}>21~月底</Button>
+                                    </div>
+                                </div>
+                            </div>
                         )}
                     />
                     <span style={{ marginLeft: 5, marginRight: 5, color: 'red', fontSize: 15 }}>

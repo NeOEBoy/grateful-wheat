@@ -253,7 +253,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
   lastRow++;
   {
     worksheet.getRow(lastRow).height = 14;
-    worksheet.getColumn(2).width = 4;
+    worksheet.getColumn(2).width = 3.3;
     let serialNumSubTitleCell = worksheet.getCell('B' + lastRow);
     serialNumSubTitleCell.value = '序';
     serialNumSubTitleCell.font = { size: 10, bold: true, name: '等线' };
@@ -359,7 +359,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
     worksheet.getRow(6).height = 14;
 
     let serialNumItemTitleCell = worksheet.getCell('B' + lastRow);
-    serialNumItemTitleCell.value = '序号';
+    serialNumItemTitleCell.value = '序';
     serialNumItemTitleCell.font = { size: 9, bold: true, name: '等线' };
     serialNumItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
     serialNumItemTitleCell.fill = {
@@ -374,7 +374,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(3).width = 15;
+    worksheet.getColumn(3).width = 13;
     let productNameItemTitleCell = worksheet.getCell('C' + lastRow);
     productNameItemTitleCell.value = '商品名称';
     productNameItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -408,7 +408,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(5).width = 14;
+    worksheet.getColumn(5).width = 13;
     let productSpecificationItemTitleCell = worksheet.getCell('E' + lastRow);
     productSpecificationItemTitleCell.value = '商品规格';
     productSpecificationItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -442,7 +442,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(7).width = 8;
+    worksheet.getColumn(7).width = 6;
     let salePriceItemTitleCell = worksheet.getCell('G' + lastRow);
     salePriceItemTitleCell.value = '销售价';
     salePriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -459,7 +459,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(8).width = 8;
+    worksheet.getColumn(8).width = 6;
     let memberPriceItemTitleCell = worksheet.getCell('H' + lastRow);
     memberPriceItemTitleCell.value = '会员价';
     memberPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -476,7 +476,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(9).width = 8;
+    worksheet.getColumn(9).width = 6;
     let wholeSalePriceItemTitleCell = worksheet.getCell('I' + lastRow);
     wholeSalePriceItemTitleCell.value = '批发价';
     wholeSalePriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -493,7 +493,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(10).width = 8;
+    worksheet.getColumn(10).width = 6;
     let partnerPriceItemTitleCell = worksheet.getCell('J' + lastRow);
     partnerPriceItemTitleCell.value = '加盟价';
     partnerPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -510,7 +510,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(11).width = 5;
+    worksheet.getColumn(11).width = 6;
     let enterNumberItemTitleCell = worksheet.getCell('K' + lastRow);
     enterNumberItemTitleCell.value = '进货数';
     enterNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -527,7 +527,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(12).width = 5;
+    worksheet.getColumn(12).width = 6;
     let returnNumberItemTitleCell = worksheet.getCell('L' + lastRow);
     returnNumberItemTitleCell.value = '退货数';
     returnNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -544,7 +544,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(13).width = 5;
+    worksheet.getColumn(13).width = 6;
     let transferNumberItemTitleCell = worksheet.getCell('M' + lastRow);
     transferNumberItemTitleCell.value = '调出数';
     transferNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -561,7 +561,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(14).width = 5;
+    worksheet.getColumn(14).width = 6;
     let promotionsNumberItemTitleCell = worksheet.getCell('N' + lastRow);
     promotionsNumberItemTitleCell.value = '最终数';
     promotionsNumberItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -578,7 +578,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(15).width = 8;
+    worksheet.getColumn(15).width = 9.5;
     let partnerTotalPriceItemTitleCell = worksheet.getCell('O' + lastRow);
     partnerTotalPriceItemTitleCell.value = '进货总价';
     partnerTotalPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -595,7 +595,7 @@ const makeExcelInfo1Meta = (worksheet, lastRow) => {
       right: { style: 'medium' }
     };
 
-    worksheet.getColumn(16).width = 20;
+    worksheet.getColumn(16).width = 10;
     let promotionsTotalPriceItemTitleCell = worksheet.getCell('P' + lastRow);
     promotionsTotalPriceItemTitleCell.value = '备注';
     promotionsTotalPriceItemTitleCell.font = { size: 9, bold: true, name: '等线' };
@@ -939,7 +939,7 @@ const makeExcelInfo2Meta = (worksheet, lastRow) => {
   {
     worksheet.getRow(lastRow).height = 14;
     let serialNumItemTitleCell = worksheet.getCell('B' + lastRow);
-    serialNumItemTitleCell.value = '序号';
+    serialNumItemTitleCell.value = '序';
     serialNumItemTitleCell.font = { size: 9, bold: true, name: '等线' };
     serialNumItemTitleCell.alignment = { horizontal: 'center', vertical: 'middle' };
     serialNumItemTitleCell.fill = {
@@ -1538,7 +1538,7 @@ const insertItemToWorkSheet = (excelRowInformation, worksheet) => {
       columnItemCell.numFmt = columnItemInfo.numFmt;
       let fontBold = columnItemInfo.fontBold;
       columnItemCell.font = { size: 9, bold: fontBold ? fontBold : false, name: '等线' };
-      columnItemCell.alignment = { horizontal: 'center', vertical: 'middle' };
+      columnItemCell.alignment = { horizontal: 'center', vertical: 'middle', wrapText: true };
       columnItemCell.border = {
         top: { style: 'thin' },
         left: { style: 'thin' },

@@ -346,7 +346,7 @@ class birthdayCakeSale extends React.Component {
                 </Collapse>
                 <div style={{
                     height: 40, textAlign: 'center', color: 'green',
-                    fontSize: 14, fontWeight: "lighter", paddingTop: 7
+                    fontSize: 14, fontWeight: "bold", paddingTop: 7
                 }}>
                     <span>添加教育局总店</span>
                     <span style={{ textDecoration: 'underline' }}>

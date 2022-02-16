@@ -278,11 +278,11 @@ class birthdayCakeSale extends React.Component {
                     backgroundColor: '#DAA520', color: 'white',
                     borderRadius: 15, paddingTop: 8, paddingBottom: 8
                 }}>
-                    {debug ? `0-热销蛋糕（${birthdayCakesRecommend.length}）` : `0-热销蛋糕`}
+                    {debug ? `0-新款蛋糕（${birthdayCakesRecommend.length}）` : `0-新款蛋糕`}
                 </Title>
                 {
                     birthdayCakesRecommend.map((item) => {
-                        let src = "/image/弯麦生日蛋糕/0-热销蛋糕/" + item.name + '.jpg';
+                        let src = "/image/弯麦生日蛋糕/0-新款蛋糕/" + item.name + '.jpg';
                         return (<Image preview={false} src={src} key={item.key} />);
                     })
                 }

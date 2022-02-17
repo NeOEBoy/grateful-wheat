@@ -77,7 +77,7 @@ startUpdate = async () => {
                     let spec = value.specs[i];
                     spec.specAttribute.unit = '人份';
                     let specName = spec.name;
-                    let weight = '0';
+                    let weight = '8';
                     let specNameArray = specName.split('+');
                     if (specNameArray.length === 2) {
                         if (specNameArray[1] === '6寸') {
@@ -97,7 +97,7 @@ startUpdate = async () => {
                     spec.specAttribute.weight = weight;
                     spec.maxStock = 1000;
                     spec.stock = 1000;
-                    spec.stockStatus = 1;
+                    spec.stockStatus = 0;
                     item.specs.push(spec);
                 }
                 await ProductService.updateItem(value.id, value.categoryId, item);

@@ -7,6 +7,7 @@
 /// 引入sdk
 let eleme = require('eleme-openapi-sdk');
 const schedule = require('node-schedule');
+const moment = require('moment');
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
@@ -64,6 +65,13 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
         /// 实例化一个服务对象
         let ProductService = new eleme.ProductService(rpcClient)
 
+        /// 裱花间是否在上班（9:00 ~ 17:59）
+        let decoratingRoomWorking = false;
+        let hour = moment().hour();
+        if (hour >= 9 && hour <= 17) {
+            decoratingRoomWorking = true;
+        }
+        // console.log(hour);
         for (let xx = 0; xx < KElemeShops.length; ++xx) {
             let elemeShop = KElemeShops[xx];
             let shopId = elemeShop.shopId;
@@ -72,6 +80,7 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
             let shopName = elemeShop.shopName;
             let itemsNeedToOnShelf = [];
             let itemsNeedToClearStock = [];
+            let itemsNeedToFillOrClearStock = [];
             console.log('查询《' + shopName + '》的类别...')
             let shopCategories = await ProductService.getShopCategories(shopId);
             // console.log(shopCategories);
@@ -120,17 +129,64 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
 
                         itemsNeedToClearStock.push(itemNeedToClearStock);
                     }
+
+                    if (categoryName === '弯麦儿童蛋糕' ||
+                        categoryName === '弯麦女神蛋糕' ||
+                        categoryName === '弯麦男神蛋糕' ||
+                        categoryName === '弯麦家庭蛋糕' ||
+                        categoryName === '弯麦情侣蛋糕' ||
+                        categoryName === '弯麦祝寿蛋糕' ||
+                        categoryName === '弯麦庆典派对蛋糕') {
+                        let itemSpecIds2 = [];
+                        for (let zz = 0; zz < specs.length; ++zz) {
+                            let spec = specs[zz];
+                            itemSpecIds2.push(spec.specId);
+                        }
+                        if (itemSpecIds2.length > 0) {
+                            let itemNeedToFillOrClearStock = {};
+                            itemNeedToFillOrClearStock.itemId = value.id;
+                            itemNeedToFillOrClearStock.name = value.name;
+                            itemNeedToFillOrClearStock.itemSpecIds = itemSpecIds2;
+
+                            itemsNeedToFillOrClearStock.push(itemNeedToFillOrClearStock);
+                        }
+                    }
+
                 }
             }
             console.log(itemsNeedToOnShelf);
             if (itemsNeedToOnShelf.length > 0) {
                 console.log('批量上架有库存的商品...')
-                await ProductService.batchOnShelf(itemsNeedToOnShelf);
+                try {
+                    await ProductService.batchOnShelf(itemsNeedToOnShelf);
+                } catch (err) {
+                    console.log(err);
+                }
             }
             console.log(itemsNeedToClearStock);
             if (itemsNeedToClearStock.length > 0) {
                 console.log('批量修正库存不正的商品...')
-                await ProductService.batchClearStock(itemsNeedToClearStock);
+                try {
+                    await ProductService.batchClearStock(itemsNeedToClearStock);
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            console.log(itemsNeedToFillOrClearStock);
+            if (itemsNeedToFillOrClearStock.length > 0) {
+                if (decoratingRoomWorking) {
+                    try {
+                        await ProductService.batchFillStock(itemsNeedToFillOrClearStock);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                } else {
+                    try {
+                        await ProductService.batchClearStock(itemsNeedToFillOrClearStock);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
             }
         }
     } catch (error) {

@@ -21,7 +21,7 @@ var app = express();
 /// 设置跨域访问---
 const KTestHostLocal = 'http://localhost'
 const KWWWTestHostLocal = KTestHostLocal + ':4000';
-const KAllowHosts =[KWWWTestHostLocal];
+const KAllowHosts = [KWWWTestHostLocal];
 app.all('*', function (req, res, next) {
   let origin = req.get('origin');
   console.log('app.all origin = ' + origin);

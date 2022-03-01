@@ -1521,7 +1521,7 @@ const insertItemToWorkSheet = (excelRowInformation, worksheet) => {
     let excelRow = excelRowItem.row;
     let excelRowData = excelRowItem.data;
     
-    console.log(excelRowData);
+    // console.log(excelRowData);
 
     for (let columnIndex = 0; columnIndex < excelRowData.length; columnIndex++) {
       let columnItemInfo = excelRowData[columnIndex];

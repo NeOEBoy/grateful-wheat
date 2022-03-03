@@ -449,7 +449,7 @@ class OrderManagement extends React.Component {
             { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 130, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 150, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
             { title: '配货门店', dataIndex: 'prepareShop', key: 'prepareShop', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             {

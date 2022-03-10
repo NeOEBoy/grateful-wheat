@@ -22,9 +22,7 @@ const KElemeShops = [
     /// 江滨店3
     { shopName: '江滨店', shopId: '502469095' },
     /// 汤泉店4
-    { shopName: '汤泉店', shopId: '2086221402' },
-    /// 假日店5
-    { shopName: '假日店', shopId: '2084932329' },
+    { shopName: '汤泉店', shopId: '2086221402' }
 ];
 
 const getElemeConfig = () => {

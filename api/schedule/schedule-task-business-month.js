@@ -23,9 +23,9 @@ const KShopArray = [
   { index: 2, name: '旧镇店', userId: '3995771' },
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉店', userId: '4061092' },
-  { index: 5, name: '假日店', userId: '4339546' },
+  { index: 5, name: '盘陀店', userId: '4339546' },
   { index: 6, name: '狮头店', userId: '4359267' },
-  { index: 7, name: '盘陀店', userId: '4382444' }
+  { index: 7, name: '漳浦立人', userId: '4382444' }
 ];
 const KReportWebhookUrl =
   'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=6f8510b6-6749-4ce6-8617-1e8afce14d65';
@@ -766,7 +766,7 @@ const parseBusinessSummary = async (businessSummaryResponseJson) => {
         let giftpackageSaleOverview = giftpackageSaleItem.td[rowOverviewIndex].span[0].trim();
         businessSummaryObj.giftpackageSaleObj.overview = giftpackageSaleOverview;
         // console.log(giftpackageSaleOverview);
-        let actualIncomeOverview = actualIncomeItem.td[rowOverviewIndex].span[0].trim();
+        let actualIncomeOverview = actualIncomeItem.td[rowOverviewIndex].span[0]._;
         businessSummaryObj.actualIncomeObj.overview = actualIncomeOverview;
         // console.log(actualIncomeOverview);
       }

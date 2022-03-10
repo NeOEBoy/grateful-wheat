@@ -26,9 +26,9 @@ const KShopArray = [
   { index: 2, name: '旧镇店', userId: '3995771' },
   { index: 3, name: '江滨店', userId: '4061089' },
   { index: 4, name: '汤泉店', userId: '4061092' },
-  { index: 5, name: '假日店', userId: '4339546' },
+  { index: 5, name: '盘陀店', userId: '4339546' },
   { index: 6, name: '狮头店', userId: '4359267' },
-  { index: 7, name: '盘陀店', userId: '4382444' }
+  { index: 7, name: '漳浦立人', userId: '4382444' }
 ];
 
 class ProductDiscard extends React.Component {

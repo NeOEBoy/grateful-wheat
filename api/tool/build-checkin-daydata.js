@@ -562,11 +562,11 @@ const startBuild = async () => {
 const excute = () => {
     var args = process.argv.splice(2);
     if (args.length !== 2) {
-        console.log('参数错误，第1参数：店名(总部|教育局店|旧镇店|江滨店|汤泉店|假日店|狮头店|动力杯店...)，第2个参数：月份(2020.12)');
+        console.log('参数错误，第1参数：店名(总部|教育局店|旧镇店|江滨店|汤泉店|狮头店|动力杯店...)，第2个参数：月份(2020.12)');
     } else {
         DEPARTMENT_NAME = args[0];
         if (DEPARTMENT_NAME === undefined || DEPARTMENT_NAME.length <= 0) {
-            console.log('第1参数错误，请输入正确店名(总部|教育局店|旧镇店|江滨店|汤泉店|假日店|狮头店|动力杯店...)');
+            console.log('第1参数错误，请输入正确店名(总部|教育局店|旧镇店|江滨店|汤泉店|狮头店|动力杯店...)');
             return;
         }
 

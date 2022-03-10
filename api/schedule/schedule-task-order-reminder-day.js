@@ -23,14 +23,16 @@ const KTemplateArray = [
 ];
 
 const KShopShitouUserId = '4359267'; // 狮头账号id
+const KShopZhangpuLirenUserId = '4382444'; //立人账号id
+
 const KShopArray = [
     { index: 1, name: '教育局店', userId: '3995767' },
     { index: 2, name: '旧镇店', userId: '3995771' },
     { index: 3, name: '江滨店', userId: '4061089' },
     { index: 4, name: '汤泉店', userId: '4061092' },
-    { index: 5, name: '假日店', userId: '4339546' },
+    { index: 5, name: '盘陀店', userId: '4339546' },
     { index: 6, name: '狮头店', userId: KShopShitouUserId },
-    { index: 7, name: '盘陀店', userId: '4382444' }
+    { index: 7, name: '漳浦立人', userId: KShopZhangpuLirenUserId }
 ];
 
 const startScheduleOrderReminder = async () => {
@@ -83,7 +85,8 @@ const startOrderReminderAtNoon = async () => {
 
     for (let index = 0; index < KShopArray.length; index++) {
         let shop = KShopArray[index];
-        if (shop.userId === KShopShitouUserId) continue; ///狮头店不用报现烤
+        if (shop.userId === KShopShitouUserId ||
+            shop.userId === KShopZhangpuLirenUserId) continue; ///狮头店,漳浦立人不用报现烤
 
         // console.log(shop.userId);
         // console.log(shop.name);
@@ -112,7 +115,7 @@ const startOrderReminderAtMidNight = async () => {
 
     for (let index = 0; index < KShopArray.length; index++) {
         let shop = KShopArray[index];
-
+        if (shop.userId === KShopZhangpuLirenUserId) continue; ///漳浦立人不用报
         // console.log(shop.userId);
         // console.log(shop.name);
 

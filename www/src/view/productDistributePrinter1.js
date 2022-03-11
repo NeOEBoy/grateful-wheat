@@ -384,27 +384,27 @@ class ProductDistributePrinter extends React.Component {
                                             let index = allDistributionDataToBePrint.indexOf(columnData);
                                             return (
                                                 <div key={index} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 10, height: 949 }}>
-                                                    <div style={{ float: 'left', marginLeft: 0, width: 38, height: 949 }} />
+                                                    <div style={{ float: 'left', marginLeft: 0, width: 18, height: 949 }} />
                                                     <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                         <thead>
                                                             <tr>
-                                                                <th colSpan='7' style={{ width: 318, textAlign: 'center', backgroundColor: 'lightgrey' }}>
+                                                                <th colSpan='7' style={{ width: 350, textAlign: 'center', backgroundColor: 'lightgrey' }}>
                                                                     {columnData.orderShop}
                                                                 </th>
                                                             </tr>
                                                             <tr>
-                                                                <th colSpan='7' style={{ width: 318, textAlign: 'center' }}>
+                                                                <th colSpan='7' style={{ width: 350, textAlign: 'center' }}>
                                                                     {columnData.templateName}
                                                                 </th>
                                                             </tr>
                                                             <tr>
                                                                 <th style={{ textAlign: 'center', fontSize: 14 }}>简码</th>
-                                                                <th style={{ textAlign: 'center' }}>品名</th>
-                                                                <th style={{ textAlign: 'center', fontSize: 10 }}>订货量</th>
-                                                                <th style={{ textAlign: 'center' }}>一</th>
-                                                                <th style={{ textAlign: 'center' }}>二</th>
-                                                                <th style={{ textAlign: 'center' }}>三</th>
-                                                                <th style={{ textAlign: 'center', fontSize: 12 }}>备注</th>
+                                                                <th style={{ textAlign: 'center', fontSize: 14 }}>品名</th>
+                                                                <th style={{ textAlign: 'center', fontSize: 8 }}>订货量</th>
+                                                                <th style={{ textAlign: 'center', fontSize: 10 }}>第一批</th>
+                                                                <th style={{ textAlign: 'center', fontSize: 10 }}>第二批</th>
+                                                                <th style={{ textAlign: 'center', fontSize: 10 }}>第三批</th>
+                                                                <th style={{ textAlign: 'center', fontSize: 10 }}>备注</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -420,10 +420,10 @@ class ProductDistributePrinter extends React.Component {
                                                                                 (<th key='1' style={{ textAlign: 'center', fontSize: 16, width: 16 }}>{productItem.barcodeSimple}</th>)}
                                                                             <th key='2' style={{ textAlign: 'center', fontSize: 15, width: 130 }}>{productItem.orderProductName}</th>
                                                                             <th key='3' style={{ textAlign: 'center', fontSize: 16, width: 8, backgroundColor: orderNumberBGcolor }}>{productItem.orderNumber !== 0 ? productItem.orderNumber : ''}</th>
-                                                                            <th key='4' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                            <th key='5' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                            <th key='6' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
-                                                                            <th key='7' style={{ textAlign: 'center', fontSize: 16, width: 8 }}></th>
+                                                                            <th key='4' style={{ textAlign: 'center', fontSize: 18, width: 20 }}></th>
+                                                                            <th key='5' style={{ textAlign: 'center', fontSize: 18, width: 20 }}></th>
+                                                                            <th key='6' style={{ textAlign: 'center', fontSize: 18, width: 20 }}></th>
+                                                                            <th key='7' style={{ textAlign: 'center', fontSize: 18, width: 20 }}></th>
                                                                         </tr>)
                                                                 })
                                                             }
@@ -437,7 +437,7 @@ class ProductDistributePrinter extends React.Component {
                                                             </tr>
                                                         </tfoot>
                                                     </table>
-                                                    <div style={{ float: 'left', marginLeft: 0, width: 38, height: 949 }} />
+                                                    <div style={{ float: 'left', marginLeft: 0, width: 18, height: 949 }} />
                                                 </div>
                                             )
                                         })

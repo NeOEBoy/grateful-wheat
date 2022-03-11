@@ -90,7 +90,7 @@ const getBusinessSummaryObj4workweixin = async (thePOSPALAUTH30220) => {
     businessSummaryObjArray.push(businessSummaryObj);
 
     /// 测试 todo 删除
-    break;
+    // break;
   }
   // console.log(businessSummaryObjArray);
 

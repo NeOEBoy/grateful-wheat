@@ -108,10 +108,10 @@ class ProductMenu extends React.Component {
                         !birthdayCakeCategoryToAdd.spinning) {
                         birthdayCakeCategoryToAdd.spinning = true;
 
-                        /// 提取3天之前的数据
+                        /// 提取5天之前的数据
                         let nowMoment = moment();
                         let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
-                        let beginDateTimeStr = nowMoment.subtract(3, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
+                        let beginDateTimeStr = nowMoment.subtract(5, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
 
                         // console.log(beginDateTimeStr);
                         // console.log(endDateTimeStr);

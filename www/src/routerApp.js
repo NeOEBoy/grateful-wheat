@@ -44,7 +44,7 @@ function Inside4QueryParams() {
       <Route path="/diyreserve" children={<DIYReserve query={query} />} />
       <Route path="/productionPlanPrinter" children={<ProductionPlanPrinter query={query} />} />
       <Route path="/orderManagement" children={<OrderManagement query={query} />} />
-      <Route path="/productDistributePrinter" children={<ProductDistributePrinter1 query={query} />} />
+      <Route path="/productDistributePrinter" children={<ProductDistributePrinter query={query} />} />
       <Route path="/productDistributeInputer" children={<ProductDistributeInputer query={query} />} />
       <Route path="/productManagement" children={<ProductManagement query={query} />} />
       <Route path="/birthdayCakeSale" children={<BirthdayCakeSale query={query} />} />

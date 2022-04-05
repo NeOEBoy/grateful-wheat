@@ -92,7 +92,7 @@ startScheduleWeatherDay();
 
 /// 启动定时任务，每日检查报货情况
 const startScheduleOrderReminder = require('./schedule/schedule-task-order-reminder-day');
-startScheduleOrderReminder();
+// startScheduleOrderReminder(); // TODO 打开提醒
 
 /// 启动定时任务，自动上架饿了吗商品
 const startScheduleMelody = require('./schedule/scheduler-task-melody');

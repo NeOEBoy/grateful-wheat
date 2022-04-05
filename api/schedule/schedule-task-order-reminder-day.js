@@ -12,14 +12,16 @@ const {
 const KForTest = false;
 
 const KTemplateXiankaoId = '187';
-const KTemplateTusiCanbaoId = '182';
+const KTemplateTusiCanbaoId = '182'; // todo 修改为餐包
 const KTemplateChangwenId = '183';
 const KTemplateXidianId = '189';
+const KTemplateTusiId = '2873';
 const KTemplateArray = [
-    { index: 0, text: '吐司餐包类', id: KTemplateTusiCanbaoId },
+    { index: 0, text: '餐包类', id: KTemplateTusiCanbaoId },
     { index: 1, text: '常温类', id: KTemplateChangwenId },
     { index: 2, text: '现烤类', id: KTemplateXiankaoId },
-    { index: 3, text: '西点类', id: KTemplateXidianId }
+    { index: 3, text: '西点类', id: KTemplateXidianId },
+    { index: 4, text: '吐司类', id: KTemplateTusiId }
 ];
 
 const KShopShitouUserId = '4359267'; // 狮头账号id

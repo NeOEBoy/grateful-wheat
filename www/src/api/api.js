@@ -83,12 +83,14 @@ const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
   return couponSummaryListJson;
 }
 
-const getProductOrderList = async (userId, templateId, beginDateTime, endDateTime) => {
+const getProductOrderList = async (userId, templateId, timeType, beginDateTime, endDateTime) => {
   let productOrderUrl = KApiHost + '/product/orderList';
   productOrderUrl += '?userId=';
   productOrderUrl += userId;
   productOrderUrl += '&templateId=';
   productOrderUrl += templateId;
+  productOrderUrl += '&timeType=';
+  productOrderUrl += timeType;
   productOrderUrl += '&beginDateTime=';
   productOrderUrl += beginDateTime;
   productOrderUrl += '&endDateTime=';

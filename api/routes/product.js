@@ -58,6 +58,7 @@ router.get('/orderList', async function (req, res, next) {
   try {
     let userId = req.query.userId;
     let templateId = req.query.templateId;
+    let timeType = req.query.timeType;
     let beginDateTime = req.query.beginDateTime;
     let endDateTime = req.query.endDateTime;
 
@@ -71,6 +72,7 @@ router.get('/orderList', async function (req, res, next) {
       thePOSPALAUTH30220,
       userId,
       templateId,
+      timeType,
       beginDateTime,
       endDateTime);
     res.send(productOrderResponseJson);

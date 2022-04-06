@@ -54,6 +54,7 @@ const getProductOrderList = async (
   thePOSPALAUTH30220,
   userId,
   templateId,
+  timeType,
   beginDateTime,
   endDateTime
 ) => {
@@ -73,7 +74,8 @@ const getProductOrderList = async (
     orderListBodyStr += '&categoryUids=%5B%5D';
     orderListBodyStr += '&supplierUid=';
     orderListBodyStr += '&status=100';
-    orderListBodyStr += '&timeType=100';
+    orderListBodyStr += '&timeType=';
+    orderListBodyStr += timeType;
     orderListBodyStr += '&beginTime=';
     orderListBodyStr += escape(beginDateTime);
     orderListBodyStr += '&endTime=';

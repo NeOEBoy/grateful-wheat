@@ -24,6 +24,7 @@ import {
     getAllShop,
     getAllOrderShopName,
     getOrderTemplates,
+    getOrderTimeType,
     getAllOrderTemplateName,
     getFlowType,
 } from '../api/util';
@@ -37,6 +38,8 @@ const KForTest = getTest();
 const KAllShops = getAllShop();
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
+/// 订单时间类型
+const KOrderTimeType = getOrderTimeType();
 /// 报货门店名字
 const KAllOrderShopName = getAllOrderShopName();
 /// 报货模板名字
@@ -64,6 +67,7 @@ class OrderManagement extends React.Component {
             alreadyOrderLoading: false,
             currentShop4OrderList: KAllShops[0],
             currentTemplate4OrderList: KOrderTemplates[1],
+            currentOrderTimeType: KOrderTimeType[0],
             beginDateTime4OrderList: beginDateTime4OrderList4init,
             endDateTime4OrderList: endDateTime4OrderList4init,
             timePickerOpen4OrderList: false,
@@ -130,7 +134,7 @@ class OrderManagement extends React.Component {
             this.setState({
                 alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys4OrderList: []
             }, async () => {
-                const { currentShop4OrderList, currentTemplate4OrderList,
+                const { currentShop4OrderList, currentTemplate4OrderList, currentOrderTimeType,
                     beginDateTime4OrderList, endDateTime4OrderList } = this.state;
                 let orderList = [];
                 let keys = [];
@@ -138,7 +142,9 @@ class OrderManagement extends React.Component {
                 let noyetOrderTemplates = KAllOrderTemplateName;
                 let beginDateTimeStr = beginDateTime4OrderList.format('YYYY.MM.DD%2BHH:mm:ss');
                 let endDateTimeStr = endDateTime4OrderList.format('YYYY.MM.DD%2BHH:mm:ss');
-                const productOrder = await getProductOrderList(currentShop4OrderList.userId, currentTemplate4OrderList.templateId, beginDateTimeStr, endDateTimeStr);
+                const productOrder = await getProductOrderList(currentShop4OrderList.userId,
+                    currentTemplate4OrderList.templateId, currentOrderTimeType.timeType,
+                    beginDateTimeStr, endDateTimeStr);
                 // console.log(productOrder);
 
                 if (productOrder && productOrder.errCode === 0) {
@@ -399,7 +405,7 @@ class OrderManagement extends React.Component {
 
     render() {
         const {
-            alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
+            alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderTimeType,
             alreadyOrderLoading, beginDateTime4OrderList, endDateTime4OrderList,
             timePickerOpen4OrderList, selectedRowKeys4OrderList, noyetOrderShops,
             noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
@@ -661,12 +667,38 @@ class OrderManagement extends React.Component {
                             <DownOutlined />
                         </Button>
                     </Dropdown>
+                    <Dropdown
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentOrderTimeType: KOrderTimeType[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KOrderTimeType.map((timeType) => {
+                                            let fg = 'black';
+                                            if (timeType.name === currentOrderTimeType.name) fg = 'red';
+                                            return (<Menu.Item key={timeType.index} style={{ color: fg }}>
+                                                {timeType.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                        <Button size="small" style={{ width: 120, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                            {currentOrderTimeType.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <span>{`=>`}</span>
                     <RangePicker
                         open={timePickerOpen4OrderList}
                         onOpenChange={(open) => {
                             this.setState({ timePickerOpen4OrderList: open });
                         }}
-                        style={{ marginLeft: 10 }}
+                        style={{ marginLeft: 0 }}
                         size='small'
                         locale={locale}
                         bordered={true}

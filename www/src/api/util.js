@@ -39,6 +39,13 @@ const getOrderTemplates = () => {
   ];
 };
 
+const getOrderTimeType = () => {
+  return [
+    { index: 0, name: '订货时间', timeType: '0'},
+    { index: 1, name: '到货时间', timeType: '2'}
+  ];
+};
+
 const getAllOrderTemplateName = () => {
   return [
     '现烤类',
@@ -144,6 +151,7 @@ export {
   getAllShop,
   getAllOrderShopName,
   getOrderTemplates,
+  getOrderTimeType,
   getAllOrderTemplateName,
   getFlowType,
   getProductSortIdArray,

@@ -295,6 +295,7 @@ class ProductDistributeInputer extends React.Component {
         this._lastSearchText4AddProduct4onChange = '';
 
         this._template = undefined;
+        this._timeType = undefined;
         this._beginDateTime = undefined;
         this._endDateTime = undefined;
 
@@ -315,6 +316,7 @@ class ProductDistributeInputer extends React.Component {
             let shop = paramValueObj.shop;
             this.setState({ currentShop: shop });
             this._template = paramValueObj.template;
+            this._timeType = paramValueObj.timeType;
             this._beginDateTime = paramValueObj.beginDateTime;
             this._endDateTime = paramValueObj.endDateTime;
             this._orderList = paramValueObj.orderList;
@@ -1063,6 +1065,7 @@ class ProductDistributeInputer extends React.Component {
     handleBack = () => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
+        paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this.state.currentShop;
         paramValueObj.beginDateTime = this._beginDateTime;
         paramValueObj.endDateTime = this._endDateTime;
@@ -1471,7 +1474,7 @@ class ProductDistributeInputer extends React.Component {
                                 </div>
                                 <div>
                                     <span>收货门店：</span>
-                                    <span style={{fontSize: 24, fontWeight:'bold'}}>{currentShop.name}</span>
+                                    <span style={{ fontSize: 24, fontWeight: 'bold' }}>{currentShop.name}</span>
                                     <span style={{ marginLeft: 100 }}>出单时间：</span>
                                     <span>{currentTimeStr}</span>
                                 </div>

@@ -42,6 +42,7 @@ class ProductionPlanPrinter extends React.Component {
         this._template = undefined;
         this._shop = undefined;
         this._beginDateTime = undefined;
+        this._timeType = undefined;
         this._endDateTime = undefined;
     };
 
@@ -57,6 +58,7 @@ class ProductionPlanPrinter extends React.Component {
             this._template = paramValueObj.template;
             this._shop = paramValueObj.shop;
             this._beginDateTime = paramValueObj.beginDateTime;
+            this._timeType = paramValueObj.timeType;
             this._endDateTime = paramValueObj.endDateTime;
             this._orderList = paramValueObj.orderList;
 
@@ -343,6 +345,7 @@ class ProductionPlanPrinter extends React.Component {
     handleBack = (e) => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
+        paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this._shop;
         paramValueObj.beginDateTime = this._beginDateTime;
         paramValueObj.endDateTime = this._endDateTime;

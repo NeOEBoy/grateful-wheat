@@ -119,6 +119,7 @@ class OrderManagement extends React.Component {
 
             this.setState({
                 currentTemplate4OrderList: paramValueObj.template,
+                currentOrderTimeType: paramValueObj.timeType,
                 currentShop4OrderList: paramValueObj.shop,
                 beginDateTime4OrderList: moment(paramValueObj.beginDateTime),
                 endDateTime4OrderList: moment(paramValueObj.endDateTime)
@@ -286,7 +287,7 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
+        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderTimeType,
             selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
@@ -297,6 +298,7 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
         paramValueObj.endDateTime = endDateTime4OrderList;
@@ -321,7 +323,7 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate4OrderList,
+        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderTimeType,
             currentShop4OrderList, beginDateTime4OrderList, endDateTime4OrderList,
             selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
@@ -333,6 +335,7 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
         paramValueObj.endDateTime = endDateTime4OrderList;
@@ -356,7 +359,7 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate4OrderList, currentShop4OrderList,
+        const { alreadyOrderListData, currentTemplate4OrderList, currentShop4OrderList, currentOrderTimeType,
             beginDateTime4OrderList, endDateTime4OrderList, selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
@@ -367,6 +370,7 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
         paramValueObj.endDateTime = endDateTime4OrderList;

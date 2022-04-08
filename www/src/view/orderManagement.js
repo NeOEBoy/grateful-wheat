@@ -398,10 +398,15 @@ class OrderManagement extends React.Component {
         let yesterdayBegin = moment().subtract(1, 'day').startOf('day');
         let yesterdayEnd = moment().subtract(1, 'day').endOf('day');
 
+        let tomorrowBegin = moment().add(1, 'day').startOf('day');
+        let tomorrowEnd = moment().add(1, 'day').endOf('day');
+
         if (begin.diff(todayBegin, 'milliseconds') === 0 && end.diff(todayEnd) === 0) {
             dayTip = '今天';
         } else if (begin.diff(yesterdayBegin, 'milliseconds') === 0 && end.diff(yesterdayEnd) === 0) {
             dayTip = '昨天';
+        } else if (begin.diff(tomorrowBegin, 'milliseconds') === 0 && end.diff(tomorrowEnd) === 0) {
+            dayTip = '明天';
         }
 
         return dayTip;
@@ -757,6 +762,18 @@ class OrderManagement extends React.Component {
                                     });
                                 }}>
                                     今天
+                                </Button>
+                                <Button style={{ marginLeft: 10 }} size="small" type="primary" onClick={(e) => {
+                                    let yesterdayBegin = moment().add(1, 'day').startOf('day');
+                                    let yesterdayEnd = moment().add(1, 'day').endOf('day');
+                                    // console.log(yesterdayBegin);
+                                    // console.log(yesterdayEnd);
+
+                                    this.setState({ beginDateTime4OrderList: yesterdayBegin, endDateTime4OrderList: yesterdayEnd, timePickerOpen4OrderList: false }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }}>
+                                    明天
                                 </Button>
                             </span>
                         )}

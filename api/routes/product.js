@@ -321,6 +321,8 @@ router.get('/loadProductsSale', async function (req, res, next) {
     let isSellWell = req.query.isSellWell;
     let beginDateTime = req.query.beginDateTime;
     let endDateTime = req.query.endDateTime;
+    let orderColumn = req.query.orderColumn;
+    let asc = req.query.asc;
 
     if (!categoryId) {
       next(createError(500));
@@ -334,7 +336,9 @@ router.get('/loadProductsSale', async function (req, res, next) {
       userId,
       isSellWell,
       beginDateTime,
-      endDateTime);
+      endDateTime,
+      orderColumn,
+      asc);
     res.send(loadProductsSaleResponseJson);
   } catch (err) {
     next(err)

@@ -370,7 +370,7 @@ const loadElemeProducts = async () => {
   return loadElemeProductsResponseJson;
 }
 
-const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, endDateTime) => {
+const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, endDateTime, orderColumn, asc) => {
   let loadProductsSaleUrl = KApiHost + '/product/loadProductsSale';
   loadProductsSaleUrl += '?categoryId=';
   loadProductsSaleUrl += categoryId;
@@ -382,7 +382,11 @@ const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, e
   loadProductsSaleUrl += beginDateTime;
   loadProductsSaleUrl += '&endDateTime=';
   loadProductsSaleUrl += endDateTime;
-
+  loadProductsSaleUrl += '&orderColumn=';
+  loadProductsSaleUrl += orderColumn;
+  loadProductsSaleUrl += '&asc=';
+  loadProductsSaleUrl += asc;
+  
   // console.log(loadProductsSaleUrl);
   const loadProductsSaleResponse = await fetch(loadProductsSaleUrl);
   const loadProductsSaleResponseJson = await loadProductsSaleResponse.json();

@@ -16,6 +16,18 @@ const getAllShop = () => {
   ];
 };
 
+const getAllShopExceptAll = () => {
+  return [
+    { index: 0, name: '001 - 弯麦(教育局店)', userId: '3995767' },
+    { index: 1, name: '002 - 弯麦(旧镇店)', userId: '3995771' },
+    { index: 2, name: '003 - 弯麦(江滨店)', userId: '4061089' },
+    { index: 3, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
+    { index: 4, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
+    { index: 5, name: '006 - 弯麦(狮头店)', userId: '4359267' },
+    { index: 6, name: '007 - 弯麦(漳浦立人)', userId: '4382444' }
+  ];
+};
+
 const getAllOrderShopName = () => {
   return [
     '001 - 弯麦(教育局店)',
@@ -39,10 +51,21 @@ const getOrderTemplates = () => {
   ];
 };
 
+const getAllCategorysExceptAll = () => {
+  return [
+    { index: 0, name: '现烤面包', categoryId: '1593049816479739965' },
+    { index: 1, name: '西点慕斯', categoryId: '1592989355905414162' },
+    { index: 2, name: '常温蛋糕', categoryId: '1593049881212199906' },
+    { index: 3, name: '吐司面包', categoryId: '1593049854760654816' },
+    { index: 4, name: '餐包面包', categoryId: '1626767161867698544' }
+
+  ];
+};
+
 const getOrderTimeType = () => {
   return [
-    { index: 0, name: '订货时间', timeType: '0'},
-    { index: 1, name: '到货时间', timeType: '2'}
+    { index: 0, name: '订货时间', timeType: '0' },
+    { index: 1, name: '到货时间', timeType: '2' }
   ];
 };
 
@@ -149,6 +172,8 @@ const getPageName4NeedlePrinter = () => {
 export {
   getTest,
   getAllShop,
+  getAllShopExceptAll,
+  getAllCategorysExceptAll,
   getAllOrderShopName,
   getOrderTemplates,
   getOrderTimeType,

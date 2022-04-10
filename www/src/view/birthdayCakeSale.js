@@ -116,7 +116,7 @@ class birthdayCakeSale extends React.Component {
                         // console.log(beginDateTimeStr);
                         // console.log(endDateTimeStr);
 
-                        let loadResult = await loadProductsSale(categoryId, '', '', beginDateTimeStr, endDateTimeStr);
+                        let loadResult = await loadProductsSale(categoryId, '', '', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
                         // console.log(loadResult);
 
                         if (loadResult.errCode === 0 && loadResult.list.length > 0) {

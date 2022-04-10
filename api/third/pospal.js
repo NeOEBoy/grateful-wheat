@@ -1793,7 +1793,10 @@ const loadProductsSale = async (
   userId,
   isSellWell,
   beginDateTime,
-  endDateTime) => {
+  endDateTime,
+  orderColumn,
+  asc
+) => {
   try {
     // console.log(categoryId);
 
@@ -1823,8 +1826,10 @@ const loadProductsSale = async (
     productSaleBody += '&isNewly=';
     productSaleBody += '&pageIndex=1';
     productSaleBody += '&pageSize=1000';
-    productSaleBody += '&orderColumn=barcode';
-    productSaleBody += '&asc=true';
+    productSaleBody += '&orderColumn=';
+    productSaleBody += orderColumn;
+    productSaleBody += '&asc=';
+    productSaleBody += asc;
 
     const loadProductsSaleResponse = await fetch(loadProductsSaleUrl, {
       method: 'POST', body: productSaleBody,
@@ -1854,6 +1859,7 @@ const loadProductsSale = async (
           let totalPriceIndex = -1;
           let unitIndex = -1;
           let barcodeIndex = -1;
+          let stockIndex = -1;
 
           let productListDataTh = result.root.thead[0].tr[0].th;
           // console.log(productListDataTh);
@@ -1900,6 +1906,10 @@ const loadProductsSale = async (
               barcodeIndex = index;
               continue;
             }
+            if (titleName === '现有库存') {
+              stockIndex = index;
+              continue;
+            }
           }
 
           // console.log(productNameIndex);
@@ -1908,6 +1918,7 @@ const loadProductsSale = async (
           // console.log(totalPriceIndex);
           // console.log(unitIndex);
           // console.log(barcodeIndex);
+          // console.log(stockIndex);
 
           let productListDataTbody = result.root.tbody[0].tr;
           for (let index = 0; index < productListDataTbody.length; ++index) {
@@ -1959,6 +1970,11 @@ const loadProductsSale = async (
             // console.log(element.td[barcodeIndex]);
             let barcode = element.td[barcodeIndex];
             productItem.barcode = barcode;
+
+            /// 现有库存
+            // console.log(element.td[stockIndex].span[0]._.trim());
+            let stock = element.td[stockIndex].span[0]._.trim();
+            productItem.stock = stock;
 
             productList.push(productItem);
           }

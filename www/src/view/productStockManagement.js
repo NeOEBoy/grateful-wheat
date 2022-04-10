@@ -74,10 +74,10 @@ class ProductStockManagement extends React.Component {
 
         /// 订单列表头配置
         const KStockColumns4Table = [
-            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '商品条码', dataIndex: 'barcode', productName: 'barcode', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '商品条码', dataIndex: 'barcode', productName: 'barcode', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '商品名称', dataIndex: 'productName', productName: 'productName', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '商品库存', dataIndex: 'stock', productName: 'stock', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '商品库存', dataIndex: 'stock', productName: 'stock', width: 30, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
         ];
 
         return (

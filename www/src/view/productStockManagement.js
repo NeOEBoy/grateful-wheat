@@ -8,7 +8,7 @@ import {
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import {
-    getTest,
+    // getTest,
     getAllShopExceptAll,
     getAllCategorysExceptAll
 } from '../api/util';
@@ -75,13 +75,22 @@ class ProductStockManagement extends React.Component {
         /// 订单列表头配置
         const KStockColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '商品条码', dataIndex: 'barcode', productName: 'barcode', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '商品名称', dataIndex: 'productName', productName: 'productName', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '商品库存', dataIndex: 'stock', productName: 'stock', width: 30, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '条码', dataIndex: 'barcode', productName: 'barcode', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '名称', dataIndex: 'productName', productName: 'productName', width: 80, render: (text) => { return <span style={{ fontSize: 12 }}>{text}</span>; } },
+            {
+                title: '库存', dataIndex: 'stock', productName: 'stock', width: 30, render:
+                    (text) => {
+                        let fg = 'black';
+                        if (text === '0' || text.substring(0, 1) === '-') {
+                            fg = 'red';
+                        }
+                        return <span style={{ fontSize: 16, color: fg }}>{text}</span>;
+                    }
+            },
         ];
 
         return (
-            <div style={{ marginLeft: 20, marginTop: 20 }}>
+            <div style={{ marginLeft: 20, marginTop: 20, marginRight: 20 }}>
                 <Dropdown
                     style={{ marginLeft: 0 }}
                     overlay={

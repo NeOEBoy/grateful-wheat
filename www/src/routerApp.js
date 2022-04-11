@@ -7,7 +7,7 @@ import DIYReserve from "./view/diyReserve";
 import OrderManagement from "./view/orderManagement";
 import ProductionPlanPrinter from "./view/productionPlanPrinter";
 import ProductDistributePrinter from "./view/productDistributePrinter";
-import ProductDistributePrinter1 from "./view/productDistributePrinter1";
+// import ProductDistributePrinter1 from "./view/productDistributePrinter1";
 import ProductDistributeInputer from "./view/productDistributeInputer";
 import ProductManagement from "./view/productManagement";
 import BirthdayCakeSale from "./view/birthdayCakeSale";

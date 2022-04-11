@@ -7,7 +7,7 @@
 import React from 'react';
 import moment from 'moment';
 
-import { Spin, Image, Button, Typography } from 'antd';
+import { Spin, Image, Button } from 'antd';
 import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 import {
     getPageName4A4Printer,

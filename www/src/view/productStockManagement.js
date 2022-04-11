@@ -224,7 +224,7 @@ class ProductStockManagement extends React.Component {
                             </Menu>)
                         }
                     } arrow trigger={['click']} disabled={stockLoading}>
-                    <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                    <Button size="small" style={{ width: 100 }} onClick={e => e.preventDefault()}>
                         {currentCategory4StockList.name}
                         <DownOutlined />
                     </Button>

@@ -186,7 +186,7 @@ class BuildingMap extends React.Component {
                     }
                 </div>
 
-                <div style={{height:30}}>---没有更多了---</div>
+                <div style={{ height: 30 }}>---没有更多了---</div>
             </div>
         );
     }

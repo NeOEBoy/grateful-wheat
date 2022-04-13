@@ -26,13 +26,14 @@ class birthdayCakeSale extends React.Component {
         super(props);
 
         const KCategorys = [
-            { categoryId: '1634302334442115588', categoryName: '1-儿童蛋糕', productItems: [] },
-            { categoryId: '1634302367129657476', categoryName: '2-女神蛋糕', productItems: [] },
-            { categoryId: '1634302388959605558', categoryName: '3-男神蛋糕', productItems: [] },
-            { categoryId: '1634302403310226908', categoryName: '4-家庭蛋糕', productItems: [] },
-            { categoryId: '1634302419875701981', categoryName: '5-情侣蛋糕', productItems: [] },
-            { categoryId: '1634302432122635916', categoryName: '6-祝寿蛋糕', productItems: [] },
-            { categoryId: '1634302446119593980', categoryName: '7-庆典派对蛋糕', productItems: [] },
+            { categoryId: '1634302334442115588', categoryName: '1-女孩蛋糕', productItems: [] },
+            { categoryId: '1649820515687346997', categoryName: '2-男孩蛋糕', productItems: [] },
+            { categoryId: '1634302367129657476', categoryName: '3-女神蛋糕', productItems: [] },
+            { categoryId: '1634302388959605558', categoryName: '4-男神蛋糕', productItems: [] },
+            { categoryId: '1634302403310226908', categoryName: '5-家庭蛋糕', productItems: [] },
+            { categoryId: '1634302419875701981', categoryName: '6-情侣蛋糕', productItems: [] },
+            { categoryId: '1634302432122635916', categoryName: '7-祝寿蛋糕', productItems: [] },
+            { categoryId: '1634302446119593980', categoryName: '8-庆典派对蛋糕', productItems: [] },
         ];
 
         this.state = {
@@ -117,7 +118,7 @@ class birthdayCakeSale extends React.Component {
                         // console.log(endDateTimeStr);
 
                         let loadResult = await loadProductsSale(categoryId, '', '', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
-                        // console.log(loadResult);
+                        console.log(loadResult);
 
                         if (loadResult.errCode === 0 && loadResult.list.length > 0) {
                             let list = loadResult.list;

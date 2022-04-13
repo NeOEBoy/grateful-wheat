@@ -128,7 +128,8 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
                         itemsNeedToClearStock.push(itemNeedToClearStock);
                     }
 
-                    if (categoryName === '弯麦儿童蛋糕' ||
+                    if (categoryName === '弯麦女孩蛋糕' ||
+                        categoryName === '弯麦男孩蛋糕' ||
                         categoryName === '弯麦女神蛋糕' ||
                         categoryName === '弯麦男神蛋糕' ||
                         categoryName === '弯麦家庭蛋糕' ||

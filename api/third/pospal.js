@@ -644,10 +644,10 @@ const createStockFlowOut = async (thePOSPALAUTH30220, toUserId, items) => {
 
 const refuseStockFlow = async (thePOSPALAUTH30220, flowId) => {
   try {
-    let refuseStockFlowUrl = 'https://beta33.pospal.cn/StockFlow/RefuseStockFlow';
+    let refuseStockFlowUrl = 'https://beta33.pospal.cn/StockFlow/RefuseStockFlowInFromOtherStore';
 
     let refuseStockFlowBodyStr = '';
-    refuseStockFlowBodyStr += 'stockFlowId=';
+    refuseStockFlowBodyStr += 'stockFlowInId=';
     refuseStockFlowBodyStr += flowId;
     // console.log(refuseStockFlowBodyStr);
     const refuseStockFlowResponse = await fetch(refuseStockFlowUrl, {

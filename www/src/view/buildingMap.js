@@ -3,7 +3,7 @@
 */
 import React from 'react';
 import {
-    Input
+    Input, Button
 } from 'antd';
 import {
     wechatSign
@@ -49,12 +49,6 @@ class BuildingMap extends React.Component {
                 if (buildMap.indexOf(keyword) !== -1) {
                     buildMapNamesFilter.push(buildMap);
                 }
-            }
-        } else {
-            for (let i = 0; i < KBuildMapNames.length; ++i) {
-                let buildMap = KBuildMapNames[i];
-
-                buildMapNamesFilter.push(buildMap);
             }
         }
 
@@ -142,7 +136,16 @@ class BuildingMap extends React.Component {
                 console.log('window.wx error res = ' + JSON.stringify(res));
             });
         }
-    }
+    };
+
+    handleAll = () => {
+        let buildMapNamesFilter = [];
+        for (let i = 0; i < KBuildMapNames.length; ++i) {
+            let buildMap = KBuildMapNames[i];
+            buildMapNamesFilter.push(buildMap);
+        }
+        this.setState({ buildMapNamesFilter: buildMapNamesFilter });
+    };
 
     render() {
         const {
@@ -155,18 +158,23 @@ class BuildingMap extends React.Component {
 
         return (
             <div style={{ marginLeft: 20, marginTop: 5, marginRight: 20 }}>
-                <Search style={{ width: 240, marginTop: 4, marginLeft: 6, marginBottom: 4 }} size="middle"
-                    placeholder="小区名" enterButton="查询"
-                    onSearch={async () => {
-                        this.loadMapByKeyword();
-                    }}
-                    value={keyword}
-                    onChange={(e) => {
-                        const { value } = e.target;
-                        this.setState({ keyword: value }, () => {
+                <span>
+                    <Search style={{ width: 180, marginTop: 4, marginLeft: 6, marginBottom: 4 }} size="middle"
+                        placeholder="小区名"
+                        onSearch={async () => {
                             this.loadMapByKeyword();
-                        });
-                    }} />
+                        }}
+                        value={keyword}
+                        onChange={(e) => {
+                            const { value } = e.target;
+                            this.setState({ keyword: value }, () => {
+                                this.loadMapByKeyword();
+                            });
+                        }} />
+                </span>
+                <span>
+                    <Button type='primary' style={{ marginLeft: 6, marginTop: 4 }} onClick={this.handleAll}>全部小区</Button>
+                </span>
 
                 <div>
                     {
@@ -186,7 +194,7 @@ class BuildingMap extends React.Component {
                     }
                 </div>
 
-                <div style={{ height: 30 }}>---没有更多了---</div>
+                <div style={{ height: 30 }}>---没有更多了请联系管理员添加---</div>
             </div>
         );
     }

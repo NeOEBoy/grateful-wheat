@@ -174,6 +174,7 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
             console.log(itemsNeedToFillOrClearStock);
             if (itemsNeedToFillOrClearStock.length > 0) {
                 if (decoratingRoomWorking) {
+                    console.log('批量上架蛋糕...')
                     try {
                         await ProductService.batchFillStock(itemsNeedToFillOrClearStock);
                     } catch (err) {
@@ -181,6 +182,7 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
                     }
                 } else {
                     try {
+                        console.log('批量下架蛋糕...')
                         await ProductService.batchClearStock(itemsNeedToFillOrClearStock);
                     } catch (err) {
                         console.log(err);

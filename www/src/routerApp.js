@@ -38,7 +38,7 @@ function Inside4QueryParams() {
 
   return (
     <div>
-      <Route exact path="/" children={<ProductSale />} />
+      <Route exact path="/" children={<BuildingMap query={query} />} />
       <Route path="/productsale" children={<ProductSale query={query} />} />
       <Route path="/discardsale" children={<ProductDiscard query={query} />} />
       <Route path="/productsaleanddiscard" children={<ProductSaleAndDiscard query={query} />} />

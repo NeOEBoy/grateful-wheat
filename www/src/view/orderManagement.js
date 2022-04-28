@@ -310,7 +310,7 @@ class OrderManagement extends React.Component {
         // console.log(paramStr);
 
         let productionPlanPrinterUrl = 'http://localhost:4000/productionPlanPrinter';
-        if (!KForTest) productionPlanPrinterUrl = 'http://gratefulwheat.ruyue.xyz/productionPlanPrinter';
+        if (!KForTest) productionPlanPrinterUrl = 'http://123.207.119.232/productionPlanPrinter';
 
         productionPlanPrinterUrl += '?';
         productionPlanPrinterUrl += paramStr;
@@ -347,7 +347,7 @@ class OrderManagement extends React.Component {
         // console.log(paramStr);
 
         let productDistributePrinterUrl = 'http://localhost:4000/productDistributePrinter';
-        if (!KForTest) productDistributePrinterUrl = 'http://gratefulwheat.ruyue.xyz/productDistributePrinter';
+        if (!KForTest) productDistributePrinterUrl = 'http://123.207.119.232/productDistributePrinter';
 
         productDistributePrinterUrl += '?';
         productDistributePrinterUrl += paramStr;
@@ -382,7 +382,7 @@ class OrderManagement extends React.Component {
         // console.log(paramStr);
 
         let productionPlanInputerUrl = 'http://localhost:4000/productDistributeInputer';
-        if (!KForTest) productionPlanInputerUrl = 'http://gratefulwheat.ruyue.xyz/productDistributeInputer';
+        if (!KForTest) productionPlanInputerUrl = 'http://123.207.119.232/productDistributeInputer';
 
         productionPlanInputerUrl += '?';
         productionPlanInputerUrl += paramStr;

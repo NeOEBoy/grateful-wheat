@@ -3,7 +3,7 @@ console.log('process.env.NODE_ENV = ' + process.env.NODE_ENV);
 
 /**--------------------配置信息--------------------*/
 const KApiHost = process.env.NODE_ENV === 'development' ?
-  'http://localhost:9001' : 'http://gratefulwheat.ruyue.xyz/apis';
+  'http://localhost:9001' : 'http://123.207.119.232/apis';
 
 const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex, pageSize, keyword) => {
   let productSaleUrl = KApiHost + '/product/saleList';

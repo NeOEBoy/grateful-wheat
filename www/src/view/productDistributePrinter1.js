@@ -39,6 +39,7 @@ class ProductDistributePrinter extends React.Component {
             productSpinning: false
         }
         this._template = undefined;
+        this._timeType = undefined;
         this._shop = undefined;
         this._beginDateTime = undefined;
         this._endDateTime = undefined;
@@ -54,6 +55,7 @@ class ProductDistributePrinter extends React.Component {
             // console.log(paramValueStr);
             let paramValueObj = JSON.parse(paramValueStr);
             this._template = paramValueObj.template;
+            this._timeType = paramValueObj.timeType;
             this._shop = paramValueObj.shop;
             this._beginDateTime = paramValueObj.beginDateTime;
             this._endDateTime = paramValueObj.endDateTime;
@@ -320,6 +322,7 @@ class ProductDistributePrinter extends React.Component {
     handleBack = (e) => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
+        paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this._shop;
         paramValueObj.beginDateTime = this._beginDateTime;
         paramValueObj.endDateTime = this._endDateTime;

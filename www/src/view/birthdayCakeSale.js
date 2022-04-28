@@ -60,7 +60,7 @@ class birthdayCakeSale extends React.Component {
             }
         }
         this.setState({ birthdayCakesRecommend: birthdayCakesRecommendNew, debug: debug });
-        this.updateWeixinConfig();
+        // this.updateWeixinConfig();
     }
 
     handleCollapseOnChange = async (keys) => {

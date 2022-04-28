@@ -6,8 +6,8 @@ import CouponSummary from "./view/couponSummary";
 import DIYReserve from "./view/diyReserve";
 import OrderManagement from "./view/orderManagement";
 import ProductionPlanPrinter from "./view/productionPlanPrinter";
-import ProductDistributePrinter from "./view/productDistributePrinter";
-// import ProductDistributePrinter1 from "./view/productDistributePrinter1";
+// import ProductDistributePrinter from "./view/productDistributePrinter";
+import ProductDistributePrinter1 from "./view/productDistributePrinter1";
 import ProductDistributeInputer from "./view/productDistributeInputer";
 import ProductManagement from "./view/productManagement";
 import BirthdayCakeSale from "./view/birthdayCakeSale";
@@ -46,7 +46,7 @@ function Inside4QueryParams() {
       <Route path="/diyreserve" children={<DIYReserve query={query} />} />
       <Route path="/productionPlanPrinter" children={<ProductionPlanPrinter query={query} />} />
       <Route path="/orderManagement" children={<OrderManagement query={query} />} />
-      <Route path="/productDistributePrinter" children={<ProductDistributePrinter query={query} />} />
+      <Route path="/productDistributePrinter" children={<ProductDistributePrinter1 query={query} />} />
       <Route path="/productDistributeInputer" children={<ProductDistributeInputer query={query} />} />
       <Route path="/productManagement" children={<ProductManagement query={query} />} />
       <Route path="/birthdayCakeSale" children={<BirthdayCakeSale query={query} />} />

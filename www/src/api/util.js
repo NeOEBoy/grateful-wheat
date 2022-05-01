@@ -124,8 +124,8 @@ const getFlowType = () => {
   ];
 };
 
-// 'HP DeskJet 3630 series' 或者 'EPSON LQ-735K ESC/P2'
-const KA4PrinterName = 'HP DeskJet 3630 series';
+// 'EPSON L380 Series' 或者 'EPSON LQ-735K ESC/P2'
+const KA4PrinterName = 'EPSON L380 Series';
 const getA4PrinterName = () => {
   return KA4PrinterName;
 };

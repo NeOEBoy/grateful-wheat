@@ -9,8 +9,12 @@ debug
 import React from 'react';
 import moment from 'moment';
 
-import { RightSquareFilled } from '@ant-design/icons';
-import { Collapse, Image, Spin, Typography } from 'antd';
+import { RightSquareFilled, UserOutlined } from '@ant-design/icons';
+import {
+    Modal, Collapse, Image, Spin,
+    Typography, DatePicker, Radio,
+    Select, Input, Checkbox
+} from 'antd';
 import {
     loadProductsSale,
     loadBirthdayCakesRecommend,
@@ -19,6 +23,9 @@ import {
 
 const { Title } = Typography;
 const { Panel } = Collapse;
+const { Option } = Select;
+const CheckboxGroup = Checkbox.Group;
+
 const KBrithdayCakeRoot = '/image/弯麦生日蛋糕';
 
 class birthdayCakeSale extends React.Component {
@@ -39,7 +46,9 @@ class birthdayCakeSale extends React.Component {
         this.state = {
             birthdayCakeCategorys: KCategorys,
             birthdayCakesRecommend: [],
-            debug: 0
+            debug: 0,
+            value3: '自提',
+            orderCakeInfoModalVisable: false
         };
 
         this._lastKeys = [];
@@ -269,8 +278,47 @@ class birthdayCakeSale extends React.Component {
         }
     }
 
+    handleOk = () => {
+        this.setState({ orderCakeInfoModalVisable: false });
+    }
+
+    handleCancel = () => {
+        this.setState({ orderCakeInfoModalVisable: false });
+    }
+
+    onChange3 = e => {
+        this.setState({
+            value3: e.target.value,
+        });
+    }
+
+    handleChange = (value) => {
+        console.log(`selected ${value}`);
+    }
+
+    handleOrderTitleClick = () => {
+        this.setState({ orderCakeInfoModalVisable: true });
+    }
+
+    onChange = list => {
+        // setCheckedList(list);
+        // setIndeterminate(!!list.length && list.length < plainOptions.length);
+        // setCheckAll(list.length === plainOptions.length);
+    }
+
     render() {
-        const { birthdayCakeCategorys, birthdayCakesRecommend, debug } = this.state;
+        const { birthdayCakeCategorys,
+            birthdayCakesRecommend,
+            debug,
+            value3,
+            orderCakeInfoModalVisable,
+            checkedList } = this.state;
+        const options = [
+            { label: 'Apple', value: 'Apple' },
+            { label: 'Pear', value: 'Pear' },
+            { label: 'Orange', value: 'Orange' },
+        ];
+        const plainOptions = ['Apple', 'Pear', 'Orange'];
 
         return (
             <div>
@@ -284,7 +332,19 @@ class birthdayCakeSale extends React.Component {
                 {
                     birthdayCakesRecommend.map((item) => {
                         let src = "/image/弯麦生日蛋糕/0-新款蛋糕/" + item.name + '.jpg';
-                        return (<Image preview={false} src={src} key={item.key} />);
+                        return (
+                            <div key={item.key} >
+                                <Image preview={false} src={src} />
+                                {/* <Title level={5} style={{
+                                    textAlign: 'center', marginTop: 0,
+                                    marginLeft: 30, marginRight: 30,
+                                    backgroundColor: 'red', color: 'white',
+                                    borderRadius: 12, paddingTop: 4, paddingBottom: 4
+                                }} onClick={this.handleOrderTitleClick}>
+                                    {`预定《${item.name}》`}
+                                </Title> */}
+                            </div>
+                        );
                     })
                 }
 
@@ -355,6 +415,99 @@ class birthdayCakeSale extends React.Component {
                     </span>
                     <span> (点击)预定</span>
                 </div>
+
+                <Modal title="蛋糕订购信息" visible={orderCakeInfoModalVisable}
+                    onOk={this.handleOk} onCancel={this.handleCancel}
+                    closable={false} maskClosable={false}>
+                    <div>
+                        <span>取货时间: * </span>
+                        <DatePicker picker='date'></DatePicker>
+                        <DatePicker picker='time' showTime={{ showMinute: false }}></DatePicker>
+                    </div>
+                    <div>
+                        <span>取货方式: * </span>
+                        <Radio.Group
+                            options={options}
+                            onChange={this.onChange3}
+                            value={value3}
+                            optionType="button"
+                            buttonStyle="solid"
+                        />
+                    </div>
+                    <div>
+                        <span>自提门店: * </span>
+                        <Select defaultValue="lucy" style={{ width: 120 }} onChange={this.handleChange}>
+                            <Option value="jack">Jack</Option>
+                            <Option value="lucy">Lucy</Option>
+                            <Option value="disabled" disabled>
+                                Disabled
+                            </Option>
+                            <Option value="Yiminghe">yiminghe</Option>
+                        </Select>
+                    </div>
+                    <div>
+                        <Input.Group>
+                            <span>订购人 : * </span>
+                            <Input style={{ width: 'calc(100% - 100px)' }} placeholder='订购人姓名' prefix={<UserOutlined />}></Input>
+                        </Input.Group>
+                    </div>
+                    <div>
+                        <Input.Group>
+                            <span>联系方式: * </span>
+                            <Input style={{ width: 'calc(100% - 100px)' }} placeholder='手机号' prefix={<UserOutlined />}></Input>
+                        </Input.Group>
+                    </div>
+                    <div>
+                        <Input.Group>
+                            <span>尺寸: * </span>
+                            <Input style={{ width: 'calc(100% - 100px)' }} placeholder='尺寸' prefix={<UserOutlined />}></Input>
+                        </Input.Group>
+                    </div>
+                    <div>
+                        <span>夹心: * </span>
+                        <CheckboxGroup options={plainOptions} value={checkedList} onChange={this.onChange} />
+                    </div>
+                    <div>
+                        <Input.Group>
+                            <span>收款金额: * </span>
+                            <Input style={{ width: 'calc(100% - 100px)' }} placeholder='收款金额' prefix={<UserOutlined />}></Input>
+                        </Input.Group>
+                    </div>
+                    <div>
+                        <span>支付方式: * </span>
+                        <Select defaultValue="weixin" style={{ width: 120 }}>
+                            <Option value="weixin">微信支付</Option>
+                            <Option value="alipay">支付宝支付</Option>
+                            <Option value="crash">现金支付</Option>
+                        </Select>
+                    </div>
+                    <div>
+                        <span>生日蜡烛: * </span>
+                        <Select defaultValue="normal" style={{ width: 120 }}>
+                            <Option value="normal">螺纹蜡烛</Option>
+                            <Option value="number">数字蜡烛</Option>
+                            <Option value="love">爱心蜡烛</Option>
+                            <Option value="star">五星蜡烛</Option>
+                        </Select>
+                    </div>
+                    <div>
+                        <span>餐具数量: * </span>
+                        <Select defaultValue="10" style={{ width: 120 }}>
+                            <Option value="5">5</Option>
+                            <Option value="10">10</Option>
+                            <Option value="15">15</Option>
+                            <Option value="20">20</Option>
+                            <Option value="25">25</Option>
+                            <Option value="30">30</Option>
+                        </Select>
+                    </div>
+                    <div>
+                        <Input.Group>
+                            <span>其它备注: * </span>
+                            <Input style={{ width: 'calc(100% - 100px)' }} placeholder='其它备注' prefix={<UserOutlined />}></Input>
+                        </Input.Group>
+                    </div>
+                </Modal>
             </div>
         )
     }

@@ -361,23 +361,25 @@ class birthdayCakeSale extends React.Component {
         this.setState({
             orderCakeInfoModalVisiable: false
         }, () => {
-            this.setState({
-                imageCapturing: true
-            }, async () => {
-                if (!this._theDiv4Capture) return;
-
-                let canvas = await html2Canvas(this._theDiv4Capture);
-                let imageSrc = canvas.toDataURL('image/png');
-
+            setTimeout(() => {
                 this.setState({
-                    orderImageSrc: imageSrc,
-                    imageCapturing: false
-                }, () => {
+                    imageCapturing: true
+                }, async () => {
+                    if (!this._theDiv4Capture) return;
+
+                    let canvas = await html2Canvas(this._theDiv4Capture);
+                    let imageSrc = canvas.toDataURL('image/png');
+
                     this.setState({
-                        orderImageModalVisiable: true
+                        orderImageSrc: imageSrc,
+                        imageCapturing: false
+                    }, () => {
+                        this.setState({
+                            orderImageModalVisiable: true
+                        });
                     });
-                });
-            })
+                })
+            }, 0);
         });
 
         const {
@@ -515,83 +517,8 @@ class birthdayCakeSale extends React.Component {
         };
 
         return (
-            <Spin spinning={imageCapturing} size='large' tip='正在生成蛋糕订购单...' >
+            <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
                 <div>
-                    {debug && imageCapturing ? (<div ref={(current) => {
-                        this._theDiv4Capture = current;
-                    }} style={theDiv4CaptureStyle}>
-                        <div style={{
-                            fontSize: 22,
-                            textAlign: 'center',
-                            paddingTop: 12,
-                            paddingBottom: 12
-                        }}> 弯麦蛋糕订购单</div>
-                        <div>
-                            <div style={theLeftDivInTheDiv4CaptureStyle}>
-                                <div style={{
-                                    fontSize: 20,
-                                    textAlign: 'center',
-                                    paddingTop: 4,
-                                    paddingBottom: 4,
-                                    fontWeight: 'bold',
-                                    background: '#D8D8D8'
-                                }}>{`《白雪公主》`}</div>
-                                <div>
-                                    <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
-                                </div>
-                            </div>
-                            <div style={theRightDivInTheDiv4CaptureStyle}>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>制作</Divider>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>奶油类型：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>尺寸大小：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>内部夹心：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>蜡烛类型：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>餐具数量：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
-                                </div>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>配送</Divider>
-                                <div>
-                                    <span style={{ fontSize: 16 }}>取货时间：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>取货方式：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>配送地址：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>漳浦县绥安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>提货人：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>联系方式：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
-                                </div>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>其它</Divider>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>备注：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>) : (<div></div>)}
-
                     <Title level={5} style={{
                         textAlign: 'center', marginTop: 0,
                         backgroundColor: '#DAA520', color: 'white',
@@ -692,9 +619,10 @@ class birthdayCakeSale extends React.Component {
                         onOk={this.handleOrderCakeInfoModalOk}
                         onCancel={this.handleOrderCakeInfoModalCancel}
                         closable={false} maskClosable={false}>
-                        <div style={{ textAlign: 'center', fontSize: 18, marginTop: -15 }}>
+                        <div style={{ textAlign: 'center', fontSize: 14, marginTop: -15 }}>
                             {`《白雪公主》`}
                         </div>
+                        <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <Input.Group>
                                 <span>奶油类型：* </span>
@@ -736,7 +664,7 @@ class birthdayCakeSale extends React.Component {
                                 onChange={this.handleCakePlateNumberChange}>
                             </Select>
                         </div>
-                        <Divider dashed />
+                        <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>配送</Divider>
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <span>取货时间：* </span>
                             <DatePicker
@@ -796,7 +724,7 @@ class birthdayCakeSale extends React.Component {
                                     onChange={this.handlePhoneNumberChange} />
                             </Input.Group>
                         </div>
-                        <Divider dashed />
+                        <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <Input.Group>
                                 <span>备注：</span>
@@ -817,13 +745,83 @@ class birthdayCakeSale extends React.Component {
                             this.setState({ orderImageModalVisiable: false });
                         }}>返回</Button>
                     ]}>
-                        <div style={{ background: 'yellow' }}>
-                            <Image style={{ width: 300, height: 300, float: 'left' }}
-                                preview={false} src={orderImageSrc} />
-                        </div>
+                        <Image preview={false} src={orderImageSrc} />
                     </Modal>
 
-
+                    {debug && imageCapturing ? (<div ref={(current) => {
+                        this._theDiv4Capture = current;
+                    }} style={theDiv4CaptureStyle}>
+                        <div style={{
+                            fontSize: 22,
+                            textAlign: 'center',
+                            paddingTop: 12,
+                            paddingBottom: 12
+                        }}> 弯麦蛋糕订购单</div>
+                        <div>
+                            <div style={theLeftDivInTheDiv4CaptureStyle}>
+                                <div style={{
+                                    fontSize: 20,
+                                    textAlign: 'center',
+                                    paddingTop: 4,
+                                    paddingBottom: 4,
+                                    fontWeight: 'bold',
+                                    background: '#D8D8D8'
+                                }}>{`《白雪公主》`}</div>
+                                <div>
+                                    <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
+                                </div>
+                            </div>
+                            <div style={theRightDivInTheDiv4CaptureStyle}>
+                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>奶油类型：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>尺寸大小：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>内部夹心：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>蜡烛类型：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>餐具数量：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
+                                </div>
+                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>配送</Divider>
+                                <div>
+                                    <span style={{ fontSize: 16 }}>取货时间：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>取货方式：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>配送地址：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>漳浦县绥安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>提货人：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>联系方式：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
+                                </div>
+                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>备注：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>) : (<div></div>)}
                 </div >
             </Spin>
         )

@@ -28,7 +28,7 @@ import {
     wechatSign
 } from '../api/api';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 const { Panel } = Collapse;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
@@ -480,19 +480,26 @@ class birthdayCakeSale extends React.Component {
 
         console.log('window.innerWidth：' + window.innerWidth);
 
-        let theDiv4CaptureHeight = window.innerWidth * 148 / 210;
+        let theDiv4CaptureWidth = 1000;
+
+        let theDiv4CaptureHeight = theDiv4CaptureWidth * 148 / 210;
         let theDiv4CaptureStyle = {
+            width: theDiv4CaptureWidth,
             height: theDiv4CaptureHeight,
             background: 'green'
         };
-        let theLeftImageInTheDiv4CaptureStyle = {
+        let theLeftDivInTheDiv4CaptureStyle = {
             width: theDiv4CaptureHeight - 200,
             height: theDiv4CaptureHeight - 200,
             float: 'left', marginLeft: 12
         };
+        // let theLeftImageInTheDiv4CaptureStyle = {
+        //     width: theDiv4CaptureHeight - 200,
+        //     height: theDiv4CaptureHeight - 200
+        // };
         let theRightDivInTheDiv4CaptureStyle = {
             float: 'right',
-            width: window.innerWidth - theDiv4CaptureHeight + 140,
+            width: theDiv4CaptureWidth - theDiv4CaptureHeight + 140,
             background: 'red'
         };
 
@@ -735,9 +742,10 @@ class birthdayCakeSale extends React.Component {
                         paddingBottom: 12
                     }}> 弯麦蛋糕订购单</div>
                     <div>
-                        <Image style={theLeftImageInTheDiv4CaptureStyle}
-                            preview={false}
-                            src='/image/弯麦生日蛋糕/image4wechat.jpg' />
+                        <div style={theLeftDivInTheDiv4CaptureStyle}>
+                            <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
+                        </div>
+
                         <div style={theRightDivInTheDiv4CaptureStyle}>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                 <span style={{ fontSize: 14 }}>奶油类型：</span>

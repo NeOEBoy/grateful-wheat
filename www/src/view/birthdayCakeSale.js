@@ -359,29 +359,26 @@ class birthdayCakeSale extends React.Component {
 
     handleOrderCakeInfoModalOk = () => {
         this.setState({
-            orderCakeInfoModalVisiable: false,
-            orderImageModalVisiable: true
-        });
-
-
-        this.setState({ imageCapturing: true }, async () => {
-            if (!this._theDiv4Capture) return;
-            console.log(this._theDiv4Capture);
-            let canvas = await html2Canvas(this._theDiv4Capture);
-            let imageSrc = canvas.toDataURL('image/png');
+            orderCakeInfoModalVisiable: false
+        }, () => {
             this.setState({
-                orderImageSrc: imageSrc,
-                imageCapturing: false
-            });
-        });
+                imageCapturing: true
+            }, async () => {
+                if (!this._theDiv4Capture) return;
 
-        // setTimeout(async () => {
-        //     let canvas = await html2Canvas(this._theDiv4Capture);
-        //     let imageSrc = canvas.toDataURL('image/png');
-        //     this.setState({
-        //         orderImageSrc: imageSrc
-        //     });
-        // }, 0);
+                let canvas = await html2Canvas(this._theDiv4Capture);
+                let imageSrc = canvas.toDataURL('image/png');
+
+                this.setState({
+                    orderImageSrc: imageSrc,
+                    imageCapturing: false
+                }, () => {
+                    this.setState({
+                        orderImageModalVisiable: true
+                    });
+                });
+            })
+        });
 
         const {
             creamType,
@@ -411,6 +408,7 @@ class birthdayCakeSale extends React.Component {
         console.log('联系方式：' + phoneNumber);
         console.log('备注：' + remarks);
     }
+
 
     handleOrderCakeInfoModalCancel = () => {
         this.setState({ orderCakeInfoModalVisiable: false });
@@ -517,312 +515,317 @@ class birthdayCakeSale extends React.Component {
         };
 
         return (
-            <div>
-                <Title level={5} style={{
-                    textAlign: 'center', marginTop: 0,
-                    backgroundColor: '#DAA520', color: 'white',
-                    borderRadius: 15, paddingTop: 8, paddingBottom: 8
-                }}>
-                    {debug ? `0-新款蛋糕（${birthdayCakesRecommend.length}）` : `0-新款蛋糕`}
-                </Title>
-                {
-                    birthdayCakesRecommend.map((item) => {
-                        let src = "/image/弯麦生日蛋糕/0-新款蛋糕/" + item.name + '.jpg';
-                        return (
-                            <div key={item.key} >
-                                <Image preview={false} src={src} />
-
-                                {debug ? (<Title level={5} style={{
-                                    textAlign: 'center', marginTop: 0,
-                                    marginLeft: 30, marginRight: 30,
-                                    backgroundColor: 'red', color: 'white',
-                                    borderRadius: 12, paddingTop: 4, paddingBottom: 4
-                                }} onClick={this.handleOrderNowTitleClick}>
-                                    {`立即预定《${item.name}》`}
-                                </Title>) : (<div></div>)}
+            <Spin spinning={imageCapturing} size='large' tip='正在生成蛋糕订购单...' >
+                <div>
+                    {debug && imageCapturing ? (<div ref={(current) => {
+                        this._theDiv4Capture = current;
+                    }} style={theDiv4CaptureStyle}>
+                        <div style={{
+                            fontSize: 22,
+                            textAlign: 'center',
+                            paddingTop: 12,
+                            paddingBottom: 12
+                        }}> 弯麦蛋糕订购单</div>
+                        <div>
+                            <div style={theLeftDivInTheDiv4CaptureStyle}>
+                                <div style={{
+                                    fontSize: 20,
+                                    textAlign: 'center',
+                                    paddingTop: 4,
+                                    paddingBottom: 4,
+                                    fontWeight: 'bold',
+                                    background: '#D8D8D8'
+                                }}>{`《白雪公主》`}</div>
+                                <div>
+                                    <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
+                                </div>
                             </div>
-                        );
-                    })
-                }
+                            <div style={theRightDivInTheDiv4CaptureStyle}>
+                                <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>制作</Divider>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>奶油类型：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>尺寸大小：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>内部夹心：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>蜡烛类型：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>餐具数量：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
+                                </div>
+                                <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>配送</Divider>
+                                <div>
+                                    <span style={{ fontSize: 16 }}>取货时间：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>取货方式：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>配送地址：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>漳浦县绥安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>提货人：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
+                                </div>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>联系方式：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
+                                </div>
+                                <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>其它</Divider>
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>备注：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>) : (<div></div>)}
 
-                <Collapse
-                    bordered={true}
-                    expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
-                    expandIconPosition='right'
-                    onChange={this.handleCollapseOnChange}>
+                    <Title level={5} style={{
+                        textAlign: 'center', marginTop: 0,
+                        backgroundColor: '#DAA520', color: 'white',
+                        borderRadius: 15, paddingTop: 8, paddingBottom: 8
+                    }}>
+                        {debug ? `0-新款蛋糕（${birthdayCakesRecommend.length}）` : `0-新款蛋糕`}
+                    </Title>
                     {
-                        birthdayCakeCategorys.map((item) => {
+                        birthdayCakesRecommend.map((item) => {
+                            let src = "/image/弯麦生日蛋糕/0-新款蛋糕/" + item.name + '.jpg';
                             return (
-                                <Panel header=
-                                    {
-                                        (
-                                            <span style={{ color: 'white', fontSize: 16 }}>
-                                                {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
-                                            </span>
-                                        )
-                                    }
-                                    style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
-                                    key={item.categoryId}
-                                    extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
-                                    <Spin spinning={item.spinning}>
-                                        {
-                                            item.productItems.map((item1) => {
-                                                let imageSrc = KBrithdayCakeRoot;
-                                                imageSrc += '/';
-                                                imageSrc += item.categoryName;
-                                                imageSrc += '/';
-                                                imageSrc += item1.productName;
-                                                imageSrc += '.jpg';
-                                                return (
-                                                    <span key={item1.key} >
-                                                        {debug ? (
-                                                            <span>
-                                                                <div style={{ color: 'red', fontSize: 14 }}>{item1.productName}</div>
-                                                                <div style={{ color: 'green', fontSize: 12 }}>{`半年内销售数量：${item1.saleNumber}`}</div>
-                                                                <Image preview={false} src={imageSrc} onError={(e) => {
-                                                                    /// 图片加载不成功时隐藏
-                                                                    e.target.style.display = 'none';
-                                                                }} />
-                                                            </span>
-                                                        ) : (
-                                                            <span>
-                                                                <Image preview={false} src={imageSrc} onError={(e) => {
-                                                                    /// 图片加载不成功时隐藏
-                                                                    e.target.style.display = 'none';
-                                                                }} />
-                                                            </span>
-                                                        )}
-                                                    </span>
-                                                )
-                                            })
-                                        }
-                                    </Spin>
-                                </Panel>
+                                <div key={item.key} >
+                                    <Image preview={false} src={src} />
+
+                                    {debug ? (<Title level={5} style={{
+                                        textAlign: 'center', marginTop: 0,
+                                        marginLeft: 30, marginRight: 30,
+                                        backgroundColor: 'red', color: 'white',
+                                        borderRadius: 12, paddingTop: 4, paddingBottom: 4
+                                    }} onClick={this.handleOrderNowTitleClick}>
+                                        {`立即预定《${item.name}》`}
+                                    </Title>) : (<div></div>)}
+                                </div>
                             );
                         })
                     }
-                </Collapse>
-                <div style={{
-                    height: 40, textAlign: 'center', color: 'green',
-                    fontSize: 14, fontWeight: "bold", paddingTop: 7
-                }}>
-                    <span>添加教育局总店</span>
-                    <span style={{ textDecoration: 'underline' }}>
-                        <a href="tel:13290768588">13290768588</a>
-                    </span>
-                    <span> (点击)预定</span>
-                </div>
 
-                <Modal title="蛋糕订购信息" style={{ top: 0 }}
-                    visible={orderCakeInfoModalVisiable}
-                    onOk={this.handleOrderCakeInfoModalOk}
-                    onCancel={this.handleOrderCakeInfoModalCancel}
-                    closable={false} maskClosable={false}>
-                    <div style={{ textAlign: 'center', fontSize: 18, marginTop: -15 }}>
-                        {`《《白雪公主》》`}
+                    <Collapse
+                        bordered={true}
+                        expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
+                        expandIconPosition='right'
+                        onChange={this.handleCollapseOnChange}>
+                        {
+                            birthdayCakeCategorys.map((item) => {
+                                return (
+                                    <Panel header=
+                                        {
+                                            (
+                                                <span style={{ color: 'white', fontSize: 16 }}>
+                                                    {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
+                                                </span>
+                                            )
+                                        }
+                                        style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
+                                        key={item.categoryId}
+                                        extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                        <Spin spinning={item.spinning}>
+                                            {
+                                                item.productItems.map((item1) => {
+                                                    let imageSrc = KBrithdayCakeRoot;
+                                                    imageSrc += '/';
+                                                    imageSrc += item.categoryName;
+                                                    imageSrc += '/';
+                                                    imageSrc += item1.productName;
+                                                    imageSrc += '.jpg';
+                                                    return (
+                                                        <span key={item1.key} >
+                                                            {debug ? (
+                                                                <span>
+                                                                    <div style={{ color: 'red', fontSize: 14 }}>{item1.productName}</div>
+                                                                    <div style={{ color: 'green', fontSize: 12 }}>{`半年内销售数量：${item1.saleNumber}`}</div>
+                                                                    <Image preview={false} src={imageSrc} onError={(e) => {
+                                                                        /// 图片加载不成功时隐藏
+                                                                        e.target.style.display = 'none';
+                                                                    }} />
+                                                                </span>
+                                                            ) : (
+                                                                <span>
+                                                                    <Image preview={false} src={imageSrc} onError={(e) => {
+                                                                        /// 图片加载不成功时隐藏
+                                                                        e.target.style.display = 'none';
+                                                                    }} />
+                                                                </span>
+                                                            )}
+                                                        </span>
+                                                    )
+                                                })
+                                            }
+                                        </Spin>
+                                    </Panel>
+                                );
+                            })
+                        }
+                    </Collapse>
+                    <div style={{
+                        height: 40, textAlign: 'center', color: 'green',
+                        fontSize: 14, fontWeight: "bold", paddingTop: 7
+                    }}>
+                        <span>添加教育局总店</span>
+                        <span style={{ textDecoration: 'underline' }}>
+                            <a href="tel:13290768588">13290768588</a>
+                        </span>
+                        <span> (点击)预定</span>
                     </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <Input.Group>
-                            <span>奶油类型：* </span>
+
+                    <Modal title="蛋糕订购信息" style={{ top: 0 }}
+                        visible={orderCakeInfoModalVisiable}
+                        onOk={this.handleOrderCakeInfoModalOk}
+                        onCancel={this.handleOrderCakeInfoModalCancel}
+                        closable={false} maskClosable={false}>
+                        <div style={{ textAlign: 'center', fontSize: 18, marginTop: -15 }}>
+                            {`《白雪公主》`}
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <Input.Group>
+                                <span>奶油类型：* </span>
+                                <Radio.Group
+                                    size='large'
+                                    options={KCreamTypeOptions}
+                                    onChange={this.handleCreamTypeChange}
+                                    value={creamType}
+                                    optionType='default'
+                                />
+                            </Input.Group>
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <Input.Group>
+                                <span>尺寸大小：* </span>
+                                <Select defaultValue={cakeSize} style={{ width: 100 }}
+                                    onChange={this.handleCakeSizeChange}
+                                    options={KCakeSizeOptions}>
+                                </Select>
+                            </Input.Group>
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <span>内部夹心：* </span>
+                            <CheckboxGroup options={KCakeFillingOptions} value={cakeFillings} onChange={this.handleCakeFillingChange} />
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <span>蜡烛类型：* </span>
+                            <Select defaultValue={candleType}
+                                style={{ width: 100 }}
+                                options={KCandleTypeOptions}
+                                onChange={this.handleCandleTypeChange}>
+                            </Select>
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <span>餐具数量：* </span>
+                            <Select defaultValue={cakePlateNumber}
+                                style={{ width: 100 }}
+                                options={KCakePlateNumberOptions}
+                                onChange={this.handleCakePlateNumberChange}>
+                            </Select>
+                        </div>
+                        <Divider dashed />
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <span>取货时间：* </span>
+                            <DatePicker
+                                style={{ width: 200 }}
+                                showTime={{ format: 'HH:mm' }}
+                                value={pickUpTime}
+                                onChange={this.handlePickUpTimeChange} />
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <span>取货方式：* </span>
                             <Radio.Group
                                 size='large'
-                                options={KCreamTypeOptions}
-                                onChange={this.handleCreamTypeChange}
-                                value={creamType}
+                                options={KPickUpTypeOptions}
+                                onChange={this.onPickUpTypeChange}
+                                value={pickUpType}
                                 optionType='default'
                             />
-                        </Input.Group>
-                    </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <Input.Group>
-                            <span>尺寸大小：* </span>
-                            <Select defaultValue={cakeSize} style={{ width: 100 }}
-                                onChange={this.handleCakeSizeChange}
-                                options={KCakeSizeOptions}>
-                            </Select>
-                        </Input.Group>
-                    </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <span>内部夹心：* </span>
-                        <CheckboxGroup options={KCakeFillingOptions} value={cakeFillings} onChange={this.handleCakeFillingChange} />
-                    </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <span>蜡烛类型：* </span>
-                        <Select defaultValue={candleType}
-                            style={{ width: 100 }}
-                            options={KCandleTypeOptions}
-                            onChange={this.handleCandleTypeChange}>
-                        </Select>
-                    </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <span>餐具数量：* </span>
-                        <Select defaultValue={cakePlateNumber}
-                            style={{ width: 100 }}
-                            options={KCakePlateNumberOptions}
-                            onChange={this.handleCakePlateNumberChange}>
-                        </Select>
-                    </div>
-                    <Divider dashed />
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <span>取货时间：* </span>
-                        <DatePicker
-                            style={{ width: 200 }}
-                            showTime={{ format: 'HH:mm' }}
-                            value={pickUpTime}
-                            onChange={this.handlePickUpTimeChange} />
-                    </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <span>取货方式：* </span>
-                        <Radio.Group
-                            size='large'
-                            options={KPickUpTypeOptions}
-                            onChange={this.onPickUpTypeChange}
-                            value={pickUpType}
-                            optionType='default'
-                        />
-                    </div>
-                    {
-                        pickUpType === KPickUpTypeOptions[0].value ? (
-                            <div style={{ marginTop: 8, marginBottom: 8 }}>
-                                <span>自提门店：* </span>
-                                <Select defaultValue={selfPickUpShop} style={{ width: 200 }}
-                                    onChange={this.handleSelfPickUpShopChange}
-                                    options={KSelfPickUpShopOptions}>
-                                </Select>
-                            </div>
-                        ) : (
-                            <div style={{ marginTop: 8, marginBottom: 8 }}>
-                                <Input.Group>
-                                    <span>配送地址：* </span>
-                                    <Input style={{ width: 'calc(100% - 80px)' }}
-                                        placeholder='请填写配送地址' prefix={<HomeOutlined />}
-                                        value={deliverAddress}
-                                        onChange={this.handleDeliverAddressChange} />
-                                </Input.Group>
-                            </div>
-                        )
-                    }
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <Input.Group>
-                            <span>提货人：* &emsp;</span>
-                            <Input style={{ width: 'calc(100% - 80px)' }}
-                                placeholder='请填写提货人姓名'
-                                prefix={<UserOutlined />}
-                                value={pickUpName}
-                                onChange={this.handlePickUpPeopleChange} />
-                        </Input.Group>
-                    </div>
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <Input.Group>
-                            <span>联系方式：* </span>
-                            <Input style={{ width: 'calc(100% - 80px)' }}
-                                placeholder='请填写提货人手机号'
-                                prefix={<PhoneOutlined />}
-                                value={phoneNumber}
-                                onChange={this.handlePhoneNumberChange} />
-                        </Input.Group>
-                    </div>
-                    <Divider dashed />
-                    <div style={{ marginTop: 8, marginBottom: 8 }}>
-                        <Input.Group>
-                            <span>备注：</span>
-                            <TextArea style={{ width: 'calc(100% - 0px)' }} rows={3}
-                                placeholder='有特殊要求，请备注' value={remarks}
-                                onChange={this.handleRemarksChange} />
-                        </Input.Group>
-                    </div>
-                </Modal>
-                <Modal title={
-                    <Timeline style={{ marginBottom: -60 }}>
-                        <Timeline.Item color='red'>仔细核对图片中订购信息</Timeline.Item>
-                        <Timeline.Item color='red'>长按蛋糕订购单图片发送给客服登记</Timeline.Item>
-                    </Timeline>
-                } closable={false} maskClosable={false} visible={orderImageModalVisiable} footer={[
-                    <Button key='back' onClick={() => {
-                        this.setState({ orderImageModalVisiable: false });
-                    }}>返回</Button>
-                ]}>
-                    <div style={{ background: 'yellow' }}>
-                        <Image style={{ width: 300, height: 300, float: 'left' }}
-                            preview={false} src={orderImageSrc} />
-                    </div>
-                </Modal>
+                        </div>
+                        {
+                            pickUpType === KPickUpTypeOptions[0].value ? (
+                                <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                    <span>自提门店：* </span>
+                                    <Select defaultValue={selfPickUpShop} style={{ width: 200 }}
+                                        onChange={this.handleSelfPickUpShopChange}
+                                        options={KSelfPickUpShopOptions}>
+                                    </Select>
+                                </div>
+                            ) : (
+                                <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                    <Input.Group>
+                                        <span>配送地址：* </span>
+                                        <Input style={{ width: 'calc(100% - 80px)' }}
+                                            placeholder='请填写配送地址' prefix={<HomeOutlined />}
+                                            value={deliverAddress}
+                                            onChange={this.handleDeliverAddressChange} />
+                                    </Input.Group>
+                                </div>
+                            )
+                        }
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <Input.Group>
+                                <span>提货人：* &emsp;</span>
+                                <Input style={{ width: 'calc(100% - 80px)' }}
+                                    placeholder='请填写提货人姓名'
+                                    prefix={<UserOutlined />}
+                                    value={pickUpName}
+                                    onChange={this.handlePickUpPeopleChange} />
+                            </Input.Group>
+                        </div>
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <Input.Group>
+                                <span>联系方式：* </span>
+                                <Input style={{ width: 'calc(100% - 80px)' }}
+                                    placeholder='请填写提货人手机号'
+                                    prefix={<PhoneOutlined />}
+                                    value={phoneNumber}
+                                    onChange={this.handlePhoneNumberChange} />
+                            </Input.Group>
+                        </div>
+                        <Divider dashed />
+                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                            <Input.Group>
+                                <span>备注：</span>
+                                <TextArea style={{ width: 'calc(100% - 0px)' }} rows={3}
+                                    placeholder='有特殊要求，请备注' value={remarks}
+                                    onChange={this.handleRemarksChange} />
+                            </Input.Group>
+                        </div>
+                    </Modal>
 
-                {debug && imageCapturing ? (<div ref={(current) => {
-                    this._theDiv4Capture = current;
-                }} style={theDiv4CaptureStyle}>
-                    <div style={{
-                        fontSize: 22,
-                        textAlign: 'center',
-                        paddingTop: 12,
-                        paddingBottom: 12
-                    }}> 弯麦蛋糕订购单</div>
-                    <div>
-                        <div style={theLeftDivInTheDiv4CaptureStyle}>
-                            <div style={{
-                                fontSize: 20,
-                                textAlign: 'center',
-                                paddingTop: 4,
-                                paddingBottom: 4,
-                                fontWeight: 'bold',
-                                background: '#D8D8D8'
-                            }}>{`《《白雪公主》》`}</div>
-                            <div>
-                                <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
-                            </div>
+                    <Modal title={
+                        <Timeline style={{ marginBottom: -60 }}>
+                            <Timeline.Item color='red'>仔细核对图片中订购信息</Timeline.Item>
+                            <Timeline.Item color='red'>长按蛋糕订购单图片发送给客服登记</Timeline.Item>
+                        </Timeline>
+                    } closable={false} maskClosable={false} visible={orderImageModalVisiable} footer={[
+                        <Button key='back' onClick={() => {
+                            this.setState({ orderImageModalVisiable: false });
+                        }}>返回</Button>
+                    ]}>
+                        <div style={{ background: 'yellow' }}>
+                            <Image style={{ width: 300, height: 300, float: 'left' }}
+                                preview={false} src={orderImageSrc} />
                         </div>
-                        <div style={theRightDivInTheDiv4CaptureStyle}>
-                            <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>制作</Divider>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>奶油类型：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>尺寸大小：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>内部夹心：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>蜡烛类型：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>餐具数量：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
-                            </div>
-                            <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>配送</Divider>
-                            <div>
-                                <span style={{ fontSize: 16 }}>取货时间：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>取货方式：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>配送地址：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>漳浦县绥安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>提货人：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
-                            </div>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>联系方式：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
-                            </div>
-                            <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>其它</Divider>
-                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 16 }}>备注：</span>
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>) : (<div></div>)}
-            </div >
+                    </Modal>
+
+
+                </div >
+            </Spin>
         )
     }
 }

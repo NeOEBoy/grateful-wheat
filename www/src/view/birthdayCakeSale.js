@@ -480,7 +480,7 @@ class birthdayCakeSale extends React.Component {
 
         console.log('window.innerWidth：' + window.innerWidth);
 
-        let theDiv4CaptureWidth = 1000;
+        let theDiv4CaptureWidth = 800;
 
         let theDiv4CaptureHeight = theDiv4CaptureWidth * 148 / 210;
         let theDiv4CaptureStyle = {

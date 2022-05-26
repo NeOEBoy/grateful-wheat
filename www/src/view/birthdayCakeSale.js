@@ -480,27 +480,22 @@ class birthdayCakeSale extends React.Component {
 
         console.log('window.innerWidth：' + window.innerWidth);
 
-        let theDiv4CaptureWidth = 800;
+        let theDiv4CaptureWidth = 750;
 
         let theDiv4CaptureHeight = theDiv4CaptureWidth * 148 / 210;
         let theDiv4CaptureStyle = {
             width: theDiv4CaptureWidth,
             height: theDiv4CaptureHeight,
-            background: 'green'
+            background: '#F0F0F0'
         };
         let theLeftDivInTheDiv4CaptureStyle = {
-            width: theDiv4CaptureHeight - 200,
-            height: theDiv4CaptureHeight - 200,
-            float: 'left', marginLeft: 12
+            width: theDiv4CaptureHeight - 180,
+            height: theDiv4CaptureHeight - 180,
+            float: 'left', marginLeft: 8
         };
-        // let theLeftImageInTheDiv4CaptureStyle = {
-        //     width: theDiv4CaptureHeight - 200,
-        //     height: theDiv4CaptureHeight - 200
-        // };
         let theRightDivInTheDiv4CaptureStyle = {
             float: 'right',
-            width: theDiv4CaptureWidth - theDiv4CaptureHeight + 140,
-            background: 'red'
+            width: theDiv4CaptureWidth - theDiv4CaptureHeight + 160
         };
 
         return (
@@ -745,51 +740,53 @@ class birthdayCakeSale extends React.Component {
                         <div style={theLeftDivInTheDiv4CaptureStyle}>
                             <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
                         </div>
-
                         <div style={theRightDivInTheDiv4CaptureStyle}>
+                            <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>制作</Divider>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>奶油类型：</span>
-                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{creamType}</span>
+                                <span style={{ fontSize: 16 }}>奶油类型：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>尺寸大小：</span>
-                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakeSize}</span>
+                                <span style={{ fontSize: 16 }}>尺寸大小：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>内部夹心：</span>
-                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakeFillings}</span>
+                                <span style={{ fontSize: 16 }}>内部夹心：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>蜡烛类型：</span>
-                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{candleType}</span>
+                                <span style={{ fontSize: 16 }}>蜡烛类型：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>餐具数量：</span>
-                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakePlateNumber}</span>
+                                <span style={{ fontSize: 16 }}>餐具数量：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
                             </div>
+                            <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>配送</Divider>
                             <div>
-                                <span style={{ fontSize: 14 }}>取货时间：</span>
-                                <span style={{ fontSize: 14 }}>{pickUpTime}</span>
+                                <span style={{ fontSize: 16 }}>取货时间：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>取货方式：</span>
-                                <span style={{ fontSize: 14 }}>{pickUpType}</span>
+                                <span style={{ fontSize: 16 }}>取货方式：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>自提门店：</span>
-                                <span style={{ fontSize: 14 }}>{selfPickUpShop}</span>
+                                <span style={{ fontSize: 16 }}>配送地址：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>漳浦县绥安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安安镇府前街西绥安</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>提货人：</span>
-                                <span style={{ fontSize: 14 }}>{pickUpName}</span>
+                                <span style={{ fontSize: 16 }}>提货人：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
                             </div>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>联系方式：</span>
-                                <span style={{ fontSize: 14 }}>{phoneNumber}</span>
+                                <span style={{ fontSize: 16 }}>联系方式：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
                             </div>
+                            <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>其它</Divider>
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                <span style={{ fontSize: 14 }}>备注：</span>
-                                <span style={{ fontSize: 14 }}>{remarks}</span>
+                                <span style={{ fontSize: 16 }}>备注：</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
                             </div>
                         </div>
                     </div>

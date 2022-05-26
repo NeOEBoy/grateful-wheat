@@ -101,11 +101,16 @@ class birthdayCakeSale extends React.Component {
             birthdayCakesRecommend: [],
             debug: 0,
             orderCakeInfoModalVisiable: false,
+
+            /// 蛋糕信息
+            cakeName: '',
             creamType: KCreamTypeOptions[0].value,
             cakeSize: KCakeSizeOptions[0].value,
             cakeFillings: [KCakeFillingOptions[0], KCakeFillingOptions[1]],
             candleType: KCandleTypeOptions[0].value,
             cakePlateNumber: KCakePlateNumberOptions[0].value,
+
+            /// 配送信息
             pickUpTime: undefined,
             pickUpType: KPickUpTypeOptions[0].value,
             selfPickUpShop: KSelfPickUpShopOptions[0].value,
@@ -113,8 +118,10 @@ class birthdayCakeSale extends React.Component {
             pickUpName: '',
             phoneNumber: '',
             remarks: '',
+
             orderImageModalVisiable: false,
-            orderImageSrc: undefined
+            orderImageSrc: undefined,
+            imageCapturing: false
         };
 
         this._lastKeys = [];
@@ -356,13 +363,25 @@ class birthdayCakeSale extends React.Component {
             orderImageModalVisiable: true
         });
 
-        setTimeout(async () => {
+
+        this.setState({ imageCapturing: true }, async () => {
+            if (!this._theDiv4Capture) return;
+            console.log(this._theDiv4Capture);
             let canvas = await html2Canvas(this._theDiv4Capture);
             let imageSrc = canvas.toDataURL('image/png');
             this.setState({
-                orderImageSrc: imageSrc
+                orderImageSrc: imageSrc,
+                imageCapturing: false
             });
-        }, 0);
+        });
+
+        // setTimeout(async () => {
+        //     let canvas = await html2Canvas(this._theDiv4Capture);
+        //     let imageSrc = canvas.toDataURL('image/png');
+        //     this.setState({
+        //         orderImageSrc: imageSrc
+        //     });
+        // }, 0);
 
         const {
             creamType,
@@ -475,10 +494,9 @@ class birthdayCakeSale extends React.Component {
             phoneNumber,
             remarks,
             orderImageModalVisiable,
-            orderImageSrc
+            orderImageSrc,
+            imageCapturing
         } = this.state;
-
-        console.log('window.innerWidth：' + window.innerWidth);
 
         let theDiv4CaptureWidth = 750;
 
@@ -490,7 +508,7 @@ class birthdayCakeSale extends React.Component {
         };
         let theLeftDivInTheDiv4CaptureStyle = {
             width: theDiv4CaptureHeight - 180,
-            height: theDiv4CaptureHeight - 180,
+            height: theDiv4CaptureHeight - 180 + 40,
             float: 'left', marginLeft: 8
         };
         let theRightDivInTheDiv4CaptureStyle = {
@@ -595,10 +613,14 @@ class birthdayCakeSale extends React.Component {
                     <span> (点击)预定</span>
                 </div>
 
-                <Modal title="蛋糕订购信息" visible={orderCakeInfoModalVisiable}
-                    onOk={this.handleOrderCakeInfoModalOk} onCancel={this.handleOrderCakeInfoModalCancel}
+                <Modal title="蛋糕订购信息" style={{ top: 0 }}
+                    visible={orderCakeInfoModalVisiable}
+                    onOk={this.handleOrderCakeInfoModalOk}
+                    onCancel={this.handleOrderCakeInfoModalCancel}
                     closable={false} maskClosable={false}>
-
+                    <div style={{ textAlign: 'center', fontSize: 18, marginTop: -15 }}>
+                        {`《《白雪公主》》`}
+                    </div>
                     <div style={{ marginTop: 8, marginBottom: 8 }}>
                         <Input.Group>
                             <span>奶油类型：* </span>
@@ -713,8 +735,7 @@ class birthdayCakeSale extends React.Component {
                 <Modal title={
                     <Timeline style={{ marginBottom: -60 }}>
                         <Timeline.Item color='red'>仔细核对图片中订购信息</Timeline.Item>
-                        <Timeline.Item color='red'>长按图片保存到本地</Timeline.Item>
-                        <Timeline.Item color='red'>发送保存的图片给客服登记</Timeline.Item>
+                        <Timeline.Item color='red'>长按蛋糕订购单图片发送给客服登记</Timeline.Item>
                     </Timeline>
                 } closable={false} maskClosable={false} visible={orderImageModalVisiable} footer={[
                     <Button key='back' onClick={() => {
@@ -727,7 +748,7 @@ class birthdayCakeSale extends React.Component {
                     </div>
                 </Modal>
 
-                {debug ? (<div ref={(current) => {
+                {debug && imageCapturing ? (<div ref={(current) => {
                     this._theDiv4Capture = current;
                 }} style={theDiv4CaptureStyle}>
                     <div style={{
@@ -738,7 +759,17 @@ class birthdayCakeSale extends React.Component {
                     }}> 弯麦蛋糕订购单</div>
                     <div>
                         <div style={theLeftDivInTheDiv4CaptureStyle}>
-                            <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
+                            <div style={{
+                                fontSize: 20,
+                                textAlign: 'center',
+                                paddingTop: 4,
+                                paddingBottom: 4,
+                                fontWeight: 'bold',
+                                background: '#D8D8D8'
+                            }}>{`《《白雪公主》》`}</div>
+                            <div>
+                                <Image preview={false} src='/image/弯麦生日蛋糕/image4wechat.jpg' />
+                            </div>
                         </div>
                         <div style={theRightDivInTheDiv4CaptureStyle}>
                             <Divider dashed style={{ marginTop: 0, marginBottom: 0 }}>制作</Divider>

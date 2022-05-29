@@ -104,7 +104,7 @@ class ProductStockManagement extends React.Component {
 
                 let title = '弯麦库存管理（内部）';
                 let desc = '用于连锁门店库存查看、盘点、调度';
-                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/弯麦生日蛋糕/image4wechat.jpg';
+                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/生日蛋糕/image4wechat.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                 window.wx.updateAppMessageShareData({

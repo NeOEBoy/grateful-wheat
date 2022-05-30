@@ -807,20 +807,27 @@ class birthdayCakeSale extends React.Component {
                                 </span>)
                                 } />
                             <span>-</span>
-                            <TimePicker
+                            <DatePicker
+                                picker='time'
                                 style={{ width: 80 }}
                                 placeholder='时间'
-                                showTime={{ format: 'HH:mm' }}
+                                showTime={{
+                                    use12Hours: true,
+                                    showNow: true,
+                                    format: 'HH:mm'
+                                }}
+                                panelRender={(originPicker) => {
+                                    return (
+                                        <div style={{ marginLeft: 20, marginRight: 20 }}>
+                                            {originPicker}
+                                        </div>)
+                                }}
                                 format='HH:mm'
                                 value={pickUpTime}
-                                showNow={false}
                                 inputReadOnly={true}
-                                onChange={this.handlePickUpTimeChange} renderExtraFooter={() => (
+                                onChange={this.handlePickUpTimeChange}
+                                renderExtraFooter={() => (
                                     <span>
-                                        <Button type='primary' size='small' onClick={() => {
-                                            this.setState({ pickUpTime: moment() });
-                                        }}>现在</Button>
-                                        <span>   </span>
                                         <Button type='primary' size='small' onClick={() => {
                                             this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
                                         }}>中午12点</Button>

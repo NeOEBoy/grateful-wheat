@@ -994,7 +994,7 @@ class birthdayCakeSale extends React.Component {
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <Input.Group>
                                 <span style={{ fontWeight: 'bold' }}>备注：</span>
-                                <TextArea style={{ width: 'calc(100% - 0px)' }} rows={3}
+                                <TextArea style={{ width: 'calc(100% - 0px)' }} rows={2}
                                     placeholder='有特殊要求，请备注' value={remarks}
                                     onChange={this.handleRemarksChange} />
                             </Input.Group>

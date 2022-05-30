@@ -151,9 +151,9 @@ class birthdayCakeSale extends React.Component {
             // 解决键盘弹起后遮挡输入框的问题
             if (document.activeElement.tagName === "INPUT" ||
                 document.activeElement.tagName === "TEXTAREA") {
-                window.setTimeout(function () {
+                // window.setTimeout(function () {
                     document.activeElement.scrollIntoViewIfNeeded();
-                }, 800);
+                // }, 0);
             }
         })
 

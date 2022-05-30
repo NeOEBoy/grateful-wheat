@@ -790,6 +790,7 @@ class birthdayCakeSale extends React.Component {
                                 placeholder='日期'
                                 value={pickUpDay}
                                 showToday={false}
+                                inputReadOnly={true}
                                 onChange={this.handlePickUpDayChange} renderExtraFooter={() =>
                                 (<span>
                                     <Button type='primary' size='small' onClick={() => {
@@ -813,6 +814,7 @@ class birthdayCakeSale extends React.Component {
                                 format='HH:mm'
                                 value={pickUpTime}
                                 showNow={false}
+                                inputReadOnly={true}
                                 onChange={this.handlePickUpTimeChange} renderExtraFooter={() => (
                                     <span>
                                         <Button type='primary' size='small' onClick={() => {

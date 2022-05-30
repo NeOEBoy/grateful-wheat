@@ -107,7 +107,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDayPopupOpen: false,
             pickUpTime: '',
             pickUpType: '',
-            selfPickUpShop: KSelfPickUpShopOptions[0].value,
+            selfPickUpShop: '',
             deliverAddress: '',
             pickUpName: '',
             phoneNumber: '',
@@ -384,7 +384,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDay: '',
             pickUpTime: '',
             pickUpType: '',
-            selfPickUpShop: KSelfPickUpShopOptions[0].value,
+            selfPickUpShop: '',
             deliverAddress: '',
             pickUpName: '',
             phoneNumber: '',
@@ -809,89 +809,98 @@ class birthdayCakeSale extends React.Component {
                         <div style={{ textAlign: 'center', fontSize: 14, marginTop: -20 }}>
                             {`《${cakeName}》`}
                         </div>
+                        <div style={{ width: '100%', textAlign: 'center' }}>
+                            <Image style={{ width: 80 }} preview={false} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                        </div>
                         <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>配送</Divider>
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <div style={{ fontWeight: 'bold' }}>时间：</div>
-                            <DatePicker
-                                ref={(dp) => this._datePicker4PickUpDay = dp}
-                                style={{ width: 170 }}
-                                placeholder='日期'
-                                format='YYYY-MM-DD dddd'
-                                value={pickUpDay}
-                                open={pickUpDayPopupOpen}
-                                showToday={false}
-                                inputReadOnly={true}
-                                onChange={this.handlePickUpDayChange}
-                                onFocus={this.handlePickUpDayOnFocus}
-                                onBlur={this.handlePickUpDayOnBlur}
-                                dateRender={(current) => {
-                                    const style = {};
+                            <div>
+                                <DatePicker
+                                    ref={(dp) => this._datePicker4PickUpDay = dp}
+                                    style={{ width: 170 }}
+                                    placeholder='日期'
+                                    format='YYYY-MM-DD dddd'
+                                    value={pickUpDay}
+                                    open={pickUpDayPopupOpen}
+                                    showToday={false}
+                                    inputReadOnly={true}
+                                    onChange={this.handlePickUpDayChange}
+                                    onFocus={this.handlePickUpDayOnFocus}
+                                    onBlur={this.handlePickUpDayOnBlur}
+                                    dateRender={(current) => {
+                                        const style = {};
 
-                                    if (current.date() === 1) {
-                                        style.border = '1px solid #1890ff';
-                                        style.borderRadius = '50%';
-                                    }
+                                        if (current.date() === 1) {
+                                            style.border = '1px solid #1890ff';
+                                            style.borderRadius = '50%';
+                                        }
 
-                                    return (
-                                        <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                            this.setState({ pickUpDayPopupOpen: false }, () => {
-                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                            })
-                                        }}>
-                                            {current.date()}
-                                        </div>
-                                    );
-                                }}
-                                renderExtraFooter={() =>
-                                (<span>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({ pickUpDay: moment() });
-                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                    }}>今天</Button>
-                                    <span>   </span>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({ pickUpDay: moment().add(1, 'day') });
-                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                    }}>明天</Button>
-                                    <span>   </span>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({ pickUpDay: moment().add(2, 'day') });
-                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                    }}>后天</Button>
-                                </span>)
-                                } />
-                            <span>-</span>
-                            <DatePicker
-                                picker='time'
-                                style={{ width: 120 }}
-                                placeholder='时间'
-                                locale={dpLocale}
-                                showTime={{
-                                    use12Hours: false,
-                                    showNow: true,
-                                    format: 'aHH:mm'
-                                }}
-                                panelRender={(originPicker) => {
-                                    return (
-                                        <div style={{ marginLeft: 20, marginRight: 20 }}>
-                                            {originPicker}
-                                        </div>)
-                                }}
-                                format='aHH:mm'
-                                value={pickUpTime}
-                                inputReadOnly={true}
-                                onChange={this.handlePickUpTimeChange}
-                                renderExtraFooter={() => (
-                                    <span>
+                                        return (
+                                            <div className="ant-picker-cell-inner" style={style} onClick={() => {
+                                                this.setState({ pickUpDayPopupOpen: false }, () => {
+                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                })
+                                            }}>
+                                                {current.date()}
+                                            </div>
+                                        );
+                                    }}
+                                    renderExtraFooter={() =>
+                                    (<span>
                                         <Button type='primary' size='small' onClick={() => {
-                                            this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
-                                        }}>中午12点</Button>
+                                            this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false }, () => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            });
+                                        }}>今天</Button>
                                         <span>   </span>
                                         <Button type='primary' size='small' onClick={() => {
-                                            this.setState({ pickUpTime: moment('18:00', 'HH:mm') });
-                                        }}>晚上18点</Button>
-                                    </span>
-                                )} />
+                                            this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false }, () => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            });
+                                        }}>明天</Button>
+                                        <span>   </span>
+                                        <Button type='primary' size='small' onClick={() => {
+                                            this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false }, () => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            });
+                                        }}>后天</Button>
+                                    </span>)
+                                    } />
+                            </div>
+                            <div style={{ marginTop: 4 }}>
+                                <DatePicker
+                                    picker='time'
+                                    style={{ width: 120 }}
+                                    placeholder='时间'
+                                    locale={dpLocale}
+                                    showTime={{
+                                        use12Hours: false,
+                                        showNow: true,
+                                        format: 'aHH:mm'
+                                    }}
+                                    panelRender={(originPicker) => {
+                                        return (
+                                            <div style={{ marginLeft: 20, marginRight: 20 }}>
+                                                {originPicker}
+                                            </div>)
+                                    }}
+                                    format='aHH:mm'
+                                    value={pickUpTime}
+                                    inputReadOnly={true}
+                                    onChange={this.handlePickUpTimeChange}
+                                    renderExtraFooter={() => (
+                                        <span>
+                                            <Button type='primary' size='small' onClick={() => {
+                                                this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
+                                            }}>中午12点</Button>
+                                            <span>   </span>
+                                            <Button type='primary' size='small' onClick={() => {
+                                                this.setState({ pickUpTime: moment('18:00', 'HH:mm') });
+                                            }}>晚上18点</Button>
+                                        </span>
+                                    )} />
+                            </div>
                             {
                                 (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
                                     <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>

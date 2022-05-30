@@ -834,7 +834,9 @@ class birthdayCakeSale extends React.Component {
 
                                     return (
                                         <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            this.setState({ pickUpDayPopupOpen: false }, () => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            })
                                         }}>
                                             {current.date()}
                                         </div>

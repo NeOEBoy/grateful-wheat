@@ -784,7 +784,7 @@ class birthdayCakeSale extends React.Component {
                         </div>
                         <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>配送</Divider>
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
-                            <span style={{ fontWeight: 'bold' }}>时间：</span>
+                            <div style={{ fontWeight: 'bold' }}>时间：</div>
                             <DatePicker
                                 style={{ width: 120 }}
                                 placeholder='日期'
@@ -811,6 +811,7 @@ class birthdayCakeSale extends React.Component {
                                 picker='time'
                                 style={{ width: 80 }}
                                 placeholder='时间'
+                                autoFocus={true}
                                 showTime={{
                                     use12Hours: true,
                                     showNow: true,

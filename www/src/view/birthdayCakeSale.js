@@ -147,15 +147,15 @@ class birthdayCakeSale extends React.Component {
         }
 
         //修复软键盘弹起将页面推上去导致看不到输入框的问题
-        window.addEventListener("resize", function () {
-            // 解决键盘弹起后遮挡输入框的问题
-            if (document.activeElement.tagName === "INPUT" ||
-                document.activeElement.tagName === "TEXTAREA") {
-                // window.setTimeout(function () {
-                    document.activeElement.scrollIntoViewIfNeeded();
-                // }, 0);
-            }
-        })
+        // window.addEventListener("resize", function () {
+        //     // 解决键盘弹起后遮挡输入框的问题
+        //     if (document.activeElement.tagName === "INPUT" ||
+        //         document.activeElement.tagName === "TEXTAREA") {
+        //         window.setTimeout(function () {
+        //             document.activeElement.scrollIntoViewIfNeeded();
+        //         }, 0);
+        //     }
+        // })
 
         // this.updateWeixinConfig();
     }
@@ -591,6 +591,10 @@ class birthdayCakeSale extends React.Component {
 
     handlePhoneNumberChange = (e) => {
         this.setState({ phoneNumber: e.target.value });
+
+        setTimeout(() => {
+            this._pnInput && this._pnInput.scrollIntoViewIfNeeded();
+        }, 1000);
     }
 
     handleRemarksChange = (e) => {
@@ -969,7 +973,9 @@ class birthdayCakeSale extends React.Component {
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <Input.Group>
                                 <span style={{ fontWeight: 'bold' }}>手机：</span>
-                                <Input style={{ width: 'calc(100% - 100px)' }}
+                                <Input ref={(c)=>{
+                                    this._pnInput = c;
+                                }} style={{ width: 'calc(100% - 100px)' }}
                                     placeholder='填写手机号'
                                     prefix={<PhoneOutlined />}
                                     value={phoneNumber}

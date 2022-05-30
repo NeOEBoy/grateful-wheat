@@ -20,7 +20,7 @@ import {
 } from '@ant-design/icons';
 import {
     Modal, Collapse, Image, Spin,
-    Typography, TimePicker, DatePicker, Radio,
+    Typography, DatePicker, Radio,
     Select, Input, Checkbox, Divider,
     message, Timeline, Button
 } from 'antd';
@@ -153,7 +153,7 @@ class birthdayCakeSale extends React.Component {
                 document.activeElement.tagName === "TEXTAREA") {
                 window.setTimeout(function () {
                     document.activeElement.scrollIntoViewIfNeeded();
-                }, 0);
+                }, 300);
             }
         })
 
@@ -552,20 +552,20 @@ class birthdayCakeSale extends React.Component {
     }
 
     handlePickUpDayChange = (data) => {
-        console.log('handlePickUpDayChange');
-        console.log(data);
+        // console.log('handlePickUpDayChange');
+        // console.log(data);
         this.setState({ pickUpDay: data });
     }
 
     handlePickUpDayOnFocus = (e) => {
-        console.log('handlePickUpDayOnFocus');
-        console.log(e.target);
+        // console.log('handlePickUpDayOnFocus');
+        // console.log(e.target);
         this.setState({ pickUpDayPopupOpen: true });
     }
 
     handlePickUpDayOnBlur = (e) => {
-        console.log('handlePickUpDayOnBlur');
-        console.log(e.target);
+        // console.log('handlePickUpDayOnBlur');
+        // console.log(e.target);
         this.setState({ pickUpDayPopupOpen: false });
     }
 
@@ -838,9 +838,8 @@ class birthdayCakeSale extends React.Component {
 
                                         return (
                                             <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                                this.setState({ pickUpDayPopupOpen: false }, () => {
-                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                })
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                this.setState({ pickUpDayPopupOpen: false });
                                             }}>
                                                 {current.date()}
                                             </div>
@@ -849,21 +848,18 @@ class birthdayCakeSale extends React.Component {
                                     renderExtraFooter={() =>
                                     (<span>
                                         <Button type='primary' size='small' onClick={() => {
-                                            this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false }, () => {
-                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                            });
+                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false });
                                         }}>今天</Button>
                                         <span>   </span>
                                         <Button type='primary' size='small' onClick={() => {
-                                            this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false }, () => {
-                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                            });
+                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false });
                                         }}>明天</Button>
                                         <span>   </span>
                                         <Button type='primary' size='small' onClick={() => {
-                                            this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false }, () => {
-                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                            });
+                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                            this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false });
                                         }}>后天</Button>
                                     </span>)
                                     } />
@@ -927,7 +923,7 @@ class birthdayCakeSale extends React.Component {
                                 pickUpType === KPickUpTypeOptions[0].value ? (
                                     <div style={{ marginTop: 8, marginBottom: 8 }}>
                                         <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                        <Select value={selfPickUpShop} style={{ width: 100 }}
+                                        <Select value={selfPickUpShop} style={{ width: 120 }}
                                             onChange={this.handleSelfPickUpShopChange}
                                             options={KSelfPickUpShopOptions}>
                                         </Select>

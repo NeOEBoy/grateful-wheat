@@ -43,7 +43,7 @@ const KPickUpTypeOptions = [
     { label: '商家配送', value: '商家配送' }
 ];
 
-const KSelfPickUpShopOptions = [
+const KResponseShopOptions = [
     { label: '教育局店', value: '教育局店' },
     { label: '江滨店', value: '江滨店' },
     { label: '汤泉世纪店', value: '汤泉世纪店' },
@@ -107,7 +107,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDayPopupOpen: false,
             pickUpTime: '',
             pickUpType: '',
-            selfPickUpShop: '',
+            responseShop: '',
             deliverAddress: '',
             pickUpName: '',
             phoneNumber: '',
@@ -384,7 +384,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDay: '',
             pickUpTime: '',
             pickUpType: '',
-            selfPickUpShop: '',
+            responseShop: '',
             deliverAddress: '',
             pickUpName: '',
             phoneNumber: '',
@@ -406,7 +406,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDay,
             pickUpTime,
             pickUpType,
-            selfPickUpShop,
+            responseShop,
             deliverAddress,
             pickUpName,
             phoneNumber,
@@ -414,16 +414,16 @@ class birthdayCakeSale extends React.Component {
         } = this.state;
 
         console.log('奶油：' + creamType);
-        console.log('蛋糕大小：' + cakeSize);
+        console.log('大小：' + cakeSize);
         console.log('价格：' + cakePrice);
-        console.log('蛋糕夹心：' + cakeFillings);
+        console.log('夹心：' + cakeFillings);
         console.log('蜡烛：' + candleType);
-        console.log('蜡烛数字：' + number4candle);
-        console.log('餐盘数量：' + cakePlateNumber);
-        console.log('取货日期：' + pickUpDay);
+        console.log('蜡烛：' + number4candle);
+        console.log('餐盘：' + cakePlateNumber);
+        console.log('日期：' + pickUpDay);
         console.log('时间：' + pickUpTime);
         console.log('方式：' + pickUpType);
-        console.log('自取门店：' + selfPickUpShop);
+        console.log('门店：' + responseShop);
         console.log('地址：' + deliverAddress);
         console.log('姓名：' + pickUpName);
         console.log('手机：' + phoneNumber);
@@ -444,8 +444,7 @@ class birthdayCakeSale extends React.Component {
         }
 
         if (pickUpType) {
-            if (pickUpType === KPickUpTypeOptions[0].value &&
-                selfPickUpShop === '') {
+            if (responseShop === '') {
                 message.warning('请填写必填项！')
                 return;
             } else if (pickUpType === KPickUpTypeOptions[1].value &&
@@ -582,8 +581,8 @@ class birthdayCakeSale extends React.Component {
         this.setState({ pickUpType: e.target.value });
     }
 
-    handleSelfPickUpShopChange = (value) => {
-        this.setState({ selfPickUpShop: value });
+    handleResponseShopChange = (value) => {
+        this.setState({ responseShop: value });
     }
 
     handleDeliverAddressChange = (e) => {
@@ -621,7 +620,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDay,
             pickUpDayPopupOpen,
             pickUpTime,
-            selfPickUpShop,
+            responseShop,
             deliverAddress,
             pickUpName,
             phoneNumber,
@@ -695,15 +694,10 @@ class birthdayCakeSale extends React.Component {
                     {
                         orderCakeInfoModalVisiable ? (
                             <div style={{
-                                opacity: 0.98, background: 'white', position: 'fixed',
+                                opacity: 0.96, background: 'white', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'auto', overflowX: 'hidden'
                             }}>
-                                <div style={{
-                                    fontSize: 16, textAlign: 'center', paddingTop: 4,
-                                    paddingBottom: 4, background: '#F0F0F0'
-                                }}>蛋糕订购信息</div>
-
                                 <div style={{ textAlign: 'center', fontSize: 14, marginTop: 0 }}>
                                     {`《${cakeName}》`}
                                 </div>
@@ -711,7 +705,7 @@ class birthdayCakeSale extends React.Component {
                                     <Image style={{ width: 100, height: 100 }} preview={false}
                                         src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
                                 </div>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>配送</Divider>
+                                <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>配送</Divider>
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                     <div style={{ fontWeight: 'bold' }}>时间：</div>
                                     <div>
@@ -817,38 +811,39 @@ class birthdayCakeSale extends React.Component {
                                         ) : (<span></span>)
                                     }
                                 </div>
+                                <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                    <span style={{ fontWeight: 'bold' }}>门店：</span>
+                                    <Select value={responseShop} style={{ width: 120 }}
+                                        onChange={this.handleResponseShopChange}
+                                        options={KResponseShopOptions}>
+                                    </Select>
+                                    {
+                                        responseShop === '' ? (
+                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                        ) : (<span></span>)
+                                    }
+                                </div>
                                 {
-                                    pickUpType === '' ? (<div></div>) : (
-                                        pickUpType === KPickUpTypeOptions[0].value ? (
-                                            <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                                <Select value={selfPickUpShop} style={{ width: 120 }}
-                                                    onChange={this.handleSelfPickUpShopChange}
-                                                    options={KSelfPickUpShopOptions}>
-                                                </Select>
+                                    pickUpType === KPickUpTypeOptions[1].value ? (
+                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                            <Input.Group>
+                                                <span style={{ fontWeight: 'bold' }}>地址：</span>
+                                                <Input style={{ width: 'calc(100% - 100px)' }}
+                                                    placeholder='填写地址' prefix={<HomeOutlined />}
+                                                    value={deliverAddress}
+                                                    onChange={this.handleDeliverAddressChange} />
                                                 {
-                                                    selfPickUpShop === '' ? (
+                                                    deliverAddress === '' ? (
                                                         <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
                                                     ) : (<span></span>)
                                                 }
-                                            </div>
-                                        ) : (
-                                            <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                <Input.Group>
-                                                    <span style={{ fontWeight: 'bold' }}>地址：</span>
-                                                    <Input style={{ width: 'calc(100% - 100px)' }}
-                                                        placeholder='填写地址' prefix={<HomeOutlined />}
-                                                        value={deliverAddress}
-                                                        onChange={this.handleDeliverAddressChange} />
-                                                    {
-                                                        deliverAddress === '' ? (
-                                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                        ) : (<span></span>)
-                                                    }
-                                                </Input.Group>
-                                            </div>
-                                        )
+                                            </Input.Group>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                        </div>
                                     )
+
                                 }
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                     <Input.Group>
@@ -1136,17 +1131,17 @@ class birthdayCakeSale extends React.Component {
                                     <span style={{ fontSize: 16 }}>方式：</span>
                                     <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
                                 </div>
-
+                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <span style={{ fontSize: 16 }}>门店：</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{responseShop}</span>
+                                </div>
                                 {
-                                    pickUpType === KPickUpTypeOptions[0].value ? (
+                                    pickUpType === KPickUpTypeOptions[1].value ? (
                                         <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 16 }}>门店：</span>
-                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>{selfPickUpShop}</span>
+                                            <span style={{ fontSize: 16 }}>地址：</span>
+                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>{deliverAddress}</span>
                                         </div>
-                                    ) : (<div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 16 }}>地址：</span>
-                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{deliverAddress}</span>
-                                    </div>)
+                                    ) : (<div></div>)
                                 }
 
                                 <div style={{ marginTop: 4, marginBottom: 4 }}>

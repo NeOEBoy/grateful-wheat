@@ -965,7 +965,7 @@ class birthdayCakeSale extends React.Component {
                                             onChange={this.handleRemarksChange} />
                                     </Input.Group>
                                 </div>
-                                <div style={{ float: 'right', marginTop: 24, marginRight: 16 }}>
+                                <div style={{ float: 'right', marginTop: 16, marginRight: 16, marginBottom: 32 }}>
                                     <Space>
                                         <Button type='default' onClick={this.handleOrderCakeInfoModalCancel}>取消</Button>
                                         <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成订购单</Button>

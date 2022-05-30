@@ -801,7 +801,7 @@ class birthdayCakeSale extends React.Component {
                             fontSize: 16, textAlign: 'center', marginTop: -12,
                             marginBottom: -12, background: '#F0F0F0'
                         }}>蛋糕订购信息</div>)
-                    } style={{ top: 0, height: 'calc(100% - 0px)', overflowY: 'auto' }}
+                    } style={{ top: 0, height: 'calc(100% - 200px)', overflowY: 'auto' }}
                         visible={orderCakeInfoModalVisiable}
                         onOk={this.handleOrderCakeInfoModalOk}
                         onCancel={this.handleOrderCakeInfoModalCancel}

@@ -591,10 +591,6 @@ class birthdayCakeSale extends React.Component {
 
     handlePhoneNumberChange = (e) => {
         this.setState({ phoneNumber: e.target.value });
-
-        setTimeout(() => {
-            this._mmmm && this._mmmm.scrollTop();
-        }, 1000);
     }
 
     handleRemarksChange = (e) => {
@@ -800,14 +796,12 @@ class birthdayCakeSale extends React.Component {
                         <span> (点击)预定</span>
                     </div>
 
-                    <Modal ref={(m) => {
-                        this._mmmm = m
-                    }} title={(
+                    <Modal title={(
                         <div style={{
                             fontSize: 16, textAlign: 'center', marginTop: -12,
                             marginBottom: -12, background: '#F0F0F0'
                         }}>蛋糕订购信息</div>)
-                    } style={{ top: 0 }}
+                    } style={{ top: 0, height: 'calc(100% - 0px)', overflowY: 'auto' }}
                         visible={orderCakeInfoModalVisiable}
                         onOk={this.handleOrderCakeInfoModalOk}
                         onCancel={this.handleOrderCakeInfoModalCancel}

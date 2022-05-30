@@ -9,6 +9,7 @@ debug
 import React from 'react';
 import moment from 'moment';
 import html2Canvas from 'html2canvas';
+import dpLocale from 'antd/es/date-picker/locale/zh_CN';
 
 import {
     RightSquareFilled,
@@ -144,9 +145,18 @@ class birthdayCakeSale extends React.Component {
             }
         }
 
+        //监听页面尺寸变化
+        window.addEventListener("resize", function () {
+            // 解决键盘弹起后遮挡输入框的问题
+            if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") {
+                window.setTimeout(function () {
+                    document.activeElement.scrollIntoViewIfNeeded();
+                }, 0);
+            }
+        })
+
         // this.updateWeixinConfig();
     }
-
     /// 蛋糕分类 展开|收起 
     handleCollapseOnChange = async (keys) => {
         if (!keys) return;
@@ -811,7 +821,7 @@ class birthdayCakeSale extends React.Component {
                                 picker='time'
                                 style={{ width: 80 }}
                                 placeholder='时间'
-                                autoFocus={true}
+                                locale={dpLocale}
                                 showTime={{
                                     use12Hours: true,
                                     showNow: true,

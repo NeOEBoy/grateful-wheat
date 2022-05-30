@@ -104,6 +104,7 @@ class birthdayCakeSale extends React.Component {
 
             /// 配送信息
             pickUpDay: '',
+            pickUpDayPopupOpen: false,
             pickUpTime: '',
             pickUpType: '',
             selfPickUpShop: KSelfPickUpShopOptions[0].value,
@@ -145,10 +146,11 @@ class birthdayCakeSale extends React.Component {
             }
         }
 
-        //监听页面尺寸变化
+        //修复软键盘弹起将页面推上去导致看不到输入框的问题
         window.addEventListener("resize", function () {
             // 解决键盘弹起后遮挡输入框的问题
-            if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "TEXTAREA") {
+            if (document.activeElement.tagName === "INPUT" ||
+                document.activeElement.tagName === "TEXTAREA") {
                 window.setTimeout(function () {
                     document.activeElement.scrollIntoViewIfNeeded();
                 }, 0);
@@ -550,7 +552,21 @@ class birthdayCakeSale extends React.Component {
     }
 
     handlePickUpDayChange = (data) => {
+        console.log('handlePickUpDayChange');
+        console.log(data);
         this.setState({ pickUpDay: data });
+    }
+
+    handlePickUpDayOnFocus = (e) => {
+        console.log('handlePickUpDayOnFocus');
+        console.log(e.target);
+        this.setState({ pickUpDayPopupOpen: true });
+    }
+
+    handlePickUpDayOnBlur = (e) => {
+        console.log('handlePickUpDayOnBlur');
+        console.log(e.target);
+        this.setState({ pickUpDayPopupOpen: false });
     }
 
     handlePickUpTimeChange = data => {
@@ -598,6 +614,7 @@ class birthdayCakeSale extends React.Component {
             number4candle,
             cakePlateNumber,
             pickUpDay,
+            pickUpDayPopupOpen,
             pickUpTime,
             selfPickUpShop,
             deliverAddress,
@@ -796,36 +813,61 @@ class birthdayCakeSale extends React.Component {
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <div style={{ fontWeight: 'bold' }}>时间：</div>
                             <DatePicker
-                                style={{ width: 120 }}
+                                ref={(dp) => this._datePicker4PickUpDay = dp}
+                                style={{ width: 170 }}
                                 placeholder='日期'
+                                format='YYYY-MM-DD dddd'
                                 value={pickUpDay}
+                                open={pickUpDayPopupOpen}
                                 showToday={false}
                                 inputReadOnly={true}
-                                onChange={this.handlePickUpDayChange} renderExtraFooter={() =>
+                                onChange={this.handlePickUpDayChange}
+                                onFocus={this.handlePickUpDayOnFocus}
+                                onBlur={this.handlePickUpDayOnBlur}
+                                dateRender={(current) => {
+                                    const style = {};
+
+                                    if (current.date() === 1) {
+                                        style.border = '1px solid #1890ff';
+                                        style.borderRadius = '50%';
+                                    }
+
+                                    return (
+                                        <div className="ant-picker-cell-inner" style={style} onClick={() => {
+                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                        }}>
+                                            {current.date()}
+                                        </div>
+                                    );
+                                }}
+                                renderExtraFooter={() =>
                                 (<span>
                                     <Button type='primary' size='small' onClick={() => {
                                         this.setState({ pickUpDay: moment() });
+                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
                                     }}>今天</Button>
                                     <span>   </span>
                                     <Button type='primary' size='small' onClick={() => {
                                         this.setState({ pickUpDay: moment().add(1, 'day') });
+                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
                                     }}>明天</Button>
                                     <span>   </span>
                                     <Button type='primary' size='small' onClick={() => {
                                         this.setState({ pickUpDay: moment().add(2, 'day') });
+                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
                                     }}>后天</Button>
                                 </span>)
                                 } />
                             <span>-</span>
                             <DatePicker
                                 picker='time'
-                                style={{ width: 80 }}
+                                style={{ width: 120 }}
                                 placeholder='时间'
                                 locale={dpLocale}
                                 showTime={{
-                                    use12Hours: true,
+                                    use12Hours: false,
                                     showNow: true,
-                                    format: 'HH:mm'
+                                    format: 'aHH:mm'
                                 }}
                                 panelRender={(originPicker) => {
                                     return (
@@ -833,7 +875,7 @@ class birthdayCakeSale extends React.Component {
                                             {originPicker}
                                         </div>)
                                 }}
-                                format='HH:mm'
+                                format='aHH:mm'
                                 value={pickUpTime}
                                 inputReadOnly={true}
                                 onChange={this.handlePickUpTimeChange}
@@ -1065,8 +1107,8 @@ class birthdayCakeSale extends React.Component {
                                 <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>交付</Divider>
                                 <div>
                                     <span style={{ fontSize: 16 }}>时间：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpDay.format('YYYY-MM-DD')}</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime.format(' HH:mm')}</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpDay.format('YYYY-MM-DD ddd')}</span>
+                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime.format(' aHH:mm')}</span>
                                 </div>
                                 <div style={{ marginTop: 4, marginBottom: 4 }}>
                                     <span style={{ fontSize: 16 }}>方式：</span>

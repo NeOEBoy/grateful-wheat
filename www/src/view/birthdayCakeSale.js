@@ -593,7 +593,7 @@ class birthdayCakeSale extends React.Component {
         this.setState({ phoneNumber: e.target.value });
 
         setTimeout(() => {
-            this._pnInput && this._pnInput.scrollIntoViewIfNeeded();
+            this._mmmm && this._mmmm.scrollTop();
         }, 1000);
     }
 
@@ -800,7 +800,9 @@ class birthdayCakeSale extends React.Component {
                         <span> (点击)预定</span>
                     </div>
 
-                    <Modal title={(
+                    <Modal ref={(m) => {
+                        this._mmmm = m
+                    }} title={(
                         <div style={{
                             fontSize: 16, textAlign: 'center', marginTop: -12,
                             marginBottom: -12, background: '#F0F0F0'
@@ -973,9 +975,7 @@ class birthdayCakeSale extends React.Component {
                         <div style={{ marginTop: 8, marginBottom: 8 }}>
                             <Input.Group>
                                 <span style={{ fontWeight: 'bold' }}>手机：</span>
-                                <Input ref={(c)=>{
-                                    this._pnInput = c;
-                                }} style={{ width: 'calc(100% - 100px)' }}
+                                <Input style={{ width: 'calc(100% - 100px)' }}
                                     placeholder='填写手机号'
                                     prefix={<PhoneOutlined />}
                                     value={phoneNumber}

@@ -687,6 +687,277 @@ class birthdayCakeSale extends React.Component {
         return (
             <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
                 <div>
+                    {
+                        orderCakeInfoModalVisiable ? (<div style={{
+                            background: 'gray', position: 'fixed', marginLeft: 10, marginRight: 10,
+                            marginTop: 10, marginBottom: 10,
+                            zIndex: '10000', width: 'calc(100% - 20px)', height: 'calc(100% - 20px)',
+                            overflowY:'auto', overflowX:'hidden'
+                        }}>
+                            <div style={{ textAlign: 'center', fontSize: 14, marginTop: 0 }}>
+                                {`《${cakeName}》`}
+                            </div>
+                            <div style={{ width: '100%', textAlign: 'center' }}>
+                                <Image style={{ width: 80 }} preview={false} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                            </div>
+                            <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>配送</Divider>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <div style={{ fontWeight: 'bold' }}>时间：</div>
+                                <div>
+                                    <DatePicker
+                                        ref={(dp) => this._datePicker4PickUpDay = dp}
+                                        style={{ width: 170 }}
+                                        placeholder='日期'
+                                        format='YYYY-MM-DD dddd'
+                                        value={pickUpDay}
+                                        open={pickUpDayPopupOpen}
+                                        showToday={false}
+                                        inputReadOnly={true}
+                                        onChange={this.handlePickUpDayChange}
+                                        onFocus={this.handlePickUpDayOnFocus}
+                                        onBlur={this.handlePickUpDayOnBlur}
+                                        dateRender={(current) => {
+                                            const style = {};
+
+                                            if (current.date() === 1) {
+                                                style.border = '1px solid #1890ff';
+                                                style.borderRadius = '50%';
+                                            }
+
+                                            return (
+                                                <div className="ant-picker-cell-inner" style={style} onClick={() => {
+                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                    this.setState({ pickUpDayPopupOpen: false });
+                                                }}>
+                                                    {current.date()}
+                                                </div>
+                                            );
+                                        }}
+                                        renderExtraFooter={() =>
+                                        (<span>
+                                            <Button type='primary' size='small' onClick={() => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false });
+                                            }}>今天</Button>
+                                            <span>   </span>
+                                            <Button type='primary' size='small' onClick={() => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false });
+                                            }}>明天</Button>
+                                            <span>   </span>
+                                            <Button type='primary' size='small' onClick={() => {
+                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false });
+                                            }}>后天</Button>
+                                        </span>)
+                                        } />
+                                </div>
+                                <div style={{ marginTop: 4 }}>
+                                    <DatePicker
+                                        picker='time'
+                                        style={{ width: 120 }}
+                                        placeholder='时间'
+                                        locale={dpLocale}
+                                        showTime={{
+                                            use12Hours: false,
+                                            showNow: true,
+                                            format: 'aHH:mm'
+                                        }}
+                                        panelRender={(originPicker) => {
+                                            return (
+                                                <div style={{ marginLeft: 20, marginRight: 20 }}>
+                                                    {originPicker}
+                                                </div>)
+                                        }}
+                                        format='aHH:mm'
+                                        value={pickUpTime}
+                                        inputReadOnly={true}
+                                        onChange={this.handlePickUpTimeChange}
+                                        renderExtraFooter={() => (
+                                            <span>
+                                                <Button type='primary' size='small' onClick={() => {
+                                                    this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
+                                                }}>中午12点</Button>
+                                                <span>   </span>
+                                                <Button type='primary' size='small' onClick={() => {
+                                                    this.setState({ pickUpTime: moment('18:00', 'HH:mm') });
+                                                }}>晚上18点</Button>
+                                            </span>
+                                        )} />
+                                </div>
+                                {
+                                    (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
+                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                    ) : (<span></span>)
+                                }
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <span style={{ fontWeight: 'bold' }}>方式：</span>
+                                <Radio.Group
+                                    size='large'
+                                    options={KPickUpTypeOptions}
+                                    onChange={this.onPickUpTypeChange}
+                                    value={pickUpType}
+                                    optionType='default'
+                                />
+                                {
+                                    pickUpType === '' ? (
+                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                    ) : (<span></span>)
+                                }
+                            </div>
+                            {
+                                pickUpType === '' ? (<div></div>) : (
+                                    pickUpType === KPickUpTypeOptions[0].value ? (
+                                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                            <span style={{ fontWeight: 'bold' }}>门店：</span>
+                                            <Select value={selfPickUpShop} style={{ width: 120 }}
+                                                onChange={this.handleSelfPickUpShopChange}
+                                                options={KSelfPickUpShopOptions}>
+                                            </Select>
+                                            {
+                                                selfPickUpShop === '' ? (
+                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                ) : (<span></span>)
+                                            }
+                                        </div>
+                                    ) : (
+                                        <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                            <Input.Group>
+                                                <span style={{ fontWeight: 'bold' }}>地址：</span>
+                                                <Input style={{ width: 'calc(100% - 100px)' }}
+                                                    placeholder='填写地址' prefix={<HomeOutlined />}
+                                                    value={deliverAddress}
+                                                    onChange={this.handleDeliverAddressChange} />
+                                                {
+                                                    deliverAddress === '' ? (
+                                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                    ) : (<span></span>)
+                                                }
+                                            </Input.Group>
+                                        </div>
+                                    )
+                                )
+                            }
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <Input.Group>
+                                    <span style={{ fontWeight: 'bold' }}>姓名：</span>
+                                    <Input style={{ width: 'calc(100% - 100px)' }}
+                                        placeholder='填写姓名'
+                                        prefix={<UserOutlined />}
+                                        value={pickUpName}
+                                        onChange={this.handlePickUpPeopleChange} />
+                                    {
+                                        pickUpName === '' ? (
+                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                        ) : (<span></span>)
+                                    }
+                                </Input.Group>
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <Input.Group>
+                                    <span style={{ fontWeight: 'bold' }}>手机：</span>
+                                    <Input style={{ width: 'calc(100% - 100px)' }}
+                                        placeholder='填写手机号'
+                                        prefix={<PhoneOutlined />}
+                                        value={phoneNumber}
+                                        onChange={this.handlePhoneNumberChange} />
+                                    {
+                                        phoneNumber === '' ? (
+                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                        ) : (<span></span>)
+                                    }
+                                </Input.Group>
+                            </div>
+                            <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <Input.Group>
+                                    <span style={{ fontWeight: 'bold' }}>奶油：</span>
+                                    <Radio.Group
+                                        size='large'
+                                        options={creamTypeOptions}
+                                        onChange={this.handleCreamTypeChange}
+                                        value={creamType}
+                                        optionType='default'
+                                    />
+                                    {
+                                        creamType === '' ? (
+                                            <span style={{ color: 'red' }}>必填项</span>
+                                        ) : (<span></span>)
+                                    }
+                                </Input.Group>
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <Input.Group>
+                                    <span style={{ fontWeight: 'bold' }}>大小：</span>
+                                    <Select value={cakeSize} style={{ width: 100 }}
+                                        onChange={this.handleCakeSizeChange}
+                                        onDropdownVisibleChange={this.handleDropdownVisibleChange}
+                                        options={cakeSizeOptions}>
+                                    </Select>
+                                    {
+                                        cakeSize === '' ? (
+                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                        ) : (<span></span>)
+                                    }
+                                </Input.Group>
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <span style={{ fontWeight: 'bold' }}>价格：</span>
+                                <span>{cakePrice}</span>
+                                <span> 元</span>
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <span style={{ fontWeight: 'bold' }}>夹心（任选两种）：</span>
+                                <CheckboxGroup
+                                    options={KCakeFillingOptions}
+                                    value={cakeFillings}
+                                    onChange={this.handleCakeFillingChange} />
+                                {
+                                    cakeFillings.length === 0 ? (
+                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                    ) : (<span></span>)
+                                }
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <span style={{ fontWeight: 'bold' }}>蜡烛：</span>
+                                <Select value={candleType}
+                                    style={{ width: 100 }}
+                                    options={KCandleTypeOptions}
+                                    onChange={this.handleCandleTypeChange}>
+                                </Select>
+                                {
+                                    candleType === KCandleTypeOptions[1].value ? (<Input style={{ marginLeft: 8, width: 70 }}
+                                        placeholder='数字' prefix={<EditOutlined />}
+                                        value={number4candle}
+                                        onChange={this.handleNumber4candleChange} />) : (<span></span>)
+                                }
+                                {
+                                    candleType === '' ||
+                                        (candleType === KCandleTypeOptions[1].value &&
+                                            number4candle === '') ? (
+                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                    ) : (<span></span>)
+                                }
+                            </div>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <span style={{ fontWeight: 'bold' }}>餐具：</span>
+                                <span>{cakePlateNumber}</span>
+                                <span> 套</span>
+                            </div>
+                            <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                            <div style={{ marginTop: 8, marginBottom: 8 }}>
+                                <Input.Group>
+                                    <span style={{ fontWeight: 'bold' }}>备注：</span>
+                                    <TextArea style={{ width: 'calc(100% - 0px)' }} rows={2}
+                                        placeholder='有特殊要求，请备注' value={remarks}
+                                        onChange={this.handleRemarksChange} />
+                                </Input.Group>
+                            </div>
+                        </div>) : (<div></div>)
+                    }
+
+
                     <Title level={4} style={{
                         textAlign: 'center', marginTop: 0,
                         backgroundColor: '#DAA520', color: 'white',
@@ -801,9 +1072,8 @@ class birthdayCakeSale extends React.Component {
                             fontSize: 16, textAlign: 'center', marginTop: -12,
                             marginBottom: -12, background: '#F0F0F0'
                         }}>蛋糕订购信息</div>)
-                    } style={{ top: 0, height: 'calc(100% - 200px)', overflowY: 'auto' }}
-                        maskStyle={{overflowY:'hidden'}}
-                        visible={orderCakeInfoModalVisiable}
+                    } style={{ top: 0 }}
+                        visible={false}
                         onOk={this.handleOrderCakeInfoModalOk}
                         onCancel={this.handleOrderCakeInfoModalCancel}
                         closable={false} maskClosable={false}>

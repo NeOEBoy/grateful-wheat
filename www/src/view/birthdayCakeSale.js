@@ -700,7 +700,7 @@ class birthdayCakeSale extends React.Component {
         let KOrderImageStyle =
         {
             width: orderImageWidth,
-            height: orderImageHeight
+            height: orderImageWidth
         };
 
         return (
@@ -994,8 +994,8 @@ class birthdayCakeSale extends React.Component {
                                 <div style={KOrderImageDivStyle}>
                                     <div style={{ height: 120 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
-                                            <Timeline.Item color='red' style={{ fontSize: 16 }}>{`仔细核对信息(如有误请点击右下方《返回修改》按钮)`}</Timeline.Item>
-                                            <Timeline.Item color='red' style={{ fontSize: 16 }}>{`长按订购单图片=>"转发给朋友"=>发送给客服预定登记`}</Timeline.Item>
+                                            <Timeline.Item color='red' style={{ fontSize: 12 }}>{`仔细核对订购单信息`}</Timeline.Item>
+                                            <Timeline.Item color='red' style={{ fontSize: 12 }}>{`长按图片=>"转发给朋友"=>发送给客服登记`}</Timeline.Item>
                                         </Timeline>
                                     </div>
 
@@ -1011,7 +1011,7 @@ class birthdayCakeSale extends React.Component {
                                                     orderCakeInfoModalVisiable: true
                                                 });
                                                 document.documentElement.style.overflow = 'hidden';
-                                            }}>返回修改</Button>,
+                                            }}>返回修改</Button>
                                             <Button key='back' onClick={() => {
                                                 this.setState({ orderImageModalVisiable: false });
                                             }}>关闭</Button>

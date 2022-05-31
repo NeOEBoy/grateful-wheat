@@ -478,6 +478,7 @@ class birthdayCakeSale extends React.Component {
                         this.setState({
                             orderImageModalVisiable: true
                         });
+                        document.documentElement.style.overflow = 'hidden';
                     });
                 })
             }, 0);
@@ -689,18 +690,16 @@ class birthdayCakeSale extends React.Component {
 
         let orderImageWidth = window.innerWidth;
         let orderImageHeight = orderImageWidth * 148 / 210;
-        let KOrderImageDivStyle =
-        {
+        let KOrderImageDivStyle = {
             background: 'white',
             width: orderImageWidth,
             height: orderImageHeight + 200,
             marginTop: 100
         };
 
-        let KOrderImageStyle =
-        {
+        let KOrderImageStyle = {
             width: orderImageWidth,
-            height: orderImageWidth
+            height: orderImageHeight
         };
 
         return (
@@ -934,7 +933,6 @@ class birthdayCakeSale extends React.Component {
                                         <div>
                                         </div>
                                     )
-
                                 }
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                     <Input.Group>
@@ -994,13 +992,13 @@ class birthdayCakeSale extends React.Component {
                                 <div style={KOrderImageDivStyle}>
                                     <div style={{ height: 120 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
-                                            <Timeline.Item color='red' style={{ fontSize: 12 }}>{`仔细核对订购单信息`}</Timeline.Item>
-                                            <Timeline.Item color='red' style={{ fontSize: 12 }}>{`长按图片=>"转发给朋友"=>发送给客服登记`}</Timeline.Item>
+                                            <Timeline.Item color='red'>{`仔细核对订购单信息`}</Timeline.Item>
+                                            <Timeline.Item color='red'>{`长按图片=>"转发给朋友"=>发送给客服登记`}</Timeline.Item>
                                         </Timeline>
                                     </div>
 
                                     <div style={KOrderImageStyle}>
-                                        <Image style={KOrderImageStyle} preview={false} src={orderImageSrc} />
+                                        <Image preview={false} src={orderImageSrc} />
                                     </div>
 
                                     <div style={{ height: 80, textAlign: 'center' }}>
@@ -1014,6 +1012,7 @@ class birthdayCakeSale extends React.Component {
                                             }}>返回修改</Button>
                                             <Button key='back' onClick={() => {
                                                 this.setState({ orderImageModalVisiable: false });
+                                                document.documentElement.style.overflow = 'auto';
                                             }}>关闭</Button>
                                         </Space>
                                     </div>
@@ -1035,7 +1034,7 @@ class birthdayCakeSale extends React.Component {
                                 <div key={item.key}>
                                     <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item.name}-横图.jpg`} />
 
-                                    <Title level={5} style={{
+                                    {/* <Title level={5} style={{
                                         textAlign: 'center', marginTop: 0,
                                         marginLeft: 30, marginRight: 30,
                                         backgroundColor: 'red', color: 'white',
@@ -1045,7 +1044,7 @@ class birthdayCakeSale extends React.Component {
                                         this.handleOrderNowTitleClick(item);
                                     }}>
                                         {`立即预定《${item.name}》`}
-                                    </Title>
+                                    </Title> */}
                                 </div>
                             );
                         })
@@ -1091,7 +1090,7 @@ class birthdayCakeSale extends React.Component {
                                                                     this.forceUpdate();
                                                                 }} />)}
 
-                                                            {item1.hideTheItem ? (<div></div>) : (
+                                                            {/* {item1.hideTheItem ? (<div></div>) : (
                                                                 <Title level={5} style={{
                                                                     textAlign: 'center', marginTop: 0,
                                                                     marginLeft: 30, marginRight: 30,
@@ -1108,7 +1107,7 @@ class birthdayCakeSale extends React.Component {
                                                                     }
                                                                 }}>
                                                                     {`立即预定《${item1.productName}》`}
-                                                                </Title>)}
+                                                                </Title>)} */}
                                                         </span>
                                                     )
                                                 })
@@ -1229,6 +1228,10 @@ class birthdayCakeSale extends React.Component {
                             </div>
                         </div>
                     </div>) : (<div></div>)}
+
+                    <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
+                        <div style={{ color: 'green', fontSize: 14 }}>闽ICP备2022007668号-1</div>
+                    </div>
                 </div >
             </Spin>
         )

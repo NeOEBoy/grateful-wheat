@@ -198,7 +198,7 @@ class BuildingMap extends React.Component {
                 <div style={{ height: 30 }}>---没有更多了请联系管理员添加---</div>
 
                 <div>
-                    <div style={{ color: 'green' }}>闽ICP备19021080号</div>
+                    <div style={{ color: 'green' }}>闽ICP备2022007668号-1</div>
                     <div style={{ color: 'green' }}>闽公安备案35060202000425号</div>
                 </div>
             </div>

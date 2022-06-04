@@ -146,18 +146,7 @@ class birthdayCakeSale extends React.Component {
             }
         }
 
-        //修复软键盘弹起将页面推上去导致看不到输入框的问题
-        // window.addEventListener("resize", function () {
-        //     // 解决键盘弹起后遮挡输入框的问题
-        //     if (document.activeElement.tagName === "INPUT" ||
-        //         document.activeElement.tagName === "TEXTAREA") {
-        //         window.setTimeout(function () {
-        //             document.activeElement.scrollIntoViewIfNeeded();
-        //         }, 0);
-        //     }
-        // })
-
-        // this.updateWeixinConfig();
+        this.updateWeixinConfig();
     }
     /// 蛋糕分类 展开|收起 
     handleCollapseOnChange = async (keys) => {
@@ -321,8 +310,8 @@ class birthdayCakeSale extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '弯麦蛋糕 | 今年最新蛋糕图册，送给热爱仪式感的你~';
-                let desc = '有美味，有颜值，更有内涵，儿童款，女神款，男神款等各种款式等你来挑选哦~';
+                let title = '弯麦蛋糕 | 最新蛋糕图册，送给热爱仪式感的你，点击即可预定';
+                let desc = '男孩款，女孩款，女神款，男神款，情侣款等各种款式~';
                 let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/生日蛋糕/image4wechat.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容

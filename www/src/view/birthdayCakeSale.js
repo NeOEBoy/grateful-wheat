@@ -20,7 +20,7 @@ import {
 } from '@ant-design/icons';
 import {
     Collapse, Image, Spin,
-    Typography, DatePicker, Radio,
+    DatePicker, Radio,
     Select, Input, Checkbox, Divider,
     message, Timeline, Button, Space
 } from 'antd';
@@ -31,7 +31,6 @@ import {
     wechatSign
 } from '../api/api';
 
-const { Title } = Typography;
 const { Panel } = Collapse;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
@@ -75,14 +74,14 @@ class birthdayCakeSale extends React.Component {
         super(props);
 
         const KCategorys = [
-            { categoryId: '1634302334442115588', categoryName: '1-女孩蛋糕', productItems: [] },
-            { categoryId: '1649820515687346997', categoryName: '2-男孩蛋糕', productItems: [] },
-            { categoryId: '1634302367129657476', categoryName: '3-女神蛋糕', productItems: [] },
-            { categoryId: '1634302388959605558', categoryName: '4-男神蛋糕', productItems: [] },
-            { categoryId: '1634302403310226908', categoryName: '5-家庭蛋糕', productItems: [] },
-            { categoryId: '1634302419875701981', categoryName: '6-情侣蛋糕', productItems: [] },
-            { categoryId: '1634302432122635916', categoryName: '7-祝寿蛋糕', productItems: [] },
-            { categoryId: '1634302446119593980', categoryName: '8-庆典派对蛋糕', productItems: [] },
+            { categoryId: '1634302334442115588', categoryName: '女孩蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: [] },
+            { categoryId: '1649820515687346997', categoryName: '男孩蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: [] },
+            { categoryId: '1634302367129657476', categoryName: '女神蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: [] },
+            { categoryId: '1634302388959605558', categoryName: '男神蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: [] },
+            { categoryId: '1634302403310226908', categoryName: '家庭蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: [] },
+            { categoryId: '1634302419875701981', categoryName: '情侣蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: [] },
+            { categoryId: '1634302432122635916', categoryName: '祝寿蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: [] },
+            { categoryId: '1634302446119593980', categoryName: '庆典派对蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: [] },
         ];
 
         this.state = {
@@ -1011,11 +1010,11 @@ class birthdayCakeSale extends React.Component {
                     }
 
                     <div style={{
-                        textAlign: 'center', marginTop: 0, fontSize: 18,
+                        textAlign: 'center', marginTop: 0, fontSize: 20,
                         backgroundColor: '#DAA520', color: 'white',
-                        borderRadius: 15, paddingTop: 8, paddingBottom: 8
+                        borderRadius: 15, paddingTop: 10, paddingBottom: 10
                     }}>
-                        {debug ? `0-新款蛋糕（${birthdayCakesLatest.length}）` : `0-新款蛋糕`}
+                        {debug ? `新款蛋糕（${birthdayCakesLatest.length}）` : `新款蛋糕`}
                     </div>
                     {
                         birthdayCakesLatest.map((item) => {
@@ -1039,6 +1038,14 @@ class birthdayCakeSale extends React.Component {
                             );
                         })
                     }
+
+                    <div style={{
+                        textAlign: 'center', color: '#C6A300',
+                        fontSize: 18, paddingTop: 10, paddingBottom: 10
+                    }}>
+                        更多款式请点击下方分类查看
+                    </div>
+
                     <Collapse
                         bordered={true}
                         expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
@@ -1047,17 +1054,21 @@ class birthdayCakeSale extends React.Component {
                         {
                             birthdayCakeCategorys.map((item) => {
                                 return (
-                                    <Panel header=
+                                    <Panel
+                                        header=
                                         {
                                             (
-                                                <span style={{ color: 'white', fontSize: 16 }}>
-                                                    {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
-                                                </span>
+                                                <div style={{ color: 'white', fontSize: 20 }}>
+                                                    <Image style={{ width: 36, height: 36, borderRadius: 18 }} preview={false} src={item.thumbnail} />
+                                                    <span style={{ marginLeft: 12 }}>
+                                                        {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
+                                                    </span>
+                                                </div>
                                             )
                                         }
                                         style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
                                         key={item.categoryId}
-                                        extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                        extra={(<span style={{ fontSize: 16, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
                                         <Spin spinning={item.spinning}>
                                             {
                                                 item.productItems.map((item1) => {
@@ -1110,7 +1121,7 @@ class birthdayCakeSale extends React.Component {
                         }
                     </Collapse>
                     <div style={{
-                        textAlign: 'center', color: 'green',
+                        textAlign: 'center', color: '#B9B973',
                         fontSize: 14, fontWeight: "bold", paddingTop: 7
                     }}>
                         <span>请添加教育局总店</span>

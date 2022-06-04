@@ -12,11 +12,6 @@ import {
     loadProductsSale,
     wechatSign
 } from '../api/api';
-import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
-import {
-    getPageName4A4Printer,
-    getA4PrinterIndex,
-} from '../api/util';
 
 const { Title } = Typography;
 const { Panel } = Collapse;

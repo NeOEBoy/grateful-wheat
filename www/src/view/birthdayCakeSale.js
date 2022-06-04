@@ -1021,20 +1021,21 @@ class birthdayCakeSale extends React.Component {
                         ) : (<div></div>)
                     }
 
-                    <Title level={4} style={{
-                        textAlign: 'center', marginTop: 0,
+                    <div style={{
+                        textAlign: 'center', marginTop: 0, fontSize: 18,
                         backgroundColor: '#DAA520', color: 'white',
                         borderRadius: 15, paddingTop: 8, paddingBottom: 8
                     }}>
                         {debug ? `0-新款蛋糕（${birthdayCakesLatest.length}）` : `0-新款蛋糕`}
-                    </Title>
+                    </div>
                     {
                         birthdayCakesLatest.map((item) => {
                             return (
                                 <div key={item.key}>
                                     <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item.name}-横图.jpg`} />
 
-                                    {/* <Title level={5} style={{
+                                    <div style={{
+                                        fontSize: 18,
                                         textAlign: 'center', marginTop: 0,
                                         marginLeft: 30, marginRight: 30,
                                         backgroundColor: 'red', color: 'white',
@@ -1044,7 +1045,7 @@ class birthdayCakeSale extends React.Component {
                                         this.handleOrderNowTitleClick(item);
                                     }}>
                                         {`立即预定《${item.name}》`}
-                                    </Title> */}
+                                    </div>
                                 </div>
                             );
                         })
@@ -1090,8 +1091,9 @@ class birthdayCakeSale extends React.Component {
                                                                     this.forceUpdate();
                                                                 }} />)}
 
-                                                            {/* {item1.hideTheItem ? (<div></div>) : (
-                                                                <Title level={5} style={{
+                                                            {item1.hideTheItem ? (<div></div>) : (
+                                                                <div style={{
+                                                                    fontSize: 18,
                                                                     textAlign: 'center', marginTop: 0,
                                                                     marginLeft: 30, marginRight: 30,
                                                                     backgroundColor: 'red', color: 'white',
@@ -1107,7 +1109,7 @@ class birthdayCakeSale extends React.Component {
                                                                     }
                                                                 }}>
                                                                     {`立即预定《${item1.productName}》`}
-                                                                </Title>)} */}
+                                                                </div>)}
                                                         </span>
                                                     )
                                                 })
@@ -1119,14 +1121,14 @@ class birthdayCakeSale extends React.Component {
                         }
                     </Collapse>
                     <div style={{
-                        height: 40, textAlign: 'center', color: 'green',
+                        textAlign: 'center', color: 'green',
                         fontSize: 14, fontWeight: "bold", paddingTop: 7
                     }}>
-                        <span>添加教育局总店</span>
+                        <span>请添加教育局总店</span>
                         <span style={{ textDecoration: 'underline' }}>
                             <a href="tel:13290768588">13290768588</a>
                         </span>
-                        <span> (点击)预定</span>
+                        <span> (微信同号)预定</span>
                     </div>
 
                     {imageCapturing ? (<div ref={(current) => {
@@ -1229,8 +1231,14 @@ class birthdayCakeSale extends React.Component {
                         </div>
                     </div>) : (<div></div>)}
 
-                    <div style={{ textAlign: 'center', marginTop: 10, marginBottom: 10 }}>
-                        <div style={{ color: 'green', fontSize: 14 }}>闽ICP备2022007668号-1</div>
+                    <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
+                        <div style={{ paddingTop: 12, marginTop: 10 }}>
+                            总部：漳州市漳浦县府前街西247号(教育局对面)
+                        </div>
+                        <div style={{ color: 'blue', fontSize: 14 }}>
+                            <span style={{ color: 'black' }}>©弯麦</span>
+                            <span style={{ color: 'blue' }}>闽ICP备2022007668号-1</span>
+                        </div>
                     </div>
                 </div >
             </Spin>

@@ -1076,7 +1076,7 @@ class ProductDistributeInputer extends React.Component {
         let paramStr = 'param=' + escape(paramValueStr);
 
         let orderManagementUrl = 'http://localhost:4000/orderManagement';
-        if (!KForTest) orderManagementUrl = 'http://123.207.119.232/orderManagement';
+        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
 
         orderManagementUrl += '?';
         orderManagementUrl += paramStr;

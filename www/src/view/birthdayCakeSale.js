@@ -1034,7 +1034,7 @@ class birthdayCakeSale extends React.Component {
                                 <div key={item.key}>
                                     <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item.name}-横图.jpg`} />
 
-                                    <div style={{
+                                    {/* <div style={{
                                         fontSize: 18,
                                         textAlign: 'center', marginTop: 0,
                                         marginLeft: 30, marginRight: 30,
@@ -1045,7 +1045,7 @@ class birthdayCakeSale extends React.Component {
                                         this.handleOrderNowTitleClick(item);
                                     }}>
                                         {`立即预定《${item.name}》`}
-                                    </div>
+                                    </div> */}
                                 </div>
                             );
                         })
@@ -1091,7 +1091,7 @@ class birthdayCakeSale extends React.Component {
                                                                     this.forceUpdate();
                                                                 }} />)}
 
-                                                            {item1.hideTheItem ? (<div></div>) : (
+                                                            {/* {item1.hideTheItem ? (<div></div>) : (
                                                                 <div style={{
                                                                     fontSize: 18,
                                                                     textAlign: 'center', marginTop: 0,
@@ -1109,7 +1109,7 @@ class birthdayCakeSale extends React.Component {
                                                                     }
                                                                 }}>
                                                                     {`立即预定《${item1.productName}》`}
-                                                                </div>)}
+                                                                </div>)} */}
                                                         </span>
                                                     )
                                                 })

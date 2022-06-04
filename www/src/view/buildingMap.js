@@ -197,9 +197,14 @@ class BuildingMap extends React.Component {
 
                 <div style={{ height: 30 }}>---没有更多了请联系管理员添加---</div>
 
-                <div>
-                    <div style={{ color: 'green' }}>闽ICP备2022007668号-1</div>
-                    <div style={{ color: 'green' }}>闽公安备案35060202000425号</div>
+                <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
+                    <div style={{ paddingTop: 12, marginTop: 10 }}>
+                        总部：漳州市漳浦县府前街西247号(教育局对面)
+                    </div>
+                    <div style={{ color: 'blue', fontSize: 14 }}>
+                        <span style={{ color: 'black' }}>©弯麦</span>
+                        <span style={{ color: 'blue' }}>闽ICP备2022007668号-1</span>
+                    </div>
                 </div>
             </div>
         );

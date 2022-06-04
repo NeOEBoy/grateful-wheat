@@ -204,8 +204,8 @@ class ProductMenu extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '弯麦美食菜单';
-                let desc = '有现烤面包，西点慕斯，吐司餐包，小蛋糕，小零食，牛奶等各种美食哦';
+                let title = '弯麦面包牛奶菜单，点击预定';
+                let desc = '现烤面包，西点慕斯，吐司餐包，小蛋糕，小零食，牛奶等美食~';
                 let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/现烤面包/鸡排三明治.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
@@ -352,34 +352,6 @@ class ProductMenu extends React.Component {
         return newNum;
     }
 
-    getLodopAfterInit = () => {
-        let LODOP = getLodop();
-
-        if (LODOP) {
-            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-
-            LODOP.SET_PRINTER_INDEX(getA4PrinterIndex(LODOP));
-            LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4A4Printer());
-            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
-            LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
-            LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
-            LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);
-        }
-
-        return LODOP;
-    };
-
-    productPrintPreprew = () => {
-        let LODOP = this.getLodopAfterInit();
-
-        if (LODOP) {
-            LODOP.PREVIEW();
-        }
-    };
-
     render() {
         const {
             foodCategorys,
@@ -408,144 +380,148 @@ class ProductMenu extends React.Component {
                         textAlign: 'center', marginTop: 4,
                         color: 'black', paddingTop: 4, paddingBottom: 0
                     }}>
-                        微信菜单
-                        <button hidden size='small' style={{ float: 'right' }}
-                            onClick={this.productPrintPreprew}>
-                            打印
-                        </button>
+                        面包牛奶菜单
                     </Title>
                 </div>
 
-                <div id='printDiv'>
-                    <Collapse
-                        bordered={true}
-                        expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
-                        expandIconPosition='right'
-                        onChange={this.handleCollapseOnChange}>
-                        {
-                            foodCategorys.map((item) => {
-                                return (
-                                    <Panel header=
-                                        {
-                                            (
-                                                <span style={{ color: 'white', fontSize: 16 }}>
-                                                    {`${item.categoryName}`}
-                                                </span>
-                                            )
-                                        }
-                                        style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
-                                        key={item.categoryId}
-                                        extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
-                                        <Spin spinning={item.spinning}>
-                                            <List
-                                                grid={{ gutter: 2, column: 2 }}
-                                                dataSource={item.productItems}
-                                                renderItem={item1 => {
-                                                    let imageSrc = KImageRoot;
-                                                    imageSrc += '/';
-                                                    imageSrc += item.categoryName;
-                                                    imageSrc += '/';
-                                                    imageSrc += item1.productName;
-                                                    imageSrc += '.jpg';
+                <Collapse
+                    bordered={true}
+                    expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
+                    expandIconPosition='right'
+                    onChange={this.handleCollapseOnChange}>
+                    {
+                        foodCategorys.map((item) => {
+                            return (
+                                <Panel header=
+                                    {
+                                        (
+                                            <span style={{ color: 'white', fontSize: 16 }}>
+                                                {`${item.categoryName}`}
+                                            </span>
+                                        )
+                                    }
+                                    style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
+                                    key={item.categoryId}
+                                    extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                    <Spin spinning={item.spinning}>
+                                        <List
+                                            grid={{ gutter: 2, column: 2 }}
+                                            dataSource={item.productItems}
+                                            renderItem={item1 => {
+                                                let imageSrc = KImageRoot;
+                                                imageSrc += '/';
+                                                imageSrc += item.categoryName;
+                                                imageSrc += '/';
+                                                imageSrc += item1.productName;
+                                                imageSrc += '.jpg';
 
-                                                    // console.log(imageSrc);
+                                                // console.log(imageSrc);
 
-                                                    let disableButton = item1.buyNumber <= 0;
-                                                    return (
-                                                        <List.Item>
-                                                            <div>
-                                                                <Image preview={true} src={imageSrc} onError={(e) => {
-                                                                    /// 图片加载不成功时隐藏
-                                                                    // e.target.style.display = 'none';
-                                                                    item1.disable = true;
-                                                                    this.forceUpdate();
-                                                                }} />
+                                                let disableButton = item1.buyNumber <= 0;
+                                                return (
+                                                    <List.Item>
+                                                        <div>
+                                                            <Image preview={true} src={imageSrc} onError={(e) => {
+                                                                /// 图片加载不成功时隐藏
+                                                                // e.target.style.display = 'none';
+                                                                item1.disable = true;
+                                                                this.forceUpdate();
+                                                            }} />
+                                                            <div style={{
+                                                                paddingLeft: 4,
+                                                                paddingRight: 4,
+                                                                backgroundColor: 'transparent',
+                                                            }}>
                                                                 <div style={{
-                                                                    paddingLeft: 4,
-                                                                    paddingRight: 4,
-                                                                    backgroundColor: 'transparent',
+                                                                    fontSize: 14,
+                                                                    color: 'black'
                                                                 }}>
-                                                                    <div style={{
-                                                                        fontSize: 14,
-                                                                        color: 'black'
-                                                                    }}>
-                                                                        {item1.productName}
-                                                                    </div>
-                                                                    <div style={{
-                                                                        fontSize: 8,
-                                                                        color: 'gray'
-                                                                    }}>
-                                                                        {item1.specification}
-                                                                    </div>
-                                                                    <div style={{
-                                                                        fontSize: 14,
-                                                                        color: 'black'
-                                                                    }}>
-                                                                        <span>
-                                                                            ¥
-                                                                        </span>
-                                                                        <span>
-                                                                            {item1.price}
-                                                                        </span>
-                                                                        <span>
-                                                                            /
-                                                                        </span>
-                                                                        <span>
-                                                                            {item1.unit}
-                                                                        </span>
-
-                                                                        <span style={{ float: 'right', backgroundColor: 'transparent' }}>
-                                                                            {
-                                                                                disableButton ? (<span></span>) :
-                                                                                    (
-                                                                                        <span>
-                                                                                            <Button size='small' shape='circle' icon={<MinusOutlined />}
-                                                                                                onClick={() => { this.handleDecreaseItemFromCart(item1) }} />
-                                                                                        </span>
-                                                                                    )
-                                                                            }
-                                                                            &nbsp;
-                                                                            &nbsp;
-                                                                            {
-                                                                                disableButton ? (<span></span>) :
-                                                                                    (
-                                                                                        <span>
-                                                                                            {item1.buyNumber}
-                                                                                        </span>
-                                                                                    )
-                                                                            }
-                                                                            &nbsp;
-                                                                            &nbsp;
-                                                                            <span>
-                                                                                <Button disabled={item1.disable} danger size='small' shape='circle' icon={<PlusOutlined />}
-                                                                                    onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
-                                                                            </span>
-                                                                        </span>
-                                                                    </div>
+                                                                    {item1.productName}
                                                                 </div>
+                                                                <div style={{
+                                                                    fontSize: 8,
+                                                                    color: 'gray'
+                                                                }}>
+                                                                    {item1.specification}
+                                                                </div>
+                                                                <div style={{
+                                                                    fontSize: 14,
+                                                                    color: 'black'
+                                                                }}>
+                                                                    <span>
+                                                                        ¥
+                                                                    </span>
+                                                                    <span>
+                                                                        {item1.price}
+                                                                    </span>
+                                                                    <span>
+                                                                        /
+                                                                    </span>
+                                                                    <span>
+                                                                        {item1.unit}
+                                                                    </span>
 
-                                                                {debug ? (
-                                                                    <div style={{ color: 'red', fontSize: 8 }}>
-                                                                        <span>三天内销售量：</span>
-                                                                        <span>{item1.saleNumber}</span>
-                                                                    </div>
-                                                                ) : (<div></div>)}
-                                                                {debug ? (
-                                                                    <div style={{ color: 'red', fontSize: 8 }}>
-                                                                        <span>{item1.barcode}</span>
-                                                                    </div>
-                                                                ) : (<div></div>)}
+                                                                    <span style={{ float: 'right', backgroundColor: 'transparent' }}>
+                                                                        {
+                                                                            disableButton ? (<span></span>) :
+                                                                                (
+                                                                                    <span>
+                                                                                        <Button size='small' shape='circle' icon={<MinusOutlined />}
+                                                                                            onClick={() => { this.handleDecreaseItemFromCart(item1) }} />
+                                                                                    </span>
+                                                                                )
+                                                                        }
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        {
+                                                                            disableButton ? (<span></span>) :
+                                                                                (
+                                                                                    <span>
+                                                                                        {item1.buyNumber}
+                                                                                    </span>
+                                                                                )
+                                                                        }
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        <span>
+                                                                            <Button disabled={item1.disable} danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                                onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
                                                             </div>
-                                                        </List.Item>
-                                                    );
-                                                }}
-                                            />
-                                        </Spin>
-                                    </Panel>
-                                );
-                            })
-                        }
-                    </Collapse>
+
+                                                            {debug ? (
+                                                                <div style={{ color: 'red', fontSize: 8 }}>
+                                                                    <span>三天内销售量：</span>
+                                                                    <span>{item1.saleNumber}</span>
+                                                                </div>
+                                                            ) : (<div></div>)}
+                                                            {debug ? (
+                                                                <div style={{ color: 'red', fontSize: 8 }}>
+                                                                    <span>{item1.barcode}</span>
+                                                                </div>
+                                                            ) : (<div></div>)}
+                                                        </div>
+                                                    </List.Item>
+                                                );
+                                            }}
+                                        />
+                                    </Spin>
+                                </Panel>
+                            );
+                        })
+                    }
+                </Collapse>
+
+                <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
+                    <div style={{ paddingTop: 12, marginTop: 10 }}>
+                        总部：漳州市漳浦县府前街西247号(教育局对面)
+                    </div>
+                    <div style={{ color: 'blue', fontSize: 14 }}>
+                        <span style={{ color: 'black' }}>©弯麦</span>
+                        <span style={{ color: 'blue' }}>闽ICP备2022007668号-1</span>
+                    </div>
                 </div>
 
                 <div style={{ height: 60 }}></div>

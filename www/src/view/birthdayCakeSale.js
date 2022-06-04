@@ -310,7 +310,7 @@ class birthdayCakeSale extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '弯麦最新蛋糕图册，送给热爱仪式感的你，点击预定';
+                let title = '弯麦蛋糕图册菜单，送给热爱仪式感的你，点击预定';
                 let desc = '男孩款，女孩款，女神款，男神款，情侣款等各种款式~';
                 let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/生日蛋糕/image4wechat.jpg';
 

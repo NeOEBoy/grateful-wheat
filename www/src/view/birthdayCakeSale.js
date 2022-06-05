@@ -37,6 +37,32 @@ const { TextArea } = Input;
 
 const KBrithdayCakeRoot = '/image/生日蛋糕';
 
+const KCategorys = [{
+    categoryId: '1634302403310226908', categoryName: '常规款蛋糕', description: '平凡人生、快乐生活',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: []
+}, {
+    categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', description: '小小公主、永远开心',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: []
+}, {
+    categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', description: '小男子汉、顶天立地',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: []
+}, {
+    categoryId: '1634302367129657476', categoryName: '女神款蛋糕', description: '我的女神、爱你永远',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: []
+}, {
+    categoryId: '1634302388959605558', categoryName: '男神款蛋糕', description: '公里之内、属你最帅',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: []
+}, {
+    categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', description: '两颗红心、相知相伴',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: []
+}, {
+    categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', description: '福寿绵绵、如海滔滔',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: []
+}, {
+    categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', description: '共同举杯、共敬未来',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: []
+},];
+
 const KPickUpTypeOptions = [
     { label: '自己提货', value: '自己提货' },
     { label: '商家配送', value: '商家配送' }
@@ -72,17 +98,6 @@ const KCakePlateNumberBySize = {
 class birthdayCakeSale extends React.Component {
     constructor(props) {
         super(props);
-
-        const KCategorys = [
-            { categoryId: '1634302403310226908', categoryName: '常规款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: [] },
-            { categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: [] },
-            { categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: [] },
-            { categoryId: '1634302367129657476', categoryName: '女神款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: [] },
-            { categoryId: '1634302388959605558', categoryName: '男神款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: [] },
-            { categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: [] },
-            { categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: [] },
-            { categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: [] },
-        ];
 
         this.state = {
             birthdayCakeCategorys: KCategorys,
@@ -1059,10 +1074,18 @@ class birthdayCakeSale extends React.Component {
                                         {
                                             (
                                                 <div style={{ color: 'white', fontSize: 20 }}>
-                                                    <Image style={{ width: 36, height: 36, borderRadius: 18 }} preview={false} src={item.thumbnail} />
-                                                    <span style={{ marginLeft: 12 }}>
-                                                        {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
-                                                    </span>
+                                                    <Image style={{ width: 50, height: 50, borderRadius: 25 }} preview={false} src={item.thumbnail} />
+
+                                                    <div style={{ float: 'right', marginLeft: 12 }}>
+                                                        <div>
+                                                            {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
+                                                        </div>
+                                                        <div style={{ fontSize: 14, color: '#FEFCFF' }}>
+                                                            {`${item.description}`}
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
                                             )
                                         }

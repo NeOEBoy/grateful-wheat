@@ -74,14 +74,14 @@ class birthdayCakeSale extends React.Component {
         super(props);
 
         const KCategorys = [
-            { categoryId: '1634302334442115588', categoryName: '女孩蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: [] },
-            { categoryId: '1649820515687346997', categoryName: '男孩蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: [] },
-            { categoryId: '1634302367129657476', categoryName: '女神蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: [] },
-            { categoryId: '1634302388959605558', categoryName: '男神蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: [] },
-            { categoryId: '1634302403310226908', categoryName: '家庭蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: [] },
-            { categoryId: '1634302419875701981', categoryName: '情侣蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: [] },
-            { categoryId: '1634302432122635916', categoryName: '祝寿蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: [] },
-            { categoryId: '1634302446119593980', categoryName: '庆典派对蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: [] },
+            { categoryId: '1634302403310226908', categoryName: '常规款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: [] },
+            { categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: [] },
+            { categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: [] },
+            { categoryId: '1634302367129657476', categoryName: '女神款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: [] },
+            { categoryId: '1634302388959605558', categoryName: '男神款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: [] },
+            { categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: [] },
+            { categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: [] },
+            { categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: [] },
         ];
 
         this.state = {

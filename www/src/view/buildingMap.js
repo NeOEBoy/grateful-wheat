@@ -93,9 +93,9 @@ class BuildingMap extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '漳浦小区楼栋图（弯麦专用）';
-                let desc = '用于查看漳浦各个小区的楼栋号';
-                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/生日蛋糕/image4wechat.jpg';
+                let title = '漳浦小区楼栋图';
+                let desc = '查看漳浦各个小区的楼栋号';
+                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/漳浦小区楼栋图/漳浦西湖.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                 window.wx.updateAppMessageShareData({

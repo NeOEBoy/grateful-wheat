@@ -540,7 +540,17 @@ class ProductMenu extends React.Component {
                     </div>
                     <div style={{ color: 'blue', fontSize: 14 }}>
                         <span style={{ color: 'black' }}>©弯麦</span>
-                        <span style={{ color: 'blue' }}>闽ICP备2022007668号-1</span>
+                        <span style={{ color: 'blue', marginLeft: 8 }}>闽ICP备2022007668号-1</span>
+                        <div>
+                            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062302000230">
+                                <span>
+                                    <Image preview={false} src="/image/备案图标.png" style={{ float: 'left' }} />
+                                </span>
+                                <span style={{ marginLeft: 8 }}>
+                                    闽公网安备 35062302000230号
+                                </span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

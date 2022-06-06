@@ -17,24 +17,40 @@ const { Title } = Typography;
 const { Panel } = Collapse;
 const KImageRoot = '/image';
 
+const KCategorys = [{
+    categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
+    thumbnail: '/image/现烤面包/甜甜圈.jpg', productItems: []
+}, {
+    categoryId: '1592989355905414162', categoryName: '西点慕斯蛋糕', description: '甜点慕斯、烦恼拜拜',
+    thumbnail: '/image/西点慕斯蛋糕/黑森林.jpg', productItems: []
+}, {
+    categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
+    thumbnail: '/image/常温蛋糕/咸蛋卷.jpg', productItems: []
+}, {
+    categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
+    thumbnail: '/image/吐司面包/抹茶红豆切片吐司.jpg', productItems: []
+}, {
+    categoryId: '1626767161867698544', categoryName: '餐包面包', description: '圆圆餐包、生活美满',
+    thumbnail: '/image/餐包面包/沙拉包.jpg', productItems: []
+}, {
+    categoryId: '1593059349213583584', categoryName: '干点饼干', description: '饼干茶点、惬意午后',
+    thumbnail: '/image/干点饼干/牛油曲奇.jpg', productItems: []
+}, {
+    categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
+    thumbnail: '/image/小蛋糕/水果蛋糕（5寸）.jpg', productItems: []
+}, {
+    categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
+    thumbnail: '/image/长富常温牛奶/长富24精品纯奶.jpg', productItems: []
+}
+];
+
 class ProductMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        const KCategorys = [
-            { categoryId: '1593049816479739965', categoryName: '现烤面包', productItems: [] },
-            { categoryId: '1592989355905414162', categoryName: '西点慕斯蛋糕', productItems: [] },
-            { categoryId: '1593049881212199906', categoryName: '常温蛋糕', productItems: [] },
-            { categoryId: '1593049854760654816', categoryName: '吐司面包', productItems: [] },
-            { categoryId: '1626767161867698544', categoryName: '餐包面包', productItems: [] },
-            { categoryId: '1593059349213583584', categoryName: '干点饼干', productItems: [] },
-            { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
-            { categoryId: '1611200031064132560', categoryName: '小零食', productItems: [] },
-            { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
-        ];
-
         this.state = {
             foodCategorys: KCategorys,
+            foodLatest: [],
             orderList: [],
             orderListShow: false,
             orderListTotalPrice: 0,
@@ -390,9 +406,18 @@ class ProductMenu extends React.Component {
                                 <Panel header=
                                     {
                                         (
-                                            <span style={{ color: 'white', fontSize: 16 }}>
-                                                {`${item.categoryName}`}
-                                            </span>
+                                            <div style={{ color: 'white', fontSize: 20 }}>
+                                                <Image style={{ width: 50, height: 50, borderRadius: 25 }} preview={false} src={item.thumbnail} />
+
+                                                <div style={{ float: 'right', marginLeft: 12 }}>
+                                                    <div>
+                                                        {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
+                                                    </div>
+                                                    <div style={{ fontSize: 14, color: '#FEFCFF' }}>
+                                                        {`${item.description}`}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         )
                                     }
                                     style={{ backgroundColor: '#DAA520', borderRadius: 20 }}

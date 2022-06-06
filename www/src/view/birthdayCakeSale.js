@@ -1084,8 +1084,6 @@ class birthdayCakeSale extends React.Component {
                                                             {`${item.description}`}
                                                         </div>
                                                     </div>
-
-
                                                 </div>
                                             )
                                         }

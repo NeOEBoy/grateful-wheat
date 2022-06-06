@@ -1258,7 +1258,7 @@ class birthdayCakeSale extends React.Component {
                         </div>
                         <div style={{ color: 'blue', fontSize: 14 }}>
                             <span style={{ color: 'black' }}>©弯麦</span>
-                            
+
                             <a href='http://beian.miit.gov.cn'>
                                 <span style={{ marginLeft: 8 }}>闽ICP备2022007668号-1</span>
                             </a>

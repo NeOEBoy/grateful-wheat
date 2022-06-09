@@ -20,7 +20,7 @@ import {
 } from '@ant-design/icons';
 import {
     Collapse, Image, Spin,
-    DatePicker, Radio,
+    DatePicker, Radio, List,
     Select, Input, Checkbox, Divider,
     message, Timeline, Button, Space
 } from 'antd';
@@ -39,28 +39,28 @@ const KBrithdayCakeRoot = '/image/生日蛋糕';
 
 const KCategorys = [{
     categoryId: '1634302403310226908', categoryName: '常规款蛋糕', description: '平凡人生、快乐生活',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', description: '小小公主、永远开心',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: {}
 }, {
     categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', description: '小男子汉、顶天立地',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302367129657476', categoryName: '女神款蛋糕', description: '我的女神、爱你永远',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302388959605558', categoryName: '男神款蛋糕', description: '公里之内、属你最帅',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', description: '两颗红心、相知相伴',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', description: '福寿绵绵、如海滔滔',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', description: '共同举杯、共敬未来',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: []
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: {}
 },];
 
 const KPickUpTypeOptions = [
@@ -95,18 +95,25 @@ const KCakePlateNumberBySize = {
     '12寸': '25'
 };
 
+const KCakeRecommendPeople = {
+    '6寸': '直径15厘米 | 3-5人',
+    '8寸': '直径20厘米 | 6-9人',
+    '10寸': '直径25厘米 | 10-15人',
+    '12寸': '直径30厘米 | 16-20人'
+};
+
 class birthdayCakeSale extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             birthdayCakeCategorys: KCategorys,
-            birthdayCakesLatest: [],
+            birthdayCakesLatest: {},
             debug: 0,
             orderCakeInfoModalVisiable: false,
 
             /// 蛋糕信息
-            orderCakeMeta: {},
+            orderCakePrices: {},
             cakeName: '',
             creamType: '',
             cakeSize: '',
@@ -142,24 +149,22 @@ class birthdayCakeSale extends React.Component {
 
         if (this._birthdayCakesAll.length <= 0) {
             this._birthdayCakesAll = await loadBirthdayCakesAll();
-            if (this._birthdayCakesAll && this._birthdayCakesAll.length > 0) {
-                let birthdayCakesLatestNew = [];
-                let birthdayCakesLatest = await loadBirthdayCakesLatest();
-                for (let ii = 0; ii < birthdayCakesLatest.length; ++ii) {
-                    let latestItem = birthdayCakesLatest[ii];
-                    for (let jj = 0; jj < this._birthdayCakesAll.length; ++jj) {
-                        let allItem = this._birthdayCakesAll[jj];
-                        if (latestItem === allItem.name) {
-                            let itemNew = { ...allItem };
-                            itemNew.key = birthdayCakesLatestNew.length + 1;
-                            birthdayCakesLatestNew.push(itemNew);
-                        }
-                    }
-                }
-                this.setState({ birthdayCakesLatest: birthdayCakesLatestNew, debug: debug });
-            }
         }
 
+        let birthdayCakesLatestNew = {};
+        let birthdayCakesLatest = await loadBirthdayCakesLatest();
+        for (let ii = 0; ii < birthdayCakesLatest.length; ++ii) {
+            let latestItem = birthdayCakesLatest[ii];
+
+            let keys = Object.keys(this._birthdayCakesAll);
+            for (let jj = 0; jj < keys.length; ++jj) {
+                let name4allItem = keys[jj];
+                if (latestItem === name4allItem) {
+                    birthdayCakesLatestNew[name4allItem] = this._birthdayCakesAll[name4allItem];
+                }
+            }
+        }
+        this.setState({ birthdayCakesLatest: birthdayCakesLatestNew, debug: debug });
         this.updateWeixinConfig();
     }
     /// 蛋糕分类 展开|收起 
@@ -205,7 +210,7 @@ class birthdayCakeSale extends React.Component {
                 if (birthdayCakeCategoryToAdd) {
                     birthdayCakeCategoryToAdd.opened = true;
                     this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
-                    if (birthdayCakeCategoryToAdd.productItems.length <= 0 &&
+                    if (Object.keys(birthdayCakeCategoryToAdd.productItems).length <= 0 &&
                         !birthdayCakeCategoryToAdd.spinning) {
                         birthdayCakeCategoryToAdd.spinning = true;
 
@@ -254,7 +259,22 @@ class birthdayCakeSale extends React.Component {
                                 return b.saleNumber - a.saleNumber;
                             })
 
-                            birthdayCakeCategoryToAdd.productItems = listAfterMerge;
+                            /// 转化为统一格式（对象）
+                            let productItemsObj = {};
+                            listAfterMerge.forEach(element => {
+                                let obj = {};
+                                obj.saleNumber = element.saleNumber;
+                                obj['价格'] = {};
+                                if (this._birthdayCakesAll[element.productName] &&
+                                    this._birthdayCakesAll[element.productName]['价格']) {
+                                    obj['价格'] = this._birthdayCakesAll[element.productName]['价格'];
+                                }
+                                productItemsObj[element.productName] = obj;
+                            });
+
+                            // console.log(productItemsObj);
+
+                            birthdayCakeCategoryToAdd.productItems = productItemsObj;
                             birthdayCakeCategoryToAdd.spinning = false;
                         }
 
@@ -370,11 +390,11 @@ class birthdayCakeSale extends React.Component {
         }
     }
 
-    handleOrderNowTitleClick = (item) => {
+    handleOrderNowClick = (name, prices) => {
         this.setState({
             orderCakeInfoModalVisiable: true,
-            orderCakeMeta: item,
-            cakeName: item.name,
+            orderCakePrices: prices,
+            cakeName: name,
             creamType: '',
             cakeSize: '',
             cakePrice: '',
@@ -498,12 +518,11 @@ class birthdayCakeSale extends React.Component {
     handleCreamTypeChange = e => {
         let creamType = e.target.value;
 
-        const { orderCakeMeta, cakeSize } = this.state;
+        const { orderCakePrices, cakeSize } = this.state;
 
         let cakePrice = '';
-        let price = orderCakeMeta.price;
-        if (price) {
-            let price4CreamType = price[creamType];
+        if (orderCakePrices) {
+            let price4CreamType = orderCakePrices[creamType];
             if (price4CreamType) {
                 cakePrice = price4CreamType[cakeSize];
             }
@@ -513,12 +532,11 @@ class birthdayCakeSale extends React.Component {
     }
 
     handleCakeSizeChange = (value) => {
-        const { orderCakeMeta, creamType } = this.state;
+        const { orderCakePrices, creamType } = this.state;
 
         let cakePrice = '';
-        let price = orderCakeMeta.price;
-        if (price) {
-            let price4CreamType = price[creamType];
+        if (orderCakePrices) {
+            let price4CreamType = orderCakePrices[creamType];
             if (price4CreamType) {
                 cakePrice = price4CreamType[value];
             }
@@ -612,7 +630,7 @@ class birthdayCakeSale extends React.Component {
             debug,
             pickUpType,
             orderCakeInfoModalVisiable,
-            orderCakeMeta,
+            orderCakePrices,
             cakeName,
             creamType,
             cakeSize,
@@ -660,9 +678,9 @@ class birthdayCakeSale extends React.Component {
                 '10寸': { label: '10寸', value: '10寸' },
                 '12寸': { label: '12寸', value: '12寸' }
             };
-            let price = orderCakeMeta.price;
-            if (price) {
-                let price4CreamType = price[creamType];
+
+            if (orderCakePrices) {
+                let price4CreamType = orderCakePrices[creamType];
                 if (price4CreamType) {
                     let sizes = Object.keys(price4CreamType);
                     for (let i = 0; i < sizes.length; ++i) {
@@ -680,9 +698,8 @@ class birthdayCakeSale extends React.Component {
                 "牛奶奶油": { label: '牛奶奶油', value: '牛奶奶油' },
                 "动物奶油": { label: '动物奶油', value: '动物奶油' }
             };
-            let price = orderCakeMeta.price;
-            if (price) {
-                let prices = Object.keys(price);
+            if (orderCakePrices) {
+                let prices = Object.keys(orderCakePrices);
                 for (let i = 0; i < prices.length; ++i) {
                     let price = prices[i];
                     let creamTypeOption = KCreamTypeOptions[price];
@@ -711,16 +728,46 @@ class birthdayCakeSale extends React.Component {
                     {
                         orderCakeInfoModalVisiable ? (
                             <div style={{
-                                opacity: 0.96, background: 'white', position: 'fixed',
+                                opacity: 0.98, background: 'white', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'auto', overflowX: 'hidden'
                             }}>
-                                <div style={{ textAlign: 'center', fontSize: 14, marginTop: 0 }}>
+                                <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
                                     {`《${cakeName}》`}
                                 </div>
-                                <div style={{ width: '100%', textAlign: 'center' }}>
-                                    <Image style={{ width: 100, height: 100 }} preview={false}
+                                <div style={{ textAlign: 'center', width: '100%' }}>
+                                    <Image style={{ width: 120, height: 120 }} preview={false}
                                         src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                                </div>
+                                <div style={{ textAlign: 'center', width: '100%' }}>
+                                    <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
+                                    {
+                                        Object.keys(orderCakePrices).map((item => {
+                                            let thePrices = orderCakePrices[item];
+                                            let sizes = Object.keys(thePrices);
+                                            return (
+                                                <div key={item} >
+                                                    <div style={{ fontWeight: 'bold' }}>{item}</div>
+                                                    {
+                                                        sizes.map((item1) => {
+                                                            return (
+                                                                <div key={item1}>
+                                                                    <span>{item1}</span>
+                                                                    <span>（</span>
+                                                                    <span>{KCakeRecommendPeople[item1]}</span>
+                                                                    <span>）</span>
+                                                                    <span>{thePrices[item1]}</span>
+                                                                    <span>元</span>
+                                                                </div>)
+                                                        })
+                                                    }
+                                                    <div>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }))
+                                    }
                                 </div>
                                 <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
@@ -976,15 +1023,18 @@ class birthdayCakeSale extends React.Component {
                                             onChange={this.handleRemarksChange} />
                                     </Input.Group>
                                 </div>
-                                <div style={{ marginTop: 16, marginBottom: 80, textAlign: 'center' }}>
-                                    <Space>
+                                <div style={{ height: 80 }}></div>
+                                <div style={{
+                                    width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
+                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                }}>
+                                    <Space style={{ marginTop: 16, marginBottom: 16 }}>
                                         <Button type='default' onClick={this.handleOrderCakeInfoModalCancel}>取消</Button>
                                         <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成订购单</Button>
                                     </Space>
                                 </div>
                             </div>) : (<div></div>)
                     }
-
                     {
                         orderImageModalVisiable ? (
                             <div style={{
@@ -1029,30 +1079,60 @@ class birthdayCakeSale extends React.Component {
                         backgroundColor: '#DAA520', color: 'white',
                         borderRadius: 15, paddingTop: 10, paddingBottom: 10
                     }}>
-                        {debug ? `新款蛋糕（${birthdayCakesLatest.length}）` : `新款蛋糕`}
+                        {debug ? `新款蛋糕（${Object.keys(birthdayCakesLatest).length}）` : `新款蛋糕`}
                     </div>
-                    {
-                        birthdayCakesLatest.map((item) => {
-                            return (
-                                <div key={item.key}>
-                                    <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item.name}-横图.jpg`} />
+                    <List
+                        grid={{ gutter: 0, column: 2 }}
+                        dataSource={Object.keys(birthdayCakesLatest)}
+                        renderItem={item => {
+                            let pricesObj = birthdayCakesLatest[item]['价格'];
+                            let pricesKeys = Object.keys(pricesObj);
 
-                                    <div style={{
-                                        fontSize: 18,
-                                        textAlign: 'center', marginTop: 0,
-                                        marginLeft: 30, marginRight: 30,
-                                        backgroundColor: 'red', color: 'white',
-                                        borderRadius: 12, paddingTop: 4, paddingBottom: 4,
-                                        marginBottom: 12
-                                    }} onClick={() => {
-                                        this.handleOrderNowTitleClick(item);
+                            let theMinimumPrice = '0';
+
+                            if (pricesKeys.length > 0) {
+                                let type = pricesKeys[0];
+
+                                let thePrices = pricesObj[type];
+                                let theThePrices = Object.keys(thePrices);
+                                if (theThePrices.length > 0) {
+                                    let firstPrice = theThePrices[0];
+                                    theMinimumPrice = thePrices[firstPrice];
+                                }
+                            }
+
+                            return (
+                                <List.Item>
+                                    <div key={item} style={{
+                                        marginLeft: 6, marginRight: 6, marginTop: 6
                                     }}>
-                                        {`立即预定《${item.name}》`}
+                                        <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+
+                                        <div>
+                                            <div>
+                                                <span style={{ fontSize: 14 }}>{item}</span>
+                                                <span style={{
+                                                    fontSize: 16, marginTop: 8,
+                                                    float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 12,
+                                                    textAlign: 'center', backgroundColor: 'red', color: 'white',
+                                                }} onClick={() => {
+                                                    this.handleOrderNowClick(item, pricesObj);
+                                                }}>
+                                                    {`立即预定`}
+                                                </span>
+                                            </div>
+                                            <div style={{ fontSize: 14 }}>
+                                                <span>¥</span>
+                                                <span>{theMinimumPrice}</span>
+                                                <span>起</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </List.Item>
                             );
-                        })
-                    }
+                        }}
+                    />
 
                     <div style={{
                         textAlign: 'center', color: '#C6A300',
@@ -1067,74 +1147,93 @@ class birthdayCakeSale extends React.Component {
                         expandIconPosition='right'
                         onChange={this.handleCollapseOnChange}>
                         {
-                            birthdayCakeCategorys.map((item) => {
+                            birthdayCakeCategorys.map((categoryItem) => {
                                 return (
                                     <Panel
                                         header=
                                         {
                                             (
                                                 <div style={{ color: 'white', fontSize: 20 }}>
-                                                    <Image style={{ width: 50, height: 50, borderRadius: 25 }} preview={false} src={item.thumbnail} />
+                                                    <Image style={{ width: 50, height: 50, borderRadius: 25 }} preview={false} src={categoryItem.thumbnail} />
 
                                                     <div style={{ float: 'right', marginLeft: 12 }}>
                                                         <div>
-                                                            {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
+                                                            {debug ? `${categoryItem.categoryName}（${Object.keys(categoryItem.productItems).length}）` : `${categoryItem.categoryName}`}
                                                         </div>
                                                         <div style={{ fontSize: 14, color: '#FEFCFF' }}>
-                                                            {`${item.description}`}
+                                                            {`${categoryItem.description}`}
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         }
                                         style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
-                                        key={item.categoryId}
-                                        extra={(<span style={{ fontSize: 16, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
-                                        <Spin spinning={item.spinning}>
-                                            {
-                                                item.productItems.map((item1) => {
-                                                    let imageSrc = KBrithdayCakeRoot;
-                                                    imageSrc += '/蛋糕3.0';
-                                                    imageSrc += '/';
-                                                    imageSrc += item1.productName;
-                                                    imageSrc += '-横图.jpg';
+                                        key={categoryItem.categoryId}
+                                        extra={(<span style={{ fontSize: 16, color: 'black' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                        <Spin spinning={categoryItem.spinning}>
+                                            <List
+                                                grid={{ gutter: 0, column: 2 }}
+                                                dataSource={Object.keys(categoryItem.productItems)}
+                                                renderItem={item => {
+                                                    let pricesObj = categoryItem.productItems[item]['价格'];
+                                                    let pricesKeys = Object.keys(pricesObj);
+                                                    let theMinimumPrice = '0';
+
+                                                    if (pricesKeys.length > 0) {
+                                                        let type = pricesKeys[0];
+
+                                                        let thePrices = pricesObj[type];
+                                                        let theThePrices = Object.keys(thePrices);
+                                                        if (theThePrices.length > 0) {
+                                                            let firstPrice = theThePrices[0];
+                                                            theMinimumPrice = thePrices[firstPrice];
+                                                        }
+                                                    }
                                                     return (
-                                                        <span key={item1.key} >
-                                                            {debug ? (<span>
-                                                                <div style={{ color: 'red', fontSize: 14 }}>{item1.productName}</div>
-                                                                <div style={{ color: 'green', fontSize: 12 }}>{`半年内销售数量：${item1.saleNumber}`}</div>
-                                                            </span>) : (<span></span>)}
+                                                        <List.Item>
+                                                            {
+                                                                categoryItem.productItems[item].hideTheItem ? (<div></div>) : (
+                                                                    <div key={item} style={{
+                                                                        marginLeft: 6, marginRight: 6, marginTop: 6
+                                                                    }}>
+                                                                        <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} onError={(e) => {
+                                                                            /// 图片加载不成功时隐藏
+                                                                            categoryItem.productItems[item].hideTheItem = true;
+                                                                            this.forceUpdate();
+                                                                        }} />
 
-                                                            {item1.hideTheItem ? (<div></div>) : (
-                                                                <Image preview={false} src={imageSrc} onError={(e) => {
-                                                                    /// 图片加载不成功时隐藏
-                                                                    item1.hideTheItem = true;
-                                                                    this.forceUpdate();
-                                                                }} />)}
-
-                                                            {item1.hideTheItem ? (<div></div>) : (
-                                                                <div style={{
-                                                                    fontSize: 18,
-                                                                    textAlign: 'center', marginTop: 0,
-                                                                    marginLeft: 30, marginRight: 30,
-                                                                    backgroundColor: 'red', color: 'white',
-                                                                    borderRadius: 12, paddingTop: 4, paddingBottom: 4,
-                                                                    marginBottom: 12
-                                                                }} onClick={() => {
-                                                                    let name = item1.productName;
-                                                                    for (let i = 0; i < this._birthdayCakesAll.length; ++i) {
-                                                                        if (this._birthdayCakesAll[i].name === name) {
-                                                                            this.handleOrderNowTitleClick(this._birthdayCakesAll[i]);
-                                                                            break;
-                                                                        }
-                                                                    }
-                                                                }}>
-                                                                    {`立即预定《${item1.productName}》`}
-                                                                </div>)}
-                                                        </span>
-                                                    )
-                                                })
-                                            }
+                                                                        <div>
+                                                                            <div>
+                                                                                <span style={{ fontSize: 14 }}>{item}</span>
+                                                                                <span style={{
+                                                                                    fontSize: 16, marginTop: 8,
+                                                                                    float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 12,
+                                                                                    textAlign: 'center', backgroundColor: 'red', color: 'white',
+                                                                                }} onClick={() => {
+                                                                                    this.handleOrderNowClick(item, pricesObj);
+                                                                                }}>
+                                                                                    {`立即预定`}
+                                                                                </span>
+                                                                            </div>
+                                                                            <div style={{ fontSize: 14 }}>
+                                                                                <span>¥</span>
+                                                                                <span>{theMinimumPrice}</span>
+                                                                                <span>起</span>
+                                                                            </div>
+                                                                            {debug ? (
+                                                                                <div style={{ color: 'green', fontSize: 12 }}>
+                                                                                    {`半年内销售数量：${categoryItem.productItems[item].saleNumber}`}
+                                                                                </div>
+                                                                            ) : (<div></div>)}
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </List.Item>
+                                                    );
+                                                }}
+                                            />
                                         </Spin>
                                     </Panel>
                                 );
@@ -1152,105 +1251,106 @@ class birthdayCakeSale extends React.Component {
                         <span> (微信同号)预定</span>
                     </div>
 
-                    {imageCapturing ? (<div ref={(current) => {
-                        this._theDiv4Capture = current;
-                    }} style={theDiv4CaptureStyle}>
-                        <div style={{
-                            fontSize: 22,
-                            textAlign: 'center',
-                            paddingTop: 12,
-                            paddingBottom: 12
-                        }}> 弯麦蛋糕订购单</div>
-                        <div>
-                            <div style={theLeftDivInTheDiv4CaptureStyle}>
-                                <div style={{
-                                    fontSize: 20,
-                                    textAlign: 'center',
-                                    paddingTop: 4,
-                                    paddingBottom: 4,
-                                    fontWeight: 'bold',
-                                    background: '#D8D8D8'
-                                }}>{`《${cakeName}》`}</div>
-                                <div>
-                                    <Image preview={false} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                    {imageCapturing ? (
+                        <div ref={(current) => { this._theDiv4Capture = current; }}
+                            style={theDiv4CaptureStyle}>
+                            <div style={{
+                                fontSize: 22,
+                                textAlign: 'center',
+                                paddingTop: 12,
+                                paddingBottom: 12
+                            }}> 蛋糕订购单</div>
+                            <div>
+                                <div style={theLeftDivInTheDiv4CaptureStyle}>
+                                    <div style={{
+                                        fontSize: 20,
+                                        textAlign: 'center',
+                                        paddingTop: 4,
+                                        paddingBottom: 4,
+                                        fontWeight: 'bold',
+                                        background: '#D8D8D8'
+                                    }}>{`《${cakeName}》`}</div>
+                                    <div>
+                                        <Image preview={false} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                                        <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div style={theRightDivInTheDiv4CaptureStyle}>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>奶油：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>大小：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>价格：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePrice}</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>元</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>夹心：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings.join('+')}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>蜡烛：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
+                                <div style={theRightDivInTheDiv4CaptureStyle}>
+                                    <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>奶油：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>大小：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>价格：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePrice}</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>元</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>夹心：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeFillings.join('+')}</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>蜡烛：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{candleType}</span>
+                                        {
+                                            candleType === KCandleTypeOptions[1].value ? (
+                                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>
+                                                    {`${number4candle}`}
+                                                </span>) : (
+                                                <span>
+                                                </span>
+                                            )
+                                        }
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>餐具：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>套</span>
+                                    </div>
+                                    <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>交付</Divider>
+                                    <div>
+                                        <span style={{ fontSize: 16 }}>时间：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime ? pickUpTime.format(' aHH:mm') : ''}</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>方式：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>门店：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{responseShop}</span>
+                                    </div>
                                     {
-                                        candleType === KCandleTypeOptions[1].value ? (
-                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>
-                                                {`${number4candle}`}
-                                            </span>) : (
-                                            <span>
-                                            </span>
-                                        )
+                                        pickUpType === KPickUpTypeOptions[1].value ? (
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 16 }}>地址：</span>
+                                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{deliverAddress}</span>
+                                            </div>
+                                        ) : (<div></div>)
                                     }
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>餐具：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>套</span>
-                                </div>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>交付</Divider>
-                                <div>
-                                    <span style={{ fontSize: 16 }}>时间：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpDay.format('YYYY-MM-DD ddd')}</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime.format(' aHH:mm')}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>方式：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>门店：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{responseShop}</span>
-                                </div>
-                                {
-                                    pickUpType === KPickUpTypeOptions[1].value ? (
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 16 }}>地址：</span>
-                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>{deliverAddress}</span>
-                                        </div>
-                                    ) : (<div></div>)
-                                }
 
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>姓名：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
-                                </div>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>手机：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
-                                </div>
-                                <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
-                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                    <span style={{ fontSize: 16 }}>备注：</span>
-                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>姓名：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpName}</span>
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>手机：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
+                                    </div>
+                                    <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>备注：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>) : (<div></div>)}
+                        </div>) : (<div></div>)}
 
                     <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
                         <div style={{ paddingTop: 12, marginTop: 10 }}>
@@ -1266,7 +1366,7 @@ class birthdayCakeSale extends React.Component {
                             <div>
                                 <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062302000230">
                                     <span>
-                                        <Image preview={false} src="/image/备案图标.png" style={{ float: 'left' }} />
+                                        <Image preview={false} src="/image/公安备案图标.png" style={{ float: 'left' }} />
                                     </span>
                                     <span style={{ marginLeft: 8 }}>
                                         闽公网安备 35062302000230号

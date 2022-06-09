@@ -548,7 +548,7 @@ class ProductMenu extends React.Component {
                         <div>
                             <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062302000230">
                                 <span>
-                                    <Image preview={false} src="/image/备案图标.png" style={{ float: 'left' }} />
+                                    <Image preview={false} src="/image/公安备案图标.png" style={{ float: 'left' }} />
                                 </span>
                                 <span style={{ marginLeft: 8 }}>
                                     闽公网安备 35062302000230号

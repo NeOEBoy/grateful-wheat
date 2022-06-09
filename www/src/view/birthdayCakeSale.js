@@ -1082,7 +1082,8 @@ class birthdayCakeSale extends React.Component {
                         {debug ? `新款蛋糕（${Object.keys(birthdayCakesLatest).length}）` : `新款蛋糕`}
                     </div>
                     <List
-                        grid={{ gutter: 0, column: 2 }}
+                        style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                        grid={{ gutter: 4, column: 2 }}
                         dataSource={Object.keys(birthdayCakesLatest)}
                         renderItem={item => {
                             let pricesObj = birthdayCakesLatest[item]['价格'];
@@ -1103,19 +1104,17 @@ class birthdayCakeSale extends React.Component {
 
                             return (
                                 <List.Item>
-                                    <div key={item} style={{
-                                        marginLeft: 6, marginRight: 6, marginTop: 6
-                                    }}>
+                                    <div key={item}>
                                         <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                         <div>
                                             <div>
                                                 <span style={{ fontSize: 14 }}>{item}</span>
                                                 <span style={{
-                                                    fontSize: 16, marginTop: 8,
+                                                    fontSize: 14, marginTop: 8,
                                                     float: 'right', paddingTop: 4, paddingBottom: 4,
                                                     paddingLeft: 8, paddingRight: 8, borderRadius: 12,
-                                                    textAlign: 'center', backgroundColor: 'red', color: 'white',
+                                                    textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                 }} onClick={() => {
                                                     this.handleOrderNowClick(item, pricesObj);
                                                 }}>
@@ -1136,7 +1135,7 @@ class birthdayCakeSale extends React.Component {
 
                     <div style={{
                         textAlign: 'center', color: '#C6A300',
-                        fontSize: 18, paddingTop: 10, paddingBottom: 10
+                        fontSize: 18, paddingTop: 10, paddingBottom: 20
                     }}>
                         更多款式请点击下方分类查看
                     </div>
@@ -1172,7 +1171,8 @@ class birthdayCakeSale extends React.Component {
                                         extra={(<span style={{ fontSize: 16, color: 'black' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
                                         <Spin spinning={categoryItem.spinning}>
                                             <List
-                                                grid={{ gutter: 0, column: 2 }}
+                                                style={{marginLeft:-12, marginRight:-12, marginTop:-12}}
+                                                grid={{ gutter: 4, column: 2 }}
                                                 dataSource={Object.keys(categoryItem.productItems)}
                                                 renderItem={item => {
                                                     let pricesObj = categoryItem.productItems[item]['价格'];
@@ -1191,45 +1191,35 @@ class birthdayCakeSale extends React.Component {
                                                     }
                                                     return (
                                                         <List.Item>
-                                                            {
-                                                                categoryItem.productItems[item].hideTheItem ? (<div></div>) : (
-                                                                    <div key={item} style={{
-                                                                        marginLeft: 6, marginRight: 6, marginTop: 6
-                                                                    }}>
-                                                                        <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} onError={(e) => {
-                                                                            /// 图片加载不成功时隐藏
-                                                                            categoryItem.productItems[item].hideTheItem = true;
-                                                                            this.forceUpdate();
-                                                                        }} />
+                                                            <div key={item}>
+                                                                <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
-                                                                        <div>
-                                                                            <div>
-                                                                                <span style={{ fontSize: 14 }}>{item}</span>
-                                                                                <span style={{
-                                                                                    fontSize: 16, marginTop: 8,
-                                                                                    float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 12,
-                                                                                    textAlign: 'center', backgroundColor: 'red', color: 'white',
-                                                                                }} onClick={() => {
-                                                                                    this.handleOrderNowClick(item, pricesObj);
-                                                                                }}>
-                                                                                    {`立即预定`}
-                                                                                </span>
-                                                                            </div>
-                                                                            <div style={{ fontSize: 14 }}>
-                                                                                <span>¥</span>
-                                                                                <span>{theMinimumPrice}</span>
-                                                                                <span>起</span>
-                                                                            </div>
-                                                                            {debug ? (
-                                                                                <div style={{ color: 'green', fontSize: 12 }}>
-                                                                                    {`半年内销售数量：${categoryItem.productItems[item].saleNumber}`}
-                                                                                </div>
-                                                                            ) : (<div></div>)}
-                                                                        </div>
+                                                                <div>
+                                                                    <div>
+                                                                        <span style={{ fontSize: 14 }}>{item}</span>
+                                                                        <span style={{
+                                                                            fontSize: 14, marginTop: 8,
+                                                                            float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                                            paddingLeft: 8, paddingRight: 8, borderRadius: 12,
+                                                                            textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                                        }} onClick={() => {
+                                                                            this.handleOrderNowClick(item, pricesObj);
+                                                                        }}>
+                                                                            {`立即预定`}
+                                                                        </span>
                                                                     </div>
-                                                                )
-                                                            }
+                                                                    <div style={{ fontSize: 14 }}>
+                                                                        <span>¥</span>
+                                                                        <span>{theMinimumPrice}</span>
+                                                                        <span>起</span>
+                                                                    </div>
+                                                                    {debug ? (
+                                                                        <div style={{ color: 'green', fontSize: 12 }}>
+                                                                            {`半年内销售数量：${categoryItem.productItems[item].saleNumber}`}
+                                                                        </div>
+                                                                    ) : (<div></div>)}
+                                                                </div>
+                                                            </div>
                                                         </List.Item>
                                                     );
                                                 }}

@@ -710,11 +710,12 @@ class birthdayCakeSale extends React.Component {
 
         let orderImageWidth = window.innerWidth;
         let orderImageHeight = orderImageWidth * 148 / 210;
+        let titleAndFooterHeight = 190;
         let KOrderImageDivStyle = {
             background: 'white',
             width: orderImageWidth,
-            height: orderImageHeight + 190,
-            marginTop: 0
+            height: orderImageHeight + titleAndFooterHeight,
+            marginTop: (window.innerHeight - (orderImageHeight + titleAndFooterHeight)) / 2
         };
 
         let KOrderImageStyle = {

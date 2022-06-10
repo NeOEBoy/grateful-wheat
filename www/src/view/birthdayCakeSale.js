@@ -1070,7 +1070,7 @@ class birthdayCakeSale extends React.Component {
                                     <div key='a' style={{ height: 110 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
                                             <Timeline.Item color='red'>{`1：请仔细核对订购单信息`}</Timeline.Item>
-                                            <Timeline.Item color='red'>{`2：长按相框内图片=>"转发给朋友"=>发送给客服登记`}</Timeline.Item>
+                                            <Timeline.Item color='red'>{`2：长按相框内图片并发送给客服登记`}</Timeline.Item>
                                         </Timeline>
                                     </div>
 
@@ -1082,6 +1082,10 @@ class birthdayCakeSale extends React.Component {
 
                                     <div style={{ height: 80, textAlign: 'center', backgroundColor: '#E5E4E2' }}>
                                         <Space style={{ marginTop: 24 }}>
+                                            <Button key='back' onClick={() => {
+                                                this.setState({ orderImageModalVisiable: false });
+                                                document.documentElement.style.overflow = 'auto';
+                                            }}>关闭</Button>
                                             <Button key='edit' type='primary' onClick={() => {
                                                 this.setState({
                                                     orderImageModalVisiable: false,
@@ -1089,10 +1093,6 @@ class birthdayCakeSale extends React.Component {
                                                 });
                                                 document.documentElement.style.overflow = 'hidden';
                                             }}>返回修改</Button>
-                                            <Button key='back' onClick={() => {
-                                                this.setState({ orderImageModalVisiable: false });
-                                                document.documentElement.style.overflow = 'auto';
-                                            }}>关闭</Button>
                                         </Space>
                                     </div>
                                 </div>

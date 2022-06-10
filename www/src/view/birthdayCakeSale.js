@@ -85,7 +85,7 @@ const KCandleTypeOptions = [
     { label: '螺纹蜡烛', value: '螺纹蜡烛' },
     { label: '数字蜡烛', value: '数字蜡烛' },
     { label: '爱心蜡烛', value: '爱心蜡烛' },
-    { label: '五星蜡烛', value: '五星蜡烛' }
+    // { label: '五星蜡烛', value: '五星蜡烛' }
 ];
 
 const KCakePlateNumberBySize = {
@@ -713,13 +713,19 @@ class birthdayCakeSale extends React.Component {
         let KOrderImageDivStyle = {
             background: 'white',
             width: orderImageWidth,
-            height: orderImageHeight + 200,
-            marginTop: 100
+            height: orderImageHeight + 190,
+            marginTop: 0
         };
 
         let KOrderImageStyle = {
             width: orderImageWidth,
-            height: orderImageHeight
+            height: orderImageHeight,
+            border: '2px dashed #C58917'
+        };
+
+        let KOrderImageInStyle = {
+            width: orderImageWidth - 4,
+            height: orderImageHeight - 4
         };
 
         return (
@@ -728,7 +734,7 @@ class birthdayCakeSale extends React.Component {
                     {
                         orderCakeInfoModalVisiable ? (
                             <div style={{
-                                opacity: 0.98, background: 'white', position: 'fixed',
+                                opacity: 0.99, background: 'white', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'auto', overflowX: 'hidden'
                             }}>
@@ -740,7 +746,7 @@ class birthdayCakeSale extends React.Component {
                                         src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
                                 </div>
                                 <div style={{ textAlign: 'center', width: '100%' }}>
-                                    <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
+                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
                                     {
                                         Object.keys(orderCakePrices).map((item => {
                                             let thePrices = orderCakePrices[item];
@@ -769,7 +775,7 @@ class birthdayCakeSale extends React.Component {
                                         }))
                                     }
                                 </div>
-                                <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                     <Input.Group>
                                         <span style={{ fontWeight: 'bold' }}>奶油：</span>
@@ -845,7 +851,7 @@ class birthdayCakeSale extends React.Component {
                                     <span>{cakePlateNumber}</span>
                                     <span> 套</span>
                                 </div>
-                                <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>配送</Divider>
+                                <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>交付</Divider>
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                     <div style={{ fontWeight: 'bold' }}>时间：</div>
                                     <div>
@@ -1014,7 +1020,7 @@ class birthdayCakeSale extends React.Component {
                                         }
                                     </Input.Group>
                                 </div>
-                                <Divider dashed style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
                                 <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                     <Input.Group>
                                         <span style={{ fontWeight: 'bold' }}>备注：</span>
@@ -1038,12 +1044,12 @@ class birthdayCakeSale extends React.Component {
                     {
                         orderImageModalVisiable ? (
                             <div style={{
-                                background: 'rgba(0,0,0,0.5)', position: 'fixed',
+                                background: 'rgba(0,0,0,0.8)', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'hidden', overflowX: 'hidden'
                             }}>
                                 <div style={KOrderImageDivStyle}>
-                                    <div style={{ height: 120 }}>
+                                    <div style={{ height: 110 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
                                             <Timeline.Item color='red'>{`仔细核对订购单信息`}</Timeline.Item>
                                             <Timeline.Item color='red'>{`长按图片=>"转发给朋友"=>发送给客服登记`}</Timeline.Item>
@@ -1051,7 +1057,7 @@ class birthdayCakeSale extends React.Component {
                                     </div>
 
                                     <div style={KOrderImageStyle}>
-                                        <Image preview={false} src={orderImageSrc} />
+                                        <Image style={KOrderImageInStyle} preview={false} src={orderImageSrc} />
                                     </div>
 
                                     <div style={{ height: 80, textAlign: 'center' }}>
@@ -1171,7 +1177,7 @@ class birthdayCakeSale extends React.Component {
                                         extra={(<span style={{ fontSize: 16, color: 'black' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
                                         <Spin spinning={categoryItem.spinning}>
                                             <List
-                                                style={{marginLeft:-12, marginRight:-12, marginTop:-12}}
+                                                style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
                                                 grid={{ gutter: 4, column: 2 }}
                                                 dataSource={Object.keys(categoryItem.productItems)}
                                                 renderItem={item => {
@@ -1266,7 +1272,7 @@ class birthdayCakeSale extends React.Component {
                                     </div>
                                 </div>
                                 <div style={theRightDivInTheDiv4CaptureStyle}>
-                                    <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                    <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 16 }}>奶油：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
@@ -1302,7 +1308,7 @@ class birthdayCakeSale extends React.Component {
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakePlateNumber}</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>套</span>
                                     </div>
-                                    <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>交付</Divider>
+                                    <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>交付</Divider>
                                     <div>
                                         <span style={{ fontSize: 16 }}>时间：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
@@ -1333,7 +1339,7 @@ class birthdayCakeSale extends React.Component {
                                         <span style={{ fontSize: 16 }}>手机：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{phoneNumber}</span>
                                     </div>
-                                    <Divider dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                    <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>其它</Divider>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 16 }}>备注：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{remarks}</span>

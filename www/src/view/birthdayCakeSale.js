@@ -745,8 +745,8 @@ class birthdayCakeSale extends React.Component {
                                         {`《${cakeName}》`}
                                     </div>
                                     <div style={{ textAlign: 'center', width: '100%' }}>
-                                        <Image style={{ width: 120, height: 120 }} preview={true}
-                                            src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                                        <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                            preview={true} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
                                     </div>
 
                                     <div key='a' style={{ textAlign: 'center', width: '100%' }}>

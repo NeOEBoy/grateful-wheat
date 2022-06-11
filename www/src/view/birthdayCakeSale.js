@@ -745,7 +745,7 @@ class birthdayCakeSale extends React.Component {
                                         {`《${cakeName}》`}
                                     </div>
                                     <div style={{ textAlign: 'center', width: '100%' }}>
-                                        <Image style={{ width: 120, height: 120 }} preview={false}
+                                        <Image style={{ width: 120, height: 120 }} preview={true}
                                             src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
                                     </div>
 
@@ -1131,7 +1131,8 @@ class birthdayCakeSale extends React.Component {
                             return (
                                 <List.Item>
                                     <div key={item}>
-                                        <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                        <Image style={{ border: '1px dashed #C58917' }}
+                                            preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                         <div>
                                             <div>
@@ -1218,7 +1219,8 @@ class birthdayCakeSale extends React.Component {
                                                     return (
                                                         <List.Item>
                                                             <div key={item}>
-                                                                <Image preview={false} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                                                <Image style={{ border: '1px dashed #C58917' }}
+                                                                    preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                                 <div>
                                                                     <div>

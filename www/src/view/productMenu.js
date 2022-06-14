@@ -376,9 +376,9 @@ class ProductMenu extends React.Component {
 
         let disableOrderButton = false;
         let orderButtonText = '去预定';
-        if (orderListTotalPrice < 15) {
+        if (orderListTotalPrice < 20) {
             disableOrderButton = true;
-            let differ = 15 - orderListTotalPrice;
+            let differ = 20 - orderListTotalPrice;
             differ = this.fixTo2(differ);
             orderButtonText = '差¥' + differ + '起送';
         }

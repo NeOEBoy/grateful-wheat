@@ -1105,7 +1105,7 @@ class birthdayCakeSale extends React.Component {
                         backgroundColor: '#DAA520', color: 'white',
                         borderRadius: 15, paddingTop: 10, paddingBottom: 10
                     }}>
-                        {debug ? `新款蛋糕（${Object.keys(birthdayCakesLatest).length}）` : `新款蛋糕`}
+                        {debug ? `父亲节蛋糕（${Object.keys(birthdayCakesLatest).length}）` : `父亲节蛋糕`}
                     </div>
                     <List
                         style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}

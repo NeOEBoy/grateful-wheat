@@ -409,6 +409,14 @@ const loadBirthdayCakesAll = async () => {
   return loadBirthdayCakesResponseJson;
 }
 
+const loadBirthdayCakesWXConfig = async () => {
+  let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-微信配置.json';
+
+  const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
+  const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
+  return loadBirthdayCakesResponseJson;
+}
+
 const wechatSign = async (url) => {
   let wechatSignUrl = KApiHost + '/wechat/sign';
   wechatSignUrl += '?url=';
@@ -450,5 +458,6 @@ export {
   loadProductsSale,
   loadBirthdayCakesRecommend,
   loadBirthdayCakesAll,
+  loadBirthdayCakesWXConfig,
   wechatSign
 };

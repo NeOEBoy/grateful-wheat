@@ -29,6 +29,7 @@ import {
     loadProductsSale,
     loadBirthdayCakesRecommend,
     loadBirthdayCakesAll,
+    loadBirthdayCakesWXConfig,
     wechatSign
 } from '../api/api';
 
@@ -344,7 +345,7 @@ class birthdayCakeSale extends React.Component {
                 ] // 必填，需要使用的JS接口列表
             });
 
-            window.wx.ready(function () {
+            window.wx.ready(async function () {
                 /**
                  * config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，
                  * config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，
@@ -353,9 +354,11 @@ class birthdayCakeSale extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '弯麦蛋糕图册菜单，送给热爱仪式感的你，点击预定';
-                let desc = '男孩款，女孩款，女神款，男神款，情侣款等各种款式~';
-                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/生日蛋糕/image4wechat.jpg';
+                let wXConfig = await loadBirthdayCakesWXConfig();
+
+                let title = wXConfig.title;
+                let desc = wXConfig.desc;
+                let imgUrl = wXConfig.imgUrl;
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                 window.wx.updateAppMessageShareData({

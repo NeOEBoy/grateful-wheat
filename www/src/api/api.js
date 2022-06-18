@@ -393,8 +393,8 @@ const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, e
   return loadProductsSaleResponseJson;
 }
 
-const loadBirthdayCakesLatest = async () => {
-  let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/0latestCake.json';
+const loadBirthdayCakesRecommend = async () => {
+  let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-推荐蛋糕.json';
 
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
@@ -402,7 +402,7 @@ const loadBirthdayCakesLatest = async () => {
 }
 
 const loadBirthdayCakesAll = async () => {
-  let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/1allCake.json';
+  let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-所有蛋糕.json';
 
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
@@ -448,7 +448,7 @@ export {
   getLastPage,
   loadElemeProducts,
   loadProductsSale,
-  loadBirthdayCakesLatest,
+  loadBirthdayCakesRecommend,
   loadBirthdayCakesAll,
   wechatSign
 };

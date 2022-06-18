@@ -27,7 +27,7 @@ import {
 } from 'antd';
 import {
     loadProductsSale,
-    loadBirthdayCakesLatest,
+    loadBirthdayCakesRecommend,
     loadBirthdayCakesAll,
     wechatSign
 } from '../api/api';
@@ -109,7 +109,8 @@ class birthdayCakeSale extends React.Component {
 
         this.state = {
             birthdayCakeCategorys: KCategorys,
-            birthdayCakesLatest: {},
+            birthdayCakesRecommendTitle: '最新蛋糕',
+            birthdayCakesRecommendItems: {},
             debug: 0,
             orderCakeInfoModalVisiable: false,
 
@@ -152,20 +153,27 @@ class birthdayCakeSale extends React.Component {
             this._birthdayCakesAll = await loadBirthdayCakesAll();
         }
 
-        let birthdayCakesLatestNew = {};
-        let birthdayCakesLatest = await loadBirthdayCakesLatest();
-        for (let ii = 0; ii < birthdayCakesLatest.length; ++ii) {
-            let latestItem = birthdayCakesLatest[ii];
+        let birthdayCakesRecommend = await loadBirthdayCakesRecommend();
+
+        let recommendTitle = birthdayCakesRecommend.recommendTitle;
+        let birthdayCakesRecommendItems = birthdayCakesRecommend.recommendItems;
+        let birthdayCakesRecommendItemsNew = {};
+        for (let ii = 0; ii < birthdayCakesRecommendItems.length; ++ii) {
+            let latestItem = birthdayCakesRecommendItems[ii];
 
             let keys = Object.keys(this._birthdayCakesAll);
             for (let jj = 0; jj < keys.length; ++jj) {
                 let name4allItem = keys[jj];
                 if (latestItem === name4allItem) {
-                    birthdayCakesLatestNew[name4allItem] = this._birthdayCakesAll[name4allItem];
+                    birthdayCakesRecommendItemsNew[name4allItem] = this._birthdayCakesAll[name4allItem];
                 }
             }
         }
-        this.setState({ birthdayCakesLatest: birthdayCakesLatestNew, debug: debug });
+        this.setState({
+            birthdayCakesRecommendTitle: recommendTitle,
+            birthdayCakesRecommendItems: birthdayCakesRecommendItemsNew,
+            debug: debug
+        });
         this.updateWeixinConfig();
     }
     /// 蛋糕分类 展开|收起 
@@ -627,7 +635,8 @@ class birthdayCakeSale extends React.Component {
     render() {
         const {
             birthdayCakeCategorys,
-            birthdayCakesLatest,
+            birthdayCakesRecommendTitle,
+            birthdayCakesRecommendItems,
             debug,
             pickUpType,
             orderCakeInfoModalVisiable,
@@ -1105,14 +1114,15 @@ class birthdayCakeSale extends React.Component {
                         backgroundColor: '#DAA520', color: 'white',
                         borderRadius: 15, paddingTop: 10, paddingBottom: 10
                     }}>
-                        {debug ? `父亲节蛋糕（${Object.keys(birthdayCakesLatest).length}）` : `父亲节蛋糕`}
+                        {debug ? `${birthdayCakesRecommendTitle}（${Object.keys(birthdayCakesRecommendItems).length}）`
+                            : `${birthdayCakesRecommendTitle}`}
                     </div>
                     <List
                         style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
                         grid={{ gutter: 4, column: 2 }}
-                        dataSource={Object.keys(birthdayCakesLatest)}
+                        dataSource={Object.keys(birthdayCakesRecommendItems)}
                         renderItem={item => {
-                            let pricesObj = birthdayCakesLatest[item]['价格'];
+                            let pricesObj = birthdayCakesRecommendItems[item]['价格'];
                             let pricesKeys = Object.keys(pricesObj);
 
                             let theMinimumPrice = '0';

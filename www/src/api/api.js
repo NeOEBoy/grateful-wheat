@@ -395,6 +395,8 @@ const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, e
 
 const loadBirthdayCakesRecommend = async () => {
   let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-推荐蛋糕.json';
+  loadBirthdayCakesUrl += '?random=';
+  loadBirthdayCakesUrl += Math.floor(Math.random() * 1000);
 
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
@@ -403,6 +405,8 @@ const loadBirthdayCakesRecommend = async () => {
 
 const loadBirthdayCakesAll = async () => {
   let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-所有蛋糕.json';
+  loadBirthdayCakesUrl += '?random=';
+  loadBirthdayCakesUrl += Math.floor(Math.random() * 1000);
 
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
@@ -411,7 +415,9 @@ const loadBirthdayCakesAll = async () => {
 
 const loadBirthdayCakesWXConfig = async () => {
   let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-微信配置.json';
-
+  loadBirthdayCakesUrl += '?random=';
+  loadBirthdayCakesUrl += Math.floor(Math.random() * 1000);
+  
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
   return loadBirthdayCakesResponseJson;

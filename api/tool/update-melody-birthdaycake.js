@@ -41,7 +41,7 @@ startUpdate = async () => {
                 categoryName !== '弯麦男孩蛋糕' &&
                 categoryName !== '弯麦女神蛋糕' &&
                 categoryName !== '弯麦男神蛋糕' &&
-                categoryName !== '弯麦家庭蛋糕' &&
+                categoryName !== '弯麦常规蛋糕' &&
                 categoryName !== '弯麦情侣蛋糕' &&
                 categoryName !== '弯麦祝寿蛋糕' &&
                 categoryName !== '弯麦庆典派对蛋糕'

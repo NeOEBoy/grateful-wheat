@@ -275,11 +275,18 @@ class birthdayCakeSale extends React.Component {
                                 let obj = {};
                                 obj.saleNumber = element.saleNumber;
                                 obj['价格'] = {};
-                                if (this._birthdayCakesAll[element.productName] &&
-                                    this._birthdayCakesAll[element.productName]['价格']) {
-                                    obj['价格'] = this._birthdayCakesAll[element.productName]['价格'];
+                                obj['描述'] = '';
+                                if (this._birthdayCakesAll[element.productName]) {
+                                    if (this._birthdayCakesAll[element.productName]['价格']) {
+                                        obj['价格'] = this._birthdayCakesAll[element.productName]['价格'];
+                                    }
+
+                                    if (this._birthdayCakesAll[element.productName]['描述']) {
+                                        obj['描述'] = this._birthdayCakesAll[element.productName]['描述'];
+                                    }
+
+                                    productItemsObj[element.productName] = obj;
                                 }
-                                productItemsObj[element.productName] = obj;
                             });
 
                             // console.log(productItemsObj);
@@ -1126,6 +1133,7 @@ class birthdayCakeSale extends React.Component {
                         dataSource={Object.keys(birthdayCakesRecommendItems)}
                         renderItem={item => {
                             let pricesObj = birthdayCakesRecommendItems[item]['价格'];
+                            let description = birthdayCakesRecommendItems[item]['描述'];
                             let pricesKeys = Object.keys(pricesObj);
 
                             let theMinimumPrice = '0';
@@ -1149,7 +1157,7 @@ class birthdayCakeSale extends React.Component {
 
                                         <div>
                                             <div>
-                                                <span style={{ fontSize: 14 }}>{item}</span>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                 <span style={{
                                                     fontSize: 14, marginTop: 8,
                                                     float: 'right', paddingTop: 4, paddingBottom: 4,
@@ -1162,6 +1170,9 @@ class birthdayCakeSale extends React.Component {
                                                 </span>
                                             </div>
                                             <div style={{ fontSize: 14 }}>
+                                                <span>{description}</span>
+                                            </div>
+                                            <div style={{ fontSize: 13 }}>
                                                 <span>¥</span>
                                                 <span>{theMinimumPrice}</span>
                                                 <span>起</span>
@@ -1216,6 +1227,7 @@ class birthdayCakeSale extends React.Component {
                                                 dataSource={Object.keys(categoryItem.productItems)}
                                                 renderItem={item => {
                                                     let pricesObj = categoryItem.productItems[item]['价格'];
+                                                    let description = categoryItem.productItems[item]['描述'];
                                                     let pricesKeys = Object.keys(pricesObj);
                                                     let theMinimumPrice = '0';
 
@@ -1237,7 +1249,7 @@ class birthdayCakeSale extends React.Component {
 
                                                                 <div>
                                                                     <div>
-                                                                        <span style={{ fontSize: 14 }}>{item}</span>
+                                                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                                         <span style={{
                                                                             fontSize: 14, marginTop: 8,
                                                                             float: 'right', paddingTop: 4, paddingBottom: 4,
@@ -1250,6 +1262,9 @@ class birthdayCakeSale extends React.Component {
                                                                         </span>
                                                                     </div>
                                                                     <div style={{ fontSize: 14 }}>
+                                                                        <span>{description}</span>
+                                                                    </div>
+                                                                    <div style={{ fontSize: 13 }}>
                                                                         <span>¥</span>
                                                                         <span>{theMinimumPrice}</span>
                                                                         <span>起</span>

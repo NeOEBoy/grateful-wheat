@@ -1161,12 +1161,12 @@ class birthdayCakeSale extends React.Component {
                                                 <span style={{
                                                     fontSize: 14, marginTop: 8,
                                                     float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 12,
+                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 15,
                                                     textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                 }} onClick={() => {
                                                     this.handleOrderNowClick(item, pricesObj);
                                                 }}>
-                                                    {`立即预定`}
+                                                    {`预定`}
                                                 </span>
                                             </div>
                                             <div style={{ fontSize: 14 }}>
@@ -1258,7 +1258,7 @@ class birthdayCakeSale extends React.Component {
                                                                         }} onClick={() => {
                                                                             this.handleOrderNowClick(item, pricesObj);
                                                                         }}>
-                                                                            {`立即预定`}
+                                                                            {`预定`}
                                                                         </span>
                                                                     </div>
                                                                     <div style={{ fontSize: 14 }}>

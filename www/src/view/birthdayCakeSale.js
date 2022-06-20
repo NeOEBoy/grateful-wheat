@@ -118,6 +118,7 @@ class birthdayCakeSale extends React.Component {
             /// 蛋糕信息
             orderCakePrices: {},
             cakeName: '',
+            cakeDescription: '',
             creamType: '',
             cakeSize: '',
             cakePrice: '',
@@ -409,11 +410,12 @@ class birthdayCakeSale extends React.Component {
         }
     }
 
-    handleOrderNowClick = (name, prices) => {
+    handleOrderNowClick = (name, description, prices) => {
         this.setState({
             orderCakeInfoModalVisiable: true,
             orderCakePrices: prices,
             cakeName: name,
+            cakeDescription: description,
             creamType: '',
             cakeSize: '',
             cakePrice: '',
@@ -652,6 +654,7 @@ class birthdayCakeSale extends React.Component {
             orderCakeInfoModalVisiable,
             orderCakePrices,
             cakeName,
+            cakeDescription,
             creamType,
             cakeSize,
             cakePrice,
@@ -762,6 +765,9 @@ class birthdayCakeSale extends React.Component {
                                 <QueueAnim type={['bottom', 'top']}>
                                     <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
                                         {`《${cakeName}》`}
+                                    </div>
+                                    <div style={{ textAlign: 'center', fontSize: 14 }}>
+                                        {cakeDescription}
                                     </div>
                                     <div style={{ textAlign: 'center', width: '100%' }}>
                                         <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
@@ -1164,7 +1170,7 @@ class birthdayCakeSale extends React.Component {
                                                     paddingLeft: 8, paddingRight: 8, borderRadius: 15,
                                                     textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                 }} onClick={() => {
-                                                    this.handleOrderNowClick(item, pricesObj);
+                                                    this.handleOrderNowClick(item, description, pricesObj);
                                                 }}>
                                                     {`预定`}
                                                 </span>
@@ -1256,7 +1262,7 @@ class birthdayCakeSale extends React.Component {
                                                                             paddingLeft: 8, paddingRight: 8, borderRadius: 12,
                                                                             textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                                         }} onClick={() => {
-                                                                            this.handleOrderNowClick(item, pricesObj);
+                                                                            this.handleOrderNowClick(item, description, pricesObj);
                                                                         }}>
                                                                             {`预定`}
                                                                         </span>

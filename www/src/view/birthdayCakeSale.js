@@ -148,7 +148,8 @@ class birthdayCakeSale extends React.Component {
             orderImageSrc: undefined,
             imageCapturing: false,
             imageBeforeCrop: '',
-            imageCropperModalVisiable: false
+            imageCropperModalVisiable: false,
+            localImgDataLoading: false
         };
 
         this._lastKeys = [];
@@ -695,7 +696,8 @@ class birthdayCakeSale extends React.Component {
             orderImageSrc,
             imageCapturing,
             imageCropperModalVisiable,
-            imageBeforeCrop
+            imageBeforeCrop,
+            localImgDataLoading
         } = this.state;
 
         let theDiv4CaptureWidth = 750;
@@ -780,63 +782,74 @@ class birthdayCakeSale extends React.Component {
                 <div>
                     {
                         imageCropperModalVisiable ? (
-                            <div style={{
-                                opacity: 0.99, background: 'black', position: 'fixed',
-                                zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
-                                overflowY: 'auto', overflowX: 'hidden'
-                            }}>
-                                <Cropper
-                                    src={imageBeforeCrop}
-                                    onInitialized={(cropper) => {
-                                        this._imageCropper = cropper;
-                                    }}
-                                    style={{ height: '100%', width: "100%", zIndex: '80' }}
-                                    aspectRatio={1}
-                                    guides={true}
-                                    autoCropArea={0.85}
-                                />
-
+                            <Spin spinning={localImgDataLoading}>
                                 <div style={{
-                                    width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
-                                    position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                    opacity: 0.99, background: 'black', position: 'fixed',
+                                    zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
+                                    overflowY: 'auto', overflowX: 'hidden'
                                 }}>
-                                </div>
+                                    <Cropper
+                                        src={imageBeforeCrop}
+                                        onInitialized={(cropper) => {
+                                            this._imageCropper = cropper;
+                                        }}
+                                        style={{ height: '100%', width: "100%", zIndex: '80' }}
+                                        aspectRatio={1}
+                                        guides={true}
+                                        autoCropArea={0.85}
+                                    />
 
-                                <div style={{
-                                    width: 'calc(100%)', height: 64,
-                                    position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
-                                }}>
-                                    <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
-                                        <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
-                                            this._imageCropper.rotate(-90);
-                                        }} />
-                                        <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
-                                            this._imageCropper.rotate(90);
-                                        }} />
-                                    </Space>
-                                </div>
+                                    <div style={{
+                                        width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
+                                        position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                    }}>
+                                    </div>
 
-                                <div style={{
-                                    width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
-                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                                }}>
-                                </div>
+                                    {
+                                        !localImgDataLoading ? (
+                                            <div style={{
+                                                width: 'calc(100%)', height: 64,
+                                                position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                            }}>
+                                                <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
+                                                    <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                                        this._imageCropper.rotate(-90);
+                                                    }} />
+                                                    <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                                        this._imageCropper.rotate(90);
+                                                    }} />
+                                                </Space>
+                                            </div>
+                                        ) : (<div></div>)
+                                    }
 
-                                <div style={{
-                                    width: 'calc(100%)', height: 64,
-                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                                }}>
-                                    <Space style={{ marginTop: 16, marginBottom: 16 }}>
-                                        <Button type='default' onClick={() => {
-                                            this.setState({ imageCropperModalVisiable: false });
-                                        }}>取消</Button>
-                                        <Button type='primary' onClick={() => {
-                                            let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
-                                            this.setState({ imageCropperModalVisiable: false, cakeImage: dataUrlAfterCroped });
-                                        }}>确定裁剪</Button>
-                                    </Space>
+
+                                    <div style={{
+                                        width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
+                                        position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                    }}>
+                                    </div>
+
+                                    {
+                                        !localImgDataLoading ? (
+                                            <div style={{
+                                                width: 'calc(100%)', height: 64,
+                                                position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                            }}>
+                                                <Space style={{ marginTop: 16, marginBottom: 16 }}>
+                                                    <Button type='default' onClick={() => {
+                                                        this.setState({ imageCropperModalVisiable: false });
+                                                    }}>取消</Button>
+                                                    <Button type='primary' onClick={() => {
+                                                        let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
+                                                        this.setState({ imageCropperModalVisiable: false, cakeImage: dataUrlAfterCroped });
+                                                    }}>确定裁剪</Button>
+                                                </Space>
+                                            </div>
+                                        ) : (<div></div>)
+                                    }
                                 </div>
-                            </div>
+                            </Spin>
                         ) : (<div></div>)
                     }
 
@@ -861,7 +874,7 @@ class birthdayCakeSale extends React.Component {
                                                     src={cakeImage} />
                                             ) : (
                                                 <Icon style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
-                                                    component={() => <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop:30 }} />}
+                                                    component={() => <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} />}
                                                     onClick={() => {
                                                         let that = this;
                                                         window.wx.chooseImage({
@@ -869,6 +882,10 @@ class birthdayCakeSale extends React.Component {
                                                             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
                                                             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                                                             success: function (res) {
+                                                                that.setState({
+                                                                    imageCropperModalVisiable: true,
+                                                                    localImgDataLoading: true
+                                                                });
                                                                 let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
                                                                 window.wx.getLocalImgData({
                                                                     localId: localIds[0], // 图片的localID
@@ -879,8 +896,8 @@ class birthdayCakeSale extends React.Component {
                                                                             localData = 'data:image/jpg;base64,' + localData;
                                                                         }
                                                                         that.setState({
-                                                                            imageCropperModalVisiable: true,
-                                                                            imageBeforeCrop: localData
+                                                                            imageBeforeCrop: localData,
+                                                                            localImgDataLoading: false
                                                                         });
                                                                     }
                                                                 });

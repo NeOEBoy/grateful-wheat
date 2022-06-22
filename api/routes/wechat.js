@@ -12,8 +12,8 @@ const crypto = require('crypto');
  */
 const config = {
     // 测试地址
-    // appid: 'wx6e6a95c96202787e',
-    // appsecret: '0b967f33b9dc6fbb0264a9797e3a31b5',
+    // appid: 'wx7442006a24f09334',
+    // appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
     // 正式地址
     appid: 'wxb2070ea52da2dfc7',
     appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',

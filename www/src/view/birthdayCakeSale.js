@@ -11,13 +11,16 @@ import moment from 'moment';
 import html2Canvas from 'html2canvas';
 import dpLocale from 'antd/es/date-picker/locale/zh_CN';
 import QueueAnim from 'rc-queue-anim';
+import Cropper from 'react-cropper'
+import 'cropperjs/dist/cropper.css'
 
-import {
+import Icon, {
     RightSquareFilled,
     UserOutlined,
     HomeOutlined,
     PhoneOutlined,
-    EditOutlined
+    EditOutlined,
+    PlusOutlined
 } from '@ant-design/icons';
 import {
     Collapse, Image, Spin,
@@ -112,13 +115,15 @@ class birthdayCakeSale extends React.Component {
             birthdayCakeCategorys: KCategorys,
             birthdayCakesRecommendTitle: '最新蛋糕',
             birthdayCakesRecommendItems: {},
+            birthdayCakesRecommendLoading: true,
             debug: 0,
             orderCakeInfoModalVisiable: false,
 
             /// 蛋糕信息
-            orderCakePrices: {},
             cakeName: '',
             cakeDescription: '',
+            cakeImage: '',
+            orderCakePrices: {},
             creamType: '',
             cakeSize: '',
             cakePrice: '',
@@ -126,7 +131,6 @@ class birthdayCakeSale extends React.Component {
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
             cakePlateNumber: '',
-
             /// 配送信息
             pickUpDay: '',
             pickUpDayPopupOpen: false,
@@ -140,7 +144,9 @@ class birthdayCakeSale extends React.Component {
 
             orderImageModalVisiable: false,
             orderImageSrc: undefined,
-            imageCapturing: false
+            imageCapturing: false,
+            imageBeforeCrop: '',
+            imageCropperModalVisiable: false
         };
 
         this._lastKeys = [];
@@ -174,6 +180,7 @@ class birthdayCakeSale extends React.Component {
         this.setState({
             birthdayCakesRecommendTitle: recommendTitle,
             birthdayCakesRecommendItems: birthdayCakesRecommendItemsNew,
+            birthdayCakesRecommendLoading: false,
             debug: debug
         });
         this.updateWeixinConfig();
@@ -349,7 +356,9 @@ class birthdayCakeSale extends React.Component {
                 signature: res.signature,// 必填，签名
                 jsApiList: [
                     'updateAppMessageShareData',
-                    'updateTimelineShareData'
+                    'updateTimelineShareData',
+                    'chooseImage',
+                    'getLocalImgData'
                 ] // 必填，需要使用的JS接口列表
             });
 
@@ -410,12 +419,13 @@ class birthdayCakeSale extends React.Component {
         }
     }
 
-    handleOrderNowClick = (name, description, prices) => {
+    handleOrderNowClick = (type, name, description, prices) => {
         this.setState({
             orderCakeInfoModalVisiable: true,
             orderCakePrices: prices,
             cakeName: name,
             cakeDescription: description,
+            cakeImage: type === 0 ? KBrithdayCakeRoot + '/蛋糕3.0/' + name + '-方图.jpg' : '私人订制蛋糕',
             creamType: '',
             cakeSize: '',
             cakePrice: '',
@@ -441,6 +451,7 @@ class birthdayCakeSale extends React.Component {
     handleOrderCakeInfoModalOk = () => {
         const {
             creamType,
+            cakeImage,
             cakeSize,
             cakePrice,
             cakeFillings,
@@ -457,6 +468,7 @@ class birthdayCakeSale extends React.Component {
             remarks
         } = this.state;
 
+        console.log('图片：' + cakeImage);
         console.log('奶油：' + creamType);
         console.log('大小：' + cakeSize);
         console.log('价格：' + cakePrice);
@@ -472,6 +484,11 @@ class birthdayCakeSale extends React.Component {
         console.log('姓名：' + pickUpName);
         console.log('手机：' + phoneNumber);
         console.log('备注：' + remarks);
+
+        if (cakeImage === '私人订制蛋糕') {
+            message.warning('请先选择蛋糕图片！')
+            return;
+        }
 
         if (creamType === '' ||
             cakeSize === '' ||
@@ -649,12 +666,14 @@ class birthdayCakeSale extends React.Component {
             birthdayCakeCategorys,
             birthdayCakesRecommendTitle,
             birthdayCakesRecommendItems,
+            birthdayCakesRecommendLoading,
             debug,
             pickUpType,
             orderCakeInfoModalVisiable,
             orderCakePrices,
             cakeName,
             cakeDescription,
+            cakeImage,
             creamType,
             cakeSize,
             cakePrice,
@@ -672,7 +691,9 @@ class birthdayCakeSale extends React.Component {
             remarks,
             orderImageModalVisiable,
             orderImageSrc,
-            imageCapturing
+            imageCapturing,
+            imageCropperModalVisiable,
+            imageBeforeCrop
         } = this.state;
 
         let theDiv4CaptureWidth = 750;
@@ -756,6 +777,42 @@ class birthdayCakeSale extends React.Component {
             <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
                 <div>
                     {
+                        imageCropperModalVisiable ? (
+                            <div style={{
+                                opacity: 0.85, background: 'black', position: 'fixed',
+                                zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
+                                overflowY: 'auto', overflowX: 'hidden'
+                            }}>
+                                <Cropper
+                                    src={imageBeforeCrop}
+                                    onInitialized={(cropper) => {
+                                        this._imageCropper = cropper;
+                                    }}
+                                    style={{ height: '100%', width: "100%", color:'red' }}
+                                    aspectRatio={1}
+                                    guides={true}
+                                    autoCropArea={1}
+                                />
+
+                                <div style={{
+                                    width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
+                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                }}>
+                                    <Space style={{ marginTop: 16, marginBottom: 16 }}>
+                                        <Button type='default' onClick={() => {
+                                            this.setState({ imageCropperModalVisiable: false });
+                                        }}>取消</Button>
+                                        <Button type='primary' onClick={() => {
+                                            let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
+                                            this.setState({ imageCropperModalVisiable: false, cakeImage: dataUrlAfterCroped });
+                                        }}>确定裁剪</Button>
+                                    </Space>
+                                </div>
+                            </div>
+                        ) : (<div></div>)
+                    }
+
+                    {
                         orderCakeInfoModalVisiable ? (
                             <div style={{
                                 opacity: 0.99, background: 'white', position: 'fixed',
@@ -770,305 +827,341 @@ class birthdayCakeSale extends React.Component {
                                         {cakeDescription}
                                     </div>
                                     <div style={{ textAlign: 'center', width: '100%' }}>
-                                        <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
-                                            preview={true} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
-                                    </div>
-
-                                    <div key='a' style={{ textAlign: 'center', width: '100%' }}>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
                                         {
-                                            Object.keys(orderCakePrices).map((item => {
-                                                let thePrices = orderCakePrices[item];
-                                                let sizes = Object.keys(thePrices);
-                                                return (
-                                                    <div key={item} >
-                                                        <div style={{ fontWeight: 'bold' }}>{item}</div>
-                                                        {
-                                                            sizes.map((item1) => {
-                                                                return (
-                                                                    <div key={item1}>
-                                                                        <span>{item1}</span>
-                                                                        <span>（</span>
-                                                                        <span>{KCakeRecommendPeople[item1]}</span>
-                                                                        <span>）</span>
-                                                                        <span>{thePrices[item1]}</span>
-                                                                        <span>元</span>
-                                                                    </div>)
-                                                            })
-                                                        }
-                                                        <div>
-                                                            <span></span>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }))
+                                            (cakeImage !== '私人订制蛋糕') ? (
+                                                <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                                    src={cakeImage} />
+                                            ) : (
+                                                <Icon style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                                    component={() =>
+                                                        <PlusOutlined style={{ fontSize: 40 }} />}
+                                                    onClick={() => {
+                                                        let that = this;
+                                                        window.wx.chooseImage({
+                                                            count: 1, // 默认9
+                                                            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                                                            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                                                            success: function (res) {
+                                                                var localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
+                                                                window.wx.getLocalImgData({
+                                                                    localId: localIds[0], // 图片的localID
+                                                                    success: function (res) {
+                                                                        var localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
+
+                                                                        that.setState({
+                                                                            imageCropperModalVisiable: true,
+                                                                            imageBeforeCrop: localData
+                                                                        });
+                                                                    }
+                                                                });
+                                                            }
+                                                        });
+                                                    }} />
+                                            )
                                         }
                                     </div>
 
-                                    <div key='b'>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>奶油：</span>
-                                                <Radio.Group
-                                                    size='large'
-                                                    options={creamTypeOptions}
-                                                    onChange={this.handleCreamTypeChange}
-                                                    value={creamType}
-                                                    optionType='default'
-                                                />
-                                                {
-                                                    creamType === '' ? (
-                                                        <span style={{ color: 'red' }}>必填项</span>
-                                                    ) : (<span></span>)
-                                                }
-                                            </Input.Group>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>大小：</span>
-                                                <Select value={cakeSize} style={{ width: 100 }}
-                                                    onChange={this.handleCakeSizeChange}
-                                                    onDropdownVisibleChange={this.handleDropdownVisibleChange}
-                                                    options={cakeSizeOptions}>
-                                                </Select>
-                                                {
-                                                    cakeSize === '' ? (
-                                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                    ) : (<span></span>)
-                                                }
-                                            </Input.Group>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <span style={{ fontWeight: 'bold' }}>价格：</span>
-                                            <span>{cakePrice}</span>
-                                            <span> 元</span>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <span style={{ fontWeight: 'bold' }}>夹心（任选两种）：</span>
-                                            <CheckboxGroup
-                                                options={KCakeFillingOptions}
-                                                value={cakeFillings}
-                                                onChange={this.handleCakeFillingChange} />
-                                            {
-                                                cakeFillings.length === 0 ? (
-                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <span style={{ fontWeight: 'bold' }}>蜡烛：</span>
-                                            <Select value={candleType}
-                                                style={{ width: 100 }}
-                                                options={KCandleTypeOptions}
-                                                onChange={this.handleCandleTypeChange}>
-                                            </Select>
-                                            {
-                                                candleType === KCandleTypeOptions[1].value ? (<Input style={{ marginLeft: 8, width: 70 }}
-                                                    placeholder='数字' prefix={<EditOutlined />}
-                                                    value={number4candle}
-                                                    onChange={this.handleNumber4candleChange} />) : (<span></span>)
-                                            }
-                                            {
-                                                candleType === '' ||
-                                                    (candleType === KCandleTypeOptions[1].value &&
-                                                        number4candle === '') ? (
-                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <span style={{ fontWeight: 'bold' }}>餐具：</span>
-                                            <span>{cakePlateNumber}</span>
-                                            <span> 套</span>
-                                        </div>
-                                    </div>
-
-                                    <div key='c'>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>交付</Divider>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <div style={{ fontWeight: 'bold' }}>时间：</div>
+                                    {
+                                        cakeImage !== '私人订制蛋糕' ? (
                                             <div>
-                                                <DatePicker
-                                                    ref={(dp) => this._datePicker4PickUpDay = dp}
-                                                    style={{ width: 170 }}
-                                                    placeholder='日期'
-                                                    format='YYYY-MM-DD dddd'
-                                                    value={pickUpDay}
-                                                    open={pickUpDayPopupOpen}
-                                                    showToday={false}
-                                                    inputReadOnly={true}
-                                                    onChange={this.handlePickUpDayChange}
-                                                    onFocus={this.handlePickUpDayOnFocus}
-                                                    onBlur={this.handlePickUpDayOnBlur}
-                                                    dateRender={(current) => {
-                                                        const style = {};
+                                                <div key='a' style={{ textAlign: 'center', width: '100%' }}>
+                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
+                                                    {
+                                                        Object.keys(orderCakePrices).map((item => {
+                                                            let thePrices = orderCakePrices[item];
+                                                            let sizes = Object.keys(thePrices);
+                                                            return (
+                                                                <div key={item} >
+                                                                    <div style={{ fontWeight: 'bold' }}>{item}</div>
+                                                                    {
+                                                                        sizes.map((item1) => {
+                                                                            return (
+                                                                                <div key={item1}>
+                                                                                    <span>{item1}</span>
+                                                                                    <span>（</span>
+                                                                                    <span>{KCakeRecommendPeople[item1]}</span>
+                                                                                    <span>）</span>
+                                                                                    <span>{thePrices[item1]}</span>
+                                                                                    <span>元</span>
+                                                                                </div>)
+                                                                        })
+                                                                    }
+                                                                    <div>
+                                                                        <span></span>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        }))
+                                                    }
+                                                </div>
 
-                                                        if (current.date() === 1) {
-                                                            style.border = '1px solid #1890ff';
-                                                            style.borderRadius = '50%';
-                                                        }
-
-                                                        return (
-                                                            <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                this.setState({ pickUpDayPopupOpen: false });
-                                                            }}>
-                                                                {current.date()}
-                                                            </div>
-                                                        );
-                                                    }}
-                                                    renderExtraFooter={() =>
-                                                    (<span>
-                                                        <Button type='primary' size='small' onClick={() => {
-                                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                            this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false });
-                                                        }}>今天</Button>
-                                                        <span>   </span>
-                                                        <Button type='primary' size='small' onClick={() => {
-                                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                            this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false });
-                                                        }}>明天</Button>
-                                                        <span>   </span>
-                                                        <Button type='primary' size='small' onClick={() => {
-                                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                            this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false });
-                                                        }}>后天</Button>
-                                                    </span>)
-                                                    } />
-                                            </div>
-                                            <div style={{ marginTop: 4 }}>
-                                                <DatePicker
-                                                    picker='time'
-                                                    style={{ width: 120 }}
-                                                    placeholder='时间'
-                                                    locale={dpLocale}
-                                                    showTime={{
-                                                        use12Hours: false,
-                                                        showNow: true,
-                                                        format: 'aHH:mm'
-                                                    }}
-                                                    panelRender={(originPicker) => {
-                                                        return (
-                                                            <div style={{ marginLeft: 20, marginRight: 20 }}>
-                                                                {originPicker}
-                                                            </div>)
-                                                    }}
-                                                    format='aHH:mm'
-                                                    value={pickUpTime}
-                                                    inputReadOnly={true}
-                                                    onChange={this.handlePickUpTimeChange}
-                                                    renderExtraFooter={() => (
-                                                        <span>
-                                                            <Button type='primary' size='small' onClick={() => {
-                                                                this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
-                                                            }}>中午12点</Button>
-                                                            <span>   </span>
-                                                            <Button type='primary' size='small' onClick={() => {
-                                                                this.setState({ pickUpTime: moment('18:00', 'HH:mm') });
-                                                            }}>晚上18点</Button>
-                                                        </span>
-                                                    )} />
-                                            </div>
-                                            {
-                                                (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
-                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <span style={{ fontWeight: 'bold' }}>方式：</span>
-                                            <Radio.Group
-                                                size='large'
-                                                options={KPickUpTypeOptions}
-                                                onChange={this.onPickUpTypeChange}
-                                                value={pickUpType}
-                                                optionType='default'
-                                            />
-                                            {
-                                                pickUpType === '' ? (
-                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                            <Select value={responseShop} style={{ width: 120 }}
-                                                onChange={this.handleResponseShopChange}
-                                                options={KResponseShopOptions}>
-                                            </Select>
-                                            {
-                                                responseShop === '' ? (
-                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        {
-                                            pickUpType === KPickUpTypeOptions[1].value ? (
-                                                <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                    <Input.Group>
-                                                        <span style={{ fontWeight: 'bold' }}>地址：</span>
-                                                        <Input style={{ width: 'calc(100% - 100px)' }}
-                                                            placeholder='填写地址' prefix={<HomeOutlined />}
-                                                            value={deliverAddress}
-                                                            onChange={this.handleDeliverAddressChange} />
+                                                <div key='b'>
+                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <Input.Group>
+                                                            <span style={{ fontWeight: 'bold' }}>奶油：</span>
+                                                            <Radio.Group
+                                                                size='large'
+                                                                options={creamTypeOptions}
+                                                                onChange={this.handleCreamTypeChange}
+                                                                value={creamType}
+                                                                optionType='default'
+                                                            />
+                                                            {
+                                                                creamType === '' ? (
+                                                                    <span style={{ color: 'red' }}>必填项</span>
+                                                                ) : (<span></span>)
+                                                            }
+                                                        </Input.Group>
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <Input.Group>
+                                                            <span style={{ fontWeight: 'bold' }}>大小：</span>
+                                                            <Select value={cakeSize} style={{ width: 100 }}
+                                                                onChange={this.handleCakeSizeChange}
+                                                                onDropdownVisibleChange={this.handleDropdownVisibleChange}
+                                                                options={cakeSizeOptions}>
+                                                            </Select>
+                                                            {
+                                                                cakeSize === '' ? (
+                                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                ) : (<span></span>)
+                                                            }
+                                                        </Input.Group>
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <span style={{ fontWeight: 'bold' }}>价格：</span>
+                                                        <span>{cakePrice}</span>
+                                                        <span> 元</span>
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <span style={{ fontWeight: 'bold' }}>夹心（任选两种）：</span>
+                                                        <CheckboxGroup
+                                                            options={KCakeFillingOptions}
+                                                            value={cakeFillings}
+                                                            onChange={this.handleCakeFillingChange} />
                                                         {
-                                                            deliverAddress === '' ? (
+                                                            cakeFillings.length === 0 ? (
                                                                 <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
                                                             ) : (<span></span>)
                                                         }
-                                                    </Input.Group>
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <span style={{ fontWeight: 'bold' }}>蜡烛：</span>
+                                                        <Select value={candleType}
+                                                            style={{ width: 100 }}
+                                                            options={KCandleTypeOptions}
+                                                            onChange={this.handleCandleTypeChange}>
+                                                        </Select>
+                                                        {
+                                                            candleType === KCandleTypeOptions[1].value ? (<Input style={{ marginLeft: 8, width: 70 }}
+                                                                placeholder='数字' prefix={<EditOutlined />}
+                                                                value={number4candle}
+                                                                onChange={this.handleNumber4candleChange} />) : (<span></span>)
+                                                        }
+                                                        {
+                                                            candleType === '' ||
+                                                                (candleType === KCandleTypeOptions[1].value &&
+                                                                    number4candle === '') ? (
+                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                            ) : (<span></span>)
+                                                        }
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <span style={{ fontWeight: 'bold' }}>餐具：</span>
+                                                        <span>{cakePlateNumber}</span>
+                                                        <span> 套</span>
+                                                    </div>
                                                 </div>
-                                            ) : (
-                                                <div>
+
+                                                <div key='c'>
+                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>交付</Divider>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <div style={{ fontWeight: 'bold' }}>时间：</div>
+                                                        <div>
+                                                            <DatePicker
+                                                                ref={(dp) => this._datePicker4PickUpDay = dp}
+                                                                style={{ width: 170 }}
+                                                                placeholder='日期'
+                                                                format='YYYY-MM-DD dddd'
+                                                                value={pickUpDay}
+                                                                open={pickUpDayPopupOpen}
+                                                                showToday={false}
+                                                                inputReadOnly={true}
+                                                                onChange={this.handlePickUpDayChange}
+                                                                onFocus={this.handlePickUpDayOnFocus}
+                                                                onBlur={this.handlePickUpDayOnBlur}
+                                                                dateRender={(current) => {
+                                                                    const style = {};
+
+                                                                    if (current.date() === 1) {
+                                                                        style.border = '1px solid #1890ff';
+                                                                        style.borderRadius = '50%';
+                                                                    }
+
+                                                                    return (
+                                                                        <div className="ant-picker-cell-inner" style={style} onClick={() => {
+                                                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                            this.setState({ pickUpDayPopupOpen: false });
+                                                                        }}>
+                                                                            {current.date()}
+                                                                        </div>
+                                                                    );
+                                                                }}
+                                                                renderExtraFooter={() =>
+                                                                (<span>
+                                                                    <Button type='primary' size='small' onClick={() => {
+                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                        this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false });
+                                                                    }}>今天</Button>
+                                                                    <span>   </span>
+                                                                    <Button type='primary' size='small' onClick={() => {
+                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                        this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false });
+                                                                    }}>明天</Button>
+                                                                    <span>   </span>
+                                                                    <Button type='primary' size='small' onClick={() => {
+                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                        this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false });
+                                                                    }}>后天</Button>
+                                                                </span>)
+                                                                } />
+                                                        </div>
+                                                        <div style={{ marginTop: 4 }}>
+                                                            <DatePicker
+                                                                picker='time'
+                                                                style={{ width: 120 }}
+                                                                placeholder='时间'
+                                                                locale={dpLocale}
+                                                                showTime={{
+                                                                    use12Hours: false,
+                                                                    showNow: true,
+                                                                    format: 'aHH:mm'
+                                                                }}
+                                                                panelRender={(originPicker) => {
+                                                                    return (
+                                                                        <div style={{ marginLeft: 20, marginRight: 20 }}>
+                                                                            {originPicker}
+                                                                        </div>)
+                                                                }}
+                                                                format='aHH:mm'
+                                                                value={pickUpTime}
+                                                                inputReadOnly={true}
+                                                                onChange={this.handlePickUpTimeChange}
+                                                                renderExtraFooter={() => (
+                                                                    <span>
+                                                                        <Button type='primary' size='small' onClick={() => {
+                                                                            this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
+                                                                        }}>中午12点</Button>
+                                                                        <span>   </span>
+                                                                        <Button type='primary' size='small' onClick={() => {
+                                                                            this.setState({ pickUpTime: moment('18:00', 'HH:mm') });
+                                                                        }}>晚上18点</Button>
+                                                                    </span>
+                                                                )} />
+                                                        </div>
+                                                        {
+                                                            (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
+                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                            ) : (<span></span>)
+                                                        }
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <span style={{ fontWeight: 'bold' }}>方式：</span>
+                                                        <Radio.Group
+                                                            size='large'
+                                                            options={KPickUpTypeOptions}
+                                                            onChange={this.onPickUpTypeChange}
+                                                            value={pickUpType}
+                                                            optionType='default'
+                                                        />
+                                                        {
+                                                            pickUpType === '' ? (
+                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                            ) : (<span></span>)
+                                                        }
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <span style={{ fontWeight: 'bold' }}>门店：</span>
+                                                        <Select value={responseShop} style={{ width: 120 }}
+                                                            onChange={this.handleResponseShopChange}
+                                                            options={KResponseShopOptions}>
+                                                        </Select>
+                                                        {
+                                                            responseShop === '' ? (
+                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                            ) : (<span></span>)
+                                                        }
+                                                    </div>
+                                                    {
+                                                        pickUpType === KPickUpTypeOptions[1].value ? (
+                                                            <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                                <Input.Group>
+                                                                    <span style={{ fontWeight: 'bold' }}>地址：</span>
+                                                                    <Input style={{ width: 'calc(100% - 100px)' }}
+                                                                        placeholder='填写地址' prefix={<HomeOutlined />}
+                                                                        value={deliverAddress}
+                                                                        onChange={this.handleDeliverAddressChange} />
+                                                                    {
+                                                                        deliverAddress === '' ? (
+                                                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                        ) : (<span></span>)
+                                                                    }
+                                                                </Input.Group>
+                                                            </div>
+                                                        ) : (
+                                                            <div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <Input.Group>
+                                                            <span style={{ fontWeight: 'bold' }}>姓名：</span>
+                                                            <Input style={{ width: 'calc(100% - 100px)' }}
+                                                                placeholder='填写姓名'
+                                                                prefix={<UserOutlined />}
+                                                                value={pickUpName}
+                                                                onChange={this.handlePickUpPeopleChange} />
+                                                            {
+                                                                pickUpName === '' ? (
+                                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                ) : (<span></span>)
+                                                            }
+                                                        </Input.Group>
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <Input.Group>
+                                                            <span style={{ fontWeight: 'bold' }}>手机：</span>
+                                                            <Input style={{ width: 'calc(100% - 100px)' }}
+                                                                placeholder='填写手机号'
+                                                                prefix={<PhoneOutlined />}
+                                                                value={phoneNumber}
+                                                                onChange={this.handlePhoneNumberChange} />
+                                                            {
+                                                                phoneNumber === '' ? (
+                                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                ) : (<span></span>)
+                                                            }
+                                                        </Input.Group>
+                                                    </div>
                                                 </div>
-                                            )
-                                        }
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>姓名：</span>
-                                                <Input style={{ width: 'calc(100% - 100px)' }}
-                                                    placeholder='填写姓名'
-                                                    prefix={<UserOutlined />}
-                                                    value={pickUpName}
-                                                    onChange={this.handlePickUpPeopleChange} />
-                                                {
-                                                    pickUpName === '' ? (
-                                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                    ) : (<span></span>)
-                                                }
-                                            </Input.Group>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>手机：</span>
-                                                <Input style={{ width: 'calc(100% - 100px)' }}
-                                                    placeholder='填写手机号'
-                                                    prefix={<PhoneOutlined />}
-                                                    value={phoneNumber}
-                                                    onChange={this.handlePhoneNumberChange} />
-                                                {
-                                                    phoneNumber === '' ? (
-                                                        <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                    ) : (<span></span>)
-                                                }
-                                            </Input.Group>
-                                        </div>
 
-                                    </div>
+                                                <div key='d'>
+                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <Input.Group>
+                                                            <span style={{ fontWeight: 'bold' }}>备注：</span>
+                                                            <TextArea style={{ width: 'calc(100% - 0px)' }} rows={2}
+                                                                placeholder='有特殊要求，请备注' value={remarks}
+                                                                onChange={this.handleRemarksChange} />
+                                                        </Input.Group>
+                                                    </div>
+                                                    <div style={{ height: 80 }}></div>
+                                                </div>
+                                            </div>
+                                        ) : (<div></div>)
+                                    }
 
-                                    <div key='d'>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>备注：</span>
-                                                <TextArea style={{ width: 'calc(100% - 0px)' }} rows={2}
-                                                    placeholder='有特殊要求，请备注' value={remarks}
-                                                    onChange={this.handleRemarksChange} />
-                                            </Input.Group>
-                                        </div>
-                                        <div style={{ height: 80 }}></div>
-                                    </div>
                                 </QueueAnim>
 
                                 <div style={{
@@ -1084,6 +1177,7 @@ class birthdayCakeSale extends React.Component {
                             </div>
                         ) : (<div></div>)
                     }
+
                     {
                         orderImageModalVisiable ? (
                             <div style={{
@@ -1133,63 +1227,64 @@ class birthdayCakeSale extends React.Component {
                         {debug ? `${birthdayCakesRecommendTitle}（${Object.keys(birthdayCakesRecommendItems).length}）`
                             : `${birthdayCakesRecommendTitle}`}
                     </div>
-                    <List
-                        style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
-                        grid={{ gutter: 4, column: 2 }}
-                        dataSource={Object.keys(birthdayCakesRecommendItems)}
-                        renderItem={item => {
-                            let pricesObj = birthdayCakesRecommendItems[item]['价格'];
-                            let description = birthdayCakesRecommendItems[item]['描述'];
-                            let pricesKeys = Object.keys(pricesObj);
+                    <Spin spinning={birthdayCakesRecommendLoading} size='large'>
+                        <List
+                            style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                            grid={{ gutter: 4, column: 2 }}
+                            dataSource={Object.keys(birthdayCakesRecommendItems)}
+                            renderItem={item => {
+                                let pricesObj = birthdayCakesRecommendItems[item]['价格'];
+                                let description = birthdayCakesRecommendItems[item]['描述'];
+                                let pricesKeys = Object.keys(pricesObj);
 
-                            let theMinimumPrice = '0';
+                                let theMinimumPrice = '0';
 
-                            if (pricesKeys.length > 0) {
-                                let type = pricesKeys[0];
+                                if (pricesKeys.length > 0) {
+                                    let type = pricesKeys[0];
 
-                                let thePrices = pricesObj[type];
-                                let theThePrices = Object.keys(thePrices);
-                                if (theThePrices.length > 0) {
-                                    let firstPrice = theThePrices[0];
-                                    theMinimumPrice = thePrices[firstPrice];
+                                    let thePrices = pricesObj[type];
+                                    let theThePrices = Object.keys(thePrices);
+                                    if (theThePrices.length > 0) {
+                                        let firstPrice = theThePrices[0];
+                                        theMinimumPrice = thePrices[firstPrice];
+                                    }
                                 }
-                            }
 
-                            return (
-                                <List.Item>
-                                    <div key={item}>
-                                        <Image style={{ border: '1px dashed #C58917' }}
-                                            preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                return (
+                                    <List.Item>
+                                        <div key={item}>
+                                            <Image style={{ border: '1px dashed #C58917' }}
+                                                preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
-                                        <div>
                                             <div>
-                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
-                                                <span style={{
-                                                    fontSize: 14, marginTop: 8,
-                                                    float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 15,
-                                                    textAlign: 'center', backgroundColor: '#C58917', color: 'white',
-                                                }} onClick={() => {
-                                                    this.handleOrderNowClick(item, description, pricesObj);
-                                                }}>
-                                                    {`预定`}
-                                                </span>
-                                            </div>
-                                            <div style={{ fontSize: 14 }}>
-                                                <span>{description}</span>
-                                            </div>
-                                            <div style={{ fontSize: 13 }}>
-                                                <span>¥</span>
-                                                <span>{theMinimumPrice}</span>
-                                                <span>起</span>
+                                                <div>
+                                                    <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                    <span style={{
+                                                        fontSize: 14, marginTop: 8,
+                                                        float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                        paddingLeft: 8, paddingRight: 8, borderRadius: 15,
+                                                        textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                    }} onClick={() => {
+                                                        this.handleOrderNowClick(0, item, description, pricesObj);
+                                                    }}>
+                                                        {`预定`}
+                                                    </span>
+                                                </div>
+                                                <div style={{ fontSize: 14 }}>
+                                                    <span>{description}</span>
+                                                </div>
+                                                <div style={{ fontSize: 13 }}>
+                                                    <span>¥</span>
+                                                    <span>{theMinimumPrice}</span>
+                                                    <span>起</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </List.Item>
-                            );
-                        }}
-                    />
-
+                                    </List.Item>
+                                );
+                            }}
+                        />
+                    </Spin>
                     <div style={{
                         textAlign: 'center', color: '#C6A300',
                         fontSize: 18, paddingTop: 10, paddingBottom: 20
@@ -1262,7 +1357,7 @@ class birthdayCakeSale extends React.Component {
                                                                             paddingLeft: 8, paddingRight: 8, borderRadius: 12,
                                                                             textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                                         }} onClick={() => {
-                                                                            this.handleOrderNowClick(item, description, pricesObj);
+                                                                            this.handleOrderNowClick(0, item, description, pricesObj);
                                                                         }}>
                                                                             {`预定`}
                                                                         </span>
@@ -1292,6 +1387,32 @@ class birthdayCakeSale extends React.Component {
                             })
                         }
                     </Collapse>
+
+                    <div style={{
+                        textAlign: 'center', marginTop: 0, fontSize: 24,
+                        backgroundColor: '#DAA520', color: 'white',
+                        borderRadius: 0, paddingTop: 30, paddingBottom: 30
+                    }} onClick={() => {
+                        let price4customized = {
+                            "牛奶奶油": {
+                                "6寸": "--",
+                                "8寸": "--",
+                                "10寸": "--",
+                                "12寸": "--"
+                            },
+                            "动物奶油": {
+                                "6寸": "--",
+                                "8寸": "--",
+                                "10寸": "--",
+                                "12寸": "--"
+                            }
+                        }
+                        this.handleOrderNowClick(1, '私人定制', '请先上传蛋糕图片', price4customized);
+                    }}>
+                        <span>私人订制蛋糕</span>
+                        <span style={{ color: 'black', fontSize: 18, marginLeft: 8 }}>点击预定</span>
+                    </div>
+
                     <div style={{
                         textAlign: 'center', color: '#B9B973',
                         fontSize: 14, fontWeight: "bold", paddingTop: 7
@@ -1323,7 +1444,7 @@ class birthdayCakeSale extends React.Component {
                                         background: '#D8D8D8'
                                     }}>{`《${cakeName}》`}</div>
                                     <div>
-                                        <Image preview={false} src={`${KBrithdayCakeRoot}/蛋糕3.0/${cakeName}-方图.jpg`} />
+                                        <Image preview={false} src={cakeImage} />
                                         <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
                                     </div>
                                 </div>

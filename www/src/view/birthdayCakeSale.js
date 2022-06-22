@@ -842,7 +842,9 @@ class birthdayCakeSale extends React.Component {
                                                     }}>取消</Button>
                                                     <Button type='primary' onClick={() => {
                                                         let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
-                                                        this.setState({ imageCropperModalVisiable: false, cakeImage: dataUrlAfterCroped });
+                                                        this.setState({ imageCropperModalVisiable: false }, () => {
+                                                            this.setState({ cakeImage: dataUrlAfterCroped })
+                                                        });
                                                     }}>确定裁剪</Button>
                                                 </Space>
                                             </div>
@@ -877,11 +879,13 @@ class birthdayCakeSale extends React.Component {
                                                     component={() => <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} />}
                                                     onClick={() => {
                                                         let that = this;
+                                                        message.info('1')
                                                         window.wx.chooseImage({
                                                             count: 1, // 默认9
                                                             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
                                                             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                                                             success: function (res) {
+                                                                message.info('2')
                                                                 that.setState({
                                                                     imageCropperModalVisiable: true,
                                                                     localImgDataLoading: true
@@ -890,6 +894,7 @@ class birthdayCakeSale extends React.Component {
                                                                 window.wx.getLocalImgData({
                                                                     localId: localIds[0], // 图片的localID
                                                                     success: function (res) {
+                                                                        message.info('3')
                                                                         let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
                                                                         /// 如果缺少base64头部补充上
                                                                         if (!(localData.startsWith('data:image/jpg;base64,'))) {

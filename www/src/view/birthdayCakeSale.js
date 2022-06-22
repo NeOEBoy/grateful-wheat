@@ -779,16 +779,16 @@ class birthdayCakeSale extends React.Component {
                     {
                         imageCropperModalVisiable ? (
                             <div style={{
-                                opacity: 0.85, background: 'black', position: 'fixed',
+                                opacity: 0.99, background: 'black', position: 'fixed',
                                 zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'auto', overflowX: 'hidden'
                             }}>
                                 <Cropper
-                                    src={imageBeforeCrop}
+                                    src="\image\生日蛋糕\image4wechat.jpg"
                                     onInitialized={(cropper) => {
                                         this._imageCropper = cropper;
                                     }}
-                                    style={{ height: '100%', width: "100%", color:'red' }}
+                                    style={{ height: '100%', width: "100%" }}
                                     aspectRatio={1}
                                     guides={true}
                                     autoCropArea={1}

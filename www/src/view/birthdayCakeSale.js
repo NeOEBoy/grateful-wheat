@@ -20,7 +20,9 @@ import Icon, {
     HomeOutlined,
     PhoneOutlined,
     EditOutlined,
-    PlusOutlined
+    PlusOutlined,
+    RotateLeftOutlined,
+    RotateRightOutlined
 } from '@ant-design/icons';
 import {
     Collapse, Image, Spin,
@@ -788,14 +790,40 @@ class birthdayCakeSale extends React.Component {
                                     onInitialized={(cropper) => {
                                         this._imageCropper = cropper;
                                     }}
-                                    style={{ height: '100%', width: "100%" }}
+                                    style={{ height: '100%', width: "100%", zIndex: '80' }}
                                     aspectRatio={1}
                                     guides={true}
                                     autoCropArea={0.85}
                                 />
 
                                 <div style={{
-                                    width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
+                                    width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
+                                    position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                }}>
+                                </div>
+
+                                <div style={{
+                                    width: 'calc(100%)', height: 64,
+                                    position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                }}>
+                                    <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
+                                        <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                            this._imageCropper.rotate(-90);
+                                        }} />
+                                        <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                            this._imageCropper.rotate(90);
+                                        }} />
+                                    </Space>
+                                </div>
+
+                                <div style={{
+                                    width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
+                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                }}>
+                                </div>
+
+                                <div style={{
+                                    width: 'calc(100%)', height: 64,
                                     position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
                                 }}>
                                     <Space style={{ marginTop: 16, marginBottom: 16 }}>
@@ -833,8 +861,7 @@ class birthdayCakeSale extends React.Component {
                                                     src={cakeImage} />
                                             ) : (
                                                 <Icon style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
-                                                    component={() =>
-                                                        <PlusOutlined style={{ fontSize: 40 }} />}
+                                                    component={() => <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop:30 }} />}
                                                     onClick={() => {
                                                         let that = this;
                                                         window.wx.chooseImage({
@@ -1410,7 +1437,7 @@ class birthdayCakeSale extends React.Component {
                                 "12寸": "--"
                             }
                         }
-                        this.handleOrderNowClick(1, '私人定制', '请先上传蛋糕图片', price4customized);
+                        this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized);
                     }}>
                         <span>私人订制蛋糕</span>
                         <span style={{ color: 'black', fontSize: 18, marginLeft: 8 }}>点击预定</span>

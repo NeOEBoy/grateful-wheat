@@ -12,11 +12,11 @@ const crypto = require('crypto');
  */
 const config = {
     // 测试地址
-    appid: 'wx7442006a24f09334',
-    appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
+    // appid: 'wx7442006a24f09334',
+    // appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
     // 正式地址
-    // appid: 'wxb2070ea52da2dfc7',
-    // appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',
+    appid: 'wxb2070ea52da2dfc7',
+    appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',
     getAccessToken: 'https://api.weixin.qq.com/cgi-bin/token',
     getTicket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'
 }

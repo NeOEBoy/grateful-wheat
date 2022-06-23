@@ -848,7 +848,7 @@ class birthdayCakeSale extends React.Component {
                                                     this.setState({ imageCropperModalVisiable: false, divImageLoading: true }, () => {
                                                         setTimeout(() => {
                                                             this.setState({ cakeImage: dataUrlAfterCroped, divImageLoading: false })
-                                                        }, 100);
+                                                        }, 500);
                                                     });
                                                 }}>确定裁剪</Button>
                                             </Space>

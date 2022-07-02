@@ -101,7 +101,8 @@ const KCakePlateNumberBySize = {
     '6寸': '10',
     '8寸': '15',
     '10寸': '20',
-    '12寸': '25'
+    '12寸': '25',
+    '14寸': '30'
 };
 
 const KCakeRecommendPeople = {
@@ -731,7 +732,8 @@ class birthdayCakeSale extends React.Component {
                 '6寸': { label: '6寸', value: '6寸' },
                 '8寸': { label: '8寸', value: '8寸' },
                 '10寸': { label: '10寸', value: '10寸' },
-                '12寸': { label: '12寸', value: '12寸' }
+                '12寸': { label: '12寸', value: '12寸' },
+                '14寸': { label: '14寸', value: '14寸' }
             };
 
             if (orderCakePrices) {

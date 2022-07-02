@@ -109,7 +109,8 @@ const KCakeRecommendPeople = {
     '6寸': '直径15厘米 | 3-5人',
     '8寸': '直径20厘米 | 6-9人',
     '10寸': '直径25厘米 | 10-15人',
-    '12寸': '直径30厘米 | 16-20人'
+    '12寸': '直径30厘米 | 16-20人',
+    '14寸': '直径46厘米 | 21-30人'
 };
 
 class birthdayCakeSale extends React.Component {

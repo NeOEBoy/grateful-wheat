@@ -7,7 +7,7 @@
 /// 引入sdk
 let eleme = require('eleme-openapi-sdk');
 const schedule = require('node-schedule');
-const moment = require('moment');
+// const moment = require('moment');
 
 /**--------------------配置信息--------------------*/
 const KForTest = false;
@@ -64,11 +64,11 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
         let ProductService = new eleme.ProductService(rpcClient)
 
         /// 裱花间是否在上班（9:00 ~ 17:59）
-        let decoratingRoomWorking = false;
-        let hour = moment().hour();
-        if (hour >= 9 && hour <= 17) {
-            decoratingRoomWorking = true;
-        }
+        // let decoratingRoomWorking = false;
+        // let hour = moment().hour();
+        // if (hour >= 9 && hour <= 17) {
+        //     decoratingRoomWorking = true;
+        // }
         // console.log(hour);
         for (let xx = 0; xx < KElemeShops.length; ++xx) {
             let elemeShop = KElemeShops[xx];
@@ -128,29 +128,28 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
                         itemsNeedToClearStock.push(itemNeedToClearStock);
                     }
 
-                    if (categoryName === '弯麦女孩蛋糕' ||
-                        categoryName === '弯麦男孩蛋糕' ||
-                        categoryName === '弯麦女神蛋糕' ||
-                        categoryName === '弯麦男神蛋糕' ||
-                        categoryName === '弯麦常规蛋糕' ||
-                        categoryName === '弯麦情侣蛋糕' ||
-                        categoryName === '弯麦祝寿蛋糕' ||
-                        categoryName === '弯麦庆典派对蛋糕') {
-                        let itemSpecIds2 = [];
-                        for (let zz = 0; zz < specs.length; ++zz) {
-                            let spec = specs[zz];
-                            itemSpecIds2.push(spec.specId);
-                        }
-                        if (itemSpecIds2.length > 0) {
-                            let itemNeedToFillOrClearStock = {};
-                            itemNeedToFillOrClearStock.itemId = value.id;
-                            itemNeedToFillOrClearStock.name = value.name;
-                            itemNeedToFillOrClearStock.itemSpecIds = itemSpecIds2;
+                    // if (categoryName === '弯麦女孩蛋糕' ||
+                    //     categoryName === '弯麦男孩蛋糕' ||
+                    //     categoryName === '弯麦女神蛋糕' ||
+                    //     categoryName === '弯麦男神蛋糕' ||
+                    //     categoryName === '弯麦常规蛋糕' ||
+                    //     categoryName === '弯麦情侣蛋糕' ||
+                    //     categoryName === '弯麦祝寿蛋糕' ||
+                    //     categoryName === '弯麦庆典派对蛋糕') {
+                    //     let itemSpecIds2 = [];
+                    //     for (let zz = 0; zz < specs.length; ++zz) {
+                    //         let spec = specs[zz];
+                    //         itemSpecIds2.push(spec.specId);
+                    //     }
+                    //     if (itemSpecIds2.length > 0) {
+                    //         let itemNeedToFillOrClearStock = {};
+                    //         itemNeedToFillOrClearStock.itemId = value.id;
+                    //         itemNeedToFillOrClearStock.name = value.name;
+                    //         itemNeedToFillOrClearStock.itemSpecIds = itemSpecIds2;
 
-                            itemsNeedToFillOrClearStock.push(itemNeedToFillOrClearStock);
-                        }
-                    }
-
+                    //         itemsNeedToFillOrClearStock.push(itemNeedToFillOrClearStock);
+                    //     }
+                    // }
                 }
             }
             console.log(itemsNeedToOnShelf);
@@ -171,24 +170,25 @@ const doStartScheduleMelodyUpdatefoodstatus = async () => {
                     console.log(err);
                 }
             }
-            console.log(itemsNeedToFillOrClearStock);
-            if (itemsNeedToFillOrClearStock.length > 0) {
-                if (decoratingRoomWorking) {
-                    console.log('批量上架蛋糕...')
-                    try {
-                        await ProductService.batchFillStock(itemsNeedToFillOrClearStock);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                } else {
-                    try {
-                        console.log('批量下架蛋糕...')
-                        await ProductService.batchClearStock(itemsNeedToFillOrClearStock);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }
-            }
+
+            // console.log(itemsNeedToFillOrClearStock);
+            // if (itemsNeedToFillOrClearStock.length > 0) {
+            //     if (decoratingRoomWorking) {
+            //         console.log('批量上架蛋糕...')
+            //         try {
+            //             await ProductService.batchFillStock(itemsNeedToFillOrClearStock);
+            //         } catch (err) {
+            //             console.log(err);
+            //         }
+            //     } else {
+            //         try {
+            //             console.log('批量下架蛋糕...')
+            //             await ProductService.batchClearStock(itemsNeedToFillOrClearStock);
+            //         } catch (err) {
+            //             console.log(err);
+            //         }
+            //     }
+            // }
         }
     } catch (error) {
         console.log(error);

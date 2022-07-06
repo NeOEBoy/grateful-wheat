@@ -1,7 +1,7 @@
 /*
 商品菜单
 
-菜单提取教育局店3日之前有销量的商品
+菜单提取教育局店5日之前有销量的商品
 */
 
 import React from 'react';
@@ -10,37 +10,38 @@ import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icon
 import { Collapse, Spin, List, Image, Button, Typography, message } from 'antd';
 import {
     loadProductsSale,
+    loadBreadAll,
     wechatSign
 } from '../api/api';
 
 const { Title } = Typography;
 const { Panel } = Collapse;
-const KImageRoot = '/image';
+const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
     categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
-    thumbnail: '/image/现烤面包/甜甜圈.jpg', productItems: []
+    thumbnail: `${KImageRoot}/现烤面包/甜甜圈.jpg`, productItems: []
 }, {
     categoryId: '1592989355905414162', categoryName: '西点慕斯蛋糕', description: '甜点慕斯、烦恼拜拜',
-    thumbnail: '/image/西点慕斯蛋糕/黑森林.jpg', productItems: []
+    thumbnail: `${KImageRoot}/西点慕斯蛋糕/黑森林.jpg`, productItems: []
 }, {
     categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
-    thumbnail: '/image/常温蛋糕/咸蛋卷.jpg', productItems: []
+    thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
 }, {
     categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
-    thumbnail: '/image/吐司面包/抹茶红豆切片吐司.jpg', productItems: []
+    thumbnail: `${KImageRoot}/吐司面包/抹茶红豆切片吐司.jpg`, productItems: []
 }, {
     categoryId: '1626767161867698544', categoryName: '餐包面包', description: '圆圆餐包、生活美满',
-    thumbnail: '/image/餐包面包/沙拉包.jpg', productItems: []
+    thumbnail: `${KImageRoot}/餐包面包/沙拉包.jpg`, productItems: []
 }, {
     categoryId: '1593059349213583584', categoryName: '干点饼干', description: '饼干茶点、惬意午后',
-    thumbnail: '/image/干点饼干/牛油曲奇.jpg', productItems: []
+    thumbnail: `${KImageRoot}/干点饼干/牛油曲奇.jpg`, productItems: []
 }, {
     categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
-    thumbnail: '/image/小蛋糕/水果蛋糕（5寸）.jpg', productItems: []
+    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
-    thumbnail: '/image/长富常温牛奶/长富24精品纯奶.jpg', productItems: []
+    thumbnail: `${KImageRoot}/长富常温牛奶/长富24精品纯奶.jpg`, productItems: []
 }
 ];
 
@@ -63,11 +64,18 @@ class ProductMenu extends React.Component {
         this._lastKeys = [];
         this._orderTextArea = undefined;
         this._inputRef = null;
+        this._breadAll = [];
     }
 
     async componentDidMount() {
         let query = this.props.query;
         let debug = query && query.get('debug');
+
+        if (this._breadAll.length <= 0) {
+            this._breadAll = await loadBreadAll();
+        }
+
+        // console.log(this._breadAll);
 
         this.setState({ debug: debug });
         this.updateWeixinConfig();
@@ -139,6 +147,10 @@ class ProductMenu extends React.Component {
                                 let item = { ...list[i] };
                                 item.buyNumber = 0;
                                 item.disable = false;
+                                item['配料'] = '';
+                                if (this._breadAll[item.productName]) {
+                                    item['配料'] = this._breadAll[item.productName]['配料'];
+                                }
                                 newList.push(item);
                             }
 
@@ -457,6 +469,12 @@ class ProductMenu extends React.Component {
                                                                     color: 'black'
                                                                 }}>
                                                                     {item1.productName}
+                                                                </div>
+                                                                <div style={{
+                                                                    fontSize: 12,
+                                                                    color: 'black'
+                                                                }}>
+                                                                    {`配料：${item1['配料']}`}
                                                                 </div>
                                                                 <div style={{
                                                                     fontSize: 8,

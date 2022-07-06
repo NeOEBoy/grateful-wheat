@@ -417,10 +417,20 @@ const loadBirthdayCakesWXConfig = async () => {
   let loadBirthdayCakesUrl = '/image/生日蛋糕/蛋糕3.0/a-微信配置.json';
   loadBirthdayCakesUrl += '?random=';
   loadBirthdayCakesUrl += Math.floor(Math.random() * 1000);
-  
+
   const loadBirthdayCakesResponse = await fetch(loadBirthdayCakesUrl, { mode: 'no-cors' });
   const loadBirthdayCakesResponseJson = await loadBirthdayCakesResponse.json();
   return loadBirthdayCakesResponseJson;
+}
+
+const loadBreadAll = async () => {
+  let loadBreadAllUrl = '/image/面包牛奶/a-所有面包牛奶.json';
+  loadBreadAllUrl += '?random=';
+  loadBreadAllUrl += Math.floor(Math.random() * 1000);
+
+  const loadBreadAllResponse = await fetch(loadBreadAllUrl, { mode: 'no-cors' });
+  const loadBreadAllResponseJson = await loadBreadAllResponse.json();
+  return loadBreadAllResponseJson;
 }
 
 const wechatSign = async (url) => {
@@ -465,5 +475,6 @@ export {
   loadBirthdayCakesRecommend,
   loadBirthdayCakesAll,
   loadBirthdayCakesWXConfig,
+  loadBreadAll,
   wechatSign
 };

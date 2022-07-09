@@ -554,12 +554,12 @@ class birthdayCakeSale extends React.Component {
             }, 0);
         });
 
-        document.documentElement.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'visible';
     }
 
     handleOrderCakeInfoModalCancel = () => {
         this.setState({ orderCakeInfoModalVisiable: false });
-        document.documentElement.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'visible';
     }
 
     handleCreamTypeChange = e => {
@@ -1264,7 +1264,7 @@ class birthdayCakeSale extends React.Component {
                                         <Space style={{ marginTop: 24 }}>
                                             <Button key='back' onClick={() => {
                                                 this.setState({ orderImageModalVisiable: false });
-                                                document.documentElement.style.overflow = 'auto';
+                                                document.documentElement.style.overflow = 'visible';
                                             }}>关闭</Button>
                                             <Button key='edit' type='primary' onClick={() => {
                                                 this.setState({

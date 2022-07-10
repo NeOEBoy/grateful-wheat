@@ -1237,8 +1237,8 @@ class birthdayCakeSale extends React.Component {
                                                         </div>
                                                         {
                                                             (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
-                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                            ) : (<span></span>)
+                                                                <div style={{ color: 'red' }}>“时间”是必填项</div>
+                                                            ) : (<div></div>)
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
@@ -1252,8 +1252,8 @@ class birthdayCakeSale extends React.Component {
                                                         />
                                                         {
                                                             pickUpType === '' ? (
-                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                            ) : (<span></span>)
+                                                                <div style={{ color: 'red' }}>“方式”是必填项</div>
+                                                            ) : (<div></div>)
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
@@ -1264,8 +1264,8 @@ class birthdayCakeSale extends React.Component {
                                                         </Select>
                                                         {
                                                             responseShop === '' ? (
-                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                            ) : (<span></span>)
+                                                                <div style={{ color: 'red' }}>“门店”是必填项</div>
+                                                            ) : (<div></div>)
                                                         }
                                                     </div>
                                                     {
@@ -1279,8 +1279,8 @@ class birthdayCakeSale extends React.Component {
                                                                         onChange={this.handleDeliverAddressChange} />
                                                                     {
                                                                         deliverAddress === '' ? (
-                                                                            <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                                        ) : (<span></span>)
+                                                                            <div style={{ color: 'red' }}>“地址”是必填项</div>
+                                                                        ) : (<div></div>)
                                                                     }
                                                                 </Input.Group>
                                                             </div>
@@ -1299,8 +1299,8 @@ class birthdayCakeSale extends React.Component {
                                                                 onChange={this.handlePickUpPeopleChange} />
                                                             {
                                                                 pickUpName === '' ? (
-                                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                                ) : (<span></span>)
+                                                                    <div style={{ color: 'red' }}>“姓名”是必填项</div>
+                                                                ) : (<div></div>)
                                                             }
                                                         </Input.Group>
                                                     </div>
@@ -1314,8 +1314,8 @@ class birthdayCakeSale extends React.Component {
                                                                 onChange={this.handlePhoneNumberChange} />
                                                             {
                                                                 phoneNumber === '' ? (
-                                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
-                                                                ) : (<span></span>)
+                                                                    <div style={{ color: 'red' }}>“手机”是必填项</div>
+                                                                ) : (<div></div>)
                                                             }
                                                         </Input.Group>
                                                     </div>
@@ -1394,6 +1394,17 @@ class birthdayCakeSale extends React.Component {
                             </div>
                         ) : (<div></div>)
                     }
+
+                    <div style={{
+                        textAlign: 'center', color: '#B9B973',
+                        fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                    }}>
+                        <span>预定前请先添加教育局总店2号</span>
+                        <span style={{ textDecoration: 'underline' }}>
+                            <a href="tel:18599568588">18599568588</a>
+                        </span>
+                        <span> (微信同号)</span>
+                    </div>
 
                     <div style={{
                         textAlign: 'center', marginTop: 0, fontSize: 20,
@@ -1589,17 +1600,6 @@ class birthdayCakeSale extends React.Component {
                     }}>
                         <span>私人订制蛋糕</span>
                         <span style={{ color: 'black', fontSize: 18, marginLeft: 8 }}>点击预定</span>
-                    </div>
-
-                    <div style={{
-                        textAlign: 'center', color: '#B9B973',
-                        fontSize: 14, fontWeight: "bold", paddingTop: 7
-                    }}>
-                        <span>请添加教育局总店</span>
-                        <span style={{ textDecoration: 'underline' }}>
-                            <a href="tel:13290768588">13290768588</a>
-                        </span>
-                        <span> (微信同号)预定</span>
                     </div>
 
                     {imageCapturing ? (

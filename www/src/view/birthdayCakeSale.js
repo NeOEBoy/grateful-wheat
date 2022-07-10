@@ -1068,8 +1068,8 @@ class birthdayCakeSale extends React.Component {
                                                             />
                                                             {
                                                                 creamType === '' ? (
-                                                                    <span style={{ color: 'red' }}>“奶油”是必填项</span>
-                                                                ) : (<span></span>)
+                                                                    <div style={{ color: 'red' }}>“奶油”是必填项</div>
+                                                                ) : (<div></div>)
                                                             }
                                                         </Input.Group>
                                                     </div>
@@ -1095,7 +1095,7 @@ class birthdayCakeSale extends React.Component {
 
                                                             {
                                                                 cakeSize === '' || (cakeSize === '叠加尺寸' && cakeSizeExtra === '') ? (
-                                                                    <span style={{ color: 'red', marginLeft: 8 }}>“大小”是必填项</span>
+                                                                    <div style={{ color: 'red' }}>“大小”是必填项</div>
                                                                 ) : (<span></span>)
                                                             }
                                                         </div>

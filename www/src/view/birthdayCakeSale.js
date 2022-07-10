@@ -88,44 +88,44 @@ const KResponseShopOptions = [
 const KCakeFillingOptions = [
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>芒果</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>芒果</div>
         </div>), value: '芒果'
     },
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>布丁</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>布丁</div>
         </div>), value: '布丁'
     },
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>芋泥</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>芋泥</div>
         </div>), value: '芋泥'
     },
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>奥利奥</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>奥利奥</div>
         </div>), value: '奥利奥'
     },
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>火龙果</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>火龙果</div>
         </div>), value: '火龙果'
     },
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>黑糖晶球</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>黑糖晶球</div>
         </div>), value: '黑糖晶球'
     },
     {
         label: (<div>
-            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
-            <div style={{ width: 45, textAlign: 'center' }}>巧克力燕麦</div>
+            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
+            <div style={{ width: 42, textAlign: 'center' }}>巧克力燕麦</div>
         </div>), value: '巧克力燕麦'
     }
 ];

@@ -88,44 +88,44 @@ const KResponseShopOptions = [
 const KCakeFillingOptions = [
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>芒果</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>芒果</div>
         </div>), value: '芒果'
     },
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>布丁</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>布丁</div>
         </div>), value: '布丁'
     },
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>芋泥</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>芋泥</div>
         </div>), value: '芋泥'
     },
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>奥利奥</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>奥利奥</div>
         </div>), value: '奥利奥'
     },
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>火龙果</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>火龙果</div>
         </div>), value: '火龙果'
     },
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>黑糖晶球</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>黑糖晶球</div>
         </div>), value: '黑糖晶球'
     },
     {
         label: (<div>
-            <Image style={{ width: 42, height: 42 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
-            <div style={{ width: 42, textAlign: 'center' }}>巧克力燕麦</div>
+            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>巧克力燕麦</div>
         </div>), value: '巧克力燕麦'
     }
 ];
@@ -524,7 +524,7 @@ class birthdayCakeSale extends React.Component {
         console.log('价格：' + cakePrice);
         console.log('夹心：' + cakeFillings);
         console.log('蜡烛：' + candleType);
-        console.log('蜡烛：' + number4candle);
+        console.log('数字：' + number4candle);
         console.log('餐盘：' + cakePlateNumber);
         console.log('日期：' + pickUpDay);
         console.log('时间：' + pickUpTime);
@@ -657,8 +657,8 @@ class birthdayCakeSale extends React.Component {
         this.setState({ cakeFillings: value });
     }
 
-    handleCandleTypeChange = (value) => {
-        this.setState({ candleType: value });
+    handleCandleTypeChange = (e) => {
+        this.setState({ candleType: e.target.value });
     }
 
     handleNumber4candleChange = (e) => {
@@ -827,6 +827,38 @@ class birthdayCakeSale extends React.Component {
             height: orderImageHeight - 4
         };
 
+        const KCandleTypeOptions = [
+            {
+                label: (<div>
+                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/螺纹蜡烛.jpg" />
+                    <div style={{ width: 70, textAlign: 'center' }}>螺纹蜡烛</div>
+                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
+                </div>), value: '螺纹蜡烛'
+            },
+            {
+                label: (<div>
+                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
+
+                    <div style={{ width: 70, textAlign: 'center' }}>
+                        数字蜡烛
+                        <Input style={{ width: 70, height: 30 }}
+                            placeholder='数字'
+                            prefix={<EditOutlined />}
+                            value={number4candle}
+                            onChange={this.handleNumber4candleChange}></Input>
+                    </div>
+                </div>), value: '数字蜡烛'
+            },
+            {
+                label: (<div>
+                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
+                    <div style={{ width: 70, textAlign: 'center' }}>爱心蜡烛</div>
+                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
+                </div>), value: '爱心蜡烛'
+            }
+        ];
+
+
         return (
             <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
                 <div>
@@ -913,59 +945,58 @@ class birthdayCakeSale extends React.Component {
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'auto', overflowX: 'hidden'
                             }}>
-                                <QueueAnim type={['bottom', 'top']}>
-                                    <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
-                                        {`《${cakeName}》`}
-                                    </div>
-                                    <div style={{ textAlign: 'center', fontSize: 14 }}>
-                                        {cakeDescription}
-                                    </div>
-                                    <div style={{ textAlign: 'center', width: '100%' }}>
-                                        {
-                                            (cakeImage !== '私人订制蛋糕') ? (
-                                                <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
-                                                    src={cakeImage} />
-                                            ) : (
-                                                <Icon style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
-                                                    component={() => divImageLoading ?
-                                                        <LoadingOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} /> :
-                                                        <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} />}
-
-                                                    onClick={() => {
-                                                        let that = this;
-                                                        window.wx.chooseImage({
-                                                            count: 1, // 默认9
-                                                            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                                                            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                                                            success: function (res) {
-                                                                that.setState({
-                                                                    imageCropperModalVisiable: true,
-                                                                    localImgDataLoading: true
-                                                                }, () => {
-                                                                    let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
-                                                                    window.wx.getLocalImgData({
-                                                                        localId: localIds[0], // 图片的localID
-                                                                        success: function (res) {
-                                                                            console.log('4')
-                                                                            let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
-                                                                            /// 如果缺少base64头部补充上
-                                                                            if (!(localData.startsWith('data:image/jpg;base64,'))) {
-                                                                                localData = 'data:image/jpg;base64,' + localData;
-                                                                            }
-                                                                            that.setState({ localImgDataLoading: false, imageBeforeCrop: localData });
-                                                                        }
-                                                                    });
-                                                                });
-                                                            }
-                                                        });
-                                                    }} />
-                                            )
-                                        }
-                                    </div>
-
+                                <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
+                                    {`《${cakeName}》`}
+                                </div>
+                                <div style={{ textAlign: 'center', fontSize: 14 }}>
+                                    {cakeDescription}
+                                </div>
+                                <div style={{ textAlign: 'center', width: '100%' }}>
                                     {
-                                        cakeImage !== '私人订制蛋糕' ? (
-                                            <div>
+                                        (cakeImage !== '私人订制蛋糕') ? (
+                                            <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                                src={cakeImage} />
+                                        ) : (
+                                            <Icon style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                                component={() => divImageLoading ?
+                                                    <LoadingOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} /> :
+                                                    <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} />}
+
+                                                onClick={() => {
+                                                    let that = this;
+                                                    window.wx.chooseImage({
+                                                        count: 1, // 默认9
+                                                        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                                                        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                                                        success: function (res) {
+                                                            that.setState({
+                                                                imageCropperModalVisiable: true,
+                                                                localImgDataLoading: true
+                                                            }, () => {
+                                                                let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
+                                                                window.wx.getLocalImgData({
+                                                                    localId: localIds[0], // 图片的localID
+                                                                    success: function (res) {
+                                                                        console.log('4')
+                                                                        let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
+                                                                        /// 如果缺少base64头部补充上
+                                                                        if (!(localData.startsWith('data:image/jpg;base64,'))) {
+                                                                            localData = 'data:image/jpg;base64,' + localData;
+                                                                        }
+                                                                        that.setState({ localImgDataLoading: false, imageBeforeCrop: localData });
+                                                                    }
+                                                                });
+                                                            });
+                                                        }
+                                                    });
+                                                }} />
+                                        )
+                                    }
+                                </div>
+                                {
+                                    cakeImage !== '私人订制蛋糕' ? (
+                                        <div>
+                                            <QueueAnim type={['bottom', 'top']}>
                                                 <div key='a' style={{ textAlign: 'center', width: '100%' }}>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
                                                     {
@@ -1045,28 +1076,23 @@ class birthdayCakeSale extends React.Component {
                                                             onChange={this.handleCakeFillingChange} />
                                                         {
                                                             cakeFillings.length === 0 ? (
-                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                <div style={{ color: 'red' }}>“夹心”是必填项</div>
                                                             ) : (<span></span>)
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <span style={{ fontWeight: 'bold' }}>蜡烛：</span>
-                                                        <Select value={candleType}
-                                                            style={{ width: 100 }}
+                                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为螺纹蜡烛一根）：</div>
+
+                                                        <Radio.Group style={{ marginTop: 8 }}
                                                             options={KCandleTypeOptions}
+                                                            value={candleType}
                                                             onChange={this.handleCandleTypeChange}>
-                                                        </Select>
-                                                        {
-                                                            candleType === KCandleTypeOptions[1].value ? (<Input style={{ marginLeft: 8, width: 70 }}
-                                                                placeholder='数字' prefix={<EditOutlined />}
-                                                                value={number4candle}
-                                                                onChange={this.handleNumber4candleChange} />) : (<span></span>)
-                                                        }
+                                                        </Radio.Group>
                                                         {
                                                             candleType === '' ||
                                                                 (candleType === KCandleTypeOptions[1].value &&
                                                                     number4candle === '') ? (
-                                                                <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                <div style={{ color: 'red', marginLeft: 0 }}>“数字”是必填项</div>
                                                             ) : (<span></span>)
                                                         }
                                                     </div>
@@ -1261,11 +1287,12 @@ class birthdayCakeSale extends React.Component {
                                                     </div>
                                                     <div style={{ height: 80 }}></div>
                                                 </div>
-                                            </div>
-                                        ) : (<div></div>)
-                                    }
+                                            </QueueAnim>
+                                        </div>
+                                    ) : (<div></div>)
+                                }
 
-                                </QueueAnim>
+
 
                                 <div style={{
                                     width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',

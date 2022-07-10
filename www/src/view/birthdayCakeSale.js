@@ -174,11 +174,12 @@ class birthdayCakeSale extends React.Component {
             orderCakePrices: {},
             creamType: '',
             cakeSize: '',
-            cakePrice: '',
+            cakeSizeExtra: '',
+            cakePrice: '-',
             cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
-            cakePlateNumber: '',
+            cakePlateNumber: '-',
             /// 配送信息
             pickUpDay: '',
             pickUpDayPopupOpen: false,
@@ -478,11 +479,12 @@ class birthdayCakeSale extends React.Component {
             cakeImage: type === 0 ? KBrithdayCakeRoot + '/蛋糕3.0/' + name + '-方图.jpg' : '私人订制蛋糕',
             creamType: '',
             cakeSize: '',
-            cakePrice: '',
+            cakeSizeExtra: '',
+            cakePrice: '-',
             cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
-            cakePlateNumber: '',
+            cakePlateNumber: '-',
 
             /// 配送信息
             pickUpDay: '',
@@ -503,6 +505,7 @@ class birthdayCakeSale extends React.Component {
             creamType,
             cakeImage,
             cakeSize,
+            cakeSizeExtra,
             cakePrice,
             cakeFillings,
             candleType,
@@ -521,6 +524,7 @@ class birthdayCakeSale extends React.Component {
         console.log('图片：' + cakeImage);
         console.log('奶油：' + creamType);
         console.log('大小：' + cakeSize);
+        console.log('叠加尺寸：' + cakeSizeExtra);
         console.log('价格：' + cakePrice);
         console.log('夹心：' + cakeFillings);
         console.log('蜡烛：' + candleType);
@@ -552,6 +556,13 @@ class birthdayCakeSale extends React.Component {
             phoneNumber === '') {
             message.warning('请填写必填项！')
             return;
+        }
+
+        if (cakeSize === '叠加尺寸') {
+            if (cakeSizeExtra === '') {
+                message.warning('请填写必填项！')
+                return;
+            }
         }
 
         if (pickUpType) {
@@ -608,10 +619,10 @@ class birthdayCakeSale extends React.Component {
 
         const { orderCakePrices, cakeSize } = this.state;
 
-        let cakePrice = '';
+        let cakePrice = '-';
         if (orderCakePrices) {
             let price4CreamType = orderCakePrices[creamType];
-            if (price4CreamType) {
+            if (price4CreamType && price4CreamType[cakeSize]) {
                 cakePrice = price4CreamType[cakeSize];
             }
         }
@@ -622,19 +633,25 @@ class birthdayCakeSale extends React.Component {
     handleCakeSizeChange = (value) => {
         const { orderCakePrices, creamType } = this.state;
 
-        let cakePrice = '';
+        let cakePrice = '-';
         if (orderCakePrices) {
             let price4CreamType = orderCakePrices[creamType];
-            if (price4CreamType) {
+            if (price4CreamType && price4CreamType[value]) {
                 cakePrice = price4CreamType[value];
             }
         }
 
-        let cakePlateNumber = KCakePlateNumberBySize[value];
+        let cakePlateNumber = KCakePlateNumberBySize[value] ? KCakePlateNumberBySize[value] : '-';
         this.setState({
             cakeSize: value,
             cakePrice: cakePrice,
             cakePlateNumber: cakePlateNumber
+        });
+    }
+
+    handleCakeSizeExtraChange = (e) => {
+        this.setState({
+            cakeSizeExtra: e.target.value
         });
     }
 
@@ -726,6 +743,7 @@ class birthdayCakeSale extends React.Component {
             cakeImage,
             creamType,
             cakeSize,
+            cakeSizeExtra,
             cakePrice,
             cakeFillings,
             candleType,
@@ -774,7 +792,8 @@ class birthdayCakeSale extends React.Component {
                 '8寸': { label: '8寸', value: '8寸' },
                 '10寸': { label: '10寸', value: '10寸' },
                 '12寸': { label: '12寸', value: '12寸' },
-                '14寸': { label: '14寸', value: '14寸' }
+                '14寸': { label: '14寸', value: '14寸' },
+                '叠加尺寸': { label: '叠加尺寸', value: '叠加尺寸' }
             };
 
             if (orderCakePrices) {
@@ -785,6 +804,9 @@ class birthdayCakeSale extends React.Component {
                         let size = sizes[i];
                         let cakeSizeOption = KCakeAllSizeOptions[size];
                         cakeSizeOptions.push(cakeSizeOption);
+                    }
+                    if (sizes.length >= 2) {
+                        cakeSizeOptions.push(KCakeAllSizeOptions['叠加尺寸']);
                     }
                 }
             }
@@ -1019,9 +1041,13 @@ class birthdayCakeSale extends React.Component {
                                                                                 </div>)
                                                                         })
                                                                     }
-                                                                    <div>
-                                                                        <span></span>
-                                                                    </div>
+                                                                    {
+                                                                        sizes.length >= 2 ? (
+                                                                            <div>
+                                                                                <span>可叠加，价格为对应尺寸之和</span>
+                                                                            </div>) : (<div></div>)
+                                                                    }
+
                                                                 </div>
                                                             )
                                                         }))
@@ -1042,25 +1068,37 @@ class birthdayCakeSale extends React.Component {
                                                             />
                                                             {
                                                                 creamType === '' ? (
-                                                                    <span style={{ color: 'red' }}>必填项</span>
+                                                                    <span style={{ color: 'red' }}>“奶油”是必填项</span>
                                                                 ) : (<span></span>)
                                                             }
                                                         </Input.Group>
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <Input.Group>
+                                                        <div>
                                                             <span style={{ fontWeight: 'bold' }}>大小：</span>
                                                             <Select value={cakeSize} style={{ width: 100 }}
                                                                 onChange={this.handleCakeSizeChange}
                                                                 onDropdownVisibleChange={this.handleDropdownVisibleChange}
                                                                 options={cakeSizeOptions}>
                                                             </Select>
+
                                                             {
-                                                                cakeSize === '' ? (
-                                                                    <span style={{ color: 'red', marginLeft: 8 }}>必填项</span>
+                                                                cakeSize === '叠加尺寸' ? (
+                                                                    <span style={{ marginLeft: 8 }}>
+                                                                        <Input placeholder='几寸+几寸'
+                                                                            prefix={<EditOutlined />}
+                                                                            style={{ width: 120 }}
+                                                                            value={cakeSizeExtra}
+                                                                            onChange={this.handleCakeSizeExtraChange}></Input>
+                                                                    </span>) : (<div></div>)
+                                                            }
+
+                                                            {
+                                                                cakeSize === '' || (cakeSize === '叠加尺寸' && cakeSizeExtra === '') ? (
+                                                                    <span style={{ color: 'red', marginLeft: 8 }}>“大小”是必填项</span>
                                                                 ) : (<span></span>)
                                                             }
-                                                        </Input.Group>
+                                                        </div>
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                                         <span style={{ fontWeight: 'bold' }}>价格：</span>
@@ -1096,6 +1134,14 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<span></span>)
                                                         }
                                                     </div>
+
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <div style={{ fontWeight: 'bold' }}>帽子（默认为金卡皇冠帽）：</div>
+                                                        <Image style={{ width: 70, height: 70, marginTop: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
+                                                        <div style={{ width: 70, textAlign: 'center' }}>金卡皇冠帽</div>
+                                                        <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一顶</div>
+                                                    </div>
+
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                                         <span style={{ fontWeight: 'bold' }}>餐具：</span>
                                                         <span>{cakePlateNumber}</span>
@@ -1589,6 +1635,12 @@ class birthdayCakeSale extends React.Component {
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 16 }}>大小：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
+                                        {
+                                            cakeSize === '叠加尺寸' ? (
+                                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>
+                                                    {cakeSizeExtra}
+                                                </span>) : (<span></span>)
+                                        }
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 16 }}>价格：</span>
@@ -1611,6 +1663,10 @@ class birthdayCakeSale extends React.Component {
                                                 </span>
                                             )
                                         }
+                                    </div>
+                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                        <span style={{ fontSize: 16 }}>帽子：</span>
+                                        <span style={{ fontSize: 16, fontWeight: 'bold' }}>金卡皇冠帽</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 16 }}>餐具：</span>

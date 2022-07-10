@@ -86,8 +86,49 @@ const KResponseShopOptions = [
 ];
 
 const KCakeFillingOptions = [
-    '芒果', '布丁', '芋泥', '奥利奥',
-    '波波珠', '火龙果', '巧克力燕麦'];
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>芒果</div>
+        </div>), value: '芒果'
+    },
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>布丁</div>
+        </div>), value: '布丁'
+    },
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>芋泥</div>
+        </div>), value: '芋泥'
+    },
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>奥利奥</div>
+        </div>), value: '奥利奥'
+    },
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>火龙果</div>
+        </div>), value: '火龙果'
+    },
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>黑糖晶球</div>
+        </div>), value: '黑糖晶球'
+    },
+    {
+        label: (<div>
+            <Image style={{ width: 45, height: 45 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
+            <div style={{ width: 45, textAlign: 'center' }}>巧克力燕麦</div>
+        </div>), value: '巧克力燕麦'
+    }
+];
 
 const KCandleTypeOptions = [
     { label: '螺纹蜡烛', value: '螺纹蜡烛' },
@@ -134,7 +175,7 @@ class birthdayCakeSale extends React.Component {
             creamType: '',
             cakeSize: '',
             cakePrice: '',
-            cakeFillings: [KCakeFillingOptions[0], KCakeFillingOptions[1]],
+            cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
             cakePlateNumber: '',
@@ -438,7 +479,7 @@ class birthdayCakeSale extends React.Component {
             creamType: '',
             cakeSize: '',
             cakePrice: '',
-            cakeFillings: [KCakeFillingOptions[0], KCakeFillingOptions[1]],
+            cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
             cakePlateNumber: '',
@@ -996,8 +1037,9 @@ class birthdayCakeSale extends React.Component {
                                                         <span> 元</span>
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <span style={{ fontWeight: 'bold' }}>夹心（任选两种）：</span>
+                                                        <span style={{ fontWeight: 'bold' }}>夹心（任选两种，默认为芒果和布丁）：</span>
                                                         <CheckboxGroup
+                                                            style={{ marginTop: 8 }}
                                                             options={KCakeFillingOptions}
                                                             value={cakeFillings}
                                                             onChange={this.handleCakeFillingChange} />

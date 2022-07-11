@@ -976,8 +976,13 @@ class birthdayCakeSale extends React.Component {
                                 <div style={{ textAlign: 'center', width: '100%' }}>
                                     {
                                         (cakeImage !== '私人订制蛋糕') ? (
-                                            <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
-                                                src={cakeImage} />
+                                            <div>
+                                                <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                                    src={cakeImage} />
+                                                <Image style={{
+                                                    position: 'absolute', width: 55, height: 55, marginLeft: 4
+                                                }} src={`/image/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
+                                            </div>
                                         ) : (
                                             <Icon style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
                                                 component={() => divImageLoading ?

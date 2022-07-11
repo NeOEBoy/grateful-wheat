@@ -175,11 +175,11 @@ class birthdayCakeSale extends React.Component {
             creamType: '',
             cakeSize: '',
             cakeSizeExtra: '',
-            cakePrice: '-',
+            cakePrice: '--',
             cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
-            cakePlateNumber: '-',
+            cakePlateNumber: '--',
             /// 配送信息
             pickUpDay: '',
             pickUpDayPopupOpen: false,
@@ -480,11 +480,11 @@ class birthdayCakeSale extends React.Component {
             creamType: '',
             cakeSize: '',
             cakeSizeExtra: '',
-            cakePrice: '-',
+            cakePrice: '--',
             cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
-            cakePlateNumber: '-',
+            cakePlateNumber: '--',
 
             /// 配送信息
             pickUpDay: '',
@@ -619,7 +619,7 @@ class birthdayCakeSale extends React.Component {
 
         const { orderCakePrices, cakeSize } = this.state;
 
-        let cakePrice = '-';
+        let cakePrice = '--';
         if (orderCakePrices) {
             let price4CreamType = orderCakePrices[creamType];
             if (price4CreamType && price4CreamType[cakeSize]) {
@@ -633,7 +633,7 @@ class birthdayCakeSale extends React.Component {
     handleCakeSizeChange = (value) => {
         const { orderCakePrices, creamType } = this.state;
 
-        let cakePrice = '-';
+        let cakePrice = '--';
         if (orderCakePrices) {
             let price4CreamType = orderCakePrices[creamType];
             if (price4CreamType && price4CreamType[value]) {
@@ -641,7 +641,7 @@ class birthdayCakeSale extends React.Component {
             }
         }
 
-        let cakePlateNumber = KCakePlateNumberBySize[value] ? KCakePlateNumberBySize[value] : '-';
+        let cakePlateNumber = KCakePlateNumberBySize[value] ? KCakePlateNumberBySize[value] : '--';
         this.setState({
             cakeSize: value,
             cakePrice: cakePrice,

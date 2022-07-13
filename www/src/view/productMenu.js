@@ -7,14 +7,13 @@
 import React from 'react';
 import moment from 'moment';
 import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Collapse, Spin, List, Image, Button, Typography, message } from 'antd';
+import { Collapse, Spin, List, Image, Button, message } from 'antd';
 import {
     loadProductsSale,
     loadBreadAll,
     wechatSign
 } from '../api/api';
 
-const { Title } = Typography;
 const { Panel } = Collapse;
 const KImageRoot = '/image/面包牛奶';
 
@@ -377,7 +376,7 @@ class ProductMenu extends React.Component {
         let newNum = Math.round(num * a) / a;
         return newNum;
     }
-
+    
     render() {
         const {
             foodCategorys,
@@ -400,14 +399,15 @@ class ProductMenu extends React.Component {
 
         return (
             <div>
-                <div>
-                    <Title level={5} style={{
-                        backgroundColor: 'transparent',
-                        textAlign: 'center', marginTop: 4,
-                        color: 'black', paddingTop: 4, paddingBottom: 0
-                    }}>
-                        面包牛奶饮料菜单
-                    </Title>
+                <div style={{
+                    textAlign: 'center', color: '#B9B973',
+                    fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                }}>
+                    <span>预定前请先添加教育局总店</span>
+                    <span style={{ textDecoration: 'underline' }}>
+                        <a href="tel:13290768588">13290768588</a>
+                    </span>
+                    <span> (微信同号)</span>
                 </div>
 
                 <Collapse

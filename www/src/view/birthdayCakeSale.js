@@ -69,7 +69,10 @@ const KCategorys = [{
 }, {
     categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', description: '共同举杯、共敬未来',
     thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: {}
-},];
+}, {
+    categoryId: '1657848010512718759', categoryName: '结婚订婚纪念蛋糕', description: '先生/女士、周年快乐',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/爱心纪念-方图.jpg', productItems: {}
+}];
 
 const KPickUpTypeOptions = [
     { label: '自己提货', value: '自己提货' },

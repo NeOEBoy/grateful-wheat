@@ -194,6 +194,9 @@ class birthdayCakeSale extends React.Component {
             phoneNumber: '',
             remarks: '',
 
+            /// 制单时间
+            makingTime: '',
+
             orderImageModalVisiable: false,
             orderImageSrc: undefined,
             imageCapturing: false,
@@ -498,6 +501,8 @@ class birthdayCakeSale extends React.Component {
             pickUpName: '',
             phoneNumber: '',
             remarks: '',
+
+            makingTime: '',
         });
 
         document.documentElement.style.overflow = 'hidden';
@@ -525,8 +530,8 @@ class birthdayCakeSale extends React.Component {
         } = this.state;
 
         console.log('图片：' + cakeImage);
-        console.log('奶油：' + creamType);
-        console.log('大小：' + cakeSize);
+        console.log('奶油类型：' + creamType);
+        console.log('尺寸大小：' + cakeSize);
         console.log('叠加尺寸：' + cakeSizeExtra);
         console.log('价格：' + cakePrice);
         console.log('夹心：' + cakeFillings);
@@ -534,9 +539,9 @@ class birthdayCakeSale extends React.Component {
         console.log('数字：' + number4candle);
         console.log('餐盘：' + cakePlateNumber);
         console.log('日期：' + pickUpDay);
-        console.log('时间：' + pickUpTime);
-        console.log('方式：' + pickUpType);
-        console.log('门店：' + responseShop);
+        console.log('提货时间：' + pickUpTime);
+        console.log('提货方式：' + pickUpType);
+        console.log('提货门店：' + responseShop);
         console.log('地址：' + deliverAddress);
         console.log('姓名：' + pickUpName);
         console.log('手机：' + phoneNumber);
@@ -585,7 +590,8 @@ class birthdayCakeSale extends React.Component {
         }
 
         this.setState({
-            orderCakeInfoModalVisiable: false
+            orderCakeInfoModalVisiable: false,
+            makingTime: moment().format('YYYY.MM.DD HH:mm')
         }, () => {
             setTimeout(() => {
                 this.setState({
@@ -760,6 +766,7 @@ class birthdayCakeSale extends React.Component {
             pickUpName,
             phoneNumber,
             remarks,
+            makingTime,
             orderImageModalVisiable,
             orderImageSrc,
             imageCapturing,
@@ -1066,7 +1073,7 @@ class birthdayCakeSale extends React.Component {
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                                         <Input.Group>
-                                                            <span style={{ fontWeight: 'bold' }}>奶油：</span>
+                                                            <span style={{ fontWeight: 'bold' }}>奶油类型：</span>
                                                             <Radio.Group
                                                                 size='large'
                                                                 options={creamTypeOptions}
@@ -1076,14 +1083,14 @@ class birthdayCakeSale extends React.Component {
                                                             />
                                                             {
                                                                 creamType === '' ? (
-                                                                    <div style={{ color: 'red' }}>“奶油”是必填项</div>
+                                                                    <div style={{ color: 'red' }}>“奶油类型”是必填项</div>
                                                                 ) : (<div></div>)
                                                             }
                                                         </Input.Group>
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                                         <div>
-                                                            <span style={{ fontWeight: 'bold' }}>大小：</span>
+                                                            <span style={{ fontWeight: 'bold' }}>尺寸大小：</span>
                                                             <Select value={cakeSize} style={{ width: 100 }}
                                                                 onChange={this.handleCakeSizeChange}
                                                                 onDropdownVisibleChange={this.handleDropdownVisibleChange}
@@ -1103,7 +1110,7 @@ class birthdayCakeSale extends React.Component {
 
                                                             {
                                                                 cakeSize === '' || (cakeSize === '叠加尺寸' && cakeSizeExtra === '') ? (
-                                                                    <div style={{ color: 'red' }}>“大小”是必填项</div>
+                                                                    <div style={{ color: 'red' }}>“尺寸大小”是必填项</div>
                                                                 ) : (<span></span>)
                                                             }
                                                         </div>
@@ -1160,7 +1167,7 @@ class birthdayCakeSale extends React.Component {
                                                 <div key='c'>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>交付</Divider>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <div style={{ fontWeight: 'bold' }}>时间：</div>
+                                                        <div style={{ fontWeight: 'bold' }}>提货时间：</div>
                                                         <div>
                                                             <DatePicker
                                                                 ref={(dp) => this._datePicker4PickUpDay = dp}
@@ -1245,12 +1252,12 @@ class birthdayCakeSale extends React.Component {
                                                         </div>
                                                         {
                                                             (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
-                                                                <div style={{ color: 'red' }}>“时间”是必填项</div>
+                                                                <div style={{ color: 'red' }}>“提货时间”是必填项</div>
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <span style={{ fontWeight: 'bold' }}>方式：</span>
+                                                        <span style={{ fontWeight: 'bold' }}>提货方式：</span>
                                                         <Radio.Group
                                                             size='large'
                                                             options={KPickUpTypeOptions}
@@ -1260,19 +1267,19 @@ class birthdayCakeSale extends React.Component {
                                                         />
                                                         {
                                                             pickUpType === '' ? (
-                                                                <div style={{ color: 'red' }}>“方式”是必填项</div>
+                                                                <div style={{ color: 'red' }}>“提货方式”是必填项</div>
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <span style={{ fontWeight: 'bold' }}>门店：</span>
+                                                        <span style={{ fontWeight: 'bold' }}>提货门店：</span>
                                                         <Select value={responseShop} style={{ width: 120 }}
                                                             onChange={this.handleResponseShopChange}
                                                             options={KResponseShopOptions}>
                                                         </Select>
                                                         {
                                                             responseShop === '' ? (
-                                                                <div style={{ color: 'red' }}>“门店”是必填项</div>
+                                                                <div style={{ color: 'red' }}>“提货门店”是必填项</div>
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
@@ -1614,6 +1621,10 @@ class birthdayCakeSale extends React.Component {
                         <div ref={(current) => { this._theDiv4Capture = current; }}
                             style={theDiv4CaptureStyle}>
                             <div style={{
+                                textAlign: 'right', position: 'fixed', paddingRight: 20,
+                                width: theDiv4CaptureWidth, fontSize:14
+                            }}>{`订购时间：${makingTime}`}</div>
+                            <div style={{
                                 fontSize: 22,
                                 textAlign: 'center',
                                 paddingTop: 12,
@@ -1637,11 +1648,11 @@ class birthdayCakeSale extends React.Component {
                                 <div style={theRightDivInTheDiv4CaptureStyle}>
                                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>制作</Divider>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 16 }}>奶油：</span>
+                                        <span style={{ fontSize: 16 }}>奶油类型：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{creamType}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 16 }}>大小：</span>
+                                        <span style={{ fontSize: 16 }}>尺寸大小：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{cakeSize}</span>
                                         {
                                             cakeSize === '叠加尺寸' ? (
@@ -1683,16 +1694,16 @@ class birthdayCakeSale extends React.Component {
                                     </div>
                                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 12 }}>交付</Divider>
                                     <div>
-                                        <span style={{ fontSize: 16 }}>时间：</span>
+                                        <span style={{ fontSize: 16 }}>提货时间：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpTime ? pickUpTime.format(' aHH:mm') : ''}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 16 }}>方式：</span>
+                                        <span style={{ fontSize: 16 }}>提货方式：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{pickUpType}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 16 }}>门店：</span>
+                                        <span style={{ fontSize: 16 }}>提货门店：</span>
                                         <span style={{ fontSize: 16, fontWeight: 'bold' }}>{responseShop}</span>
                                     </div>
                                     {

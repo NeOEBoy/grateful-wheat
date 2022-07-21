@@ -1622,7 +1622,7 @@ class birthdayCakeSale extends React.Component {
                             style={theDiv4CaptureStyle}>
                             <div style={{
                                 textAlign: 'right', position: 'fixed', paddingRight: 20,
-                                width: theDiv4CaptureWidth, fontSize:14
+                                width: theDiv4CaptureWidth, fontSize:14, paddingTop:14
                             }}>{`订购时间：${makingTime}`}</div>
                             <div style={{
                                 fontSize: 22,

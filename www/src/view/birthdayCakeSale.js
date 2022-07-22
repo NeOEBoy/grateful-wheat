@@ -1461,7 +1461,7 @@ class birthdayCakeSale extends React.Component {
                                             {
                                                 (rank === 1 || rank === 2 || rank === 3) ? (
                                                     <div style={{
-                                                        backgroundColor: '#848482', borderRadius: 20,
+                                                        borderRadius: 20,
                                                         position: 'absolute', zIndex: 10
                                                     }}>
                                                         <Image style={{
@@ -1570,7 +1570,7 @@ class birthdayCakeSale extends React.Component {
                                                                 {
                                                                     (rank === 1 || rank === 2 || rank === 3) ? (
                                                                         <div style={{
-                                                                            backgroundColor: '#848482', borderRadius: 20,
+                                                                            borderRadius: 20,
                                                                             position: 'absolute', zIndex: 10
                                                                         }}>
                                                                             <Image style={{

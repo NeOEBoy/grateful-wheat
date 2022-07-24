@@ -6,20 +6,35 @@ const router = express.Router();
 const httpErrors = require('http-errors')
 const fetch = require('node-fetch')
 const crypto = require('crypto');
+const urlParams = require('../util/url-params');
 
 /**
- * 配置数据
+ * 配置数据-弯麦烘焙
  */
-const config = {
+const KConfig4Bread = {
     // 测试地址
     // appid: 'wx7442006a24f09334',
     // appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
     // 正式地址
     appid: 'wxb2070ea52da2dfc7',
     appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',
-    getAccessToken: 'https://api.weixin.qq.com/cgi-bin/token',
-    getTicket: 'https://api.weixin.qq.com/cgi-bin/ticket/getticket'
 }
+
+/**
+ * 配置数据-弯麦科技
+ */
+const KConfig4Tech = {
+    // 测试地址
+    // appid: 'wx7442006a24f09334',
+    // appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
+    // 正式地址
+    appid: 'wx67eec99994012f29',
+    appsecret: 'c3a7f6bc8cfaf3645664bf6f8db3ff7a',
+}
+
+const KGetAccessTokenUrl = 'https://api.weixin.qq.com/cgi-bin/token';
+const KGetTicketUrl = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket';
+
 /**
  * 缓存
  */
@@ -34,7 +49,7 @@ router.get('/sign', async function (req, res, next) {
         const params = {};
         params.url = req.query.url;
 
-        let accessToken = await getAccessToken();
+        let accessToken = await getAccessToken(KConfig4Bread);
         if (accessToken && accessToken.access_token) {
             let ticket = await getTicket(accessToken.access_token);
             if (ticket && ticket.ticket) {
@@ -51,8 +66,69 @@ router.get('/sign', async function (req, res, next) {
     }
 });
 
-getAccessToken = async () => {
-    const cacheKey = 'jsapi_access_token';
+router.get('/templateSendToTech', async function (req, res, next) {
+    try {
+        let title = req.query.title;
+        let orderNum = req.query.orderNum;
+        let style = req.query.style;
+        let deliverTime = req.query.deliverTime;
+        let name = req.query.name;
+        let phone = req.query.phone;
+
+        let accessToken = await getAccessToken(KConfig4Bread);
+        if (accessToken && accessToken.access_token) {
+            let templateBody = makeCakeOrderTemplateBody('oBO-bs9qqq-ZtaKzvQHhR1zNOK4E',
+                title, orderNum, style, deliverTime, name, phone);
+            makeTemplateSend(accessToken.access_token, templateBody);
+        }
+
+        res.send({});
+    } catch (err) {
+        next(err);
+    }
+});
+
+const makeCakeOrderTemplateBody = (toUser, title, orderNum, style, deliverTime, name, phone, remark) => {
+    let templateBody = {};
+    // 测试openid
+    // templateBody.touser = 'o7-RGwtoM8co7KEXMwBggYb_oQbI';
+    // 正式openid
+    templateBody.touser = toUser;
+    /// 测试模板id
+    // templateBody.template_id = 'b1MVp0K09kYViUxkVo5qm4Oiub5L4F4kS1oRlUjbONM';
+    /// 正式模板id从公众号的'功能'=>'模板消息'=>'我的模板'里获取
+    templateBody.template_id = 'dB9yNsbM9ivoGouAkQGEvCSeIPr-liSUQ18PTlpWvvs';
+    let templateData = {};
+    templateData.first = { value: title, color: "#FFAB19" };
+    templateData.keyword1 = { value: orderNum, color: "#FFAB19" }
+    templateData.keyword2 = { value: style, color: "#FFAB19" }
+    templateData.keyword3 = { value: deliverTime, color: "#FFAB19" }
+    templateData.keyword4 = { value: name, color: "#FFAB19" }
+    templateData.keyword5 = { value: phone, color: "#FFAB19" }
+    templateBody.data = templateData;
+
+    /// 设置跳转Url
+    // let clickUrl = 'http://gratefulwheat.ruyue.xyz/birthdayCakeSale';
+    // templateBody.url = clickUrl;
+
+    return templateBody;
+}
+
+const makeTemplateSend = async (accessToken, templateBody) => {
+    let templateParamObject = {};
+    templateParamObject.access_token = accessToken;
+    const templateParamString = urlParams(templateParamObject);
+    let templateUrl = 'https://api.weixin.qq.com/cgi-bin/message/template/send?' + templateParamString;
+
+    let templateBodyStr = JSON.stringify(templateBody);
+    const templateResponse = await fetch(templateUrl, { method: 'POST', body: templateBodyStr });
+    const templateJson = await templateResponse.json();
+    console.log(JSON.stringify(templateJson));
+}
+
+
+getAccessToken = async (config) => {
+    const cacheKey = 'jsapi_access_token' + config.appid;
     let cacheValue = cache.getCache(cacheKey);
     if (cacheValue) {
         const result = {
@@ -61,7 +137,7 @@ getAccessToken = async () => {
         };
         return result;
     } else {
-        const fetchUrl = `${config.getAccessToken}?grant_type=client_credential&appid=${config.appid}&secret=${config.appsecret}`;
+        const fetchUrl = `${KGetAccessTokenUrl}?grant_type=client_credential&appid=${config.appid}&secret=${config.appsecret}`;
         const response = await fetch(fetchUrl);
         const json = await response.json();
         json.from = 'wechat'
@@ -82,7 +158,7 @@ getTicket = async (access_token) => {
         };
         return result;
     } else {
-        const fetchUrl = `${config.getTicket}?access_token=${access_token}&type=jsapi`;
+        const fetchUrl = `${KGetTicketUrl}?access_token=${access_token}&type=jsapi`;
         const response = await fetch(fetchUrl);
         const json = await response.json();
         json.from = 'wechat'
@@ -114,7 +190,7 @@ getSign = (params, res) => {
     // console.log(params, ret);
     let string = raw(ret)
     ret.signature = sha1(string)
-    ret.appId = config.appid;
+    ret.appId = KConfig4Bread.appid;
     // console.log('ret', ret)
     res.send(ret);
 }

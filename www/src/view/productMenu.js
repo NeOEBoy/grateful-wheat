@@ -376,7 +376,7 @@ class ProductMenu extends React.Component {
         let newNum = Math.round(num * a) / a;
         return newNum;
     }
-    
+
     render() {
         const {
             foodCategorys,

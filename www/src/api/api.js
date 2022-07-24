@@ -444,6 +444,27 @@ const wechatSign = async (url) => {
   return wechatSignResponseJson;
 }
 
+const templateSendToTech = async (title, orderNum, style, deliverTime, name, phone) => {
+  let templateSendToTechUrl = KApiHost + '/wechat/templatesendtotech';
+  templateSendToTechUrl += '?title='
+  templateSendToTechUrl += title;
+  templateSendToTechUrl += '&orderNum='
+  templateSendToTechUrl += orderNum;
+  templateSendToTechUrl += '&style='
+  templateSendToTechUrl += style;
+  templateSendToTechUrl += '&deliverTime='
+  templateSendToTechUrl += deliverTime;
+  templateSendToTechUrl += '&name='
+  templateSendToTechUrl += name;
+  templateSendToTechUrl += '&phone='
+  templateSendToTechUrl += phone;
+
+  // console.log(templateSendToTechUrl);
+  const templateSendToTechResponse = await fetch(templateSendToTechUrl);
+  const templateSendToTechResponseJson = await templateSendToTechResponse.json();
+  return templateSendToTechResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -476,5 +497,6 @@ export {
   loadBirthdayCakesAll,
   loadBirthdayCakesWXConfig,
   loadBreadAll,
-  wechatSign
+  wechatSign,
+  templateSendToTech
 };

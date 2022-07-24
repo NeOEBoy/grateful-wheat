@@ -36,7 +36,8 @@ import {
     loadBirthdayCakesRecommend,
     loadBirthdayCakesAll,
     loadBirthdayCakesWXConfig,
-    wechatSign
+    wechatSign,
+    templateSendToTech
 } from '../api/api';
 
 const { Panel } = Collapse;
@@ -510,6 +511,7 @@ class birthdayCakeSale extends React.Component {
 
     handleOrderCakeInfoModalOk = () => {
         const {
+            cakeName,
             creamType,
             cakeImage,
             cakeSize,
@@ -529,6 +531,7 @@ class birthdayCakeSale extends React.Component {
             remarks
         } = this.state;
 
+        console.log('名字：' + cakeName);
         console.log('图片：' + cakeImage);
         console.log('奶油类型：' + creamType);
         console.log('尺寸大小：' + cakeSize);
@@ -610,6 +613,8 @@ class birthdayCakeSale extends React.Component {
                             orderImageModalVisiable: true
                         });
                         document.documentElement.style.overflow = 'hidden';
+
+                        templateSendToTech(cakeName, '0000', creamType, pickUpTime, pickUpName, phoneNumber);
                     });
                 })
             }, 0);

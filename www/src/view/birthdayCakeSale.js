@@ -37,7 +37,7 @@ import {
     loadBirthdayCakesAll,
     loadBirthdayCakesWXConfig,
     wechatSign,
-    templateSendToTech
+    templateSendToSomePeople
 } from '../api/api';
 
 const { Panel } = Collapse;
@@ -614,7 +614,11 @@ class birthdayCakeSale extends React.Component {
                         });
                         document.documentElement.style.overflow = 'hidden';
 
-                        templateSendToTech(cakeName, '0000', creamType, pickUpTime, pickUpName, phoneNumber);
+                        /// 模板通知指定人员有人生成订购单了，避免漏单
+                        let title = '有顾客生成蛋糕订购单了';
+                        let style = '《' + cakeName + '》';
+                        let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
+                        templateSendToSomePeople(title, responseShop, style, time, pickUpName, phoneNumber);
                     });
                 })
             }, 0);

@@ -66,7 +66,7 @@ router.get('/sign', async function (req, res, next) {
     }
 });
 
-router.get('/templateSendToTech', async function (req, res, next) {
+router.get('/templateSendToSomePeople', async function (req, res, next) {
     try {
         let title = req.query.title;
         let orderNum = req.query.orderNum;
@@ -99,12 +99,12 @@ const makeCakeOrderTemplateBody = (toUser, title, orderNum, style, deliverTime, 
     /// 正式模板id从公众号的'功能'=>'模板消息'=>'我的模板'里获取
     templateBody.template_id = 'dB9yNsbM9ivoGouAkQGEvCSeIPr-liSUQ18PTlpWvvs';
     let templateData = {};
-    templateData.first = { value: title, color: "#FFAB19" };
-    templateData.keyword1 = { value: orderNum, color: "#FFAB19" }
-    templateData.keyword2 = { value: style, color: "#FFAB19" }
-    templateData.keyword3 = { value: deliverTime, color: "#FFAB19" }
-    templateData.keyword4 = { value: name, color: "#FFAB19" }
-    templateData.keyword5 = { value: phone, color: "#FFAB19" }
+    templateData.first = { value: title, color: "#008000" };
+    templateData.keyword1 = { value: orderNum, color: "#008000" }
+    templateData.keyword2 = { value: style, color: "#008000" }
+    templateData.keyword3 = { value: deliverTime, color: "#008000" }
+    templateData.keyword4 = { value: name, color: "#008000" }
+    templateData.keyword5 = { value: phone, color: "#008000" }
     templateBody.data = templateData;
 
     /// 设置跳转Url

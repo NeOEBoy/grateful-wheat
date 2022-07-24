@@ -444,8 +444,8 @@ const wechatSign = async (url) => {
   return wechatSignResponseJson;
 }
 
-const templateSendToTech = async (title, orderNum, style, deliverTime, name, phone) => {
-  let templateSendToTechUrl = KApiHost + '/wechat/templatesendtotech';
+const templateSendToSomePeople = async (title, orderNum, style, deliverTime, name, phone) => {
+  let templateSendToTechUrl = KApiHost + '/wechat/templateSendToSomePeople';
   templateSendToTechUrl += '?title='
   templateSendToTechUrl += title;
   templateSendToTechUrl += '&orderNum='
@@ -498,5 +498,5 @@ export {
   loadBirthdayCakesWXConfig,
   loadBreadAll,
   wechatSign,
-  templateSendToTech
+  templateSendToSomePeople
 };

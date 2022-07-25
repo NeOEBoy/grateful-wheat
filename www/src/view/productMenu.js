@@ -149,9 +149,13 @@ class ProductMenu extends React.Component {
                                 let item = { ...list[i] };
                                 item.buyNumber = 0;
                                 item.disable = false;
-                                item['配料'] = '';
+                                item['配料'] = '-';
+                                item['规格'] = '-';
+                                item['价格'] = 0;
                                 if (this._breadAll[item.productName]) {
-                                    item['配料'] = this._breadAll[item.productName]['配料'];
+                                    item['配料'] = this._breadAll[item.productName]['配料'] ? this._breadAll[item.productName]['配料'] : '-';
+                                    item['规格'] = this._breadAll[item.productName]['规格'] ? this._breadAll[item.productName]['规格'] : '-';
+                                    item['价格'] = this._breadAll[item.productName]['价格'] ? this._breadAll[item.productName]['价格'] : 0;
                                 }
                                 newList.push(item);
                             }
@@ -313,7 +317,7 @@ class ProductMenu extends React.Component {
             let totalCount = 0;
             for (let i = 0; i < orderList.length; ++i) {
                 let item = orderList[i];
-                let tp = item.price * item.buyNumber;
+                let tp = item["价格"] * item.buyNumber;
 
                 tp = this.fixTo2(tp);
                 totalPrice += tp;
@@ -356,7 +360,7 @@ class ProductMenu extends React.Component {
             let totalCount = 0;
             for (let i = 0; i < orderList.length; ++i) {
                 let item = orderList[i];
-                let tp = item.price * item.buyNumber;
+                let tp = item["价格"] * item.buyNumber;
 
                 tp = this.fixTo2(tp);
                 totalPrice += tp;
@@ -485,7 +489,7 @@ class ProductMenu extends React.Component {
                                                                     fontSize: 8,
                                                                     color: 'gray'
                                                                 }}>
-                                                                    {item1.specification}
+                                                                    {`规格：${item1['规格']}`}
                                                                 </div>
                                                                 <div style={{
                                                                     fontSize: 14,
@@ -495,7 +499,7 @@ class ProductMenu extends React.Component {
                                                                         ¥
                                                                     </span>
                                                                     <span>
-                                                                        {item1.price}
+                                                                        {item1["价格"]}
                                                                     </span>
                                                                     <span>
                                                                         /
@@ -636,7 +640,7 @@ class ProductMenu extends React.Component {
                                     dataSource={orderList}
                                     renderItem={item => {
                                         // console.log(imageSrc);
-                                        let totalPrice = item.price * item.buyNumber;
+                                        let totalPrice = item["价格"] * item.buyNumber;
 
                                         totalPrice = this.fixTo2(totalPrice)
 

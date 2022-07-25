@@ -159,6 +159,17 @@ class BuildingMap extends React.Component {
 
         return (
             <div style={{ marginLeft: 20, marginTop: 5, marginRight: 20 }}>
+                <div style={{
+                    textAlign: 'center', color: '#B9B973',
+                    fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                }}>
+                    <span>预定蛋糕请先添加教育局总店2号</span>
+                    <span style={{ textDecoration: 'underline' }}>
+                        <a href="tel:18599568588">18599568588</a>
+                    </span>
+                    <span> (微信同号)</span>
+                </div>
+
                 <span>
                     <Search style={{ width: 180, marginTop: 4, marginLeft: 6, marginBottom: 4 }} size="middle"
                         placeholder="小区名"

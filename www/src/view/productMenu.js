@@ -21,8 +21,8 @@ const KCategorys = [{
     categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
     thumbnail: `${KImageRoot}/现烤面包/甜甜圈.jpg`, productItems: []
 }, {
-    categoryId: '1592989355905414162', categoryName: '西点慕斯蛋糕', description: '甜点慕斯、烦恼拜拜',
-    thumbnail: `${KImageRoot}/西点慕斯蛋糕/黑森林.jpg`, productItems: []
+    categoryId: '1592989355905414162', categoryName: '西点慕斯', description: '甜点慕斯、烦恼拜拜',
+    thumbnail: `${KImageRoot}/西点慕斯/黑森林.jpg`, productItems: []
 }, {
     categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
     thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []

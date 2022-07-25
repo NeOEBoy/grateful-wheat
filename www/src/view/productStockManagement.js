@@ -4,7 +4,9 @@
 import React from 'react';
 import moment from 'moment';
 import {
-    Button, Menu, Dropdown, Table
+    Button, Menu,
+    Dropdown, Table,
+    Image
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import {
@@ -102,9 +104,9 @@ class ProductStockManagement extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let title = '弯麦库存管理（内部）';
+                let title = '弯麦面包牛奶库存';
                 let desc = '用于连锁门店库存查看、盘点、调度';
-                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/生日蛋糕/image4wechat.jpg';
+                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/面包牛奶/库存.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                 window.wx.updateAppMessageShareData({
@@ -159,10 +161,16 @@ class ProductStockManagement extends React.Component {
         /// 订单列表头配置
         const KStockColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '条码', dataIndex: 'barcode', productName: 'barcode', width: 60, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '名称', dataIndex: 'productName', productName: 'productName', width: 80, render: (text) => { return <span style={{ fontSize: 12 }}>{text}</span>; } },
+            { title: '条码', dataIndex: 'barcode', key: 'barcode', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             {
-                title: '库存', dataIndex: 'stock', productName: 'stock', width: 30, render:
+                title: '图片', dataIndex: 'productName', key: 'image', width: 60, render: (text) => {
+                    let image = `/image/面包牛奶/${currentCategory4StockList.name}/${text}.jpg`;
+                    return (<Image style={{ width: 40, height: 40 }} preview={true} src={image} />);
+                }
+            },
+            { title: '名称', dataIndex: 'productName', key: 'productName', width: 120, render: (text) => { return <span style={{ fontSize: 12 }}>{text}</span>; } },
+            {
+                title: '库存', dataIndex: 'stock', key: 'stock', width: 60, render:
                     (text) => {
                         let fg = 'black';
                         if (text === '0' || text.substring(0, 1) === '-') {
@@ -171,64 +179,70 @@ class ProductStockManagement extends React.Component {
                         return <span style={{ fontSize: 16, color: fg }}>{text}</span>;
                     }
             },
+            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 12 }}>{text}</span>; } },
         ];
 
         return (
             <div style={{ marginLeft: 20, marginTop: 5, marginRight: 20 }}>
                 <div style={{ fontSize: 15, marginBottom: 5 }}>库存管理</div>
-                <Dropdown
-                    style={{ marginLeft: 0 }}
-                    overlay={
-                        () => {
-                            return (<Menu onClick={async ({ key }) => {
-                                this.setState({ currentShop4StockList: KAllShopsExceptAll[key] }, async () => {
-                                    await this.fetchStockList();
-                                });
-                            }} >
-                                {
-                                    KAllShopsExceptAll.map((shop) => {
-                                        let fg = 'black';
-                                        if (shop.name === currentShop4StockList.name) fg = 'red';
-                                        return (<Menu.Item key={shop.index} style={{ color: fg }}>
-                                            {shop.name}
-                                        </Menu.Item>);
-                                    })
-                                }
-                            </Menu>)
-                        }
-                    } arrow trigger={['click']} disabled={stockLoading}>
-                    <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
-                        {currentShop4StockList.name}
-                        <DownOutlined />
-                    </Button>
-                </Dropdown>
 
-                <Dropdown
-                    style={{ marginLeft: 0 }}
-                    overlay={
-                        () => {
-                            return (<Menu onClick={async ({ key }) => {
-                                this.setState({ currentCategory4StockList: KAllCategorysExceptAll[key] }, async () => {
-                                    await this.fetchStockList();
-                                });
-                            }} >
-                                {
-                                    KAllCategorysExceptAll.map((shop) => {
-                                        let fg = 'black';
-                                        if (shop.name === currentCategory4StockList.name) fg = 'red';
-                                        return (<Menu.Item key={shop.index} style={{ color: fg }}>
-                                            {shop.name}
-                                        </Menu.Item>);
-                                    })
+                <div>
+                    <span>
+                        <Dropdown
+                            overlay={
+                                () => {
+                                    return (<Menu onClick={async ({ key }) => {
+                                        this.setState({ currentShop4StockList: KAllShopsExceptAll[key] }, async () => {
+                                            await this.fetchStockList();
+                                        });
+                                    }} >
+                                        {
+                                            KAllShopsExceptAll.map((shop) => {
+                                                let fg = 'black';
+                                                if (shop.name === currentShop4StockList.name) fg = 'red';
+                                                return (<Menu.Item key={shop.index} style={{ color: fg }}>
+                                                    {shop.name}
+                                                </Menu.Item>);
+                                            })
+                                        }
+                                    </Menu>)
                                 }
-                            </Menu>)
-                        }
-                    } arrow trigger={['click']} disabled={stockLoading}>
-                    <Button size="small" style={{ width: 100 }} onClick={e => e.preventDefault()}>
-                        {currentCategory4StockList.name}
-                        <DownOutlined />
-                    </Button>
-                </Dropdown>
+                            } arrow trigger={['click']} disabled={stockLoading}>
+                            <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                                {currentShop4StockList.name}
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                    </span>
+
+                    <span style={{ marginLeft: 10 }}>
+                        <Dropdown
+                            overlay={
+                                () => {
+                                    return (<Menu onClick={async ({ key }) => {
+                                        this.setState({ currentCategory4StockList: KAllCategorysExceptAll[key] }, async () => {
+                                            await this.fetchStockList();
+                                        });
+                                    }} >
+                                        {
+                                            KAllCategorysExceptAll.map((shop) => {
+                                                let fg = 'black';
+                                                if (shop.name === currentCategory4StockList.name) fg = 'red';
+                                                return (<Menu.Item key={shop.index} style={{ color: fg }}>
+                                                    {shop.name}
+                                                </Menu.Item>);
+                                            })
+                                        }
+                                    </Menu>)
+                                }
+                            } arrow trigger={['click']} disabled={stockLoading}>
+                            <Button size="small" style={{ width: 100 }} onClick={e => e.preventDefault()}>
+                                {currentCategory4StockList.name}
+                                <DownOutlined />
+                            </Button>
+                        </Dropdown>
+                    </span>
+                </div>
 
                 <Table
                     style={{ marginTop: 10 }}

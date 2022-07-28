@@ -68,6 +68,7 @@ router.get('/sign', async function (req, res, next) {
 
 router.get('/templateSendToSomePeople', async function (req, res, next) {
     try {
+        console.log('aaa');
         let title = req.query.title;
         let orderNum = req.query.orderNum;
         let style = req.query.style;
@@ -77,9 +78,17 @@ router.get('/templateSendToSomePeople', async function (req, res, next) {
 
         let accessToken = await getAccessToken(KConfig4Bread);
         if (accessToken && accessToken.access_token) {
-            let templateBody = makeCakeOrderTemplateBody('oBO-bs9qqq-ZtaKzvQHhR1zNOK4E',
-                title, orderNum, style, deliverTime, name, phone);
-            makeTemplateSend(accessToken.access_token, templateBody);
+            /// 王荣慧，Kate，教育局1号
+            const openIds = [
+                "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",
+                "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",
+                "oBO-bs7Oiijwq5vi-CfGfW0CaIC0"];
+            for (let index = 0; index < openIds.length; ++index) {
+                let openId = openIds[index];
+                let templateBody = makeCakeOrderTemplateBody(openId,
+                    title, orderNum, style, deliverTime, name, phone);
+                makeTemplateSend(accessToken.access_token, templateBody);
+            }
         }
 
         res.send({});

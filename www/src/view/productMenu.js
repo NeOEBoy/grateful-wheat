@@ -36,6 +36,9 @@ const KCategorys = [{
     categoryId: '1593059349213583584', categoryName: '干点饼干', description: '饼干茶点、惬意午后',
     thumbnail: `${KImageRoot}/干点饼干/牛油曲奇.jpg`, productItems: []
 }, {
+    categoryId: '1652965113501744892', categoryName: '中式糕点', description: '饼干茶点、惬意午后',
+    thumbnail: `${KImageRoot}/中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
+}, {
     categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
     thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
 }, {
@@ -44,8 +47,7 @@ const KCategorys = [{
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
     thumbnail: `${KImageRoot}/长富常温牛奶/长富24精品纯奶.jpg`, productItems: []
-}
-];
+}];
 
 class ProductMenu extends React.Component {
     constructor(props) {

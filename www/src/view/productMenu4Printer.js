@@ -29,7 +29,7 @@ const KCategorys = [
     { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
 ];
 
-const KImageRoot = '/image';
+const KImageRoot = '/image/面包牛奶';
 
 class ProductMenu4Printer extends React.Component {
     constructor(props) {

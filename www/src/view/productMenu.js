@@ -36,7 +36,7 @@ const KCategorys = [{
     categoryId: '1593059349213583584', categoryName: '干点饼干', description: '饼干茶点、惬意午后',
     thumbnail: `${KImageRoot}/干点饼干/牛油曲奇.jpg`, productItems: []
 }, {
-    categoryId: '1652965113501744892', categoryName: '中式糕点', description: '饼干茶点、惬意午后',
+    categoryId: '1652965113501744892', categoryName: '中式糕点', description: '传统糕点，经典传承',
     thumbnail: `${KImageRoot}/中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
 }, {
     categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',

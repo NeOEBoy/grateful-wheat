@@ -68,7 +68,6 @@ router.get('/sign', async function (req, res, next) {
 
 router.get('/templateSendToSomePeople', async function (req, res, next) {
     try {
-        console.log('aaa');
         let title = req.query.title;
         let orderNum = req.query.orderNum;
         let style = req.query.style;

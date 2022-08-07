@@ -536,8 +536,8 @@ class birthdayCakeSale extends React.Component {
         console.log('名字：' + cakeName);
         console.log('图片：' + cakeImage);
         console.log('奶油类型：' + creamType);
-        console.log('尺寸大小：' + cakeSize);
-        console.log('组合尺寸：' + cakeSizeExtra);
+        console.log('尺寸：' + cakeSize);
+        console.log('组合：' + cakeSizeExtra);
         console.log('价格：' + cakePrice);
         console.log('夹心：' + cakeFillings);
         console.log('蜡烛：' + candleType);
@@ -571,7 +571,7 @@ class birthdayCakeSale extends React.Component {
             return;
         }
 
-        if (cakeSize === '组合尺寸') {
+        if (cakeSize === '组合') {
             if (cakeSizeExtra === '') {
                 message.warning('请填写必填项！')
                 return;
@@ -814,7 +814,7 @@ class birthdayCakeSale extends React.Component {
                 '10寸': { label: '10寸', value: '10寸' },
                 '12寸': { label: '12寸', value: '12寸' },
                 '14寸': { label: '14寸', value: '14寸' },
-                '组合尺寸': { label: '组合尺寸', value: '组合尺寸' }
+                '组合': { label: '组合', value: '组合' }
             };
 
             if (orderCakePrices) {
@@ -827,7 +827,7 @@ class birthdayCakeSale extends React.Component {
                         cakeSizeOptions.push(cakeSizeOption);
                     }
                     if (sizes.length >= 2) {
-                        cakeSizeOptions.push(KCakeAllSizeOptions['组合尺寸']);
+                        cakeSizeOptions.push(KCakeAllSizeOptions['组合']);
                     }
                 }
             }
@@ -1083,11 +1083,11 @@ class birthdayCakeSale extends React.Component {
                                                                     }
                                                                     {
                                                                         sizes.length >= 2 ? (
-                                                                            <div>
-                                                                                <span>可组合，价格为对应尺寸之和</span>
+                                                                            <div style={{ fontSize: 12, fontWeight: 'bold' }}>
+                                                                                <div>叠加组合，价格为对应尺寸之和</div>
+                                                                                <div>悬浮组合，价格为对应尺寸之和+20元</div>
                                                                             </div>) : (<div></div>)
                                                                     }
-
                                                                 </div>
                                                             )
                                                         }))
@@ -1115,27 +1115,27 @@ class birthdayCakeSale extends React.Component {
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
                                                         <div>
-                                                            <span style={{ fontWeight: 'bold' }}>尺寸大小：</span>
-                                                            <Select value={cakeSize} style={{ width: 100 }}
+                                                            <span style={{ fontWeight: 'bold' }}>尺寸：</span>
+                                                            <Select value={cakeSize} style={{ width: 80, marginRight: 8 }}
                                                                 onChange={this.handleCakeSizeChange}
                                                                 onDropdownVisibleChange={this.handleDropdownVisibleChange}
                                                                 options={cakeSizeOptions}>
                                                             </Select>
 
                                                             {
-                                                                cakeSize === '组合尺寸' ? (
-                                                                    <span style={{ marginLeft: 8 }}>
-                                                                        <Input placeholder='几寸+几寸'
+                                                                cakeSize === '组合' ? (
+                                                                    <span>
+                                                                        <Input placeholder='叠加或悬浮|几寸+几寸'
                                                                             prefix={<EditOutlined />}
-                                                                            style={{ width: 120 }}
+                                                                            style={{ width: 190 }}
                                                                             value={cakeSizeExtra}
                                                                             onChange={this.handleCakeSizeExtraChange}></Input>
                                                                     </span>) : (<div></div>)
                                                             }
 
                                                             {
-                                                                cakeSize === '' || (cakeSize === '组合尺寸' && cakeSizeExtra === '') ? (
-                                                                    <div style={{ color: 'red' }}>“尺寸大小”是必填项</div>
+                                                                cakeSize === '' || (cakeSize === '组合' && cakeSizeExtra === '') ? (
+                                                                    <div style={{ color: 'red' }}>“尺寸”是必填项</div>
                                                                 ) : (<span></span>)
                                                             }
                                                         </div>
@@ -1709,10 +1709,10 @@ class birthdayCakeSale extends React.Component {
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{creamType}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14 }}>尺寸大小：</span>
+                                        <span style={{ fontSize: 14 }}>尺寸：</span>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakeSize}</span>
                                         {
-                                            cakeSize === '组合尺寸' ? (
+                                            cakeSize === '组合' ? (
                                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                     {cakeSizeExtra}
                                                 </span>) : (<span></span>)

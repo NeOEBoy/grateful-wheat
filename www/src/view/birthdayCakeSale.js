@@ -143,6 +143,17 @@ const KCandleTypeOptions = [
     { label: '荷花●音乐蜡烛', value: '荷花●音乐蜡烛' }
 ];
 
+/// 导火器
+const KIgnitorTypeOptions = [
+    {
+        label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
+            <div style={{ width: 70, textAlign: 'center' }}>火柴盒</div>
+            <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一盒</div>
+        </div>), value: '火柴盒'
+    }
+];
+
 const KCakePlateNumberBySize = {
     '5寸': '5',
     '6寸': '10',
@@ -184,6 +195,7 @@ class birthdayCakeSale extends React.Component {
             cakePrice: '--',
             cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
+            ignitorType: '',
             number4candle: '',
             cakePlateNumber: '--',
             /// 配送信息
@@ -698,6 +710,10 @@ class birthdayCakeSale extends React.Component {
         this.setState({ candleType: e.target.value });
     }
 
+    handleIgnitorTypeChange = (e) => {
+        this.setState({ ignitorType: e.target.value });
+    }
+
     handleNumber4candleChange = (e) => {
         this.setState({ number4candle: e.target.value });
     }
@@ -767,6 +783,7 @@ class birthdayCakeSale extends React.Component {
             cakePrice,
             cakeFillings,
             candleType,
+            ignitorType,
             number4candle,
             cakePlateNumber,
             pickUpDay,
@@ -914,7 +931,6 @@ class birthdayCakeSale extends React.Component {
                 </div>), value: '荷花●音乐蜡烛'
             }
         ];
-
 
         return (
             <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
@@ -1173,6 +1189,15 @@ class birthdayCakeSale extends React.Component {
                                                                 <div style={{ color: 'red', marginLeft: 0 }}>“数字”是必填项</div>
                                                             ) : (<span></span>)
                                                         }
+                                                    </div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                        <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
+
+                                                        <Radio.Group style={{ marginTop: 8 }}
+                                                            options={KIgnitorTypeOptions}
+                                                            value={ignitorType}
+                                                            onChange={this.handleIgnitorTypeChange}>
+                                                        </Radio.Group>
                                                     </div>
 
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
@@ -1738,6 +1763,13 @@ class birthdayCakeSale extends React.Component {
                                                 <span>
                                                 </span>
                                             )
+                                        }
+                                        {
+                                            ignitorType !== '' ? (
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                                    {`+${ignitorType}`}
+                                                </span>
+                                            ) : (<span></span>)
                                         }
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>

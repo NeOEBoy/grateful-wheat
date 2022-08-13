@@ -209,12 +209,12 @@ class BirthdayCakeOrder extends React.Component {
                                 <Button style={{ textDecoration: 'underline', fontSize: 14, fontWeight: 'bold' }}
                                     onClick={() => {
                                         window.wx.openLocation({
-                                            latitude: 116.473195, // 纬度，浮点数，范围为90 ~ -90
-                                            longitude: 39.993253, // 经度，浮点数，范围为180 ~ -180。
-                                            name: '', // 位置名
-                                            address: '', // 地址详情说明
-                                            scale: 1, // 地图缩放级别,整型值,范围从1~28。默认为最大
-                                            infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                                            latitude: 117.612837, // 纬度，浮点数，范围为90 ~ -90
+                                            longitude: 24.113938, // 经度，浮点数，范围为180 ~ -180。
+                                            name: '王荣慧', // 位置名
+                                            address: '漳浦县绥安镇府前唐街2号楼', // 地址详情说明
+                                            scale: 12, // 地图缩放级别,整型值,范围从1~28。默认为最大
+                                            infoUrl: 'https://www.baidu.com/' // 在查看位置界面底部显示的超链接,可点击跳转
                                         });
                                     }}>
                                     {deliverAddress}

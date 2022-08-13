@@ -209,8 +209,8 @@ class BirthdayCakeOrder extends React.Component {
                                 <Button style={{ textDecoration: 'underline', fontSize: 14, fontWeight: 'bold' }}
                                     onClick={() => {
                                         window.wx.openLocation({
-                                            latitude: 117.612837, // 纬度，浮点数，范围为90 ~ -90
-                                            longitude: 24.113938, // 经度，浮点数，范围为180 ~ -180。
+                                            longitude: 117.612837, // 经度，浮点数，范围为180 ~ -180。
+                                            latitude: 24.113938, // 纬度，浮点数，范围为90 ~ -90                                            
                                             name: '王荣慧', // 位置名
                                             address: '漳浦县绥安镇府前唐街2号楼', // 地址详情说明
                                             scale: 12, // 地图缩放级别,整型值,范围从1~28。默认为最大

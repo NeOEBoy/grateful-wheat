@@ -19,9 +19,7 @@ const KBuildMapNames = [
     '富源新城', '西湖苑', '益民家园', '惠民家园', '立欣东方新城', '夏商水岸名都'
 ];
 
-
 /**--------------------配置信息--------------------*/
-
 class BuildingMap extends React.Component {
     constructor(props) {
         super(props);

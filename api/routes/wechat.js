@@ -116,8 +116,8 @@ const makeCakeOrderTemplateBody = (toUser, title, orderNum, style, deliverTime, 
     templateBody.data = templateData;
 
     /// 设置跳转Url
-    // let clickUrl = 'http://gratefulwheat.ruyue.xyz/birthdayCakeSale';
-    // templateBody.url = clickUrl;
+    let clickUrl = 'http://gratefulwheat.ruyue.xyz/birthdayCakeOrder';
+    templateBody.url = clickUrl;
 
     return templateBody;
 }

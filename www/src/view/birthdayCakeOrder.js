@@ -27,7 +27,7 @@ class BirthdayCakeOrder extends React.Component {
             pickUpTime: '18:00',
             pickUpType: '商家配送',
             responseShop: '教育局店',
-            deliverAddress: '漳浦县绥安镇府前街西2号楼1202',
+            deliverAddress: '漳浦县绥安镇府前世家2号楼1202',
             deliverCity: '漳州',
             pickUpName: '王先生',
             phoneNumber: '18698036807',
@@ -227,7 +227,7 @@ class BirthdayCakeOrder extends React.Component {
                                                     // 地址详情说明
                                                     address: deliverAddress,
                                                     // 地图缩放级别,整型值,范围从1~28。默认为最大
-                                                    scale: 16,
+                                                    scale: 14,
                                                     // 在查看位置界面底部显示的超链接,可点击跳转
                                                     infoUrl: 'https://www.baidu.com/'
                                                 });

@@ -3,7 +3,8 @@ import {
     Image, Divider, Button
 } from 'antd';
 import {
-    wechatSign
+    wechatSign,
+    geocode
 } from '../api/api';
 
 const KPickUpTypeOptions = [
@@ -27,6 +28,7 @@ class BirthdayCakeOrder extends React.Component {
             pickUpType: '商家配送',
             responseShop: '教育局店',
             deliverAddress: '漳浦县绥安镇府前街西2号楼1202',
+            deliverCity: '漳州',
             pickUpName: '王先生',
             phoneNumber: '18698036807',
             remarks: '需要两个生日帽'
@@ -143,6 +145,7 @@ class BirthdayCakeOrder extends React.Component {
             pickUpType,
             responseShop,
             deliverAddress,
+            deliverCity,
             pickUpName,
             phoneNumber,
             remarks
@@ -207,15 +210,29 @@ class BirthdayCakeOrder extends React.Component {
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                 <span style={{ fontSize: 14 }}>地址：</span>
                                 <Button style={{ textDecoration: 'underline', fontSize: 14, fontWeight: 'bold' }}
-                                    onClick={() => {
-                                        window.wx.openLocation({
-                                            longitude: 117.612837, // 经度，浮点数，范围为180 ~ -180。
-                                            latitude: 24.113938, // 纬度，浮点数，范围为90 ~ -90                                            
-                                            name: '王荣慧', // 位置名
-                                            address: '漳浦县绥安镇府前唐街2号楼', // 地址详情说明
-                                            scale: 12, // 地图缩放级别,整型值,范围从1~28。默认为最大
-                                            infoUrl: 'https://www.baidu.com/' // 在查看位置界面底部显示的超链接,可点击跳转
-                                        });
+                                    onClick={async () => {
+                                        let locationResult = await geocode(deliverAddress, deliverCity);
+                                        if (locationResult.errCode === 0) {
+                                            let locationStr = locationResult.location;
+                                            let locationArray = locationStr.split(',');
+                                            console.log(locationArray);
+                                            if (locationArray.length === 2) {
+                                                window.wx.openLocation({
+                                                    // 经度，浮点数，范围为180 ~ -180。
+                                                    longitude: locationArray[0],
+                                                    // 纬度，浮点数，范围为90 ~ -90                                            
+                                                    latitude: locationArray[1],
+                                                    // 位置名
+                                                    name: deliverAddress,
+                                                    // 地址详情说明
+                                                    address: deliverAddress,
+                                                    // 地图缩放级别,整型值,范围从1~28。默认为最大
+                                                    scale: 16,
+                                                    // 在查看位置界面底部显示的超链接,可点击跳转
+                                                    infoUrl: 'https://www.baidu.com/'
+                                                });
+                                            }
+                                        }
                                     }}>
                                     {deliverAddress}
                                 </Button>

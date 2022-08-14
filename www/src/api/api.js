@@ -465,6 +465,19 @@ const templateSendToSomePeople = async (title, orderNum, style, deliverTime, nam
   return templateSendToTechResponseJson;
 }
 
+const geocode = async (address, city) => {
+  let geocodeUrl = KApiHost + '/amap/geocode';
+  geocodeUrl += '?address='
+  geocodeUrl += address;
+  geocodeUrl += '&city='
+  geocodeUrl += city;
+
+  // console.log(geocodeUrl);
+  const geocodeResponse = await fetch(geocodeUrl);
+  const geocodeResponseJson = await geocodeResponse.json();
+  return geocodeResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -498,5 +511,6 @@ export {
   loadBirthdayCakesWXConfig,
   loadBreadAll,
   wechatSign,
-  templateSendToSomePeople
+  templateSendToSomePeople,
+  geocode
 };

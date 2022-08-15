@@ -15,6 +15,7 @@ router.get('/createOrder', async function (req, res, next) {
         let creamType = req.query.creamType;
         let cakeSize = req.query.cakeSize;
         let cakeSizeExtra = req.query.cakeSizeExtra;
+        let cakePrice = req.query.cakePrice;
         let cakeFillings = req.query.cakeFillings;
         let candleType = req.query.candleType;
         let ignitorType = req.query.ignitorType;
@@ -36,7 +37,7 @@ router.get('/createOrder', async function (req, res, next) {
 
         let BirthdayCakeOrders = models.BirthdayCakeOrders;
         let count = await BirthdayCakeOrders.countDocuments();
-        if (count >= 1) {
+        if (count >= 50) {
             let firstOrder = await BirthdayCakeOrders.find(
                 {}).limit(1).exec();
             if (firstOrder && firstOrder.length >= 1) {
@@ -52,6 +53,7 @@ router.get('/createOrder', async function (req, res, next) {
             creamType: creamType,
             cakeSize: cakeSize,
             cakeSizeExtra: cakeSizeExtra,
+            cakePrice: cakePrice,
             cakeFillings: cakeFillings,
             candleType: candleType,
             ignitorType: ignitorType,

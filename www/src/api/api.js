@@ -444,9 +444,11 @@ const wechatSign = async (url) => {
   return wechatSignResponseJson;
 }
 
-const templateSendToSomePeople = async (title, orderNum, style, deliverTime, name, phone) => {
+const templateSendToSomePeople = async (_id, title, orderNum, style, deliverTime, name, phone) => {
   let templateSendToTechUrl = KApiHost + '/wechat/templateSendToSomePeople';
-  templateSendToTechUrl += '?title='
+  templateSendToTechUrl += '?_id='
+  templateSendToTechUrl += _id;
+  templateSendToTechUrl += '&title='
   templateSendToTechUrl += title;
   templateSendToTechUrl += '&orderNum='
   templateSendToTechUrl += orderNum;

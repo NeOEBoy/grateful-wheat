@@ -68,6 +68,7 @@ router.get('/sign', async function (req, res, next) {
 
 router.get('/templateSendToSomePeople', async function (req, res, next) {
     try {
+        let _id = req.query._id;
         let title = req.query.title;
         let orderNum = req.query.orderNum;
         let style = req.query.style;
@@ -85,7 +86,7 @@ router.get('/templateSendToSomePeople', async function (req, res, next) {
             for (let index = 0; index < openIds.length; ++index) {
                 let openId = openIds[index];
                 let templateBody = makeCakeOrderTemplateBody(openId,
-                    title, orderNum, style, deliverTime, name, phone);
+                    _id, title, orderNum, style, deliverTime, name, phone);
                 makeTemplateSend(accessToken.access_token, templateBody);
             }
         }
@@ -96,7 +97,7 @@ router.get('/templateSendToSomePeople', async function (req, res, next) {
     }
 });
 
-const makeCakeOrderTemplateBody = (toUser, title, orderNum, style, deliverTime, name, phone, remark) => {
+const makeCakeOrderTemplateBody = (toUser, _id, title, orderNum, style, deliverTime, name, phone, remark) => {
     let templateBody = {};
     // 测试openid
     // templateBody.touser = 'o7-RGwtoM8co7KEXMwBggYb_oQbI';
@@ -116,7 +117,7 @@ const makeCakeOrderTemplateBody = (toUser, title, orderNum, style, deliverTime, 
     templateBody.data = templateData;
 
     /// 设置跳转Url
-    let clickUrl = 'http://gratefulwheat.ruyue.xyz/birthdayCakeOrder';
+    let clickUrl = `http://gratefulwheat.ruyue.xyz/birthdayCakeOrder?_id=${_id}`;
     templateBody.url = clickUrl;
 
     return templateBody;

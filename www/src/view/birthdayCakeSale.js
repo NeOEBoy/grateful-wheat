@@ -680,10 +680,10 @@ class birthdayCakeSale extends React.Component {
                                 document.documentElement.style.overflow = 'hidden';
 
                                 /// 模板通知指定人员有人生成订购单了，避免漏单
-                                // let title = '有顾客生成蛋糕订购单了';
-                                // let style = '《' + cakeName + '》';
-                                // let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
-                                // templateSendToSomePeople(title, responseShop, style, time, pickUpName, phoneNumber);
+                                let title = '有顾客生成蛋糕订购单了';
+                                let style = '《' + cakeName + '》';
+                                let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
+                                templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
                             });
                         });
                 })

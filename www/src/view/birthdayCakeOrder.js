@@ -4,7 +4,8 @@ import {
 } from 'antd';
 import {
     wechatSign,
-    geocode
+    geocode,
+    findBirthdaycakeOrder
 } from '../api/api';
 
 const KPickUpTypeOptions = [
@@ -17,33 +18,38 @@ class BirthdayCakeOrder extends React.Component {
         super(props);
 
         this.state = {
-            cakeName: '奥特曼打怪兽',
-            cakeImage: '/image/生日蛋糕/蛋糕3.0/奥特曼打怪兽-方图.jpg',
-            creamType: '动物奶油',
-            cakeSize: '8寸',
+            cakeName: '',
+            cakeImage: '',
+            creamType: '',
+            cakeSize: '',
             cakeSizeExtra: '',
-            cakePrice: '188',
-            pickUpDay: '2022-8-13',
-            pickUpTime: '18:00',
-            pickUpType: '商家配送',
-            responseShop: '教育局店',
-            deliverAddress: '漳浦县绥安镇府前世家2号楼1202',
+            cakePrice: '',
+            pickUpDay: '',
+            pickUpTime: '',
+            pickUpType: '',
+            responseShop: '',
             deliverCity: '漳州',
-            pickUpName: '王先生',
-            phoneNumber: '18698036807',
-            remarks: '需要两个生日帽'
+            deliverCounty: '漳浦',
+            deliverAddress: '',
+            pickUpName: '',
+            phoneNumber: '',
+            remarks: ''
         };
     };
 
     componentDidMount = async () => {
-        // let query = this.props.query;
-        // let paramValueStr = query && query.get('param');
-        // // console.log(paramValueStr);
-        // if (paramValueStr) {
-        //     paramValueStr = unescape(paramValueStr);
-        //     // console.log(paramValueStr);
-        //     let paramValueObj = JSON.parse(paramValueStr);
-        // }
+        let query = this.props.query;
+        let _id = query && query.get('_id');
+        if (_id) {
+            let findResult = await findBirthdaycakeOrder(_id)
+            if (findResult && findResult.errCode === 0) {
+                let order = findResult.order;
+                this.setState({
+                    cakeName: order.cakeName,
+                    cakeImage: `/image/生日蛋糕/蛋糕3.0/${order.cakeName}-方图.jpg`
+                })
+            }
+        }
 
         this.updateWeixinConfig();
     };
@@ -144,8 +150,9 @@ class BirthdayCakeOrder extends React.Component {
             pickUpTime,
             pickUpType,
             responseShop,
-            deliverAddress,
             deliverCity,
+            deliverCounty,
+            deliverAddress,
             pickUpName,
             phoneNumber,
             remarks
@@ -211,11 +218,10 @@ class BirthdayCakeOrder extends React.Component {
                                 <span style={{ fontSize: 14 }}>地址：</span>
                                 <Button style={{ textDecoration: 'underline', fontSize: 14, fontWeight: 'bold' }}
                                     onClick={async () => {
-                                        let locationResult = await geocode(deliverAddress, deliverCity);
+                                        let locationResult = await geocode(deliverCounty + deliverAddress, deliverCity);
                                         if (locationResult.errCode === 0) {
                                             let locationStr = locationResult.location;
                                             let locationArray = locationStr.split(',');
-                                            console.log(locationArray);
                                             if (locationArray.length === 2) {
                                                 window.wx.openLocation({
                                                     // 经度，浮点数，范围为180 ~ -180。
@@ -225,16 +231,16 @@ class BirthdayCakeOrder extends React.Component {
                                                     // 位置名
                                                     name: deliverAddress,
                                                     // 地址详情说明
-                                                    address: deliverAddress,
+                                                    address: deliverCounty + deliverAddress,
                                                     // 地图缩放级别,整型值,范围从1~28。默认为最大
-                                                    scale: 14,
+                                                    scale: 15,
                                                     // 在查看位置界面底部显示的超链接,可点击跳转
                                                     infoUrl: 'https://www.baidu.com/'
                                                 });
                                             }
                                         }
                                     }}>
-                                    {deliverAddress}
+                                    {deliverCounty + deliverAddress}
                                 </Button>
                             </div>
                         ) : (<div></div>)

@@ -13,6 +13,7 @@ import dpLocale from 'antd/es/date-picker/locale/zh_CN';
 import QueueAnim from 'rc-queue-anim';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
+import QRCode from 'qrcode'
 
 import Icon, {
     RightSquareFilled,
@@ -37,7 +38,8 @@ import {
     loadBirthdayCakesAll,
     loadBirthdayCakesWXConfig,
     wechatSign,
-    templateSendToSomePeople
+    templateSendToSomePeople,
+    createBirthdaycakeOrder
 } from '../api/api';
 
 const { Panel } = Collapse;
@@ -219,6 +221,7 @@ class birthdayCakeSale extends React.Component {
             imageCropperModalVisiable: false,
             localImgDataLoading: false,
             divImageLoading: false,
+            image4QRCode: ''
         };
 
         this._lastKeys = [];
@@ -257,6 +260,7 @@ class birthdayCakeSale extends React.Component {
         });
         this.updateWeixinConfig();
     }
+
     /// 蛋糕分类 展开|收起 
     handleCollapseOnChange = async (keys) => {
         if (!keys) return;
@@ -616,24 +620,53 @@ class birthdayCakeSale extends React.Component {
                 }, async () => {
                     if (!this._theDiv4Capture) return;
 
-                    let canvas = await html2Canvas(this._theDiv4Capture);
-                    let imageSrc = canvas.toDataURL('image/png');
+                    let createResult = await createBirthdaycakeOrder(cakeName);
+                    // console.log(createResult);
+                    if (createResult.errCode !== 0) {
+                        message.error('订单保存失败');
+                        return;
+                    }
 
-                    this.setState({
-                        orderImageSrc: imageSrc,
-                        imageCapturing: false
-                    }, () => {
-                        this.setState({
-                            orderImageModalVisiable: true
+                    let paramStr = '_id=' + createResult._id;
+                    // let birthdayCakeOrderUrl = 'http://localhost:4000/birthdayCakeOrder';
+                    let birthdayCakeOrderUrl = 'http://gratefulwheat.ruyue.xyz/birthdayCakeOrder';
+
+                    birthdayCakeOrderUrl += '?';
+                    birthdayCakeOrderUrl += paramStr;
+
+                    let opts = {
+                        errorCorrectionLevel: 'H',
+                        type: 'image/jpeg',
+                        quality: 0.3,
+                        margin: 1,
+                        color: {
+                            dark: "#E5E4E2",
+                            light: "#C58917"
+                        }
+                    }
+                    let qrCode = await QRCode.toDataURL(birthdayCakeOrderUrl, opts);
+
+                    this.setState({ image4QRCode: qrCode },
+                        async () => {
+                            let canvas = await html2Canvas(this._theDiv4Capture);
+                            let imageSrc = canvas.toDataURL('image/png');
+
+                            this.setState({
+                                orderImageSrc: imageSrc,
+                                imageCapturing: false
+                            }, () => {
+                                this.setState({
+                                    orderImageModalVisiable: true
+                                });
+                                document.documentElement.style.overflow = 'hidden';
+
+                                /// 模板通知指定人员有人生成订购单了，避免漏单
+                                let title = '有顾客生成蛋糕订购单了';
+                                let style = '《' + cakeName + '》';
+                                let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
+                                templateSendToSomePeople(title, responseShop, style, time, pickUpName, phoneNumber);
+                            });
                         });
-                        document.documentElement.style.overflow = 'hidden';
-
-                        /// 模板通知指定人员有人生成订购单了，避免漏单
-                        let title = '有顾客生成蛋糕订购单了';
-                        let style = '《' + cakeName + '》';
-                        let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
-                        templateSendToSomePeople(title, responseShop, style, time, pickUpName, phoneNumber);
-                    });
                 })
             }, 0);
         });
@@ -801,7 +834,8 @@ class birthdayCakeSale extends React.Component {
             imageCropperModalVisiable,
             imageBeforeCrop,
             localImgDataLoading,
-            divImageLoading
+            divImageLoading,
+            image4QRCode
         } = this.state;
 
         let theDiv4CaptureWidth = 750;
@@ -1702,10 +1736,22 @@ class birthdayCakeSale extends React.Component {
                     {imageCapturing ? (
                         <div ref={(current) => { this._theDiv4Capture = current; }}
                             style={theDiv4CaptureStyle}>
+                            <div id="qrcode" style={{
+                                textAlign: 'right', position: 'fixed',
+                                paddingRight: 10, paddingTop: 10,
+                                width: theDiv4CaptureWidth, height: 130
+                            }}>
+                                <Image style={{ width: 130, height: 130 }}
+                                    preview={false}
+                                    src={image4QRCode}
+                                />
+                            </div>
+
                             <div style={{
                                 textAlign: 'left', position: 'fixed', paddingLeft: 20,
                                 width: theDiv4CaptureWidth, fontSize: 14, paddingTop: 10
                             }}>{`订购时间：${makingTime}`}</div>
+
                             <div style={{
                                 fontSize: 22,
                                 textAlign: 'center',

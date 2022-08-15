@@ -478,6 +478,28 @@ const geocode = async (address, city) => {
   return geocodeResponseJson;
 }
 
+const createBirthdaycakeOrder = async (cakeName) => {
+  let createBirthdaycakeOrderUrl = KApiHost + '/birthdaycake/createOrder';
+  createBirthdaycakeOrderUrl += '?cakeName='
+  createBirthdaycakeOrderUrl += cakeName;
+
+  // console.log(createBirthdaycakeOrderUrl);
+  const createBirthdaycakeOrderResponse = await fetch(createBirthdaycakeOrderUrl);
+  const createBirthdaycakeOrderResponseJson = await createBirthdaycakeOrderResponse.json();
+  return createBirthdaycakeOrderResponseJson;
+}
+
+const findBirthdaycakeOrder = async (_id) => {
+  let findBirthdaycakeOrderUrl = KApiHost + '/birthdaycake/findOrder';
+  findBirthdaycakeOrderUrl += '?_id='
+  findBirthdaycakeOrderUrl += _id;
+
+  // console.log(findBirthdaycakeOrderUrl);
+  const findBirthdaycakeOrderResponse = await fetch(findBirthdaycakeOrderUrl);
+  const findBirthdaycakeOrderResponseJson = await findBirthdaycakeOrderResponse.json();
+  return findBirthdaycakeOrderResponseJson;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -512,5 +534,7 @@ export {
   loadBreadAll,
   wechatSign,
   templateSendToSomePeople,
-  geocode
+  geocode,
+  createBirthdaycakeOrder,
+  findBirthdaycakeOrder
 };

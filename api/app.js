@@ -11,6 +11,7 @@ var couponRouter = require('./routes/coupon');
 var memberRouter = require('./routes/member');
 var wechatRouter = require('./routes/wechat');
 var amapRouter = require('./routes/amap');
+var birthdaycakeRouter = require('./routes/birthdaycake');
 
 const mongoManager = require('./stores/mongo-manager')
 
@@ -55,6 +56,7 @@ app.use('/coupon', couponRouter);
 app.use('/member', memberRouter);
 app.use('/wechat', wechatRouter);
 app.use('/amap', amapRouter);
+app.use('/birthdaycake', birthdaycakeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -93,7 +95,7 @@ const startScheduleWeatherDay = require('./schedule/schedule-task-weather-day');
 startScheduleWeatherDay();
 
 /// 启动定时任务，每日检查报货情况
-const startScheduleOrderReminder = require('./schedule/schedule-task-order-reminder-day');
+// const startScheduleOrderReminder = require('./schedule/schedule-task-order-reminder-day');
 // startScheduleOrderReminder(); // TODO 打开提醒
 
 /// 启动定时任务，自动上架饿了吗商品

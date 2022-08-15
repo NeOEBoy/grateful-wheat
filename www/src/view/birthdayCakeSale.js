@@ -530,6 +530,7 @@ class birthdayCakeSale extends React.Component {
     handleOrderCakeInfoModalOk = () => {
         const {
             cakeName,
+            cakeDescription,
             creamType,
             cakeImage,
             cakeSize,
@@ -537,6 +538,7 @@ class birthdayCakeSale extends React.Component {
             cakePrice,
             cakeFillings,
             candleType,
+            ignitorType,
             number4candle,
             cakePlateNumber,
             pickUpDay,
@@ -550,6 +552,7 @@ class birthdayCakeSale extends React.Component {
         } = this.state;
 
         console.log('名字：' + cakeName);
+        console.log('描述：' + cakeDescription);
         console.log('图片：' + cakeImage);
         console.log('奶油：' + creamType);
         console.log('尺寸：' + cakeSize);
@@ -557,6 +560,7 @@ class birthdayCakeSale extends React.Component {
         console.log('价格：' + cakePrice);
         console.log('夹心：' + cakeFillings);
         console.log('蜡烛：' + candleType);
+        console.log('火柴：' + ignitorType);
         console.log('数字：' + number4candle);
         console.log('餐盘：' + cakePlateNumber);
         console.log('日期：' + pickUpDay);
@@ -620,24 +624,38 @@ class birthdayCakeSale extends React.Component {
                 }, async () => {
                     if (!this._theDiv4Capture) return;
 
-                    let createResult = await createBirthdaycakeOrder(cakeName);
+                    /// 保存蛋糕订单，返回_id
+                    let createResult = await createBirthdaycakeOrder(
+                        cakeName,
+                        cakeDescription,
+                        creamType,
+                        cakeSize,
+                        cakeSizeExtra,
+                        cakePrice,
+                        cakeFillings,
+                        candleType,
+                        ignitorType,
+                        number4candle,
+                        cakePlateNumber,
+                        pickUpDay,
+                        pickUpTime,
+                        pickUpType,
+                        responseShop,
+                        deliverAddress,
+                        pickUpName,
+                        phoneNumber,
+                        remarks);
                     // console.log(createResult);
                     if (createResult.errCode !== 0) {
                         message.error('订单保存失败');
                         return;
                     }
 
-                    let paramStr = '_id=' + createResult._id;
-                    // let birthdayCakeOrderUrl = 'http://localhost:4000/birthdayCakeOrder';
-                    let birthdayCakeOrderUrl = 'http://gratefulwheat.ruyue.xyz/birthdayCakeOrder';
-
-                    birthdayCakeOrderUrl += '?';
-                    birthdayCakeOrderUrl += paramStr;
-
+                    let birthdayCakeOrderUrl = `http://gratefulwheat.ruyue.xyz/birthdayCakeOrder?_id=${createResult._id}`;
                     let opts = {
-                        errorCorrectionLevel: 'H',
-                        type: 'image/jpeg',
-                        quality: 0.3,
+                        errorCorrectionLevel: 'L',
+                        type: 'image/png',
+                        quality: 0.5,
                         margin: 1,
                         color: {
                             dark: "#E5E4E2",
@@ -661,10 +679,10 @@ class birthdayCakeSale extends React.Component {
                                 document.documentElement.style.overflow = 'hidden';
 
                                 /// 模板通知指定人员有人生成订购单了，避免漏单
-                                let title = '有顾客生成蛋糕订购单了';
-                                let style = '《' + cakeName + '》';
-                                let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
-                                templateSendToSomePeople(title, responseShop, style, time, pickUpName, phoneNumber);
+                                // let title = '有顾客生成蛋糕订购单了';
+                                // let style = '《' + cakeName + '》';
+                                // let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
+                                // templateSendToSomePeople(title, responseShop, style, time, pickUpName, phoneNumber);
                             });
                         });
                 })
@@ -1737,7 +1755,7 @@ class birthdayCakeSale extends React.Component {
                         <div ref={(current) => { this._theDiv4Capture = current; }}
                             style={theDiv4CaptureStyle}>
                             <div id="qrcode" style={{
-                                textAlign: 'right', position: 'fixed',
+                                textAlign: 'right', position: 'absolute',
                                 paddingRight: 10, paddingTop: 10,
                                 width: theDiv4CaptureWidth, height: 130
                             }}>
@@ -1748,8 +1766,8 @@ class birthdayCakeSale extends React.Component {
                             </div>
 
                             <div style={{
-                                textAlign: 'left', position: 'fixed', paddingLeft: 20,
-                                width: theDiv4CaptureWidth, fontSize: 14, paddingTop: 10
+                                textAlign: 'left', position: 'absolute', paddingLeft: 20,
+                                width: theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
                             }}>{`订购时间：${makingTime}`}</div>
 
                             <div style={{

@@ -41,12 +41,23 @@ class BirthdayCakeOrder extends React.Component {
         let query = this.props.query;
         let _id = query && query.get('_id');
         if (_id) {
-            let findResult = await findBirthdaycakeOrder(_id)
+            let findResult = await findBirthdaycakeOrder(_id);
             if (findResult && findResult.errCode === 0) {
                 let order = findResult.order;
                 this.setState({
                     cakeName: order.cakeName,
-                    cakeImage: `/image/生日蛋糕/蛋糕3.0/${order.cakeName}-方图.jpg`
+                    cakeImage: `/image/生日蛋糕/蛋糕3.0/${order.cakeName}-方图.jpg`,
+                    creamType: order.creamType,
+                    cakeSize: order.cakeSize,
+                    cakeSizeExtra: order.cakeSizeExtra,
+                    cakePrice: order.cakePrice,
+                    pickUpDay: order.pickUpDay,
+                    pickUpTime: order.pickUpTime,
+                    pickUpType: order.pickUpType,
+                    responseShop: order.responseShop,
+                    deliverAddress: order.deliverAddress,
+                    pickUpName: order.pickUpName,
+                    remarks: order.remarks
                 })
             }
         }

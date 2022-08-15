@@ -478,10 +478,66 @@ const geocode = async (address, city) => {
   return geocodeResponseJson;
 }
 
-const createBirthdaycakeOrder = async (cakeName) => {
+const createBirthdaycakeOrder = async (
+  cakeName,
+  cakeDescription,
+  creamType,
+  cakeSize,
+  cakeSizeExtra,
+  cakePrice,
+  cakeFillings,
+  candleType,
+  ignitorType,
+  number4candle,
+  cakePlateNumber,
+  pickUpDay,
+  pickUpTime,
+  pickUpType,
+  responseShop,
+  deliverAddress,
+  pickUpName,
+  phoneNumber,
+  remarks
+) => {
   let createBirthdaycakeOrderUrl = KApiHost + '/birthdaycake/createOrder';
   createBirthdaycakeOrderUrl += '?cakeName='
   createBirthdaycakeOrderUrl += cakeName;
+  createBirthdaycakeOrderUrl += '&cakeDescription='
+  createBirthdaycakeOrderUrl += cakeDescription;
+  createBirthdaycakeOrderUrl += '&creamType='
+  createBirthdaycakeOrderUrl += creamType;
+  createBirthdaycakeOrderUrl += '&cakeSize='
+  createBirthdaycakeOrderUrl += cakeSize;
+  createBirthdaycakeOrderUrl += '&cakeSizeExtra='
+  createBirthdaycakeOrderUrl += cakeSizeExtra;
+  createBirthdaycakeOrderUrl += '&cakePrice='
+  createBirthdaycakeOrderUrl += cakePrice;
+  createBirthdaycakeOrderUrl += '&cakeFillings='
+  createBirthdaycakeOrderUrl += cakeFillings;
+  createBirthdaycakeOrderUrl += '&candleType='
+  createBirthdaycakeOrderUrl += candleType;
+  createBirthdaycakeOrderUrl += '&ignitorType='
+  createBirthdaycakeOrderUrl += ignitorType;
+  createBirthdaycakeOrderUrl += '&number4candle='
+  createBirthdaycakeOrderUrl += number4candle;
+  createBirthdaycakeOrderUrl += '&cakePlateNumber='
+  createBirthdaycakeOrderUrl += cakePlateNumber;
+  createBirthdaycakeOrderUrl += '&pickUpDay='
+  createBirthdaycakeOrderUrl += pickUpDay;
+  createBirthdaycakeOrderUrl += '&pickUpTime='
+  createBirthdaycakeOrderUrl += pickUpTime;
+  createBirthdaycakeOrderUrl += '&pickUpType='
+  createBirthdaycakeOrderUrl += pickUpType;
+  createBirthdaycakeOrderUrl += '&responseShop='
+  createBirthdaycakeOrderUrl += responseShop;
+  createBirthdaycakeOrderUrl += '&deliverAddress='
+  createBirthdaycakeOrderUrl += deliverAddress;
+  createBirthdaycakeOrderUrl += '&pickUpName='
+  createBirthdaycakeOrderUrl += pickUpName;
+  createBirthdaycakeOrderUrl += '&phoneNumber='
+  createBirthdaycakeOrderUrl += phoneNumber;
+  createBirthdaycakeOrderUrl += '&remarks='
+  createBirthdaycakeOrderUrl += remarks;
 
   // console.log(createBirthdaycakeOrderUrl);
   const createBirthdaycakeOrderResponse = await fetch(createBirthdaycakeOrderUrl);

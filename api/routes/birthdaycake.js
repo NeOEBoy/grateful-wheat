@@ -11,6 +11,24 @@ router.get('/', function (req, res, next) {
 router.get('/createOrder', async function (req, res, next) {
     try {
         let cakeName = req.query.cakeName;
+        let cakeDescription = req.query.cakeDescription;
+        let creamType = req.query.creamType;
+        let cakeSize = req.query.cakeSize;
+        let cakeSizeExtra = req.query.cakeSizeExtra;
+        let cakeFillings = req.query.cakeFillings;
+        let candleType = req.query.candleType;
+        let ignitorType = req.query.ignitorType;
+        let number4candle = req.query.number4candle;
+        let cakePlateNumber = req.query.cakePlateNumber;
+        let pickUpDay = req.query.pickUpDay;
+        let pickUpTime = req.query.pickUpTime;
+        let pickUpType = req.query.pickUpType;
+        let responseShop = req.query.responseShop;
+        let deliverAddress = req.query.deliverAddress;
+        let pickUpName = req.query.pickUpName;
+        let phoneNumber = req.query.phoneNumber;
+        let remarks = req.query.remarks;
+
         if (!cakeName) {
             next(createError(500));
             return;
@@ -29,8 +47,26 @@ router.get('/createOrder', async function (req, res, next) {
         }
 
         let newOrder = new BirthdayCakeOrders({
-            cakeName: cakeName
+            cakeName: cakeName,
+            cakeDescription: cakeDescription,
+            creamType: creamType,
+            cakeSize: cakeSize,
+            cakeSizeExtra: cakeSizeExtra,
+            cakeFillings: cakeFillings,
+            candleType: candleType,
+            ignitorType: ignitorType,
+            number4candle: number4candle,
+            cakePlateNumber: cakePlateNumber,
+            pickUpDay: pickUpDay,
+            pickUpTime: pickUpTime,
+            pickUpType: pickUpType,
+            responseShop: responseShop,
+            deliverAddress: deliverAddress,
+            pickUpName: pickUpName,
+            phoneNumber: phoneNumber,
+            remarks: remarks
         });
+
         await newOrder.save();
         res.send({ errCode: 0, _id: newOrder._id });
     } catch (err) {

@@ -57,6 +57,7 @@ class BirthdayCakeOrder extends React.Component {
                     responseShop: order.responseShop,
                     deliverAddress: order.deliverAddress,
                     pickUpName: order.pickUpName,
+                    phoneNumber: order.phoneNumber,
                     remarks: order.remarks
                 })
             }

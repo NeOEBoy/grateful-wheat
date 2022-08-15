@@ -616,7 +616,8 @@ class birthdayCakeSale extends React.Component {
 
         this.setState({
             orderCakeInfoModalVisiable: false,
-            makingTime: moment().format('YYYY.MM.DD HH:mm')
+            makingTime: moment().format('YYYY.MM.DD HH:mm'),
+            image4QRCode: ''
         }, () => {
             setTimeout(() => {
                 this.setState({
@@ -637,15 +638,15 @@ class birthdayCakeSale extends React.Component {
                         ignitorType,
                         number4candle,
                         cakePlateNumber,
-                        pickUpDay,
-                        pickUpTime,
+                        pickUpDay.format('YYYY-MM-DD ddd'),
+                        pickUpTime.format(' aHH:mm'),
                         pickUpType,
                         responseShop,
                         deliverAddress,
                         pickUpName,
                         phoneNumber,
                         remarks);
-                    // console.log(createResult);
+                    console.log(createResult);
                     if (createResult.errCode !== 0) {
                         message.error('订单保存失败');
                         return;

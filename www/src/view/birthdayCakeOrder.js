@@ -274,6 +274,30 @@ class BirthdayCakeOrder extends React.Component {
                         <span style={{ fontSize: 14, fontWeight: 'bold', wordWrap: 'break-word' }}>{remarks}</span>
                     </div>
                 </div>
+
+                <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
+                    <div style={{ paddingTop: 12, marginTop: 10 }}>
+                        总部：漳州市漳浦县府前街西247号(教育局对面)
+                    </div>
+                    <div style={{ color: 'blue', fontSize: 14 }}>
+                        <span style={{ color: 'black' }}>©弯麦</span>
+
+                        <a href='http://beian.miit.gov.cn'>
+                            <span style={{ marginLeft: 8 }}>闽ICP备2022007668号-1</span>
+                        </a>
+
+                        <div>
+                            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062302000230">
+                                <span>
+                                    <Image preview={false} src="/image/公安备案图标.png" style={{ float: 'left' }} />
+                                </span>
+                                <span style={{ marginLeft: 8 }}>
+                                    闽公网安备 35062302000230号
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>)
     };
 }

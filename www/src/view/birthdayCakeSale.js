@@ -674,16 +674,17 @@ class birthdayCakeSale extends React.Component {
                                 orderImageSrc: imageSrc,
                                 imageCapturing: false
                             }, () => {
-                                this.setState({
-                                    orderImageModalVisiable: true
-                                });
-                                document.documentElement.style.overflow = 'hidden';
+                                this.setState({ orderImageModalVisiable: true }, async () => {
+                                    document.documentElement.style.overflow = 'hidden';
 
-                                /// 模板通知指定人员有人生成订购单了，避免漏单
-                                let title = '有顾客生成蛋糕订购单了';
-                                let style = '《' + cakeName + '》';
-                                let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
-                                templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
+                                    /// 模板通知指定人员有人生成订购单了，避免漏单
+                                    let title = '有顾客生成蛋糕订购单了';
+                                    let style = '《' + cakeName + '》';
+                                    let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
+                                    let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
+                                    // console.log(sendResult);
+                                    message.info(JSON.stringify(sendResult));
+                                });
                             });
                         });
                 })

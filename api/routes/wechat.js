@@ -77,21 +77,26 @@ router.get('/templateSendToSomePeople', async function (req, res, next) {
         let phone = req.query.phone;
 
         let accessToken = await getAccessToken(KConfig4Bread);
-        if (accessToken && accessToken.access_token) {
-            /// 王荣慧，Kate，教育局1号
-            const openIds = [
-                "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",
-                "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",
-                "oBO-bs7Oiijwq5vi-CfGfW0CaIC0"];
-            for (let index = 0; index < openIds.length; ++index) {
-                let openId = openIds[index];
-                let templateBody = makeCakeOrderTemplateBody(openId,
-                    _id, title, orderNum, style, deliverTime, name, phone);
-                makeTemplateSend(accessToken.access_token, templateBody);
-            }
+        if (!accessToken.access_token) {
+            res.send(accessToken);
+            return;
         }
 
-        res.send({});
+        /// 王荣慧，Kate，教育局1号
+        // const openIds = [
+        //     "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",
+        //     "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",
+        //     "oBO-bs7Oiijwq5vi-CfGfW0CaIC0"];
+        const openIds = [
+            "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E"];
+        for (let index = 0; index < openIds.length; ++index) {
+            let openId = openIds[index];
+            let templateBody = makeCakeOrderTemplateBody(openId,
+                _id, title, orderNum, style, deliverTime, name, phone);
+            makeTemplateSend(accessToken.access_token, templateBody);
+        }
+
+        res.send({ "errcode": 0, "errmsg": "ok" });
     } catch (err) {
         next(err);
     }
@@ -133,6 +138,7 @@ const makeTemplateSend = async (accessToken, templateBody) => {
     const templateResponse = await fetch(templateUrl, { method: 'POST', body: templateBodyStr });
     const templateJson = await templateResponse.json();
     console.log(JSON.stringify(templateJson));
+    return templateJson;
 }
 
 

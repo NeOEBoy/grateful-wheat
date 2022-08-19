@@ -1759,9 +1759,9 @@ class birthdayCakeSale extends React.Component {
                             <div id="qrcode" style={{
                                 textAlign: 'right', position: 'absolute',
                                 paddingRight: 10, paddingTop: 10,
-                                width: theDiv4CaptureWidth, height: 130
+                                width: theDiv4CaptureWidth, height: 150
                             }}>
-                                <Image style={{ width: 130, height: 130 }}
+                                <Image style={{ width: 150, height: 150 }}
                                     preview={false}
                                     src={image4QRCode}
                                 />

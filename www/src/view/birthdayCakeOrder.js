@@ -228,7 +228,7 @@ class BirthdayCakeOrder extends React.Component {
                         pickUpType === KPickUpTypeOptions[1].value ? (
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                 <span style={{ fontSize: 14 }}>地址：</span>
-                                <Button style={{ textDecoration: 'underline', fontSize: 18, fontWeight: 'bold' }}
+                                <Button style={{ textDecoration: 'underline', fontSize: 20, fontWeight: 'bold' }}
                                     onClick={async () => {
                                         let locationResult = await geocode(deliverCounty + deliverAddress, deliverCity);
                                         if (locationResult.errCode === 0) {
@@ -264,7 +264,7 @@ class BirthdayCakeOrder extends React.Component {
                     </div>
                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                         <span style={{ fontSize: 14 }}>手机：</span>
-                        <span style={{ textDecoration: 'underline', fontSize: 18, fontWeight: 'bold' }}>
+                        <span style={{ textDecoration: 'underline', fontSize: 20, fontWeight: 'bold' }}>
                             <a href={tel}>{phoneNumber}</a>
                         </span>
                     </div>
@@ -272,6 +272,12 @@ class BirthdayCakeOrder extends React.Component {
                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                         <span style={{ fontSize: 14 }}>备注：</span>
                         <span style={{ fontSize: 14, fontWeight: 'bold', wordWrap: 'break-word' }}>{remarks}</span>
+                    </div>
+
+                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                        <span style={{ textDecoration: 'underline', fontSize: 20, fontWeight: 'bold' }}>
+                            <a href={"http://gratefulwheat.ruyue.xyz/buildingMap"}>漳浦小区楼栋图</a>
+                        </span>
                     </div>
                 </div>
 

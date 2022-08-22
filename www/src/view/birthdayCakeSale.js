@@ -1879,9 +1879,11 @@ class birthdayCakeSale extends React.Component {
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{phoneNumber}</span>
                                     </div>
                                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>其它</Divider>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                    <div style={{ marginTop: 4, marginBottom: 4, marginRight: 8 }}>
                                         <span style={{ fontSize: 14 }}>备注：</span>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold', wordWrap: 'break-word' }}>{remarks}</span>
+                                        <span style={{ fontSize: 14, fontWeight: 'bold', wordWrap: 'break-word' }}>
+                                            {remarks}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

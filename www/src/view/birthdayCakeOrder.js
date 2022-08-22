@@ -228,7 +228,7 @@ class BirthdayCakeOrder extends React.Component {
                         pickUpType === KPickUpTypeOptions[1].value ? (
                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                 <span style={{ fontSize: 14 }}>地址：</span>
-                                <Button style={{ textDecoration: 'underline', fontSize: 20, fontWeight: 'bold' }}
+                                <span style={{ textDecoration: 'underline', fontSize: 20, fontWeight: 'bold', color: 'green' }}
                                     onClick={async () => {
                                         let locationResult = await geocode(deliverCounty + deliverAddress, deliverCity);
                                         if (locationResult.errCode === 0) {
@@ -253,9 +253,9 @@ class BirthdayCakeOrder extends React.Component {
                                         }
                                     }}>
                                     {deliverCounty + deliverAddress}
-                                </Button>
+                                </span>
                             </div>
-                        ) : (<div></div>)
+                        ) : (<span></span>)
                     }
 
                     <div style={{ marginTop: 4, marginBottom: 4 }}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    Image, Divider, Button
+    Image, Divider
 } from 'antd';
 import {
     wechatSign,
@@ -11,6 +11,15 @@ import {
 const KPickUpTypeOptions = [
     { label: '自己提货', value: '自己提货' },
     { label: '商家配送', value: '商家配送' }
+];
+
+const KCandleTypeOptions = [
+    { label: '螺纹蜡烛', value: '螺纹蜡烛' },
+    { label: '数字蜡烛', value: '数字蜡烛' },
+    { label: '爱心蜡烛', value: '爱心蜡烛' },
+    { label: '曲线蜡烛', value: '曲线蜡烛' },
+    // { label: '五星蜡烛', value: '五星蜡烛' },
+    { label: '荷花●音乐蜡烛', value: '荷花●音乐蜡烛' }
 ];
 
 class BirthdayCakeOrder extends React.Component {
@@ -51,6 +60,11 @@ class BirthdayCakeOrder extends React.Component {
                     cakeSize: order.cakeSize,
                     cakeSizeExtra: order.cakeSizeExtra,
                     cakePrice: order.cakePrice,
+                    cakeFillings: order.cakeFillings,
+                    candleType: order.candleType,
+                    ignitorType: order.ignitorType,
+                    number4candle: order.number4candle,
+                    cakePlateNumber: order.cakePlateNumber,
                     pickUpDay: order.pickUpDay,
                     pickUpTime: order.pickUpTime,
                     pickUpType: order.pickUpType,
@@ -158,6 +172,11 @@ class BirthdayCakeOrder extends React.Component {
             cakeSize,
             cakeSizeExtra,
             cakePrice,
+            cakeFillings,
+            candleType,
+            ignitorType,
+            number4candle,
+            cakePlateNumber,
             pickUpDay,
             pickUpTime,
             pickUpType,
@@ -174,10 +193,10 @@ class BirthdayCakeOrder extends React.Component {
         return (
             <div>
                 <div style={{
-                    fontSize: 16,
+                    fontSize: 12,
                     textAlign: 'center',
                     paddingTop: 6,
-                    paddingBottom: 6
+                    paddingBottom: 0
                 }}>蛋糕订购单</div>
                 <div style={{
                     fontSize: 18,
@@ -187,7 +206,7 @@ class BirthdayCakeOrder extends React.Component {
                     fontWeight: 'bold'
                 }}>{cakeName}</div>
                 <div style={{ width: '100%', textAlign: 'center' }}>
-                    <Image style={{ width: 240 }} preview={false} src={cakeImage} />
+                    <Image style={{ width: 180 }} preview={false} src={cakeImage} />
                 </div>
                 <div style={{ marginLeft: 24, marginRight: 24 }}>
                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>制作</Divider>
@@ -210,9 +229,42 @@ class BirthdayCakeOrder extends React.Component {
                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakePrice}</span>
                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>元</span>
                     </div>
+                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                        <span style={{ fontSize: 14 }}>夹心：</span>
+                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakeFillings}</span>
+                    </div>
+                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                        <span style={{ fontSize: 14 }}>蜡烛：</span>
+                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{candleType}</span>
+                        {
+                            candleType === KCandleTypeOptions[1].value ? (
+                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                    {`${number4candle}`}
+                                </span>) : (
+                                <span>
+                                </span>
+                            )
+                        }
+                        {
+                            ignitorType !== '' ? (
+                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                    {`+${ignitorType}`}
+                                </span>
+                            ) : (<span></span>)
+                        }
+                    </div>
+                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                        <span style={{ fontSize: 14 }}>帽子：</span>
+                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>金卡皇冠帽</span>
+                    </div>
+                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                        <span style={{ fontSize: 14 }}>餐具：</span>
+                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{cakePlateNumber}</span>
+                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>套</span>
+                    </div>
                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
                     <div>
-                        <span style={{ fontSize: 14 }}>取货：</span>
+                        <span style={{ fontSize: 14 }}>时间：</span>
                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpDay}</span>
                         <span style={{ fontSize: 14, fontWeight: 'bold' }}> {pickUpTime}</span>
                     </div>

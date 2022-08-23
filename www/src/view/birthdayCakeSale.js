@@ -564,8 +564,8 @@ class birthdayCakeSale extends React.Component {
         console.log('数字：' + number4candle);
         console.log('餐盘：' + cakePlateNumber);
         console.log('日期：' + pickUpDay);
-        console.log('取货：' + pickUpTime);
-        console.log('取货：' + pickUpType);
+        console.log('时间：' + pickUpTime);
+        console.log('方式：' + pickUpType);
         console.log('门店：' + responseShop);
         console.log('地址：' + deliverAddress);
         console.log('姓名：' + pickUpName);
@@ -1271,7 +1271,7 @@ class birthdayCakeSale extends React.Component {
                                                 <div key='c'>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <div style={{ fontWeight: 'bold' }}>取货：</div>
+                                                        <div style={{ fontWeight: 'bold' }}>时间：</div>
                                                         <div>
                                                             <DatePicker
                                                                 ref={(dp) => this._datePicker4PickUpDay = dp}
@@ -1361,7 +1361,7 @@ class birthdayCakeSale extends React.Component {
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <span style={{ fontWeight: 'bold' }}>取货：</span>
+                                                        <span style={{ fontWeight: 'bold' }}>方式：</span>
                                                         <Radio.Group
                                                             size='large'
                                                             options={KPickUpTypeOptions}
@@ -1371,7 +1371,7 @@ class birthdayCakeSale extends React.Component {
                                                         />
                                                         {
                                                             pickUpType === '' ? (
-                                                                <div style={{ color: 'red' }}>“取货”是必填项</div>
+                                                                <div style={{ color: 'red' }}>“方式”是必填项</div>
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
@@ -1849,12 +1849,12 @@ class birthdayCakeSale extends React.Component {
                                     </div>
                                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
                                     <div>
-                                        <span style={{ fontSize: 14 }}>取货：</span>
+                                        <span style={{ fontSize: 14 }}>时间：</span>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpTime ? pickUpTime.format(' aHH:mm') : ''}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14 }}>取货：</span>
+                                        <span style={{ fontSize: 14 }}>方式：</span>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpType}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>

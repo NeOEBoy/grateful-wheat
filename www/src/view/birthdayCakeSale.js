@@ -864,7 +864,7 @@ class birthdayCakeSale extends React.Component {
         let theDiv4CaptureStyle = {
             width: theDiv4CaptureWidth,
             height: theDiv4CaptureHeight,
-            background: '#E5E4E2'
+            background: 'white'
         };
         let theLeftDivInTheDiv4CaptureStyle = {
             width: theDiv4CaptureHeight - 180,

@@ -246,9 +246,9 @@ class BirthdayCakeOrder extends React.Component {
                             )
                         }
                         {
-                            ignitorType !== '' ? (
+                            ignitorType === '需要火柴' ? (
                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>
-                                    {`+${ignitorType}`}
+                                    {`+火柴盒`}
                                 </span>
                             ) : (<span></span>)
                         }

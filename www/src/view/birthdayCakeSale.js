@@ -149,10 +149,15 @@ const KCandleTypeOptions = [
 const KIgnitorTypeOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/小心防火.jpg" />
+            <div style={{ width: 70, textAlign: 'center' }}>不需要火柴</div>
+        </div>), value: '不需要火柴'
+    },
+    {
+        label: (<div style={{ marginBottom: 6 }}>
             <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
-            <div style={{ width: 70, textAlign: 'center' }}>火柴盒</div>
-            <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一盒</div>
-        </div>), value: '火柴盒'
+            <div style={{ width: 70, textAlign: 'center' }}>需要火柴</div>
+        </div>), value: '需要火柴'
     }
 ];
 
@@ -197,7 +202,7 @@ class birthdayCakeSale extends React.Component {
             cakePrice: '--',
             cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
             candleType: KCandleTypeOptions[0].value,
-            ignitorType: '',
+            ignitorType: KIgnitorTypeOptions[0].value,
             number4candle: '',
             cakePlateNumber: '--',
             /// 配送信息
@@ -616,7 +621,7 @@ class birthdayCakeSale extends React.Component {
 
         this.setState({
             orderCakeInfoModalVisiable: false,
-            makingTime: moment().format('YYYY.MM.DD HH:mm'),
+            makingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
             image4QRCode: ''
         }, () => {
             setTimeout(() => {
@@ -639,7 +644,7 @@ class birthdayCakeSale extends React.Component {
                         number4candle,
                         cakePlateNumber,
                         pickUpDay.format('YYYY-MM-DD ddd'),
-                        pickUpTime.format(' aHH:mm'),
+                        pickUpTime.format(' a HH:mm'),
                         pickUpType,
                         responseShop,
                         deliverAddress,
@@ -680,7 +685,7 @@ class birthdayCakeSale extends React.Component {
                                     /// 模板通知指定人员有人生成订购单了，避免漏单
                                     let title = '有顾客生成蛋糕订购单了';
                                     let style = '《' + cakeName + '》';
-                                    let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' aHH:mm');
+                                    let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
                                     let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
                                     // console.log(sendResult);
                                     message.info(JSON.stringify(sendResult));
@@ -1330,7 +1335,7 @@ class birthdayCakeSale extends React.Component {
                                                                 showTime={{
                                                                     use12Hours: false,
                                                                     showNow: true,
-                                                                    format: 'aHH:mm'
+                                                                    format: 'a HH:mm'
                                                                 }}
                                                                 panelRender={(originPicker) => {
                                                                     return (
@@ -1338,7 +1343,7 @@ class birthdayCakeSale extends React.Component {
                                                                             {originPicker}
                                                                         </div>)
                                                                 }}
-                                                                format='aHH:mm'
+                                                                format='a HH:mm'
                                                                 value={pickUpTime}
                                                                 inputReadOnly={true}
                                                                 onChange={this.handlePickUpTimeChange}
@@ -1456,8 +1461,6 @@ class birthdayCakeSale extends React.Component {
                                         </div>
                                     ) : (<div></div>)
                                 }
-
-
 
                                 <div style={{
                                     width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
@@ -1831,9 +1834,9 @@ class birthdayCakeSale extends React.Component {
                                             )
                                         }
                                         {
-                                            ignitorType !== '' ? (
+                                            ignitorType === '需要火柴' ? (
                                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>
-                                                    {`+${ignitorType}`}
+                                                    {`+火柴盒`}
                                                 </span>
                                             ) : (<span></span>)
                                         }
@@ -1851,7 +1854,7 @@ class birthdayCakeSale extends React.Component {
                                     <div>
                                         <span style={{ fontSize: 14 }}>时间：</span>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpTime ? pickUpTime.format(' aHH:mm') : ''}</span>
+                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{pickUpTime ? pickUpTime.format(' a HH:mm') : ''}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 14 }}>方式：</span>

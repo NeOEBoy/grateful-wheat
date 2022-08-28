@@ -643,8 +643,8 @@ class birthdayCakeSale extends React.Component {
                         ignitorType,
                         number4candle,
                         cakePlateNumber,
-                        pickUpDay.format('YYYY-MM-DD ddd'),
-                        pickUpTime.format(' a HH:mm'),
+                        pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : '',
+                        pickUpTime ? pickUpTime.format(' a HH:mm') : '',
                         pickUpType,
                         responseShop,
                         deliverAddress,
@@ -1487,7 +1487,7 @@ class birthdayCakeSale extends React.Component {
                                     <div key='a' style={{ height: 110 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
                                             <Timeline.Item color='red'>{`1：请仔细核对订购单信息`}</Timeline.Item>
-                                            <Timeline.Item color='red'>{`2：长按相框内图片并发送给客服登记`}</Timeline.Item>
+                                            <Timeline.Item color='red'>{`2：长按虚框内订购单图片并发送给客服登记`}</Timeline.Item>
                                         </Timeline>
                                     </div>
 
@@ -1768,6 +1768,7 @@ class birthdayCakeSale extends React.Component {
                                     preview={false}
                                     src={image4QRCode}
                                 />
+                                <div style={{ fontSize: 10 }}>顾客请不要识别二维码</div>
                             </div>
 
                             <div style={{

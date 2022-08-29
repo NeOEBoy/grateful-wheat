@@ -588,7 +588,33 @@ class OrderManagement extends React.Component {
 
         return (
             <div>
-                <div style={{ marginLeft: 30, marginTop: 5, fontSize: 18 }}>生产 VS 配货</div>
+                <div style={{ marginLeft: 30, marginTop: 5, fontSize: 18 }}>
+                    <span>生产 VS 配货</span>
+                    <span style={{ marginLeft: 30, marginTop: 0, marginRight: 30, marginBottom: 0 }}>
+                        <Button danger onClick={() => {
+                            this.setState({
+                                currentShop4OrderList: KAllShops[0],
+                                currentTemplate4OrderList: KOrderTemplates[1],
+                                currentOrderTimeType: KOrderTimeType[0],
+                                beginDateTime4OrderList: moment().startOf('day'),
+                                endDateTime4OrderList: moment().endOf('day')
+                            }, async () => {
+                                await this.fetchOrderList();
+                            })
+                        }}>生产</Button>
+                        <Button style={{ marginLeft: 6 }} danger onClick={() => {
+                            this.setState({
+                                currentShop4OrderList: KAllShops[1],
+                                currentTemplate4OrderList: KOrderTemplates[0],
+                                currentOrderTimeType: KOrderTimeType[1],
+                                beginDateTime4OrderList: moment().add(1, 'day').startOf('day'),
+                                endDateTime4OrderList: moment().add(1, 'day').endOf('day')
+                            }, async () => {
+                                await this.fetchOrderList();
+                            })
+                        }}>配货</Button>
+                    </span>
+                </div>
                 <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>
                     <div>
                         <Button danger disabled={disableProductionPrint} type='primary'
@@ -1191,7 +1217,7 @@ class OrderManagement extends React.Component {
                             )
                         }} />
                 </Modal>
-            </div>
+            </div >
         );
     }
 }

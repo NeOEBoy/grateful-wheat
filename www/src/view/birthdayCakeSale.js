@@ -929,7 +929,7 @@ class birthdayCakeSale extends React.Component {
         let orderImageHeight = orderImageWidth * 148 / 210;
         let titleAndFooterHeight = 190;
         let KOrderImageDivStyle = {
-            background: 'white',
+            backgroundColor: '#E5E4E2',
             width: orderImageWidth,
             height: orderImageHeight + titleAndFooterHeight,
             marginTop: (window.innerHeight - (orderImageHeight + titleAndFooterHeight)) / 2
@@ -1479,15 +1479,15 @@ class birthdayCakeSale extends React.Component {
                     {
                         orderImageModalVisiable ? (
                             <div style={{
-                                background: 'rgba(0,0,0,0.8)', position: 'fixed',
+                                background: 'rgba(0,0,0,0.6)', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'hidden', overflowX: 'hidden'
                             }}>
                                 <div style={KOrderImageDivStyle}>
                                     <div key='a' style={{ height: 110 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
-                                            <Timeline.Item color='red'>{`1：请仔细核对订购单信息`}</Timeline.Item>
-                                            <Timeline.Item color='red'>{`2：长按虚框内订购单图片并发送给客服登记`}</Timeline.Item>
+                                            <Timeline.Item color='#C58917' style={{ color: '#C58917' }}>{`长按虚线框内的订购单图片并转发给客服`}</Timeline.Item>
+                                            <Timeline.Item color='#C58917' style={{ color: '#C58917' }}>{`注意：不要识别二维码，也不要截屏`}</Timeline.Item>
                                         </Timeline>
                                     </div>
 
@@ -1499,11 +1499,11 @@ class birthdayCakeSale extends React.Component {
 
                                     <div style={{ height: 80, textAlign: 'center', backgroundColor: '#E5E4E2' }}>
                                         <Space style={{ marginTop: 24 }}>
-                                            <Button key='back' onClick={() => {
+                                            <Button key='back' type='dashed' onClick={() => {
                                                 this.setState({ orderImageModalVisiable: false });
                                                 document.documentElement.style.overflow = 'visible';
                                             }}>关闭</Button>
-                                            <Button key='edit' type='primary' onClick={() => {
+                                            <Button key='edit' type='dashed' onClick={() => {
                                                 this.setState({
                                                     orderImageModalVisiable: false,
                                                     orderCakeInfoModalVisiable: true
@@ -1768,7 +1768,6 @@ class birthdayCakeSale extends React.Component {
                                     preview={false}
                                     src={image4QRCode}
                                 />
-                                <div style={{ fontSize: 10 }}>顾客请不要识别二维码</div>
                             </div>
 
                             <div style={{

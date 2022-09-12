@@ -687,8 +687,8 @@ class birthdayCakeSale extends React.Component {
                                     let style = '《' + cakeName + '》';
                                     let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
                                     let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
-                                    // console.log(sendResult);
-                                    message.info(JSON.stringify(sendResult));
+                                    console.log(sendResult);
+                                    // message.info(JSON.stringify(sendResult));
                                 });
                             });
                         });

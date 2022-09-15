@@ -24,7 +24,9 @@ import Icon, {
     PlusOutlined,
     RotateLeftOutlined,
     RotateRightOutlined,
-    LoadingOutlined
+    LoadingOutlined,
+    PayCircleOutlined,
+    InfoCircleOutlined
 } from '@ant-design/icons';
 import {
     Collapse, Image, Spin,
@@ -1361,7 +1363,7 @@ class birthdayCakeSale extends React.Component {
                                                         </div>
                                                         {
                                                             (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
-                                                                <div style={{ color: 'red' }}>“取货”是必填项</div>
+                                                                <div style={{ color: 'red' }}>“时间”是必填项</div>
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
@@ -1546,6 +1548,7 @@ class birthdayCakeSale extends React.Component {
                                 let description = birthdayCakesRecommendItems[item]['描述'];
                                 let pricesKeys = Object.keys(pricesObj);
 
+                                let theMinimumSize = '6寸';
                                 let theMinimumPrice = '0';
 
                                 if (pricesKeys.length > 0) {
@@ -1555,6 +1558,7 @@ class birthdayCakeSale extends React.Component {
                                     let theThePrices = Object.keys(thePrices);
                                     if (theThePrices.length > 0) {
                                         let firstPrice = theThePrices[0];
+                                        theMinimumSize = firstPrice;
                                         theMinimumPrice = thePrices[firstPrice];
                                     }
                                 }
@@ -1600,8 +1604,12 @@ class birthdayCakeSale extends React.Component {
                                                     <span>{description}</span>
                                                 </div>
                                                 <div style={{ fontSize: 13 }}>
-                                                    <span>¥</span>
-                                                    <span>{theMinimumPrice}</span>
+                                                    <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                    <span>{` ${theMinimumSize} `}</span>
+                                                    <span>起</span>
+
+                                                    <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                    <span>{` ${theMinimumPrice}元 `}</span>
                                                     <span>起</span>
                                                 </div>
                                             </div>
@@ -1657,6 +1665,7 @@ class birthdayCakeSale extends React.Component {
                                                     let description = categoryItem.productItems[item]['描述'];
                                                     let pricesKeys = Object.keys(pricesObj);
                                                     let theMinimumPrice = '0';
+                                                    let theMinimumSize = '6寸';
 
                                                     let index = Object.keys(categoryItem.productItems).indexOf(item);
                                                     let rank = index + 1;
@@ -1668,6 +1677,7 @@ class birthdayCakeSale extends React.Component {
                                                         let theThePrices = Object.keys(thePrices);
                                                         if (theThePrices.length > 0) {
                                                             let firstPrice = theThePrices[0];
+                                                            theMinimumSize = firstPrice;
                                                             theMinimumPrice = thePrices[firstPrice];
                                                         }
                                                     }
@@ -1709,8 +1719,12 @@ class birthdayCakeSale extends React.Component {
                                                                         <span>{description}</span>
                                                                     </div>
                                                                     <div style={{ fontSize: 13 }}>
-                                                                        <span>¥</span>
-                                                                        <span>{theMinimumPrice}</span>
+                                                                        <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                                        <span>{` ${theMinimumSize} `}</span>
+                                                                        <span>起</span>
+
+                                                                        <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                                        <span>{` ${theMinimumPrice}元 `}</span>
                                                                         <span>起</span>
                                                                     </div>
                                                                     {debug ? (

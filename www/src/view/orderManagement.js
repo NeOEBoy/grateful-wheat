@@ -601,7 +601,7 @@ class OrderManagement extends React.Component {
                             }, async () => {
                                 await this.fetchOrderList();
                             })
-                        }}>生产</Button>
+                        }}>生产单</Button>
                         <Button style={{ marginLeft: 6 }} danger onClick={() => {
                             this.setState({
                                 currentShop4OrderList: KAllShops[1],
@@ -609,6 +609,17 @@ class OrderManagement extends React.Component {
                                 currentOrderTimeType: KOrderTimeType[1],
                                 beginDateTime4OrderList: moment().add(1, 'day').startOf('day'),
                                 endDateTime4OrderList: moment().add(1, 'day').endOf('day')
+                            }, async () => {
+                                await this.fetchOrderList();
+                            })
+                        }}>配货单</Button>
+                        <Button style={{ marginLeft: 6 }} danger onClick={() => {
+                            this.setState({
+                                currentShop4OrderList: KAllShops[3],
+                                currentTemplate4OrderList: KOrderTemplates[0],
+                                currentOrderTimeType: KOrderTimeType[1],
+                                beginDateTime4OrderList: moment().startOf('day'),
+                                endDateTime4OrderList: moment().endOf('day')
                             }, async () => {
                                 await this.fetchOrderList();
                             })

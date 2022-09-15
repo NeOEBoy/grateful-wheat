@@ -9,7 +9,6 @@ import {
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
-import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
 import moment from 'moment';
 
 import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from '../api/api';
@@ -1020,7 +1019,11 @@ class ProductDistributeInputer extends React.Component {
         return partnerPrice;
     };
 
-    getLodopAfterInit = () => {
+    getLodopAfterInit = async () => {
+        /// 动态引入组件
+        let {
+            getLodop
+        } = await import('./Lodop6.226_Clodop4.127/LodopFuncs');
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -1038,24 +1041,24 @@ class ProductDistributeInputer extends React.Component {
         return LODOP;
     };
 
-    productPrintPreprew = () => {
-        let LODOP = this.getLodopAfterInit();
+    productPrintPreprew = async () => {
+        let LODOP = await this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PREVIEW();
         }
     };
 
-    productPrintDirect = () => {
-        let LODOP = this.getLodopAfterInit();
+    productPrintDirect = async () => {
+        let LODOP = await this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PRINT();
         }
     };
 
-    productPrintDirectAndBack = () => {
-        this.productPrintDirect();
+    productPrintDirectAndBack = async () => {
+        await this.productPrintDirect();
         this.setState({
             productTransferPrintShow: false,
             filterDropdownVisible4Transfer: true

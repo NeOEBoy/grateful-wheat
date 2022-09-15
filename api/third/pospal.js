@@ -88,6 +88,8 @@ const getProductOrderList = async (
     orderListBodyStr += '&orderColumn=';
     orderListBodyStr += '&asc=false';
 
+    // console.log(orderListBodyStr);
+
     const orderListResponse = await fetch(orderListUrl, {
       method: 'POST', body: orderListBodyStr,
       headers: {
@@ -726,9 +728,10 @@ const getProductFlowList = async (
     stockFlowListBodyStr += '&stockFlowState=';
     stockFlowListBodyStr += '&supplierUid=';
     stockFlowListBodyStr += '&cashierUid=';
+    stockFlowListBodyStr += '&timeType=0';
     stockFlowListBodyStr += '&sn=';
     stockFlowListBodyStr += '&pageIndex=1';
-    stockFlowListBodyStr += '&pageSize=1000'; // 假定1000
+    stockFlowListBodyStr += '&pageSize=1000';
     stockFlowListBodyStr += '&orderColumn=';
     stockFlowListBodyStr += '&asc=false';
 

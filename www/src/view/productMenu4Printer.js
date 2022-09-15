@@ -8,11 +8,7 @@ import React from 'react';
 import moment from 'moment';
 
 import { Spin, Image, Button } from 'antd';
-import { getLodop } from './Lodop6.226_Clodop4.127/LodopFuncs';
-import {
-    getPageName4A4Printer,
-    getA4PrinterIndex,
-} from '../api/util';
+
 import {
     loadProductsSale
 } from '../api/api';
@@ -107,10 +103,18 @@ class ProductMenu4Printer extends React.Component {
 
             this.setState({ allData: theDataAfterPage, productSpinning: false, productSpinTipText: '' });
         });
-
     };
 
-    getLodopAfterInit = () => {
+    getLodopAfterInit = async () => {
+        /// 动态引入组件
+        let {
+            getLodop
+        } = await import('./Lodop6.226_Clodop4.127/LodopFuncs');
+        let {
+            getPageName4A4Printer,
+            getA4PrinterIndex,
+        } = await import('../api/util');
+
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -130,8 +134,8 @@ class ProductMenu4Printer extends React.Component {
         return LODOP;
     };
 
-    productPrintPreprew = () => {
-        let LODOP = this.getLodopAfterInit();
+    productPrintPreprew = async () => {
+        let LODOP = await this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PREVIEW();

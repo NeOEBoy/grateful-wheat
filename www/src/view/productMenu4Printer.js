@@ -17,11 +17,12 @@ const KCategorys = [
     { categoryId: '1593049816479739965', categoryName: '现烤面包', productItems: [] },
     { categoryId: '1592989355905414162', categoryName: '西点慕斯', productItems: [] },
     { categoryId: '1593049881212199906', categoryName: '常温蛋糕', productItems: [] },
-    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
     { categoryId: '1593049854760654816', categoryName: '吐司面包', productItems: [] },
     { categoryId: '1626767161867698544', categoryName: '餐包面包', productItems: [] },
     { categoryId: '1593059349213583584', categoryName: '干点饼干', productItems: [] },
-    // { categoryId: '1611200031064132560', categoryName: '小零食', productItems: [] },
+    { categoryId: '1652965113501744892', categoryName: '中式糕点', productItems: [] },
+    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
+    { categoryId: '1656244666392267569', categoryName: '小饮料', productItems: [] },
     { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
 ];
 
@@ -239,19 +240,24 @@ class ProductMenu4Printer extends React.Component {
                                                     textAlign: 'center', backgroundColor: 'red', color: 'white',
                                                     marginLeft: 0, marginRight: 0, paddingTop: 5, paddingBottom: 5
                                                 }}>
-                                                    教育局店微信
+                                                    总店2号微信
                                                 </div>
-                                                <Image style={{ width: 105, height: 105, marginTop: 10 }} preview={false} src={require('../image/教育局店个人微信.jpg')} />
+                                                <Image style={{ width: 105, height: 105, marginTop: 10 }} preview={false} src={require('../image/教育局总店2号微信.jpg')} />
+                                                <div style={{
+                                                    textAlign: 'center', fontSize:6
+                                                }}>
+                                                    添加时备注"立人"
+                                                </div>
                                                 <div style={{
                                                     textAlign: 'center', backgroundColor: 'red', color: 'white', marginTop: 10,
                                                     marginLeft: 0, marginRight: 0, paddingTop: 5, paddingBottom: 5
                                                 }}>
-                                                    教育局店电话
+                                                    总店2号电话
                                                 </div>
                                                 <div style={{
                                                     textAlign: 'center'
                                                 }}>
-                                                    13290768588
+                                                    18599568588
                                                 </div>
                                                 <div style={{
                                                     textAlign: 'center'
@@ -262,10 +268,9 @@ class ProductMenu4Printer extends React.Component {
                                                     textAlign: 'center', backgroundColor: 'red', color: 'white', marginTop: 10,
                                                     marginLeft: 0, marginRight: 0, paddingTop: 5, paddingBottom: 5
                                                 }}>
-                                                    教育局店地址
+                                                    总店地址
                                                 </div>
                                                 <div style={{
-
                                                     textAlign: 'center'
                                                 }}>
                                                     漳浦县绥安镇

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bc2c898ca6d284d643de3e6f8bc185cb",
+    "revision": "a9024fb39ba59aced4cd2f8a284ec64f",
     "url": "/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/3.45609364.chunk.css"
   },
   {
-    "revision": "8bece5d50899cfa7660e",
+    "revision": "3001d7be7a8535157f12",
     "url": "/static/css/main.8325baae.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/3.852d1fbc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8bece5d50899cfa7660e",
-    "url": "/static/js/main.34366125.chunk.js"
+    "revision": "3001d7be7a8535157f12",
+    "url": "/static/js/main.c1d575bf.chunk.js"
   },
   {
     "revision": "6daeaca428a568143e04",
@@ -44,7 +44,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/shoppingCart.09b8794b.png"
   },
   {
-    "revision": "240c05384bbd5be3af5bec0376d681e8",
-    "url": "/static/media/教育局店个人微信.240c0538.jpg"
+    "revision": "a0f6db3acdb8c6fac8555ed4f29cd2e1",
+    "url": "/static/media/教育局总店2号微信.a0f6db3a.jpg"
   }
 ]);

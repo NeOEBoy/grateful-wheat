@@ -12,7 +12,13 @@ import { Spin, Image, Button } from 'antd';
 import {
     loadProductsSale
 } from '../api/api';
-
+import {
+    getPageName4A4Printer,
+    getA4PrinterIndex,
+} from '../api/util';
+import {
+    getLodop
+} from './Lodop6.226_Clodop4.127/LodopFuncs';
 const KCategorys = [
     { categoryId: '1593049816479739965', categoryName: '现烤面包', productItems: [] },
     { categoryId: '1592989355905414162', categoryName: '西点慕斯', productItems: [] },
@@ -106,16 +112,7 @@ class ProductMenu4Printer extends React.Component {
         });
     };
 
-    getLodopAfterInit = async () => {
-        /// 动态引入组件
-        let {
-            getLodop
-        } = await import('./Lodop6.226_Clodop4.127/LodopFuncs');
-        let {
-            getPageName4A4Printer,
-            getA4PrinterIndex,
-        } = await import('../api/util');
-
+    getLodopAfterInit = () => {
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -135,8 +132,8 @@ class ProductMenu4Printer extends React.Component {
         return LODOP;
     };
 
-    productPrintPreprew = async () => {
-        let LODOP = await this.getLodopAfterInit();
+    productPrintPreprew = () => {
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PREVIEW();

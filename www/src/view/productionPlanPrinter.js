@@ -17,7 +17,9 @@ import {
     getProductSortIdArray,
     getJustPrintWorkshopTemplates
 } from '../api/util';
-
+import {
+    getLodop
+} from './Lodop6.226_Clodop4.127/LodopFuncs';
 /**--------------------配置信息--------------------*/
 const KForTest = getTest();
 
@@ -300,11 +302,7 @@ class ProductionPlanPrinter extends React.Component {
         });
     };
 
-    getLodopAfterInit = async () => {
-        /// 动态引入组件
-        let {
-            getLodop
-        } = await import('./Lodop6.226_Clodop4.127/LodopFuncs');
+    getLodopAfterInit = () => {
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -323,24 +321,24 @@ class ProductionPlanPrinter extends React.Component {
         return LODOP;
     };
 
-    productPrintPreprew =async () => {
-        let LODOP = await this.getLodopAfterInit();
+    productPrintPreprew = () => {
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PREVIEW();
         }
     };
 
-    productPrintDirect =async () => {
-        let LODOP =await this.getLodopAfterInit();
+    productPrintDirect = () => {
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PRINT();
         }
     };
 
-    productPrintDirectAndBack = async () => {
-        await this.productPrintDirect();
+    productPrintDirectAndBack = () => {
+        this.productPrintDirect();
         this.handleBack();
     };
 

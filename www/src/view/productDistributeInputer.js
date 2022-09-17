@@ -23,6 +23,9 @@ import {
 } from '../api/util';
 
 import diAudioSrc from '../api/di.wav';
+import {
+    getLodop
+} from './Lodop6.226_Clodop4.127/LodopFuncs';
 
 const { Search } = Input;
 
@@ -1019,11 +1022,7 @@ class ProductDistributeInputer extends React.Component {
         return partnerPrice;
     };
 
-    getLodopAfterInit = async () => {
-        /// 动态引入组件
-        let {
-            getLodop
-        } = await import('./Lodop6.226_Clodop4.127/LodopFuncs');
+    getLodopAfterInit = () => {
         let LODOP = getLodop();
 
         if (LODOP) {
@@ -1041,24 +1040,24 @@ class ProductDistributeInputer extends React.Component {
         return LODOP;
     };
 
-    productPrintPreprew = async () => {
-        let LODOP = await this.getLodopAfterInit();
+    productPrintPreprew = () => {
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PREVIEW();
         }
     };
 
-    productPrintDirect = async () => {
-        let LODOP = await this.getLodopAfterInit();
+    productPrintDirect = () => {
+        let LODOP = this.getLodopAfterInit();
 
         if (LODOP) {
             LODOP.PRINT();
         }
     };
 
-    productPrintDirectAndBack = async () => {
-        await this.productPrintDirect();
+    productPrintDirectAndBack = () => {
+        this.productPrintDirect();
         this.setState({
             productTransferPrintShow: false,
             filterDropdownVisible4Transfer: true

@@ -188,7 +188,9 @@ class ProductMenu4Printer extends React.Component {
                                                                         return (
                                                                             <div key={item2.key}>
                                                                                 <div style={{ width: 160, height: 160 }}>
-                                                                                    <Image style={{ width: 160, height: 160 }} preview={false} src={imageSrc} onError={(e) => {
+                                                                                    <Image style={{ width: 160, height: 160 }} preview={false}
+                                                                                    fallback={`${KImageRoot}/暂时缺货.jpg`}
+                                                                                     src={imageSrc} onError={(e) => {
                                                                                         /// 图片加载不成功时隐藏
                                                                                         // e.target.style.display = 'none';
                                                                                     }} />

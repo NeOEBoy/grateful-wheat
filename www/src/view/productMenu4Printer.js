@@ -124,6 +124,7 @@ class ProductMenu4Printer extends React.Component {
             LODOP.SET_PRINTER_INDEX(getA4PrinterIndex(LODOP));
             LODOP.SET_PRINT_PAGESIZE(2, 0, 0, getPageName4A4Printer());
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 800, 600, '');
+            LODOP.SET_PRINT_COPIES(1);
             LODOP.SET_SHOW_MODE("LANDSCAPE_DEFROTATED", 1);//横向时的正向显示
             LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
             LODOP.ADD_PRINT_HTM(0, 0, "100%", '100%', strStyle + document.getElementById("printDiv").innerHTML);

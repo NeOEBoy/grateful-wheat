@@ -8,6 +8,7 @@ import React from 'react';
 import moment from 'moment';
 import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Collapse, Spin, List, Image, Button, message } from 'antd';
+import TextLoop from "react-text-loop";
 import {
     loadProductsSale,
     loadBreadAll,
@@ -407,13 +408,19 @@ class ProductMenu extends React.Component {
             <div>
                 <div style={{
                     textAlign: 'center', color: '#B9B973',
-                    fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                    fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                 }}>
-                    <span>预定前请先添加教育局总店</span>
-                    <span style={{ textDecoration: 'underline' }}>
-                        <a href="tel:13290768588">13290768588</a>
-                    </span>
-                    <span> (微信同号)</span>
+                    <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
+                        adjustingSpeed={500}>
+                        <span>
+                            <span>联系弯麦总店</span>
+                            <span style={{ textDecoration: 'underline' }}>
+                                <a href="tel:13290768588">13290768588</a>
+                            </span>
+                            <span> (微信同号)</span>
+                        </span>
+                        <span>为保证商品新鲜，最好提前1天预定...</span>
+                    </TextLoop>
                 </div>
 
                 <Collapse

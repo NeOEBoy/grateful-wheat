@@ -19,14 +19,20 @@ const { Panel } = Collapse;
 const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
+    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏天必备',
+    thumbnail: `${KImageRoot}/小饮料/童话里复合草莓汁饮品.jpg`, productItems: []
+}, {
+    categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
+    thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
+}, {
+    categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
+    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
+}, {
     categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
     thumbnail: `${KImageRoot}/现烤面包/甜甜圈.jpg`, productItems: []
 }, {
     categoryId: '1592989355905414162', categoryName: '西点慕斯', description: '甜点慕斯、烦恼拜拜',
     thumbnail: `${KImageRoot}/西点慕斯/黑森林.jpg`, productItems: []
-}, {
-    categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
-    thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
 }, {
     categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
     thumbnail: `${KImageRoot}/吐司面包/抹茶红豆切片吐司.jpg`, productItems: []
@@ -39,12 +45,6 @@ const KCategorys = [{
 }, {
     categoryId: '1652965113501744892', categoryName: '中式糕点', description: '传统糕点，经典传承',
     thumbnail: `${KImageRoot}/中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
-}, {
-    categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
-    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
-}, {
-    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏天必备',
-    thumbnail: `${KImageRoot}/小饮料/童话里复合草莓汁饮品.jpg`, productItems: []
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
     thumbnail: `${KImageRoot}/长富常温牛奶/长富24精品纯奶.jpg`, productItems: []
@@ -419,7 +419,7 @@ class ProductMenu extends React.Component {
                             </span>
                             <span> (微信同号)</span>
                         </span>
-                        <span>为保证商品新鲜，最好提前1天预定...</span>
+                        <span>为避免商品缺货，最好提前1天预定...</span>
                     </TextLoop>
                 </div>
 

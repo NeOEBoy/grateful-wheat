@@ -14,6 +14,7 @@ import QueueAnim from 'rc-queue-anim';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import QRCode from 'qrcode'
+import TextLoop from "react-text-loop";
 
 import Icon, {
     RightSquareFilled,
@@ -1521,13 +1522,19 @@ class birthdayCakeSale extends React.Component {
 
                     <div style={{
                         textAlign: 'center', color: '#B9B973',
-                        fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                        fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                     }}>
-                        <span>预定前请先添加教育局总店2号</span>
-                        <span style={{ textDecoration: 'underline' }}>
-                            <a href="tel:18599568588">18599568588</a>
-                        </span>
-                        <span> (微信同号)</span>
+                        <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
+                            adjustingSpeed={500}>
+                            <span>
+                                <span>联系弯麦总店2号</span>
+                                <span style={{ textDecoration: 'underline' }}>
+                                    <a href="tel:18599568588">18599568588</a>
+                                </span>
+                                <span> (微信同号)</span>
+                            </span>
+                            <span>生日蛋糕新鲜现做，最好提前1天预定...</span>
+                        </TextLoop>
                     </div>
 
                     <div style={{

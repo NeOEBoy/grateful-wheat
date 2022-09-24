@@ -20,15 +20,15 @@ import {
     getLodop
 } from './Lodop6.226_Clodop4.127/LodopFuncs';
 const KCategorys = [
+    { categoryId: '1656244666392267569', categoryName: '小饮料', productItems: [] },
+    { categoryId: '1593049881212199906', categoryName: '常温蛋糕', productItems: [] },
+    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
     { categoryId: '1593049816479739965', categoryName: '现烤面包', productItems: [] },
     { categoryId: '1592989355905414162', categoryName: '西点慕斯', productItems: [] },
-    { categoryId: '1593049881212199906', categoryName: '常温蛋糕', productItems: [] },
     { categoryId: '1593049854760654816', categoryName: '吐司面包', productItems: [] },
     { categoryId: '1626767161867698544', categoryName: '餐包面包', productItems: [] },
     { categoryId: '1593059349213583584', categoryName: '干点饼干', productItems: [] },
     { categoryId: '1652965113501744892', categoryName: '中式糕点', productItems: [] },
-    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
-    { categoryId: '1656244666392267569', categoryName: '小饮料', productItems: [] },
     { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
 ];
 
@@ -190,11 +190,11 @@ class ProductMenu4Printer extends React.Component {
                                                                             <div key={item2.key}>
                                                                                 <div style={{ width: 160, height: 160 }}>
                                                                                     <Image style={{ width: 160, height: 160 }} preview={false}
-                                                                                    fallback={`${KImageRoot}/暂时缺货.jpg`}
-                                                                                     src={imageSrc} onError={(e) => {
-                                                                                        /// 图片加载不成功时隐藏
-                                                                                        // e.target.style.display = 'none';
-                                                                                    }} />
+                                                                                        fallback={`${KImageRoot}/暂时缺货.jpg`}
+                                                                                        src={imageSrc} onError={(e) => {
+                                                                                            /// 图片加载不成功时隐藏
+                                                                                            // e.target.style.display = 'none';
+                                                                                        }} />
                                                                                 </div>
                                                                                 <div style={{ fontSize: 14, color: 'black' }}>{item2.productName}</div>
                                                                                 <div style={{ fontSize: 12, color: 'gray' }}>{item2.specification}</div>
@@ -244,7 +244,7 @@ class ProductMenu4Printer extends React.Component {
                                                 </div>
                                                 <Image style={{ width: 105, height: 105, marginTop: 10 }} preview={false} src={require('../image/教育局总店2号微信.jpg')} />
                                                 <div style={{
-                                                    textAlign: 'center', fontSize:6
+                                                    textAlign: 'center', fontSize: 6
                                                 }}>
                                                     添加时备注"立人"
                                                 </div>

@@ -20,7 +20,7 @@ const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
     categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏天必备',
-    thumbnail: `${KImageRoot}/小饮料/童话里复合草莓汁饮品.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/小饮料/手打金桔柠檬.jpg`, productItems: []
 }, {
     categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
     thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []

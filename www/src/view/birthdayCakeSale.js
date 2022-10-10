@@ -14,6 +14,7 @@ import QueueAnim from 'rc-queue-anim';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import QRCode from 'qrcode'
+import TextLoop from "react-text-loop";
 
 import Icon, {
     RightSquareFilled,
@@ -142,8 +143,8 @@ const KCandleTypeOptions = [
     { label: '螺纹蜡烛', value: '螺纹蜡烛' },
     { label: '数字蜡烛', value: '数字蜡烛' },
     { label: '爱心蜡烛', value: '爱心蜡烛' },
+    { label: '五星蜡烛', value: '五星蜡烛' },
     { label: '曲线蜡烛', value: '曲线蜡烛' },
-    // { label: '五星蜡烛', value: '五星蜡烛' },
     { label: '荷花●音乐蜡烛', value: '荷花●音乐蜡烛' }
 ];
 
@@ -979,6 +980,13 @@ class birthdayCakeSale extends React.Component {
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
+                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
+                    <div style={{ width: 70, textAlign: 'center' }}>五星蜡烛</div>
+                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
+                </div>), value: '五星蜡烛'
+            },
+            {
+                label: (<div style={{ marginBottom: 6 }}>
                     <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>曲线蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
@@ -1521,13 +1529,19 @@ class birthdayCakeSale extends React.Component {
 
                     <div style={{
                         textAlign: 'center', color: '#B9B973',
-                        fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                        fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                     }}>
-                        <span>预定前请先添加教育局总店2号</span>
-                        <span style={{ textDecoration: 'underline' }}>
-                            <a href="tel:18599568588">18599568588</a>
-                        </span>
-                        <span> (微信同号)</span>
+                        <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
+                            adjustingSpeed={500}>
+                            <span>
+                                <span>联系弯麦总店2号</span>
+                                <span style={{ textDecoration: 'underline' }}>
+                                    <a href="tel:18599568588">18599568588</a>
+                                </span>
+                                <span> (微信同号)</span>
+                            </span>
+                            <span>生日蛋糕新鲜现做，最好提前1天预定...</span>
+                        </TextLoop>
                     </div>
 
                     <div style={{

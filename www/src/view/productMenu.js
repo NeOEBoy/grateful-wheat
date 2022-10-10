@@ -8,6 +8,7 @@ import React from 'react';
 import moment from 'moment';
 import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Collapse, Spin, List, Image, Button, message } from 'antd';
+import TextLoop from "react-text-loop";
 import {
     loadProductsSale,
     loadBreadAll,
@@ -18,14 +19,20 @@ const { Panel } = Collapse;
 const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
+    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏天必备',
+    thumbnail: `${KImageRoot}/小饮料/手打金桔柠檬.jpg`, productItems: []
+}, {
+    categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
+    thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
+}, {
+    categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
+    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
+}, {
     categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
     thumbnail: `${KImageRoot}/现烤面包/甜甜圈.jpg`, productItems: []
 }, {
     categoryId: '1592989355905414162', categoryName: '西点慕斯', description: '甜点慕斯、烦恼拜拜',
     thumbnail: `${KImageRoot}/西点慕斯/黑森林.jpg`, productItems: []
-}, {
-    categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
-    thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
 }, {
     categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
     thumbnail: `${KImageRoot}/吐司面包/抹茶红豆切片吐司.jpg`, productItems: []
@@ -38,12 +45,6 @@ const KCategorys = [{
 }, {
     categoryId: '1652965113501744892', categoryName: '中式糕点', description: '传统糕点，经典传承',
     thumbnail: `${KImageRoot}/中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
-}, {
-    categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
-    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
-}, {
-    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏天必备',
-    thumbnail: `${KImageRoot}/小饮料/童话里复合草莓汁饮品.jpg`, productItems: []
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
     thumbnail: `${KImageRoot}/长富常温牛奶/长富24精品纯奶.jpg`, productItems: []
@@ -407,13 +408,19 @@ class ProductMenu extends React.Component {
             <div>
                 <div style={{
                     textAlign: 'center', color: '#B9B973',
-                    fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                    fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                 }}>
-                    <span>预定前请先添加教育局总店</span>
-                    <span style={{ textDecoration: 'underline' }}>
-                        <a href="tel:13290768588">13290768588</a>
-                    </span>
-                    <span> (微信同号)</span>
+                    <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
+                        adjustingSpeed={500}>
+                        <span>
+                            <span>联系弯麦总店</span>
+                            <span style={{ textDecoration: 'underline' }}>
+                                <a href="tel:13290768588">13290768588</a>
+                            </span>
+                            <span> (微信同号)</span>
+                        </span>
+                        <span>为避免商品缺货，最好提前1天预定...</span>
+                    </TextLoop>
                 </div>
 
                 <Collapse
@@ -463,7 +470,7 @@ class ProductMenu extends React.Component {
                                                     <List.Item>
                                                         <div>
                                                             <Image preview={true} src={imageSrc}
-                                                                fallback='data:image/png;base64,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'
+                                                                fallback={`${KImageRoot}/暂时缺货.jpg`}
                                                                 onError={(e) => {
                                                                     /// 图片加载不成功时隐藏
                                                                     // e.target.style.display = 'none';

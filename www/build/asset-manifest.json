@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.8325baae.chunk.css",
+    "main.js": "/static/js/main.ad1892a8.chunk.js",
+    "main.js.map": "/static/js/main.ad1892a8.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.08521ef5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.08521ef5.js.map",
+    "static/css/2.45609364.chunk.css": "/static/css/2.45609364.chunk.css",
+    "static/js/2.b9c53cc3.chunk.js": "/static/js/2.b9c53cc3.chunk.js",
+    "static/js/2.b9c53cc3.chunk.js.map": "/static/js/2.b9c53cc3.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.9199e1c14c02bca2726ab8bb1b17b107.js": "/precache-manifest.9199e1c14c02bca2726ab8bb1b17b107.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.45609364.chunk.css.map": "/static/css/2.45609364.chunk.css.map",
+    "static/css/main.8325baae.chunk.css.map": "/static/css/main.8325baae.chunk.css.map",
+    "static/js/2.b9c53cc3.chunk.js.LICENSE.txt": "/static/js/2.b9c53cc3.chunk.js.LICENSE.txt",
+    "static/media/di.wav": "/static/media/di.0258c2a5.wav",
+    "static/media/logo.png": "/static/media/logo.224b18a1.png",
+    "static/media/shoppingCart.png": "/static/media/shoppingCart.09b8794b.png",
+    "static/media/教育局总店2号微信.jpg": "/static/media/教育局总店2号微信.a0f6db3a.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.08521ef5.js",
+    "static/css/2.45609364.chunk.css",
+    "static/js/2.b9c53cc3.chunk.js",
+    "static/css/main.8325baae.chunk.css",
+    "static/js/main.ad1892a8.chunk.js"
+  ]
+}

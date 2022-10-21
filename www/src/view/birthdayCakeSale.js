@@ -1001,6 +1001,15 @@ class birthdayCakeSale extends React.Component {
             }
         ];
 
+        let columnNumber = 2;
+        const interWidth = window.innerWidth;
+        // console.log('interWidth = ' + interWidth);
+        if (interWidth > 1080) {
+            columnNumber = 4;
+        } else if (interWidth > 600) {
+            columnNumber = 3;
+        }
+
         return (
             <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
                 <div>
@@ -1555,7 +1564,7 @@ class birthdayCakeSale extends React.Component {
                     <Spin spinning={birthdayCakesRecommendLoading} size='large'>
                         <List
                             style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
-                            grid={{ gutter: 4, column: 2 }}
+                            grid={{ gutter: 4, column: columnNumber }}
                             dataSource={Object.keys(birthdayCakesRecommendItems)}
                             renderItem={item => {
                                 let pricesObj = birthdayCakesRecommendItems[item]['价格'];
@@ -1672,7 +1681,7 @@ class birthdayCakeSale extends React.Component {
                                         <Spin spinning={categoryItem.spinning}>
                                             <List
                                                 style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
-                                                grid={{ gutter: 4, column: 2 }}
+                                                grid={{ gutter: 4, column: columnNumber }}
                                                 dataSource={Object.keys(categoryItem.productItems)}
                                                 renderItem={item => {
                                                     let pricesObj = categoryItem.productItems[item]['价格'];

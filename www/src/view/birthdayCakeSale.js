@@ -1160,7 +1160,7 @@ class birthdayCakeSale extends React.Component {
                                                             let thePrices = orderCakePrices[item];
                                                             let sizes = Object.keys(thePrices);
                                                             return (
-                                                                <div key={item} >
+                                                                <div key={item} style={{ display: 'inline-block', marginLeft: 25, marginRight: 25 }}>
                                                                     <div style={{ fontWeight: 'bold' }}>{item}</div>
                                                                     {
                                                                         sizes.map((item1) => {
@@ -1177,7 +1177,7 @@ class birthdayCakeSale extends React.Component {
                                                                     }
                                                                     {
                                                                         sizes.length >= 2 ? (
-                                                                            <div style={{ fontSize: 12, fontWeight: 'bold' }}>
+                                                                            <div style={{ fontSize: 10, fontWeight: 'bold', color: 'gray' }}>
                                                                                 <div>叠加组合，价格为对应尺寸之和</div>
                                                                                 <div>悬浮组合，价格为对应尺寸之和+20元</div>
                                                                             </div>) : (<div></div>)
@@ -1190,7 +1190,7 @@ class birthdayCakeSale extends React.Component {
 
                                                 <div key='b'>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <Input.Group>
                                                             <span style={{ fontWeight: 'bold' }}>奶油：</span>
                                                             <Radio.Group
@@ -1207,7 +1207,7 @@ class birthdayCakeSale extends React.Component {
                                                             }
                                                         </Input.Group>
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <div>
                                                             <span style={{ fontWeight: 'bold' }}>尺寸：</span>
                                                             <Select value={cakeSize} style={{ width: 80, marginRight: 8 }}
@@ -1234,13 +1234,13 @@ class birthdayCakeSale extends React.Component {
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <span style={{ fontWeight: 'bold' }}>价格：</span>
                                                         <span>{cakePrice}</span>
                                                         <span> 元</span>
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <span style={{ fontWeight: 'bold' }}>夹心（任选两种，默认为芒果和布丁）：</span>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                                        <div style={{ fontWeight: 'bold' }}>夹心（任选两种，默认为芒果和布丁）：</div>
                                                         <CheckboxGroup
                                                             style={{ marginTop: 8 }}
                                                             options={KCakeFillingOptions}
@@ -1252,7 +1252,7 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<span></span>)
                                                         }
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为螺纹蜡烛一根）：</div>
 
                                                         <Radio.Group style={{ marginTop: 8 }}
@@ -1268,7 +1268,7 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<span></span>)
                                                         }
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
 
                                                         <Radio.Group style={{ marginTop: 8 }}
@@ -1278,14 +1278,14 @@ class birthdayCakeSale extends React.Component {
                                                         </Radio.Group>
                                                     </div>
 
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
-                                                        <div style={{ fontWeight: 'bold' }}>帽子（默认为金卡皇冠帽）：</div>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                                        <div style={{ fontWeight: 'bold' }}>帽子（默认为金卡皇冠帽，无须选择）：</div>
                                                         <Image style={{ width: 70, height: 70, marginTop: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
-                                                        <div style={{ width: 70, textAlign: 'center' }}>金卡皇冠帽</div>
-                                                        <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一顶</div>
+                                                        <div>金卡皇冠帽</div>
+                                                        <div style={{ height: 30, paddingTop: 6 }}>一顶</div>
                                                     </div>
 
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <span style={{ fontWeight: 'bold' }}>餐具：</span>
                                                         <span>{cakePlateNumber}</span>
                                                         <span> 套</span>
@@ -1294,12 +1294,12 @@ class birthdayCakeSale extends React.Component {
 
                                                 <div key='c'>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <div style={{ fontWeight: 'bold' }}>时间：</div>
                                                         <div>
                                                             <DatePicker
                                                                 ref={(dp) => this._datePicker4PickUpDay = dp}
-                                                                style={{ width: 170 }}
+                                                                style={{ width: 180 }}
                                                                 placeholder='日期'
                                                                 format='YYYY-MM-DD dddd'
                                                                 value={pickUpDay}
@@ -1348,7 +1348,7 @@ class birthdayCakeSale extends React.Component {
                                                         <div style={{ marginTop: 4 }}>
                                                             <DatePicker
                                                                 picker='time'
-                                                                style={{ width: 120 }}
+                                                                style={{ width: 150 }}
                                                                 placeholder='时间'
                                                                 locale={dpLocale}
                                                                 showTime={{
@@ -1384,7 +1384,7 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <span style={{ fontWeight: 'bold' }}>方式：</span>
                                                         <Radio.Group
                                                             size='large'
@@ -1399,9 +1399,9 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<div></div>)
                                                         }
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                                        <Select value={responseShop} style={{ width: 120 }}
+                                                        <Select value={responseShop} style={{ width: 160 }}
                                                             onChange={this.handleResponseShopChange}
                                                             options={KResponseShopOptions}>
                                                         </Select>
@@ -1413,10 +1413,10 @@ class birthdayCakeSale extends React.Component {
                                                     </div>
                                                     {
                                                         pickUpType === KPickUpTypeOptions[1].value ? (
-                                                            <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                            <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                                 <Input.Group>
                                                                     <span style={{ fontWeight: 'bold' }}>地址：</span>
-                                                                    <Input style={{ width: 'calc(100% - 100px)' }}
+                                                                    <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
                                                                         placeholder='填写地址' prefix={<HomeOutlined />}
                                                                         value={deliverAddress}
                                                                         onChange={this.handleDeliverAddressChange} />
@@ -1432,10 +1432,10 @@ class birthdayCakeSale extends React.Component {
                                                             </div>
                                                         )
                                                     }
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <Input.Group>
                                                             <span style={{ fontWeight: 'bold' }}>姓名：</span>
-                                                            <Input style={{ width: 'calc(100% - 100px)' }}
+                                                            <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
                                                                 placeholder='填写姓名'
                                                                 prefix={<UserOutlined />}
                                                                 value={pickUpName}
@@ -1447,10 +1447,10 @@ class birthdayCakeSale extends React.Component {
                                                             }
                                                         </Input.Group>
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                         <Input.Group>
                                                             <span style={{ fontWeight: 'bold' }}>手机：</span>
-                                                            <Input style={{ width: 'calc(100% - 100px)' }}
+                                                            <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
                                                                 placeholder='填写手机号'
                                                                 prefix={<PhoneOutlined />}
                                                                 value={phoneNumber}
@@ -1466,10 +1466,10 @@ class birthdayCakeSale extends React.Component {
 
                                                 <div key='d'>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12 }}>
+                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 24, marginRight: 24, textAlign: 'center' }}>
                                                         <Input.Group>
                                                             <span style={{ fontWeight: 'bold' }}>备注：</span>
-                                                            <TextArea style={{ width: 'calc(100% - 0px)' }} rows={2}
+                                                            <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={2}
                                                                 placeholder='有特殊要求，请备注' value={remarks}
                                                                 onChange={this.handleRemarksChange} />
                                                         </Input.Group>

@@ -1346,8 +1346,11 @@ class birthdayCakeSale extends React.Component {
 
                                                                     return (
                                                                         <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                                                            this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                            this.setState({ pickUpDayPopupOpen: false });
+                                                                            this.setState({ pickUpDayPopupOpen: false }, () => {
+                                                                                setTimeout(() => {
+                                                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                                }, 300);
+                                                                            });
                                                                         }}>
                                                                             {current.date()}
                                                                         </div>
@@ -1356,18 +1359,27 @@ class birthdayCakeSale extends React.Component {
                                                                 renderExtraFooter={() =>
                                                                 (<span>
                                                                     <Button type='primary' size='small' onClick={() => {
-                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                        this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false });
+                                                                        this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false }, () => {
+                                                                            setTimeout(() => {
+                                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                            }, 300);
+                                                                        });
                                                                     }}>今天</Button>
                                                                     <span>   </span>
                                                                     <Button type='primary' size='small' onClick={() => {
-                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                        this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false });
+                                                                        this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false }, () => {
+                                                                            setTimeout(() => {
+                                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                            }, 300);
+                                                                        });
                                                                     }}>明天</Button>
                                                                     <span>   </span>
                                                                     <Button type='primary' size='small' onClick={() => {
-                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                        this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false });
+                                                                        this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false }, () => {
+                                                                            setTimeout(() => {
+                                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                            }, 300);
+                                                                        });
                                                                     }}>后天</Button>
                                                                 </span>)
                                                                 } />

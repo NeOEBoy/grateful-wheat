@@ -634,6 +634,7 @@ class birthdayCakeSale extends React.Component {
                     if (!this._theDiv4Capture) return;
 
                     /// 保存蛋糕订单，返回_id
+                    // let createResult = '123';
                     let createResult = await createBirthdaycakeOrder(
                         cakeName,
                         cakeDescription,
@@ -690,7 +691,7 @@ class birthdayCakeSale extends React.Component {
                                     let style = '《' + cakeName + '》';
                                     let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
                                     let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
-                                    console.log(sendResult);
+                                    // console.log(sendResult);
                                     // message.info(JSON.stringify(sendResult));
                                 });
                             });
@@ -929,13 +930,15 @@ class birthdayCakeSale extends React.Component {
         }
 
         let orderImageWidth = window.innerWidth;
+        if (orderImageWidth > 640) orderImageWidth = 640;
         let orderImageHeight = orderImageWidth * 148 / 210;
         let titleAndFooterHeight = 190;
         let KOrderImageDivStyle = {
             backgroundColor: '#E5E4E2',
             width: orderImageWidth,
             height: orderImageHeight + titleAndFooterHeight,
-            marginTop: (window.innerHeight - (orderImageHeight + titleAndFooterHeight)) / 2
+            marginTop: (window.innerHeight - (orderImageHeight + titleAndFooterHeight)) / 2,
+            marginLeft: (window.innerWidth - orderImageWidth) / 2
         };
 
         let KOrderImageStyle = {

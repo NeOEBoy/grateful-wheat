@@ -1372,12 +1372,12 @@ class birthdayCakeSale extends React.Component {
                                                                 renderExtraFooter={() => (
                                                                     <span>
                                                                         <Button type='primary' size='small' onClick={() => {
-                                                                            this.setState({ pickUpTime: moment('12:00', 'HH:mm') });
-                                                                        }}>中午12点</Button>
+                                                                            this.setState({ pickUpTime: moment('12:30', 'HH:mm') });
+                                                                        }}>中午 12点30分</Button>
                                                                         <span>   </span>
                                                                         <Button type='primary' size='small' onClick={() => {
-                                                                            this.setState({ pickUpTime: moment('18:00', 'HH:mm') });
-                                                                        }}>晚上18点</Button>
+                                                                            this.setState({ pickUpTime: moment('18:30', 'HH:mm') });
+                                                                        }}>晚上 18点30分</Button>
                                                                     </span>
                                                                 )} />
                                                         </div>

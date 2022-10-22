@@ -819,7 +819,9 @@ class birthdayCakeSale extends React.Component {
         // console.log('handlePickUpTimeOnOk');
         // console.log(e.target);
         this.setState({ pickUpTimePopupOpen: false }, () => {
-            this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+            setTimeout(() => {
+                this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+            }, 300);
         });
     }
 

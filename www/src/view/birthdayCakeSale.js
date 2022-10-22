@@ -212,6 +212,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDay: '',
             pickUpDayPopupOpen: false,
             pickUpTime: '',
+            pickUpTimePopupOpen: false,
             pickUpType: '',
             responseShop: '',
             deliverAddress: '',
@@ -802,6 +803,25 @@ class birthdayCakeSale extends React.Component {
         this.setState({ pickUpTime: data });
     }
 
+    handlePickUpTimeOnFocus = (e) => {
+        // console.log('handlePickUpTimeOnFocus');
+        // console.log(e.target);
+        this.setState({ pickUpTimePopupOpen: true });
+    }
+
+    handlePickUpTimeOnBlur = (e) => {
+        // console.log('handlePickUpTimeOnBlur');
+        // console.log(e.target);
+        this.setState({ pickUpTimePopupOpen: false });
+    }
+
+    handlePickUpTimeOnOk = (e) => {
+        // console.log('handlePickUpTimeOnOk');
+        // console.log(e.target);
+        this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+        this.setState({ pickUpTimePopupOpen: false });
+    }
+
     onPickUpTypeChange = e => {
         this.setState({ pickUpType: e.target.value });
     }
@@ -851,6 +871,7 @@ class birthdayCakeSale extends React.Component {
             pickUpDay,
             pickUpDayPopupOpen,
             pickUpTime,
+            pickUpTimePopupOpen,
             responseShop,
             deliverAddress,
             pickUpName,
@@ -1350,33 +1371,40 @@ class birthdayCakeSale extends React.Component {
                                                         </div>
                                                         <div style={{ marginTop: 4 }}>
                                                             <DatePicker
+                                                                ref={(dp) => this._datePicker4PickUpTime = dp}
                                                                 picker='time'
                                                                 style={{ width: 150 }}
                                                                 placeholder='时间'
                                                                 locale={dpLocale}
                                                                 showTime={{
                                                                     use12Hours: false,
-                                                                    showNow: true,
+                                                                    showNow: false,
                                                                     format: 'a HH:mm'
                                                                 }}
                                                                 panelRender={(originPicker) => {
                                                                     return (
-                                                                        <div style={{ marginLeft: 20, marginRight: 20 }}>
+                                                                        <div style={{ marginLeft: 10, marginRight: 10 }}>
                                                                             {originPicker}
                                                                         </div>)
                                                                 }}
                                                                 format='a HH:mm'
                                                                 value={pickUpTime}
+                                                                open={pickUpTimePopupOpen}
+                                                                onFocus={this.handlePickUpTimeOnFocus}
+                                                                onBlur={this.handlePickUpTimeOnBlur}
+                                                                onOk={this.handlePickUpTimeOnOk}
                                                                 inputReadOnly={true}
                                                                 onChange={this.handlePickUpTimeChange}
                                                                 renderExtraFooter={() => (
                                                                     <span>
                                                                         <Button type='primary' size='small' onClick={() => {
-                                                                            this.setState({ pickUpTime: moment('12:30', 'HH:mm') });
+                                                                            this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+                                                                            this.setState({ pickUpTime: moment('12:30', 'HH:mm'), pickUpTimePopupOpen: false });
                                                                         }}>中午 12点30分</Button>
                                                                         <span>   </span>
                                                                         <Button type='primary' size='small' onClick={() => {
-                                                                            this.setState({ pickUpTime: moment('18:30', 'HH:mm') });
+                                                                            this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+                                                                            this.setState({ pickUpTime: moment('18:30', 'HH:mm'), pickUpTimePopupOpen: false });
                                                                         }}>晚上 18点30分</Button>
                                                                     </span>
                                                                 )} />

@@ -1401,13 +1401,19 @@ class birthdayCakeSale extends React.Component {
                                                                 renderExtraFooter={() => (
                                                                     <span>
                                                                         <Button type='primary' size='small' onClick={() => {
-                                                                            this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
-                                                                            this.setState({ pickUpTime: moment('12:30', 'HH:mm'), pickUpTimePopupOpen: false });
+                                                                            this.setState({ pickUpTime: moment('12:30', 'HH:mm'), pickUpTimePopupOpen: false }, () => {
+                                                                                setTimeout(() => {
+                                                                                    this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+                                                                                }, 300);
+                                                                            });
                                                                         }}>中午 12点30分</Button>
                                                                         <span>   </span>
                                                                         <Button type='primary' size='small' onClick={() => {
-                                                                            this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
-                                                                            this.setState({ pickUpTime: moment('18:30', 'HH:mm'), pickUpTimePopupOpen: false });
+                                                                            this.setState({ pickUpTime: moment('18:30', 'HH:mm'), pickUpTimePopupOpen: false }, () => {
+                                                                                setTimeout(() => {
+                                                                                    this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+                                                                                }, 300);
+                                                                            });
                                                                         }}>晚上 18点30分</Button>
                                                                     </span>
                                                                 )} />

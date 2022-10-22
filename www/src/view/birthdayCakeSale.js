@@ -33,7 +33,8 @@ import {
     Collapse, Image, Spin,
     DatePicker, Radio, List,
     Select, Input, Checkbox, Divider,
-    message, Timeline, Button, Space
+    message, Timeline, Button, Space,
+    BackTop
 } from 'antd';
 import {
     loadProductsSale,
@@ -1608,7 +1609,7 @@ class birthdayCakeSale extends React.Component {
                     <div style={{
                         textAlign: 'center', marginTop: 0, fontSize: 20,
                         backgroundColor: '#DAA520', color: 'white',
-                        borderRadius: 15, paddingTop: 10, paddingBottom: 10
+                        borderRadius: 30, paddingTop: 10, paddingBottom: 10
                     }}>
                         {debug ? `${birthdayCakesRecommendTitle}（${Object.keys(birthdayCakesRecommendItems).length}）`
                             : `${birthdayCakesRecommendTitle}`}
@@ -1703,7 +1704,7 @@ class birthdayCakeSale extends React.Component {
 
                     <Collapse
                         bordered={true}
-                        expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
+                        expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
                         expandIconPosition='right'
                         onChange={this.handleCollapseOnChange}>
                         {
@@ -1727,9 +1728,9 @@ class birthdayCakeSale extends React.Component {
                                                 </div>
                                             )
                                         }
-                                        style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
+                                        style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
                                         key={categoryItem.categoryId}
-                                        extra={(<span style={{ fontSize: 16, color: 'black' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                        extra={(<span style={{ fontSize: 14, color: 'whitesmoke' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
                                         <Spin spinning={categoryItem.spinning}>
                                             <List
                                                 style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
@@ -1842,7 +1843,7 @@ class birthdayCakeSale extends React.Component {
                         this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized);
                     }}>
                         <span>私人订制蛋糕</span>
-                        <span style={{ color: 'black', fontSize: 18, marginLeft: 8 }}>点击预定</span>
+                        <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击预定</span>
                     </div>
 
                     {imageCapturing ? (
@@ -2004,6 +2005,19 @@ class birthdayCakeSale extends React.Component {
                             </div>
                         </div>
                     </div>
+
+                    <BackTop style={{
+                        height: 40,
+                        width: 40,
+                        lineHeight: '40px',
+                        borderRadius: 20,
+                        backgroundColor: '#B9B973',
+                        color: '#fff',
+                        textAlign: 'center',
+                        fontSize: 12,
+                    }}>
+                        顶部
+                    </BackTop>
                 </div >
             </Spin>
         )

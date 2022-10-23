@@ -195,6 +195,10 @@ class birthdayCakeSale extends React.Component {
             debug: 0,
             orderCakeInfoModalVisiable: false,
 
+            /// 搜索
+            searchName: '',
+            birthdayCakesSearchItems: {},
+
             /// 蛋糕信息
             cakeName: '',
             cakeDescription: '',
@@ -693,7 +697,7 @@ class birthdayCakeSale extends React.Component {
                                     let style = '《' + cakeName + '》';
                                     let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
                                     let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
-                                    // console.log(sendResult);
+                                    console.log(sendResult);
                                     // message.info(JSON.stringify(sendResult));
                                 });
                             });
@@ -850,12 +854,43 @@ class birthdayCakeSale extends React.Component {
         this.setState({ remarks: e.target.value });
     }
 
+    handleSearchInputOnChange = (e) => {
+        this.setState({ searchName: e.target.value });
+        if (!e.target.value || e.target.value === '') return;
+
+        let productItemsObj = {};
+        let keys = Object.keys(this._birthdayCakesAll);
+        for (let jj = 0; jj < keys.length; ++jj) {
+            let name4allItem = keys[jj];
+            if (name4allItem.indexOf(e.target.value) !== -1) {
+                let obj = {};
+                obj['价格'] = {};
+                obj['描述'] = '';
+                if (this._birthdayCakesAll[name4allItem]) {
+                    if (this._birthdayCakesAll[name4allItem]['价格']) {
+                        obj['价格'] = this._birthdayCakesAll[name4allItem]['价格'];
+                    }
+
+                    if (this._birthdayCakesAll[name4allItem]['描述']) {
+                        obj['描述'] = this._birthdayCakesAll[name4allItem]['描述'];
+                    }
+
+                    productItemsObj[name4allItem] = obj;
+                }
+            }
+        }
+
+        this.setState({ birthdayCakesSearchItems: productItemsObj });
+    }
+
     render() {
         const {
             birthdayCakeCategorys,
             birthdayCakesRecommendTitle,
             birthdayCakesRecommendItems,
             birthdayCakesRecommendLoading,
+            searchName,
+            birthdayCakesSearchItems,
             debug,
             pickUpType,
             orderCakeInfoModalVisiable,
@@ -1032,7 +1067,7 @@ class birthdayCakeSale extends React.Component {
         let columnNumber = 2;
         const interWidth = window.innerWidth;
         // console.log('interWidth = ' + interWidth);
-        if (interWidth > 1080) {
+        if (interWidth > 900) {
             columnNumber = 4;
         } else if (interWidth > 600) {
             columnNumber = 3;
@@ -1606,245 +1641,343 @@ class birthdayCakeSale extends React.Component {
                         </TextLoop>
                     </div>
 
-                    <div style={{
-                        textAlign: 'center', marginTop: 0, fontSize: 20,
-                        backgroundColor: '#DAA520', color: 'white',
-                        borderRadius: 30, paddingTop: 10, paddingBottom: 10
-                    }}>
-                        {debug ? `${birthdayCakesRecommendTitle}（${Object.keys(birthdayCakesRecommendItems).length}）`
-                            : `${birthdayCakesRecommendTitle}`}
+                    <div style={{ padding: 12 }}>
+                        <Input
+                            placeholder="请输入蛋糕名称"
+                            allowClear
+                            size='middle'
+                            value={searchName}
+                            onChange={this.handleSearchInputOnChange}
+                        />
                     </div>
-                    <Spin spinning={birthdayCakesRecommendLoading} size='large'>
-                        <List
-                            style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
-                            grid={{ gutter: 4, column: columnNumber }}
-                            dataSource={Object.keys(birthdayCakesRecommendItems)}
-                            renderItem={item => {
-                                let pricesObj = birthdayCakesRecommendItems[item]['价格'];
-                                let description = birthdayCakesRecommendItems[item]['描述'];
-                                let pricesKeys = Object.keys(pricesObj);
 
-                                let theMinimumSize = '6寸';
-                                let theMinimumPrice = '0';
+                    {
+                        (!searchName || searchName === '') ? (
+                            <div>
+                                <div style={{
+                                    textAlign: 'center', marginTop: 0, fontSize: 16,
+                                    backgroundColor: '#DAA520', color: 'white',
+                                    borderRadius: 30, paddingTop: 8, paddingBottom: 8
+                                }}>
+                                    {debug ? `${birthdayCakesRecommendTitle}（${Object.keys(birthdayCakesRecommendItems).length}）`
+                                        : `${birthdayCakesRecommendTitle}`}
+                                </div>
+                                <Spin spinning={birthdayCakesRecommendLoading} size='large'>
+                                    <List
+                                        style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                                        grid={{ gutter: 4, column: columnNumber }}
+                                        dataSource={Object.keys(birthdayCakesRecommendItems)}
+                                        renderItem={item => {
+                                            let pricesObj = birthdayCakesRecommendItems[item]['价格'];
+                                            let description = birthdayCakesRecommendItems[item]['描述'];
+                                            let pricesKeys = Object.keys(pricesObj);
 
-                                if (pricesKeys.length > 0) {
-                                    let type = pricesKeys[0];
+                                            let theMinimumSize = '6寸';
+                                            let theMinimumPrice = '0';
 
-                                    let thePrices = pricesObj[type];
-                                    let theThePrices = Object.keys(thePrices);
-                                    if (theThePrices.length > 0) {
-                                        let firstPrice = theThePrices[0];
-                                        theMinimumSize = firstPrice;
-                                        theMinimumPrice = thePrices[firstPrice];
-                                    }
-                                }
+                                            if (pricesKeys.length > 0) {
+                                                let type = pricesKeys[0];
 
-                                let index = Object.keys(birthdayCakesRecommendItems).indexOf(item);
-                                let rank = index + 1;
-
-                                return (
-                                    <List.Item>
-                                        <div key={item}>
-                                            {
-                                                (rank === 1 || rank === 2 || rank === 3) ? (
-                                                    <div style={{
-                                                        borderRadius: 20,
-                                                        position: 'absolute', zIndex: 10
-                                                    }}>
-                                                        <Image style={{
-                                                            width: 40, height: 40,
-                                                        }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
-                                                    </div>
-                                                ) : (<div></div>)
+                                                let thePrices = pricesObj[type];
+                                                let theThePrices = Object.keys(thePrices);
+                                                if (theThePrices.length > 0) {
+                                                    let firstPrice = theThePrices[0];
+                                                    theMinimumSize = firstPrice;
+                                                    theMinimumPrice = thePrices[firstPrice];
+                                                }
                                             }
 
-                                            <Image style={{ border: '1px dashed #C58917' }}
-                                                fallback='data:image/png;base64,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'
-                                                preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                            let index = Object.keys(birthdayCakesRecommendItems).indexOf(item);
+                                            let rank = index + 1;
 
-                                            <div>
-                                                <div>
-                                                    <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
-                                                    <span style={{
-                                                        fontSize: 14, marginTop: 8,
-                                                        float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                        paddingLeft: 8, paddingRight: 8, borderRadius: 15,
-                                                        textAlign: 'center', backgroundColor: '#C58917', color: 'white',
-                                                    }} onClick={() => {
-                                                        this.handleOrderNowClick(0, item, description, pricesObj);
-                                                    }}>
-                                                        {`预定`}
-                                                    </span>
-                                                </div>
-                                                <div style={{ fontSize: 14 }}>
-                                                    <span>{description}</span>
-                                                </div>
-                                                <div style={{ fontSize: 13 }}>
-                                                    <InfoCircleOutlined style={{ color: '#C58917' }} />
-                                                    <span>{` ${theMinimumSize} `}</span>
-                                                    <span>起</span>
+                                            return (
+                                                <List.Item>
+                                                    <div key={item}>
+                                                        {
+                                                            (rank === 1 || rank === 2 || rank === 3) ? (
+                                                                <div style={{
+                                                                    borderRadius: 20,
+                                                                    position: 'absolute', zIndex: 10
+                                                                }}>
+                                                                    <Image style={{
+                                                                        width: 40, height: 40,
+                                                                    }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
+                                                                </div>
+                                                            ) : (<div></div>)
+                                                        }
 
-                                                    <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
-                                                    <span>{` ${theMinimumPrice}元 `}</span>
-                                                    <span>起</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </List.Item>
-                                );
-                            }}
-                        />
-                    </Spin>
-                    <div style={{
-                        textAlign: 'center', color: '#C6A300',
-                        fontSize: 18, paddingTop: 10, paddingBottom: 20
-                    }}>
-                        更多款式请点击下方分类查看
-                    </div>
+                                                        <Image style={{ border: '1px dashed #C58917' }}
+                                                            fallback='data:image/png;base64,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'
+                                                            preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
-                    <Collapse
-                        bordered={true}
-                        expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
-                        expandIconPosition='right'
-                        onChange={this.handleCollapseOnChange}>
-                        {
-                            birthdayCakeCategorys.map((categoryItem) => {
-                                return (
-                                    <Panel
-                                        header=
-                                        {
-                                            (
-                                                <div style={{ color: 'white', fontSize: 20 }}>
-                                                    <Image style={{ width: 50, height: 50, borderRadius: 25 }} preview={false} src={categoryItem.thumbnail} />
-
-                                                    <div style={{ float: 'right', marginLeft: 12 }}>
                                                         <div>
-                                                            {debug ? `${categoryItem.categoryName}（${Object.keys(categoryItem.productItems).length}）` : `${categoryItem.categoryName}`}
+                                                            <div>
+                                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                                <span style={{
+                                                                    fontSize: 14, marginTop: 8,
+                                                                    float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 15,
+                                                                    textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                                }} onClick={() => {
+                                                                    this.handleOrderNowClick(0, item, description, pricesObj);
+                                                                }}>
+                                                                    {`预定`}
+                                                                </span>
+                                                            </div>
+                                                            <div style={{ fontSize: 14 }}>
+                                                                <span>{description}</span>
+                                                            </div>
+                                                            <div style={{ fontSize: 13 }}>
+                                                                <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                                <span>{` ${theMinimumSize} `}</span>
+                                                                <span>起</span>
+
+                                                                <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                                <span>{` ${theMinimumPrice}元 `}</span>
+                                                                <span>起</span>
+                                                            </div>
                                                         </div>
-                                                        <div style={{ fontSize: 14, color: '#FEFCFF' }}>
-                                                            {`${categoryItem.description}`}
+                                                    </div>
+                                                </List.Item>
+                                            );
+                                        }}
+                                    />
+                                </Spin>
+                                <div style={{
+                                    textAlign: 'center', color: '#C6A300',
+                                    fontSize: 18, paddingTop: 10, paddingBottom: 20
+                                }}>
+                                    更多款式请点击下方分类查看
+                                </div>
+
+                                <Collapse
+                                    bordered={true}
+                                    expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
+                                    expandIconPosition='right'
+                                    onChange={this.handleCollapseOnChange}>
+                                    {
+                                        birthdayCakeCategorys.map((categoryItem) => {
+                                            return (
+                                                <Panel
+                                                    header=
+                                                    {
+                                                        (
+                                                            <div style={{ color: 'white', fontSize: 16 }}>
+                                                                <Image style={{ width: 44, height: 44, borderRadius: 22 }} preview={false} src={categoryItem.thumbnail} />
+
+                                                                <div style={{ float: 'right', marginLeft: 12 }}>
+                                                                    <div>
+                                                                        {debug ? `${categoryItem.categoryName}（${Object.keys(categoryItem.productItems).length}）` : `${categoryItem.categoryName}`}
+                                                                    </div>
+                                                                    <div style={{ fontSize: 12, color: '#FEFCFF' }}>
+                                                                        {`${categoryItem.description}`}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
+                                                    key={categoryItem.categoryId}
+                                                    extra={(<span style={{ fontSize: 12, color: 'whitesmoke' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                                    <Spin spinning={categoryItem.spinning}>
+                                                        <List
+                                                            style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
+                                                            grid={{ gutter: 4, column: columnNumber }}
+                                                            dataSource={Object.keys(categoryItem.productItems)}
+                                                            renderItem={item => {
+                                                                let pricesObj = categoryItem.productItems[item]['价格'];
+                                                                let description = categoryItem.productItems[item]['描述'];
+                                                                let pricesKeys = Object.keys(pricesObj);
+                                                                let theMinimumPrice = '0';
+                                                                let theMinimumSize = '6寸';
+
+                                                                let index = Object.keys(categoryItem.productItems).indexOf(item);
+                                                                let rank = index + 1;
+
+                                                                if (pricesKeys.length > 0) {
+                                                                    let type = pricesKeys[0];
+
+                                                                    let thePrices = pricesObj[type];
+                                                                    let theThePrices = Object.keys(thePrices);
+                                                                    if (theThePrices.length > 0) {
+                                                                        let firstPrice = theThePrices[0];
+                                                                        theMinimumSize = firstPrice;
+                                                                        theMinimumPrice = thePrices[firstPrice];
+                                                                    }
+                                                                }
+                                                                return (
+                                                                    <List.Item>
+                                                                        <div key={item}>
+                                                                            {
+                                                                                (rank === 1 || rank === 2 || rank === 3) ? (
+                                                                                    <div style={{
+                                                                                        borderRadius: 20,
+                                                                                        position: 'absolute', zIndex: 10
+                                                                                    }}>
+                                                                                        <Image style={{
+                                                                                            width: 40, height: 40,
+                                                                                        }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
+                                                                                    </div>
+                                                                                ) : (<div></div>)
+                                                                            }
+
+                                                                            <Image style={{ border: '1px dashed #C58917' }}
+                                                                                fallback='data:image/png;base64,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'
+                                                                                preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+
+                                                                            <div>
+                                                                                <div>
+                                                                                    <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                                                    <span style={{
+                                                                                        fontSize: 14, marginTop: 8,
+                                                                                        float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                                                        paddingLeft: 8, paddingRight: 8, borderRadius: 12,
+                                                                                        textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                                                    }} onClick={() => {
+                                                                                        this.handleOrderNowClick(0, item, description, pricesObj);
+                                                                                    }}>
+                                                                                        {`预定`}
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div style={{ fontSize: 14 }}>
+                                                                                    <span>{description}</span>
+                                                                                </div>
+                                                                                <div style={{ fontSize: 13 }}>
+                                                                                    <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                                                    <span>{` ${theMinimumSize} `}</span>
+                                                                                    <span>起</span>
+
+                                                                                    <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                                                    <span>{` ${theMinimumPrice}元 `}</span>
+                                                                                    <span>起</span>
+                                                                                </div>
+                                                                                {debug ? (
+                                                                                    <div style={{ color: 'green', fontSize: 12 }}>
+                                                                                        {`半年内销售数量：${categoryItem.productItems[item].saleNumber}`}
+                                                                                    </div>
+                                                                                ) : (<div></div>)}
+                                                                            </div>
+                                                                        </div>
+                                                                    </List.Item>
+                                                                );
+                                                            }}
+                                                        />
+                                                    </Spin>
+                                                </Panel>
+                                            );
+                                        })
+                                    }
+                                </Collapse>
+
+                                <div style={{
+                                    textAlign: 'center', marginTop: 0, fontSize: 24,
+                                    backgroundColor: '#DAA520', color: 'white',
+                                    borderRadius: 0, paddingTop: 30, paddingBottom: 30
+                                }} onClick={() => {
+                                    let price4customized = {
+                                        "牛奶奶油": {
+                                            "6寸": "--",
+                                            "8寸": "--",
+                                            "10寸": "--",
+                                            "12寸": "--"
+                                        },
+                                        "动物奶油": {
+                                            "6寸": "--",
+                                            "8寸": "--",
+                                            "10寸": "--",
+                                            "12寸": "--"
+                                        }
+                                    }
+                                    this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized);
+                                }}>
+                                    <span>私人订制蛋糕</span>
+                                    <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击预定</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <div>
+                                <List
+                                    style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                                    grid={{ gutter: 4, column: columnNumber }}
+                                    dataSource={Object.keys(birthdayCakesSearchItems)}
+                                    renderItem={item => {
+                                        let pricesObj = birthdayCakesSearchItems[item]['价格'];
+                                        let description = birthdayCakesSearchItems[item]['描述'];
+                                        let pricesKeys = Object.keys(pricesObj);
+
+                                        let theMinimumSize = '6寸';
+                                        let theMinimumPrice = '0';
+
+                                        if (pricesKeys.length > 0) {
+                                            let type = pricesKeys[0];
+
+                                            let thePrices = pricesObj[type];
+                                            let theThePrices = Object.keys(thePrices);
+                                            if (theThePrices.length > 0) {
+                                                let firstPrice = theThePrices[0];
+                                                theMinimumSize = firstPrice;
+                                                theMinimumPrice = thePrices[firstPrice];
+                                            }
+                                        }
+
+                                        let index = Object.keys(birthdayCakesSearchItems).indexOf(item);
+                                        let rank = index + 1;
+
+                                        return (
+                                            <List.Item>
+                                                <div key={item}>
+                                                    {
+                                                        (rank === 1 || rank === 2 || rank === 3) ? (
+                                                            <div style={{
+                                                                borderRadius: 20,
+                                                                position: 'absolute', zIndex: 10
+                                                            }}>
+                                                                <Image style={{
+                                                                    width: 40, height: 40,
+                                                                }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
+                                                            </div>
+                                                        ) : (<div></div>)
+                                                    }
+
+                                                    <Image style={{ border: '1px dashed #C58917' }}
+                                                        fallback='data:image/png;base64,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'
+                                                        preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+
+                                                    <div>
+                                                        <div>
+                                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                            <span style={{
+                                                                fontSize: 14, marginTop: 8,
+                                                                float: 'right', paddingTop: 4, paddingBottom: 4,
+                                                                paddingLeft: 8, paddingRight: 8, borderRadius: 15,
+                                                                textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                            }} onClick={() => {
+                                                                this.handleOrderNowClick(0, item, description, pricesObj);
+                                                            }}>
+                                                                {`预定`}
+                                                            </span>
+                                                        </div>
+                                                        <div style={{ fontSize: 14 }}>
+                                                            <span>{description}</span>
+                                                        </div>
+                                                        <div style={{ fontSize: 13 }}>
+                                                            <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                            <span>{` ${theMinimumSize} `}</span>
+                                                            <span>起</span>
+
+                                                            <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                            <span>{` ${theMinimumPrice}元 `}</span>
+                                                            <span>起</span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            )
-                                        }
-                                        style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
-                                        key={categoryItem.categoryId}
-                                        extra={(<span style={{ fontSize: 14, color: 'whitesmoke' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
-                                        <Spin spinning={categoryItem.spinning}>
-                                            <List
-                                                style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
-                                                grid={{ gutter: 4, column: columnNumber }}
-                                                dataSource={Object.keys(categoryItem.productItems)}
-                                                renderItem={item => {
-                                                    let pricesObj = categoryItem.productItems[item]['价格'];
-                                                    let description = categoryItem.productItems[item]['描述'];
-                                                    let pricesKeys = Object.keys(pricesObj);
-                                                    let theMinimumPrice = '0';
-                                                    let theMinimumSize = '6寸';
-
-                                                    let index = Object.keys(categoryItem.productItems).indexOf(item);
-                                                    let rank = index + 1;
-
-                                                    if (pricesKeys.length > 0) {
-                                                        let type = pricesKeys[0];
-
-                                                        let thePrices = pricesObj[type];
-                                                        let theThePrices = Object.keys(thePrices);
-                                                        if (theThePrices.length > 0) {
-                                                            let firstPrice = theThePrices[0];
-                                                            theMinimumSize = firstPrice;
-                                                            theMinimumPrice = thePrices[firstPrice];
-                                                        }
-                                                    }
-                                                    return (
-                                                        <List.Item>
-                                                            <div key={item}>
-                                                                {
-                                                                    (rank === 1 || rank === 2 || rank === 3) ? (
-                                                                        <div style={{
-                                                                            borderRadius: 20,
-                                                                            position: 'absolute', zIndex: 10
-                                                                        }}>
-                                                                            <Image style={{
-                                                                                width: 40, height: 40,
-                                                                            }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
-                                                                        </div>
-                                                                    ) : (<div></div>)
-                                                                }
-
-                                                                <Image style={{ border: '1px dashed #C58917' }}
-                                                                    fallback='data:image/png;base64,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'
-                                                                    preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
-
-                                                                <div>
-                                                                    <div>
-                                                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
-                                                                        <span style={{
-                                                                            fontSize: 14, marginTop: 8,
-                                                                            float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                            paddingLeft: 8, paddingRight: 8, borderRadius: 12,
-                                                                            textAlign: 'center', backgroundColor: '#C58917', color: 'white',
-                                                                        }} onClick={() => {
-                                                                            this.handleOrderNowClick(0, item, description, pricesObj);
-                                                                        }}>
-                                                                            {`预定`}
-                                                                        </span>
-                                                                    </div>
-                                                                    <div style={{ fontSize: 14 }}>
-                                                                        <span>{description}</span>
-                                                                    </div>
-                                                                    <div style={{ fontSize: 13 }}>
-                                                                        <InfoCircleOutlined style={{ color: '#C58917' }} />
-                                                                        <span>{` ${theMinimumSize} `}</span>
-                                                                        <span>起</span>
-
-                                                                        <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
-                                                                        <span>{` ${theMinimumPrice}元 `}</span>
-                                                                        <span>起</span>
-                                                                    </div>
-                                                                    {debug ? (
-                                                                        <div style={{ color: 'green', fontSize: 12 }}>
-                                                                            {`半年内销售数量：${categoryItem.productItems[item].saleNumber}`}
-                                                                        </div>
-                                                                    ) : (<div></div>)}
-                                                                </div>
-                                                            </div>
-                                                        </List.Item>
-                                                    );
-                                                }}
-                                            />
-                                        </Spin>
-                                    </Panel>
-                                );
-                            })
-                        }
-                    </Collapse>
-
-                    <div style={{
-                        textAlign: 'center', marginTop: 0, fontSize: 24,
-                        backgroundColor: '#DAA520', color: 'white',
-                        borderRadius: 0, paddingTop: 30, paddingBottom: 30
-                    }} onClick={() => {
-                        let price4customized = {
-                            "牛奶奶油": {
-                                "6寸": "--",
-                                "8寸": "--",
-                                "10寸": "--",
-                                "12寸": "--"
-                            },
-                            "动物奶油": {
-                                "6寸": "--",
-                                "8寸": "--",
-                                "10寸": "--",
-                                "12寸": "--"
-                            }
-                        }
-                        this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized);
-                    }}>
-                        <span>私人订制蛋糕</span>
-                        <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击预定</span>
-                    </div>
+                                            </List.Item>
+                                        );
+                                    }}
+                                />
+                            </div>
+                        )
+                    }
 
                     {imageCapturing ? (
                         <div ref={(current) => { this._theDiv4Capture = current; }}
@@ -2005,20 +2138,8 @@ class birthdayCakeSale extends React.Component {
                             </div>
                         </div>
                     </div>
-
-                    <BackTop style={{
-                        height: 40,
-                        width: 40,
-                        lineHeight: '40px',
-                        borderRadius: 20,
-                        backgroundColor: '#B9B973',
-                        color: '#fff',
-                        textAlign: 'center',
-                        fontSize: 12,
-                    }}>
-                        顶部
-                    </BackTop>
                 </div >
+                <BackTop />
             </Spin>
         )
     }

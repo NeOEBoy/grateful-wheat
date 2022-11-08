@@ -425,7 +425,7 @@ class ProductMenu extends React.Component {
 
                 <Collapse
                     bordered={true}
-                    expandIcon={({ isActive }) => <RightSquareFilled rotate={isActive ? 90 : 0} />}
+                    expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
                     expandIconPosition='right'
                     onChange={this.handleCollapseOnChange}>
                     {
@@ -448,9 +448,9 @@ class ProductMenu extends React.Component {
                                             </div>
                                         )
                                     }
-                                    style={{ backgroundColor: '#DAA520', borderRadius: 20 }}
+                                    style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
                                     key={item.categoryId}
-                                    extra={(<span style={{ fontSize: 13, color: 'black' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                    extra={(<span style={{ fontSize: 13, color: 'whitesmoke' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
                                     <Spin spinning={item.spinning}>
                                         <List
                                             grid={{ gutter: 2, column: 2 }}

@@ -79,6 +79,9 @@ const KCategorys = [{
 }, {
     categoryId: '1657848010512718759', categoryName: '结婚订婚纪念蛋糕', description: '先生/女士、周年快乐',
     thumbnail: '/image/生日蛋糕/蛋糕3.0/爱心纪念-方图.jpg', productItems: {}
+}, {
+    categoryId: '1667997464683559851', categoryName: '搞怪款蛋糕', description: '今生只对你搞怪',
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/蜡笔小新-方图.jpg', productItems: {}
 }];
 
 const KPickUpTypeOptions = [

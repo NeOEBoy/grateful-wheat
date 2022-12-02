@@ -1232,12 +1232,10 @@ class birthdayCakeSale extends React.Component {
                                                                         sizes.map((item1) => {
                                                                             return (
                                                                                 <div key={item1}>
-                                                                                    <span>{item1}</span>
-                                                                                    <span>（</span>
-                                                                                    <span>{KCakeRecommendPeople[item1]}</span>
-                                                                                    <span>）</span>
-                                                                                    <span>{thePrices[item1]}</span>
-                                                                                    <span>元</span>
+                                                                                    <span style={{ color: 'green' }}>{item1}</span>
+                                                                                    <span style={{ color: 'gray', fontSize: 8 }}>{`（${KCakeRecommendPeople[item1]}）`}</span>
+                                                                                    <span style={{ color: 'green' }}>{`${thePrices[item1]}元`}</span>
+                                                                                    <span></span>
                                                                                 </div>)
                                                                         })
                                                                     }

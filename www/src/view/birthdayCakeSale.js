@@ -1233,7 +1233,7 @@ class birthdayCakeSale extends React.Component {
                                                                             return (
                                                                                 <div key={item1}>
                                                                                     <span style={{ color: 'green' }}>{item1}</span>
-                                                                                    <span style={{ color: 'gray', fontSize: 8 }}>{`（${KCakeRecommendPeople[item1]}）`}</span>
+                                                                                    <span style={{ color: 'gray', fontSize: 12 }}>{`（${KCakeRecommendPeople[item1]}）`}</span>
                                                                                     <span style={{ color: 'green' }}>{`${thePrices[item1]}元`}</span>
                                                                                     <span></span>
                                                                                 </div>)

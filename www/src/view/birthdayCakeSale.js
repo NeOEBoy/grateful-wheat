@@ -997,7 +997,6 @@ class birthdayCakeSale extends React.Component {
         let orderImageHeight = orderImageWidth * 148 / 210;
         let titleAndFooterHeight = 190;
         let KOrderImageDivStyle = {
-            backgroundColor: '#E5E4E2',
             width: orderImageWidth,
             height: orderImageHeight + titleAndFooterHeight,
             marginTop: (window.innerHeight - (orderImageHeight + titleAndFooterHeight)) / 2,
@@ -1587,15 +1586,15 @@ class birthdayCakeSale extends React.Component {
                     {
                         orderImageModalVisiable ? (
                             <div style={{
-                                background: 'rgba(0,0,0,0.6)', position: 'fixed',
+                                background: 'rgba(0,0,0,0.9)', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'hidden', overflowX: 'hidden'
                             }}>
                                 <div style={KOrderImageDivStyle}>
                                     <div key='a' style={{ height: 110 }}>
                                         <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
-                                            <Timeline.Item color='#C58917' style={{ color: '#C58917' }}>{`长按虚线框内的订购单图片并转发给客服`}</Timeline.Item>
-                                            <Timeline.Item color='#C58917' style={{ color: '#C58917' }}>{`注意：不要识别二维码，也不要截屏`}</Timeline.Item>
+                                            <Timeline.Item color='white' style={{ color: 'white' }}>{`长按虚线框内的订购单图片并转发给客服`}</Timeline.Item>
+                                            <Timeline.Item color='white' style={{ color: 'white' }}>{`注意：不要识别二维码，也不要截屏`}</Timeline.Item>
                                         </Timeline>
                                     </div>
 
@@ -1605,19 +1604,19 @@ class birthdayCakeSale extends React.Component {
                                         </div>
                                     </QueueAnim>
 
-                                    <div style={{ height: 80, textAlign: 'center', backgroundColor: '#E5E4E2' }}>
+                                    <div style={{ height: 80, textAlign: 'center' }}>
                                         <Space style={{ marginTop: 24 }}>
-                                            <Button key='back' type='dashed' onClick={() => {
+                                            <Button key='back' type='primary' danger onClick={() => {
                                                 this.setState({ orderImageModalVisiable: false });
                                                 document.documentElement.style.overflow = 'visible';
-                                            }}>关闭</Button>
-                                            <Button key='edit' type='dashed' onClick={() => {
+                                            }}>X</Button>
+                                            {/* <Button key='edit' type='dashed' onClick={() => {
                                                 this.setState({
                                                     orderImageModalVisiable: false,
                                                     orderCakeInfoModalVisiable: true
                                                 });
                                                 document.documentElement.style.overflow = 'hidden';
-                                            }}>返回修改</Button>
+                                            }}>返回修改</Button> */}
                                         </Space>
                                     </div>
                                 </div>

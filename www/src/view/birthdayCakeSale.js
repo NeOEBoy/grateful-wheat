@@ -1984,7 +1984,7 @@ class birthdayCakeSale extends React.Component {
                             style={theDiv4CaptureStyle}>
                             <div id="qrcode" style={{
                                 textAlign: 'right', position: 'absolute',
-                                paddingRight: 20, bottom: 155,
+                                paddingRight: 20, paddingTop: 10,
                                 width: theDiv4CaptureWidth, height: 150
                             }}>
                                 <div style={{ fontSize: 14, fontWeight: 'bold' }}>电子订购单二维码：</div>
@@ -2105,7 +2105,7 @@ class birthdayCakeSale extends React.Component {
                                         </span>
                                     </div>
                                     <Divider style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>其它</Divider>
-                                    <div style={{ marginTop: 4, marginBottom: 4, marginRight: 170 }}>
+                                    <div style={{ marginTop: 4, marginBottom: 4, marginRight: 8 }}>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>备注：</span>
                                         <span style={{ fontSize: 18, color: 'red', wordWrap: 'break-word' }}>
                                             {remarks}

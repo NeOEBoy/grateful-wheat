@@ -12,7 +12,7 @@ const getAllShop = () => {
     { index: 4, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
     { index: 5, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
     { index: 6, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 7, name: '007 - 弯麦(漳浦立人)', userId: '4382444' }
+    { index: 7, name: '007 - 弯麦(德林火烧铺)', userId: '4382444' }
   ];
 };
 
@@ -24,7 +24,7 @@ const getAllShopExceptAll = () => {
     { index: 3, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
     { index: 4, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
     { index: 5, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 6, name: '007 - 弯麦(漳浦立人)', userId: '4382444' }
+    { index: 6, name: '007 - 弯麦(德林火烧铺)', userId: '4382444' }
   ];
 };
 
@@ -36,7 +36,7 @@ const getAllOrderShopName = () => {
     '004 - 弯麦(汤泉店)',
     '005 - 弯麦(盘陀店)',
     '006 - 弯麦(狮头店)',
-    '007 - 弯麦(漳浦立人)'
+    '007 - 弯麦(德林火烧铺)'
   ];
 };
 

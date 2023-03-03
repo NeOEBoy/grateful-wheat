@@ -362,7 +362,7 @@ class ProductionPlanPrinter extends React.Component {
     handleBack = (e) => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
-        paramValueObj.orderType = this.orderType;
+        paramValueObj.orderType = this._orderType;
         paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this._shop;
         paramValueObj.beginDateTime = this._beginDateTime;

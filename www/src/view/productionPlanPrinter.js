@@ -40,6 +40,7 @@ class ProductionPlanPrinter extends React.Component {
 
         this._orderList = undefined;
         this._template = undefined;
+        this._orderType = undefined;
         this._shop = undefined;
         this._beginDateTime = undefined;
         this._timeType = undefined;
@@ -56,6 +57,7 @@ class ProductionPlanPrinter extends React.Component {
             // console.log(paramValueStr);
             let paramValueObj = JSON.parse(paramValueStr);
             this._template = paramValueObj.template;
+            this._orderType = paramValueObj.orderType;
             this._shop = paramValueObj.shop;
             this._beginDateTime = paramValueObj.beginDateTime;
             this._timeType = paramValueObj.timeType;
@@ -75,16 +77,27 @@ class ProductionPlanPrinter extends React.Component {
             for (let index = 0; index < this._orderList.length; ++index) {
                 let orderItem = this._orderList[index];
                 if (orderItem) {
-                    this.setState({ productSpinTipText: '获取' + orderItem.orderShop + '...' });
+                    this.setState({ productSpinTipText: '获取' + orderItem.orderShop + '-' + orderItem.orderId + '...' });
                     const orderItems = await getProductOrderItems(orderItem.orderId);
                     if (orderItems.errCode === 0 && orderItems.items) {
                         /// 1.1 合并同一订货门店同一模板订单的商品信息
                         let existInAllData = false; let i;
                         for (i = 0; i < allData.length; ++i) {
-                            if (allData[i].orderShop === orderItem.orderShop &&
-                                allData[i].templateName === orderItem.templateName) {
-                                existInAllData = true;
-                                break;
+                            /// 联营店，使用orderShop，templateName，orderType区分联营门店
+                            /// 非联营店，使用orderShop，templateName，区分门店
+                            if (orderItem.orderShop === '007 - 弯麦(联营店)') {
+                                if (allData[i].orderShop === orderItem.orderShop &&
+                                    allData[i].templateName === orderItem.templateName &&
+                                    allData[i].orderType === orderItem.orderType) {
+                                    existInAllData = true;
+                                    break;
+                                }
+                            } else {
+                                if (allData[i].orderShop === orderItem.orderShop &&
+                                    allData[i].templateName === orderItem.templateName) {
+                                    existInAllData = true;
+                                    break;
+                                }
                             }
                         }
                         if (existInAllData) {
@@ -116,6 +129,7 @@ class ProductionPlanPrinter extends React.Component {
                             item.templateName = orderItem.templateName;
                             item.expectTime = orderItem.expectTime;
                             item.orderTime = orderItem.orderTime;
+                            item.orderType = orderItem.orderType;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = this._template.templateId + '-' + orderItems.items[i].barcode;
@@ -253,6 +267,7 @@ class ProductionPlanPrinter extends React.Component {
                 oneDataObj.templateName = allDataColumn.templateName;
                 oneDataObj.expectTime = allDataColumn.expectTime;
                 oneDataObj.orderTime = allDataColumn.orderTime;
+                oneDataObj.orderType = allDataColumn.orderType;
                 oneDataObj.items = [];
                 for (let j = 0; j < totalOrderItem.items.length; ++j) {
                     let oneItem = totalOrderItem.items[j];
@@ -289,6 +304,7 @@ class ProductionPlanPrinter extends React.Component {
                         allDataAfterItem.templateName = allDataAfterFix0[i].templateName;
                         allDataAfterItem.expectTime = allDataAfterFix0[i].expectTime;
                         allDataAfterItem.orderTime = allDataAfterFix0[i].orderTime;
+                        allDataAfterItem.orderType = allDataAfterFix0[i].orderType;
                         allDataAfterItem.items = [];
 
                         allDataAfterA4.push(allDataAfterItem);
@@ -346,6 +362,7 @@ class ProductionPlanPrinter extends React.Component {
     handleBack = (e) => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
+        paramValueObj.orderType = this.orderType;
         paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this._shop;
         paramValueObj.beginDateTime = this._beginDateTime;
@@ -418,7 +435,7 @@ class ProductionPlanPrinter extends React.Component {
                                                         <thead>
                                                             <tr>
                                                                 <th colSpan='2' style={{ width: 318, textAlign: 'center', backgroundColor: 'lightyellow' }}>
-                                                                    {columnData.orderShop}
+                                                                    {`${columnData.orderShop}-${columnData.orderType}`}
                                                                 </th>
                                                             </tr>
                                                             <tr>

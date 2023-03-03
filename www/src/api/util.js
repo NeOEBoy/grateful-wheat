@@ -12,7 +12,7 @@ const getAllShop = () => {
     { index: 4, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
     { index: 5, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
     { index: 6, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 7, name: '007 - 弯麦(德林火烧铺)', userId: '4382444' }
+    { index: 7, name: '007 - 弯麦(联营店)', userId: '4382444' }
   ];
 };
 
@@ -24,7 +24,7 @@ const getAllShopExceptAll = () => {
     { index: 3, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
     { index: 4, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
     { index: 5, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 6, name: '007 - 弯麦(德林火烧铺)', userId: '4382444' }
+    { index: 6, name: '007 - 弯麦(联营店)', userId: '4382444' }
   ];
 };
 
@@ -36,7 +36,7 @@ const getAllOrderShopName = () => {
     '004 - 弯麦(汤泉店)',
     '005 - 弯麦(盘陀店)',
     '006 - 弯麦(狮头店)',
-    '007 - 弯麦(德林火烧铺)'
+    '007 - 弯麦(联营店)'
   ];
 };
 
@@ -48,6 +48,18 @@ const getOrderTemplates = () => {
     { index: 3, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
     { index: 4, name: '餐包类', templateId: '182', templateUid: '1595077405589137749' },
     { index: 5, name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' }
+  ];
+};
+
+const getOrderTypes = () => {
+  return [
+    { index: 0, name: '全部类型', id: '' },
+    { index: 1, name: '直营店-日常单', id: '163' },
+    { index: 2, name: '德林-火烧铺店', id: '320' },
+    { index: 3, name: '街头-大亭路店', id: '323' },
+    { index: 4, name: '德林-学府店', id: '322' },
+    { index: 5, name: '德林-假日店', id: '321' },
+    { index: 6, name: '测试单', id: '324' }
   ];
 };
 
@@ -68,6 +80,7 @@ const getOrderTimeType = () => {
     { index: 1, name: '到货时间', timeType: '2' }
   ];
 };
+
 
 const getAllOrderTemplateName = () => {
   return [
@@ -176,6 +189,7 @@ export {
   getAllCategorysExceptAll,
   getAllOrderShopName,
   getOrderTemplates,
+  getOrderTypes,
   getOrderTimeType,
   getAllOrderTemplateName,
   getFlowType,

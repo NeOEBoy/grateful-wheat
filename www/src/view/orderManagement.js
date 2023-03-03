@@ -24,6 +24,7 @@ import {
     getAllShop,
     getAllOrderShopName,
     getOrderTemplates,
+    getOrderTypes,
     getOrderTimeType,
     getAllOrderTemplateName,
     getFlowType,
@@ -38,6 +39,8 @@ const KForTest = getTest();
 const KAllShops = getAllShop();
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
+/// 类型信息
+const KOrderTypes = getOrderTypes();
 /// 订单时间类型
 const KOrderTimeType = getOrderTimeType();
 /// 报货门店名字
@@ -67,6 +70,7 @@ class OrderManagement extends React.Component {
             alreadyOrderLoading: false,
             currentShop4OrderList: KAllShops[0],
             currentTemplate4OrderList: KOrderTemplates[1],
+            currentOrderType4OrderList: KOrderTypes[0],
             currentOrderTimeType: KOrderTimeType[0],
             beginDateTime4OrderList: beginDateTime4OrderList4init,
             endDateTime4OrderList: endDateTime4OrderList4init,
@@ -119,6 +123,7 @@ class OrderManagement extends React.Component {
 
             this.setState({
                 currentTemplate4OrderList: paramValueObj.template,
+                currentOrderType4OrderList: paramValueObj.orderType,
                 currentOrderTimeType: paramValueObj.timeType,
                 currentShop4OrderList: paramValueObj.shop,
                 beginDateTime4OrderList: moment(paramValueObj.beginDateTime),
@@ -135,7 +140,8 @@ class OrderManagement extends React.Component {
             this.setState({
                 alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys4OrderList: []
             }, async () => {
-                const { currentShop4OrderList, currentTemplate4OrderList, currentOrderTimeType,
+                const { currentShop4OrderList, currentTemplate4OrderList,
+                    currentOrderType4OrderList, currentOrderTimeType,
                     beginDateTime4OrderList, endDateTime4OrderList } = this.state;
                 let orderList = [];
                 let keys = [];
@@ -149,7 +155,13 @@ class OrderManagement extends React.Component {
                 // console.log(productOrder);
 
                 if (productOrder && productOrder.errCode === 0) {
-                    orderList = productOrder.list;
+                    for (let i = 0; i < productOrder.list.length; ++i) {
+                        /// 根据订单类型筛选，如果全部类型则不筛选
+                        if (currentOrderType4OrderList.id === '' ||
+                            currentOrderType4OrderList.name === productOrder.list[i].orderType) {
+                            orderList.push(productOrder.list[i]);
+                        }
+                    }
 
                     orderList = orderList.sort((item1, item2) => {
                         return item1.orderShopIndex - item2.orderShopIndex;
@@ -287,8 +299,8 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderTimeType,
-            selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
+        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList,
+            currentOrderTimeType, selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
@@ -298,6 +310,7 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.orderType = currentOrderType4OrderList;
         paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
@@ -323,8 +336,8 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderTimeType,
-            currentShop4OrderList, beginDateTime4OrderList, endDateTime4OrderList,
+        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList,
+            currentOrderTimeType, currentShop4OrderList, beginDateTime4OrderList, endDateTime4OrderList,
             selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
@@ -335,6 +348,7 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.orderType = currentOrderType4OrderList;
         paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
@@ -359,8 +373,9 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate4OrderList, currentShop4OrderList, currentOrderTimeType,
-            beginDateTime4OrderList, endDateTime4OrderList, selectedRowKeys4OrderList } = this.state;
+        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList,
+            currentShop4OrderList, currentOrderTimeType, beginDateTime4OrderList,
+            endDateTime4OrderList, selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
             let orderItem = alreadyOrderListData[ii];
@@ -370,6 +385,7 @@ class OrderManagement extends React.Component {
 
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.orderType = currentOrderType4OrderList;
         paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
@@ -414,7 +430,8 @@ class OrderManagement extends React.Component {
 
     render() {
         const {
-            alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderTimeType,
+            alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
+            currentOrderType4OrderList, currentOrderTimeType,
             alreadyOrderLoading, beginDateTime4OrderList, endDateTime4OrderList,
             timePickerOpen4OrderList, selectedRowKeys4OrderList, noyetOrderShops,
             noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
@@ -435,6 +452,7 @@ class OrderManagement extends React.Component {
         }
         let disableProductionPrint =
             currentShop4OrderList.userId !== '' ||
+            currentOrderType4OrderList.id !== '' ||
             currentTemplate4OrderList.templateId === '' ||
             selectedRowKeys4OrderList.length <= 0;
 
@@ -458,13 +476,13 @@ class OrderManagement extends React.Component {
         /// 订单列表头配置
         const KOrderColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 150, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+            { title: '类型 || 联营门店', dataIndex: 'orderType', key: 'orderType', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '订货单号', dataIndex: 'orderSerialNumber', key: 'orderSerialNumber', width: 180, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '订货时间', dataIndex: 'orderTime', key: 'orderTime', width: 150, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '期望到货', dataIndex: 'expectTime', key: 'expectTime', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货单类型', dataIndex: 'orderType', key: 'orderType', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '订货收银员', dataIndex: 'orderCashier', key: 'orderCashier', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '模板名称', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货门店', dataIndex: 'orderShop', key: 'orderShop', width: 150, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
             { title: '配货门店', dataIndex: 'prepareShop', key: 'prepareShop', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             { title: '状态', dataIndex: 'status', key: 'status', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
             {
@@ -594,6 +612,7 @@ class OrderManagement extends React.Component {
                         <Button danger onClick={() => {
                             this.setState({
                                 currentShop4OrderList: KAllShops[0],
+                                currentOrderType4OrderList: KOrderTypes[0],
                                 currentTemplate4OrderList: KOrderTemplates[1],
                                 currentOrderTimeType: KOrderTimeType[0],
                                 beginDateTime4OrderList: moment().startOf('day'),
@@ -605,6 +624,7 @@ class OrderManagement extends React.Component {
                         <Button style={{ marginLeft: 6 }} danger onClick={() => {
                             this.setState({
                                 currentShop4OrderList: KAllShops[1],
+                                currentOrderType4OrderList: KOrderTypes[0],
                                 currentTemplate4OrderList: KOrderTemplates[0],
                                 currentOrderTimeType: KOrderTimeType[1],
                                 beginDateTime4OrderList: moment().add(1, 'day').startOf('day'),
@@ -616,6 +636,7 @@ class OrderManagement extends React.Component {
                         <Button style={{ marginLeft: 6 }} danger onClick={() => {
                             this.setState({
                                 currentShop4OrderList: KAllShops[3],
+                                currentOrderType4OrderList: KOrderTypes[0],
                                 currentTemplate4OrderList: KOrderTemplates[0],
                                 currentOrderTimeType: KOrderTimeType[1],
                                 beginDateTime4OrderList: moment().startOf('day'),
@@ -685,6 +706,31 @@ class OrderManagement extends React.Component {
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
                         <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
                             {currentShop4OrderList.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <Dropdown
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentOrderType4OrderList: KOrderTypes[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KOrderTypes.map((shop) => {
+                                            let fg = 'black';
+                                            if (shop.name === currentOrderType4OrderList.name) fg = 'red';
+                                            return (<Menu.Item key={shop.index} style={{ color: fg }}>
+                                                {shop.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                            {currentOrderType4OrderList.name}
                             <DownOutlined />
                         </Button>
                     </Dropdown>

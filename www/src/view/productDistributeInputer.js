@@ -297,6 +297,7 @@ class ProductDistributeInputer extends React.Component {
         this._lastSearchText4AddProduct4onChange = '';
 
         this._template = undefined;
+        this._orderType = undefined;
         this._timeType = undefined;
         this._beginDateTime = undefined;
         this._endDateTime = undefined;
@@ -318,6 +319,7 @@ class ProductDistributeInputer extends React.Component {
             let shop = paramValueObj.shop;
             this.setState({ currentShop: shop });
             this._template = paramValueObj.template;
+            this._orderType = paramValueObj.orderType;
             this._timeType = paramValueObj.timeType;
             this._beginDateTime = paramValueObj.beginDateTime;
             this._endDateTime = paramValueObj.endDateTime;
@@ -1068,6 +1070,7 @@ class ProductDistributeInputer extends React.Component {
     handleBack = () => {
         let paramValueObj = {};
         paramValueObj.template = this._template;
+        paramValueObj.orderType = this._orderType;
         paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this.state.currentShop;
         paramValueObj.beginDateTime = this._beginDateTime;

@@ -123,7 +123,7 @@ const getTemplateSortIdArray = () => {
 };
 
 const getJustPrintWorkshopTemplates = () => {
-  return ['现烤类', '常温类', '餐包类', '吐司类'];
+  return ['现烤类', '西点类', '常温类', '餐包类', '吐司类'];
 };
 
 const getFlowType = () => {

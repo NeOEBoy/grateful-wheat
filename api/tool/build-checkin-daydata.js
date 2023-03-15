@@ -430,7 +430,8 @@ const startBuild = async () => {
         if (checkinDaydataResponseJson.errcode !== 0 ||
             checkinDaydataResponseJson.datas.length <= 0) {
             console.log('找不到成员的简要打卡数据~');
-            return;
+            break;
+            // return;
         }
 
         // console.log('checkinDaydataResponseJson = ' + JSON.stringify(checkinDaydataResponseJson.datas));
@@ -481,7 +482,8 @@ const startBuild = async () => {
 
         if (checkindataResponseJson.errcode !== 0) {
             console.log('找不到成员的具体打卡数据~');
-            return;
+            break;
+            // return;
         }
         let checkinData = checkindataResponseJson.checkindata;
         for (let ii = 0; ii < checkinData.length; ++ii) {

@@ -59,8 +59,8 @@ const getOrderTypes = () => {
     { index: 3, name: '德林-火烧铺2店', id: '323' },
     { index: 4, name: '德林-学府店', id: '322' },
     { index: 5, name: '德林-假日店', id: '321' },
-    { index: 5, name: '街头-大亭路店', id: '325' },
-    { index: 6, name: '测试单', id: '326' }
+    { index: 6, name: '街头-大亭路店', id: '325' },
+    { index: 7, name: '测试单', id: '326' }
   ];
 };
 

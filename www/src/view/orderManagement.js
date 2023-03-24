@@ -28,6 +28,7 @@ import {
     getOrderTimeType,
     getAllOrderTemplateName,
     getFlowType,
+    getOrderCashiers
 } from '../api/util';
 
 const { RangePicker } = DatePicker;
@@ -41,6 +42,8 @@ const KAllShops = getAllShop();
 const KOrderTemplates = getOrderTemplates();
 /// 类型信息
 const KOrderTypes = getOrderTypes();
+/// 收银员（联营店）
+const KOrderCashiers = getOrderCashiers();
 /// 订单时间类型
 const KOrderTimeType = getOrderTimeType();
 /// 报货门店名字
@@ -68,9 +71,10 @@ class OrderManagement extends React.Component {
             /// 订单列表
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop4OrderList: KAllShops[0],
-            currentTemplate4OrderList: KOrderTemplates[1],
+            currentShop4OrderList: KAllShops[7],
+            currentTemplate4OrderList: KOrderTemplates[0],
             currentOrderType4OrderList: KOrderTypes[0],
+            currentOrderCashier: KOrderCashiers[0],
             currentOrderTimeType: KOrderTimeType[0],
             beginDateTime4OrderList: beginDateTime4OrderList4init,
             endDateTime4OrderList: endDateTime4OrderList4init,
@@ -124,6 +128,7 @@ class OrderManagement extends React.Component {
             this.setState({
                 currentTemplate4OrderList: paramValueObj.template,
                 currentOrderType4OrderList: paramValueObj.orderType,
+                currentOrderCashier: paramValueObj.orderCashier,
                 currentOrderTimeType: paramValueObj.timeType,
                 currentShop4OrderList: paramValueObj.shop,
                 beginDateTime4OrderList: moment(paramValueObj.beginDateTime),
@@ -141,7 +146,7 @@ class OrderManagement extends React.Component {
                 alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys4OrderList: []
             }, async () => {
                 const { currentShop4OrderList, currentTemplate4OrderList,
-                    currentOrderType4OrderList, currentOrderTimeType,
+                    currentOrderType4OrderList, currentOrderCashier, currentOrderTimeType,
                     beginDateTime4OrderList, endDateTime4OrderList } = this.state;
                 let orderList = [];
                 let keys = [];
@@ -156,9 +161,11 @@ class OrderManagement extends React.Component {
 
                 if (productOrder && productOrder.errCode === 0) {
                     for (let i = 0; i < productOrder.list.length; ++i) {
-                        /// 根据订单类型筛选，如果全部类型则不筛选
-                        if (currentOrderType4OrderList.id === '' ||
-                            currentOrderType4OrderList.name === productOrder.list[i].orderType) {
+                        // 根据订单类型和收银员筛选
+                        if ((currentOrderType4OrderList.id === '' && currentOrderCashier.id === '') ||
+                            (currentOrderType4OrderList.id === '' && currentOrderCashier.name === productOrder.list[i].orderCashier) ||
+                            (currentOrderCashier.id === '' && currentOrderType4OrderList.name === productOrder.list[i].orderType) ||
+                            (currentOrderCashier.name === productOrder.list[i].orderCashier && currentOrderType4OrderList.name === productOrder.list[i].orderType)) {
                             orderList.push(productOrder.list[i]);
                         }
                     }
@@ -299,7 +306,7 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList,
+        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
             currentOrderTimeType, selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
         for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
@@ -311,6 +318,7 @@ class OrderManagement extends React.Component {
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
         paramValueObj.orderType = currentOrderType4OrderList;
+        paramValueObj.orderCashier = currentOrderCashier;
         paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
@@ -336,7 +344,7 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList,
+        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
             currentOrderTimeType, currentShop4OrderList, beginDateTime4OrderList, endDateTime4OrderList,
             selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
@@ -349,6 +357,7 @@ class OrderManagement extends React.Component {
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
         paramValueObj.orderType = currentOrderType4OrderList;
+        paramValueObj.orderCashier = currentOrderCashier;
         paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
@@ -373,7 +382,7 @@ class OrderManagement extends React.Component {
 
         let paramValueObj = {};
 
-        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList,
+        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
             currentShop4OrderList, currentOrderTimeType, beginDateTime4OrderList,
             endDateTime4OrderList, selectedRowKeys4OrderList } = this.state;
         let alreadyOrderListDataAfterFilter = [];
@@ -386,6 +395,7 @@ class OrderManagement extends React.Component {
         paramValueObj.orderList = alreadyOrderListDataAfterFilter;
         paramValueObj.template = currentTemplate4OrderList;
         paramValueObj.orderType = currentOrderType4OrderList;
+        paramValueObj.orderCashier = currentOrderCashier;
         paramValueObj.timeType = currentOrderTimeType;
         paramValueObj.shop = currentShop4OrderList;
         paramValueObj.beginDateTime = beginDateTime4OrderList;
@@ -431,7 +441,7 @@ class OrderManagement extends React.Component {
     render() {
         const {
             alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList,
-            currentOrderType4OrderList, currentOrderTimeType,
+            currentOrderType4OrderList, currentOrderCashier, currentOrderTimeType,
             alreadyOrderLoading, beginDateTime4OrderList, endDateTime4OrderList,
             timePickerOpen4OrderList, selectedRowKeys4OrderList, noyetOrderShops,
             noyetOrderTemplates, currentShop4FlowList, flowListData, flowListLoading,
@@ -453,6 +463,7 @@ class OrderManagement extends React.Component {
         let disableProductionPrint =
             currentShop4OrderList.userId !== '' ||
             currentOrderType4OrderList.id !== '' ||
+            currentOrderCashier.id !== '' ||
             currentTemplate4OrderList.templateId === '' ||
             selectedRowKeys4OrderList.length <= 0;
 
@@ -613,6 +624,7 @@ class OrderManagement extends React.Component {
                             this.setState({
                                 currentShop4OrderList: KAllShops[0],
                                 currentOrderType4OrderList: KOrderTypes[0],
+                                currentOrderCashier: KOrderCashiers[0],
                                 currentTemplate4OrderList: KOrderTemplates[1],
                                 currentOrderTimeType: KOrderTimeType[0],
                                 beginDateTime4OrderList: moment().startOf('day'),
@@ -625,6 +637,7 @@ class OrderManagement extends React.Component {
                             this.setState({
                                 currentShop4OrderList: KAllShops[1],
                                 currentOrderType4OrderList: KOrderTypes[0],
+                                currentOrderCashier: KOrderCashiers[0],
                                 currentTemplate4OrderList: KOrderTemplates[0],
                                 currentOrderTimeType: KOrderTimeType[1],
                                 beginDateTime4OrderList: moment().add(1, 'day').startOf('day'),
@@ -637,6 +650,7 @@ class OrderManagement extends React.Component {
                             this.setState({
                                 currentShop4OrderList: KAllShops[3],
                                 currentOrderType4OrderList: KOrderTypes[0],
+                                currentOrderCashier: KOrderCashiers[0],
                                 currentTemplate4OrderList: KOrderTemplates[0],
                                 currentOrderTimeType: KOrderTimeType[1],
                                 beginDateTime4OrderList: moment().startOf('day'),
@@ -731,6 +745,31 @@ class OrderManagement extends React.Component {
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
                         <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
                             {currentOrderType4OrderList.name}
+                            <DownOutlined />
+                        </Button>
+                    </Dropdown>
+                    <Dropdown
+                        overlay={
+                            () => {
+                                return (<Menu onClick={async ({ key }) => {
+                                    this.setState({ currentOrderCashier: KOrderCashiers[key] }, async () => {
+                                        await this.fetchOrderList();
+                                    });
+                                }} >
+                                    {
+                                        KOrderCashiers.map((cashier) => {
+                                            let fg = 'black';
+                                            if (cashier.name === currentOrderCashier.name) fg = 'red';
+                                            return (<Menu.Item key={cashier.index} style={{ color: fg }}>
+                                                {cashier.name}
+                                            </Menu.Item>);
+                                        })
+                                    }
+                                </Menu>)
+                            }
+                        } arrow trigger={['click']} disabled={alreadyOrderLoading}>
+                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                            {currentOrderCashier.name}
                             <DownOutlined />
                         </Button>
                     </Dropdown>

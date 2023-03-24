@@ -1,7 +1,6 @@
 /*
 打印配货单
 */
-
 import React from 'react';
 import {
     Button,
@@ -40,6 +39,7 @@ class ProductDistributePrinter extends React.Component {
         }
         this._template = undefined;
         this._orderType = undefined;
+        this._orderCashier = undefined;
         this._timeType = undefined;
         this._shop = undefined;
         this._beginDateTime = undefined;
@@ -57,6 +57,7 @@ class ProductDistributePrinter extends React.Component {
             let paramValueObj = JSON.parse(paramValueStr);
             this._template = paramValueObj.template;
             this._orderType = paramValueObj.orderType;
+            this._orderCashier = paramValueObj.orderCashier;
             this._timeType = paramValueObj.timeType;
             this._shop = paramValueObj.shop;
             this._beginDateTime = paramValueObj.beginDateTime;
@@ -76,8 +77,16 @@ class ProductDistributePrinter extends React.Component {
             for (let index = 0; index < this._orderList.length; ++index) {
                 let orderItem = this._orderList[index];
                 if (orderItem) {
+                    /// 不是通过模板订货的
+                    if (orderItem.templateName === '-') {
+                        this.setState({ productSpinning: false, productSpinTipText: '存在未通过模板报货的订单' });
+                        message.error('存在未通过模板报货的订单，请返回重新选择！！！');
+                        return;
+                    }
+
                     this.setState({ productSpinTipText: '获取' + orderItem.templateName + '-' + orderItem.orderId + '...' });
                     const orderItems = await getProductOrderItems(orderItem.orderId);
+                    // console.log('orderItems = ' + JSON.stringify(orderItems));
                     if (orderItems.errCode === 0 && orderItems.items) {
                         let templatePos = -1;
                         for (let kk = 0; kk < KOrderTemplates.length; ++kk) {
@@ -96,7 +105,8 @@ class ProductDistributePrinter extends React.Component {
                             if (orderItem.orderShop === '007 - 弯麦(联营店)') {
                                 if (allData[i].orderShop === orderItem.orderShop &&
                                     allData[i].templateName === orderItem.templateName &&
-                                    allData[i].orderType === orderItem.orderType) {
+                                    allData[i].orderType === orderItem.orderType &&
+                                    allData[i].orderCashier === orderItem.orderCashier) {
                                     existInAllData = true;
                                     break;
                                 }
@@ -145,6 +155,7 @@ class ProductDistributePrinter extends React.Component {
                             item.expectTime = orderItem.expectTime;
                             item.orderTime = orderItem.orderTime;
                             item.orderType = orderItem.orderType;
+                            item.orderCashier = orderItem.orderCashier;
                             item.items = orderItems.items;
                             for (let i = 0; i < orderItems.items.length; ++i) {
                                 let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + orderItems.items[i].barcode;
@@ -248,6 +259,7 @@ class ProductDistributePrinter extends React.Component {
                     oneDataObj.expectTime = allData[i].expectTime;
                     oneDataObj.orderTime = allData[i].orderTime;
                     oneDataObj.orderType = allData[i].orderType;
+                    oneDataObj.orderCashier = allData[i].orderCashier;
                     oneDataObj.items = totalItemsAfterFixCategory;
 
                     newAllData.push(oneDataObj);
@@ -281,6 +293,7 @@ class ProductDistributePrinter extends React.Component {
                         allDataAfterItem.expectTime = allDataAfterSort[i].expectTime;
                         allDataAfterItem.orderTime = allDataAfterSort[i].orderTime;
                         allDataAfterItem.orderType = allDataAfterSort[i].orderType;
+                        allDataAfterItem.orderCashier = allDataAfterSort[i].orderCashier;
                         allDataAfterItem.items = [];
 
                         allDataAfterA4.push(allDataAfterItem);
@@ -339,6 +352,7 @@ class ProductDistributePrinter extends React.Component {
         let paramValueObj = {};
         paramValueObj.template = this._template;
         paramValueObj.orderType = this._orderType;
+        paramValueObj.orderCashier = this._orderCashier;
         paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this._shop;
         paramValueObj.beginDateTime = this._beginDateTime;
@@ -409,7 +423,7 @@ class ProductDistributePrinter extends React.Component {
                                                         <thead>
                                                             <tr>
                                                                 <th colSpan='7' style={{ width: 175, textAlign: 'center', backgroundColor: 'lightgrey' }}>
-                                                                    {`${columnData.orderShop}-${columnData.orderType}`}
+                                                                    {`${columnData.orderShop}=>${columnData.orderType}=>${columnData.orderCashier}`}
                                                                 </th>
                                                             </tr>
                                                             <tr>

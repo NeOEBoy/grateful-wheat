@@ -59,7 +59,7 @@ const getOrderTypes = () => {
     { index: 3, name: '德林-火烧铺2店', id: '323' },
     { index: 4, name: '德林-学府店', id: '322' },
     { index: 5, name: '德林-假日店', id: '321' },
-    { index: 6, name: '街头-大亭路店', id: '325' },
+    { index: 6, name: '街头-大亭店', id: '325' },
     { index: 7, name: '测试单', id: '326' }
   ];
 };
@@ -138,6 +138,17 @@ const getFlowType = () => {
   ];
 };
 
+const getOrderCashiers = () => {
+  return [
+    { index: 0, name: '全部收银员', id: '' },
+    { index: 1, name: '德林-火烧铺1店', id: '1' },
+    { index: 2, name: '德林-火烧铺2店', id: '2' },
+    { index: 3, name: '德林-学府店', id: '3' },
+    { index: 4, name: '德林-假日店', id: '4' },
+    { index: 5, name: '街头-大亭店', id: '5' }
+  ];
+};
+
 // 'EPSON L380 Series' 或者 'EPSON LQ-735K ESC/P2'
 const KA4PrinterName = 'EPSON L380 Series';
 const getA4PrinterName = () => {
@@ -194,6 +205,7 @@ export {
   getOrderTimeType,
   getAllOrderTemplateName,
   getFlowType,
+  getOrderCashiers,
   getProductSortIdArray,
   getTemplateSortIdArray,
   getJustPrintWorkshopTemplates,

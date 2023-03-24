@@ -41,6 +41,7 @@ class ProductionPlanPrinter extends React.Component {
         this._orderList = undefined;
         this._template = undefined;
         this._orderType = undefined;
+        this._orderCashier = undefined;
         this._shop = undefined;
         this._beginDateTime = undefined;
         this._timeType = undefined;
@@ -58,6 +59,7 @@ class ProductionPlanPrinter extends React.Component {
             let paramValueObj = JSON.parse(paramValueStr);
             this._template = paramValueObj.template;
             this._orderType = paramValueObj.orderType;
+            this._orderCashier = paramValueObj.orderCashier;
             this._shop = paramValueObj.shop;
             this._beginDateTime = paramValueObj.beginDateTime;
             this._timeType = paramValueObj.timeType;
@@ -363,6 +365,7 @@ class ProductionPlanPrinter extends React.Component {
         let paramValueObj = {};
         paramValueObj.template = this._template;
         paramValueObj.orderType = this._orderType;
+        paramValueObj.orderCashier = this._orderCashier;
         paramValueObj.timeType = this._timeType;
         paramValueObj.shop = this._shop;
         paramValueObj.beginDateTime = this._beginDateTime;
@@ -435,7 +438,7 @@ class ProductionPlanPrinter extends React.Component {
                                                         <thead>
                                                             <tr>
                                                                 <th colSpan='2' style={{ width: 318, textAlign: 'center', backgroundColor: 'lightyellow' }}>
-                                                                    {`${columnData.orderShop}-${columnData.orderType}`}
+                                                                    {`${columnData.orderShop}`}
                                                                 </th>
                                                             </tr>
                                                             <tr>

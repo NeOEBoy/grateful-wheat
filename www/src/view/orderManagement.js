@@ -617,7 +617,7 @@ class OrderManagement extends React.Component {
 
         return (
             <div>
-                <div style={{ marginLeft: 30, marginTop: 5, fontSize: 18 }}>
+                <div style={{ marginLeft: 30, marginTop: 8, fontSize: 18 }}>
                     <span>生产 VS 配货</span>
                     <span style={{ marginLeft: 30, marginTop: 0, marginRight: 30, marginBottom: 0 }}>
                         <Button danger onClick={() => {
@@ -696,9 +696,8 @@ class OrderManagement extends React.Component {
                         </Button>
                     </div>
                 </div>
-                <div style={{ marginLeft: 30, marginTop: 0, marginRight: 30, marginBottom: 0 }}>
+                <div style={{ marginLeft: 30, marginTop: 4, marginRight: 30, marginBottom: 0 }}>
                     <Dropdown
-                        style={{ marginLeft: 0 }}
                         overlay={
                             () => {
                                 return (<Menu onClick={async ({ key }) => {
@@ -718,7 +717,7 @@ class OrderManagement extends React.Component {
                                 </Menu>)
                             }
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                        <Button size="small" style={{ width: 160 }} onClick={e => e.preventDefault()}>
+                        <Button size="small" style={{ width: 160, marginLeft: 8, marginTop: 4 }} onClick={e => e.preventDefault()}>
                             {currentShop4OrderList.name}
                             <DownOutlined />
                         </Button>
@@ -743,7 +742,7 @@ class OrderManagement extends React.Component {
                                 </Menu>)
                             }
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                        <Button size="small" style={{ width: 160, marginLeft: 8, marginTop: 4 }} onClick={e => e.preventDefault()}>
                             {currentOrderType4OrderList.name}
                             <DownOutlined />
                         </Button>
@@ -768,7 +767,7 @@ class OrderManagement extends React.Component {
                                 </Menu>)
                             }
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                        <Button size="small" style={{ width: 160, marginLeft: 8, marginTop: 4 }} onClick={e => e.preventDefault()}>
                             {currentOrderCashier.name}
                             <DownOutlined />
                         </Button>
@@ -793,7 +792,7 @@ class OrderManagement extends React.Component {
                                 </Menu>)
                             }
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                        <Button size="small" style={{ width: 160, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                        <Button size="small" style={{ width: 160, marginLeft: 8, marginTop: 4 }} onClick={e => e.preventDefault()}>
                             {currentTemplate4OrderList.name}
                             <DownOutlined />
                         </Button>
@@ -818,7 +817,7 @@ class OrderManagement extends React.Component {
                                 </Menu>)
                             }
                         } arrow trigger={['click']} disabled={alreadyOrderLoading}>
-                        <Button size="small" style={{ width: 120, marginLeft: 10 }} onClick={e => e.preventDefault()}>
+                        <Button size="small" style={{ width: 120, marginLeft: 10, marginTop: 4 }} onClick={e => e.preventDefault()}>
                             {currentOrderTimeType.name}
                             <DownOutlined />
                         </Button>
@@ -829,7 +828,7 @@ class OrderManagement extends React.Component {
                         onOpenChange={(open) => {
                             this.setState({ timePickerOpen4OrderList: open });
                         }}
-                        style={{ marginLeft: 0 }}
+                        style={{ marginTop: 4 }}
                         size='small'
                         locale={locale}
                         bordered={true}
@@ -904,7 +903,7 @@ class OrderManagement extends React.Component {
                         {this.getDayTip(beginDateTime4OrderList, endDateTime4OrderList)}
                     </span>
                     <Button
-                        style={{ width: 180, marginLeft: 10 }} type='primary'
+                        style={{ width: 180, marginLeft: 8, marginTop: 4 }} type='primary'
                         disabled={alreadyOrderLoading}
                         onClick={async (e) => { await this.fetchOrderList(); }}>
                         查询订货单

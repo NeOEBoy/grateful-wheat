@@ -145,7 +145,9 @@ const getOrderCashiers = () => {
     { index: 2, name: '德林-火烧铺2店', id: '2' },
     { index: 3, name: '德林-学府店', id: '3' },
     { index: 4, name: '德林-假日店', id: '4' },
-    { index: 5, name: '街头-大亭店', id: '5' }
+    { index: 5, name: '街头-大亭店', id: '5' },
+    { index: 6, name: '徐碧莲', id: '6' },
+    { index: 7, name: '王荣慧', id: '7' }
   ];
 };
 

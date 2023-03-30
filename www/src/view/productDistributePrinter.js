@@ -5,14 +5,19 @@ import React from 'react';
 import {
     Button,
     message,
-    Spin
+    Spin,
+    Modal,
+    Table,
+    DatePicker
 } from 'antd';
+import moment from 'moment';
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
     getTest,
     getPageName4A4Printer,
     getA4PrinterIndex,
+    getLabelPrinterIndex,
     getOrderTemplates,
     getProductSortIdArray,
     getTemplateSortIdArray
@@ -20,6 +25,7 @@ import {
 import {
     getLodop
 } from './Lodop6.226_Clodop4.127/LodopFuncs';
+
 /**--------------------配置信息--------------------*/
 const KForTest = getTest();
 
@@ -29,13 +35,38 @@ const KOrderTemplates = getOrderTemplates();
 const KProductSortIdArray = getProductSortIdArray();
 const KTemplateSortIdArray = getTemplateSortIdArray();
 
+/// 标签打印状态
+const KLabelPrintState = {
+    prepare: '准备中',
+    running: '运行中',
+    pause: '暂停中',
+    complete: '已完成',
+    cancel: '取消',
+    error: '出错'
+}
+
 class ProductDistributePrinter extends React.Component {
     constructor(props) {
         super(props);
+
+
+
         this.state = {
             allDistributionDataToBePrint: [],
             productSpinTipText: '',
-            productSpinning: false
+            productSpinning: false,
+
+            productLabelPrintModalVisible: false,
+            productLabelPrintState: KLabelPrintState.prepare,
+
+            productLabelPrintTemplateList: [],
+            selectedRowKeys4LabelPrintTemplateList: [],
+            selectedRows4LabelPrintTemplateList: [],
+
+            productLabelPrintProductionDate: moment(),
+            productLabelPrintProductionTime: moment(),
+            productLabelPrintProductionTimePopupOpen: false,
+            productLabelPrintProductionTemplate: {},
         }
         this._template = undefined;
         this._orderType = undefined;
@@ -144,6 +175,9 @@ class ProductDistributePrinter extends React.Component {
                                     newItemObject.barcodeMiddle = toBeDealItem.barcodeMiddle;
                                     newItemObject.orderNumber = toBeDealItem.orderNumber;
                                     newItemObject.sortId = toBeDealItem.sortId;
+                                    newItemObject.transferPrice = toBeDealItem.transferPrice;
+                                    newItemObject.qualityDay = toBeDealItem.qualityDay;
+                                    newItemObject.ingredients = toBeDealItem.ingredients;
 
                                     theExistDataItems.push(newItemObject);
                                 }
@@ -211,6 +245,9 @@ class ProductDistributePrinter extends React.Component {
                             newItemObject.barcodeMiddle = allDataItems[pos].barcodeMiddle;
                             newItemObject.sortId = allDataItems[pos].sortId;
                             newItemObject.orderNumber = allDataItems[pos].orderNumber;
+                            newItemObject.transferPrice = allDataItems[pos].transferPrice;
+                            newItemObject.qualityDay = allDataItems[pos].qualityDay;
+                            newItemObject.ingredients = allDataItems[pos].ingredients;
                         } else {
                             newItemObject.categoryName = findResultList[j].categoryName;
                             newItemObject.orderProductName = findResultList[j].name;
@@ -220,7 +257,6 @@ class ProductDistributePrinter extends React.Component {
                             let templateAndBarcode = KOrderTemplates[templatePos].templateId + '-' + findResultList[j].barcode;
                             let sortInfo = KProductSortIdArray[templateAndBarcode];
                             newItemObject.sortId = sortInfo ? sortInfo : 200;
-
                             newItemObject.orderNumber = 0;
                         }
 
@@ -306,6 +342,29 @@ class ProductDistributePrinter extends React.Component {
         });
     };
 
+    handleBack = (e) => {
+        let paramValueObj = {};
+        paramValueObj.template = this._template;
+        paramValueObj.orderType = this._orderType;
+        paramValueObj.orderCashier = this._orderCashier;
+        paramValueObj.timeType = this._timeType;
+        paramValueObj.shop = this._shop;
+        paramValueObj.beginDateTime = this._beginDateTime;
+        paramValueObj.endDateTime = this._endDateTime;
+
+        let paramValueStr = JSON.stringify(paramValueObj);
+        // console.log('paramValueStr = ' + paramValueStr);
+
+        let paramStr = 'param=' + escape(paramValueStr);
+
+        let orderManagementUrl = 'http://localhost:4000/orderManagement';
+        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
+
+        orderManagementUrl += '?';
+        orderManagementUrl += paramStr;
+        window.location.replace(orderManagementUrl);
+    };
+
     getLodopAfterInit = () => {
         let LODOP = getLodop();
 
@@ -348,68 +407,339 @@ class ProductDistributePrinter extends React.Component {
         this.handleBack();
     };
 
-    handleBack = (e) => {
-        let paramValueObj = {};
-        paramValueObj.template = this._template;
-        paramValueObj.orderType = this._orderType;
-        paramValueObj.orderCashier = this._orderCashier;
-        paramValueObj.timeType = this._timeType;
-        paramValueObj.shop = this._shop;
-        paramValueObj.beginDateTime = this._beginDateTime;
-        paramValueObj.endDateTime = this._endDateTime;
+    productLabelPrintStart = async () => {
+        let productLabelPrintTemplateList = [];
+        const { allDistributionDataToBePrint } = this.state;
+        for (let i = 0; i < allDistributionDataToBePrint.length; ++i) {
+            let templateName = allDistributionDataToBePrint[i].templateName;
+            if (templateName) {
+                let item = {};
+                item.key = i + 1;
+                item.templateName = templateName;
+                item.printProgress = '';
+                productLabelPrintTemplateList.push(item);
+            }
+        }
+        const {
+            productLabelPrintProductionDate,
+            productLabelPrintProductionTime
+        } = this.state;
+        this.setState({
+            productLabelPrintTemplateList: productLabelPrintTemplateList,
+            productLabelPrintModalVisible: true,
+            selectedRowKeys4LabelPrintTemplateList: [],
+            selectedRows4LabelPrintTemplateList: [],
+            productLabelPrintState: KLabelPrintState.prepare,
+            productLabelPrintProductionTemplate: {
+                name: '<弯麦-产品名称>',
+                barcode: '<123456789111>',
+                ingredients: '配料表：<配料1 配料2 配料3>',
+                productLabelPrintProductionDateAndTime:
+                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
+                    productLabelPrintProductionTime.format(' HH:mm'),
+                qualityDay: '保质期：<3天>',
+                price: '¥<12.0>'
+            }
+        });
+    };
 
-        let paramValueStr = JSON.stringify(paramValueObj);
-        // console.log('paramValueStr = ' + paramValueStr);
+    startOrContinueLabelPrint = async (templateIndex, itemIndex, orderNumberIndex) => {
+        this.setState({
+            productLabelPrintState: KLabelPrintState.running
+        });
 
-        let paramStr = 'param=' + escape(paramValueStr);
+        const { allDistributionDataToBePrint,
+            selectedRows4LabelPrintTemplateList,
+            productLabelPrintProductionDate,
+            productLabelPrintProductionTime } = this.state;
+        for (let i = templateIndex; i < allDistributionDataToBePrint.length; ++i) {
+            let templateName = allDistributionDataToBePrint[i].templateName;
 
-        let orderManagementUrl = 'http://localhost:4000/orderManagement';
-        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
+            let pos = -1;
+            for (let pos1 = 0; pos1 < selectedRows4LabelPrintTemplateList.length; ++pos1) {
+                let name = selectedRows4LabelPrintTemplateList[pos1].templateName;
+                if (templateName === name) {
+                    pos = pos1;
+                    break;
+                }
+            }
+            if (pos !== -1) {
+                let items = allDistributionDataToBePrint[i].items;
+                for (let j = itemIndex; j < items.length; ++j) {
+                    let product = items[j];
+                    let orderProductName = product.orderProductName;
+                    let orderNumber = product.orderNumber;
+                    let barcode = product.barcode;
+                    let transferPrice = product.transferPrice;
+                    let qualityDay = product.qualityDay;
+                    let ingredients = product.ingredients;
 
-        orderManagementUrl += '?';
-        orderManagementUrl += paramStr;
-        window.location.replace(orderManagementUrl);
+                    if (orderNumber > 0) {
+                        for (let z = orderNumberIndex; z < orderNumber; ++z) {
+                            selectedRows4LabelPrintTemplateList[pos].printProgress = ' ' + (z + 1) + '/' + orderNumber + ' ' + orderProductName;
+                            this.forceUpdate();
+
+                            let template = {
+                                name: '弯麦-' + orderProductName,
+                                barcode: barcode,
+                                price: '¥' + Number(transferPrice).toFixed(1),
+                                ingredients: '配料表：' + ingredients,
+                                productLabelPrintProductionDateAndTime:
+                                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
+                                    productLabelPrintProductionTime.format(' HH:mm'),
+                                qualityDay: '保质期：' + qualityDay + '天'
+                            };
+                            this.setState({ productLabelPrintProductionTemplate: template });
+
+                            /// 输出打印
+                            // this.labelPrintDirect(
+                            //     template.name,
+                            //     template.barcode,
+                            //     template.price,
+                            //     template.ingredients,
+                            //     template.productLabelPrintProductionDateAndTime,
+                            //     template.qualityDay
+                            // );
+                            // this.setState({ productLabelPrintState: KLabelPrintState.complete });
+                            // return;
+
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
+                                selectedRows4LabelPrintTemplateList[pos].printProgress = '取消打印中...';
+                                this.forceUpdate();
+                                await new Promise(resolve => setTimeout(resolve, 300));
+                                this.setState({ productLabelPrintModalVisible: false, productLabelPrintState: KLabelPrintState.prepare });
+                                return;
+                            } else if (this.state.productLabelPrintState === KLabelPrintState.pause) {
+                                this._templateIndex = i;
+                                this._itemIndex = j;
+                                this._orderNumberIndex = z;
+                                return;
+                            }
+                        }
+                        orderNumberIndex = 0;
+                    }
+                }
+                itemIndex = 0;
+            }
+        }
+
+        this.setState({ productLabelPrintState: KLabelPrintState.complete });
+    }
+
+    getLodopAfterInit4Label = () => {
+        let LODOP = getLodop();
+
+        if (LODOP) {
+            LODOP.SET_LICENSES("", "13F0BE65846276CB60111433C6280000", "", "");
+            LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
+            let strStyle =
+                `<style>
+                </style> `;
+
+            LODOP.SET_PRINTER_INDEX(getLabelPrinterIndex(LODOP));
+            LODOP.SET_PRINT_PAGESIZE(1, 400, 300, '');
+            LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 600, 450, '');
+            LODOP.SET_PRINT_COPIES(1);
+            LODOP.SET_PRINT_MODE("AUTO_CLOSE_PREWINDOW", 1);//打印后自动关闭预览窗口
+        }
+
+        return LODOP;
+    };
+
+    labelPrintDirect = (
+        orderProductName,
+        barcode,
+        transferPrice,
+        ingredients,
+        productLabelPrintProductionDateAndTime,
+        qualityDay) => {
+        let LODOP = this.getLodopAfterInit4Label();
+
+        if (LODOP) {
+            let fontSize = '17px';
+            if (orderProductName.length > 14) fontSize = '12px';
+            else if (orderProductName.length > 12) fontSize = '13px';
+            else if (orderProductName.length > 10) fontSize = '15px';
+            let str = "<!doctype html>" +
+                "<style>" +
+                "#title" +
+                "{" +
+                "text-align:center;" +
+                "font-family:'微软雅黑';" +
+                "font-size:" +
+                fontSize + ";" +
+                "}" +
+                "</style>" +
+                "<div id='title'>" +
+                orderProductName +
+                "</div>";
+            LODOP.ADD_PRINT_HTM(4, 0, '40mm', 15, str);
+
+            LODOP.ADD_PRINT_TEXT(21, 42, 150, 15, barcode);
+            LODOP.SET_PRINT_STYLEA(2, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(2, "FontSize", 7);
+
+            LODOP.ADD_PRINT_BARCODE(33, 16, 174, 24, "128Auto", barcode);
+            LODOP.SET_PRINT_STYLEA(3, "ShowBarText", 0);
+
+            LODOP.ADD_PRINT_TEXT(60, 8, 150, 15, ingredients);
+            LODOP.SET_PRINT_STYLEA(4, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(4, "FontSize", 8);
+
+            LODOP.ADD_PRINT_TEXT(76, 8, 150, 15, productLabelPrintProductionDateAndTime);
+            LODOP.SET_PRINT_STYLEA(5, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+
+            LODOP.ADD_PRINT_TEXT(92, 8, 150, 15, qualityDay);
+            LODOP.SET_PRINT_STYLEA(6, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(6, "FontSize", 8);
+
+            LODOP.ADD_PRINT_TEXT(90, 95, 150, 15, transferPrice);
+            LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(7, "FontSize", 12);
+
+            LODOP.PRINT();
+        }
+    }
+
+    onTemplateItemSelectChange = (selectedRowKeys, selectedRows) => {
+        // console.log('onTemplateItemSelectChange: ', selectedRowKeys);
+        this.setState({ selectedRowKeys4LabelPrintTemplateList: selectedRowKeys, selectedRows4LabelPrintTemplateList: selectedRows });
+    };
+
+    handleProductLabelPrintProductionDateChange = (date) => {
+        this.setState({ productLabelPrintProductionDate: date }, () => {
+            this.updateProductLabelPrintProductionTemplateDayAndTime();
+        });
+    }
+
+    handleProductLabelPrintProductionTimeChange = (time) => {
+        this.setState({ productLabelPrintProductionTime: time });
+    }
+
+    handleProductLabelPrintProductionTimeOnFocus = () => {
+        this.setState({ productLabelPrintProductionTimePopupOpen: true });
+    }
+
+    handleProductLabelPrintProductionTimeOnBlur = () => {
+        this.setState({ productLabelPrintProductionTimePopupOpen: false });
+    }
+
+    handleProductLabelPrintProductionTimeOnOk = () => {
+        setTimeout(() => {
+            this.updateProductLabelPrintProductionTemplateDayAndTime();
+
+            this.setState({ productLabelPrintProductionTimePopupOpen: false }, () => {
+                setTimeout(() => {
+                    this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
+                }, 300);
+            });
+        }, 0);
+    }
+
+    updateProductLabelPrintProductionTemplateDayAndTime = () => {
+        const { productLabelPrintProductionDate, productLabelPrintProductionTime } = this.state;
+        let template = { ...this.state.productLabelPrintProductionTemplate };
+        template.productLabelPrintProductionDateAndTime =
+            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
+            productLabelPrintProductionTime.format(' HH:mm');
+        this.setState({ productLabelPrintProductionTemplate: template });
     };
 
     render() {
-        const { allDistributionDataToBePrint,
+        const {
+            allDistributionDataToBePrint,
             productSpinTipText,
-            productSpinning } = this.state;
+            productSpinning,
+            productLabelPrintModalVisible,
+            productLabelPrintState,
+            selectedRowKeys4LabelPrintTemplateList,
+            selectedRows4LabelPrintTemplateList,
+            productLabelPrintTemplateList,
+            productLabelPrintProductionDate,
+            productLabelPrintProductionTime,
+            productLabelPrintProductionTimePopupOpen,
+            productLabelPrintProductionTemplate
+        } = this.state;
+
+        let labelPrintModalOkText = '';
+        if (productLabelPrintState === KLabelPrintState.prepare) {
+            labelPrintModalOkText = '选择分类后，点击开始打印';
+        } else if (productLabelPrintState === KLabelPrintState.running) {
+            labelPrintModalOkText = '运行中，点击暂停';
+        } else if (productLabelPrintState === KLabelPrintState.pause) {
+            labelPrintModalOkText = '暂停中，点击继续';
+        } else if (productLabelPrintState === KLabelPrintState.cancel) {
+            labelPrintModalOkText = '取消中...';
+        } else if (productLabelPrintState === KLabelPrintState.error) {
+            labelPrintModalOkText = '打印机出错，修复后点击继续';
+        } else if (productLabelPrintState === KLabelPrintState.complete) {
+            labelPrintModalOkText = '打印完成，点击关闭';
+        }
+
+        let labelPrintModalOkButtonDisable = productLabelPrintState === KLabelPrintState.prepare && selectedRows4LabelPrintTemplateList.length <= 0;
+
+        const KTemplateColumns4Table = [
+            { title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+            { title: '模板分类', dataIndex: 'templateName', key: 'templateName', width: 120, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+            { title: '打印进度', dataIndex: 'printProgress', key: 'printProgress', width: '*', render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+        ];
+        const KTemplateRowSelection = {
+            selectedRowKeys: selectedRowKeys4LabelPrintTemplateList,
+            selectedRows: selectedRows4LabelPrintTemplateList,
+            onChange: this.onTemplateItemSelectChange,
+            getCheckboxProps: (record) => ({
+                disabled: productLabelPrintState !== KLabelPrintState.prepare,
+                // Column configuration not to be checked
+                name: record.name,
+            }),
+        };
 
         return (
-            <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
-                <div>
-                    <div style={{ marginLeft: 10, marginTop: 10 }}>
-                        <div id="printConfig"
-                            style={{ float: 'left', borderStyle: 'none', width: 90 }}>
-                            <div>
-                                <Button type="primary"
-                                    style={{ width: 90, height: 80 }}
-                                    onClick={(e) => this.handleBack(e)}>
-                                    <div style={{ fontSize: 16 }}>
-                                        后退
-                                    </div>
-                                </Button>
-                            </div>
+            <div>
+                <div style={{ marginLeft: 10, marginTop: 10 }}>
+                    <div id="printConfig"
+                        style={{ float: 'left', borderStyle: 'none', width: 90 }}>
+                        <div>
                             <Button type="primary"
-                                style={{ marginTop: 10, width: 90, height: 80 }}
-                                onClick={this.productPrintPreprew}>
-                                <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                    打印预览
-                                </div>
-                            </Button>
-                            <Button type="primary" danger
-                                style={{ marginTop: 10, width: 90, height: 80 }}
-                                onClick={this.productPrintDirectAndBack}>
-                                <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                    直接打印
+                                style={{ width: 90, height: 80 }}
+                                onClick={(e) => this.handleBack(e)}>
+                                <div style={{ fontSize: 16 }}>
+                                    后退
                                 </div>
                             </Button>
                         </div>
+                        <Button type="primary"
+                            disabled={productSpinning}
+                            style={{ marginTop: 10, width: 90, height: 80 }}
+                            onClick={this.productPrintPreprew}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                打印预览
+                            </div>
+                        </Button>
+                        <Button type="primary" danger
+                            disabled={productSpinning}
+                            style={{ marginTop: 10, width: 90, height: 80 }}
+                            onClick={this.productPrintDirectAndBack}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                直接打印
+                            </div>
+                        </Button>
+                        <Button type="primary" danger
+                            disabled={productSpinning}
+                            style={{ marginTop: 10, width: 90, height: 80 }}
+                            onClick={this.productLabelPrintStart}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                打印标签
+                            </div>
+                        </Button>
+                    </div>
 
-                        <div style={{ float: 'left' }}>
-                            <span style={{ marginLeft: 10, fontSize: 12, color: 'green' }}>{`订货时间：${allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0 && allDistributionDataToBePrint[0].orderTime}`}</span>
-                            <span style={{ marginLeft: 20, fontSize: 12, color: 'green' }}>{`期望到货：${allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0 && allDistributionDataToBePrint[0].expectTime}`}</span>
+                    <div style={{ float: 'left' }}>
+                        <span style={{ marginLeft: 10, fontSize: 12, color: 'green' }}>{`订货时间：${allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0 && allDistributionDataToBePrint[0].orderTime}`}</span>
+                        <span style={{ marginLeft: 20, fontSize: 12, color: 'green' }}>{`期望到货：${allDistributionDataToBePrint && allDistributionDataToBePrint.length > 0 && allDistributionDataToBePrint[0].expectTime}`}</span>
+                        <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
                             <div id="printDiv" style={{ marginLeft: 10, borderStyle: 'dotted', width: 1379, height: 968 }}>
                                 <div id="printTable" style={{ marginTop: 0, marginLeft: 28, width: 1375, height: 964, backgroundColor: 'transparent' }}>
                                     {
@@ -474,10 +804,155 @@ class ProductDistributePrinter extends React.Component {
                                     }
                                 </div>
                             </div>
-                        </div>
+                        </Spin>
+                        <div style={{ height: 30 }}></div>
                     </div>
                 </div>
-            </Spin>
+
+                <Modal
+                    width={600}
+                    style={{ top: 10 }}
+                    keyboard={true}
+                    maskClosable={false}
+                    title={(<div>批量打印标签</div>)}
+                    visible={productLabelPrintModalVisible}
+                    okText={(
+                        <div>
+                            {labelPrintModalOkText}
+                        </div>
+                    )}
+                    okButtonProps={{ disabled: labelPrintModalOkButtonDisable }}
+                    cancelButtonProps={{ hidden: false }}
+                    onOk={() => {
+                        if (productLabelPrintState === KLabelPrintState.prepare) {
+                            this._templateIndex = 0;
+                            this._itemIndex = 0;
+                            this._orderNumberIndex = 0;
+                            this.startOrContinueLabelPrint(this._templateIndex, this._itemIndex, this._orderNumberIndex);
+                        } else if (productLabelPrintState === KLabelPrintState.running) {
+                            this.setState({ productLabelPrintState: KLabelPrintState.pause });
+                        } else if (productLabelPrintState === KLabelPrintState.pause) {
+                            this.startOrContinueLabelPrint(this._templateIndex, this._itemIndex, this._orderNumberIndex);
+                        } else if (productLabelPrintState === KLabelPrintState.complete) {
+                            this.setState({
+                                productLabelPrintState: KLabelPrintState.prepare,
+                                productLabelPrintModalVisible: false
+                            });
+                        }
+                    }}
+                    onCancel={() => {
+                        if (productLabelPrintState === KLabelPrintState.running) {
+                            this.setState({
+                                productLabelPrintState: KLabelPrintState.cancel
+                            });
+                        } else {
+                            this.setState({
+                                productLabelPrintState: KLabelPrintState.prepare,
+                                productLabelPrintModalVisible: false
+                            });
+                        }
+                    }}>
+                    <Table
+                        style={{ marginTop: 0 }}
+                        disabled={true}
+                        size='small'
+                        dataSource={productLabelPrintTemplateList}
+                        columns={KTemplateColumns4Table}
+                        rowSelection={KTemplateRowSelection}
+                        pagination={false} bordered />
+                    <div style={{ marginTop: 12 }}>
+                        <DatePicker picker='day'
+                            style={{ width: 170 }}
+                            placeholder='选择生产日期'
+                            format='YYYY-MM-DD dddd'
+                            value={productLabelPrintProductionDate}
+                            onChange={this.handleProductLabelPrintProductionDateChange} />
+                        <DatePicker picker='time'
+                            ref={(dp) => this._productLabelPrintProductionTime = dp}
+                            style={{ width: 170, marginLeft: 12 }}
+                            placeholder='选择生产时间'
+                            format='a HH:mm'
+                            showTime={{
+                                use12Hours: false,
+                                showNow: false,
+                                format: 'a HH:mm'
+                            }}
+                            value={productLabelPrintProductionTime}
+                            open={productLabelPrintProductionTimePopupOpen}
+                            onFocus={this.handleProductLabelPrintProductionTimeOnFocus}
+                            onBlur={this.handleProductLabelPrintProductionTimeOnBlur}
+                            onOk={this.handleProductLabelPrintProductionTimeOnOk}
+                            onChange={this.handleProductLabelPrintProductionTimeChange}
+                            renderExtraFooter={() => (
+                                <span>
+                                    <Button type='primary' size='small' onClick={() => {
+                                        this.setState({
+                                            productLabelPrintProductionTime: moment('09:00', 'HH:mm'),
+                                            productLabelPrintProductionTimePopupOpen: false
+                                        }, () => {
+                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
+
+                                            setTimeout(() => {
+                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
+                                            }, 300);
+                                        });
+                                    }}>早上 09点00分</Button>
+                                    <span>   </span>
+                                    <Button type='primary' size='small' onClick={() => {
+                                        this.setState({
+                                            productLabelPrintProductionTime: moment('12:00', 'HH:mm'),
+                                            productLabelPrintProductionTimePopupOpen: false
+                                        }, () => {
+                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
+
+                                            setTimeout(() => {
+                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
+                                            }, 300);
+                                        });
+                                    }}>中午 12点00分</Button>
+                                    <Button type='primary' size='small' onClick={() => {
+                                        this.setState({
+                                            productLabelPrintProductionTime: moment('15:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
+                                        }, () => {
+                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
+
+                                            setTimeout(() => {
+                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
+                                            }, 300);
+                                        });
+                                    }}>下午 15点00分</Button>
+                                </span>
+                            )} />
+                        <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 12, marginBottom: 12 }}>
+                        </div>
+
+                        <div style={{ borderStyle: 'dotted', width: 320, height: 240 }}>
+                            <div style={{ textAlign: 'center', fontSize: 24, marginTop: 6 }}>
+                                {productLabelPrintProductionTemplate.name}
+                            </div>
+                            <div style={{ textAlign: 'center', fontSize: 16, marginTop: 4 }}>
+                                {productLabelPrintProductionTemplate.barcode}
+                            </div>
+                            <div style={{
+                                textAlign: 'center', height: 50, width: 284,
+                                marginLeft: 16, backgroundColor: 'lightgray'
+                            }}>
+
+                            </div>
+                            <div style={{ textAlign: 'left', fontSize: 18, marginTop: 4, marginLeft: 16 }}>
+                                {productLabelPrintProductionTemplate.ingredients}
+                            </div>
+                            <div style={{ textAlign: 'left', fontSize: 18, marginTop: 2, marginLeft: 16 }}>
+                                {productLabelPrintProductionTemplate.productLabelPrintProductionDateAndTime}
+                            </div>
+                            <div style={{ textAlign: 'left', fontSize: 18, marginTop: 2, marginLeft: 16 }}>
+                                <span>{productLabelPrintProductionTemplate.qualityDay}</span>
+                                <span style={{ marginLeft: 60 }}>{productLabelPrintProductionTemplate.price}</span>
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
         );
     };
 };

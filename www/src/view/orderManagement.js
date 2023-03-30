@@ -639,9 +639,9 @@ class OrderManagement extends React.Component {
                                 currentOrderType4OrderList: KOrderTypes[0],
                                 currentOrderCashier: KOrderCashiers[0],
                                 currentTemplate4OrderList: KOrderTemplates[0],
-                                currentOrderTimeType: KOrderTimeType[1],
-                                beginDateTime4OrderList: moment().add(1, 'day').startOf('day'),
-                                endDateTime4OrderList: moment().add(1, 'day').endOf('day')
+                                currentOrderTimeType: KOrderTimeType[0],
+                                beginDateTime4OrderList: moment().add(0, 'day').startOf('day'),
+                                endDateTime4OrderList: moment().add(0, 'day').endOf('day')
                             }, async () => {
                                 await this.fetchOrderList();
                             })

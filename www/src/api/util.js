@@ -196,6 +196,24 @@ const getPageName4NeedlePrinter = () => {
   return '针打三等分';
 };
 
+const KLabelPrinterName = '炫印P3(标签)';
+const getLabelPrinterName = () => {
+  return KLabelPrinterName;
+};
+
+const getLabelPrinterIndex = (LODOP) => {
+  let labelPrinterIndex = -1;
+  var iPrinterCount = LODOP.GET_PRINTER_COUNT();
+  for (let i = 0; i < iPrinterCount; i++) {
+    let name = LODOP.GET_PRINTER_NAME(i);
+    if (name === KLabelPrinterName) {
+      labelPrinterIndex = i;
+      break;
+    }
+  };
+  return labelPrinterIndex;
+};
+
 export {
   getTest,
   getAllShop,
@@ -216,5 +234,7 @@ export {
   getPageName4A4Printer,
   getNeedlePrinterName,
   getNeedlePrinterIndex,
-  getPageName4NeedlePrinter
+  getPageName4NeedlePrinter,
+  getLabelPrinterName,
+  getLabelPrinterIndex
 }

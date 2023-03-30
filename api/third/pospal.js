@@ -296,6 +296,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           let specificationIndex = -1;
           let transferPriceIndex = -1;
           let remarkIndex = -1;
+          let articleNumberIndex = -1;
 
           let thead = orderItemTable.thead;
           let procuctOrderItemsTh = thead[0].tr[0].th;
@@ -330,6 +331,11 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
                 transferPriceIndex = index;
                 continue;
               }
+
+              if (titleName === '货号') {
+                articleNumberIndex = index;
+                continue;
+              }
             } else {
               titleName = procuctOrderItemsTh[index];
               if (titleName === '备注') {
@@ -345,6 +351,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           // console.log(specificationIndex);
           // console.log(transferPriceIndex);
           // console.log(remarkIndex);
+          // console.log(articleNumberIndex);
 
           let procuctOrderDataTh = orderItemTable.tbody[0].tr;
           // console.log(procuctOrderDataTh);
@@ -386,6 +393,17 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             // console.log(remark);
             productOrderItem.remark = remark;
 
+            let articleNumber = element.td[articleNumberIndex]._;
+            productOrderItem.qualityDay = '-';
+            productOrderItem.ingredients = '-';
+            if (articleNumber.indexOf('|||') !== -1) {
+              let articleNumberArray = articleNumber.split('|||');
+              // console.log(articleNumberArray);
+              if (articleNumberArray.length >= 2) {
+                productOrderItem.qualityDay = articleNumberArray[0].trim();
+                productOrderItem.ingredients = articleNumberArray[1].trim();
+              }
+            }
             productItems.push(productOrderItem);
           });
         }
@@ -427,6 +445,7 @@ const findTemplate = async (thePOSPALAUTH30220, templateUid) => {
       let items = findTemplateResponseJson.template.items;
       for (let i = 0; i < items.length; ++i) {
         let item = items[i];
+        // console.log('item = ' + JSON.stringify(item));
         let product = item.product;
         if (product.categoryName === 'A弯麦订货参考') continue;
         let productItem = {};

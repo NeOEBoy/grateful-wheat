@@ -473,6 +473,23 @@ class ProductDistributePrinter extends React.Component {
 
                     if (orderNumber > 0) {
                         for (let z = orderNumberIndex; z < orderNumber; ++z) {
+                            await new Promise(resolve => setTimeout(resolve, 400));
+                            if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
+                                selectedRows4LabelPrintTemplateList[pos].printProgress = '取消打印中...';
+                                this.forceUpdate();
+                                await new Promise(resolve => setTimeout(resolve, 400));
+                                this.setState({
+                                    productLabelPrintModalVisible: false,
+                                    productLabelPrintState: KLabelPrintState.prepare
+                                });
+                                return;
+                            } else if (this.state.productLabelPrintState === KLabelPrintState.pause) {
+                                this._templateIndex = i;
+                                this._itemIndex = j;
+                                this._orderNumberIndex = z;
+                                return;
+                            }
+
                             selectedRows4LabelPrintTemplateList[pos].printProgress = ' ' + (z + 1) + '/' + orderNumber + ' ' + orderProductName;
                             this.forceUpdate();
 
@@ -497,22 +514,6 @@ class ProductDistributePrinter extends React.Component {
                                 template.productLabelPrintProductionDateAndTime,
                                 template.qualityDay
                             );
-                            // this.setState({ productLabelPrintState: KLabelPrintState.complete });
-                            // return;
-
-                            await new Promise(resolve => setTimeout(resolve, 1000));
-                            if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
-                                selectedRows4LabelPrintTemplateList[pos].printProgress = '取消打印中...';
-                                this.forceUpdate();
-                                await new Promise(resolve => setTimeout(resolve, 300));
-                                this.setState({ productLabelPrintModalVisible: false, productLabelPrintState: KLabelPrintState.prepare });
-                                return;
-                            } else if (this.state.productLabelPrintState === KLabelPrintState.pause) {
-                                this._templateIndex = i;
-                                this._itemIndex = j;
-                                this._orderNumberIndex = z;
-                                return;
-                            }
                         }
                         orderNumberIndex = 0;
                     }

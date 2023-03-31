@@ -473,11 +473,11 @@ class ProductDistributePrinter extends React.Component {
 
                     if (orderNumber > 0) {
                         for (let z = orderNumberIndex; z < orderNumber; ++z) {
-                            await new Promise(resolve => setTimeout(resolve, 400));
+                            await new Promise(resolve => setTimeout(resolve, 600));
                             if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
                                 selectedRows4LabelPrintTemplateList[pos].printProgress = '取消打印中...';
                                 this.forceUpdate();
-                                await new Promise(resolve => setTimeout(resolve, 400));
+                                await new Promise(resolve => setTimeout(resolve, 600));
                                 this.setState({
                                     productLabelPrintModalVisible: false,
                                     productLabelPrintState: KLabelPrintState.prepare

@@ -14,7 +14,6 @@ import moment from 'moment';
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
-    getTest,
     getWWWHost,
     getPageName4A4Printer,
     getA4PrinterIndex,
@@ -28,8 +27,6 @@ import {
 } from './Lodop6.226_Clodop4.127/LodopFuncs';
 
 /**--------------------配置信息--------------------*/
-const KForTest = getTest();
-
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
 /// 排序优先级（格式为templateId-barcode）
@@ -492,14 +489,14 @@ class ProductDistributePrinter extends React.Component {
                             this.setState({ productLabelPrintProductionTemplate: template });
 
                             /// 输出打印
-                            // this.labelPrintDirect(
-                            //     template.name,
-                            //     template.barcode,
-                            //     template.price,
-                            //     template.ingredients,
-                            //     template.productLabelPrintProductionDateAndTime,
-                            //     template.qualityDay
-                            // );
+                            this.labelPrintDirect(
+                                template.name,
+                                template.barcode,
+                                template.price,
+                                template.ingredients,
+                                template.productLabelPrintProductionDateAndTime,
+                                template.qualityDay
+                            );
                             // this.setState({ productLabelPrintState: KLabelPrintState.complete });
                             // return;
 
@@ -531,12 +528,7 @@ class ProductDistributePrinter extends React.Component {
         let LODOP = getLodop();
 
         if (LODOP) {
-            LODOP.SET_LICENSES("", "13F0BE65846276CB60111433C6280000", "", "");
             LODOP.PRINT_INIT("react使用打印插件CLodop");  //打印初始化
-            let strStyle =
-                `<style>
-                </style> `;
-
             LODOP.SET_PRINTER_INDEX(getLabelPrinterIndex(LODOP));
             LODOP.SET_PRINT_PAGESIZE(1, 400, 300, '');
             LODOP.SET_PREVIEW_WINDOW(0, 0, 0, 600, 450, '');

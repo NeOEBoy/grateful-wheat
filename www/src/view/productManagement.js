@@ -19,8 +19,6 @@ import {
 } from 'antd';
 
 /**--------------------配置信息--------------------*/
-// const KForTest = true;
-
 class ProductManagement extends React.Component {
     constructor(props) {
         super(props);

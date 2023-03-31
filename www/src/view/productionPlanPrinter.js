@@ -11,7 +11,6 @@ import {
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
-    getTest,
     getWWWHost,
     getNeedlePrinterIndex,
     getPageName4NeedlePrinter,
@@ -22,8 +21,6 @@ import {
     getLodop
 } from './Lodop6.226_Clodop4.127/LodopFuncs';
 /**--------------------配置信息--------------------*/
-const KForTest = getTest();
-
 /// 排序优先级（格式为templateId-barcode）
 const KProductSortIdArray = getProductSortIdArray();
 

@@ -19,7 +19,6 @@ import {
     wechatSign
 } from '../api/api';
 /**--------------------配置信息--------------------*/
-// const KForTest = getTest();
 /// 门店信息
 const KAllShopsExceptAll = getAllShopExceptAll();
 /// 分类信息

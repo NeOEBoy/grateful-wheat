@@ -23,8 +23,6 @@ import {
     getLodop
 } from './Lodop6.226_Clodop4.127/LodopFuncs';
 /**--------------------配置信息--------------------*/
-const KForTest = getTest();
-
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
 /// 排序优先级（格式为templateId-barcode）

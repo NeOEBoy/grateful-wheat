@@ -14,7 +14,6 @@ import moment from 'moment';
 import { getProductOrderItems, loadProductsByKeyword, createStockFlowOut } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
-    getTest,
     getWWWHost,
     getPageName4NeedlePrinter,
     getNeedlePrinterIndex,
@@ -31,8 +30,6 @@ import {
 const { Search } = Input;
 
 /**--------------------配置信息--------------------*/
-const KForTest = getTest();
-
 /// 模板信息
 const KOrderTemplates = getOrderTemplates();
 /// 排序优先级（格式为templateId-barcode）

@@ -2,11 +2,24 @@
 console.log('process.env.NODE_ENV = ' + process.env.NODE_ENV);
 
 /**--------------------配置信息--------------------*/
-const KApiHost = process.env.NODE_ENV === 'development' ?
-  'http://localhost:9001' : 'http://gratefulwheat.ruyue.xyz/apis';
+const getApiHost = () => {
+  // console.log('document.domain = ' + document.domain);
+  let host;
+  if (process.env.NODE_ENV === 'development') {
+    host = 'http://localhost:9001';
+  } else {
+    let rule = /^(([-\u4E00-\u9FA5a-z0-9]{1,63})\.)+([\u4E00-\u9FA5a-z]{2,63})\.?$/
+    if (rule.test(document.domain)) {
+      host = 'http://gratefulwheat.ruyue.xyz/apis';
+    } else {
+      host = 'http://123.207.119.232/apis';
+    }
+  }
+  return host;
+}
 
 const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex, pageSize, keyword) => {
-  let productSaleUrl = KApiHost + '/product/saleList';
+  let productSaleUrl = getApiHost() + '/product/saleList';
   productSaleUrl += '?pageIndex=';
   productSaleUrl += pageIndex;
   productSaleUrl += '&pageSize=';
@@ -27,7 +40,7 @@ const getProductSaleList = async (userId, beginDateTime, endDateTime, pageIndex,
 
 const getProductDiscardList = async (userId, beginDateTime, endDateTime, keyword) => {
   // console.log('getProductDiscardList begin');
-  let productDiscardUrl = KApiHost + '/product/discardList';
+  let productDiscardUrl = getApiHost() + '/product/discardList';
   productDiscardUrl += '?userId=';
   productDiscardUrl += userId;
   productDiscardUrl += '&beginDateTime=';
@@ -46,7 +59,7 @@ const getProductDiscardList = async (userId, beginDateTime, endDateTime, keyword
 }
 
 const getProductSaleAndDiscardList = async (userId, categoryId, beginDateTime, endDateTime, keyword) => {
-  let productSaleAndDiscardUrl = KApiHost + '/product/saleAndDiscardList';
+  let productSaleAndDiscardUrl = getApiHost() + '/product/saleAndDiscardList';
 
   productSaleAndDiscardUrl += '?userId='
   productSaleAndDiscardUrl += userId;
@@ -67,7 +80,7 @@ const getProductSaleAndDiscardList = async (userId, categoryId, beginDateTime, e
 }
 
 const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
-  let couponSummaryListUrl = KApiHost + '/coupon/couponSummaryList';
+  let couponSummaryListUrl = getApiHost() + '/coupon/couponSummaryList';
 
   couponSummaryListUrl += '?userId='
   couponSummaryListUrl += userId;
@@ -84,7 +97,7 @@ const getCouponSummaryList = async (userId, beginDateTime, endDateTime) => {
 }
 
 const getProductOrderList = async (userId, templateId, timeType, beginDateTime, endDateTime) => {
-  let productOrderUrl = KApiHost + '/product/orderList';
+  let productOrderUrl = getApiHost() + '/product/orderList';
   productOrderUrl += '?userId=';
   productOrderUrl += userId;
   productOrderUrl += '&templateId=';
@@ -102,7 +115,7 @@ const getProductOrderList = async (userId, templateId, timeType, beginDateTime, 
 }
 
 const getProductOrderItems = async (orderId) => {
-  let productOrderItemUrl = KApiHost + '/product/orderItems';
+  let productOrderItemUrl = getApiHost() + '/product/orderItems';
   productOrderItemUrl += '?orderId=';
   productOrderItemUrl += orderId;
 
@@ -112,7 +125,7 @@ const getProductOrderItems = async (orderId) => {
 }
 
 const findTemplate = async (templateUid) => {
-  let findTemplateUrl = KApiHost + '/product/findTemplate';
+  let findTemplateUrl = getApiHost() + '/product/findTemplate';
   findTemplateUrl += '?templateUid=';
   findTemplateUrl += templateUid;
 
@@ -122,7 +135,7 @@ const findTemplate = async (templateUid) => {
 }
 
 const loadProductsByKeyword = async (keyword) => {
-  let loadProductsByKeywordUrl = KApiHost + '/product/loadProductsByKeyword';
+  let loadProductsByKeywordUrl = getApiHost() + '/product/loadProductsByKeyword';
   loadProductsByKeywordUrl += '?keyword=';
   loadProductsByKeywordUrl += keyword;
 
@@ -132,7 +145,7 @@ const loadProductsByKeyword = async (keyword) => {
 }
 
 const createStockFlowOut = async (toUserId, items) => {
-  let createStockFlowOutUrl = KApiHost + '/product/createStockFlowOut';
+  let createStockFlowOutUrl = getApiHost() + '/product/createStockFlowOut';
   let createStockFlowOutBody = {};
   createStockFlowOutBody.toUserId = toUserId;
   createStockFlowOutBody.items = items;
@@ -145,7 +158,7 @@ const createStockFlowOut = async (toUserId, items) => {
 }
 
 const refuseStockFlow = async (flowId) => {
-  let refuseStockFlowUrl = KApiHost + '/product/refuseStockFlow';
+  let refuseStockFlowUrl = getApiHost() + '/product/refuseStockFlow';
   refuseStockFlowUrl += '?flowId='
   refuseStockFlowUrl += flowId;
 
@@ -155,7 +168,7 @@ const refuseStockFlow = async (flowId) => {
 }
 
 const confirmStockFlow = async (flowId) => {
-  let confirmStockFlowUrl = KApiHost + '/product/confirmStockFlow';
+  let confirmStockFlowUrl = getApiHost() + '/product/confirmStockFlow';
   confirmStockFlowUrl += '?flowId='
   confirmStockFlowUrl += flowId;
 
@@ -170,7 +183,7 @@ const getProductFlowList = async (userId, flowTypeId, beginDateTime, endDateTime
   // console.log('beginDateTime = ' + beginDateTime);
   // console.log('endDateTime = ' + endDateTime);
 
-  let productFlowListUrl = KApiHost + '/product/flowList';
+  let productFlowListUrl = getApiHost() + '/product/flowList';
   productFlowListUrl += '?userId=';
   productFlowListUrl += userId;
   productFlowListUrl += '&flowTypeId=';
@@ -186,7 +199,7 @@ const getProductFlowList = async (userId, flowTypeId, beginDateTime, endDateTime
 }
 
 const getFlowDetail = async (flowId) => {
-  let productFlowDetailUrl = KApiHost + '/product/flowDetail';
+  let productFlowDetailUrl = getApiHost() + '/product/flowDetail';
   productFlowDetailUrl += '?flowId=';
   productFlowDetailUrl += flowId;
 
@@ -196,7 +209,7 @@ const getFlowDetail = async (flowId) => {
 }
 
 const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
-  let diyCouponListUrl = KApiHost + '/coupon/diyCouponList';
+  let diyCouponListUrl = getApiHost() + '/coupon/diyCouponList';
 
   diyCouponListUrl += '?pageIndex='
   diyCouponListUrl += pageIndex;
@@ -212,7 +225,7 @@ const getDIYCouponList = async (pageIndex, pageSize, keyword) => {
 }
 
 const getMemberListByKeyword = async (keyword) => {
-  let memberListUrl = KApiHost + '/member/memberList';
+  let memberListUrl = getApiHost() + '/member/memberList';
 
   memberListUrl += '?keyword='
   memberListUrl += keyword;
@@ -224,7 +237,7 @@ const getMemberListByKeyword = async (keyword) => {
 }
 
 const saveRemarkToCoupon = async (couponId, remarkText) => {
-  let saveRemarkUrl = KApiHost + '/coupon/saveRemark';
+  let saveRemarkUrl = getApiHost() + '/coupon/saveRemark';
 
   saveRemarkUrl += '?couponId='
   saveRemarkUrl += couponId;
@@ -238,7 +251,7 @@ const saveRemarkToCoupon = async (couponId, remarkText) => {
 }
 
 const sendSMSToMember = async (phoneNumber, templateParam1) => {
-  let sendSMSUrl = KApiHost + '/coupon/sendSMS';
+  let sendSMSUrl = getApiHost() + '/coupon/sendSMS';
 
   sendSMSUrl += '?phoneNumber='
   sendSMSUrl += phoneNumber;
@@ -252,7 +265,7 @@ const sendSMSToMember = async (phoneNumber, templateParam1) => {
 }
 
 const createDIYEvent = async (started) => {
-  let createDIYEventUrl = KApiHost + '/coupon/createDIYEvent';
+  let createDIYEventUrl = getApiHost() + '/coupon/createDIYEvent';
 
   createDIYEventUrl += '?started='
   createDIYEventUrl += started;
@@ -264,7 +277,7 @@ const createDIYEvent = async (started) => {
 }
 
 const DIYEventList = async () => {
-  let DIYEventListUrl = KApiHost + '/coupon/DIYEventList';
+  let DIYEventListUrl = getApiHost() + '/coupon/DIYEventList';
 
   // console.log(DIYEventListUrl);
   const DIYEventListResponse = await fetch(DIYEventListUrl);
@@ -273,7 +286,7 @@ const DIYEventList = async () => {
 }
 
 const DeleteDIYEvent = async (_id) => {
-  let deleteDIYEventUrl = KApiHost + '/coupon/DeleteDIYEvent';
+  let deleteDIYEventUrl = getApiHost() + '/coupon/DeleteDIYEvent';
   deleteDIYEventUrl += '?_id='
   deleteDIYEventUrl += _id;
 
@@ -284,7 +297,7 @@ const DeleteDIYEvent = async (_id) => {
 }
 
 const JoinToEvent = async (couponId, memberName, eventId) => {
-  let joinToEventUrl = KApiHost + '/coupon/joinToEvent';
+  let joinToEventUrl = getApiHost() + '/coupon/joinToEvent';
   joinToEventUrl += '?couponId='
   joinToEventUrl += couponId;
   joinToEventUrl += '&memberName='
@@ -301,7 +314,7 @@ const JoinToEvent = async (couponId, memberName, eventId) => {
 const sendSMSAndJoinToEvent = async (
   phoneNumber, templateParam1,
   couponId, memberName, eventId) => {
-  let sendSMSAndJoinToEventUrl = KApiHost + '/coupon/sendSMSAndJoinToEvent';
+  let sendSMSAndJoinToEventUrl = getApiHost() + '/coupon/sendSMSAndJoinToEvent';
 
   sendSMSAndJoinToEventUrl += '?phoneNumber='
   sendSMSAndJoinToEventUrl += phoneNumber;
@@ -321,7 +334,7 @@ const sendSMSAndJoinToEvent = async (
 }
 
 const LeaveFromEvent = async (couponId, memberName, eventId) => {
-  let LeaveFromEventUrl = KApiHost + '/coupon/leaveFromEvent';
+  let LeaveFromEventUrl = getApiHost() + '/coupon/leaveFromEvent';
   LeaveFromEventUrl += '?couponId='
   LeaveFromEventUrl += couponId;
   LeaveFromEventUrl += '&memberName='
@@ -336,7 +349,7 @@ const LeaveFromEvent = async (couponId, memberName, eventId) => {
 }
 
 const saveLastPage = async (page) => {
-  let saveLastPageUrl = KApiHost + '/coupon/saveLastPage';
+  let saveLastPageUrl = getApiHost() + '/coupon/saveLastPage';
   saveLastPageUrl += '?page='
   saveLastPageUrl += page;
 
@@ -347,7 +360,7 @@ const saveLastPage = async (page) => {
 }
 
 const getLastPage = async () => {
-  let getLastPageUrl = KApiHost + '/coupon/getLastPage';
+  let getLastPageUrl = getApiHost() + '/coupon/getLastPage';
 
   // console.log(getLastPageUrl);
   const getLastPageResponse = await fetch(getLastPageUrl);
@@ -356,7 +369,7 @@ const getLastPage = async () => {
 }
 
 const loadElemeProducts = async () => {
-  let loadElemeProductsUrl = KApiHost + '/product/loadElemeProducts';
+  let loadElemeProductsUrl = getApiHost() + '/product/loadElemeProducts';
   loadElemeProductsUrl += '?userId=';
   loadElemeProductsUrl += '3995767';
   loadElemeProductsUrl += '&categoryId=';
@@ -371,7 +384,7 @@ const loadElemeProducts = async () => {
 }
 
 const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, endDateTime, orderColumn, asc) => {
-  let loadProductsSaleUrl = KApiHost + '/product/loadProductsSale';
+  let loadProductsSaleUrl = getApiHost() + '/product/loadProductsSale';
   loadProductsSaleUrl += '?categoryId=';
   loadProductsSaleUrl += categoryId;
   loadProductsSaleUrl += '&userId=';
@@ -434,7 +447,7 @@ const loadBreadAll = async () => {
 }
 
 const wechatSign = async (url) => {
-  let wechatSignUrl = KApiHost + '/wechat/sign';
+  let wechatSignUrl = getApiHost() + '/wechat/sign';
   wechatSignUrl += '?url=';
   wechatSignUrl += url;
 
@@ -445,7 +458,7 @@ const wechatSign = async (url) => {
 }
 
 const templateSendToSomePeople = async (_id, title, orderNum, style, deliverTime, name, phone) => {
-  let templateSendToTechUrl = KApiHost + '/wechat/templateSendToSomePeople';
+  let templateSendToTechUrl = getApiHost() + '/wechat/templateSendToSomePeople';
   templateSendToTechUrl += '?_id='
   templateSendToTechUrl += _id;
   templateSendToTechUrl += '&title='
@@ -468,7 +481,7 @@ const templateSendToSomePeople = async (_id, title, orderNum, style, deliverTime
 }
 
 const geocode = async (address, city) => {
-  let geocodeUrl = KApiHost + '/amap/geocode';
+  let geocodeUrl = getApiHost() + '/amap/geocode';
   geocodeUrl += '?address='
   geocodeUrl += address;
   geocodeUrl += '&city='
@@ -501,7 +514,7 @@ const createBirthdaycakeOrder = async (
   phoneNumber,
   remarks
 ) => {
-  let createBirthdaycakeOrderUrl = KApiHost + '/birthdaycake/createOrder';
+  let createBirthdaycakeOrderUrl = getApiHost() + '/birthdaycake/createOrder';
   createBirthdaycakeOrderUrl += '?cakeName='
   createBirthdaycakeOrderUrl += cakeName;
   createBirthdaycakeOrderUrl += '&cakeDescription='
@@ -548,7 +561,7 @@ const createBirthdaycakeOrder = async (
 }
 
 const findBirthdaycakeOrder = async (_id) => {
-  let findBirthdaycakeOrderUrl = KApiHost + '/birthdaycake/findOrder';
+  let findBirthdaycakeOrderUrl = getApiHost() + '/birthdaycake/findOrder';
   findBirthdaycakeOrderUrl += '?_id='
   findBirthdaycakeOrderUrl += _id;
 

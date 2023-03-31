@@ -913,6 +913,28 @@ class ProductDistributePrinter extends React.Component {
                                             }, 300);
                                         });
                                     }}>下午 15点00分</Button>
+                                    <Button type='primary' size='small' onClick={() => {
+                                        this.setState({
+                                            productLabelPrintProductionTime: moment('16:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
+                                        }, () => {
+                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
+
+                                            setTimeout(() => {
+                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
+                                            }, 300);
+                                        });
+                                    }}>下午 16点00分</Button>
+                                    <Button type='primary' size='small' onClick={() => {
+                                        this.setState({
+                                            productLabelPrintProductionTime: moment('17:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
+                                        }, () => {
+                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
+
+                                            setTimeout(() => {
+                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
+                                            }, 300);
+                                        });
+                                    }}>下午 17点00分</Button>
                                 </span>
                             )} />
                         <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 12, marginBottom: 12 }}>

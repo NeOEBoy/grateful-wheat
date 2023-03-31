@@ -879,7 +879,7 @@ class ProductDistributePrinter extends React.Component {
                                 <span>
                                     <Button type='primary' size='small' onClick={() => {
                                         this.setState({
-                                            productLabelPrintProductionTime: moment('09:00', 'HH:mm'),
+                                            productLabelPrintProductionTime: moment('07:00', 'HH:mm'),
                                             productLabelPrintProductionTimePopupOpen: false
                                         }, () => {
                                             this.updateProductLabelPrintProductionTemplateDayAndTime();
@@ -888,20 +888,7 @@ class ProductDistributePrinter extends React.Component {
                                                 this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
                                             }, 300);
                                         });
-                                    }}>早上 09点00分</Button>
-                                    <span>   </span>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({
-                                            productLabelPrintProductionTime: moment('12:00', 'HH:mm'),
-                                            productLabelPrintProductionTimePopupOpen: false
-                                        }, () => {
-                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
-
-                                            setTimeout(() => {
-                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
-                                            }, 300);
-                                        });
-                                    }}>中午 12点00分</Button>
+                                    }}>早上 07点00分</Button>
                                     <Button type='primary' size='small' onClick={() => {
                                         this.setState({
                                             productLabelPrintProductionTime: moment('15:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
@@ -913,28 +900,6 @@ class ProductDistributePrinter extends React.Component {
                                             }, 300);
                                         });
                                     }}>下午 15点00分</Button>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({
-                                            productLabelPrintProductionTime: moment('16:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
-                                        }, () => {
-                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
-
-                                            setTimeout(() => {
-                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
-                                            }, 300);
-                                        });
-                                    }}>下午 16点00分</Button>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({
-                                            productLabelPrintProductionTime: moment('17:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
-                                        }, () => {
-                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
-
-                                            setTimeout(() => {
-                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
-                                            }, 300);
-                                        });
-                                    }}>下午 17点00分</Button>
                                 </span>
                             )} />
                         <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 12, marginBottom: 12 }}>

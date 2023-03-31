@@ -72,7 +72,7 @@ class OrderManagement extends React.Component {
             /// 订单列表
             alreadyOrderListData: [],
             alreadyOrderLoading: false,
-            currentShop4OrderList: KAllShops[7],
+            currentShop4OrderList: KAllShops[0],
             currentTemplate4OrderList: KOrderTemplates[0],
             currentOrderType4OrderList: KOrderTypes[0],
             currentOrderCashier: KOrderCashiers[0],

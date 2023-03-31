@@ -12,6 +12,7 @@ import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
     getTest,
+    getWWWHost,
     getNeedlePrinterName,
     getNeedlePrinterIndex,
     getOrderTemplates,
@@ -333,8 +334,7 @@ class ProductDistributePrinter extends React.Component {
 
         let paramStr = 'param=' + escape(paramValueStr);
 
-        let orderManagementUrl = 'http://localhost:4000/orderManagement';
-        if (!KForTest) orderManagementUrl = 'http://gratefulwheat.ruyue.xyz/orderManagement';
+        let orderManagementUrl = getWWWHost() + '/orderManagement';
 
         orderManagementUrl += '?';
         orderManagementUrl += paramStr;

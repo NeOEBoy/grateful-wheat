@@ -21,6 +21,7 @@ import {
 } from '../api/api';
 import {
     getTest,
+    getWWWHost,
     getAllShop,
     getAllOrderShopName,
     getOrderTemplates,
@@ -330,8 +331,7 @@ class OrderManagement extends React.Component {
         let paramStr = 'param=' + escape(paramValueStr);
         // console.log(paramStr);
 
-        let productionPlanPrinterUrl = 'http://localhost:4000/productionPlanPrinter';
-        if (!KForTest) productionPlanPrinterUrl = 'http://gratefulwheat.ruyue.xyz/productionPlanPrinter';
+        let productionPlanPrinterUrl = getWWWHost() + '/productionPlanPrinter';
 
         productionPlanPrinterUrl += '?';
         productionPlanPrinterUrl += paramStr;
@@ -369,8 +369,7 @@ class OrderManagement extends React.Component {
         let paramStr = 'param=' + escape(paramValueStr);
         // console.log(paramStr);
 
-        let productDistributePrinterUrl = 'http://localhost:4000/productDistributePrinter';
-        if (!KForTest) productDistributePrinterUrl = 'http://gratefulwheat.ruyue.xyz/productDistributePrinter';
+        let productDistributePrinterUrl = getWWWHost() + '/productDistributePrinter';
 
         productDistributePrinterUrl += '?';
         productDistributePrinterUrl += paramStr;
@@ -407,8 +406,7 @@ class OrderManagement extends React.Component {
         let paramStr = 'param=' + escape(paramValueStr);
         // console.log(paramStr);
 
-        let productionPlanInputerUrl = 'http://localhost:4000/productDistributeInputer';
-        if (!KForTest) productionPlanInputerUrl = 'http://gratefulwheat.ruyue.xyz/productDistributeInputer';
+        let productionPlanInputerUrl = getWWWHost() + '/productDistributeInputer';
 
         productionPlanInputerUrl += '?';
         productionPlanInputerUrl += paramStr;

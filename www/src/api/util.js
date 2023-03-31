@@ -3,6 +3,24 @@ const getTest = () => {
   return false;
 };
 
+const getWWWHost = () => {
+  let wwwHost;
+  if (getTest()) {
+    wwwHost = 'http://localhost:4000';
+  } else {
+    let domainNameRule = /^(([-\u4E00-\u9FA5a-z0-9]{1,63})\.)+([\u4E00-\u9FA5a-z]{2,63})\.?$/
+    if (domainNameRule.test(document.domain)) {
+      wwwHost = 'http://gratefulwheat.ruyue.xyz';
+    } else if (document.domain === 'localhost') {
+      wwwHost = 'http://localhost:4000';
+    } else {
+      wwwHost = 'http://123.207.119.232';
+    }
+  }
+  // console.log('wwwHost = ' + wwwHost);
+  return wwwHost;
+}
+
 const getAllShop = () => {
   return [
     { index: 0, name: '全部门店', userId: '' },
@@ -216,6 +234,7 @@ const getLabelPrinterIndex = (LODOP) => {
 
 export {
   getTest,
+  getWWWHost,
   getAllShop,
   getAllShopExceptAll,
   getAllCategorysExceptAll,

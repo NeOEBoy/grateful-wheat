@@ -45,6 +45,9 @@ import {
     templateSendToSomePeople,
     createBirthdaycakeOrder
 } from '../api/api';
+import {
+    getWWWHost,
+} from '../api/util';
 
 const { Panel } = Collapse;
 const CheckboxGroup = Checkbox.Group;
@@ -670,7 +673,7 @@ class birthdayCakeSale extends React.Component {
                         return;
                     }
 
-                    let birthdayCakeOrderUrl = `http://gratefulwheat.ruyue.xyz/birthdayCakeOrder?_id=${createResult._id}`;
+                    let birthdayCakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
                     let opts = {
                         errorCorrectionLevel: 'L',
                         type: 'image/png',

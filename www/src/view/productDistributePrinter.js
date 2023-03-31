@@ -11,6 +11,7 @@ import {
     DatePicker
 } from 'antd';
 import moment from 'moment';
+import JsBarcode from 'jsbarcode';
 import { getProductOrderItems } from '../api/api';
 import { findTemplateWithCache } from '../api/cache';
 import {
@@ -35,6 +36,7 @@ const KTemplateSortIdArray = getTemplateSortIdArray();
 
 /// 标签打印状态
 const KLabelPrintState = {
+    none: '',
     prepare: '准备中',
     running: '运行中',
     pause: '暂停中',
@@ -46,8 +48,6 @@ const KLabelPrintState = {
 class ProductDistributePrinter extends React.Component {
     constructor(props) {
         super(props);
-
-
 
         this.state = {
             allDistributionDataToBePrint: [],
@@ -79,7 +79,6 @@ class ProductDistributePrinter extends React.Component {
         // console.log('componentDidMount begin');
         let query = this.props.query;
         let paramValueStr = query && query.get('param');
-        // console.log(paramValueStr);
         if (paramValueStr) {
             paramValueStr = unescape(paramValueStr);
             // console.log(paramValueStr);
@@ -92,7 +91,6 @@ class ProductDistributePrinter extends React.Component {
             this._beginDateTime = paramValueObj.beginDateTime;
             this._endDateTime = paramValueObj.endDateTime;
             this._orderList = paramValueObj.orderList;
-            // console.log(this._orderList);
             this.refresh();
         }
     };
@@ -409,10 +407,19 @@ class ProductDistributePrinter extends React.Component {
         const { allDistributionDataToBePrint } = this.state;
         for (let i = 0; i < allDistributionDataToBePrint.length; ++i) {
             let templateName = allDistributionDataToBePrint[i].templateName;
-            if (templateName) {
+            let items = allDistributionDataToBePrint[i].items;
+            if (templateName && items.length > 0) {
                 let item = {};
                 item.key = i + 1;
                 item.templateName = templateName;
+                item.items = [];
+                for (let j = 0; j < items.length; ++j) {
+                    let product = items[j];
+                    if (product.orderNumber > 0) {
+                        item.items.push({ ...product });
+                    }
+                }
+                item.printStatus = KLabelPrintState.none;
                 item.printProgress = '';
                 productLabelPrintTemplateList.push(item);
             }
@@ -428,8 +435,8 @@ class ProductDistributePrinter extends React.Component {
             selectedRows4LabelPrintTemplateList: [],
             productLabelPrintState: KLabelPrintState.prepare,
             productLabelPrintProductionTemplate: {
-                name: '<弯麦-产品名称>',
-                barcode: '<123456789111>',
+                name: '弯麦-<产品名称>',
+                barcode: '<12位条码>',
                 ingredients: '配料表：<配料1 配料2 配料3>',
                 productLabelPrintProductionDateAndTime:
                     '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
@@ -438,90 +445,88 @@ class ProductDistributePrinter extends React.Component {
                 price: '¥<12.0>'
             }
         });
+        setTimeout(() => {
+            JsBarcode('#image4barcode', '123456789', { displayValue: false });
+        }, 0);
     };
 
     startOrContinueLabelPrint = async (templateIndex, itemIndex, orderNumberIndex) => {
-        this.setState({
-            productLabelPrintState: KLabelPrintState.running
-        });
+        this.setState({ productLabelPrintState: KLabelPrintState.running });
 
-        const { allDistributionDataToBePrint,
+        const {
             selectedRows4LabelPrintTemplateList,
             productLabelPrintProductionDate,
-            productLabelPrintProductionTime } = this.state;
-        for (let i = templateIndex; i < allDistributionDataToBePrint.length; ++i) {
-            let templateName = allDistributionDataToBePrint[i].templateName;
+            productLabelPrintProductionTime
+        } = this.state;
 
-            let pos = -1;
-            for (let pos1 = 0; pos1 < selectedRows4LabelPrintTemplateList.length; ++pos1) {
-                let name = selectedRows4LabelPrintTemplateList[pos1].templateName;
-                if (templateName === name) {
-                    pos = pos1;
-                    break;
+        for (let i = templateIndex; i < selectedRows4LabelPrintTemplateList.length; ++i) {
+            let itemsToPrint = selectedRows4LabelPrintTemplateList[i].items;
+            for (let j = itemIndex; j < itemsToPrint.length; ++j) {
+                if (j === itemIndex) {
+                    selectedRows4LabelPrintTemplateList[i].printStatus = KLabelPrintState.running;
                 }
-            }
-            if (pos !== -1) {
-                let items = allDistributionDataToBePrint[i].items;
-                for (let j = itemIndex; j < items.length; ++j) {
-                    let product = items[j];
-                    let orderProductName = product.orderProductName;
-                    let orderNumber = product.orderNumber;
-                    let barcode = product.barcode;
-                    let transferPrice = product.transferPrice;
-                    let qualityDay = product.qualityDay;
-                    let ingredients = product.ingredients;
 
-                    if (orderNumber > 0) {
-                        for (let z = orderNumberIndex; z < orderNumber; ++z) {
-                            await new Promise(resolve => setTimeout(resolve, 600));
-                            if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
-                                selectedRows4LabelPrintTemplateList[pos].printProgress = '取消打印中...';
-                                this.forceUpdate();
-                                await new Promise(resolve => setTimeout(resolve, 600));
-                                this.setState({
-                                    productLabelPrintModalVisible: false,
-                                    productLabelPrintState: KLabelPrintState.prepare
-                                });
-                                return;
-                            } else if (this.state.productLabelPrintState === KLabelPrintState.pause) {
-                                this._templateIndex = i;
-                                this._itemIndex = j;
-                                this._orderNumberIndex = z;
-                                return;
-                            }
+                let product = itemsToPrint[j];
+                let orderProductName = product.orderProductName;
+                let orderNumber = product.orderNumber;
+                let barcode = product.barcode;
+                let transferPrice = product.transferPrice;
+                let qualityDay = product.qualityDay;
+                let ingredients = product.ingredients;
 
-                            selectedRows4LabelPrintTemplateList[pos].printProgress = ' ' + (z + 1) + '/' + orderNumber + ' ' + orderProductName;
-                            this.forceUpdate();
+                for (let z = orderNumberIndex; z < orderNumber; ++z) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
 
-                            let template = {
-                                name: '弯麦-' + orderProductName,
-                                barcode: barcode,
-                                price: '¥' + Number(transferPrice).toFixed(1),
-                                ingredients: '配料表：' + ingredients,
-                                productLabelPrintProductionDateAndTime:
-                                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
-                                    productLabelPrintProductionTime.format(' HH:mm'),
-                                qualityDay: '保质期：' + qualityDay + '天'
-                            };
-                            this.setState({ productLabelPrintProductionTemplate: template });
-
-                            /// 输出打印
-                            this.labelPrintDirect(
-                                template.name,
-                                template.barcode,
-                                template.price,
-                                template.ingredients,
-                                template.productLabelPrintProductionDateAndTime,
-                                template.qualityDay
-                            );
-                        }
-                        orderNumberIndex = 0;
+                    if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
+                        this.setState({
+                            productLabelPrintModalVisible: false,
+                            productLabelPrintState: KLabelPrintState.prepare
+                        });
+                        return;
+                    } else if (this.state.productLabelPrintState === KLabelPrintState.pause) {
+                        this._templateIndex = i;
+                        this._itemIndex = j;
+                        this._orderNumberIndex = z;
+                        selectedRows4LabelPrintTemplateList[i].printStatus = KLabelPrintState.pause;
+                        this.forceUpdate();
+                        return;
                     }
-                }
-                itemIndex = 0;
-            }
-        }
 
+                    /// 更新打印进度
+                    selectedRows4LabelPrintTemplateList[i].printProgress =
+                        ' ' + (z + 1) + '/' + orderNumber + ' ' + orderProductName;
+
+                    let template = {
+                        name: '弯麦-' + orderProductName,
+                        barcode: barcode,
+                        price: '¥' + Number(transferPrice).toFixed(1),
+                        ingredients: '配料表：' + ingredients,
+                        productLabelPrintProductionDateAndTime:
+                            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
+                            productLabelPrintProductionTime.format(' HH:mm'),
+                        qualityDay: '保质期：' + qualityDay + '天'
+                    };
+                    JsBarcode('#image4barcode', template.barcode, { displayValue: false });
+                    this.setState({ productLabelPrintProductionTemplate: template });
+
+                    /// 输出打印
+                    this.labelPrintDirect(
+                        template.name,
+                        template.barcode,
+                        template.price,
+                        template.ingredients,
+                        template.productLabelPrintProductionDateAndTime,
+                        template.qualityDay
+                    );
+                }
+
+                if (j === itemsToPrint.length - 1) {
+                    selectedRows4LabelPrintTemplateList[i].printStatus = KLabelPrintState.complete;
+                }
+                orderNumberIndex = 0;
+            }
+            itemIndex = 0;
+        }
         this.setState({ productLabelPrintState: KLabelPrintState.complete });
     }
 
@@ -674,9 +679,32 @@ class ProductDistributePrinter extends React.Component {
         let labelPrintModalOkButtonDisable = productLabelPrintState === KLabelPrintState.prepare && selectedRows4LabelPrintTemplateList.length <= 0;
 
         const KTemplateColumns4Table = [
-            { title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '模板分类', dataIndex: 'templateName', key: 'templateName', width: 120, render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
-            { title: '打印进度', dataIndex: 'printProgress', key: 'printProgress', width: '*', render: (text) => { return <span style={{ fontSize: 10, color: 'red' }}>{text}</span>; } },
+            {
+                title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => {
+                    return <div style={{ fontSize: 10, textAlign: 'center' }}>{text}</div>;
+                }
+            },
+            {
+                title: '模板分类', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => {
+                    return <div style={{ fontSize: 12, textAlign: 'center' }}>{text}</div>;
+                }
+            },
+            {
+                title: '打印进度', dataIndex: 'printProgress', key: 'printProgress', width: '*', render: (text) => {
+                    return <div style={{ fontSize: 14, textAlign: 'center', color: 'red' }}>{text}</div>;
+                }
+            },
+            {
+                title: '打印状态', dataIndex: 'printStatus', key: 'printStatus', width: 100, render:
+                    (text) => {
+                        let spinning = text === KLabelPrintState.running;
+                        return (
+                            <div style={{ textAlign: 'center' }}>
+                                <Spin size='small' spinning={spinning} style={{ fontSize: 12 }}>{text}</Spin>
+                            </div>
+                        );
+                    }
+            }
         ];
         const KTemplateRowSelection = {
             selectedRowKeys: selectedRowKeys4LabelPrintTemplateList,
@@ -804,17 +832,14 @@ class ProductDistributePrinter extends React.Component {
 
                 <Modal
                     width={600}
-                    style={{ top: 10 }}
+                    style={{ top: 0 }}
                     keyboard={true}
                     maskClosable={false}
                     title={(<div>批量打印标签</div>)}
                     visible={productLabelPrintModalVisible}
-                    okText={(
-                        <div>
-                            {labelPrintModalOkText}
-                        </div>
-                    )}
+                    okText={labelPrintModalOkText}
                     okButtonProps={{ disabled: labelPrintModalOkButtonDisable }}
+                    cancelText='取消批量打印'
                     cancelButtonProps={{ hidden: false }}
                     onOk={() => {
                         if (productLabelPrintState === KLabelPrintState.prepare) {
@@ -846,7 +871,7 @@ class ProductDistributePrinter extends React.Component {
                         }
                     }}>
                     <Table
-                        style={{ marginTop: 0 }}
+                        style={{ marginTop: -12 }}
                         disabled={true}
                         size='small'
                         dataSource={productLabelPrintTemplateList}
@@ -855,12 +880,14 @@ class ProductDistributePrinter extends React.Component {
                         pagination={false} bordered />
                     <div style={{ marginTop: 12 }}>
                         <DatePicker picker='day'
-                            style={{ width: 170 }}
+                            size='small'
+                            style={{ width: 170, marginLeft: 60 }}
                             placeholder='选择生产日期'
                             format='YYYY-MM-DD dddd'
                             value={productLabelPrintProductionDate}
                             onChange={this.handleProductLabelPrintProductionDateChange} />
                         <DatePicker picker='time'
+                            size='small'
                             ref={(dp) => this._productLabelPrintProductionTime = dp}
                             style={{ width: 170, marginLeft: 12 }}
                             placeholder='选择生产时间'
@@ -903,22 +930,20 @@ class ProductDistributePrinter extends React.Component {
                                     }}>下午 15点00分</Button>
                                 </span>
                             )} />
-                        <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 12, marginBottom: 12 }}>
+                        <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 6, marginBottom: 2 }}>
                         </div>
-
-                        <div style={{ borderStyle: 'dotted', width: 320, height: 240 }}>
+                        <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
+                        <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 110 }}>
                             <div style={{ textAlign: 'center', fontSize: 24, marginTop: 6 }}>
                                 {productLabelPrintProductionTemplate.name}
                             </div>
                             <div style={{ textAlign: 'center', fontSize: 16, marginTop: 4 }}>
                                 {productLabelPrintProductionTemplate.barcode}
                             </div>
-                            <div style={{
-                                textAlign: 'center', height: 50, width: 284,
+                            <img id='image4barcode' style={{
+                                height: 50, width: 284,
                                 marginLeft: 16, backgroundColor: 'lightgray'
-                            }}>
-
-                            </div>
+                            }} />
                             <div style={{ textAlign: 'left', fontSize: 18, marginTop: 4, marginLeft: 16 }}>
                                 {productLabelPrintProductionTemplate.ingredients}
                             </div>

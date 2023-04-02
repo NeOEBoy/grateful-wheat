@@ -64,7 +64,9 @@ class ProductDistributePrinter extends React.Component {
             productLabelPrintProductionDate: moment(),
             productLabelPrintProductionTime: moment(),
             productLabelPrintProductionTimePopupOpen: false,
-            productLabelPrintProductionTemplate: {},
+            productLabelPrintProductionTemplate4Preview: {},
+            productLabelPrintProductionTitle: ''
+
         }
         this._template = undefined;
         this._orderType = undefined;
@@ -404,10 +406,14 @@ class ProductDistributePrinter extends React.Component {
 
     productLabelPrintStart = async () => {
         let productLabelPrintTemplateList = [];
-        const { allDistributionDataToBePrint } = this.state;
+        const { allDistributionDataToBePrint, productLabelPrintProductionTitle } = this.state;
         for (let i = 0; i < allDistributionDataToBePrint.length; ++i) {
             let templateName = allDistributionDataToBePrint[i].templateName;
             let items = allDistributionDataToBePrint[i].items;
+            let orderShop = allDistributionDataToBePrint[i].orderShop;
+            let orderType = allDistributionDataToBePrint[i].orderType;
+            let orderCashier = allDistributionDataToBePrint[i].orderCashier;
+
             if (templateName && items.length > 0) {
                 let item = {};
                 item.key = i + 1;
@@ -423,6 +429,12 @@ class ProductDistributePrinter extends React.Component {
                 item.printProgress = '';
                 productLabelPrintTemplateList.push(item);
             }
+            if (productLabelPrintProductionTitle === '') {
+                this.setState({
+                    productLabelPrintProductionTitle:
+                        orderShop + '=>' + orderType + '=>' + orderCashier
+                });
+            }
         }
         const {
             productLabelPrintProductionDate,
@@ -434,7 +446,7 @@ class ProductDistributePrinter extends React.Component {
             selectedRowKeys4LabelPrintTemplateList: [],
             selectedRows4LabelPrintTemplateList: [],
             productLabelPrintState: KLabelPrintState.prepare,
-            productLabelPrintProductionTemplate: {
+            productLabelPrintProductionTemplate4Preview: {
                 name: '弯麦-<产品名称>',
                 barcode: '<12位条码>',
                 ingredients: '配料表：<配料1 配料2 配料3>',
@@ -456,8 +468,16 @@ class ProductDistributePrinter extends React.Component {
         const {
             selectedRows4LabelPrintTemplateList,
             productLabelPrintProductionDate,
-            productLabelPrintProductionTime
+            productLabelPrintProductionTime,
+            productLabelPrintProductionTitle
         } = this.state;
+
+        if (productLabelPrintProductionTitle) {
+            let titleArr = productLabelPrintProductionTitle.split('=>');
+            if (titleArr.length >= 3) {
+                this.titleLabelPrintDirect(titleArr[0], titleArr[1], titleArr[2]);
+            }
+        }
 
         for (let i = templateIndex; i < selectedRows4LabelPrintTemplateList.length; ++i) {
             let itemsToPrint = selectedRows4LabelPrintTemplateList[i].items;
@@ -507,10 +527,10 @@ class ProductDistributePrinter extends React.Component {
                         qualityDay: '保质期：' + qualityDay + '天'
                     };
                     JsBarcode('#image4barcode', template.barcode, { displayValue: false });
-                    this.setState({ productLabelPrintProductionTemplate: template });
+                    this.setState({ productLabelPrintProductionTemplate4Preview: template });
 
                     /// 输出打印
-                    this.labelPrintDirect(
+                    this.productLabelPrintDirect(
                         template.name,
                         template.barcode,
                         template.price,
@@ -545,7 +565,44 @@ class ProductDistributePrinter extends React.Component {
         return LODOP;
     };
 
-    labelPrintDirect = (
+    getTitleHtml = (text, fontSize) => {
+        let str = "<!doctype html>" +
+            "<style>" +
+            "#title" +
+            "{" +
+            "text-align:center;" +
+            "font-family:'微软雅黑';" +
+            "font-size:" +
+            fontSize + ";" +
+            "}" +
+            "</style>" +
+            "<div id='title'>" +
+            text +
+            "</div>";
+
+        return str;
+    }
+
+    titleLabelPrintDirect = (
+        orderShop,
+        orderType,
+        orderCashier
+    ) => {
+        let LODOP = this.getLodopAfterInit4Label();
+
+        if (LODOP) {
+            let orderShopStr = this.getTitleHtml(orderShop, '18px');
+            LODOP.ADD_PRINT_HTM(12, 0, '40mm', 15, orderShopStr);
+            let orderTypeStr = this.getTitleHtml(orderType, '18px');
+            LODOP.ADD_PRINT_HTM(42, 0, '40mm', 15, orderTypeStr);
+            let orderCashierStr = this.getTitleHtml(orderCashier, '18px');
+            LODOP.ADD_PRINT_HTM(74, 0, '40mm', 15, orderCashierStr);
+
+            LODOP.PRINT();
+        }
+    }
+
+    productLabelPrintDirect = (
         orderProductName,
         barcode,
         transferPrice,
@@ -559,19 +616,7 @@ class ProductDistributePrinter extends React.Component {
             if (orderProductName.length > 14) fontSize = '12px';
             else if (orderProductName.length > 12) fontSize = '13px';
             else if (orderProductName.length > 10) fontSize = '15px';
-            let str = "<!doctype html>" +
-                "<style>" +
-                "#title" +
-                "{" +
-                "text-align:center;" +
-                "font-family:'微软雅黑';" +
-                "font-size:" +
-                fontSize + ";" +
-                "}" +
-                "</style>" +
-                "<div id='title'>" +
-                orderProductName +
-                "</div>";
+            let str = this.getTitleHtml(orderProductName, fontSize);
             LODOP.ADD_PRINT_HTM(4, 0, '40mm', 15, str);
 
             LODOP.ADD_PRINT_TEXT(21, 42, 150, 15, barcode);
@@ -638,11 +683,11 @@ class ProductDistributePrinter extends React.Component {
 
     updateProductLabelPrintProductionTemplateDayAndTime = () => {
         const { productLabelPrintProductionDate, productLabelPrintProductionTime } = this.state;
-        let template = { ...this.state.productLabelPrintProductionTemplate };
+        let template = { ...this.state.productLabelPrintProductionTemplate4Preview };
         template.productLabelPrintProductionDateAndTime =
             '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
             productLabelPrintProductionTime.format(' HH:mm');
-        this.setState({ productLabelPrintProductionTemplate: template });
+        this.setState({ productLabelPrintProductionTemplate4Preview: template });
     };
 
     render() {
@@ -658,7 +703,8 @@ class ProductDistributePrinter extends React.Component {
             productLabelPrintProductionDate,
             productLabelPrintProductionTime,
             productLabelPrintProductionTimePopupOpen,
-            productLabelPrintProductionTemplate
+            productLabelPrintProductionTemplate4Preview,
+            productLabelPrintProductionTitle
         } = this.state;
 
         let labelPrintModalOkText = '';
@@ -835,7 +881,11 @@ class ProductDistributePrinter extends React.Component {
                     style={{ top: 0 }}
                     keyboard={true}
                     maskClosable={false}
-                    title={(<div>批量打印标签</div>)}
+                    title={(
+                        <div>
+                            {productLabelPrintProductionTitle}
+                        </div>
+                    )}
                     visible={productLabelPrintModalVisible}
                     okText={labelPrintModalOkText}
                     okButtonProps={{ disabled: labelPrintModalOkButtonDisable }}
@@ -935,24 +985,24 @@ class ProductDistributePrinter extends React.Component {
                         <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
                         <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 110 }}>
                             <div style={{ textAlign: 'center', fontSize: 24, marginTop: 6 }}>
-                                {productLabelPrintProductionTemplate.name}
+                                {productLabelPrintProductionTemplate4Preview.name}
                             </div>
                             <div style={{ textAlign: 'center', fontSize: 16, marginTop: 4 }}>
-                                {productLabelPrintProductionTemplate.barcode}
+                                {productLabelPrintProductionTemplate4Preview.barcode}
                             </div>
-                            <img id='image4barcode' style={{
+                            <img alt='none' id='image4barcode' style={{
                                 height: 50, width: 284,
                                 marginLeft: 16, backgroundColor: 'lightgray'
                             }} />
                             <div style={{ textAlign: 'left', fontSize: 18, marginTop: 4, marginLeft: 16 }}>
-                                {productLabelPrintProductionTemplate.ingredients}
+                                {productLabelPrintProductionTemplate4Preview.ingredients}
                             </div>
                             <div style={{ textAlign: 'left', fontSize: 18, marginTop: 2, marginLeft: 16 }}>
-                                {productLabelPrintProductionTemplate.productLabelPrintProductionDateAndTime}
+                                {productLabelPrintProductionTemplate4Preview.productLabelPrintProductionDateAndTime}
                             </div>
                             <div style={{ textAlign: 'left', fontSize: 18, marginTop: 2, marginLeft: 16 }}>
-                                <span>{productLabelPrintProductionTemplate.qualityDay}</span>
-                                <span style={{ marginLeft: 60 }}>{productLabelPrintProductionTemplate.price}</span>
+                                <span>{productLabelPrintProductionTemplate4Preview.qualityDay}</span>
+                                <span style={{ marginLeft: 60 }}>{productLabelPrintProductionTemplate4Preview.price}</span>
                             </div>
                         </div>
                     </div>

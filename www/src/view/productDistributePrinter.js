@@ -819,7 +819,12 @@ class ProductDistributePrinter extends React.Component {
                                                     <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                         <thead>
                                                             <tr>
-                                                                <th colSpan='7' style={{ width: 175, textAlign: 'center', backgroundColor: 'lightgrey' }}>
+                                                                <th colSpan='7' style={{
+                                                                    width: 175, textAlign: 'center',
+                                                                    fontSize: 15, backgroundColor: 'darkcyan', color: 'white',
+                                                                    paddingLeft: 8, paddingRight: 8,
+                                                                    paddingTop: 4, paddingBottom: 4
+                                                                }}>
                                                                     {`${columnData.orderShop}=>${columnData.orderType}=>${columnData.orderCashier}`}
                                                                 </th>
                                                             </tr>
@@ -857,10 +862,20 @@ class ProductDistributePrinter extends React.Component {
                                                         </tbody>
                                                         <tfoot>
                                                             <tr>
-                                                                <th colSpan='7' style={{ fontSize: 14 }}>{`订货时间：${columnData.orderTime}`}</th>
+                                                                <th colSpan='7' style={{ fontSize: 12 }}>{`订货时间：${columnData.orderTime}`}</th>
                                                             </tr>
                                                             <tr>
-                                                                <th colSpan='7' style={{ fontSize: 14 }}>{`期望到货：${columnData.expectTime}`}</th>
+                                                                <th colSpan='7' style={{ fontSize: 12 }}>{`期望到货：${columnData.expectTime}`}</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <th colSpan='7' style={{
+                                                                    width: 175, textAlign: 'center',
+                                                                    fontSize: 15, backgroundColor: 'darkcyan', color: 'white',
+                                                                    paddingLeft: 8, paddingRight: 8,
+                                                                    paddingTop: 4, paddingBottom: 4
+                                                                }}>
+                                                                    {`${columnData.orderShop}=>${columnData.orderType}=>${columnData.orderCashier}`}
+                                                                </th>
                                                             </tr>
                                                         </tfoot>
                                                     </table>

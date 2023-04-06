@@ -821,7 +821,7 @@ class ProductDistributePrinter extends React.Component {
                                                             <tr>
                                                                 <th colSpan='7' style={{
                                                                     width: 175, textAlign: 'center',
-                                                                    fontSize: 15, backgroundColor: 'darkcyan', color: 'white',
+                                                                    fontSize: 16, backgroundColor: 'lightblue', color: 'black',
                                                                     paddingLeft: 8, paddingRight: 8,
                                                                     paddingTop: 4, paddingBottom: 4
                                                                 }}>
@@ -870,7 +870,7 @@ class ProductDistributePrinter extends React.Component {
                                                             <tr>
                                                                 <th colSpan='7' style={{
                                                                     width: 175, textAlign: 'center',
-                                                                    fontSize: 15, backgroundColor: 'darkcyan', color: 'white',
+                                                                    fontSize: 16, backgroundColor: 'lightblue', color: 'black',
                                                                     paddingLeft: 8, paddingRight: 8,
                                                                     paddingTop: 4, paddingBottom: 4
                                                                 }}>

@@ -389,39 +389,39 @@ class ProductionPlanPrinter extends React.Component {
         } = this.state;
 
         return (
-            <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
-                <div>
-                    <div style={{ marginLeft: 10, marginTop: 10 }}>
-                        <div id="printConfig"
-                            style={{ float: 'left', borderStyle: 'none', width: 90 }}>
-                            <div>
-                                <Button type="primary"
-                                    style={{ width: 90, height: 80 }}
-                                    onClick={(e) => this.handleBack(e)}>
-                                    <div style={{ fontSize: 16 }}>
-                                        后退
-                                    </div>
-                                </Button>
-                            </div>
+            <div>
+                <div style={{ marginLeft: 10, marginTop: 10 }}>
+                    <div id="printConfig"
+                        style={{ float: 'left', borderStyle: 'none', width: 90 }}>
+                        <div>
                             <Button type="primary"
-                                style={{ marginTop: 10, width: 90, height: 80 }}
-                                onClick={this.productPrintPreprew}>
-                                <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                    打印预览
-                                </div>
-                            </Button>
-                            <Button type="primary" danger
-                                style={{ marginTop: 10, width: 90, height: 80 }}
-                                onClick={this.productPrintDirectAndBack}>
-                                <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
-                                    直接打印
+                                style={{ width: 90, height: 80 }}
+                                onClick={(e) => this.handleBack(e)}>
+                                <div style={{ fontSize: 16 }}>
+                                    后退
                                 </div>
                             </Button>
                         </div>
+                        <Button type="primary"
+                            style={{ marginTop: 10, width: 90, height: 80 }}
+                            onClick={this.productPrintPreprew}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                打印预览
+                            </div>
+                        </Button>
+                        <Button type="primary" danger
+                            style={{ marginTop: 10, width: 90, height: 80 }}
+                            onClick={this.productPrintDirectAndBack}>
+                            <div style={{ fontWeight: 'bold', fontSize: 16, textDecoration: 'underline' }}>
+                                直接打印
+                            </div>
+                        </Button>
+                    </div>
 
-                        <div style={{ float: 'left' }}>
-                            <span style={{ marginLeft: 10, fontSize: 12, color: 'green' }}>{`订货时间：${allProductionDataToBePrint && allProductionDataToBePrint.length > 0 && allProductionDataToBePrint[0].orderTime}`}</span>
-                            <span style={{ marginLeft: 20, fontSize: 12, color: 'green' }}>{`期望到货：${allProductionDataToBePrint && allProductionDataToBePrint.length > 0 && allProductionDataToBePrint[0].expectTime}`}</span>
+                    <div style={{ float: 'left' }}>
+                        <span style={{ marginLeft: 10, fontSize: 12, color: 'green' }}>{`订货时间：${allProductionDataToBePrint && allProductionDataToBePrint.length > 0 && allProductionDataToBePrint[0].orderTime}`}</span>
+                        <span style={{ marginLeft: 20, fontSize: 12, color: 'green' }}>{`期望到货：${allProductionDataToBePrint && allProductionDataToBePrint.length > 0 && allProductionDataToBePrint[0].expectTime}`}</span>
+                        <Spin tip={productSpinTipText} spinning={productSpinning} size='large'>
                             <div id="printDiv" style={{ marginLeft: 10, borderStyle: 'dotted', width: 420, height: 980 }}>
                                 <div id="printTable" style={{ marginTop: 0, marginLeft: 0, width: 410, height: 949, backgroundColor: 'transparent' }}>
                                     {
@@ -477,10 +477,11 @@ class ProductionPlanPrinter extends React.Component {
                                     }
                                 </div>
                             </div>
-                        </div>
+                        </Spin>
+                        <div style={{ height: 30 }}></div>
                     </div>
                 </div>
-            </Spin>
+            </div>
         );
     }
 }

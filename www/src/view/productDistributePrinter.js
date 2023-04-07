@@ -447,7 +447,7 @@ class ProductDistributePrinter extends React.Component {
             selectedRows4LabelPrintTemplateList: [],
             productLabelPrintState: KLabelPrintState.prepare,
             productLabelPrintProductionTemplate4Preview: {
-                name: '弯麦-<产品名称>',
+                name: '<产品名称>',
                 barcode: '<12位条码>',
                 ingredients: '配料表：<配料1 配料2 配料3>',
                 productLabelPrintProductionDateAndTime:
@@ -517,7 +517,7 @@ class ProductDistributePrinter extends React.Component {
                         ' ' + (z + 1) + '/' + orderNumber + ' ' + orderProductName;
 
                     let template = {
-                        name: '弯麦-' + orderProductName,
+                        name: orderProductName,
                         barcode: barcode,
                         price: '¥' + Number(transferPrice).toFixed(1),
                         ingredients: '配料表：' + ingredients,
@@ -538,6 +538,7 @@ class ProductDistributePrinter extends React.Component {
                         template.productLabelPrintProductionDateAndTime,
                         template.qualityDay
                     );
+                    // return;
                 }
 
                 if (j === itemsToPrint.length - 1) {
@@ -612,37 +613,46 @@ class ProductDistributePrinter extends React.Component {
         let LODOP = this.getLodopAfterInit4Label();
 
         if (LODOP) {
-            let fontSize = '17px';
-            if (orderProductName.length > 14) fontSize = '12px';
-            else if (orderProductName.length > 12) fontSize = '13px';
-            else if (orderProductName.length > 10) fontSize = '15px';
-            let str = this.getTitleHtml(orderProductName, fontSize);
-            LODOP.ADD_PRINT_HTM(4, 0, '40mm', 15, str);
+            LODOP.ADD_PRINT_HTM(2, 0, '40mm', 14, this.getTitleHtml('弯麦烘焙', '11px'));
+            let fontSize = '13px';
+            if (orderProductName.length > 14) fontSize = '10px';
+            else if (orderProductName.length > 12) fontSize = '11px';
+            else if (orderProductName.length > 10) fontSize = '12px';
+            LODOP.ADD_PRINT_HTM(13, 0, '40mm', 15, this.getTitleHtml(orderProductName, fontSize));
 
-            LODOP.ADD_PRINT_TEXT(21, 42, 150, 15, barcode);
-            LODOP.SET_PRINT_STYLEA(2, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(2, "FontSize", 7);
+            LODOP.ADD_PRINT_TEXT(24, 42, 150, 15, barcode);
+            LODOP.SET_PRINT_STYLEA(3, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(3, "FontSize", 7);
 
-            LODOP.ADD_PRINT_BARCODE(33, 16, 174, 24, "128Auto", barcode);
-            LODOP.SET_PRINT_STYLEA(3, "ShowBarText", 0);
+            LODOP.ADD_PRINT_BARCODE(36, 16, 174, 18, "128Auto", barcode);
+            LODOP.SET_PRINT_STYLEA(4, "ShowBarText", 0);
 
-            LODOP.ADD_PRINT_TEXT(60, 8, 150, 15, ingredients);
-            LODOP.SET_PRINT_STYLEA(4, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(4, "FontSize", 8);
-
-            LODOP.ADD_PRINT_TEXT(76, 8, 150, 15, productLabelPrintProductionDateAndTime);
+            LODOP.ADD_PRINT_TEXT(54, 8, 150, 15, ingredients);
             LODOP.SET_PRINT_STYLEA(5, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(5, "FontSize", 8);
+            LODOP.SET_PRINT_STYLEA(5, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(92, 8, 150, 15, qualityDay);
+            LODOP.ADD_PRINT_TEXT(66, 8, 150, 15, productLabelPrintProductionDateAndTime);
             LODOP.SET_PRINT_STYLEA(6, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(6, "FontSize", 8);
+            LODOP.SET_PRINT_STYLEA(6, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(90, 95, 150, 15, transferPrice);
+            LODOP.ADD_PRINT_TEXT(78, 8, 150, 15, qualityDay);
             LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(7, "FontSize", 12);
+            LODOP.SET_PRINT_STYLEA(7, "FontSize", 7);
+
+            LODOP.ADD_PRINT_TEXT(90, 8, 150, 15, '地址：漳浦县府前街西247号');
+            LODOP.SET_PRINT_STYLEA(8, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(8, "FontSize", 5);
+
+            LODOP.ADD_PRINT_TEXT(98, 8, 150, 15, '电话：13290768588');
+            LODOP.SET_PRINT_STYLEA(9, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(9, "FontSize", 5);
+
+            LODOP.ADD_PRINT_TEXT(90, 100, 150, 15, transferPrice);
+            LODOP.SET_PRINT_STYLEA(10, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(10, "FontSize", 12);
 
             LODOP.PRINT();
+            // LODOP.PREVIEW();
         }
     }
 
@@ -999,25 +1009,35 @@ class ProductDistributePrinter extends React.Component {
                         </div>
                         <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
                         <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 110 }}>
-                            <div style={{ textAlign: 'center', fontSize: 24, marginTop: 6 }}>
+                            <div style={{ textAlign: 'center', fontSize: 15, marginTop: 4 }}>
+                                弯麦烘焙
+                            </div>
+                            <div style={{ textAlign: 'center', fontSize: 16, marginTop: 0 }}>
                                 {productLabelPrintProductionTemplate4Preview.name}
                             </div>
-                            <div style={{ textAlign: 'center', fontSize: 16, marginTop: 4 }}>
+                            <div style={{ textAlign: 'center', fontSize: 14, marginTop: 0 }}>
                                 {productLabelPrintProductionTemplate4Preview.barcode}
                             </div>
                             <img alt='none' id='image4barcode' style={{
-                                height: 50, width: 284,
+                                height: 40, width: 284,
                                 marginLeft: 16, backgroundColor: 'lightgray'
                             }} />
-                            <div style={{ textAlign: 'left', fontSize: 18, marginTop: 4, marginLeft: 16 }}>
+                            <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
                                 {productLabelPrintProductionTemplate4Preview.ingredients}
                             </div>
-                            <div style={{ textAlign: 'left', fontSize: 18, marginTop: 2, marginLeft: 16 }}>
+                            <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
                                 {productLabelPrintProductionTemplate4Preview.productLabelPrintProductionDateAndTime}
                             </div>
-                            <div style={{ textAlign: 'left', fontSize: 18, marginTop: 2, marginLeft: 16 }}>
+                            <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
                                 <span>{productLabelPrintProductionTemplate4Preview.qualityDay}</span>
-                                <span style={{ marginLeft: 60 }}>{productLabelPrintProductionTemplate4Preview.price}</span>
+
+                            </div>
+                            <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
+                                地址：漳浦县府前街西247号
+                            </div>
+                            <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
+                                <span>电话：13290768588</span>
+                                <span style={{ marginLeft: 100 }}>{productLabelPrintProductionTemplate4Preview.price}</span>
                             </div>
                         </div>
                     </div>

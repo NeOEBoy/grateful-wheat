@@ -626,27 +626,27 @@ class ProductDistributePrinter extends React.Component {
             LODOP.ADD_PRINT_BARCODE(28, 16, 174, 18, "128Auto", barcode);
             LODOP.SET_PRINT_STYLEA(3, "ShowBarText", 0);
 
-            LODOP.ADD_PRINT_TEXT(46, 8, 150, 15, ingredients);
+            LODOP.ADD_PRINT_TEXT(46, 6, 150, 15, ingredients);
             LODOP.SET_PRINT_STYLEA(4, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(4, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(58, 8, 150, 15, productLabelPrintProductionDateAndTime);
+            LODOP.ADD_PRINT_TEXT(58, 6, 150, 15, productLabelPrintProductionDateAndTime);
             LODOP.SET_PRINT_STYLEA(5, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(5, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(70, 8, 150, 15, qualityDay);
+            LODOP.ADD_PRINT_TEXT(70, 6, 150, 15, qualityDay);
             LODOP.SET_PRINT_STYLEA(6, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(6, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(82, 8, 150, 15, '生产商：漳州古西优作食品有限公司漳浦分公司');
+            LODOP.ADD_PRINT_TEXT(82, 6, 150, 15, '生产商：漳州古西优作食品有限公司漳浦分公司');
             LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(90, 8, 150, 15, '地址：漳浦县府前街西247号');
+            LODOP.ADD_PRINT_TEXT(90, 6, 150, 15, '地址：漳浦县府前街西247号');
             LODOP.SET_PRINT_STYLEA(8, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(8, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(98, 8, 150, 15, '电话：13290768588');
+            LODOP.ADD_PRINT_TEXT(98, 6, 150, 15, '电话：13290768588');
             LODOP.SET_PRINT_STYLEA(9, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(9, "FontSize", 5);
 

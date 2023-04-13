@@ -791,12 +791,12 @@ class ProductMenu extends React.Component {
                                         }
 
                                         let allText =
-                                            '---------------------------\n' + orderText +
-                                            '---------------------------\n';
+                                            '-----------\n' + orderText +
+                                            '-----------\n';
 
                                         if (remarkText.length > 0) {
                                             allText += remarkText +
-                                                '\n---------------------------\n';
+                                                '\n-----------\n';
                                         }
 
                                         this.copyText(allText);
@@ -807,15 +807,15 @@ class ProductMenu extends React.Component {
                                         confirm({
                                             title:
                                                 <div style={{ textAlign: 'center' }}>
-                                                    <div>---------------------------</div>
+                                                    <div>-----------</div>
                                                     {orderTextArray.length > 0 ? orderTextArray.map((text) => {
                                                         return (<div key={text}>{text}</div>);
                                                     }) : <div></div>}
-                                                    <div>---------------------------</div>
+                                                    <div>-----------</div>
                                                     {
                                                         remarkText.length > 0 ? <div>
                                                             <div>{remarkText}</div>
-                                                            <div>---------------------------</div>
+                                                            <div>-----------</div>
                                                         </div> : <div></div>
                                                     }
                                                 </div>,

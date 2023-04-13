@@ -742,8 +742,8 @@ class ProductMenu extends React.Component {
                                 <div style={{ fontWeight: 'bold', color: 'white', marginLeft: '5%', marginRight: '5%' }}>1：订单信息</div>
                                 <textarea placeholder='输入需要的商品和数量' onChange={(t) => {
                                     this.setState({ orderText: t.target.value });
-                                }} value={orderText} rows={12} style={{
-                                    fontSize: 18,
+                                }} value={orderText} rows={8} style={{
+                                    fontSize: 16,
                                     fontWeight: 'bold',
                                     width: '90%', marginTop: 10,
                                     marginLeft: '5%', marginRight: '5%',
@@ -758,7 +758,7 @@ class ProductMenu extends React.Component {
                                 <textarea placeholder='输入备注（班级；姓名；会员电话等等）' onChange={(t) => {
                                     this.setState({ remarkText: t.target.value });
                                 }} value={remarkText} rows={1} style={{
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: 'bold',
                                     width: '90%', marginTop: 10,
                                     marginLeft: '5%', marginRight: '5%',
@@ -773,9 +773,7 @@ class ProductMenu extends React.Component {
                             </div>
 
                             <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
-                                <span>点击《复制订单信息和备注》，返回微信并粘贴到输入框，发送给</span>
-                                <span style={{ color: 'red' }}>#弯麦总店1号或者2号#</span>
-                                <span>进行登记预定。</span>
+                                点击《复制订单信息和备注》，将复制“订单信息和备注”到剪切板。
                             </div>
 
                             <div style={{ marginLeft: '5%', width: '100%', marginTop: 20 }}>

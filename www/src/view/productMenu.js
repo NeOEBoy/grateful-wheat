@@ -7,7 +7,7 @@
 import React from 'react';
 import moment from 'moment';
 import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Collapse, Spin, List, Image, Button, message } from 'antd';
+import { Collapse, Spin, List, Image, Button, message, Modal } from 'antd';
 import TextLoop from "react-text-loop";
 import {
     loadProductsSale,
@@ -16,6 +16,8 @@ import {
 } from '../api/api';
 
 const { Panel } = Collapse;
+const { confirm } = Modal;
+
 const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
@@ -63,12 +65,11 @@ class ProductMenu extends React.Component {
             orderListTotalCount: 0,
             goOrderViewShow: false,
             orderText: '',
+            remarkText: '',
             debug: 0
         };
 
         this._lastKeys = [];
-        this._orderTextArea = undefined;
-        this._inputRef = null;
         this._breadAll = [];
     }
 
@@ -144,8 +145,7 @@ class ProductMenu extends React.Component {
                         let loadResult = await loadProductsSale(categoryId, '3995767', '1', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
                         // console.log(loadResult);
 
-                        if (loadResult.errCode === 0 &&
-                            loadResult.list.length > 0) {
+                        if (loadResult.errCode === 0) {
                             let list = loadResult.list;
                             let newList = [];
                             for (let i = 0; i < list.length; ++i) {
@@ -168,8 +168,8 @@ class ProductMenu extends React.Component {
                             })
 
                             birthdayCakeCategoryToAdd.productItems = newList;
-                            birthdayCakeCategoryToAdd.spinning = false;
                         }
+                        birthdayCakeCategoryToAdd.spinning = false;
 
                         this.setState({ foodCategorys: foodCategorysNew });
                         // console.log(foodCategorysNew);
@@ -384,6 +384,37 @@ class ProductMenu extends React.Component {
         return newNum;
     }
 
+    //复制文本
+    copyText = (text) => {
+        var element = this.createElement(text);
+        element.select();
+        element.setSelectionRange(0, element.value.length);
+        document.execCommand('copy');
+        element.remove();
+    }
+    //创建临时的输入框元素
+    createElement = (text) => {
+        var isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+        var element = document.createElement('textarea');
+        // 防止在ios中产生缩放效果
+        element.style.fontSize = '12pt';
+        // 重置盒模型
+        element.style.border = '0';
+        element.style.padding = '0';
+        element.style.margin = '0';
+        // 将元素移到屏幕外
+        element.style.position = 'absolute';
+        element.style[isRTL ? 'right' : 'left'] = '-9999px';
+        // 移动元素到页面底部
+        let yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        element.style.top = `${yPosition}px`;
+        //设置元素只读
+        element.setAttribute('readonly', '');
+        element.value = text;
+        document.body.appendChild(element);
+        return element;
+    }
+
     render() {
         const {
             foodCategorys,
@@ -393,6 +424,7 @@ class ProductMenu extends React.Component {
             orderListTotalCount,
             goOrderViewShow,
             orderText,
+            remarkText,
             debug } = this.state;
 
         let disableOrderButton = false;
@@ -463,7 +495,7 @@ class ProductMenu extends React.Component {
                                                 imageSrc += item1.productName;
                                                 imageSrc += '.jpg';
 
-                                                console.log(imageSrc);
+                                                // console.log(imageSrc);
 
                                                 let disableButton = item1.buyNumber <= 0;
                                                 return (
@@ -619,16 +651,14 @@ class ProductMenu extends React.Component {
                                 for (let i = 0; i < orderList.length; ++i) {
                                     let item = orderList[i];
                                     newOrderText += item.productName;
-                                    newOrderText += '-';
-                                    newOrderText += item.specification;
                                     newOrderText += '  ';
-                                    newOrderText += 'x';
+                                    newOrderText += 'X';
                                     newOrderText += '  ';
                                     newOrderText += item.buyNumber;
                                     newOrderText += '\n';
                                 }
 
-                                this.setState({ goOrderViewShow: true, orderText: newOrderText });
+                                this.setState({ goOrderViewShow: true, orderText: newOrderText, remarkText: '' });
                             }}>
                             {orderButtonText}
                         </Button>
@@ -707,33 +737,45 @@ class ProductMenu extends React.Component {
                 }
                 {
                     goOrderViewShow ? (
-                        <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.95)', top: 0 }}>
-                            <div style={{ width: '100%', marginTop: 100 }}>
-                                <div style={{ fontWeight: 'bold', color: 'white', marginLeft: '5%', marginRight: '5%' }}>订单文字：</div>
-                                <textarea onChange={(t) => {
-                                    this.setState({ orderText: t.value });
-                                }} ref={(node) => {
-                                    this._inputRef = node;
-                                }} value={orderText} style={{ height: 180, width: '90%', marginTop: 10, marginLeft: '5%', marginRight: '5%' }}>
+                        <div style={{ height: '100%', width: '100%', position: 'fixed', backgroundColor: 'rgba(0, 0, 0, 0.92)', top: 0 }}>
+                            <div style={{ width: '100%', marginTop: 20 }}>
+                                <div style={{ fontWeight: 'bold', color: 'white', marginLeft: '5%', marginRight: '5%' }}>1：订单信息</div>
+                                <textarea placeholder='输入需要的商品和数量' onChange={(t) => {
+                                    this.setState({ orderText: t.target.value });
+                                }} value={orderText} rows={12} style={{
+                                    fontSize: 18,
+                                    fontWeight: 'bold',
+                                    width: '90%', marginTop: 10,
+                                    marginLeft: '5%', marginRight: '5%',
+                                    paddingLeft: 16, paddingTop: 12,
+                                    paddingRight: 16, paddingBottom: 12
+                                }}>
                                 </textarea>
                             </div>
 
-                            <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%', marginTop: 20 }}>
-                                1：点击上方输入框，可以修改订单文字，如增加会员电话。
+                            <div style={{ width: '100%', marginTop: 2 }}>
+                                <div style={{ fontWeight: 'bold', color: 'white', marginLeft: '5%', marginRight: '5%' }}>2：备注</div>
+                                <textarea placeholder='输入备注（班级；姓名；会员电话等等）' onChange={(t) => {
+                                    this.setState({ remarkText: t.target.value });
+                                }} value={remarkText} rows={1} style={{
+                                    fontSize: 16,
+                                    fontWeight: 'bold',
+                                    width: '90%', marginTop: 10,
+                                    marginLeft: '5%', marginRight: '5%',
+                                    paddingLeft: 12, paddingTop: 8,
+                                    paddingRight: 12, paddingBottom: 8
+                                }}>
+                                </textarea>
+                            </div>
+
+                            <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%', marginTop: 12 }}>
+                                点击《取消》，取消预定。
                             </div>
 
                             <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
-                                2：点击下方《取消》按钮，可以关闭当前页面。
-                            </div>
-
-                            <div style={{ color: 'white', marginLeft: '5%', marginRight: '5%' }}>
-                                <span>
-                                    3：点击下方《复制订单文字》按钮，会复制上述订单文字，复制完毕后，请返回微信并粘贴订单文字到输入框，发送给
-                                </span>
-                                <span style={{ textDecoration: 'underline' }}>
-                                    <a href="tel:13290768588">13290768588</a>
-                                </span>
-                                <span>弯麦烘焙（教育局店）微信预定。</span>
+                                <span>点击《复制订单信息和备注》，返回微信并粘贴到输入框，发送给</span>
+                                <span style={{ color: 'red' }}>#弯麦总店1号或者2号#</span>
+                                <span>进行登记预定。</span>
                             </div>
 
                             <div style={{ marginLeft: '5%', width: '100%', marginTop: 20 }}>
@@ -745,14 +787,54 @@ class ProductMenu extends React.Component {
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <span>
                                     <Button type='primary' size='large' onClick={() => {
-                                        // console.log(this._inputRef);
+                                        if (orderText.trim().length <= 0) {
+                                            message.error('订单信息为空，请输入！');
+                                            return;
+                                        }
 
-                                        this._inputRef.select();
-                                        document.execCommand('Copy');
-                                        this._inputRef.blur();
+                                        let allText =
+                                            '---------------------------\n' + orderText +
+                                            '---------------------------\n';
 
-                                        message.info('已经复制，请返回微信并粘贴到输入框，发送给弯麦烘焙（教育局店）预定', 10);
-                                    }}>复制订单文字</Button>
+                                        if (remarkText.length > 0) {
+                                            allText += remarkText +
+                                                '\n---------------------------\n';
+                                        }
+
+                                        this.copyText(allText);
+
+                                        // console.log('orderText = ' + orderText);
+                                        let orderTextArray = orderText.split('\n');
+
+                                        confirm({
+                                            title:
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <div>---------------------------</div>
+                                                    {orderTextArray.length > 0 ? orderTextArray.map((text) => {
+                                                        return (<div key={text}>{text}</div>);
+                                                    }) : <div></div>}
+                                                    <div>---------------------------</div>
+                                                    {
+                                                        remarkText.length > 0 ? <div>
+                                                            <div>{remarkText}</div>
+                                                            <div>---------------------------</div>
+                                                        </div> : <div></div>
+                                                    }
+                                                </div>,
+                                            content:
+                                                <div style={{ textAlign: 'center' }}>
+                                                    “订单信息和备注”已经复制到剪切板，点击《去登记预定》将关闭页面，请将“订单信息和备注”文本粘贴发送给#弯麦总店1号或2号#进行登记预定
+                                                </div>,
+                                            okText: '去登记预定',
+                                            onOk() {
+                                                // console.log('OK');
+                                                window.wx.closeWindow();
+                                            },
+                                            onCancel() {
+                                                // console.log('Cancel');
+                                            },
+                                        })
+                                    }}>复制订单信息和备注</Button>
                                 </span>
                             </div>
                         </div>

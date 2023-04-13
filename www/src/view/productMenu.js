@@ -26,13 +26,13 @@ const KCategorys = [{
     thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
 }, {
     categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
-    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕（5寸）.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕(5寸).jpg`, productItems: []
 }, {
     categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
     thumbnail: `${KImageRoot}/现烤面包/甜甜圈.jpg`, productItems: []
 }, {
     categoryId: '1592989355905414162', categoryName: '西点慕斯', description: '甜点慕斯、烦恼拜拜',
-    thumbnail: `${KImageRoot}/西点慕斯/黑森林.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/西点慕斯/抹茶芒果慕斯.jpg`, productItems: []
 }, {
     categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
     thumbnail: `${KImageRoot}/吐司面包/抹茶红豆切片吐司.jpg`, productItems: []

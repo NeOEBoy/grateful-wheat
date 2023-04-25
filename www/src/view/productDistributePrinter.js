@@ -447,7 +447,7 @@ class ProductDistributePrinter extends React.Component {
             selectedRows4LabelPrintTemplateList: [],
             productLabelPrintState: KLabelPrintState.prepare,
             productLabelPrintProductionTemplate4Preview: {
-                name: '弯麦-' + '<产品名称>',
+                name: '弯麦-<产品名称>',
                 barcode: '<12位条码>',
                 ingredients: '配料表：<配料1 配料2 配料3>',
                 productLabelPrintProductionDateAndTime:

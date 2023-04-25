@@ -61,9 +61,9 @@ const getAllOrderShopName = () => {
 const getOrderTemplates = () => {
   return [
     { index: 0, name: '全部模板', templateId: '', templateUid: '' },
-    { index: 1, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
-    { index: 2, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
-    { index: 3, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
+    { index: 1, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
+    { index: 2, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
+    { index: 3, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
     { index: 4, name: '餐包类', templateId: '182', templateUid: '1595077405589137749' },
     { index: 5, name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' }
   ];

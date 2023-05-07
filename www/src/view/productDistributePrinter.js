@@ -63,6 +63,7 @@ class ProductDistributePrinter extends React.Component {
 
             productLabelPrintProductionDate: moment(),
             productLabelPrintProductionTime: moment(),
+            productLabelPrintExpirationDate: moment().endOf('day'),
             productLabelPrintProductionTimePopupOpen: false,
             productLabelPrintProductionTemplate4Preview: {},
             productLabelPrintProductionTitle: ''
@@ -438,7 +439,8 @@ class ProductDistributePrinter extends React.Component {
         }
         const {
             productLabelPrintProductionDate,
-            productLabelPrintProductionTime
+            productLabelPrintProductionTime,
+            productLabelPrintExpirationDate
         } = this.state;
         this.setState({
             productLabelPrintTemplateList: productLabelPrintTemplateList,
@@ -451,9 +453,9 @@ class ProductDistributePrinter extends React.Component {
                 barcode: '<12位条码>',
                 ingredients: '配料表：<配料1 配料2 配料3>',
                 productLabelPrintProductionDateAndTime:
-                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
-                    productLabelPrintProductionTime.format(' HH:mm'),
+                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' zz',
                 qualityDay: '保质期：<3天>',
+                expirationDate: '保质期至：' + productLabelPrintExpirationDate.format('MM/DD HH:mm'),
                 price: '¥<12.0>'
             }
         });
@@ -492,6 +494,13 @@ class ProductDistributePrinter extends React.Component {
                 let barcode = product.barcode;
                 let transferPrice = product.transferPrice;
                 let qualityDay = product.qualityDay;
+                let qualityDayInt = 3;
+                try {
+                    qualityDayInt = parseInt(qualityDay);
+                } catch {
+                    qualityDayInt = 3;
+                }
+                let expirationDate = new moment(productLabelPrintProductionDate).add(qualityDayInt, 'days').endOf('day');
                 let ingredients = product.ingredients;
 
                 for (let z = orderNumberIndex; z < orderNumber; ++z) {
@@ -522,9 +531,9 @@ class ProductDistributePrinter extends React.Component {
                         price: '¥' + Number(transferPrice).toFixed(1),
                         ingredients: '配料表：' + ingredients,
                         productLabelPrintProductionDateAndTime:
-                            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
-                            productLabelPrintProductionTime.format(' HH:mm'),
-                        qualityDay: '保质期：' + qualityDay + '天'
+                            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' zz',
+                        // qualityDay: '保质期：' + qualityDay + '天',
+                        expirationDate: '保质期至：' + expirationDate.format('MM/DD HH:mm')
                     };
                     JsBarcode('#image4barcode', template.barcode, { displayValue: false });
                     this.setState({ productLabelPrintProductionTemplate4Preview: template });
@@ -536,7 +545,8 @@ class ProductDistributePrinter extends React.Component {
                         template.price,
                         template.ingredients,
                         template.productLabelPrintProductionDateAndTime,
-                        template.qualityDay
+                        // template.qualityDay,
+                        template.expirationDate
                     );
                     // return;
                 }
@@ -609,7 +619,8 @@ class ProductDistributePrinter extends React.Component {
         transferPrice,
         ingredients,
         productLabelPrintProductionDateAndTime,
-        qualityDay) => {
+        // qualityDay,
+        expirationDate) => {
         let LODOP = this.getLodopAfterInit4Label();
 
         if (LODOP) {
@@ -634,7 +645,7 @@ class ProductDistributePrinter extends React.Component {
             LODOP.SET_PRINT_STYLEA(5, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(5, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(70, 6, 150, 15, qualityDay);
+            LODOP.ADD_PRINT_TEXT(70, 6, 150, 15, expirationDate);
             LODOP.SET_PRINT_STYLEA(6, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(6, "FontSize", 7);
 
@@ -698,8 +709,7 @@ class ProductDistributePrinter extends React.Component {
         const { productLabelPrintProductionDate, productLabelPrintProductionTime } = this.state;
         let template = { ...this.state.productLabelPrintProductionTemplate4Preview };
         template.productLabelPrintProductionDateAndTime =
-            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') +
-            productLabelPrintProductionTime.format(' HH:mm');
+            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' zz';
         this.setState({ productLabelPrintProductionTemplate4Preview: template });
     };
 
@@ -959,12 +969,12 @@ class ProductDistributePrinter extends React.Component {
                     <div style={{ marginTop: 12 }}>
                         <DatePicker picker='day'
                             size='small'
-                            style={{ width: 170, marginLeft: 60 }}
+                            style={{ width: 170, marginLeft: 200 }}
                             placeholder='选择生产日期'
                             format='YYYY-MM-DD dddd'
                             value={productLabelPrintProductionDate}
                             onChange={this.handleProductLabelPrintProductionDateChange} />
-                        <DatePicker picker='time'
+                        {/* <DatePicker picker='time'
                             size='small'
                             ref={(dp) => this._productLabelPrintProductionTime = dp}
                             style={{ width: 170, marginLeft: 12 }}
@@ -1007,7 +1017,7 @@ class ProductDistributePrinter extends React.Component {
                                         });
                                     }}>下午 15点00分</Button>
                                 </span>
-                            )} />
+                            )} /> */}
                         <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 6, marginBottom: 2 }}>
                         </div>
                         <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
@@ -1029,7 +1039,7 @@ class ProductDistributePrinter extends React.Component {
                                 {productLabelPrintProductionTemplate4Preview.productLabelPrintProductionDateAndTime}
                             </div>
                             <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
-                                <span>{productLabelPrintProductionTemplate4Preview.qualityDay}</span>
+                                <span>{productLabelPrintProductionTemplate4Preview.expirationDate}</span>
                             </div>
                             <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
                                 生产商：漳州市古西优作食品有限公司漳浦分公司

@@ -25,22 +25,22 @@ const KCategorys = [{
     thumbnail: `${KImageRoot}/小饮料/杨枝甘露特饮.jpg`, productItems: []
 }, {
     categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
-    thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/常温蛋糕/轻乳酪芝士蛋糕.jpg`, productItems: []
 }, {
     categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
     thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕(5寸).jpg`, productItems: []
 }, {
     categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
-    thumbnail: `${KImageRoot}/现烤面包/甜甜圈.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/现烤面包/芝士鸡排三明治.jpg`, productItems: []
 }, {
     categoryId: '1592989355905414162', categoryName: '西点慕斯', description: '甜点慕斯、烦恼拜拜',
-    thumbnail: `${KImageRoot}/西点慕斯/抹茶芒果慕斯.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/西点慕斯/雪媚娘(芒果+草莓).jpg`, productItems: []
 }, {
     categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
-    thumbnail: `${KImageRoot}/吐司面包/抹茶红豆切片吐司.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/吐司面包/纯奶拉丝小吐司.jpg`, productItems: []
 }, {
     categoryId: '1626767161867698544', categoryName: '餐包面包', description: '圆圆餐包、生活美满',
-    thumbnail: `${KImageRoot}/餐包面包/沙拉包.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/餐包面包/椰奶餐包.jpg`, productItems: []
 }, {
     categoryId: '1593059349213583584', categoryName: '干点饼干', description: '饼干茶点、惬意午后',
     thumbnail: `${KImageRoot}/干点饼干/牛油曲奇.jpg`, productItems: []
@@ -49,7 +49,7 @@ const KCategorys = [{
     thumbnail: `${KImageRoot}/中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
-    thumbnail: `${KImageRoot}/长富常温牛奶/长富24精品纯奶.jpg`, productItems: []
+    thumbnail: `${KImageRoot}/长富常温牛奶/长富高钙牛奶.jpg`, productItems: []
 }];
 
 class ProductMenu extends React.Component {

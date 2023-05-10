@@ -21,8 +21,8 @@ const { confirm } = Modal;
 const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
-    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，冬季必备',
-    thumbnail: `${KImageRoot}/小饮料/鲜榨玉米汁(热饮).jpg`, productItems: []
+    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏季必备',
+    thumbnail: `${KImageRoot}/小饮料/杨枝甘露特饮.jpg`, productItems: []
 }, {
     categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
     thumbnail: `${KImageRoot}/常温蛋糕/咸蛋卷.jpg`, productItems: []

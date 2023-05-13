@@ -147,9 +147,8 @@ const KCakeFillingOptions = [
 ];
 
 const KCandleTypeOptions = [
-    { label: '螺纹蜡烛', value: '螺纹蜡烛' },
-    { label: '数字蜡烛', value: '数字蜡烛' },
     { label: '爱心蜡烛', value: '爱心蜡烛' },
+    { label: '数字蜡烛', value: '数字蜡烛' },
     { label: '五星蜡烛', value: '五星蜡烛' },
     { label: '曲线蜡烛', value: '曲线蜡烛' },
     { label: '荷花●音乐蜡烛', value: '荷花●音乐蜡烛' }
@@ -1020,10 +1019,10 @@ class birthdayCakeSale extends React.Component {
         const KCandleTypeOptions = [
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/螺纹蜡烛.jpg" />
-                    <div style={{ width: 70, textAlign: 'center' }}>螺纹蜡烛</div>
+                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
+                    <div style={{ width: 70, textAlign: 'center' }}>爱心蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
-                </div>), value: '螺纹蜡烛'
+                </div>), value: '爱心蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
@@ -1038,13 +1037,6 @@ class birthdayCakeSale extends React.Component {
                             onChange={this.handleNumber4candleChange}></Input>
                     </div>
                 </div>), value: '数字蜡烛'
-            },
-            {
-                label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
-                    <div style={{ width: 70, textAlign: 'center' }}>爱心蜡烛</div>
-                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
-                </div>), value: '爱心蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
@@ -1319,7 +1311,7 @@ class birthdayCakeSale extends React.Component {
                                                         }
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为螺纹蜡烛一根）：</div>
+                                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为爱心蜡烛一根，若蛋糕自带蜡烛则不送蜡烛）：</div>
 
                                                         <Radio.Group style={{ marginTop: 8 }}
                                                             options={KCandleTypeOptions}

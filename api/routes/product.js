@@ -317,7 +317,7 @@ router.get('/loadElemeProducts', async function (req, res, next) {
 router.get('/loadProductsSale', async function (req, res, next) {
   try {
     let categoryId = req.query.categoryId;
-    let userId = req.query.userId;
+    let userIds = req.query.userIds;
     let isSellWell = req.query.isSellWell;
     let beginDateTime = req.query.beginDateTime;
     let endDateTime = req.query.endDateTime;
@@ -333,7 +333,7 @@ router.get('/loadProductsSale', async function (req, res, next) {
     let loadProductsSaleResponseJson = await loadProductsSale(
       thePOSPALAUTH30220,
       categoryId,
-      userId,
+      userIds,
       isSellWell,
       beginDateTime,
       endDateTime,

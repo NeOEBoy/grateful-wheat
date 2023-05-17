@@ -141,7 +141,7 @@ class ProductMenu extends React.Component {
         }
         this._lastKeys = [...keys];
 
-        const { foodCategorys } = this.state;
+        const { foodCategorys, foodsRecommendItems } = this.state;
         let foodCategorysNew = [...foodCategorys];
 
         // console.log(keysOpened);
@@ -172,7 +172,7 @@ class ProductMenu extends React.Component {
                         // console.log(endDateTimeStr);
 
                         /// 教育局店，有销量
-                        let loadResult = await loadProductsSale(categoryId, '3995767', '1', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
+                        let loadResult = await loadProductsSale(categoryId, ['3995767', '4382444'], '1', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
                         // console.log(loadResult);
 
                         if (loadResult.errCode === 0) {
@@ -180,6 +180,21 @@ class ProductMenu extends React.Component {
                             let newList = [];
                             for (let i = 0; i < list.length; ++i) {
                                 let item = { ...list[i] };
+
+                                let foodsRecommendKeys = Object.keys(foodsRecommendItems);
+                                // console.log('foodsRecommendKeys = ' + JSON.stringify(foodsRecommendKeys));
+                                let ignore = false;
+                                for (let j = 0; j < foodsRecommendKeys.length; ++j) {
+                                    if (item.productName === foodsRecommendKeys[j]) {
+                                        ignore = true;
+                                        break;
+                                    }
+                                }
+
+                                if (ignore) {
+                                    continue;
+                                }
+
                                 item.buyNumber = 0;
                                 item.disable = false;
                                 item['配料'] = '-';
@@ -498,7 +513,7 @@ class ProductMenu extends React.Component {
                 </div>
                 <Spin spinning={foodsRecommendLoading} size='large'>
                     <List
-                        style={{ marginLeft: 12, marginRight: 12, marginTop: 12 }}
+                        style={{ marginLeft: 6, marginRight: 6, marginTop: 6 }}
                         grid={{ gutter: 2, column: 2 }}
                         dataSource={Object.keys(foodsRecommendItems)}
                         renderItem={item => {
@@ -588,7 +603,7 @@ class ProductMenu extends React.Component {
                                                     &nbsp;
                                                     &nbsp;
                                                     <span>
-                                                        <Button disabled={item1.disable} danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                        <Button disabled={item1.disable} danger size='middle' shape='circle' icon={<PlusOutlined />}
                                                             onClick={() => { this.handleIncreaseItemToCart(item1, item1["分类"]) }} />
                                                     </span>
                                                 </span>
@@ -616,7 +631,7 @@ class ProductMenu extends React.Component {
                     textAlign: 'center', color: '#C6A300',
                     fontSize: 18, paddingTop: 10, paddingBottom: 20
                 }}>
-                    更多面包请点击下方分类查看
+                    更多商品请点击下方分类查看
                 </div>
 
                 <Collapse
@@ -649,6 +664,7 @@ class ProductMenu extends React.Component {
                                     extra={(<span style={{ fontSize: 13, color: 'whitesmoke' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
                                     <Spin spinning={item.spinning}>
                                         <List
+                                            style={{ marginLeft: -8, marginRight: -8, marginTop: -8 }}
                                             grid={{ gutter: 2, column: 2 }}
                                             dataSource={item.productItems}
                                             renderItem={item1 => {
@@ -739,7 +755,7 @@ class ProductMenu extends React.Component {
                                                                         &nbsp;
                                                                         &nbsp;
                                                                         <span>
-                                                                            <Button disabled={item1.disable} danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                                            <Button disabled={item1.disable} danger size='middle' shape='circle' icon={<PlusOutlined />}
                                                                                 onClick={() => { this.handleIncreaseItemToCart(item1, item.categoryName) }} />
                                                                         </span>
                                                                     </span>
@@ -825,6 +841,15 @@ class ProductMenu extends React.Component {
                                     newOrderText += '\n';
                                 }
 
+                                newOrderText += '\n';
+                                newOrderText += '共 ';
+                                newOrderText += orderListTotalCount;
+                                newOrderText += ' 个 | '
+                                newOrderText += '计 '
+                                newOrderText += orderListTotalPrice
+                                newOrderText += ' 元';
+                                newOrderText += '\n';
+
                                 this.setState({ goOrderViewShow: true, orderText: newOrderText, remarkText: '' });
                             }}>
                             {orderButtonText}
@@ -889,7 +914,7 @@ class ProductMenu extends React.Component {
                                                         &nbsp;
                                                         &nbsp;
                                                         <span>
-                                                            <Button danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                            <Button danger size='middle' shape='circle' icon={<PlusOutlined />}
                                                                 onClick={() => { this.handleIncreaseItemToCart(item) }} />
                                                         </span>
                                                     </span>

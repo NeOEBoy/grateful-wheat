@@ -1812,7 +1812,7 @@ const loadElemeProducts = async (thePOSPALAUTH30220, userId, categoryId, status,
 const loadProductsSale = async (
   thePOSPALAUTH30220,
   categoryId,
-  userId,
+  userIds,
   isSellWell,
   beginDateTime,
   endDateTime,
@@ -1830,8 +1830,13 @@ const loadProductsSale = async (
 
     let productSaleBody = '';
     productSaleBody += 'keyword=';
-    if (userId) {
-      productSaleBody += '&userIds%5B%5D=' + userId;
+    if (userIds) {
+      // console.log('userIds = ' + userIds);
+      let userIdsArray = userIds.split(',');
+      for (let i = 0; i < userIdsArray.length; ++i) {
+        // console.log('userId = ' + userIdsArray[i])
+        productSaleBody += '&userIds%5B%5D=' + userIdsArray[i];
+      }
     }
     productSaleBody += '&isSellWell=';
     productSaleBody += isSellWell;

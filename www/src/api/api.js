@@ -383,12 +383,14 @@ const loadElemeProducts = async () => {
   return loadElemeProductsResponseJson;
 }
 
-const loadProductsSale = async (categoryId, userId, isSellWell, beginDateTime, endDateTime, orderColumn, asc) => {
+const loadProductsSale = async (categoryId, userIds, isSellWell, beginDateTime, endDateTime, orderColumn, asc) => {
   let loadProductsSaleUrl = getApiHost() + '/product/loadProductsSale';
   loadProductsSaleUrl += '?categoryId=';
   loadProductsSaleUrl += categoryId;
-  loadProductsSaleUrl += '&userId=';
-  loadProductsSaleUrl += userId;
+
+  loadProductsSaleUrl += '&userIds=';
+  loadProductsSaleUrl += userIds;
+
   loadProductsSaleUrl += '&isSellWell=';
   loadProductsSaleUrl += isSellWell;
   loadProductsSaleUrl += '&beginDateTime=';

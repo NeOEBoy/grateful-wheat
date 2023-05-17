@@ -148,8 +148,8 @@ const KCakeFillingOptions = [
 
 const KCandleTypeOptions = [
     { label: '爱心蜡烛', value: '爱心蜡烛' },
-    { label: '数字蜡烛', value: '数字蜡烛' },
     { label: '五星蜡烛', value: '五星蜡烛' },
+    { label: '数字蜡烛', value: '数字蜡烛' },
     { label: '曲线蜡烛', value: '曲线蜡烛' },
     { label: '荷花●音乐蜡烛', value: '荷花●音乐蜡烛' }
 ];
@@ -626,7 +626,7 @@ class birthdayCakeSale extends React.Component {
                 message.warning('请填写必填项！')
                 return;
             }
-            if (candleType === KCandleTypeOptions[1].value &&
+            if (candleType === KCandleTypeOptions[2].value &&
                 number4candle === '') {
                 message.warning('请填写必填项！')
                 return;
@@ -1026,6 +1026,13 @@ class birthdayCakeSale extends React.Component {
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
+                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
+                    <div style={{ width: 70, textAlign: 'center' }}>五星蜡烛</div>
+                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
+                </div>), value: '五星蜡烛'
+            },
+            {
+                label: (<div style={{ marginBottom: 6 }}>
                     <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
 
                     <div style={{ width: 70, textAlign: 'center' }}>
@@ -1037,13 +1044,6 @@ class birthdayCakeSale extends React.Component {
                             onChange={this.handleNumber4candleChange}></Input>
                     </div>
                 </div>), value: '数字蜡烛'
-            },
-            {
-                label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
-                    <div style={{ width: 70, textAlign: 'center' }}>五星蜡烛</div>
-                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
-                </div>), value: '五星蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
@@ -1320,7 +1320,7 @@ class birthdayCakeSale extends React.Component {
                                                         </Radio.Group>
                                                         {
                                                             candleType === '' ||
-                                                                (candleType === KCandleTypeOptions[1].value &&
+                                                                (candleType === KCandleTypeOptions[2].value &&
                                                                     number4candle === '') ? (
                                                                 <div style={{ color: 'red', marginLeft: 0 }}>“数字”是必填项</div>
                                                             ) : (<span></span>)
@@ -1706,8 +1706,8 @@ class birthdayCakeSale extends React.Component {
                                                             preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                         <div>
-                                                            <div>
-                                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                            <div style={{ marginTop: 4 }}>
+                                                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                                 <span style={{
                                                                     fontSize: 14, marginTop: 8,
                                                                     float: 'right', paddingTop: 4, paddingBottom: 4,
@@ -1821,8 +1821,8 @@ class birthdayCakeSale extends React.Component {
                                                                                 preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                                             <div>
-                                                                                <div>
-                                                                                    <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                                                <div style={{ marginTop: 4 }}>
+                                                                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                                                     <span style={{
                                                                                         fontSize: 14, marginTop: 8,
                                                                                         float: 'right', paddingTop: 4, paddingBottom: 4,
@@ -1939,8 +1939,8 @@ class birthdayCakeSale extends React.Component {
                                                         preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                     <div>
-                                                        <div>
-                                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>{`《${item}》`}</span>
+                                                        <div style={{ marginTop: 4 }}>
+                                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                             <span style={{
                                                                 fontSize: 14, marginTop: 8,
                                                                 float: 'right', paddingTop: 4, paddingBottom: 4,
@@ -2045,7 +2045,7 @@ class birthdayCakeSale extends React.Component {
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
                                         <span style={{ fontSize: 14 }}>{candleType}</span>
                                         {
-                                            candleType === KCandleTypeOptions[1].value ? (
+                                            candleType === KCandleTypeOptions[2].value ? (
                                                 <span style={{ fontSize: 14 }}>
                                                     {`${number4candle}`}
                                                 </span>) : (

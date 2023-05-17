@@ -10,6 +10,7 @@ import { RightSquareFilled, MinusOutlined, PlusOutlined } from '@ant-design/icon
 import { Collapse, Spin, List, Image, Button, message, Modal } from 'antd';
 import TextLoop from "react-text-loop";
 import {
+    loadFoodsRecommend,
     loadProductsSale,
     loadBreadAll,
     wechatSign
@@ -57,8 +58,10 @@ class ProductMenu extends React.Component {
         super(props);
 
         this.state = {
+            foodsRecommendTitle: '最新商品',
+            foodsRecommendItems: {},
+            foodsRecommendLoading: true,
             foodCategorys: KCategorys,
-            foodLatest: [],
             orderList: [],
             orderListShow: false,
             orderListTotalPrice: 0,
@@ -82,8 +85,35 @@ class ProductMenu extends React.Component {
         }
 
         // console.log(this._breadAll);
+        let foodsRecommend = await loadFoodsRecommend();
 
-        this.setState({ debug: debug });
+        let recommendTitle = foodsRecommend.recommendTitle;
+        let foodsRecommendItems = foodsRecommend.recommendItems;
+        let foodsRecommendItemsNew = {};
+        for (let ii = 0; ii < foodsRecommendItems.length; ++ii) {
+            let recommendItem = foodsRecommendItems[ii];
+
+            let keys = Object.keys(this._breadAll);
+            for (let jj = 0; jj < keys.length; ++jj) {
+                let name4allItem = keys[jj];
+                if (recommendItem === name4allItem) {
+                    foodsRecommendItemsNew[name4allItem] = this._breadAll[name4allItem];
+                    foodsRecommendItemsNew[name4allItem].buyNumber = 0;
+                    foodsRecommendItemsNew[name4allItem].disable = false;
+                }
+            }
+        }
+
+        // console.log('recommendTitle = ' + recommendTitle);
+        // console.log('foodsRecommendItemsNew = ' + JSON.stringify(foodsRecommendItemsNew));
+
+        this.setState({
+            foodsRecommendTitle: recommendTitle,
+            foodsRecommendItems: foodsRecommendItemsNew,
+            foodsRecommendLoading: false,
+            debug: debug
+        });
+
         this.updateWeixinConfig();
     }
 
@@ -417,6 +447,9 @@ class ProductMenu extends React.Component {
 
     render() {
         const {
+            foodsRecommendTitle,
+            foodsRecommendItems,
+            foodsRecommendLoading,
             foodCategorys,
             orderList,
             orderListShow,
@@ -453,6 +486,137 @@ class ProductMenu extends React.Component {
                         </span>
                         <span>为避免商品缺货，最好提前1天预定...</span>
                     </TextLoop>
+                </div>
+
+                <div style={{
+                    textAlign: 'center', marginTop: 0, fontSize: 20,
+                    backgroundColor: '#DAA520', color: 'white',
+                    borderRadius: 30, paddingTop: 8, paddingBottom: 8
+                }}>
+                    {debug ? `${foodsRecommendTitle}（${Object.keys(foodsRecommendItems).length}）`
+                        : `${foodsRecommendTitle}`}
+                </div>
+                <Spin spinning={foodsRecommendLoading} size='large'>
+                    <List
+                        style={{ marginLeft: 12, marginRight: 12, marginTop: 12 }}
+                        grid={{ gutter: 2, column: 2 }}
+                        dataSource={Object.keys(foodsRecommendItems)}
+                        renderItem={item => {
+                            let item1 = foodsRecommendItems[item];
+                            let imageSrc = KImageRoot;
+                            imageSrc += '/';
+                            imageSrc += item1["分类"];
+                            imageSrc += '/';
+                            imageSrc += item;
+                            imageSrc += '.jpg';
+
+                            let disableButton = item1.buyNumber <= 0;
+                            return (
+                                <List.Item>
+                                    <div>
+                                        <Image preview={true} src={imageSrc}
+                                            fallback={`${KImageRoot}/暂时缺货.jpg`}
+                                            onError={(e) => {
+                                                /// 图片加载不成功时隐藏
+                                                // e.target.style.display = 'none';
+                                                item1.disable = true;
+                                                this.forceUpdate();
+                                            }} />
+                                        <div style={{
+                                            paddingTop: 4,
+                                            paddingLeft: 4,
+                                            paddingRight: 4,
+                                            backgroundColor: 'transparent',
+                                        }}>
+                                            <div style={{
+                                                fontSize: 16,
+                                                fontWeight: 'bold',
+                                                color: 'black',
+                                            }}>
+                                                {item}
+                                            </div>
+                                            <div style={{
+                                                fontSize: 12,
+                                                color: 'black'
+                                            }}>
+                                                {`配料：${item1['配料']}`}
+                                            </div>
+                                            <div style={{
+                                                fontSize: 8,
+                                                color: 'gray'
+                                            }}>
+                                                {`规格：${item1['规格']}`}
+                                            </div>
+                                            <div style={{
+                                                fontSize: 15,
+                                                fontWeight: 'bold',
+                                                color: 'black'
+                                            }}>
+                                                <span>
+                                                    ¥
+                                                </span>
+                                                <span>
+                                                    {item1["价格"]}
+                                                </span>
+                                                <span>
+                                                    /
+                                                </span>
+                                                <span>
+                                                    {item1.unit}
+                                                </span>
+
+                                                <span style={{ float: 'right', backgroundColor: 'transparent' }}>
+                                                    {
+                                                        disableButton ? (<span></span>) :
+                                                            (
+                                                                <span>
+                                                                    <Button size='small' shape='circle' icon={<MinusOutlined />}
+                                                                        onClick={() => { this.handleDecreaseItemFromCart(item1) }} />
+                                                                </span>
+                                                            )
+                                                    }
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    {
+                                                        disableButton ? (<span></span>) :
+                                                            (
+                                                                <span>
+                                                                    {item1.buyNumber}
+                                                                </span>
+                                                            )
+                                                    }
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <span>
+                                                        <Button disabled={item1.disable} danger size='small' shape='circle' icon={<PlusOutlined />}
+                                                            onClick={() => { this.handleIncreaseItemToCart(item1, item1["分类"]) }} />
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {debug ? (
+                                            <div style={{ color: 'red', fontSize: 8 }}>
+                                                <span>三天内销售量：</span>
+                                                <span>{item1.saleNumber}</span>
+                                            </div>
+                                        ) : (<div></div>)}
+                                        {debug ? (
+                                            <div style={{ color: 'red', fontSize: 8 }}>
+                                                <span>{item1.barcode}</span>
+                                            </div>
+                                        ) : (<div></div>)}
+                                    </div>
+                                </List.Item>
+                            );
+                        }}
+                    />
+                </Spin>
+                <div style={{
+                    textAlign: 'center', color: '#C6A300',
+                    fontSize: 18, paddingTop: 10, paddingBottom: 20
+                }}>
+                    更多面包请点击下方分类查看
                 </div>
 
                 <Collapse
@@ -510,12 +674,14 @@ class ProductMenu extends React.Component {
                                                                     this.forceUpdate();
                                                                 }} />
                                                             <div style={{
+                                                                paddingTop: 4,
                                                                 paddingLeft: 4,
                                                                 paddingRight: 4,
                                                                 backgroundColor: 'transparent',
                                                             }}>
                                                                 <div style={{
-                                                                    fontSize: 14,
+                                                                    fontSize: 16,
+                                                                    fontWeight: 'bold',
                                                                     color: 'black'
                                                                 }}>
                                                                     {item1.productName}
@@ -533,7 +699,8 @@ class ProductMenu extends React.Component {
                                                                     {`规格：${item1['规格']}`}
                                                                 </div>
                                                                 <div style={{
-                                                                    fontSize: 14,
+                                                                    fontSize: 15,
+                                                                    fontWeight: 'bold',
                                                                     color: 'black'
                                                                 }}>
                                                                     <span>
@@ -692,12 +859,12 @@ class ProductMenu extends React.Component {
                                                     </div>
 
                                                     <div style={{ float: 'left', marginLeft: 10, marginTop: 4 }}>
-                                                        <div style={{ fontSize: 12 }}>{item.productName}</div>
+                                                        <div style={{ fontSize: 16, fontWeight: "bold" }}>{item.productName}</div>
                                                         <div style={{ fontSize: 8 }}>{item.specification}</div>
 
-                                                        <div style={{ marginTop: 4 }}>
-                                                            <span style={{ fontSize: 4 }}>¥ </span>
-                                                            <span style={{ fontSize: 12 }}>{totalPrice}</span>
+                                                        <div style={{ marginTop: 4, fontSize: 15, fontWeight: "bold" }}>
+                                                            <span>¥ </span>
+                                                            <span>{totalPrice}</span>
                                                         </div>
                                                     </div>
 
@@ -714,7 +881,7 @@ class ProductMenu extends React.Component {
                                                         &nbsp;
                                                         {
                                                             (
-                                                                <span>
+                                                                <span style={{ fontSize: 15, fontWeight: "bold" }}>
                                                                     {item.buyNumber}
                                                                 </span>
                                                             )

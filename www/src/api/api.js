@@ -436,6 +436,16 @@ const loadBirthdayCakesWXConfig = async () => {
   return loadBirthdayCakesResponseJson;
 }
 
+const loadFoodsRecommend = async () => {
+  let loadFoodsRecommendUrl = '/image/面包牛奶/a-推荐面包牛奶.json';
+  loadFoodsRecommendUrl += '?random=';
+  loadFoodsRecommendUrl += Math.floor(Math.random() * 1000);
+
+  const loadFoodsRecommendResponse = await fetch(loadFoodsRecommendUrl, { mode: 'no-cors' });
+  const loadFoodsRecommendResponseJson = await loadFoodsRecommendResponse.json();
+  return loadFoodsRecommendResponseJson;
+}
+
 const loadBreadAll = async () => {
   let loadBreadAllUrl = '/image/面包牛奶/a-所有面包牛奶.json';
   loadBreadAllUrl += '?random=';
@@ -602,6 +612,7 @@ export {
   loadBirthdayCakesRecommend,
   loadBirthdayCakesAll,
   loadBirthdayCakesWXConfig,
+  loadFoodsRecommend,
   loadBreadAll,
   wechatSign,
   templateSendToSomePeople,

@@ -525,6 +525,8 @@ class ProductMenu extends React.Component {
                             imageSrc += item;
                             imageSrc += '.jpg';
 
+                            // console.log('imageSrc = ' + imageSrc)
+
                             let disableButton = item1.buyNumber <= 0;
                             return (
                                 <List.Item>

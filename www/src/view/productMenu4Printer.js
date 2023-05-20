@@ -71,7 +71,7 @@ class ProductMenu4Printer extends React.Component {
                 // console.log(endDateTimeStr);
 
                 /// 教育局店，有销量
-                let loadResult = await loadProductsSale(categoryId, '3995767', '1', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
+                let loadResult = await loadProductsSale(categoryId, ['3995767', '4382444'], '1', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
                 // console.log(loadResult);
 
                 if (loadResult.errCode === 0 && loadResult.list.length > 0) {

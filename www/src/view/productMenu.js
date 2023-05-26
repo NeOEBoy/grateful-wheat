@@ -22,32 +22,32 @@ const { confirm } = Modal;
 const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
-    categoryId: '1656244666392267569', categoryName: '小饮料', description: '特选特饮，夏季必备',
-    thumbnail: `${KImageRoot}/小饮料/杨枝甘露特饮.jpg`, productItems: []
+    categoryId: '1656244666392267569', categoryName: '弯麦小饮料', description: '特选特饮，夏季必备',
+    thumbnail: `${KImageRoot}/弯麦小饮料/杨枝甘露特饮.jpg`, productItems: []
 }, {
-    categoryId: '1593049881212199906', categoryName: '常温蛋糕', description: '鸡蛋糕点、回味无穷',
-    thumbnail: `${KImageRoot}/常温蛋糕/轻乳酪芝士蛋糕.jpg`, productItems: []
+    categoryId: '1593049881212199906', categoryName: '弯麦常温蛋糕', description: '鸡蛋糕点、回味无穷',
+    thumbnail: `${KImageRoot}/弯麦常温蛋糕/轻乳酪芝士蛋糕.jpg`, productItems: []
 }, {
-    categoryId: '1604471906489441680', categoryName: '小蛋糕', description: '小小仪式、快乐永远',
-    thumbnail: `${KImageRoot}/小蛋糕/水果蛋糕(5寸).jpg`, productItems: []
+    categoryId: '1604471906489441680', categoryName: '弯麦小蛋糕', description: '小小仪式、快乐永远',
+    thumbnail: `${KImageRoot}/弯麦小蛋糕/水果蛋糕(5寸).jpg`, productItems: []
 }, {
-    categoryId: '1593049816479739965', categoryName: '现烤面包', description: '新鲜现烤、美味无限',
-    thumbnail: `${KImageRoot}/现烤面包/芝士鸡排三明治.jpg`, productItems: []
+    categoryId: '1593049816479739965', categoryName: '弯麦现烤面包', description: '新鲜现烤、美味无限',
+    thumbnail: `${KImageRoot}/弯麦现烤面包/芝士鸡排三明治.jpg`, productItems: []
 }, {
-    categoryId: '1592989355905414162', categoryName: '西点慕斯', description: '甜点慕斯、烦恼拜拜',
-    thumbnail: `${KImageRoot}/西点慕斯/雪媚娘(芒果+草莓).jpg`, productItems: []
+    categoryId: '1592989355905414162', categoryName: '弯麦西点慕斯', description: '甜点慕斯、烦恼拜拜',
+    thumbnail: `${KImageRoot}/弯麦西点慕斯/雪媚娘(芒果+草莓).jpg`, productItems: []
 }, {
-    categoryId: '1593049854760654816', categoryName: '吐司面包', description: '切片吐司、片片留香',
-    thumbnail: `${KImageRoot}/吐司面包/纯奶拉丝小吐司.jpg`, productItems: []
+    categoryId: '1593049854760654816', categoryName: '弯麦吐司面包', description: '切片吐司、片片留香',
+    thumbnail: `${KImageRoot}/弯麦吐司面包/纯奶拉丝小吐司.jpg`, productItems: []
 }, {
-    categoryId: '1626767161867698544', categoryName: '餐包面包', description: '圆圆餐包、生活美满',
-    thumbnail: `${KImageRoot}/餐包面包/椰奶餐包.jpg`, productItems: []
+    categoryId: '1626767161867698544', categoryName: '弯麦餐包面包', description: '圆圆餐包、生活美满',
+    thumbnail: `${KImageRoot}/弯麦餐包面包/椰奶餐包.jpg`, productItems: []
 }, {
-    categoryId: '1593059349213583584', categoryName: '干点饼干', description: '饼干茶点、惬意午后',
-    thumbnail: `${KImageRoot}/干点饼干/牛油曲奇饼干.jpg`, productItems: []
+    categoryId: '1593059349213583584', categoryName: '弯麦干点饼干', description: '饼干茶点、惬意午后',
+    thumbnail: `${KImageRoot}/弯麦干点饼干/牛油曲奇饼干.jpg`, productItems: []
 }, {
-    categoryId: '1652965113501744892', categoryName: '中式糕点', description: '传统糕点，经典传承',
-    thumbnail: `${KImageRoot}/中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
+    categoryId: '1652965113501744892', categoryName: '弯麦中式糕点', description: '传统糕点，经典传承',
+    thumbnail: `${KImageRoot}/弯麦中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
     thumbnail: `${KImageRoot}/长富常温牛奶/长富高钙牛奶.jpg`, productItems: []
@@ -283,7 +283,7 @@ class ProductMenu extends React.Component {
 
                 let title = '弯麦面包牛奶饮料电子菜单，不定期更新，点击预定';
                 let desc = '现烤面包，西点慕斯，常温蛋糕，吐司餐包，小蛋糕，小饮料，牛奶等美食~';
-                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/面包牛奶/现烤面包/芝士鸡排三明治.jpg';
+                let imgUrl = 'http://gratefulwheat.ruyue.xyz/image/面包牛奶/弯麦现烤面包/芝士鸡排三明治.jpg';
 
                 // 自定义“分享给朋友”及“分享到QQ”按钮的分享内容
                 window.wx.updateAppMessageShareData({

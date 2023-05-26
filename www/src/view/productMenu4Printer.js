@@ -20,15 +20,15 @@ import {
     getLodop
 } from './Lodop6.226_Clodop4.127/LodopFuncs';
 const KCategorys = [
-    { categoryId: '1656244666392267569', categoryName: '小饮料', productItems: [] },
-    { categoryId: '1593049881212199906', categoryName: '常温蛋糕', productItems: [] },
-    { categoryId: '1604471906489441680', categoryName: '小蛋糕', productItems: [] },
-    { categoryId: '1593049816479739965', categoryName: '现烤面包', productItems: [] },
-    { categoryId: '1592989355905414162', categoryName: '西点慕斯', productItems: [] },
-    { categoryId: '1593049854760654816', categoryName: '吐司面包', productItems: [] },
-    { categoryId: '1626767161867698544', categoryName: '餐包面包', productItems: [] },
-    { categoryId: '1593059349213583584', categoryName: '干点饼干', productItems: [] },
-    { categoryId: '1652965113501744892', categoryName: '中式糕点', productItems: [] },
+    { categoryId: '1656244666392267569', categoryName: '弯麦小饮料', productItems: [] },
+    { categoryId: '1593049881212199906', categoryName: '弯麦常温蛋糕', productItems: [] },
+    { categoryId: '1604471906489441680', categoryName: '弯麦小蛋糕', productItems: [] },
+    { categoryId: '1593049816479739965', categoryName: '弯麦现烤面包', productItems: [] },
+    { categoryId: '1592989355905414162', categoryName: '弯麦西点慕斯', productItems: [] },
+    { categoryId: '1593049854760654816', categoryName: '弯麦吐司面包', productItems: [] },
+    { categoryId: '1626767161867698544', categoryName: '弯麦餐包面包', productItems: [] },
+    { categoryId: '1593059349213583584', categoryName: '弯麦干点饼干', productItems: [] },
+    { categoryId: '1652965113501744892', categoryName: '弯麦中式糕点', productItems: [] },
     { categoryId: '1615972878471894425', categoryName: '长富常温牛奶', productItems: [] }
 ];
 

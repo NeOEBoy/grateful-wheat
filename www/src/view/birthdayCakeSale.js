@@ -772,7 +772,7 @@ class birthdayCakeSale extends React.Component {
 
     handleCakeFillingChange = (value) => {
         if (value.length >= 3) {
-            message.warning('只能选择两种夹心!');
+            message.warning('只能选择两种夹心，请反选不需要的夹心后，重新选择！');
             return;
         }
 

@@ -56,6 +56,7 @@ var BirthdayCakeOrderSchema = new Schema({
   cakeFillings: String,
   candleType: String,
   ignitorType: String,
+  hatType: String,
   number4candle: String,
   cakePlateNumber: String,
   /// 配送信息

@@ -19,6 +19,7 @@ router.get('/createOrder', async function (req, res, next) {
         let cakeFillings = req.query.cakeFillings;
         let candleType = req.query.candleType;
         let ignitorType = req.query.ignitorType;
+        let hatType = req.query.hatType;
         let number4candle = req.query.number4candle;
         let cakePlateNumber = req.query.cakePlateNumber;
         let pickUpDay = req.query.pickUpDay;
@@ -57,6 +58,7 @@ router.get('/createOrder', async function (req, res, next) {
             cakeFillings: cakeFillings,
             candleType: candleType,
             ignitorType: ignitorType,
+            hatType: hatType,
             number4candle: number4candle,
             cakePlateNumber: cakePlateNumber,
             pickUpDay: pickUpDay,

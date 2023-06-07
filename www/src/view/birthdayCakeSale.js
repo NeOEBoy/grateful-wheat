@@ -57,31 +57,31 @@ const KBrithdayCakeRoot = '/image/生日蛋糕';
 
 const KCategorys = [{
     categoryId: '1634302403310226908', categoryName: '常规款蛋糕', description: '平凡人生、快乐生活',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/陪伴-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/夏洛特-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', description: '小小公主、永远开心',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/白雪公主-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/粉色妖姬-方图.jpg', productItems: {}
 }, {
     categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', description: '小男子汉、顶天立地',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/叮当王子-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/乐高幻影忍者-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302367129657476', categoryName: '女神款蛋糕', description: '我的女神、爱你永远',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/萌宠派对-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/渐变爱心-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302388959605558', categoryName: '男神款蛋糕', description: '公里之内、属你最帅',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/暴富大G-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/奥利奥先生-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', description: '两颗红心、相知相伴',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/小熊LOVE-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/小爱心-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', description: '福寿绵绵、如海滔滔',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/福寿绵绵-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/大寿吉祥-方图.jpg', productItems: {}
 }, {
     categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', description: '共同举杯、共敬未来',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/招财进宝-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/猫大吉-方图.jpg', productItems: {}
 }, {
     categoryId: '1657848010512718759', categoryName: '结婚订婚纪念蛋糕', description: '先生/女士、周年快乐',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/爱心纪念-方图.jpg', productItems: {}
+    thumbnail: '/image/生日蛋糕/蛋糕3.0/周年纪念-方图.jpg', productItems: {}
 }, {
     categoryId: '1667997464683559851', categoryName: '搞怪款蛋糕', description: '今生只对你搞怪',
     thumbnail: '/image/生日蛋糕/蛋糕3.0/蜡笔小新-方图.jpg', productItems: {}
@@ -104,43 +104,43 @@ const KResponseShopOptions = [
 const KCakeFillingOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>芒果</div>
         </div>), value: '芒果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>布丁</div>
         </div>), value: '布丁'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>芋泥</div>
         </div>), value: '芋泥'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>奥利奥</div>
         </div>), value: '奥利奥'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>火龙果</div>
         </div>), value: '火龙果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>黑糖晶球</div>
         </div>), value: '黑糖晶球'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
             <div style={{ width: 55, textAlign: 'center' }}>巧克力燕麦</div>
         </div>), value: '巧克力燕麦'
     }
@@ -154,19 +154,37 @@ const KCandleTypeOptions = [
     { label: '荷花●音乐蜡烛', value: '荷花●音乐蜡烛' }
 ];
 
-/// 导火器
+/// 点火器
 const KIgnitorTypeOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/小心防火.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/无需火柴.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>不需要火柴</div>
         </div>), value: '不需要火柴'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>需要火柴</div>
+            <div style={{ width: 70, textAlign: 'center' }}>一盒</div>
         </div>), value: '需要火柴'
+    }
+];
+
+/// 帽子
+const KHatTypeOptions = [
+    {
+        label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/无需生日帽.jpg" />
+            <div style={{ width: 70, textAlign: 'center' }}>无需生日帽</div>
+        </div>), value: '无需生日帽'
+    },
+    {
+        label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
+            <div style={{ width: 70, textAlign: 'center' }}>金卡皇冠帽</div>
+            <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
+        </div>), value: '金卡皇冠帽'
     }
 ];
 
@@ -213,9 +231,11 @@ class birthdayCakeSale extends React.Component {
             cakeSize: '',
             cakeSizeExtra: '',
             cakePrice: '--',
-            cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
+            canSelectCakeFilling: true,
+            cakeFillings: [],
             candleType: KCandleTypeOptions[0].value,
             ignitorType: KIgnitorTypeOptions[0].value,
+            hatType: KHatTypeOptions[1].value,
             number4candle: '',
             cakePlateNumber: '--',
             /// 配送信息
@@ -379,6 +399,7 @@ class birthdayCakeSale extends React.Component {
                                 obj.saleNumber = element.saleNumber;
                                 obj['价格'] = {};
                                 obj['描述'] = '';
+                                obj['可选夹心'] = true;
                                 if (this._birthdayCakesAll[element.productName]) {
                                     if (this._birthdayCakesAll[element.productName]['价格']) {
                                         obj['价格'] = this._birthdayCakesAll[element.productName]['价格'];
@@ -386,6 +407,10 @@ class birthdayCakeSale extends React.Component {
 
                                     if (this._birthdayCakesAll[element.productName]['描述']) {
                                         obj['描述'] = this._birthdayCakesAll[element.productName]['描述'];
+                                    }
+
+                                    if (this._birthdayCakesAll[element.productName]['可选夹心'] !== undefined) {
+                                        obj['可选夹心'] = this._birthdayCakesAll[element.productName]['可选夹心'];
                                     }
 
                                     productItemsObj[element.productName] = obj;
@@ -514,7 +539,7 @@ class birthdayCakeSale extends React.Component {
         }
     }
 
-    handleOrderNowClick = (type, name, description, prices) => {
+    handleOrderNowClick = (type, name, description, prices, can) => {
         this.setState({
             orderCakeInfoModalVisiable: true,
             orderCakePrices: prices,
@@ -525,7 +550,8 @@ class birthdayCakeSale extends React.Component {
             cakeSize: '',
             cakeSizeExtra: '',
             cakePrice: '--',
-            cakeFillings: [KCakeFillingOptions[0].value, KCakeFillingOptions[1].value],
+            canSelectCakeFilling: can,
+            cakeFillings: [],
             candleType: KCandleTypeOptions[0].value,
             number4candle: '',
             cakePlateNumber: '--',
@@ -555,9 +581,11 @@ class birthdayCakeSale extends React.Component {
             cakeSize,
             cakeSizeExtra,
             cakePrice,
+            canSelectCakeFilling,
             cakeFillings,
             candleType,
             ignitorType,
+            hatType,
             number4candle,
             cakePlateNumber,
             pickUpDay,
@@ -577,9 +605,11 @@ class birthdayCakeSale extends React.Component {
         console.log('尺寸：' + cakeSize);
         console.log('组合：' + cakeSizeExtra);
         console.log('价格：' + cakePrice);
+        console.log('可选夹心：' + canSelectCakeFilling);
         console.log('夹心：' + cakeFillings);
         console.log('蜡烛：' + candleType);
         console.log('火柴：' + ignitorType);
+        console.log('帽子：' + hatType);
         console.log('数字：' + number4candle);
         console.log('餐盘：' + cakePlateNumber);
         console.log('日期：' + pickUpDay);
@@ -598,7 +628,7 @@ class birthdayCakeSale extends React.Component {
 
         if (creamType === '' ||
             cakeSize === '' ||
-            cakeFillings.length === 0 ||
+            (cakeFillings.length === 0 && canSelectCakeFilling) ||
             candleType === '' ||
             cakePlateNumber === '' ||
             pickUpDay === '' ||
@@ -656,6 +686,7 @@ class birthdayCakeSale extends React.Component {
                         cakeFillings,
                         candleType,
                         ignitorType,
+                        hatType,
                         number4candle,
                         cakePlateNumber,
                         pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : '',
@@ -787,6 +818,10 @@ class birthdayCakeSale extends React.Component {
         this.setState({ ignitorType: e.target.value });
     }
 
+    handleHatTypeChange = (e) => {
+        this.setState({ hatType: e.target.value });
+    }
+
     handleNumber4candleChange = (e) => {
         this.setState({ number4candle: e.target.value });
     }
@@ -871,6 +906,7 @@ class birthdayCakeSale extends React.Component {
                 let obj = {};
                 obj['价格'] = {};
                 obj['描述'] = '';
+                obj['可选夹心'] = true;
                 if (this._birthdayCakesAll[name4allItem]) {
                     if (this._birthdayCakesAll[name4allItem]['价格']) {
                         obj['价格'] = this._birthdayCakesAll[name4allItem]['价格'];
@@ -878,6 +914,10 @@ class birthdayCakeSale extends React.Component {
 
                     if (this._birthdayCakesAll[name4allItem]['描述']) {
                         obj['描述'] = this._birthdayCakesAll[name4allItem]['描述'];
+                    }
+
+                    if (this._birthdayCakesAll[name4allItem]['可选夹心'] !== undefined) {
+                        obj['可选夹心'] = this._birthdayCakesAll[name4allItem]['可选夹心'];
                     }
 
                     productItemsObj[name4allItem] = obj;
@@ -907,9 +947,11 @@ class birthdayCakeSale extends React.Component {
             cakeSize,
             cakeSizeExtra,
             cakePrice,
+            canSelectCakeFilling,
             cakeFillings,
             candleType,
             ignitorType,
+            hatType,
             number4candle,
             cakePlateNumber,
             pickUpDay,
@@ -1019,21 +1061,21 @@ class birthdayCakeSale extends React.Component {
         const KCandleTypeOptions = [
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>爱心蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '爱心蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>五星蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '五星蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
 
                     <div style={{ width: 70, textAlign: 'center' }}>
                         数字蜡烛
@@ -1047,16 +1089,16 @@ class birthdayCakeSale extends React.Component {
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>曲线蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '曲线蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70 }} preview={false} src="/image/生日蛋糕/蜡烛/荷花●音乐蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/荷花●音乐蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>荷花●音乐蜡烛</div>
-                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
+                    <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一套</div>
                 </div>), value: '荷花●音乐蜡烛'
             }
         ];
@@ -1166,10 +1208,10 @@ class birthdayCakeSale extends React.Component {
                                     {
                                         (cakeImage !== '私人订制蛋糕') ? (
                                             <div>
-                                                <Image style={{ width: 120, height: 120, border: '1px dashed #C58917' }}
+                                                <Image style={{ width: 120, height: 120, border: '1px dashed #C58917', borderRadius: 8 }}
                                                     src={cakeImage} />
                                                 <Image style={{
-                                                    position: 'absolute', width: 55, height: 55, marginLeft: 4
+                                                    position: 'absolute', width: 55, height: 55, marginLeft: 4, borderRadius: 4
                                                 }} src={`/image/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
                                             </div>
                                         ) : (
@@ -1298,14 +1340,17 @@ class birthdayCakeSale extends React.Component {
                                                         <span> 元</span>
                                                     </div>
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>夹心（任选两种，默认为芒果和布丁）：</div>
+                                                        <div style={{ fontWeight: 'bold' }}>{
+                                                            canSelectCakeFilling ? '夹心（任选两种）：' : '夹心（默认夹心，无需选择）：'
+                                                        }</div>
                                                         <CheckboxGroup
+                                                            disabled={canSelectCakeFilling ? false : true}
                                                             style={{ marginTop: 8 }}
                                                             options={KCakeFillingOptions}
                                                             value={cakeFillings}
                                                             onChange={this.handleCakeFillingChange} />
                                                         {
-                                                            cakeFillings.length === 0 ? (
+                                                            cakeFillings.length === 0 && canSelectCakeFilling ? (
                                                                 <div style={{ color: 'red' }}>“夹心”是必填项</div>
                                                             ) : (<span></span>)
                                                         }
@@ -1337,10 +1382,13 @@ class birthdayCakeSale extends React.Component {
                                                     </div>
 
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>帽子（默认为金卡皇冠帽，无须选择）：</div>
-                                                        <Image style={{ width: 70, height: 70, marginTop: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
-                                                        <div>金卡皇冠帽</div>
-                                                        <div style={{ height: 30, paddingTop: 6 }}>一顶</div>
+                                                        <div style={{ fontWeight: 'bold' }}>帽子（任选一种，默认为金卡皇冠帽）：</div>
+
+                                                        <Radio.Group style={{ marginTop: 8 }}
+                                                            options={KHatTypeOptions}
+                                                            value={hatType}
+                                                            onChange={this.handleHatTypeChange}>
+                                                        </Radio.Group>
                                                     </div>
 
                                                     <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
@@ -1632,7 +1680,7 @@ class birthdayCakeSale extends React.Component {
                                 </span>
                                 <span> (微信同号)</span>
                             </span>
-                            <span>生日蛋糕新鲜现做，最好提前1天预定...</span>
+                            {/* <span>生日蛋糕新鲜现做，最好提前1天预定...</span> */}
                         </TextLoop>
                     </div>
 
@@ -1665,6 +1713,8 @@ class birthdayCakeSale extends React.Component {
                                         renderItem={item => {
                                             let pricesObj = birthdayCakesRecommendItems[item]['价格'];
                                             let description = birthdayCakesRecommendItems[item]['描述'];
+                                            let can = birthdayCakesRecommendItems[item]['可选夹心'];
+                                            can = can !== undefined ? can : true;
                                             let pricesKeys = Object.keys(pricesObj);
 
                                             let theMinimumSize = '6寸';
@@ -1701,20 +1751,21 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<div></div>)
                                                         }
 
-                                                        <Image style={{ border: '1px dashed #C58917' }}
+                                                        <Image style={{ border: '1px dashed #C58917', borderRadius: 8 }}
                                                             fallback='data:image/png;base64,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'
                                                             preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                         <div>
                                                             <div style={{ marginTop: 4 }}>
+                                                                <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                                                 <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                                 <span style={{
-                                                                    fontSize: 14, marginTop: 8,
+                                                                    fontSize: 14, marginTop: 4,
                                                                     float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 15,
+                                                                    paddingLeft: 8, paddingRight: 8, borderRadius: 10,
                                                                     textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                                 }} onClick={() => {
-                                                                    this.handleOrderNowClick(0, item, description, pricesObj);
+                                                                    this.handleOrderNowClick(0, item, description, pricesObj, can);
                                                                 }}>
                                                                     {`预定`}
                                                                 </span>
@@ -1782,6 +1833,7 @@ class birthdayCakeSale extends React.Component {
                                                             renderItem={item => {
                                                                 let pricesObj = categoryItem.productItems[item]['价格'];
                                                                 let description = categoryItem.productItems[item]['描述'];
+                                                                let can = categoryItem.productItems[item]['可选夹心'];
                                                                 let pricesKeys = Object.keys(pricesObj);
                                                                 let theMinimumPrice = '0';
                                                                 let theMinimumSize = '6寸';
@@ -1816,20 +1868,21 @@ class birthdayCakeSale extends React.Component {
                                                                                 ) : (<div></div>)
                                                                             }
 
-                                                                            <Image style={{ border: '1px dashed #C58917' }}
+                                                                            <Image style={{ border: '1px dashed #C58917', borderRadius: 8 }}
                                                                                 fallback='data:image/png;base64,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'
                                                                                 preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                                             <div>
                                                                                 <div style={{ marginTop: 4 }}>
+                                                                                    <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                                                                     <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                                                     <span style={{
-                                                                                        fontSize: 14, marginTop: 8,
+                                                                                        fontSize: 14, marginTop: 4,
                                                                                         float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                                        paddingLeft: 8, paddingRight: 8, borderRadius: 12,
+                                                                                        paddingLeft: 8, paddingRight: 8, borderRadius: 10,
                                                                                         textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                                                     }} onClick={() => {
-                                                                                        this.handleOrderNowClick(0, item, description, pricesObj);
+                                                                                        this.handleOrderNowClick(0, item, description, pricesObj, can);
                                                                                     }}>
                                                                                         {`预定`}
                                                                                     </span>
@@ -1898,6 +1951,7 @@ class birthdayCakeSale extends React.Component {
                                     renderItem={item => {
                                         let pricesObj = birthdayCakesSearchItems[item]['价格'];
                                         let description = birthdayCakesSearchItems[item]['描述'];
+                                        let can = birthdayCakesSearchItems[item]['可选夹心'];
                                         let pricesKeys = Object.keys(pricesObj);
 
                                         let theMinimumSize = '6寸';
@@ -1934,20 +1988,21 @@ class birthdayCakeSale extends React.Component {
                                                         ) : (<div></div>)
                                                     }
 
-                                                    <Image style={{ border: '1px dashed #C58917' }}
+                                                    <Image style={{ border: '1px dashed #C58917', borderRadius: 8 }}
                                                         fallback='data:image/png;base64,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'
                                                         preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
 
                                                     <div>
                                                         <div style={{ marginTop: 4 }}>
+                                                            <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                                             <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
                                                             <span style={{
-                                                                fontSize: 14, marginTop: 8,
+                                                                fontSize: 14, marginTop: 4,
                                                                 float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                paddingLeft: 8, paddingRight: 8, borderRadius: 15,
+                                                                paddingLeft: 8, paddingRight: 8, borderRadius: 10,
                                                                 textAlign: 'center', backgroundColor: '#C58917', color: 'white',
                                                             }} onClick={() => {
-                                                                this.handleOrderNowClick(0, item, description, pricesObj);
+                                                                this.handleOrderNowClick(0, item, description, pricesObj, can);
                                                             }}>
                                                                 {`预定`}
                                                             </span>
@@ -2039,7 +2094,11 @@ class birthdayCakeSale extends React.Component {
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
-                                        <span style={{ fontSize: 14 }}>{cakeFillings.join('+')}</span>
+                                        <span style={{ fontSize: 14 }}>{
+                                            canSelectCakeFilling ?
+                                                cakeFillings.join('+') :
+                                                '无需夹心'
+                                        }</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
@@ -2063,7 +2122,7 @@ class birthdayCakeSale extends React.Component {
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>帽子：</span>
-                                        <span style={{ fontSize: 14 }}>金卡皇冠帽</span>
+                                        <span style={{ fontSize: 14 }}>{hatType}</span>
                                     </div>
                                     <div style={{ marginTop: 4, marginBottom: 4 }}>
                                         <span style={{ fontSize: 14, fontWeight: 'bold' }}>餐具：</span>

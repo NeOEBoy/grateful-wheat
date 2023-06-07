@@ -515,6 +515,7 @@ const createBirthdaycakeOrder = async (
   cakeFillings,
   candleType,
   ignitorType,
+  hatType,
   number4candle,
   cakePlateNumber,
   pickUpDay,
@@ -545,6 +546,8 @@ const createBirthdaycakeOrder = async (
   createBirthdaycakeOrderUrl += candleType;
   createBirthdaycakeOrderUrl += '&ignitorType='
   createBirthdaycakeOrderUrl += ignitorType;
+  createBirthdaycakeOrderUrl += '&hatType='
+  createBirthdaycakeOrderUrl += hatType;
   createBirthdaycakeOrderUrl += '&number4candle='
   createBirthdaycakeOrderUrl += number4candle;
   createBirthdaycakeOrderUrl += '&cakePlateNumber='

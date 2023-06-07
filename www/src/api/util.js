@@ -77,7 +77,7 @@ const getOrderTypes = () => {
     { index: 3, name: '德林-火烧铺2店', id: '323' },
     { index: 4, name: '德林-学府店', id: '322' },
     { index: 5, name: '德林-假日店', id: '321' },
-    { index: 6, name: '直营-江滨店', id: '325' },
+    { index: 6, name: '锦客隆-西湖店', id: '325' },
     { index: 7, name: '测试单', id: '326' },
     { index: 8, name: '-', id: '400' }
   ];
@@ -164,7 +164,7 @@ const getOrderCashiers = () => {
     { index: 2, name: '德林-火烧铺2店', id: '2' },
     { index: 3, name: '德林-学府店', id: '3' },
     { index: 4, name: '德林-假日店', id: '4' },
-    { index: 5, name: '直营-江滨店', id: '5' },
+    { index: 5, name: '锦客隆-西湖店', id: '5' },
     { index: 6, name: '徐碧莲', id: '6' },
     { index: 7, name: '王荣慧', id: '7' }
   ];

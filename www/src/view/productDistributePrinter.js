@@ -8,7 +8,8 @@ import {
     Spin,
     Modal,
     Table,
-    DatePicker
+    DatePicker,
+    Radio
 } from 'antd';
 import moment from 'moment';
 import JsBarcode from 'jsbarcode';
@@ -45,6 +46,11 @@ const KLabelPrintState = {
     error: '出错'
 }
 
+const KAmOrPmTypeOptions = [
+    { label: '早上', value: 'z' },
+    { label: '下午', value: 'zz' }
+];
+
 class ProductDistributePrinter extends React.Component {
     constructor(props) {
         super(props);
@@ -62,9 +68,8 @@ class ProductDistributePrinter extends React.Component {
             selectedRows4LabelPrintTemplateList: [],
 
             productLabelPrintProductionDate: moment(),
-            productLabelPrintProductionTime: moment(),
+            amOrPmType: KAmOrPmTypeOptions[1].value,
             productLabelPrintExpirationDate: moment().add(3, 'days').endOf('day'),
-            productLabelPrintProductionTimePopupOpen: false,
             productLabelPrintProductionTemplate4Preview: {},
             productLabelPrintProductionTitle: ''
 
@@ -439,7 +444,6 @@ class ProductDistributePrinter extends React.Component {
         }
         const {
             productLabelPrintProductionDate,
-            // productLabelPrintProductionTime,
             productLabelPrintExpirationDate
         } = this.state;
         this.setState({
@@ -448,6 +452,7 @@ class ProductDistributePrinter extends React.Component {
             selectedRowKeys4LabelPrintTemplateList: [],
             selectedRows4LabelPrintTemplateList: [],
             productLabelPrintState: KLabelPrintState.prepare,
+            amOrPmType: KAmOrPmTypeOptions[1].value,
             productLabelPrintProductionTemplate4Preview: {
                 name: '弯麦-<产品名称>',
                 barcode: '<12位条码>',
@@ -470,7 +475,7 @@ class ProductDistributePrinter extends React.Component {
         const {
             selectedRows4LabelPrintTemplateList,
             productLabelPrintProductionDate,
-            // productLabelPrintProductionTime,
+            amOrPmType,
             productLabelPrintProductionTitle
         } = this.state;
 
@@ -531,7 +536,7 @@ class ProductDistributePrinter extends React.Component {
                         price: '¥' + Number(transferPrice).toFixed(1),
                         ingredients: '配料表：' + ingredients,
                         productLabelPrintProductionDateAndTime:
-                            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' zz',
+                            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' ' + amOrPmType,
                         // qualityDay: '保质期：' + qualityDay + '天',
                         expirationDate: '保质期至：' + expirationDate.format('MM/DD HH:mm') + '（' + qualityDay + '天）'
                     };
@@ -681,28 +686,15 @@ class ProductDistributePrinter extends React.Component {
         });
     }
 
-    handleProductLabelPrintProductionTimeChange = (time) => {
-        this.setState({ productLabelPrintProductionTime: time });
-    }
-
-    handleProductLabelPrintProductionTimeOnFocus = () => {
-        this.setState({ productLabelPrintProductionTimePopupOpen: true });
-    }
-
-    handleProductLabelPrintProductionTimeOnBlur = () => {
-        this.setState({ productLabelPrintProductionTimePopupOpen: false });
-    }
-
-    handleProductLabelPrintProductionTimeOnOk = () => {
-        setTimeout(() => {
-            this.updateProductLabelPrintProductionTemplateDayAndTime();
-
-            this.setState({ productLabelPrintProductionTimePopupOpen: false }, () => {
-                setTimeout(() => {
-                    this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
-                }, 300);
-            });
-        }, 0);
+    handleAmOrPmTypeChange = (e) => {
+        const { productLabelPrintProductionDate } = this.state;
+        let template = { ...this.state.productLabelPrintProductionTemplate4Preview };
+        template.productLabelPrintProductionDateAndTime =
+            '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' ' + e.target.value;
+        this.setState({
+            amOrPmType: e.target.value,
+            productLabelPrintProductionTemplate4Preview: template
+        });
     }
 
     updateProductLabelPrintProductionTemplateDayAndTime = () => {
@@ -725,8 +717,7 @@ class ProductDistributePrinter extends React.Component {
             selectedRows4LabelPrintTemplateList,
             productLabelPrintTemplateList,
             productLabelPrintProductionDate,
-            // productLabelPrintProductionTime,
-            // productLabelPrintProductionTimePopupOpen,
+            amOrPmType,
             productLabelPrintProductionTemplate4Preview,
             productLabelPrintProductionTitle
         } = this.state;
@@ -970,57 +961,19 @@ class ProductDistributePrinter extends React.Component {
                     <div style={{ marginTop: 12 }}>
                         <DatePicker picker='day'
                             size='small'
-                            style={{ width: 170, marginLeft: 200 }}
+                            style={{ width: 170, marginLeft: 100 }}
                             placeholder='选择生产日期'
                             format='YYYY-MM-DD dddd'
                             value={productLabelPrintProductionDate}
                             onChange={this.handleProductLabelPrintProductionDateChange} />
-                        {/* <DatePicker picker='time'
-                            size='small'
-                            ref={(dp) => this._productLabelPrintProductionTime = dp}
-                            style={{ width: 170, marginLeft: 12 }}
-                            placeholder='选择生产时间'
-                            format='a HH:mm'
-                            showTime={{
-                                use12Hours: false,
-                                showNow: false,
-                                format: 'a HH:mm'
-                            }}
-                            value={productLabelPrintProductionTime}
-                            open={productLabelPrintProductionTimePopupOpen}
-                            onFocus={this.handleProductLabelPrintProductionTimeOnFocus}
-                            onBlur={this.handleProductLabelPrintProductionTimeOnBlur}
-                            onOk={this.handleProductLabelPrintProductionTimeOnOk}
-                            onChange={this.handleProductLabelPrintProductionTimeChange}
-                            renderExtraFooter={() => (
-                                <span>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({
-                                            productLabelPrintProductionTime: moment('07:00', 'HH:mm'),
-                                            productLabelPrintProductionTimePopupOpen: false
-                                        }, () => {
-                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
-
-                                            setTimeout(() => {
-                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
-                                            }, 300);
-                                        });
-                                    }}>早上 07点00分</Button>
-                                    <Button type='primary' size='small' onClick={() => {
-                                        this.setState({
-                                            productLabelPrintProductionTime: moment('15:00', 'HH:mm'), productLabelPrintProductionTimePopupOpen: false
-                                        }, () => {
-                                            this.updateProductLabelPrintProductionTemplateDayAndTime();
-
-                                            setTimeout(() => {
-                                                this._productLabelPrintProductionTime && this._productLabelPrintProductionTime.blur();
-                                            }, 300);
-                                        });
-                                    }}>下午 15点00分</Button>
-                                </span>
-                            )} /> */}
-                        <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 6, marginBottom: 2 }}>
-                        </div>
+                        <span>
+                            <Radio.Group style={{ marginTop: 8, margeLeft: 8 }}
+                                options={KAmOrPmTypeOptions}
+                                value={amOrPmType}
+                                onChange={this.handleAmOrPmTypeChange}>
+                            </Radio.Group>
+                        </span>
+                        <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 6, marginBottom: 2 }} />
                         <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
                         <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 110 }}>
                             <div style={{ textAlign: 'center', fontSize: 16, marginTop: 2 }}>

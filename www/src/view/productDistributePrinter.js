@@ -71,7 +71,10 @@ class ProductDistributePrinter extends React.Component {
             amOrPmType: KAmOrPmTypeOptions[1].value,
             productLabelPrintExpirationDate: moment().add(3, 'days').endOf('day'),
             productLabelPrintProductionTemplate4Preview: {},
-            productLabelPrintProductionTitle: ''
+            productLabelPrintProductionTitle: '',
+
+            productLabelPrintTemplateProductModalVisible: false,
+            productLabelPrintTemplateProductList: []
 
         }
         this._template = undefined;
@@ -427,9 +430,7 @@ class ProductDistributePrinter extends React.Component {
                 item.items = [];
                 for (let j = 0; j < items.length; ++j) {
                     let product = items[j];
-                    if (product.orderNumber > 0) {
-                        item.items.push({ ...product });
-                    }
+                    item.items.push({ ...product });
                 }
                 item.printStatus = KLabelPrintState.none;
                 item.printProgress = '';
@@ -442,6 +443,9 @@ class ProductDistributePrinter extends React.Component {
                 });
             }
         }
+
+        // console.log('productLabelPrintTemplateList =' + JSON.stringify(productLabelPrintTemplateList));
+
         const {
             productLabelPrintProductionDate,
             productLabelPrintExpirationDate
@@ -537,7 +541,6 @@ class ProductDistributePrinter extends React.Component {
                         ingredients: '配料表：' + ingredients,
                         productLabelPrintProductionDateAndTime:
                             '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' ' + amOrPmType,
-                        // qualityDay: '保质期：' + qualityDay + '天',
                         expirationDate: '保质期至：' + expirationDate.format('MM/DD HH:mm') + '（' + qualityDay + '天）'
                     };
                     JsBarcode('#image4barcode', template.barcode, { displayValue: false });
@@ -550,7 +553,6 @@ class ProductDistributePrinter extends React.Component {
                         template.price,
                         template.ingredients,
                         template.productLabelPrintProductionDateAndTime,
-                        // template.qualityDay,
                         template.expirationDate
                     );
                     // return;
@@ -624,7 +626,6 @@ class ProductDistributePrinter extends React.Component {
         transferPrice,
         ingredients,
         productLabelPrintProductionDateAndTime,
-        // qualityDay,
         expirationDate) => {
         let LODOP = this.getLodopAfterInit4Label();
 
@@ -719,7 +720,9 @@ class ProductDistributePrinter extends React.Component {
             productLabelPrintProductionDate,
             amOrPmType,
             productLabelPrintProductionTemplate4Preview,
-            productLabelPrintProductionTitle
+            productLabelPrintProductionTitle,
+            productLabelPrintTemplateProductModalVisible,
+            productLabelPrintTemplateProductList
         } = this.state;
 
         let labelPrintModalOkText = '';
@@ -748,6 +751,26 @@ class ProductDistributePrinter extends React.Component {
             {
                 title: '模板分类', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => {
                     return <div style={{ fontSize: 12, textAlign: 'center' }}>{text}</div>;
+                }
+            },
+            {
+                title: '分类商品', dataIndex: 'templateName', key: 'templateName', width: '*', render: (text) => {
+                    return <Button style={{ fontSize: 14, textAlign: 'center', color: 'red' }} onClick={() => {
+                        this.setState({
+                            productLabelPrintTemplateProductModalVisible: true,
+                            productLabelPrintTemplateProductList: []
+                        }, () => {
+                            const { productLabelPrintTemplateList } = this.state;
+                            for (let index = 0; index < productLabelPrintTemplateList.length; ++index) {
+                                let name = productLabelPrintTemplateList.templateName;
+                                if (name === text) {
+                                    let items = productLabelPrintTemplateList.items;
+                                    this.setState({ productLabelPrintTemplateProductList: items });
+                                }
+                            }
+                            /// todo 洗洗睡了，有空再码
+                        });
+                    }}>点击打开商品</Button>;
                 }
             },
             {
@@ -1007,6 +1030,32 @@ class ProductDistributePrinter extends React.Component {
                             </div>
                         </div>
                     </div>
+                </Modal>
+
+                <Modal
+                    width={600}
+                    style={{ top: 0 }}
+                    keyboard={true}
+                    maskClosable={false}
+                    title={(
+                        <div>
+                            分类商品
+                        </div>
+                    )}
+                    visible={productLabelPrintTemplateProductModalVisible}
+                    okText='确认'
+                    cancelButtonProps={{ hidden: true }}
+                    onOk={() => {
+                        this.setState({ productLabelPrintTemplateProductModalVisible: false });
+                    }}>
+                    <Table
+                        style={{ marginTop: -12 }}
+                        disabled={true}
+                        size='small'
+                        dataSource={productLabelPrintTemplateList}
+                        columns={KTemplateColumns4Table}
+                        rowSelection={KTemplateRowSelection}
+                        pagination={false} bordered />
                 </Modal>
             </div>
         );

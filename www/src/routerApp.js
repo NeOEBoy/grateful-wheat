@@ -8,6 +8,7 @@ import OrderManagement from "./view/orderManagement";
 import ProductionPlanPrinter from "./view/productionPlanPrinter";
 import ProductDistributePrinter from "./view/productDistributePrinter";
 import ProductDistributeInputer from "./view/productDistributeInputer";
+import ProductLabelPrinter from "./view/productLabelPrinter";
 import ProductManagement from "./view/productManagement";
 import BirthdayCakeSale from "./view/birthdayCakeSale";
 import ProductMenu from "./view/productMenu";
@@ -49,6 +50,7 @@ function Inside4QueryParams() {
       <Route path="/orderManagement" children={<OrderManagement query={query} />} />
       <Route path="/productDistributePrinter" children={<ProductDistributePrinter query={query} />} />
       <Route path="/productDistributeInputer" children={<ProductDistributeInputer query={query} />} />
+      <Route path="/productLabelPrinter" children={<ProductLabelPrinter query={query} />} />
       <Route path="/productManagement" children={<ProductManagement query={query} />} />
       <Route path="/birthdayCakeSale" children={<BirthdayCakeSale query={query} />} />
       <Route path="/productMenu" children={<ProductMenu query={query} />} />

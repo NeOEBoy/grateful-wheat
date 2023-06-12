@@ -1944,7 +1944,7 @@ class birthdayCakeSale extends React.Component {
                                             "12寸": "--"
                                         }
                                     }
-                                    this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized);
+                                    this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized, true);
                                 }}>
                                     <span>私人订制蛋糕</span>
                                     <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击预定</span>

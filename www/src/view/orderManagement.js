@@ -302,6 +302,41 @@ class OrderManagement extends React.Component {
         this.setState({ selectedRowKeys4OrderList: selectedRowKeys });
     };
 
+    handleProductLabelPrint = async (e) => {
+        let paramValueObj = {};
+
+        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
+            currentOrderTimeType, selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
+        let alreadyOrderListDataAfterFilter = [];
+        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
+            let orderItem = alreadyOrderListData[ii];
+            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
+            alreadyOrderListDataAfterFilter.push(orderItem);
+        }
+
+        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
+        paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.orderType = currentOrderType4OrderList;
+        paramValueObj.orderCashier = currentOrderCashier;
+        paramValueObj.timeType = currentOrderTimeType;
+        paramValueObj.shop = currentShop4OrderList;
+        paramValueObj.beginDateTime = beginDateTime4OrderList;
+        paramValueObj.endDateTime = endDateTime4OrderList;
+
+        let paramValueStr = JSON.stringify(paramValueObj);
+        console.log('paramValueStr = ' + paramValueStr);
+
+        let paramStr = 'param=' + escape(paramValueStr);
+        console.log(paramStr);
+
+        let productionPlanPrinterUrl = getWWWHost() + '/productLabelPrinter';
+
+        productionPlanPrinterUrl += '?';
+        productionPlanPrinterUrl += paramStr;
+        /// 采用覆盖方式跳转新页面，不产生历史记录
+        window.location.replace(productionPlanPrinterUrl);
+    };
+
     handleProductionPrint = async (e) => {
         // console.log('handleProductionPrint e' + e);
 
@@ -657,6 +692,12 @@ class OrderManagement extends React.Component {
                                 await this.fetchOrderList();
                             })
                         }}>配货</Button>
+                        <Button
+                            disabled
+                            style={{ marginLeft: 18 }}
+                            onClick={this.handleProductLabelPrint}>
+                            标签打印
+                        </Button>
                     </span>
                 </div>
                 <div style={{ zIndex: 2, bottom: 0, left: 0, right: 0, position: 'fixed', width: '100%', height: 140, backgroundColor: 'lightgray' }}>

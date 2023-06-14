@@ -192,7 +192,14 @@ const KHatTypeOptions = [
             <div style={{ width: 70, textAlign: 'center' }}>红卡皇冠帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '红卡皇冠帽'
-    }
+    },
+    {
+        label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡磨砂圆锥帽.jpg" />
+            <div style={{ width: 70, textAlign: 'center' }}>金卡磨砂圆锥帽</div>
+            <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
+        </div>), value: '金卡磨砂圆锥帽'
+    },
 ];
 
 const KCakePlateNumberBySize = {

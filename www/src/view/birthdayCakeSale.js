@@ -104,50 +104,50 @@ const KResponseShopOptions = [
 const KCakeFillingOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/布蕾布丁.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>布蕾布丁</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/布蕾布丁.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>布蕾布丁</div>
         </div>), value: '布蕾布丁'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/新鲜芒果.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>新鲜芒果</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/新鲜芒果.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>新鲜芒果</div>
         </div>), value: '新鲜芒果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/新鲜火龙果.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>新鲜火龙果</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/新鲜火龙果.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>新鲜火龙果</div>
         </div>), value: '新鲜火龙果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/现蒸芋泥.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>现蒸芋泥</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/现蒸芋泥.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>现蒸芋泥</div>
         </div>), value: '现蒸芋泥'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/提子干.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>提子干</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/提子干.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>提子干</div>
         </div>), value: '提子干'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>奥利奥饼干碎</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>奥利奥饼干碎</div>
         </div>), value: '奥利奥饼干碎'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>黑糖晶球</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>黑糖晶球</div>
         </div>), value: '黑糖晶球'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/巧克力麦脆.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>巧克力麦脆</div>
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/巧克力麦脆.jpg" />
+            <div style={{ width: 54, textAlign: 'center' }}>巧克力麦脆</div>
         </div>), value: '巧克力麦脆'
     }
 ];
@@ -164,13 +164,13 @@ const KCandleTypeOptions = [
 const KIgnitorTypeOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/无需火柴.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/无需火柴.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>不需要火柴</div>
         </div>), value: '不需要火柴'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>需要火柴</div>
             <div style={{ width: 70, textAlign: 'center' }}>一盒</div>
         </div>), value: '需要火柴'
@@ -181,27 +181,27 @@ const KIgnitorTypeOptions = [
 const KHatTypeOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/无需生日帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/无需生日帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>无需生日帽</div>
         </div>), value: '无需生日帽'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>金卡皇冠帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '金卡皇冠帽'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/红卡皇冠帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/红卡皇冠帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>红卡皇冠帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '红卡皇冠帽'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/帽子/金卡磨砂圆锥帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/金卡磨砂圆锥帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>金卡磨砂圆锥帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '金卡磨砂圆锥帽'
@@ -1082,21 +1082,21 @@ class birthdayCakeSale extends React.Component {
         const KCandleTypeOptions = [
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>爱心蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '爱心蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>五星蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '五星蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
 
                     <div style={{ width: 70, textAlign: 'center' }}>
                         数字蜡烛
@@ -1110,14 +1110,14 @@ class birthdayCakeSale extends React.Component {
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>曲线蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '曲线蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 8 }} preview={false} src="/image/生日蛋糕/蜡烛/荷花●音乐蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/荷花●音乐蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>荷花●音乐蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一套</div>
                 </div>), value: '荷花●音乐蜡烛'
@@ -1232,7 +1232,7 @@ class birthdayCakeSale extends React.Component {
                                                 <Image style={{ width: 120, height: 120, border: '1px dotted #C58917', borderRadius: 8 }}
                                                     src={cakeImage} />
                                                 <Image style={{
-                                                    position: 'absolute', width: 55, height: 55, marginLeft: 4, borderRadius: 4
+                                                    position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
                                                 }} src={`/image/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
                                             </div>
                                         ) : (

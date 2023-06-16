@@ -104,33 +104,39 @@ const KResponseShopOptions = [
 const KCakeFillingOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/芒果.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>芒果</div>
-        </div>), value: '芒果'
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/布蕾布丁.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>布蕾布丁</div>
+        </div>), value: '布蕾布丁'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/布丁.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>布丁</div>
-        </div>), value: '布丁'
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/新鲜芒果.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>新鲜芒果</div>
+        </div>), value: '新鲜芒果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/芋泥.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>芋泥</div>
-        </div>), value: '芋泥'
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/新鲜火龙果.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>新鲜火龙果</div>
+        </div>), value: '新鲜火龙果'
+    },
+    {
+        label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/现蒸芋泥.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>现蒸芋泥</div>
+        </div>), value: '现蒸芋泥'
+    },
+    {
+        label: (<div style={{ marginBottom: 6 }}>
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/提子干.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>提子干</div>
+        </div>), value: '提子干'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
             <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>奥利奥</div>
-        </div>), value: '奥利奥'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/火龙果.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>火龙果</div>
-        </div>), value: '火龙果'
+            <div style={{ width: 55, textAlign: 'center' }}>奥利奥饼干碎</div>
+        </div>), value: '奥利奥饼干碎'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
@@ -140,9 +146,9 @@ const KCakeFillingOptions = [
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/巧克力燕麦.jpg" />
-            <div style={{ width: 55, textAlign: 'center' }}>巧克力燕麦</div>
-        </div>), value: '巧克力燕麦'
+            <Image style={{ width: 55, height: 55, borderRadius: 6 }} preview={false} src="/image/生日蛋糕/夹心/巧克力麦脆.jpg" />
+            <div style={{ width: 55, textAlign: 'center' }}>巧克力麦脆</div>
+        </div>), value: '巧克力麦脆'
     }
 ];
 

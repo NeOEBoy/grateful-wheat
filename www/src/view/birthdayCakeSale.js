@@ -54,37 +54,76 @@ const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
 
 const KBrithdayCakeRoot = '/image/生日蛋糕';
+const KBrithdayCakeRootWith3 = '/image/生日蛋糕/蛋糕3.0';
 
 const KCategorys = [{
     categoryId: '1634302403310226908', categoryName: '常规款蛋糕', description: '平凡人生、快乐生活',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/夏洛特-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/夏洛特-方图.jpg',
+        KBrithdayCakeRootWith3 + '/小时光-方图.jpg',
+        KBrithdayCakeRootWith3 + '/芒芒物语-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', description: '小小公主、永远开心',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/粉色妖姬-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/旋转木马-女孩-方图.jpg',
+        KBrithdayCakeRootWith3 + '/皮卡丘-方图.jpg',
+        KBrithdayCakeRootWith3 + '/白雪公主-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', description: '小男子汉、顶天立地',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/乐高幻影忍者-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/乐高幻影忍者-方图.jpg',
+        KBrithdayCakeRootWith3 + '/小小航天员-方图.jpg',
+        KBrithdayCakeRootWith3 + '/奥特曼打怪兽-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1634302367129657476', categoryName: '女神款蛋糕', description: '我的女神、爱你永远',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/渐变爱心-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/渐变爱心-方图.jpg',
+        KBrithdayCakeRootWith3 + '/王冠-方图.jpg',
+        KBrithdayCakeRootWith3 + '/纯洁爱恋-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1634302388959605558', categoryName: '男神款蛋糕', description: '公里之内、属你最帅',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/奥利奥先生-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/奥利奥先生-方图.jpg',
+        KBrithdayCakeRootWith3 + '/礼遇-方图.jpg',
+        KBrithdayCakeRootWith3 + '/一家之主-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', description: '两颗红心、相知相伴',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/小爱心-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/小爱心-方图.jpg',
+        KBrithdayCakeRootWith3 + '/小熊LOVE-方图.jpg',
+        KBrithdayCakeRootWith3 + '/余生是你-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', description: '福寿绵绵、如海滔滔',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/大寿吉祥-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/大寿吉祥-方图.jpg',
+        KBrithdayCakeRootWith3 + '/万寿无疆-男-方图.jpg',
+        KBrithdayCakeRootWith3 + '/丰盈一生-方图.jpg',
+    ], productItems: {}
 }, {
     categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', description: '共同举杯、共敬未来',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/猫大吉-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/猫大吉-方图.jpg',
+        KBrithdayCakeRootWith3 + '/招财进宝-方图.jpg',
+        KBrithdayCakeRootWith3 + '/乔迁猫-方图.jpg'
+    ], productItems: {}
 }, {
     categoryId: '1657848010512718759', categoryName: '结婚订婚纪念蛋糕', description: '先生/女士、周年快乐',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/周年纪念-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/余生是你-方图.jpg',
+        KBrithdayCakeRootWith3 + '/周年纪念-方图.jpg',
+        KBrithdayCakeRootWith3 + '/双喜订婚-方图.jpg',
+    ], productItems: {}
 }, {
     categoryId: '1667997464683559851', categoryName: '搞怪款蛋糕', description: '今生只对你搞怪',
-    thumbnail: '/image/生日蛋糕/蛋糕3.0/蜡笔小新-方图.jpg', productItems: {}
+    thumbnails: [
+        KBrithdayCakeRootWith3 + '/蜡笔小新-方图.jpg'
+    ], productItems: {}
 }];
 
 const KPickUpTypeOptions = [
@@ -1276,7 +1315,7 @@ class birthdayCakeSale extends React.Component {
                                     cakeImage !== '私人订制蛋糕' ? (
                                         <div>
                                             <QueueAnim type={['bottom', 'top']}>
-                                                <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom:18 }}>
+                                                <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
                                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
                                                     {
                                                         Object.keys(orderCakePrices).map((item => {
@@ -1774,7 +1813,7 @@ class birthdayCakeSale extends React.Component {
 
                                                         <Image style={{ border: '1px dotted #C58917', borderRadius: 8 }}
                                                             fallback='data:image/png;base64,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'
-                                                            preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                                            preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
 
                                                         <div>
                                                             <div style={{ marginTop: 4 }}>
@@ -1820,7 +1859,7 @@ class birthdayCakeSale extends React.Component {
                                 <Collapse
                                     bordered={true}
                                     expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
-                                    expandIconPosition='right'
+                                    expandIconPosition='end'
                                     onChange={this.handleCollapseOnChange}>
                                     {
                                         birthdayCakeCategorys.map((categoryItem) => {
@@ -1830,16 +1869,26 @@ class birthdayCakeSale extends React.Component {
                                                     {
                                                         (
                                                             <div style={{ color: 'white', fontSize: 16 }}>
-                                                                <Image style={{ width: 44, height: 44, borderRadius: 22 }} preview={false} src={categoryItem.thumbnail} />
-
-                                                                <div style={{ float: 'right', marginLeft: 12 }}>
+                                                                <span style={{ float: 'left', marginLeft: 12 }}>
                                                                     <div>
                                                                         {debug ? `${categoryItem.categoryName}（${Object.keys(categoryItem.productItems).length}）` : `${categoryItem.categoryName}`}
                                                                     </div>
                                                                     <div style={{ fontSize: 12, color: '#FEFCFF' }}>
                                                                         {`${categoryItem.description}`}
                                                                     </div>
-                                                                </div>
+                                                                </span>
+
+                                                                <span style={{ marginLeft: 4 }}>
+                                                                    {
+                                                                        categoryItem.thumbnails.map((thumbnail) => {
+                                                                            let key = categoryItem.thumbnails.indexOf(thumbnail);
+                                                                            return (
+                                                                                <Image key={key} style={{ marginLeft: 2, width: 36, height: 36, borderRadius: 18 }}
+                                                                                    preview={false} src={thumbnail} />
+                                                                            );
+                                                                        })
+                                                                    }
+                                                                </span>
                                                             </div>
                                                         )
                                                     }
@@ -1891,7 +1940,7 @@ class birthdayCakeSale extends React.Component {
 
                                                                             <Image style={{ border: '1px dotted #C58917', borderRadius: 8 }}
                                                                                 fallback='data:image/png;base64,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'
-                                                                                preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                                                                preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
 
                                                                             <div>
                                                                                 <div style={{ marginTop: 4 }}>
@@ -1962,7 +2011,7 @@ class birthdayCakeSale extends React.Component {
                                     <span>私人订制蛋糕</span>
                                     <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击预定</span>
                                 </div>
-                            </div>
+                            </div >
                         ) : (
                             <div>
                                 <List
@@ -2011,7 +2060,7 @@ class birthdayCakeSale extends React.Component {
 
                                                     <Image style={{ border: '1px dotted #C58917', borderRadius: 8 }}
                                                         fallback='data:image/png;base64,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'
-                                                        preview={true} src={`/image/生日蛋糕/蛋糕3.0/${item}-方图.jpg`} />
+                                                        preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
 
                                                     <div>
                                                         <div style={{ marginTop: 4 }}>
@@ -2050,151 +2099,153 @@ class birthdayCakeSale extends React.Component {
                         )
                     }
 
-                    {imageCapturing ? (
-                        <div ref={(current) => { this._theDiv4Capture = current; }}
-                            style={theDiv4CaptureStyle}>
-                            <div id="qrcode" style={{
-                                textAlign: 'right', position: 'absolute',
-                                paddingRight: 20, paddingTop: 10,
-                                width: theDiv4CaptureWidth, height: 150
-                            }}>
-                                <div style={{ fontSize: 14, fontWeight: 'bold' }}>电子订购单二维码：</div>
-                                <Image style={{ width: 150, height: 150 }}
-                                    preview={false}
-                                    src={image4QRCode}
-                                />
-                            </div>
+                    {
+                        imageCapturing ? (
+                            <div ref={(current) => { this._theDiv4Capture = current; }}
+                                style={theDiv4CaptureStyle}>
+                                <div id="qrcode" style={{
+                                    textAlign: 'right', position: 'absolute',
+                                    paddingRight: 20, paddingTop: 10,
+                                    width: theDiv4CaptureWidth, height: 150
+                                }}>
+                                    <div style={{ fontSize: 14, fontWeight: 'bold' }}>电子订购单二维码：</div>
+                                    <Image style={{ width: 150, height: 150 }}
+                                        preview={false}
+                                        src={image4QRCode}
+                                    />
+                                </div>
 
-                            <div style={{
-                                textAlign: 'left', position: 'absolute', paddingLeft: 20,
-                                width: theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
-                            }}>{`订购时间：${makingTime}`}</div>
+                                <div style={{
+                                    textAlign: 'left', position: 'absolute', paddingLeft: 20,
+                                    width: theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
+                                }}>{`订购时间：${makingTime}`}</div>
 
-                            <div style={{
-                                fontSize: 22,
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                paddingTop: 6,
-                                paddingBottom: 6
-                            }}> 蛋糕订购单</div>
-                            <div>
-                                <div style={theLeftDivInTheDiv4CaptureStyle}>
-                                    <div style={{
-                                        fontSize: 20,
-                                        textAlign: 'center',
-                                        paddingTop: 4,
-                                        paddingBottom: 4,
-                                        fontWeight: 'bold',
-                                        background: '#D8D8D8',
-                                        borderBottom: '1px dashed black'
-                                    }}>
-                                        <span>{`《${cakeName}》`}</span>
-                                    </div>
-                                    <div>
-                                        <div style={{ position: 'relative' }}>
-                                            <Image preview={false} src={cakeImage} />
-                                            <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
+                                <div style={{
+                                    fontSize: 22,
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                    paddingTop: 6,
+                                    paddingBottom: 6
+                                }}> 蛋糕订购单</div>
+                                <div>
+                                    <div style={theLeftDivInTheDiv4CaptureStyle}>
+                                        <div style={{
+                                            fontSize: 20,
+                                            textAlign: 'center',
+                                            paddingTop: 4,
+                                            paddingBottom: 4,
+                                            fontWeight: 'bold',
+                                            background: '#D8D8D8',
+                                            borderBottom: '1px dashed black'
+                                        }}>
+                                            <span>{`《${cakeName}》`}</span>
                                         </div>
-                                        <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
-                                    </div>
-                                </div>
-                                <div style={theRightDivInTheDiv4CaptureStyle}>
-                                    <Divider orientation='left' dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>制作</Divider>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>奶油：</span>
-                                        <span style={{ fontSize: 14 }}>{creamType}</span>
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>尺寸：</span>
-                                        <span style={{ fontSize: 14 }}>{cakeSize}</span>
-                                        {
-                                            cakeSize === '组合' ? (
-                                                <span style={{ fontSize: 14 }}>
-                                                    {cakeSizeExtra}
-                                                </span>) : (<span></span>)
-                                        }
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>
-                                        <span style={{ fontSize: 14 }}>{cakePrice}</span>
-                                        <span style={{ fontSize: 14 }}>元</span>
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
-                                        <span style={{ fontSize: 14 }}>{
-                                            canSelectCakeFilling ?
-                                                cakeFillings.join('+') :
-                                                '无需夹心'
-                                        }</span>
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
-                                        <span style={{ fontSize: 14 }}>{candleType}</span>
-                                        {
-                                            candleType === KCandleTypeOptions[2].value ? (
-                                                <span style={{ fontSize: 14 }}>
-                                                    {`${number4candle}`}
-                                                </span>) : (
-                                                <span>
-                                                </span>
-                                            )
-                                        }
-                                        {
-                                            ignitorType === '需要火柴' ? (
-                                                <span style={{ fontSize: 14 }}>
-                                                    {`+火柴盒`}
-                                                </span>
-                                            ) : (<span></span>)
-                                        }
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>帽子：</span>
-                                        <span style={{ fontSize: 14 }}>{hatType}</span>
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>餐具：</span>
-                                        <span style={{ fontSize: 14 }}>{cakePlateNumber}</span>
-                                        <span style={{ fontSize: 14 }}>套</span>
-                                    </div>
-                                    <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
-                                    <div>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>时间：</span>
-                                        <span style={{ fontSize: 18, color: 'red' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
-                                        <span style={{ fontSize: 18, color: 'red' }}>{pickUpTime ? pickUpTime.format(' a HH:mm') : ''}</span>
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>方式：</span>
-                                        <span style={{ fontSize: 14 }}>{pickUpType}</span>
-                                    </div>
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>门店：</span>
-                                        <span style={{ fontSize: 14 }}>{responseShop}</span>
-                                    </div>
-                                    {
-                                        pickUpType === KPickUpTypeOptions[1].value ? (
-                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>地址：</span>
-                                                <span style={{ fontSize: 14 }}>{deliverAddress}</span>
+                                        <div>
+                                            <div style={{ position: 'relative' }}>
+                                                <Image preview={false} src={cakeImage} />
+                                                <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                             </div>
-                                        ) : (<div></div>)
-                                    }
-
-                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>姓名：</span>
-                                        <span style={{ fontSize: 18, color: 'red' }}>
-                                            {`${pickUpName}（${phoneNumber}）`}
-                                        </span>
+                                            <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
+                                        </div>
                                     </div>
-                                    <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>其它</Divider>
-                                    <div style={{ marginTop: 4, marginBottom: 4, marginRight: 8 }}>
-                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>备注：</span>
-                                        <span style={{ fontSize: 18, color: 'red', wordWrap: 'break-word' }}>
-                                            {remarks}
-                                        </span>
+                                    <div style={theRightDivInTheDiv4CaptureStyle}>
+                                        <Divider orientation='left' dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>制作</Divider>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>奶油：</span>
+                                            <span style={{ fontSize: 14 }}>{creamType}</span>
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>尺寸：</span>
+                                            <span style={{ fontSize: 14 }}>{cakeSize}</span>
+                                            {
+                                                cakeSize === '组合' ? (
+                                                    <span style={{ fontSize: 14 }}>
+                                                        {cakeSizeExtra}
+                                                    </span>) : (<span></span>)
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>
+                                            <span style={{ fontSize: 14 }}>{cakePrice}</span>
+                                            <span style={{ fontSize: 14 }}>元</span>
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
+                                            <span style={{ fontSize: 14 }}>{
+                                                canSelectCakeFilling ?
+                                                    cakeFillings.join('+') :
+                                                    '无需夹心'
+                                            }</span>
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
+                                            <span style={{ fontSize: 14 }}>{candleType}</span>
+                                            {
+                                                candleType === KCandleTypeOptions[2].value ? (
+                                                    <span style={{ fontSize: 14 }}>
+                                                        {`${number4candle}`}
+                                                    </span>) : (
+                                                    <span>
+                                                    </span>
+                                                )
+                                            }
+                                            {
+                                                ignitorType === '需要火柴' ? (
+                                                    <span style={{ fontSize: 14 }}>
+                                                        {`+火柴盒`}
+                                                    </span>
+                                                ) : (<span></span>)
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>帽子：</span>
+                                            <span style={{ fontSize: 14 }}>{hatType}</span>
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>餐具：</span>
+                                            <span style={{ fontSize: 14 }}>{cakePlateNumber}</span>
+                                            <span style={{ fontSize: 14 }}>套</span>
+                                        </div>
+                                        <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
+                                        <div>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>时间：</span>
+                                            <span style={{ fontSize: 18, color: 'red' }}>{pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
+                                            <span style={{ fontSize: 18, color: 'red' }}>{pickUpTime ? pickUpTime.format(' a HH:mm') : ''}</span>
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>方式：</span>
+                                            <span style={{ fontSize: 14 }}>{pickUpType}</span>
+                                        </div>
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>门店：</span>
+                                            <span style={{ fontSize: 14 }}>{responseShop}</span>
+                                        </div>
+                                        {
+                                            pickUpType === KPickUpTypeOptions[1].value ? (
+                                                <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                    <span style={{ fontSize: 14, fontWeight: 'bold' }}>地址：</span>
+                                                    <span style={{ fontSize: 14 }}>{deliverAddress}</span>
+                                                </div>
+                                            ) : (<div></div>)
+                                        }
+
+                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>姓名：</span>
+                                            <span style={{ fontSize: 18, color: 'red' }}>
+                                                {`${pickUpName}（${phoneNumber}）`}
+                                            </span>
+                                        </div>
+                                        <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>其它</Divider>
+                                        <div style={{ marginTop: 4, marginBottom: 4, marginRight: 8 }}>
+                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>备注：</span>
+                                            <span style={{ fontSize: 18, color: 'red', wordWrap: 'break-word' }}>
+                                                {remarks}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>) : (<div></div>)}
+                            </div>) : (<div></div>)
+                    }
 
                     <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
                         <div style={{ paddingTop: 12, marginTop: 10 }}>
@@ -2221,7 +2272,7 @@ class birthdayCakeSale extends React.Component {
                     </div>
                 </div >
                 <BackTop />
-            </Spin>
+            </Spin >
         )
     }
 }

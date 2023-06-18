@@ -959,7 +959,7 @@ class OrderManagement extends React.Component {
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    {`总共${alreadyOrderListData.length}项`}
+                                    {`总共 ${alreadyOrderListData.length} 项，已选 ${selectedRowKeys4OrderList.length} 项`}
                                 </div>
                             )
                         }} />

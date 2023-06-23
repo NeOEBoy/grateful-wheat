@@ -1858,7 +1858,7 @@ class birthdayCakeSale extends React.Component {
 
                                 <Collapse
                                     bordered={true}
-                                    expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
+                                    expandIcon={({ isActive }) => <RightSquareFilled style={{ fontSize: 24, color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
                                     expandIconPosition='end'
                                     onChange={this.handleCollapseOnChange}>
                                     {
@@ -1869,32 +1869,38 @@ class birthdayCakeSale extends React.Component {
                                                     {
                                                         (
                                                             <div style={{ color: 'white', fontSize: 16 }}>
-                                                                <span style={{ float: 'left', marginLeft: 12 }}>
+                                                                <div style={{ marginLeft: 12 }}>
                                                                     <div>
                                                                         {debug ? `${categoryItem.categoryName}（${Object.keys(categoryItem.productItems).length}）` : `${categoryItem.categoryName}`}
                                                                     </div>
                                                                     <div style={{ fontSize: 12, color: '#FEFCFF' }}>
                                                                         {`${categoryItem.description}`}
                                                                     </div>
-                                                                </span>
+                                                                </div>
 
-                                                                <span style={{ marginLeft: 4 }}>
+                                                                <div style={{ marginLeft: 4, marginTop: 8 }}>
                                                                     {
                                                                         categoryItem.thumbnails.map((thumbnail) => {
                                                                             let key = categoryItem.thumbnails.indexOf(thumbnail);
+                                                                            let lastIndex = categoryItem.thumbnails.length - 1;
                                                                             return (
-                                                                                <Image key={key} style={{ marginLeft: 2, width: 36, height: 36, borderRadius: 18 }}
-                                                                                    preview={false} src={thumbnail} />
+                                                                                <span key={key}>
+                                                                                    <Image style={{ marginLeft: 6, width: 44, height: 44, borderRadius: 22 }}
+                                                                                        preview={false} src={thumbnail} />
+                                                                                    {key === lastIndex ? <span style={{ marginLeft: 6 }}>......</span> : <span></span>}
+                                                                                </span>
+
                                                                             );
                                                                         })
                                                                     }
-                                                                </span>
+                                                                </div>
+
                                                             </div>
                                                         )
                                                     }
                                                     style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
                                                     key={categoryItem.categoryId}
-                                                    extra={(<span style={{ fontSize: 12, color: 'whitesmoke' }}>{categoryItem.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                                    extra={(<span style={{ fontSize: 16, color: 'whitesmoke' }}>{categoryItem.opened ? '点击收起' : '点击查看更多'}</span>)}>
                                                     <Spin spinning={categoryItem.spinning}>
                                                         <List
                                                             style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}

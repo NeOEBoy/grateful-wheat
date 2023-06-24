@@ -143,49 +143,49 @@ const KResponseShopOptions = [
 const KCakeFillingOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/布蕾布丁.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/布蕾布丁.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>布蕾布丁</div>
         </div>), value: '布蕾布丁'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/新鲜芒果.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/新鲜芒果.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>新鲜芒果</div>
         </div>), value: '新鲜芒果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/新鲜火龙果.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/新鲜火龙果.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>新鲜火龙果</div>
         </div>), value: '新鲜火龙果'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/现蒸芋泥.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/现蒸芋泥.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>现蒸芋泥</div>
         </div>), value: '现蒸芋泥'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/提子干.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/提子干.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>提子干</div>
         </div>), value: '提子干'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>奥利奥饼干碎</div>
         </div>), value: '奥利奥饼干碎'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>黑糖晶球</div>
         </div>), value: '黑糖晶球'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/夹心/巧克力麦脆.jpg" />
+            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/巧克力麦脆.jpg" />
             <div style={{ width: 54, textAlign: 'center' }}>巧克力麦脆</div>
         </div>), value: '巧克力麦脆'
     }
@@ -203,13 +203,13 @@ const KCandleTypeOptions = [
 const KIgnitorTypeOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/无需火柴.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/无需火柴.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>不需要火柴</div>
         </div>), value: '不需要火柴'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/火柴盒.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>需要火柴</div>
             <div style={{ width: 70, textAlign: 'center' }}>一盒</div>
         </div>), value: '需要火柴'
@@ -220,27 +220,27 @@ const KIgnitorTypeOptions = [
 const KHatTypeOptions = [
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/无需生日帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/帽子/无需生日帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>无需生日帽</div>
         </div>), value: '无需生日帽'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/帽子/金卡皇冠帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>金卡皇冠帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '金卡皇冠帽'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/红卡皇冠帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/帽子/红卡皇冠帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>红卡皇冠帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '红卡皇冠帽'
     },
     {
         label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/帽子/金卡磨砂圆锥帽.jpg" />
+            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/帽子/金卡磨砂圆锥帽.jpg" />
             <div style={{ width: 70, textAlign: 'center' }}>金卡磨砂圆锥帽</div>
             <div style={{ width: 70, textAlign: 'center' }}>一顶</div>
         </div>), value: '金卡磨砂圆锥帽'
@@ -770,7 +770,7 @@ class birthdayCakeSale extends React.Component {
                         margin: 1,
                         color: {
                             dark: "#E5E4E2",
-                            light: "#C58917"
+                            light: "#00A2A5"
                         }
                     }
                     let qrCode = await QRCode.toDataURL(birthdayCakeOrderUrl, opts);
@@ -1045,7 +1045,7 @@ class birthdayCakeSale extends React.Component {
             width: theDiv4CaptureHeight - 180,
             height: theDiv4CaptureHeight - 180 + 40,
             float: 'left', marginLeft: 8,
-            borderRadius: 8, border: '2px dotted #C58917'
+            borderRadius: 8, border: '2px dotted #00A2A5'
         };
         let theRightDivInTheDiv4CaptureStyle = {
             float: 'right',
@@ -1110,7 +1110,7 @@ class birthdayCakeSale extends React.Component {
         let KOrderImageStyle = {
             width: orderImageWidth,
             height: orderImageHeight,
-            border: '2px dashed #C58917'
+            border: '2px dashed #00A2A5'
         };
 
         let KOrderImageInStyle = {
@@ -1121,21 +1121,21 @@ class birthdayCakeSale extends React.Component {
         const KCandleTypeOptions = [
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/爱心蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>爱心蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '爱心蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/五星蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>五星蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '五星蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
 
                     <div style={{ width: 70, textAlign: 'center' }}>
                         数字蜡烛
@@ -1149,14 +1149,14 @@ class birthdayCakeSale extends React.Component {
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/曲线蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>曲线蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一根</div>
                 </div>), value: '曲线蜡烛'
             },
             {
                 label: (<div style={{ marginBottom: 6 }}>
-                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #C58917' }} preview={false} src="/image/生日蛋糕/蜡烛/荷花●音乐蜡烛.jpg" />
+                    <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/荷花●音乐蜡烛.jpg" />
                     <div style={{ width: 70, textAlign: 'center' }}>荷花●音乐蜡烛</div>
                     <div style={{ width: 70, height: 30, textAlign: 'center', paddingTop: 6 }}>一套</div>
                 </div>), value: '荷花●音乐蜡烛'
@@ -1268,17 +1268,17 @@ class birthdayCakeSale extends React.Component {
                                     {
                                         (cakeImage !== '私人订制蛋糕') ? (
                                             <div>
-                                                <Image style={{ width: 120, height: 120, border: '1px dotted #C58917', borderRadius: 8 }}
+                                                <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
                                                     src={cakeImage} />
                                                 <Image style={{
                                                     position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
                                                 }} src={`/image/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
                                             </div>
                                         ) : (
-                                            <Icon style={{ width: 120, height: 120, border: '1px dotted #C58917' }}
+                                            <Icon style={{ width: 120, height: 120, border: '1px dotted #00A2A5' }}
                                                 component={() => divImageLoading ?
-                                                    <LoadingOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} /> :
-                                                    <PlusOutlined style={{ fontSize: 50, color: '#C58917', marginTop: 30 }} />}
+                                                    <LoadingOutlined style={{ fontSize: 50, color: '#00A2A5', marginTop: 30 }} /> :
+                                                    <PlusOutlined style={{ fontSize: 50, color: '#00A2A5', marginTop: 30 }} />}
 
                                                 onClick={() => {
                                                     let that = this;
@@ -1328,9 +1328,9 @@ class birthdayCakeSale extends React.Component {
                                                                         sizes.map((item1) => {
                                                                             return (
                                                                                 <div key={item1}>
-                                                                                    <span style={{ color: 'green' }}>{item1}</span>
+                                                                                    <span style={{ color: '#00A2A5' }}>{item1}</span>
                                                                                     <span style={{ color: 'gray', fontSize: 12 }}>{`（${KCakeRecommendPeople[item1]}）`}</span>
-                                                                                    <span style={{ color: 'green' }}>{`${thePrices[item1]}元`}</span>
+                                                                                    <span style={{ color: '#00A2A5' }}>{`${thePrices[item1]}元`}</span>
                                                                                     <span></span>
                                                                                 </div>)
                                                                         })
@@ -1728,7 +1728,7 @@ class birthdayCakeSale extends React.Component {
                     }
 
                     <div style={{
-                        textAlign: 'center', color: '#B9B973',
+                        textAlign: 'center', color: '#00A2A5',
                         fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                     }}>
                         <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
@@ -1759,7 +1759,7 @@ class birthdayCakeSale extends React.Component {
                             <div>
                                 <div style={{
                                     textAlign: 'center', marginTop: 0, fontSize: 16,
-                                    backgroundColor: '#DAA520', color: 'white',
+                                    backgroundColor: '#00A2A5', color: 'white',
                                     borderRadius: 30, paddingTop: 8, paddingBottom: 8
                                 }}>
                                     {debug ? `${birthdayCakesRecommendTitle}（${Object.keys(birthdayCakesRecommendItems).length}）`
@@ -1811,7 +1811,7 @@ class birthdayCakeSale extends React.Component {
                                                             ) : (<div></div>)
                                                         }
 
-                                                        <Image style={{ border: '1px dotted #C58917', borderRadius: 8 }}
+                                                        <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
                                                             fallback='data:image/png;base64,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'
                                                             preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
 
@@ -1823,7 +1823,7 @@ class birthdayCakeSale extends React.Component {
                                                                     fontSize: 14, marginTop: 4,
                                                                     float: 'right', paddingTop: 4, paddingBottom: 4,
                                                                     paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                                                    textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                                    textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
                                                                 }} onClick={() => {
                                                                     this.handleOrderNowClick(0, item, description, pricesObj, can);
                                                                 }}>
@@ -1834,11 +1834,11 @@ class birthdayCakeSale extends React.Component {
                                                                 <span>{description}</span>
                                                             </div>
                                                             <div style={{ fontSize: 13 }}>
-                                                                <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                                <InfoCircleOutlined style={{ color: '#00A2A5' }} />
                                                                 <span>{` ${theMinimumSize} `}</span>
                                                                 <span>起</span>
 
-                                                                <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                                <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
                                                                 <span>{` ${theMinimumPrice}元 `}</span>
                                                                 <span>起</span>
                                                             </div>
@@ -1850,7 +1850,7 @@ class birthdayCakeSale extends React.Component {
                                     />
                                 </Spin>
                                 <div style={{
-                                    textAlign: 'center', color: '#C6A300',
+                                    textAlign: 'center', color: '#00A2A5',
                                     fontSize: 18, paddingTop: 10, paddingBottom: 20
                                 }}>
                                     更多款式请点击下方分类查看
@@ -1868,12 +1868,12 @@ class birthdayCakeSale extends React.Component {
                                                     header=
                                                     {
                                                         (
-                                                            <div style={{ color: 'white', fontSize: 16 }}>
+                                                            <div style={{ color: 'white', fontSize: 20 }}>
                                                                 <div style={{ marginLeft: 12 }}>
                                                                     <div>
                                                                         {debug ? `${categoryItem.categoryName}（${Object.keys(categoryItem.productItems).length}）` : `${categoryItem.categoryName}`}
                                                                     </div>
-                                                                    <div style={{ fontSize: 12, color: '#FEFCFF' }}>
+                                                                    <div style={{ fontSize: 12, color: 'whitesmoke' }}>
                                                                         {`${categoryItem.description}`}
                                                                     </div>
                                                                 </div>
@@ -1898,7 +1898,7 @@ class birthdayCakeSale extends React.Component {
                                                             </div>
                                                         )
                                                     }
-                                                    style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
+                                                    style={{ backgroundColor: '#00A2A5', borderRadius: 40 }}
                                                     key={categoryItem.categoryId}
                                                     extra={(<span style={{ fontSize: 16, color: 'whitesmoke' }}>{categoryItem.opened ? '点击收起' : '点击查看更多'}</span>)}>
                                                     <Spin spinning={categoryItem.spinning}>
@@ -1944,7 +1944,7 @@ class birthdayCakeSale extends React.Component {
                                                                                 ) : (<div></div>)
                                                                             }
 
-                                                                            <Image style={{ border: '1px dotted #C58917', borderRadius: 8 }}
+                                                                            <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
                                                                                 fallback='data:image/png;base64,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'
                                                                                 preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
 
@@ -1956,7 +1956,7 @@ class birthdayCakeSale extends React.Component {
                                                                                         fontSize: 14, marginTop: 4,
                                                                                         float: 'right', paddingTop: 4, paddingBottom: 4,
                                                                                         paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                                                                        textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                                                        textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
                                                                                     }} onClick={() => {
                                                                                         this.handleOrderNowClick(0, item, description, pricesObj, can);
                                                                                     }}>
@@ -1967,16 +1967,16 @@ class birthdayCakeSale extends React.Component {
                                                                                     <span>{description}</span>
                                                                                 </div>
                                                                                 <div style={{ fontSize: 13 }}>
-                                                                                    <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                                                    <InfoCircleOutlined style={{ color: '#00A2A5' }} />
                                                                                     <span>{` ${theMinimumSize} `}</span>
                                                                                     <span>起</span>
 
-                                                                                    <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                                                    <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
                                                                                     <span>{` ${theMinimumPrice}元 `}</span>
                                                                                     <span>起</span>
                                                                                 </div>
                                                                                 {debug ? (
-                                                                                    <div style={{ color: 'green', fontSize: 12 }}>
+                                                                                    <div style={{ color: '#00A2A5', fontSize: 12 }}>
                                                                                         {`半年内销售数量：${categoryItem.productItems[item].saleNumber}`}
                                                                                     </div>
                                                                                 ) : (<div></div>)}
@@ -1995,7 +1995,7 @@ class birthdayCakeSale extends React.Component {
 
                                 <div style={{
                                     textAlign: 'center', marginTop: 0, fontSize: 24,
-                                    backgroundColor: '#DAA520', color: 'white',
+                                    backgroundColor: '#00A2A5', color: 'white',
                                     borderRadius: 0, paddingTop: 30, paddingBottom: 30
                                 }} onClick={() => {
                                     let price4customized = {
@@ -2064,7 +2064,7 @@ class birthdayCakeSale extends React.Component {
                                                         ) : (<div></div>)
                                                     }
 
-                                                    <Image style={{ border: '1px dotted #C58917', borderRadius: 8 }}
+                                                    <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
                                                         fallback='data:image/png;base64,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'
                                                         preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
 
@@ -2076,7 +2076,7 @@ class birthdayCakeSale extends React.Component {
                                                                 fontSize: 14, marginTop: 4,
                                                                 float: 'right', paddingTop: 4, paddingBottom: 4,
                                                                 paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                                                textAlign: 'center', backgroundColor: '#C58917', color: 'white',
+                                                                textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
                                                             }} onClick={() => {
                                                                 this.handleOrderNowClick(0, item, description, pricesObj, can);
                                                             }}>
@@ -2087,11 +2087,11 @@ class birthdayCakeSale extends React.Component {
                                                             <span>{description}</span>
                                                         </div>
                                                         <div style={{ fontSize: 13 }}>
-                                                            <InfoCircleOutlined style={{ color: '#C58917' }} />
+                                                            <InfoCircleOutlined style={{ color: '#00A2A5' }} />
                                                             <span>{` ${theMinimumSize} `}</span>
                                                             <span>起</span>
 
-                                                            <PayCircleOutlined style={{ color: '#C58917', marginLeft: 8 }} />
+                                                            <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
                                                             <span>{` ${theMinimumPrice}元 `}</span>
                                                             <span>起</span>
                                                         </div>

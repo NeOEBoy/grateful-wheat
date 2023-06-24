@@ -23,34 +23,71 @@ const KImageRoot = '/image/面包牛奶';
 
 const KCategorys = [{
     categoryId: '1656244666392267569', categoryName: '弯麦小饮料', description: '特选特饮，夏季必备',
-    thumbnail: `${KImageRoot}/弯麦小饮料/杨枝甘露特饮.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦小饮料/杨枝甘露特饮.jpg`,
+        `${KImageRoot}/弯麦小饮料/手打金桔柠檬.jpg`,
+        `${KImageRoot}/弯麦小饮料/蜂蜜烧仙草.jpg`
+    ], productItems: []
 }, {
     categoryId: '1593049881212199906', categoryName: '弯麦常温蛋糕', description: '鸡蛋糕点、回味无穷',
-    thumbnail: `${KImageRoot}/弯麦常温蛋糕/轻乳酪芝士蛋糕.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦常温蛋糕/轻乳酪芝士蛋糕.jpg`,
+        `${KImageRoot}/弯麦常温蛋糕/海苔小贝.jpg`,
+        `${KImageRoot}/弯麦常温蛋糕/泡芙(4个装).jpg`
+    ], productItems: []
 }, {
     categoryId: '1604471906489441680', categoryName: '弯麦小蛋糕', description: '小小仪式、快乐永远',
-    thumbnail: `${KImageRoot}/弯麦小蛋糕/水果蛋糕(5寸).jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦小蛋糕/迷你小蛋糕.jpg`,
+        `${KImageRoot}/弯麦小蛋糕/奶茶蛋糕(5寸).jpg`,
+        `${KImageRoot}/弯麦小蛋糕/水果蛋糕(5寸).jpg`
+    ], productItems: []
 }, {
     categoryId: '1593049816479739965', categoryName: '弯麦现烤面包', description: '新鲜现烤、美味无限',
-    thumbnail: `${KImageRoot}/弯麦现烤面包/芝士鸡排三明治.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦现烤面包/芝士鸡排三明治.jpg`,
+        `${KImageRoot}/弯麦现烤面包/巧克力麻薯球.jpg`,
+        `${KImageRoot}/弯麦现烤面包/手工蛋挞(2个).jpg`
+    ], productItems: []
 }, {
     categoryId: '1592989355905414162', categoryName: '弯麦西点慕斯', description: '甜点慕斯、烦恼拜拜',
-    thumbnail: `${KImageRoot}/弯麦西点慕斯/雪媚娘(芒果+草莓).jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦西点慕斯/雪媚娘(芒果+草莓).jpg`,
+        `${KImageRoot}/弯麦西点慕斯/芒果毛巾卷.jpg`,
+        `${KImageRoot}/弯麦西点慕斯/黑森林慕斯.jpg`
+    ], productItems: []
 }, {
     categoryId: '1593049854760654816', categoryName: '弯麦吐司面包', description: '切片吐司、片片留香',
-    thumbnail: `${KImageRoot}/弯麦吐司面包/纯奶拉丝小吐司.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦吐司面包/抹茶红豆切片吐司.jpg`,
+        `${KImageRoot}/弯麦吐司面包/纯奶拉丝小吐司.jpg`,
+        `${KImageRoot}/弯麦吐司面包/红豆小吐司.jpg`
+    ], productItems: []
 }, {
     categoryId: '1626767161867698544', categoryName: '弯麦餐包面包', description: '圆圆餐包、生活美满',
-    thumbnail: `${KImageRoot}/弯麦餐包面包/椰奶餐包.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦餐包面包/紫薯芋泥餐包.jpg`,
+        `${KImageRoot}/弯麦餐包面包/沙拉包.jpg`,
+        `${KImageRoot}/弯麦餐包面包/特香包.jpg`
+    ], productItems: []
 }, {
     categoryId: '1593059349213583584', categoryName: '弯麦干点饼干', description: '饼干茶点、惬意午后',
-    thumbnail: `${KImageRoot}/弯麦干点饼干/牛油曲奇饼干.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦干点饼干/牛油曲奇饼干.jpg`
+    ], productItems: []
 }, {
     categoryId: '1652965113501744892', categoryName: '弯麦中式糕点', description: '传统糕点，经典传承',
-    thumbnail: `${KImageRoot}/弯麦中式糕点/牛舌Q饼（香芋味）.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/弯麦中式糕点/绿豆饼.jpg`,
+        `${KImageRoot}/弯麦中式糕点/牛舌Q饼（香芋味）.jpg`,
+    ], productItems: []
 }, {
     categoryId: '1615972878471894425', categoryName: '长富常温牛奶', description: '精品牛奶、强壮身体',
-    thumbnail: `${KImageRoot}/长富常温牛奶/长富高钙牛奶.jpg`, productItems: []
+    thumbnails: [
+        `${KImageRoot}/长富常温牛奶/长富24精品纯奶.jpg`,
+        `${KImageRoot}/长富常温牛奶/长富武夷森林牧场红枣牛奶.jpg`,
+        `${KImageRoot}/长富常温牛奶/长富高钙牛奶.jpg`
+    ], productItems: []
 }];
 
 class ProductMenu extends React.Component {
@@ -487,7 +524,7 @@ class ProductMenu extends React.Component {
         return (
             <div>
                 <div style={{
-                    textAlign: 'center', color: '#B9B973',
+                    textAlign: 'center', color: '#00A2A5',
                     fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                 }}>
                     <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
@@ -499,13 +536,12 @@ class ProductMenu extends React.Component {
                             </span>
                             <span> (微信同号)</span>
                         </span>
-                        <span>为避免商品缺货，最好提前1天预定...</span>
                     </TextLoop>
                 </div>
 
                 <div style={{
                     textAlign: 'center', marginTop: 0, fontSize: 20,
-                    backgroundColor: '#DAA520', color: 'white',
+                    backgroundColor: '#00A2A5', color: 'white',
                     borderRadius: 30, paddingTop: 8, paddingBottom: 8
                 }}>
                     {debug ? `${foodsRecommendTitle}（${Object.keys(foodsRecommendItems).length}）`
@@ -605,7 +641,7 @@ class ProductMenu extends React.Component {
                                                     &nbsp;
                                                     &nbsp;
                                                     <span>
-                                                        <Button disabled={item1.disable} danger size='middle' shape='circle' icon={<PlusOutlined />}
+                                                        <Button disabled={item1.disable} style={{ color: '#00A2A5' }} size='middle' shape='circle' icon={<PlusOutlined />}
                                                             onClick={() => { this.handleIncreaseItemToCart(item1, item1["分类"]) }} />
                                                     </span>
                                                 </span>
@@ -630,7 +666,7 @@ class ProductMenu extends React.Component {
                     />
                 </Spin>
                 <div style={{
-                    textAlign: 'center', color: '#C6A300',
+                    textAlign: 'center', color: '#00A2A5',
                     fontSize: 18, paddingTop: 10, paddingBottom: 20
                 }}>
                     更多商品请点击下方分类查看
@@ -638,8 +674,8 @@ class ProductMenu extends React.Component {
 
                 <Collapse
                     bordered={true}
-                    expandIcon={({ isActive }) => <RightSquareFilled style={{ color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
-                    expandIconPosition='right'
+                    expandIcon={({ isActive }) => <RightSquareFilled style={{ fontSize: 24, color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
+                    expandIconPosition='end'
                     onChange={this.handleCollapseOnChange}>
                     {
                         foodCategorys.map((item) => {
@@ -648,22 +684,37 @@ class ProductMenu extends React.Component {
                                     {
                                         (
                                             <div style={{ color: 'white', fontSize: 20 }}>
-                                                <Image style={{ width: 50, height: 50, borderRadius: 25 }} preview={false} src={item.thumbnail} />
-
-                                                <div style={{ float: 'right', marginLeft: 12 }}>
+                                                <div style={{ marginLeft: 12 }}>
                                                     <div>
                                                         {debug ? `${item.categoryName}（${item.productItems.length}）` : `${item.categoryName}`}
                                                     </div>
-                                                    <div style={{ fontSize: 14, color: '#FEFCFF' }}>
+                                                    <div style={{ fontSize: 12, color: 'whitesmoke' }}>
                                                         {`${item.description}`}
                                                     </div>
+                                                </div>
+
+                                                <div style={{ marginLeft: 4, marginTop: 8 }}>
+                                                    {
+                                                        item.thumbnails.map((thumbnail) => {
+                                                            let key = item.thumbnails.indexOf(thumbnail);
+                                                            let lastIndex = item.thumbnails.length - 1;
+                                                            return (
+                                                                <span key={key}>
+                                                                    <Image style={{ marginLeft: 6, width: 50, height: 50, borderRadius: 25 }}
+                                                                        preview={false} src={thumbnail} />
+                                                                    {key === lastIndex ? <span style={{ marginLeft: 6 }}>......</span> : <span></span>}
+                                                                </span>
+
+                                                            );
+                                                        })
+                                                    }
                                                 </div>
                                             </div>
                                         )
                                     }
-                                    style={{ backgroundColor: '#DAA520', borderRadius: 40 }}
+                                    style={{ backgroundColor: '#00A2A5', borderRadius: 40 }}
                                     key={item.categoryId}
-                                    extra={(<span style={{ fontSize: 13, color: 'whitesmoke' }}>{item.opened ? '点击关闭' : '点击打开'}</span>)}>
+                                    extra={(<span style={{ fontSize: 16, color: 'whitesmoke' }}>{item.opened ? '点击关闭' : '点击查看更多'}</span>)}>
                                     <Spin spinning={item.spinning}>
                                         <List
                                             style={{ marginLeft: -8, marginRight: -8, marginTop: -8 }}

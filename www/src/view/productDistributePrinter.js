@@ -513,7 +513,7 @@ class ProductDistributePrinter extends React.Component {
                 let ingredients = product.ingredients;
 
                 for (let z = orderNumberIndex; z < orderNumber; ++z) {
-                    await new Promise(resolve => setTimeout(resolve, 500));
+                    await new Promise(resolve => setTimeout(resolve, 0));
 
                     if (this.state.productLabelPrintState === KLabelPrintState.cancel) {
                         this.setState({

@@ -464,7 +464,7 @@ class ProductDistributePrinter extends React.Component {
                 productLabelPrintProductionDateAndTime:
                     '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' zz',
                 qualityDay: '保质期：<3天>',
-                expirationDate: '保质期至：' + productLabelPrintExpirationDate.format('MM/DD HH:mm') + '（3天）',
+                expirationDate: '保质期至：' + productLabelPrintExpirationDate.format('MM/DD HH:mm'),
                 price: '¥<12.0>'
             }
         });
@@ -541,7 +541,7 @@ class ProductDistributePrinter extends React.Component {
                         ingredients: '配料表：' + ingredients,
                         productLabelPrintProductionDateAndTime:
                             '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' ' + amOrPmType,
-                        expirationDate: '保质期至：' + expirationDate.format('MM/DD HH:mm') + '（' + qualityDay + '天）'
+                        expirationDate: '保质期至：' + expirationDate.format('MM/DD HH:mm')
                     };
                     JsBarcode('#image4barcode', template.barcode, { displayValue: false });
                     this.setState({ productLabelPrintProductionTemplate4Preview: template });
@@ -703,7 +703,7 @@ class ProductDistributePrinter extends React.Component {
         let template = { ...this.state.productLabelPrintProductionTemplate4Preview };
         template.productLabelPrintProductionDateAndTime =
             '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' zz';
-        template.expirationDate = '保质期至：' + new moment(productLabelPrintProductionDate).add(3, 'days').endOf('day').format('MM/DD HH:mm') + '（3天）';
+        template.expirationDate = '保质期至：' + new moment(productLabelPrintProductionDate).add(3, 'days').endOf('day').format('MM/DD HH:mm');
         this.setState({ productLabelPrintProductionTemplate4Preview: template });
     };
 

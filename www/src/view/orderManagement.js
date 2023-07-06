@@ -748,7 +748,7 @@ class OrderManagement extends React.Component {
                                         KAllShops.map((shop) => {
                                             let fg = 'black';
                                             if (shop.name === currentShop4OrderList.name) fg = 'red';
-                                            return (<Menu.Item key={shop.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KAllShops.indexOf(shop)} style={{ color: fg }}>
                                                 {shop.name}
                                             </Menu.Item>);
                                         })
@@ -773,7 +773,7 @@ class OrderManagement extends React.Component {
                                         KOrderTypes.map((shop) => {
                                             let fg = 'black';
                                             if (shop.name === currentOrderType4OrderList.name) fg = 'red';
-                                            return (<Menu.Item key={shop.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KOrderTypes.indexOf(shop)} style={{ color: fg }}>
                                                 {shop.name}
                                             </Menu.Item>);
                                         })
@@ -798,7 +798,7 @@ class OrderManagement extends React.Component {
                                         KOrderCashiers.map((cashier) => {
                                             let fg = 'black';
                                             if (cashier.name === currentOrderCashier.name) fg = 'red';
-                                            return (<Menu.Item key={cashier.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KOrderCashiers.indexOf(cashier)} style={{ color: fg }}>
                                                 {cashier.name}
                                             </Menu.Item>);
                                         })
@@ -823,7 +823,7 @@ class OrderManagement extends React.Component {
                                         KOrderTemplates.map((template) => {
                                             let fg = 'black';
                                             if (template.name === currentTemplate4OrderList.name) fg = 'red';
-                                            return (<Menu.Item key={template.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KOrderTemplates.indexOf(template)} style={{ color: fg }}>
                                                 {template.name}
                                             </Menu.Item>);
                                         })
@@ -848,7 +848,7 @@ class OrderManagement extends React.Component {
                                         KOrderTimeType.map((timeType) => {
                                             let fg = 'black';
                                             if (timeType.name === currentOrderTimeType.name) fg = 'red';
-                                            return (<Menu.Item key={timeType.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KOrderTimeType.indexOf(timeType)} style={{ color: fg }}>
                                                 {timeType.name}
                                             </Menu.Item>);
                                         })
@@ -978,7 +978,7 @@ class OrderManagement extends React.Component {
                                         KAllShops.map((shop) => {
                                             let fg = 'black';
                                             if (shop.name === currentShop4FlowList.name) fg = 'red';
-                                            return (<Menu.Item key={shop.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KAllShops.indexOf(shop)} style={{ color: fg }}>
                                                 {shop.name}
                                             </Menu.Item>);
                                         })
@@ -1003,7 +1003,7 @@ class OrderManagement extends React.Component {
                                         KFlowType.map((flow) => {
                                             let fg = 'black';
                                             if (flow.name === currentFlowType.name) fg = 'red';
-                                            return (<Menu.Item key={flow.index} style={{ color: fg }}>
+                                            return (<Menu.Item key={KFlowType.indexOf(flow)} style={{ color: fg }}>
                                                 {flow.name}
                                             </Menu.Item>);
                                         })

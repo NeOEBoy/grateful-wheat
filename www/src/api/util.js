@@ -23,84 +23,74 @@ const getWWWHost = () => {
 
 const getAllShop = () => {
   return [
-    { index: 0, name: '全部门店', userId: '' },
-    { index: 1, name: '001 - 弯麦(教育局店)', userId: '3995767' },
-    { index: 2, name: '002 - 弯麦(旧镇店)', userId: '3995771' },
-    { index: 3, name: '003 - 弯麦(江滨店)', userId: '4061089' },
-    { index: 4, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
-    { index: 5, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
-    { index: 6, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 7, name: '007 - 弯麦(联营店)', userId: '4382444' }
+    { name: '全部门店', userId: '' },
+    { name: '001 - 弯麦(教育局店)', userId: '3995767' },
+    { name: '004 - 弯麦(汤泉店)', userId: '4061092' },
+    { name: '005 - 弯麦(盘陀店)', userId: '4339546' },
+    { name: '007 - 弯麦(联营店)', userId: '4382444' }
   ];
 };
 
 const getAllShopExceptAll = () => {
   return [
-    { index: 0, name: '001 - 弯麦(教育局店)', userId: '3995767' },
-    { index: 1, name: '002 - 弯麦(旧镇店)', userId: '3995771' },
-    { index: 2, name: '003 - 弯麦(江滨店)', userId: '4061089' },
-    { index: 3, name: '004 - 弯麦(汤泉店)', userId: '4061092' },
-    { index: 4, name: '005 - 弯麦(盘陀店)', userId: '4339546' },
-    { index: 5, name: '006 - 弯麦(狮头店)', userId: '4359267' },
-    { index: 6, name: '007 - 弯麦(联营店)', userId: '4382444' }
+    { name: '001 - 弯麦(教育局店)', userId: '3995767' },
+    { name: '004 - 弯麦(汤泉店)', userId: '4061092' },
+    { name: '005 - 弯麦(盘陀店)', userId: '4339546' },
+    { name: '007 - 弯麦(联营店)', userId: '4382444' }
   ];
 };
 
 const getAllOrderShopName = () => {
   return [
     '001 - 弯麦(教育局店)',
-    '002 - 弯麦(旧镇店)',
-    '003 - 弯麦(江滨店)',
     '004 - 弯麦(汤泉店)',
     '005 - 弯麦(盘陀店)',
-    '006 - 弯麦(狮头店)',
     '007 - 弯麦(联营店)'
   ];
 };
 
 const getOrderTemplates = () => {
   return [
-    { index: 0, name: '全部模板', templateId: '', templateUid: '' },
-    { index: 1, name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
-    { index: 2, name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
-    { index: 3, name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
-    { index: 4, name: '餐包类', templateId: '182', templateUid: '1595077405589137749' },
-    { index: 5, name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' }
+    { name: '全部模板', templateId: '', templateUid: '' },
+    { name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
+    { name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
+    { name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
+    { name: '餐包类', templateId: '182', templateUid: '1595077405589137749' },
+    { name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' }
   ];
 };
 
 const getOrderTypes = () => {
   return [
-    { index: 0, name: '全部类型', id: '' },
-    { index: 1, name: '直营店-日常单', id: '163' },
-    { index: 2, name: '德林-火烧铺1店', id: '320' },
-    { index: 3, name: '德林-火烧铺2店', id: '323' },
-    { index: 4, name: '德林-学府店', id: '322' },
-    { index: 5, name: '德林-假日店', id: '321' },
-    { index: 6, name: '锦客隆-西湖店', id: '325' },
-    { index: 7, name: '测试单', id: '326' },
-    { index: 8, name: '-', id: '400' }
+    { name: '全部类型', id: '' },
+    { name: '直营店-日常单', id: '163' },
+    { name: '德林-火烧铺1店', id: '320' },
+    { name: '德林-火烧铺2店', id: '323' },
+    { name: '德林-学府店', id: '322' },
+    { name: '德林-假日店', id: '321' },
+    { name: '锦客隆-西湖店', id: '325' },
+    { name: '测试单', id: '326' },
+    { name: '-', id: '400' }
   ];
 };
 
 const getAllCategorysExceptAll = () => {
   return [
-    { index: 0, name: '现烤面包', categoryId: '1593049816479739965' },
-    { index: 1, name: '西点慕斯', categoryId: '1592989355905414162' },
-    { index: 2, name: '常温蛋糕', categoryId: '1593049881212199906' },
-    { index: 3, name: '吐司面包', categoryId: '1593049854760654816' },
-    { index: 4, name: '餐包面包', categoryId: '1626767161867698544' }
+    { name: '现烤面包', categoryId: '1593049816479739965' },
+    { name: '西点慕斯', categoryId: '1592989355905414162' },
+    { name: '常温蛋糕', categoryId: '1593049881212199906' },
+    { name: '吐司面包', categoryId: '1593049854760654816' },
+    { name: '餐包面包', categoryId: '1626767161867698544' }
 
   ];
 };
 
 const getOrderTimeType = () => {
   return [
-    { index: 0, name: '订货时间', timeType: '0' },
-    { index: 1, name: '到货时间', timeType: '2' }
+    { name: '订货时间', timeType: '0' },
+    { name: '到货时间', timeType: '2' }
   ];
 };
-
 
 const getAllOrderTemplateName = () => {
   return [
@@ -148,25 +138,25 @@ const getJustPrintWorkshopTemplates = () => {
 
 const getFlowType = () => {
   return [
-    { index: 0, name: '全部货单', flowTypeId: '' },
-    { index: 1, name: '门店进货单', flowTypeId: '12' },
-    { index: 2, name: '普通调货单', flowTypeId: '10' },
-    { index: 3, name: '调拨退货单', flowTypeId: '23' },
-    { index: 4, name: '普通出库单', flowTypeId: '17' },
-    { index: 5, name: '采购退货单', flowTypeId: '14' },
+    { name: '全部货单', flowTypeId: '' },
+    { name: '门店进货单', flowTypeId: '12' },
+    { name: '普通调货单', flowTypeId: '10' },
+    { name: '调拨退货单', flowTypeId: '23' },
+    { name: '普通出库单', flowTypeId: '17' },
+    { name: '采购退货单', flowTypeId: '14' },
   ];
 };
 
 const getOrderCashiers = () => {
   return [
-    { index: 0, name: '全部收银员', id: '' },
-    { index: 1, name: '德林-火烧铺1店', id: '1' },
-    { index: 2, name: '德林-火烧铺2店', id: '2' },
-    { index: 3, name: '德林-学府店', id: '3' },
-    { index: 4, name: '德林-假日店', id: '4' },
-    { index: 5, name: '锦客隆-西湖店', id: '5' },
-    { index: 6, name: '徐碧莲', id: '6' },
-    { index: 7, name: '王荣慧', id: '7' }
+    { name: '全部收银员', id: '' },
+    { name: '德林-火烧铺1店', id: '1' },
+    { name: '德林-火烧铺2店', id: '2' },
+    { name: '德林-学府店', id: '3' },
+    { name: '德林-假日店', id: '4' },
+    { name: '锦客隆-西湖店', id: '5' },
+    { name: '徐碧莲', id: '6' },
+    { name: '王荣慧', id: '7' }
   ];
 };
 

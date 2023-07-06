@@ -5,6 +5,7 @@ import ProductSaleAndDiscard from "./view/productSaleAndDiscard.js";
 import CouponSummary from "./view/couponSummary";
 import DIYReserve from "./view/diyReserve";
 import OrderManagement from "./view/orderManagement";
+import OrderManagement_1 from "./view/orderManagement_1";
 import ProductionPlanPrinter from "./view/productionPlanPrinter";
 import ProductDistributePrinter from "./view/productDistributePrinter";
 import ProductDistributeInputer from "./view/productDistributeInputer";
@@ -48,6 +49,7 @@ function Inside4QueryParams() {
       <Route path="/diyreserve" children={<DIYReserve query={query} />} />
       <Route path="/productionPlanPrinter" children={<ProductionPlanPrinter query={query} />} />
       <Route path="/orderManagement" children={<OrderManagement query={query} />} />
+      <Route path="/orderManagement_1" children={<OrderManagement_1 query={query} />} />
       <Route path="/productDistributePrinter" children={<ProductDistributePrinter query={query} />} />
       <Route path="/productDistributeInputer" children={<ProductDistributeInputer query={query} />} />
       <Route path="/productLabelPrinter" children={<ProductLabelPrinter query={query} />} />

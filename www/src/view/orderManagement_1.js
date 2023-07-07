@@ -40,6 +40,16 @@ const KOrderTimeType = getOrderTimeType();
 /// 报货门店名字
 const KAllOrderShopName = getAllOrderShopName();
 
+const KOrderDetailColumns4Table = [
+    { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '条码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '名称', dataIndex: 'orderProductName', key: 'orderProductName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '规格', dataIndex: 'specification', key: 'specification', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '类别', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+];
+
 class OrderManagement extends React.Component {
     constructor(props) {
         super(props);
@@ -63,6 +73,8 @@ class OrderManagement extends React.Component {
             orderDetailData: [],
             orderDetailLoading: false,
             orderDetailModalVisible: false,
+            currentOrderShopName: '',
+            currentOrderTime: ''
         };
     }
 
@@ -158,10 +170,10 @@ class OrderManagement extends React.Component {
         }
     };
 
-    fetchOrderDetail = async () => {
+    fetchOrderDetail = async (currentOrderId) => {
         try {
             this.setState({ orderDetailData: [], orderDetailLoading: true }, async () => {
-                const orderItems = await getProductOrderItems(this._currentOrderId);
+                const orderItems = await getProductOrderItems(currentOrderId);
                 let list = [];
                 if (orderItems && orderItems.errCode === 0 && orderItems.items) {
                     list = orderItems.items;
@@ -214,9 +226,7 @@ class OrderManagement extends React.Component {
         window.location.replace(productionPlanPrinterUrl);
     };
 
-    handleProductionPrint = async (e) => {
-        // console.log('handleProductionPrint e' + e);
-
+    handleProductionPrint = async () => {
         let paramValueObj = {};
 
         const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
@@ -325,7 +335,7 @@ class OrderManagement extends React.Component {
         window.location.replace(productionPlanInputerUrl);
     };
 
-    getDayTip = () => {
+    getDayTip4BeginAndEnd = () => {
         const {
             beginDateTime4OrderList,
             endDateTime4OrderList
@@ -442,7 +452,8 @@ class OrderManagement extends React.Component {
             currentOrderType4OrderList, currentOrderCashier, currentOrderTimeType,
             alreadyOrderLoading, beginDateTime4OrderList, endDateTime4OrderList,
             timePickerOpen4OrderList, selectedRowKeys4OrderList,
-            orderDetailData, orderDetailLoading, orderDetailModalVisible
+            orderDetailData, orderDetailLoading, orderDetailModalVisible,
+            currentOrderShopName, currentOrderTime
         } = this.state;
 
         const alreadyOrderRowSelection = {
@@ -484,12 +495,13 @@ class OrderManagement extends React.Component {
                 render: (text, record) => {
                     return (
                         <Space size="middle">
-                            <Button size='small' onClick={(e) => {
-                                this._currentOrderId = record.orderId;
-                                this._currentOrderShopName = record.orderShop;
-                                this._currentOrderTime = record.orderTime;
-                                this.setState({ orderDetailModalVisible: true }, () => {
-                                    this.fetchOrderDetail();
+                            <Button size='small' onClick={() => {
+                                this.setState({
+                                    orderDetailModalVisible: true,
+                                    currentOrderShopName: record.orderShop,
+                                    currentOrderTime: record.orderTime
+                                }, () => {
+                                    this.fetchOrderDetail(record.orderId);
                                 })
                             }}>查看</Button>
                         </Space>
@@ -497,16 +509,6 @@ class OrderManagement extends React.Component {
                 }
             },
             { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } }
-        ];
-
-        const KOrderDetailColumns4Table = [
-            { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '条码', dataIndex: 'barcode', key: 'barcode', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '名称', dataIndex: 'orderProductName', key: 'orderProductName', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '规格', dataIndex: 'specification', key: 'specification', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '类别', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
-            { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
         ];
 
         return (
@@ -644,12 +646,12 @@ class OrderManagement extends React.Component {
                         )}
                     />
                     <span style={{ marginLeft: 5, marginRight: 5, color: 'red', fontSize: 15 }}>
-                        {this.getDayTip()}
+                        {this.getDayTip4BeginAndEnd()}
                     </span>
                     <Button
                         style={{ width: 180, marginLeft: 8, marginTop: 4 }} type='primary'
                         disabled={alreadyOrderLoading}
-                        onClick={async (e) => { await this.fetchOrderList(); }}>
+                        onClick={() => { this.fetchOrderList(); }}>
                         查询订货单
                     </Button>
 
@@ -693,8 +695,8 @@ class OrderManagement extends React.Component {
                     maskClosable={false}
                     title={(
                         <div>
-                            <div style={{ color: 'gray', fontSize: 8 }}>{this._currentOrderShopName}</div>
-                            <div style={{ color: 'gray', fontSize: 8 }}>{this._currentOrderTime}</div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderShopName}</div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderTime}</div>
                         </div>
                     )}
                     open={orderDetailModalVisible}

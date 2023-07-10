@@ -191,7 +191,7 @@ class ProductDistributePrinter extends React.Component {
         let paramValueObj = paramObj;
         let paramValueStr = JSON.stringify(paramValueObj);
         let paramStr = 'param=' + escape(paramValueStr);
-        let orderManagementUrl = getWWWHost() + '/orderManagement_1';
+        let orderManagementUrl = getWWWHost() + '/orderManagement1';
         orderManagementUrl += '?';
         orderManagementUrl += paramStr;
         window.location.replace(orderManagementUrl);

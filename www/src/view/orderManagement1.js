@@ -220,14 +220,14 @@ class OrderManagement extends React.Component {
     handleProductionPrint = () => {
         window.location.replace(
             getWWWHost() +
-            '/productionPlanPrinter_1?' +
+            '/productionPlanPrinter1?' +
             this.makeParamByState());
     };
     // 配货单打印
     handleDistributionPrint = () => {
         window.location.replace(
             getWWWHost() +
-            '/productDistributePrinter_1?' +
+            '/productDistributePrinter1?' +
             this.makeParamByState());
     };
 

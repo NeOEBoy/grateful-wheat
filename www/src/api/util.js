@@ -160,6 +160,51 @@ const getOrderCashiers = () => {
   ];
 };
 
+const getCategory4ProductPlanPrint = () => {
+  return [
+    {
+      'pDepartment': '裱花间',
+      'pCategory': ['弯麦小蛋糕', '弯麦西点慕斯']//分类名称和银豹系统一致
+    },
+    {
+      'pDepartment': '常温车间',
+      'pCategory': ['弯麦常温蛋糕']
+    },
+    {
+      'pDepartment': '现烤车间',
+      'pCategory': ['弯麦现烤面包']
+    },
+    {
+      'pDepartment': '面包车间',
+      'pCategory': ['弯麦餐包面包']
+    },
+    {
+      'pDepartment': '面包车间',
+      'pCategory': ['弯麦吐司面包']
+    }];
+}
+
+const getCategory4ProductDistributePrint = () => {
+  return [
+    {
+      'pDepartment': '裱花间',
+      'pCategory': ['弯麦小蛋糕', '弯麦西点慕斯']//分类名称和银豹系统一致
+    },
+    {
+      'pDepartment': '常温车间',
+      'pCategory': ['弯麦现烤面包', '弯麦常温蛋糕']
+    },
+    {
+      'pDepartment': '面包车间',
+      'pCategory': ['弯麦餐包面包']
+    },
+    {
+      'pDepartment': '面包车间',
+      'pCategory': ['弯麦吐司面包']
+    }];
+}
+
+
 // 'EPSON L380 Series' 或者 'EPSON LQ-735K ESC/P2'
 const KA4PrinterName = 'EPSON L380 Series';
 const getA4PrinterName = () => {
@@ -239,6 +284,8 @@ export {
   getProductSortIdArray,
   getTemplateSortIdArray,
   getJustPrintWorkshopTemplates,
+  getCategory4ProductPlanPrint,
+  getCategory4ProductDistributePrint,
   getA4PrinterName,
   getA4PrinterIndex,
   getPageName4A4Printer,

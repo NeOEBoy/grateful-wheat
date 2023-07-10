@@ -17,7 +17,6 @@ import {
 import {
     getWWWHost,
     getAllShop,
-    getAllOrderShopName,
     getOrderTemplates,
     getOrderTypes,
     getOrderTimeType,
@@ -37,8 +36,6 @@ const KOrderTypes = getOrderTypes();
 const KOrderCashiers = getOrderCashiers();
 /// 订单时间类型
 const KOrderTimeType = getOrderTimeType();
-/// 报货门店名字
-const KAllOrderShopName = getAllOrderShopName();
 
 const KOrderDetailColumns4Table = [
     { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -67,8 +64,6 @@ class OrderManagement extends React.Component {
             endDateTime4OrderList: moment().endOf('day'),
             timePickerOpen4OrderList: false,
             selectedRowKeys4OrderList: [],
-            noyetOrderShops: [],
-            noyetOrderTemplates: [],
 
             orderDetailData: [],
             orderDetailLoading: false,
@@ -78,15 +73,17 @@ class OrderManagement extends React.Component {
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         let query = this.props.query;
         let paramValueStr = query && query.get('param');
-        // console.log(paramValueStr);
-        if (paramValueStr) {
-            paramValueStr = unescape(paramValueStr);
-            // console.log(paramValueStr);
-            let paramValueObj = JSON.parse(paramValueStr);
+        this.initFilterByParam(paramValueStr);
+        this.fetchOrderList();
+    };
 
+    initFilterByParam(param) {
+        if (param) {
+            param = unescape(param);
+            let paramValueObj = JSON.parse(param);
             this.setState({
                 currentTemplate4OrderList: paramValueObj.template,
                 currentOrderType4OrderList: paramValueObj.orderType,
@@ -97,21 +94,61 @@ class OrderManagement extends React.Component {
                 endDateTime4OrderList: moment(paramValueObj.endDateTime)
             });
         }
+    }
 
-        await this.fetchOrderList();
-    };
+    makeParamByState() {
+        let paramValueObj = {};
+
+        const {
+            alreadyOrderListData,
+            currentShop4OrderList,
+            currentTemplate4OrderList,
+            currentOrderType4OrderList,
+            currentOrderCashier,
+            currentOrderTimeType,
+            selectedRowKeys4OrderList,
+            beginDateTime4OrderList,
+            endDateTime4OrderList } = this.state;
+        let alreadyOrderListDataAfterFilter = [];
+        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
+            let orderItem = alreadyOrderListData[ii];
+            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
+            alreadyOrderListDataAfterFilter.push(orderItem);
+        }
+
+        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
+        paramValueObj.template = currentTemplate4OrderList;
+        paramValueObj.orderType = currentOrderType4OrderList;
+        paramValueObj.orderCashier = currentOrderCashier;
+        paramValueObj.timeType = currentOrderTimeType;
+        paramValueObj.shop = currentShop4OrderList;
+        paramValueObj.beginDateTime = beginDateTime4OrderList;
+        paramValueObj.endDateTime = endDateTime4OrderList;
+
+        let paramValueStr = JSON.stringify(paramValueObj);
+        let paramStr = 'param=' + escape(paramValueStr);
+
+        return paramStr;
+    }
 
     fetchOrderList = async () => {
         try {
             this.setState({
-                alreadyOrderListData: [], alreadyOrderLoading: true, selectedRowKeys4OrderList: []
+                alreadyOrderListData: [],
+                alreadyOrderLoading: true,
+                selectedRowKeys4OrderList: []
             }, async () => {
-                const { currentShop4OrderList, currentTemplate4OrderList,
-                    currentOrderType4OrderList, currentOrderCashier, currentOrderTimeType,
-                    beginDateTime4OrderList, endDateTime4OrderList } = this.state;
+                const {
+                    currentShop4OrderList,
+                    currentTemplate4OrderList,
+                    currentOrderType4OrderList,
+                    currentOrderCashier,
+                    currentOrderTimeType,
+                    beginDateTime4OrderList,
+                    endDateTime4OrderList
+                } = this.state;
                 let orderList = [];
-                let keys = [];
-                let noyetOrderShops = KAllOrderShopName;
+                let selectedRowKeys = [];
                 let beginDateTimeStr = beginDateTime4OrderList.format('YYYY.MM.DD%2BHH:mm:ss');
                 let endDateTimeStr = endDateTime4OrderList.format('YYYY.MM.DD%2BHH:mm:ss');
                 const productOrder = await getProductOrderList(currentShop4OrderList.userId,
@@ -133,40 +170,21 @@ class OrderManagement extends React.Component {
                     orderList = orderList.sort((item1, item2) => {
                         return item1.orderShopIndex - item2.orderShopIndex;
                     });
-                    let alreadyOrderShops = [];
-                    let alreadyOrderTemplates = [];
                     orderList.forEach(order => {
                         order.key = orderList.indexOf(order) + 1;
-                        keys.push(order.key);
-
-                        if (alreadyOrderShops.indexOf(order.orderShop) === -1) {
-                            alreadyOrderShops.push(order.orderShop);
-                        }
-                        if (alreadyOrderTemplates.indexOf(order.templateName) === -1) {
-                            alreadyOrderTemplates.push(order.templateName);
-                        }
-                    });
-
-                    noyetOrderShops = [];
-                    KAllOrderShopName.forEach(orderItem => {
-                        if (alreadyOrderShops.indexOf(orderItem) === -1) {
-                            noyetOrderShops.push(orderItem);
-                        }
+                        selectedRowKeys.push(order.key);
                     });
                 }
-                // console.log(keys);
+                // console.log(selectedRowKeys);
 
                 this.setState({
                     alreadyOrderListData: orderList,
-                    selectedRowKeys4OrderList: keys,
-                    alreadyOrderLoading: false,
-                    noyetOrderShops: noyetOrderShops
+                    selectedRowKeys4OrderList: selectedRowKeys,
+                    alreadyOrderLoading: false
                 });
             });
         } catch (err) {
-            this.setState({
-                alreadyOrderLoading: false
-            });
+            this.setState({ alreadyOrderLoading: false });
         }
     };
 
@@ -191,149 +209,34 @@ class OrderManagement extends React.Component {
         this.setState({ selectedRowKeys4OrderList: selectedRowKeys });
     };
 
-    handleProductLabelPrint = async (e) => {
-        let paramValueObj = {};
-
-        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
-            currentOrderTimeType, selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
-        let alreadyOrderListDataAfterFilter = [];
-        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
-            let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
-            alreadyOrderListDataAfterFilter.push(orderItem);
-        }
-
-        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate4OrderList;
-        paramValueObj.orderType = currentOrderType4OrderList;
-        paramValueObj.orderCashier = currentOrderCashier;
-        paramValueObj.timeType = currentOrderTimeType;
-        paramValueObj.shop = currentShop4OrderList;
-        paramValueObj.beginDateTime = beginDateTime4OrderList;
-        paramValueObj.endDateTime = endDateTime4OrderList;
-
-        let paramValueStr = JSON.stringify(paramValueObj);
-        console.log('paramValueStr = ' + paramValueStr);
-
-        let paramStr = 'param=' + escape(paramValueStr);
-        console.log(paramStr);
-
-        let productionPlanPrinterUrl = getWWWHost() + '/productLabelPrinter';
-
-        productionPlanPrinterUrl += '?';
-        productionPlanPrinterUrl += paramStr;
-        /// 采用覆盖方式跳转新页面，不产生历史记录
-        window.location.replace(productionPlanPrinterUrl);
+    handleProductLabelPrint = async () => {
+        window.location.replace(
+            getWWWHost() +
+            '/productLabelPrinter?' +
+            this.makeParamByState());
     };
 
-    handleProductionPrint = async () => {
-        let paramValueObj = {};
-
-        const { alreadyOrderListData, currentShop4OrderList, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
-            currentOrderTimeType, selectedRowKeys4OrderList, beginDateTime4OrderList, endDateTime4OrderList } = this.state;
-        let alreadyOrderListDataAfterFilter = [];
-        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
-            let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
-            alreadyOrderListDataAfterFilter.push(orderItem);
-        }
-
-        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate4OrderList;
-        paramValueObj.orderType = currentOrderType4OrderList;
-        paramValueObj.orderCashier = currentOrderCashier;
-        paramValueObj.timeType = currentOrderTimeType;
-        paramValueObj.shop = currentShop4OrderList;
-        paramValueObj.beginDateTime = beginDateTime4OrderList;
-        paramValueObj.endDateTime = endDateTime4OrderList;
-
-        let paramValueStr = JSON.stringify(paramValueObj);
-        // console.log('paramValueStr = ' + paramValueStr);
-
-        let paramStr = 'param=' + escape(paramValueStr);
-        // console.log(paramStr);
-
-        let productionPlanPrinterUrl = getWWWHost() + '/productionPlanPrinter';
-
-        productionPlanPrinterUrl += '?';
-        productionPlanPrinterUrl += paramStr;
-        /// 采用覆盖方式跳转新页面，不产生历史记录
-        window.location.replace(productionPlanPrinterUrl);
+    // 生产单打印
+    handleProductionPrint = () => {
+        window.location.replace(
+            getWWWHost() +
+            '/productionPlanPrinter_1?' +
+            this.makeParamByState());
+    };
+    // 配货单打印
+    handleDistributionPrint = () => {
+        window.location.replace(
+            getWWWHost() +
+            '/productDistributePrinter_1?' +
+            this.makeParamByState());
     };
 
-    handleDistributionPrint = async (e) => {
-        // console.log('handleDistributionPrint e' + e);
-
-        let paramValueObj = {};
-
-        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
-            currentOrderTimeType, currentShop4OrderList, beginDateTime4OrderList, endDateTime4OrderList,
-            selectedRowKeys4OrderList } = this.state;
-        let alreadyOrderListDataAfterFilter = [];
-        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
-            let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
-            alreadyOrderListDataAfterFilter.push(orderItem);
-        }
-
-        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate4OrderList;
-        paramValueObj.orderType = currentOrderType4OrderList;
-        paramValueObj.orderCashier = currentOrderCashier;
-        paramValueObj.timeType = currentOrderTimeType;
-        paramValueObj.shop = currentShop4OrderList;
-        paramValueObj.beginDateTime = beginDateTime4OrderList;
-        paramValueObj.endDateTime = endDateTime4OrderList;
-
-        let paramValueStr = JSON.stringify(paramValueObj);
-        // console.log('paramValueStr = ' + paramValueStr);
-
-        let paramStr = 'param=' + escape(paramValueStr);
-        // console.log(paramStr);
-
-        let productDistributePrinterUrl = getWWWHost() + '/productDistributePrinter';
-
-        productDistributePrinterUrl += '?';
-        productDistributePrinterUrl += paramStr;
-        window.location.replace(productDistributePrinterUrl);
-    };
-
-    handleDistributionInput = async (e) => {
-        // console.log('handleDistributionInput e' + e);
-
-        let paramValueObj = {};
-
-        const { alreadyOrderListData, currentTemplate4OrderList, currentOrderType4OrderList, currentOrderCashier,
-            currentShop4OrderList, currentOrderTimeType, beginDateTime4OrderList,
-            endDateTime4OrderList, selectedRowKeys4OrderList } = this.state;
-        let alreadyOrderListDataAfterFilter = [];
-        for (let ii = 0; ii < alreadyOrderListData.length; ++ii) {
-            let orderItem = alreadyOrderListData[ii];
-            if (selectedRowKeys4OrderList.indexOf(orderItem.key) === -1) continue;
-            alreadyOrderListDataAfterFilter.push(orderItem);
-        }
-
-        paramValueObj.orderList = alreadyOrderListDataAfterFilter;
-        paramValueObj.template = currentTemplate4OrderList;
-        paramValueObj.orderType = currentOrderType4OrderList;
-        paramValueObj.orderCashier = currentOrderCashier;
-        paramValueObj.timeType = currentOrderTimeType;
-        paramValueObj.shop = currentShop4OrderList;
-        paramValueObj.beginDateTime = beginDateTime4OrderList;
-        paramValueObj.endDateTime = endDateTime4OrderList;
-
-        let paramValueStr = JSON.stringify(paramValueObj);
-        // console.log('paramValueStr = ' + paramValueStr);
-
-        let paramStr = 'param=' + escape(paramValueStr);
-        // console.log(paramStr);
-
-        let productionPlanInputerUrl = getWWWHost() + '/productDistributeInputer';
-
-        productionPlanInputerUrl += '?';
-        productionPlanInputerUrl += paramStr;
-        window.location.replace(productionPlanInputerUrl);
-    };
+    // handleDistributionInput = () => {
+    //     window.location.replace(
+    //         getWWWHost() +
+    //         '/productDistributeInputer?' +
+    //         this.makeParamByState());
+    // };
 
     getDayTip4BeginAndEnd = () => {
         const {
@@ -473,10 +376,10 @@ class OrderManagement extends React.Component {
             currentTemplate4OrderList.templateId !== '' ||
             selectedRowKeys4OrderList.length <= 0;
 
-        let disableSubmitButton =
-            currentShop4OrderList.userId === '' ||
-            currentTemplate4OrderList.templateId !== '' ||
-            alreadyOrderLoading;
+        // let disableSubmitButton =
+        //     currentShop4OrderList.userId === '' ||
+        //     currentTemplate4OrderList.templateId !== '' ||
+        //     alreadyOrderLoading;
 
         /// 订单列表头配置
         const KOrderColumns4Table = [
@@ -678,11 +581,11 @@ class OrderManagement extends React.Component {
                                         style={{ width: 160, height: 30, marginLeft: 20, marginTop: 10 }}>
                                         打印配货单&标签
                                     </Button>
-                                    <Button danger disabled={disableSubmitButton} type='primary'
+                                    {/* <Button danger disabled={disableSubmitButton} type='primary'
                                         onClick={this.handleDistributionInput}
                                         style={{ width: 160, height: 30, marginLeft: 20, marginTop: 10 }}>
                                         开始配货
-                                    </Button>
+                                    </Button> */}
                                 </div>
                             )
                         }} />

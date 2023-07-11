@@ -570,7 +570,11 @@ class OrderManagement extends React.Component {
                         title={() => {
                             return (
                                 <div style={{ height: 50, fontSize: 16 }}>
-                                    <span>{`总共 ${alreadyOrderListData.length} 项，已选 ${selectedRowKeys4OrderList.length} 项`}</span>
+                                    <span>{`总共 `}</span>
+                                    <span style={{ fontSize: 24, color: 'green' }}>{`${alreadyOrderListData.length}`}</span>
+                                    <span>{` 项，已选 `}</span>
+                                    <span style={{ fontSize: 24, color: 'red' }}>{`${selectedRowKeys4OrderList.length}`}</span>
+                                    <span>{` 项`}</span>
                                     <Button danger disabled={disableProductionPrint} type='primary'
                                         onClick={this.handleProductionPrint}
                                         style={{ width: 160, height: 30, marginLeft: 20, marginTop: 2 }}>

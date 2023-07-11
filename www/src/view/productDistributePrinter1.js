@@ -39,8 +39,8 @@ const KLabelPrintState = {
 }
 
 const KAmOrPmTypeOptions = [
-    { label: '早上', value: 'z' },
-    { label: '下午', value: 'zz' }
+    { label: '早上 z', value: 'z' },
+    { label: '下午 zz', value: 'zz' }
 ];
 
 class ProductDistributePrinter extends React.Component {
@@ -61,9 +61,9 @@ class ProductDistributePrinter extends React.Component {
             selectedRowKeys4LabelPrintTemplateList: [],
             selectedRows4LabelPrintTemplateList: [],
 
-            productLabelPrintProductionDate: moment(),
-            amOrPmType: KAmOrPmTypeOptions[1].value,
-            productLabelPrintExpirationDate: moment().add(3, 'days').endOf('day'),
+            productLabelPrintProductionDate: moment().add(2, 'days'),
+            amOrPmType: KAmOrPmTypeOptions[0].value,
+            productLabelPrintExpirationDate: moment().add(5, 'days').endOf('day'),
             productLabelPrintProductionTemplate4Preview: {},
             productLabelPrintProductionTitle: '',
 
@@ -281,7 +281,7 @@ class ProductDistributePrinter extends React.Component {
             selectedRowKeys4LabelPrintTemplateList: [],
             selectedRows4LabelPrintTemplateList: [],
             productLabelPrintState: KLabelPrintState.prepare,
-            amOrPmType: KAmOrPmTypeOptions[1].value,
+            amOrPmType: KAmOrPmTypeOptions[0].value,
             productLabelPrintProductionTemplate4Preview: {
                 name: '弯麦-<产品名称>',
                 barcode: '<12位条码>',
@@ -569,11 +569,13 @@ class ProductDistributePrinter extends React.Component {
             labelPrintModalOkText = '打印完成，点击关闭';
         }
 
-        let labelPrintModalOkButtonDisable = productLabelPrintState === KLabelPrintState.prepare && selectedRows4LabelPrintTemplateList.length <= 0;
+        let labelPrintModalOkButtonDisable =
+            productLabelPrintState === KLabelPrintState.prepare &&
+            selectedRows4LabelPrintTemplateList.length <= 0;
 
         const KTemplateColumns4Table = [
             {
-                title: '序', dataIndex: 'key', key: 'key', width: 20, render: (text) => {
+                title: '序', dataIndex: 'key', key: 'key', width: 30, render: (text) => {
                     return <div style={{ fontSize: 10, textAlign: 'center' }}>{text}</div>;
                 }
             },
@@ -584,7 +586,7 @@ class ProductDistributePrinter extends React.Component {
             },
             {
                 title: '分类商品', dataIndex: 'templateName', key: 'templateName', width: '*', render: (text) => {
-                    return <Button style={{ fontSize: 14, textAlign: 'center', color: 'red' }} onClick={() => {
+                    return <Button disabled size='small' style={{ fontSize: 10, textAlign: 'center' }} onClick={() => {
                         // this.setState({
                         //     productLabelPrintTemplateProductModalVisible: true,
                         //     productLabelPrintTemplateProductList: []
@@ -772,8 +774,8 @@ class ProductDistributePrinter extends React.Component {
                 </div >
 
                 <Modal
-                    width={600}
-                    style={{ top: 0 }}
+                    width={1100}
+                    style={{ top: 50 }}
                     keyboard={true}
                     maskClosable={false}
                     title={(
@@ -815,60 +817,67 @@ class ProductDistributePrinter extends React.Component {
                             });
                         }
                     }}>
-                    <Table
-                        style={{ marginTop: -12 }}
-                        disabled={true}
-                        size='small'
-                        dataSource={productLabelPrintTemplateList}
-                        columns={KTemplateColumns4Table}
-                        rowSelection={KTemplateRowSelection}
-                        pagination={false} bordered />
-                    <div style={{ marginTop: 12 }}>
-                        <DatePicker picker='day'
-                            size='small'
-                            style={{ width: 170, marginLeft: 100 }}
-                            placeholder='选择生产日期'
-                            format='YYYY-MM-DD dddd'
-                            value={productLabelPrintProductionDate}
-                            onChange={this.handleProductLabelPrintProductionDateChange} />
-                        <span>
-                            <Radio.Group style={{ marginTop: 8, margeLeft: 8 }}
-                                options={KAmOrPmTypeOptions}
-                                value={amOrPmType}
-                                onChange={this.handleAmOrPmTypeChange}>
-                            </Radio.Group>
-                        </span>
-                        <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', marginTop: 6, marginBottom: 2 }} />
-                        <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
-                        <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 110 }}>
-                            <div style={{ textAlign: 'center', fontSize: 16, marginTop: 2 }}>
-                                {productLabelPrintProductionTemplate4Preview.name}
-                            </div>
-                            <div style={{ textAlign: 'center', fontSize: 14, marginTop: 0 }}>
-                                {productLabelPrintProductionTemplate4Preview.barcode}
-                            </div>
-                            <img alt='none' id='image4barcode' style={{
-                                height: 55, width: 284,
-                                marginLeft: 16, backgroundColor: 'lightgray'
-                            }} />
-                            <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
-                                {productLabelPrintProductionTemplate4Preview.ingredients}
-                            </div>
-                            <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
-                                {productLabelPrintProductionTemplate4Preview.productLabelPrintProductionDateAndTime}
-                            </div>
-                            <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
-                                <span>{productLabelPrintProductionTemplate4Preview.expirationDate}</span>
-                            </div>
-                            <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
-                                生产商：漳州市古西优作食品有限公司漳浦分公司
-                            </div>
-                            <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
-                                地址：漳浦县府前街西247号
-                            </div>
-                            <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
-                                <span>电话：13290768588</span>
-                                <span style={{ marginLeft: 100 }}>{productLabelPrintProductionTemplate4Preview.price}</span>
+                    <div>
+                        <div style={{ display: 'inline-block' }}>
+                            <Table
+                                style={{ top: 0, width: 550 }}
+                                disabled={true}
+                                size='small'
+                                scroll={{ y: 250 }}
+                                dataSource={productLabelPrintTemplateList}
+                                columns={KTemplateColumns4Table}
+                                rowSelection={KTemplateRowSelection}
+                                pagination={false} bordered />
+                        </div>
+
+                        <div style={{ display: 'inline-block', paddingLeft: 16, marginTop: -18, width: 500 }}>
+                            <div style={{ fontSize: 16, textAlign: 'center' }}>生产日期</div>
+                            <DatePicker picker='day'
+                                size='small'
+                                style={{ width: 170, marginLeft: 100 }}
+                                placeholder='选择生产日期'
+                                format='YYYY-MM-DD dddd'
+                                value={productLabelPrintProductionDate}
+                                onChange={this.handleProductLabelPrintProductionDateChange} />
+                            <span style={{ marginLeft: 18 }}>
+                                <Radio.Group style={{ marginTop: 8, margeLeft: 8 }}
+                                    options={KAmOrPmTypeOptions}
+                                    value={amOrPmType}
+                                    onChange={this.handleAmOrPmTypeChange}>
+                                </Radio.Group>
+                            </span>
+                            <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', margeLeft: 8, marginTop: 6, marginBottom: 2 }} />
+                            <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
+                            <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 80 }}>
+                                <div style={{ textAlign: 'center', fontSize: 16, marginTop: 2 }}>
+                                    {productLabelPrintProductionTemplate4Preview.name}
+                                </div>
+                                <div style={{ textAlign: 'center', fontSize: 14, marginTop: 0 }}>
+                                    {productLabelPrintProductionTemplate4Preview.barcode}
+                                </div>
+                                <img alt='none' id='image4barcode' style={{
+                                    height: 55, width: 284,
+                                    marginLeft: 16, backgroundColor: 'lightgray'
+                                }} />
+                                <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
+                                    {productLabelPrintProductionTemplate4Preview.ingredients}
+                                </div>
+                                <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
+                                    {productLabelPrintProductionTemplate4Preview.productLabelPrintProductionDateAndTime}
+                                </div>
+                                <div style={{ textAlign: 'left', fontSize: 14, marginTop: 0, marginLeft: 14 }}>
+                                    <span>{productLabelPrintProductionTemplate4Preview.expirationDate}</span>
+                                </div>
+                                <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
+                                    生产商：漳州市古西优作食品有限公司漳浦分公司
+                                </div>
+                                <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
+                                    地址：漳浦县府前街西247号
+                                </div>
+                                <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
+                                    <span>电话：13290768588</span>
+                                    <span style={{ marginLeft: 100 }}>{productLabelPrintProductionTemplate4Preview.price}</span>
+                                </div>
                             </div>
                         </div>
                     </div>

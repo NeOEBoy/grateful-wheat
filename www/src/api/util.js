@@ -56,7 +56,8 @@ const getOrderTemplates = () => {
     { name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
     { name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
     { name: '餐包类', templateId: '182', templateUid: '1595077405589137749' },
-    { name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' }
+    { name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' },
+    { name: '全部类型', templateId: '4974', templateUid: '1688217806649695085' },
   ];
 };
 
@@ -99,6 +100,7 @@ const getAllOrderTemplateName = () => {
     '常温类',
     '餐包类',
     '吐司类',
+    '全部类型'
   ];
 };
 
@@ -129,11 +131,12 @@ const getTemplateSortIdArray = () => {
     '常温类': 3,
     '餐包类': 4,
     '吐司类': 5,
+    '全部类型': 6
   };
 };
 
 const getJustPrintWorkshopTemplates = () => {
-  return ['现烤类', '西点类', '常温类', '餐包类', '吐司类'];
+  return ['现烤类', '西点类', '常温类', '餐包类', '吐司类', '全部类型'];
 };
 
 const getFlowType = () => {

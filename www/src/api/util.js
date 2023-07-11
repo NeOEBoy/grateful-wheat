@@ -163,23 +163,23 @@ const getOrderCashiers = () => {
 const getCategory4ProductPlanPrint = () => {
   return [
     {
-      'pDepartment': '裱花间',
-      'pCategory': ['弯麦小蛋糕', '弯麦西点慕斯']//分类名称和银豹系统一致
+      'pDepartment': '前场',
+      'pCategory': ['弯麦小蛋糕', '弯麦西点慕斯', '弯麦小饮料']//分类名称和银豹系统一致
     },
     {
-      'pDepartment': '常温车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦常温蛋糕']
     },
     {
-      'pDepartment': '现烤车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦现烤面包']
     },
     {
-      'pDepartment': '面包车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦餐包面包']
     },
     {
-      'pDepartment': '面包车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦吐司面包']
     }];
 }
@@ -187,19 +187,19 @@ const getCategory4ProductPlanPrint = () => {
 const getCategory4ProductDistributePrint = () => {
   return [
     {
-      'pDepartment': '裱花间',
-      'pCategory': ['弯麦小蛋糕', '弯麦西点慕斯']//分类名称和银豹系统一致
+      'pDepartment': '前场',
+      'pCategory': ['弯麦小蛋糕', '弯麦西点慕斯', '弯麦小饮料']//分类名称和银豹系统一致
     },
     {
-      'pDepartment': '常温车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦现烤面包', '弯麦常温蛋糕']
     },
     {
-      'pDepartment': '面包车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦餐包面包']
     },
     {
-      'pDepartment': '面包车间',
+      'pDepartment': '后场',
       'pCategory': ['弯麦吐司面包']
     }];
 }

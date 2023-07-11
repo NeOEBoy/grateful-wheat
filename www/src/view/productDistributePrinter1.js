@@ -176,7 +176,7 @@ class ProductDistributePrinter extends React.Component {
                 }
                 category4ProductDistribute.push(newCategoryGroupItems);
             }
-            console.log('category4ProductDistribute = ' + JSON.stringify(category4ProductDistribute));
+            // console.log('category4ProductDistribute = ' + JSON.stringify(category4ProductDistribute));
 
             this.setState({
                 productSpinning: false,
@@ -241,42 +241,41 @@ class ProductDistributePrinter extends React.Component {
 
     productLabelPrintStart = async () => {
         let productLabelPrintTemplateList = [];
-        const { allDistributionDataToBePrint, productLabelPrintProductionTitle } = this.state;
+        const { allDistributionDataToBePrint } = this.state;
         for (let i = 0; i < allDistributionDataToBePrint.length; ++i) {
-            let templateName = allDistributionDataToBePrint[i].templateName;
-            let items = allDistributionDataToBePrint[i].items;
-            let orderShop = allDistributionDataToBePrint[i].orderShop;
-            let orderType = allDistributionDataToBePrint[i].orderType;
-            let orderCashier = allDistributionDataToBePrint[i].orderCashier;
-
-            if (templateName && items.length > 0) {
-                let item = {};
-                item.key = i + 1;
-                item.templateName = templateName;
-                item.items = [];
-                for (let j = 0; j < items.length; ++j) {
-                    let product = items[j];
-                    item.items.push({ ...product });
+            let departmentItems = allDistributionDataToBePrint[i].items;
+            if (departmentItems.length > 0) {
+                for (let j = 0; j < departmentItems.length; ++j) {
+                    let category = departmentItems[j];
+                    let categoryName = category.categoryName;
+                    let productItems = category.categoryItems;
+                    if (productItems.length > 0) {
+                        let categoryItem = {};
+                        categoryItem.key = productLabelPrintTemplateList.length;
+                        categoryItem.categoryName = categoryName;
+                        categoryItem.items = [];
+                        for (let k = 0; k < productItems.length; ++k) {
+                            let product = productItems[k];
+                            categoryItem.items.push({ ...product });
+                        }
+                        categoryItem.printStatus = KLabelPrintState.none;
+                        categoryItem.printProgress = '';
+                        productLabelPrintTemplateList.push(categoryItem);
+                    }
                 }
-                item.printStatus = KLabelPrintState.none;
-                item.printProgress = '';
-                productLabelPrintTemplateList.push(item);
-            }
-            if (productLabelPrintProductionTitle === '') {
-                this.setState({
-                    productLabelPrintProductionTitle:
-                        orderShop + '=>' + orderType + '=>' + orderCashier
-                });
             }
         }
 
         // console.log('productLabelPrintTemplateList =' + JSON.stringify(productLabelPrintTemplateList));
 
         const {
+            paramObj,
             productLabelPrintProductionDate,
             productLabelPrintExpirationDate
         } = this.state;
         this.setState({
+            productLabelPrintProductionTitle:
+                paramObj.shop.name + '=>' + paramObj.orderType.name + '=>' + paramObj.orderCashier.name,
             productLabelPrintTemplateList: productLabelPrintTemplateList,
             productLabelPrintModalVisible: true,
             selectedRowKeys4LabelPrintTemplateList: [],
@@ -579,27 +578,27 @@ class ProductDistributePrinter extends React.Component {
                 }
             },
             {
-                title: '模板分类', dataIndex: 'templateName', key: 'templateName', width: 100, render: (text) => {
+                title: '商品分类', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => {
                     return <div style={{ fontSize: 12, textAlign: 'center' }}>{text}</div>;
                 }
             },
             {
                 title: '分类商品', dataIndex: 'templateName', key: 'templateName', width: '*', render: (text) => {
                     return <Button style={{ fontSize: 14, textAlign: 'center', color: 'red' }} onClick={() => {
-                        this.setState({
-                            productLabelPrintTemplateProductModalVisible: true,
-                            productLabelPrintTemplateProductList: []
-                        }, () => {
-                            const { productLabelPrintTemplateList } = this.state;
-                            for (let index = 0; index < productLabelPrintTemplateList.length; ++index) {
-                                let name = productLabelPrintTemplateList.templateName;
-                                if (name === text) {
-                                    let items = productLabelPrintTemplateList.items;
-                                    this.setState({ productLabelPrintTemplateProductList: items });
-                                }
-                            }
-                            /// todo 洗洗睡了，有空再码
-                        });
+                        // this.setState({
+                        //     productLabelPrintTemplateProductModalVisible: true,
+                        //     productLabelPrintTemplateProductList: []
+                        // }, () => {
+                        //     const { productLabelPrintTemplateList } = this.state;
+                        //     for (let index = 0; index < productLabelPrintTemplateList.length; ++index) {
+                        //         let name = productLabelPrintTemplateList.templateName;
+                        //         if (name === text) {
+                        //             let items = productLabelPrintTemplateList.items;
+                        //             this.setState({ productLabelPrintTemplateProductList: items });
+                        //         }
+                        //     }
+                        //     /// todo 洗洗睡了，有空再码
+                        // });
                     }}>点击打开商品</Button>;
                 }
             },
@@ -754,7 +753,6 @@ class ProductDistributePrinter extends React.Component {
                                                                                     </tbody>
                                                                                 </table>
                                                                             </th>
-
                                                                         </tr>
                                                                     </tbody>
                                                                 );

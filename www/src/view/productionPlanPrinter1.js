@@ -247,7 +247,7 @@ class ProductionPlanPrinter extends React.Component {
                                         return columnData.items.length > 0 ? (
                                             <div key={columnData.key} style={{ float: 'left', zIndex: 10, backgroundColor: 'transparent', marginTop: 10, height: 949 }}>
                                                 <div style={{ float: 'left', marginLeft: 0, width: 38, height: 949, backgroundColor: 'transparent' }} />
-                                                <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
+                                                <table border='0' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                     <thead>
                                                         <tr>
                                                             <th colSpan='2' style={{ fontSize: 24, width: 318, textAlign: 'center', backgroundColor: 'lightyellow' }}>
@@ -261,7 +261,7 @@ class ProductionPlanPrinter extends React.Component {
                                                                 <tbody key={categoryGroupItem.key}>
                                                                     <tr>
                                                                         <th>
-                                                                            <table border='0' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
+                                                                            <table border='1' cellSpacing='0' style={{ float: 'left', borderCollapse: 'collapse' }}>
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th colSpan='2' style={{ fontSize: 20, width: 318, textAlign: 'center', backgroundColor: 'lightyellow' }}>
@@ -278,8 +278,14 @@ class ProductionPlanPrinter extends React.Component {
                                                                                         categoryGroupItem.categoryItems.map((productItem) => {
                                                                                             return (
                                                                                                 <tr key={productItem.key}>
-                                                                                                    <th key='1' style={{ textAlign: 'center', fontWeight: 'lighter', fontSize: 20 }}>{productItem.orderProductName}</th>
-                                                                                                    <th key='2' style={{ textAlign: 'center', fontWeight: 'lighter', fontSize: 22, }}>{productItem.orderNumber}</th>
+                                                                                                    <th key='1' style={{
+                                                                                                        textAlign: 'center', fontWeight: 'lighter', fontSize: 22,
+                                                                                                        paddingTop: 4, paddingBottom: 4
+                                                                                                    }}>{productItem.orderProductName}</th>
+                                                                                                    <th key='2' style={{
+                                                                                                        textAlign: 'center', fontWeight: 'lighter', fontSize: 24,
+                                                                                                        paddingTop: 4, paddingBottom: 4
+                                                                                                    }}>{productItem.orderNumber}</th>
                                                                                                 </tr>)
                                                                                         })
                                                                                     }

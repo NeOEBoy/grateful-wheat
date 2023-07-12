@@ -23,7 +23,7 @@ const getWWWHost = () => {
 
 const getAllShop = () => {
   return [
-    { name: '全部门店', userId: '' },
+    { name: '所有门店', userId: '' },
     { name: '001 - 弯麦(教育局店)', userId: '3995767' },
     { name: '004 - 弯麦(汤泉店)', userId: '4061092' },
     { name: '005 - 弯麦(盘陀店)', userId: '4339546' },
@@ -51,19 +51,14 @@ const getAllOrderShopName = () => {
 
 const getOrderTemplates = () => {
   return [
-    { name: '全部模板', templateId: '', templateUid: '' },
-    { name: '西点类', templateId: '189', templateUid: '1595397637628133418' },
-    { name: '常温类', templateId: '183', templateUid: '1595077654714716554' },
-    { name: '现烤类', templateId: '187', templateUid: '1595310806940367327' },
-    { name: '餐包类', templateId: '182', templateUid: '1595077405589137749' },
-    { name: '吐司类', templateId: '2873', templateUid: '1649149816769757925' },
+    { name: '所有模板', templateId: '', templateUid: '' },
     { name: '全部类型', templateId: '4974', templateUid: '1688217806649695085' },
   ];
 };
 
 const getOrderTypes = () => {
   return [
-    { name: '全部类型', id: '' },
+    { name: '所有类型', id: '' },
     { name: '直营店-日常单', id: '163' },
     { name: '德林-火烧铺1店', id: '320' },
     { name: '德林-火烧铺2店', id: '323' },
@@ -95,11 +90,6 @@ const getOrderTimeType = () => {
 
 const getAllOrderTemplateName = () => {
   return [
-    '现烤类',
-    '西点类',
-    '常温类',
-    '餐包类',
-    '吐司类',
     '全部类型'
   ];
 };
@@ -126,22 +116,17 @@ const getProductSortIdArray = () => {
 
 const getTemplateSortIdArray = () => {
   return {
-    '现烤类': 1,
-    '西点类': 2,
-    '常温类': 3,
-    '餐包类': 4,
-    '吐司类': 5,
-    '全部类型': 6
+    '全部类型': 1
   };
 };
 
 const getJustPrintWorkshopTemplates = () => {
-  return ['现烤类', '西点类', '常温类', '餐包类', '吐司类', '全部类型'];
+  return ['全部类型'];
 };
 
 const getFlowType = () => {
   return [
-    { name: '全部货单', flowTypeId: '' },
+    { name: '所有货单', flowTypeId: '' },
     { name: '门店进货单', flowTypeId: '12' },
     { name: '普通调货单', flowTypeId: '10' },
     { name: '调拨退货单', flowTypeId: '23' },
@@ -152,7 +137,7 @@ const getFlowType = () => {
 
 const getOrderCashiers = () => {
   return [
-    { name: '全部收银员', id: '' },
+    { name: '所有收银员', id: '' },
     { name: '德林-火烧铺1店', id: '1' },
     { name: '德林-火烧铺2店', id: '2' },
     { name: '德林-学府店', id: '3' },

@@ -586,6 +586,50 @@ const findBirthdaycakeOrder = async (_id) => {
   return findBirthdaycakeOrderResponseJson;
 }
 
+const allCakeInfos = async () => {
+  let allCakeInfosUrl = '/生日蛋糕/1a-蛋糕信息.json';
+  allCakeInfosUrl += '?random=';
+  allCakeInfosUrl += Math.floor(Math.random() * 1000);
+
+  // console.log(findBirthdaycakeOrderUrl);
+  const allCakeInfosResponse = await fetch(allCakeInfosUrl);
+  const allCakeInfosResponseJson = await allCakeInfosResponse.json();
+
+  let cakeInfos = {};
+  cakeInfos.creams = allCakeInfosResponseJson.creams;
+  cakeInfos.sizes = allCakeInfosResponseJson.sizes;
+  cakeInfos.fillings = allCakeInfosResponseJson.fillings;
+  cakeInfos.candles = allCakeInfosResponseJson.candles;
+  cakeInfos.kindlings = allCakeInfosResponseJson.kindlings;
+  cakeInfos.hats = allCakeInfosResponseJson.hats;
+
+  cakeInfos.categorys = allCakeInfosResponseJson.categorys;
+  cakeInfos.products = allCakeInfosResponseJson.products;
+  cakeInfos.recommend = allCakeInfosResponseJson.recommend;
+
+  for (let i = 0; i < cakeInfos.products.length; ++i) {
+    let product = cakeInfos.products[i];
+    for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
+      let productName = cakeInfos.recommend.productNames[j];
+      if (productName === product.name) {
+        cakeInfos.recommend.products.push(product);
+        break;
+      }
+    }
+
+    for (let k = 0; k < cakeInfos.categorys.length; ++k) {
+      let category = cakeInfos.categorys[k];
+      if (product.categoryId === category.id) {
+        category.products.push(product);
+        break;
+      }
+    }
+
+  }
+
+  return cakeInfos;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -623,5 +667,6 @@ export {
   templateSendToSomePeople,
   geocode,
   createBirthdaycakeOrder,
-  findBirthdaycakeOrder
+  findBirthdaycakeOrder,
+  allCakeInfos
 };

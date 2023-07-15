@@ -602,7 +602,6 @@ const allCakeInfos = async () => {
   cakeInfos.candles = allCakeInfosResponseJson.candles;
   cakeInfos.kindlings = allCakeInfosResponseJson.kindlings;
   cakeInfos.hats = allCakeInfosResponseJson.hats;
-
   cakeInfos.categorys = allCakeInfosResponseJson.categorys;
   cakeInfos.products = allCakeInfosResponseJson.products;
   cakeInfos.recommend = allCakeInfosResponseJson.recommend;
@@ -612,6 +611,10 @@ const allCakeInfos = async () => {
     for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
       let productName = cakeInfos.recommend.productNames[j];
       if (productName === product.name) {
+        /// 补上默认夹心数量
+        if (product.fillingNumber === undefined) {
+          product.fillingNumber = 2;
+        }
         cakeInfos.recommend.products.push(product);
         break;
       }
@@ -624,7 +627,6 @@ const allCakeInfos = async () => {
         break;
       }
     }
-
   }
 
   return cakeInfos;

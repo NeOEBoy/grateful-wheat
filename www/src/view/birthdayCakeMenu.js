@@ -1,6 +1,6 @@
 /*
-蛋糕图册链接
-http://gratefulwheat.ruyue.xyz/birthdayCakeMenu
+* 蛋糕图册链接
+* http://gratefulwheat.ruyue.xyz/birthdayCakeMenu
 */
 
 import React from 'react';
@@ -11,7 +11,6 @@ import QueueAnim from 'rc-queue-anim';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import QRCode from 'qrcode'
-import TextLoop from "react-text-loop";
 
 import Icon, {
     RightSquareFilled,
@@ -53,75 +52,6 @@ const { TextArea } = Input;
 
 const KBrithdayCakeRootWith3 = '/生日蛋糕';
 
-const KCategorys = [{
-    categoryId: '1634302403310226908', categoryName: '常规款蛋糕', description: '平凡人生、快乐生活',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/夏洛特-方图.jpg',
-        KBrithdayCakeRootWith3 + '/小时光-方图.jpg',
-        KBrithdayCakeRootWith3 + '/芒芒物语-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1634302334442115588', categoryName: '女孩款蛋糕', description: '小小公主、永远开心',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/旋转木马-女孩-方图.jpg',
-        KBrithdayCakeRootWith3 + '/皮卡丘-方图.jpg',
-        KBrithdayCakeRootWith3 + '/白雪公主-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1649820515687346997', categoryName: '男孩款蛋糕', description: '小男子汉、顶天立地',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/乐高幻影忍者-方图.jpg',
-        KBrithdayCakeRootWith3 + '/小小航天员-方图.jpg',
-        KBrithdayCakeRootWith3 + '/奥特曼打怪兽-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1634302367129657476', categoryName: '女神款蛋糕', description: '我的女神、爱你永远',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/渐变爱心-方图.jpg',
-        KBrithdayCakeRootWith3 + '/王冠-方图.jpg',
-        KBrithdayCakeRootWith3 + '/纯洁爱恋-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1634302388959605558', categoryName: '男神款蛋糕', description: '公里之内、属你最帅',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/奥利奥先生-方图.jpg',
-        KBrithdayCakeRootWith3 + '/礼遇-方图.jpg',
-        KBrithdayCakeRootWith3 + '/一家之主-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1634302419875701981', categoryName: '情侣款蛋糕', description: '两颗红心、相知相伴',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/小爱心-方图.jpg',
-        KBrithdayCakeRootWith3 + '/小熊LOVE-方图.jpg',
-        KBrithdayCakeRootWith3 + '/余生是你-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1634302432122635916', categoryName: '祝寿款蛋糕', description: '福寿绵绵、如海滔滔',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/大寿吉祥-方图.jpg',
-        KBrithdayCakeRootWith3 + '/万寿无疆-男-方图.jpg',
-        KBrithdayCakeRootWith3 + '/丰盈一生-方图.jpg',
-    ], productItems: {}
-}, {
-    categoryId: '1634302446119593980', categoryName: '庆典派对款蛋糕', description: '共同举杯、共敬未来',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/猫大吉-方图.jpg',
-        KBrithdayCakeRootWith3 + '/招财进宝-方图.jpg',
-        KBrithdayCakeRootWith3 + '/乔迁猫-方图.jpg'
-    ], productItems: {}
-}, {
-    categoryId: '1657848010512718759', categoryName: '结婚订婚纪念蛋糕', description: '先生/女士、周年快乐',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/余生是你-方图.jpg',
-        KBrithdayCakeRootWith3 + '/周年纪念-方图.jpg',
-        KBrithdayCakeRootWith3 + '/双喜订婚-方图.jpg',
-    ], productItems: {}
-}, {
-    categoryId: '1667997464683559851', categoryName: '搞怪款蛋糕', description: '今生只对你搞怪',
-    thumbnails: [
-        KBrithdayCakeRootWith3 + '/蜡笔小新-方图.jpg'
-    ], productItems: {}
-}];
 
 const KPickUpTypeOptions = [
     { label: '自己提货', value: '自己提货' },
@@ -135,57 +65,6 @@ const KResponseShopOptions = [
     { label: '旧镇店', value: '旧镇店' },
     { label: '狮头店', value: '狮头店' },
     { label: '盘陀店', value: '盘陀店' }
-];
-
-const KCakeFillingOptions = [
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/布蕾布丁.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>布蕾布丁</div>
-        </div>), value: '布蕾布丁'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/新鲜芒果.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>新鲜芒果</div>
-        </div>), value: '新鲜芒果'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/新鲜火龙果.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>新鲜火龙果</div>
-        </div>), value: '新鲜火龙果'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/现蒸芋泥.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>现蒸芋泥</div>
-        </div>), value: '现蒸芋泥'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/提子干.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>提子干</div>
-        </div>), value: '提子干'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/奥利奥饼干碎.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>奥利奥饼干碎</div>
-        </div>), value: '奥利奥饼干碎'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/黑糖晶球.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>黑糖晶球</div>
-        </div>), value: '黑糖晶球'
-    },
-    {
-        label: (<div style={{ marginBottom: 6 }}>
-            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/夹心/巧克力麦脆.jpg" />
-            <div style={{ width: 54, textAlign: 'center' }}>巧克力麦脆</div>
-        </div>), value: '巧克力麦脆'
-    }
 ];
 
 const KCandleTypeOptions = [
@@ -244,15 +123,6 @@ const KHatTypeOptions = [
     },
 ];
 
-const KCakePlateNumberBySize = {
-    '5寸': '5',
-    '6寸': '10',
-    '8寸': '15',
-    '10寸': '20',
-    '12寸': '25',
-    '14寸': '30'
-};
-
 const KCakeRecommendPeople = {
     '5寸': '直径12.5厘米 | 1-2人',
     '6寸': '直径15厘米 | 3-5人',
@@ -267,18 +137,28 @@ class birthdayCakeMenu extends React.Component {
         super(props);
 
         this.state = {
-            birthdayCakesRecommend: {},
-
-            birthdayCakeCategorys: KCategorys,
-            orderCakeInfoModalVisiable: false,
-
+            // 主页
+            cakeRecommend: {},
+            cakeCategorys: [],
+            cakeProducts: [],
             /// 搜索
             searchName: '',
-            birthdayCakesSearchItems: {},
+            cake4Search: [],
 
             /// 蛋糕信息
-            cakeName: '',
-            cakeDescription: '',
+            cakeOrderInfoModalVisiable: false,
+            cakeOrderInfo: {
+                product: undefined,
+                making: { fillings: [] },
+                deliver: {}
+            },
+            cakeSizes: [],
+            cakeCreams: [],
+            cakeFillings: [],
+            cakeCandles: [],
+            cakeKindlings: [],
+            cakeHats: [],
+
             cakeImage: '',
             orderCakePrices: {},
             creamType: '',
@@ -286,7 +166,6 @@ class birthdayCakeMenu extends React.Component {
             cakeSizeExtra: '',
             cakePrice: '--',
             canSelectCakeFilling: true,
-            cakeFillings: [],
             candleType: KCandleTypeOptions[0].value,
             ignitorType: KIgnitorTypeOptions[0].value,
             hatType: KHatTypeOptions[1].value,
@@ -318,17 +197,24 @@ class birthdayCakeMenu extends React.Component {
         };
 
         this._lastKeys = [];
-        this._birthdayCakesAll = [];
+        this._birthdayCakeAll = [];
     }
 
     componentDidMount = async () => {
         const cakeInfosObj = await allCakeInfos();
-        console.log('cakeInfosObj.recommend = ' + JSON.stringify(cakeInfosObj.recommend));
+        // console.log('cakeInfosObj.recommend = ' + JSON.stringify(cakeInfosObj.recommend));
         // console.log('cakeInfosObj.categorys = ' + JSON.stringify(cakeInfosObj.categorys));
         // console.log('cakeInfosObj.creams = ' + JSON.stringify(cakeInfosObj.creams));
         this.setState({
-            birthdayCakesRecommend: cakeInfosObj.recommend,
-            birthdayCakeSizes: cakeInfosObj.sizes
+            cakeRecommend: cakeInfosObj.recommend,
+            cakeCategorys: cakeInfosObj.categorys,
+            cakeProducts: cakeInfosObj.products,
+            cakeSizes: cakeInfosObj.sizes,
+            cakeCreams: cakeInfosObj.creams,
+            cakeFillings: cakeInfosObj.fillings,
+            cakeCandles: cakeInfosObj.candles,
+            cakeKindlings: cakeInfosObj.kindlings,
+            cakeHats: cakeInfosObj.hats
         });
         this.updateWeixinConfig();
     }
@@ -336,8 +222,6 @@ class birthdayCakeMenu extends React.Component {
     /// 蛋糕分类 展开|收起 
     handleCollapseOnChange = async (keys) => {
         if (!keys) return;
-        // console.log('handleCollapseOnChange begin');
-
         // console.log(keys);
         let keysOpened = [...keys];
         for (let ii = 0; ii < this._lastKeys.length; ++ii) {
@@ -358,130 +242,26 @@ class birthdayCakeMenu extends React.Component {
         }
         this._lastKeys = [...keys];
 
-        const { birthdayCakeCategorys } = this.state;
-        let birthdayCakeCategorysNew = [...birthdayCakeCategorys];
+        const { cakeCategorys } = this.state;
 
         // console.log(keysOpened);
-        if (keysOpened.length === 1) {
-            try {
-                let categoryId = keysOpened[0];
-                let birthdayCakeCategoryToAdd;
-                for (let ii = 0; ii < birthdayCakeCategorysNew.length; ++ii) {
-                    let birthdayCakeCategory = birthdayCakeCategorysNew[ii];
-                    if (birthdayCakeCategory.categoryId === categoryId) {
-                        birthdayCakeCategoryToAdd = birthdayCakeCategory;
-                        break;
-                    }
-                }
-                if (birthdayCakeCategoryToAdd) {
-                    birthdayCakeCategoryToAdd.opened = true;
-                    this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
-                    if (Object.keys(birthdayCakeCategoryToAdd.productItems).length <= 0 &&
-                        !birthdayCakeCategoryToAdd.spinning) {
-                        birthdayCakeCategoryToAdd.spinning = true;
+        let categoryIdOpened = keysOpened.length === 1 ? keysOpened[0] : "";
+        let categoryIdClosed = keysClosed.length === 1 ? keysClosed[0] : "";
 
-                        /// 提取半年之前的数据
-                        let nowMoment = moment();
-                        let endDateTimeStr = nowMoment.endOf('day').format('YYYY.MM.DD HH:mm:ss');
-                        let beginDateTimeStr = nowMoment.subtract(180, 'days').startOf('day').format('YYYY.MM.DD HH:mm:ss');
-
-                        // console.log(beginDateTimeStr);
-                        // console.log(endDateTimeStr);
-
-                        let loadResult = await loadProductsSale(categoryId, '', '', beginDateTimeStr, endDateTimeStr, 'barcode', 'true');
-                        // console.log(loadResult);
-
-                        if (loadResult.errCode === 0 && loadResult.list.length > 0) {
-                            let list = loadResult.list;
-
-                            let listAfterMerge = [];
-                            for (let jj = 0; jj < list.length; ++jj) {
-                                let one = list[jj];
-                                let productName = one.productName;
-                                let saleNumber = one.saleNumber;
-
-                                let index4ListAfterMerge = -1;
-                                for (let mm = 0; mm < listAfterMerge.length; ++mm) {
-                                    let one1 = listAfterMerge[mm];
-                                    if (one1.productName === productName) {
-                                        index4ListAfterMerge = mm;
-                                        break;
-                                    }
-                                }
-
-                                if (index4ListAfterMerge === -1) {
-                                    let oneNew = {};
-                                    oneNew.productName = productName;
-                                    oneNew.saleNumber = saleNumber;
-                                    oneNew.key = listAfterMerge.length + 1;
-                                    listAfterMerge.push(oneNew);
-                                } else {
-                                    let one = listAfterMerge[index4ListAfterMerge];
-                                    one.saleNumber = one.saleNumber + saleNumber;
-                                }
-                            }
-
-                            listAfterMerge = listAfterMerge.sort((a, b) => {
-                                return b.saleNumber - a.saleNumber;
-                            })
-
-                            /// 转化为统一格式（对象）
-                            let productItemsObj = {};
-                            listAfterMerge.forEach(element => {
-                                let obj = {};
-                                obj.saleNumber = element.saleNumber;
-                                obj['价格'] = {};
-                                obj['描述'] = '';
-                                obj['可选夹心'] = true;
-                                if (this._birthdayCakesAll[element.productName]) {
-                                    if (this._birthdayCakesAll[element.productName]['价格']) {
-                                        obj['价格'] = this._birthdayCakesAll[element.productName]['价格'];
-                                    }
-
-                                    if (this._birthdayCakesAll[element.productName]['描述']) {
-                                        obj['描述'] = this._birthdayCakesAll[element.productName]['描述'];
-                                    }
-
-                                    if (this._birthdayCakesAll[element.productName]['可选夹心'] !== undefined) {
-                                        obj['可选夹心'] = this._birthdayCakesAll[element.productName]['可选夹心'];
-                                    }
-
-                                    productItemsObj[element.productName] = obj;
-                                }
-                            });
-
-                            // console.log(productItemsObj);
-
-                            birthdayCakeCategoryToAdd.productItems = productItemsObj;
-                            birthdayCakeCategoryToAdd.spinning = false;
-                        }
-
-                        this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
-                        // console.log(birthdayCakeCategorysNew);
-                    }
-                }
-            } catch (error) {
-                console.log(error);
+        for (let i = 0; i < cakeCategorys.length; ++i) {
+            let category = cakeCategorys[i];
+            // categoryId是字符串类型，category.id是数字类型
+            if (category.id.toString() === categoryIdOpened.toString()) {
+                category.opened = true;
+                this.forceUpdate();
+                break;
+            }
+            if (category.id.toString() === categoryIdClosed.toString()) {
+                category.opened = false;
+                this.forceUpdate();
+                break;
             }
         }
-        // console.log(keysClosed);
-        if (keysClosed.length === 1) {
-            let categoryId = keysClosed[0];
-            let birthdayCakeCategoryClose;
-            for (let ii = 0; ii < birthdayCakeCategorysNew.length; ++ii) {
-                let birthdayCakeCategory = birthdayCakeCategorysNew[ii];
-                if (birthdayCakeCategory.categoryId === categoryId) {
-                    birthdayCakeCategoryClose = birthdayCakeCategory;
-                    break;
-                }
-            }
-            if (birthdayCakeCategoryClose) {
-                birthdayCakeCategoryClose.opened = false;
-                this.setState({ birthdayCakeCategorys: birthdayCakeCategorysNew });
-            }
-        }
-
-        // console.log('handleCollapseOnChange end');
     }
 
     /// 配置微信分享图标和文案
@@ -572,34 +352,36 @@ class birthdayCakeMenu extends React.Component {
         }
     }
 
-    handleOrderNowClick = (type, name, description, prices, can) => {
+    handleOrderNowClick = (current, type, name, description, prices, can) => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.product = current;
+
         this.setState({
-            orderCakeInfoModalVisiable: true,
-            orderCakePrices: prices,
-            cakeName: name,
-            cakeDescription: description,
-            cakeImage: type === 0 ? KBrithdayCakeRootWith3 + '/' + name + '-方图.jpg' : '私人订制蛋糕',
-            creamType: '',
-            cakeSize: '',
-            cakeSizeExtra: '',
-            cakePrice: '--',
-            canSelectCakeFilling: can,
-            cakeFillings: [],
-            candleType: KCandleTypeOptions[0].value,
-            number4candle: '',
-            cakePlateNumber: '--',
+            cakeOrderInfoModalVisiable: true,
+            cakeOrderInfo: cakeOrderInfo
+            // orderCakePrices: prices,
+            // cakeImage: type === 0 ? KBrithdayCakeRootWith3 + '/' + name + '-方图.jpg' : '私人订制蛋糕',
+            // creamType: '',
+            // cakeSize: '',
+            // cakeSizeExtra: '',
+            // cakePrice: '--',
+            // canSelectCakeFilling: can,
+            // cakeFillings: [],
+            // candleType: KCandleTypeOptions[0].value,
+            // number4candle: '',
+            // cakePlateNumber: '--',
 
-            /// 配送信息
-            pickUpDay: '',
-            pickUpTime: '',
-            pickUpType: '',
-            responseShop: '',
-            deliverAddress: '',
-            pickUpName: '',
-            phoneNumber: '',
-            remarks: '',
+            // /// 配送信息
+            // pickUpDay: '',
+            // pickUpTime: '',
+            // pickUpType: '',
+            // responseShop: '',
+            // deliverAddress: '',
+            // pickUpName: '',
+            // phoneNumber: '',
+            // remarks: '',
 
-            makingTime: '',
+            // makingTime: '',
         });
 
         document.documentElement.style.overflow = 'hidden';
@@ -607,8 +389,7 @@ class birthdayCakeMenu extends React.Component {
 
     handleOrderCakeInfoModalOk = () => {
         const {
-            cakeName,
-            cakeDescription,
+            cakeOrderInfo,
             creamType,
             cakeImage,
             cakeSize,
@@ -630,29 +411,6 @@ class birthdayCakeMenu extends React.Component {
             phoneNumber,
             remarks
         } = this.state;
-
-        console.log('名字：' + cakeName);
-        console.log('描述：' + cakeDescription);
-        console.log('图片：' + cakeImage);
-        console.log('奶油：' + creamType);
-        console.log('尺寸：' + cakeSize);
-        console.log('组合：' + cakeSizeExtra);
-        console.log('价格：' + cakePrice);
-        console.log('可选夹心：' + canSelectCakeFilling);
-        console.log('夹心：' + cakeFillings);
-        console.log('蜡烛：' + candleType);
-        console.log('火柴：' + ignitorType);
-        console.log('帽子：' + hatType);
-        console.log('数字：' + number4candle);
-        console.log('餐盘：' + cakePlateNumber);
-        console.log('日期：' + pickUpDay);
-        console.log('时间：' + pickUpTime);
-        console.log('方式：' + pickUpType);
-        console.log('门店：' + responseShop);
-        console.log('地址：' + deliverAddress);
-        console.log('姓名：' + pickUpName);
-        console.log('手机：' + phoneNumber);
-        console.log('备注：' + remarks);
 
         if (cakeImage === '私人订制蛋糕') {
             message.warning('请先选择蛋糕图片！')
@@ -697,7 +455,7 @@ class birthdayCakeMenu extends React.Component {
         }
 
         this.setState({
-            orderCakeInfoModalVisiable: false,
+            cakeOrderInfoModalVisiable: false,
             makingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
             image4QRCode: ''
         }, () => {
@@ -710,8 +468,8 @@ class birthdayCakeMenu extends React.Component {
                     /// 保存蛋糕订单，返回_id
                     // let createResult = { _id: '123' };
                     let createResult = await createBirthdaycakeOrder(
-                        cakeName,
-                        cakeDescription,
+                        cakeOrderInfo.product.name,
+                        cakeOrderInfo.product.description,
                         creamType,
                         cakeSize,
                         cakeSizeExtra,
@@ -763,7 +521,7 @@ class birthdayCakeMenu extends React.Component {
 
                                     /// 模板通知指定人员有人生成订购单了，避免漏单
                                     let title = '有顾客生成蛋糕订购单了';
-                                    let style = '《' + cakeName + '》';
+                                    let style = '《' + cakeOrderInfo.product.name + '》';
                                     let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
                                     let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
                                     console.log(sendResult);
@@ -779,84 +537,91 @@ class birthdayCakeMenu extends React.Component {
     }
 
     handleOrderCakeInfoModalCancel = () => {
-        this.setState({ orderCakeInfoModalVisiable: false });
+        this.setState({ cakeOrderInfoModalVisiable: false });
         document.documentElement.style.overflow = 'visible';
     }
 
-    handleCreamTypeChange = e => {
-        let creamType = e.target.value;
+    handleCreamChange = e => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.creamId = e.target.value;
+        cakeOrderInfo.making.sizeId = '';
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
+    }
 
-        const { orderCakePrices, cakeSize } = this.state;
+    handleSizeChange = (value) => {
+        const { cakeOrderInfo, cakeSizes } = this.state;
+        cakeOrderInfo.making.sizeId = value;
 
-        let cakePrice = '--';
-        if (orderCakePrices) {
-            let price4CreamType = orderCakePrices[creamType];
-            if (price4CreamType && price4CreamType[cakeSize]) {
-                cakePrice = price4CreamType[cakeSize];
+        cakeOrderInfo.making.price = '--';
+        for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
+            let specification = cakeOrderInfo.product.specifications[i];
+            if (specification.creamId === cakeOrderInfo.making.creamId &&
+                specification.sizeId === cakeOrderInfo.making.sizeId) {
+                cakeOrderInfo.making.price = specification.price;
+                break;
+            }
+        }
+        cakeOrderInfo.making.plates = '--';
+        for (let i = 0; i < cakeSizes.length; ++i) {
+            let size = cakeSizes[i];
+            if (size.id === cakeOrderInfo.making.sizeId) {
+                cakeOrderInfo.making.plates = size.plates;
+                break;
             }
         }
 
-        this.setState({ creamType: creamType, cakePrice: cakePrice });
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleCakeSizeChange = (value) => {
-        const { orderCakePrices, creamType } = this.state;
-
-        let cakePrice = '--';
-        if (orderCakePrices) {
-            let price4CreamType = orderCakePrices[creamType];
-            if (price4CreamType && price4CreamType[value]) {
-                cakePrice = price4CreamType[value];
-            }
-        }
-
-        let cakePlateNumber = KCakePlateNumberBySize[value] ? KCakePlateNumberBySize[value] : '--';
-        this.setState({
-            cakeSize: value,
-            cakePrice: cakePrice,
-            cakePlateNumber: cakePlateNumber
-        });
+    handleSizeExtraChange = (e) => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.sizeExtra = e.target.value;
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleCakeSizeExtraChange = (e) => {
-        this.setState({
-            cakeSizeExtra: e.target.value
-        });
-    }
-
-    handleDropdownVisibleChange = (open) => {
+    handleSizeSelectDropdownVisibleChange = (open) => {
         if (open) {
-            const { creamType } = this.state;
-            if (creamType === '' ||
-                creamType === undefined) {
+            const { cakeOrderInfo } = this.state;
+            if (cakeOrderInfo.making.creamId === '' ||
+                cakeOrderInfo.making.creamId === undefined) {
                 message.warning('请先选择奶油~');
             }
         }
     }
 
-    handleCakeFillingChange = (value) => {
-        if (value.length >= 3) {
-            message.warning('只能选择两种夹心，请反选不需要的夹心后，重新选择！');
+    handleCakeFillingChange = (value, fillingNumber) => {
+        if (value.length > fillingNumber) {
+            message.warning(`只能选择 ${fillingNumber} 两种夹心，请反选不需要的夹心后，重新选择！`);
             return;
         }
 
-        this.setState({ cakeFillings: value });
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.fillingIds = value;
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleCandleTypeChange = (e) => {
-        this.setState({ candleType: e.target.value });
+    handleCandleChange = (e) => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.candleId = e.target.value;
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleIgnitorTypeChange = (e) => {
-        this.setState({ ignitorType: e.target.value });
+    handleKindlingChange = (e) => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.kindlingId = e.target.value;
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleHatTypeChange = (e) => {
-        this.setState({ hatType: e.target.value });
+    handleHatChange = (e) => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.hatId = e.target.value;
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleNumber4candleChange = (e) => {
-        this.setState({ number4candle: e.target.value });
+    handleCandleExtraChange = (e) => {
+        const { cakeOrderInfo } = this.state;
+        cakeOrderInfo.making.candleExtra = e.target.value;
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
     handlePickUpDayChange = (data) => {
@@ -931,55 +696,44 @@ class birthdayCakeMenu extends React.Component {
         this.setState({ searchName: e.target.value });
         if (!e.target.value || e.target.value === '') return;
 
-        let productItemsObj = {};
-        let keys = Object.keys(this._birthdayCakesAll);
-        for (let jj = 0; jj < keys.length; ++jj) {
-            let name4allItem = keys[jj];
-            if (name4allItem.indexOf(e.target.value) !== -1) {
-                let obj = {};
-                obj['价格'] = {};
-                obj['描述'] = '';
-                obj['可选夹心'] = true;
-                if (this._birthdayCakesAll[name4allItem]) {
-                    if (this._birthdayCakesAll[name4allItem]['价格']) {
-                        obj['价格'] = this._birthdayCakesAll[name4allItem]['价格'];
-                    }
+        const { cakeProducts } = this.state;
 
-                    if (this._birthdayCakesAll[name4allItem]['描述']) {
-                        obj['描述'] = this._birthdayCakesAll[name4allItem]['描述'];
-                    }
-
-                    if (this._birthdayCakesAll[name4allItem]['可选夹心'] !== undefined) {
-                        obj['可选夹心'] = this._birthdayCakesAll[name4allItem]['可选夹心'];
-                    }
-
-                    productItemsObj[name4allItem] = obj;
-                }
+        let products4Search = [];
+        for (let i = 0; i < cakeProducts.length; ++i) {
+            let product = cakeProducts[i];
+            if (product.name.indexOf(e.target.value) !== -1 ||
+                product.description.indexOf(e.target.value) !== -1) {
+                products4Search.push(product);
             }
         }
 
-        this.setState({ birthdayCakesSearchItems: productItemsObj });
+        this.setState({ cake4Search: products4Search });
     }
 
     render() {
         const {
-            birthdayCakesRecommend,
-            birthdayCakeSizes,
-            birthdayCakeCategorys,
             searchName,
-            birthdayCakesSearchItems,
+            cake4Search,
+            cakeRecommend,
+            cakeCategorys,
+            cakeOrderInfo,
+            cakeCreams,
+            cakeSizes,
+            cakeFillings,
+            cakeCandles,
+            cakeKindlings,
+            cakeHats,
+
             pickUpType,
-            orderCakeInfoModalVisiable,
+            cakeOrderInfoModalVisiable,
             orderCakePrices,
-            cakeName,
-            cakeDescription,
             cakeImage,
             creamType,
             cakeSize,
             cakeSizeExtra,
             cakePrice,
             canSelectCakeFilling,
-            cakeFillings,
+
             candleType,
             ignitorType,
             hatType,
@@ -1052,21 +806,110 @@ class birthdayCakeMenu extends React.Component {
             }
         }
 
-        let creamTypeOptions = [];
-        {
-            const KCreamTypeOptions = {
-                "牛奶奶油": { label: '牛奶奶油', value: '牛奶奶油' },
-                "动物奶油": { label: '动物奶油', value: '动物奶油' }
-            };
-            if (orderCakePrices) {
-                let prices = Object.keys(orderCakePrices);
-                for (let i = 0; i < prices.length; ++i) {
-                    let price = prices[i];
-                    let creamTypeOption = KCreamTypeOptions[price];
-                    creamTypeOptions.push(creamTypeOption);
+        let creamOptions = [];
+        if (cakeCreams) {
+            for (let i = 0; i < cakeCreams.length; ++i) {
+                let birthdayCakeCream = cakeCreams[i];
+                if (cakeOrderInfo.product) {
+                    for (let j = 0; j < cakeOrderInfo.product.specifications.length; ++j) {
+                        let specification = cakeOrderInfo.product.specifications[j];
+                        if (specification.creamId === birthdayCakeCream.id) {
+                            creamOptions.push({ label: birthdayCakeCream.name, value: birthdayCakeCream.id });
+                            break;
+                        }
+                    }
                 }
             }
         }
+        // console.log('creamOptions = ' + JSON.stringify(creamOptions));
+
+        let sizeOptions = [];
+        if (cakeSizes) {
+            for (let i = 0; i < cakeSizes.length; ++i) {
+                let birthdayCakeSize = cakeSizes[i];
+                if (cakeOrderInfo.product) {
+                    for (let j = 0; j < cakeOrderInfo.product.specifications.length; ++j) {
+                        let specification = cakeOrderInfo.product.specifications[j];
+                        if (specification.creamId === cakeOrderInfo.making.creamId &&
+                            specification.sizeId === birthdayCakeSize.id) {
+                            sizeOptions.push({ label: birthdayCakeSize.name, value: birthdayCakeSize.id });
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (sizeOptions.length > 1) {
+            sizeOptions.push({ label: '组合', value: -500 });
+        }
+        // console.log('sizeOptions = ' + JSON.stringify(sizeOptions));
+
+        let fillingOptions = [];
+        for (let i = 0; i < cakeFillings.length; ++i) {
+            let filling = cakeFillings[i];
+            fillingOptions.push({
+                label:
+                    <div style={{ marginBottom: 6 }}>
+                        <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src={filling.image} />
+                        <div style={{ width: 54, textAlign: 'center' }}>{filling.name}</div>
+                    </div>,
+                value: filling.id
+            });
+        }
+        // console.log('fillingOptions = ' + JSON.stringify(fillingOptions));
+
+        let candleOptions = [];
+        for (let i = 0; i < cakeCandles.length; ++i) {
+            let candle = cakeCandles[i];
+            candleOptions.push({
+                label:
+                    <div style={{ marginBottom: 6 }}>
+                        <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={candle.image} />
+                        <div style={{ width: 70, textAlign: 'center' }}>
+                            {candle.name}
+                            {
+                                candle.id === 3 ?
+                                    <Input style={{ width: 70, height: 30 }}
+                                        placeholder='数字'
+                                        prefix={<EditOutlined />}
+                                        value={cakeOrderInfo.making.candleExtra}
+                                        onChange={this.handleCandleExtraChange} />
+                                    : <div></div>
+                            }
+                        </div>
+                    </div>,
+                value: candle.id
+            });
+        }
+        // console.log('candleOptions = ' + JSON.stringify(candleOptions));
+
+        let kindlingOptions = [];
+        for (let i = 0; i < cakeKindlings.length; ++i) {
+            let kindling = cakeKindlings[i];
+            kindlingOptions.push({
+                label:
+                    <div style={{ marginBottom: 6 }}>
+                        <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={kindling.image} />
+                        <div style={{ width: 70, textAlign: 'center' }}>{kindling.name}</div>
+                    </div>,
+                value: kindling.id
+            })
+        }
+        // console.log('kindlingOptions = ' + JSON.stringify(kindlingOptions));
+
+        let hatOptions = [];
+        for (let i = 0; i < cakeHats.length; ++i) {
+            let hat = cakeHats[i];
+            hatOptions.push({
+                label:
+                    <div style={{ marginBottom: 6 }}>
+                        <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={hat.image} />
+                        <div style={{ width: 70, textAlign: 'center' }}>{hat.name}</div>
+                    </div>,
+                value: hat.id
+            })
+        }
+
 
         let orderImageWidth = window.innerWidth;
         if (orderImageWidth > 640) orderImageWidth = 640;
@@ -1115,7 +958,7 @@ class birthdayCakeMenu extends React.Component {
                             placeholder='数字'
                             prefix={<EditOutlined />}
                             value={number4candle}
-                            onChange={this.handleNumber4candleChange}></Input>
+                            onChange={this.handleCandleExtraChange}></Input>
                     </div>
                 </div>), value: '数字蜡烛'
             },
@@ -1142,6 +985,73 @@ class birthdayCakeMenu extends React.Component {
             columnNumber = 4;
         } else if (interWidth > 600) {
             columnNumber = 3;
+        }
+
+        let renderItemFunc4Product = (product) => {
+            let rank = cakeRecommend.products.indexOf(product) + 1;
+            let theMinimumSize = {};
+            let theMinimumPrice = 0;
+            if (product.specifications.length > 0) {
+                let firstSpec = product.specifications[0];
+                theMinimumPrice = firstSpec.price;
+                for (let i = 0; i < cakeSizes.length; ++i) {
+                    let size = cakeSizes[i];
+                    if (size.id === firstSpec.sizeId) {
+                        theMinimumSize = size;
+                        break;
+                    }
+                }
+            }
+            return (
+                <List.Item>
+                    <div key={product.name}>
+                        {
+                            (rank === 1 || rank === 2 || rank === 3) ? (
+                                <div style={{
+                                    borderRadius: 20,
+                                    position: 'absolute', zIndex: 10
+                                }}>
+                                    <Image style={{
+                                        width: 40, height: 40,
+                                    }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
+                                </div>
+                            ) : (<div></div>)
+                        }
+
+                        <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
+                            fallback='data:image/png;base64,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'
+                            preview={true} src={`${KBrithdayCakeRootWith3}/${product.name}-方图.jpg`} />
+                        <div>
+                            <div style={{ marginTop: 4 }}>
+                                <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${product.name}》`}</span>
+                                <span style={{
+                                    fontSize: 14, marginTop: 4,
+                                    float: 'right', paddingTop: 4, paddingBottom: 4,
+                                    paddingLeft: 8, paddingRight: 8, borderRadius: 10,
+                                    textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
+                                }} onClick={() => {
+                                    this.handleOrderNowClick(product);
+                                }}>
+                                    {`预定`}
+                                </span>
+                            </div>
+                            <div style={{ fontSize: 14 }}>
+                                <span>{product.description}</span>
+                            </div>
+                            <div style={{ fontSize: 13 }}>
+                                <InfoCircleOutlined style={{ color: '#00A2A5' }} />
+                                <span>{` ${theMinimumSize.number}${theMinimumSize.unit} `}</span>
+                                <span>起</span>
+
+                                <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
+                                <span>{` ${theMinimumPrice}元 `}</span>
+                                <span>起</span>
+                            </div>
+                        </div>
+                    </div>
+                </List.Item>
+            )
         }
 
         return (
@@ -1224,425 +1134,398 @@ class birthdayCakeMenu extends React.Component {
                     }
 
                     {
-                        orderCakeInfoModalVisiable ? (
+                        cakeOrderInfoModalVisiable ? (
                             <div style={{
                                 opacity: 0.99, background: 'white', position: 'fixed',
                                 zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                                 overflowY: 'auto', overflowX: 'hidden'
                             }}>
                                 <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
-                                    {`《${cakeName}》`}
+                                    {`《${cakeOrderInfo.product.name}》`}
                                 </div>
                                 <div style={{ textAlign: 'center', fontSize: 14, paddingLeft: 8, paddingRight: 8 }}>
-                                    {cakeDescription}
+                                    {cakeOrderInfo.product.description}
                                 </div>
                                 <div style={{ textAlign: 'center', width: '100%' }}>
-                                    {
-                                        (cakeImage !== '私人订制蛋糕') ? (
-                                            <div>
-                                                <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                                    src={cakeImage} />
-                                                <Image style={{
-                                                    position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
-                                                }} src={`/image/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
-                                            </div>
-                                        ) : (
-                                            <Icon style={{ width: 120, height: 120, border: '1px dotted #00A2A5' }}
-                                                component={() => divImageLoading ?
-                                                    <LoadingOutlined style={{ fontSize: 50, color: '#00A2A5', marginTop: 30 }} /> :
-                                                    <PlusOutlined style={{ fontSize: 50, color: '#00A2A5', marginTop: 30 }} />}
-
-                                                onClick={() => {
-                                                    let that = this;
-                                                    window.wx.chooseImage({
-                                                        count: 1, // 默认9
-                                                        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                                                        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                                                        success: function (res) {
-                                                            that.setState({
-                                                                imageCropperModalVisiable: true,
-                                                                localImgDataLoading: true
-                                                            }, () => {
-                                                                let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
-                                                                window.wx.getLocalImgData({
-                                                                    localId: localIds[0], // 图片的localID
-                                                                    success: function (res) {
-                                                                        console.log('4')
-                                                                        let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
-                                                                        /// 如果缺少base64头部补充上
-                                                                        if (!(localData.startsWith('data:image/jpg;base64,'))) {
-                                                                            localData = 'data:image/jpg;base64,' + localData;
-                                                                        }
-                                                                        that.setState({ localImgDataLoading: false, imageBeforeCrop: localData });
-                                                                    }
-                                                                });
-                                                            });
-                                                        }
-                                                    });
-                                                }} />
-                                        )
-                                    }
+                                    <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
+                                        src={cakeOrderInfo.product.images[0]} />
+                                    <Image style={{
+                                        position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
+                                    }} src={`/image/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
                                 </div>
-                                {
-                                    cakeImage !== '私人订制蛋糕' ? (
-                                        <div>
-                                            <QueueAnim type={['bottom', 'top']}>
-                                                <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
-                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
-                                                    {
-                                                        Object.keys(orderCakePrices).map((item => {
-                                                            let thePrices = orderCakePrices[item];
-                                                            let sizes = Object.keys(thePrices);
-                                                            return (
-                                                                <div key={item} style={{ display: 'inline-block', marginLeft: 25, marginRight: 25 }}>
-                                                                    <div style={{ fontWeight: 'bold' }}>{item}</div>
-                                                                    {
-                                                                        sizes.map((item1) => {
-                                                                            return (
-                                                                                <div key={item1}>
-                                                                                    <span style={{ color: '#00A2A5' }}>{item1}</span>
-                                                                                    <span style={{ color: 'gray', fontSize: 12 }}>{`（${KCakeRecommendPeople[item1]}）`}</span>
-                                                                                    <span style={{ color: '#00A2A5' }}>{`${thePrices[item1]}元`}</span>
-                                                                                    <span></span>
-                                                                                </div>)
-                                                                        })
-                                                                    }
-                                                                    {
-                                                                        sizes.length >= 2 ? (
-                                                                            <div style={{ fontSize: 10, fontWeight: 'bold', color: 'gray' }}>
-                                                                                <div>叠加组合，价格为对应尺寸之和</div>
-                                                                                <div>悬浮组合，价格为对应尺寸之和+20元</div>
-                                                                            </div>) : (<div></div>)
-                                                                    }
-                                                                </div>
-                                                            )
-                                                        }))
+                                <QueueAnim type={['bottom', 'top']}>
+                                    <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
+                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
+                                        {
+                                            cakeCreams.map(cream => {
+                                                let creamExist = false;
+                                                for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
+                                                    let specification = cakeOrderInfo.product.specifications[i];
+                                                    if (specification.creamId === cream.id) {
+                                                        creamExist = true;
+                                                        break;
                                                     }
-                                                </div>
-
-                                                <div key='b'>
-                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
-                                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <Input.Group style={{ marginBottom: 20 }}>
-                                                            <span style={{ fontWeight: 'bold' }}>奶油：</span>
-                                                            <Radio.Group
-                                                                size='large'
-                                                                options={creamTypeOptions}
-                                                                onChange={this.handleCreamTypeChange}
-                                                                value={creamType}
-                                                                optionType='default'
-                                                            />
-                                                            {
-                                                                creamType === '' ? (
-                                                                    <div style={{ color: 'red' }}>“奶油”是必填项</div>
-                                                                ) : (<div></div>)
-                                                            }
-                                                        </Input.Group>
+                                                }
+                                                return (
+                                                    <div key={cream.id} >
+                                                        {creamExist ?
+                                                            <div style={{ display: 'inline-block', marginLeft: 25, marginRight: 25 }}>
+                                                                <div style={{ fontWeight: 'bold' }}>{cream.name}</div>
+                                                                {
+                                                                    cakeSizes.map(size => {
+                                                                        let price = -1;
+                                                                        for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
+                                                                            let specification = cakeOrderInfo.product.specifications[i];
+                                                                            if (specification.creamId === cream.id &&
+                                                                                specification.sizeId === size.id) {
+                                                                                price = specification.price;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        return (
+                                                                            <div key={size.id}>
+                                                                                {
+                                                                                    price !== -1 ?
+                                                                                        <div>
+                                                                                            <span style={{ color: '#00A2A5' }}>{size.name}</span>
+                                                                                            <span style={{ color: 'gray', fontSize: 12 }}>{`（${size.description}）`}</span>
+                                                                                            <span style={{ color: '#00A2A5' }}>{`${price}元`}</span>
+                                                                                            <span></span>
+                                                                                        </div> : <div></div>
+                                                                                }
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div> : <div></div>}
                                                     </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div>
-                                                            <span style={{ fontWeight: 'bold' }}>尺寸：</span>
-                                                            <Select value={cakeSize} style={{ width: 80, marginRight: 8 }}
-                                                                onChange={this.handleCakeSizeChange}
-                                                                onDropdownVisibleChange={this.handleDropdownVisibleChange}
-                                                                options={cakeSizeOptions}>
-                                                            </Select>
-                                                            {
-                                                                cakeSize === '组合' ? (
-                                                                    <span>
-                                                                        <Input placeholder='叠加或悬浮|几寸+几寸'
-                                                                            prefix={<EditOutlined />}
-                                                                            style={{ width: 190 }}
-                                                                            value={cakeSizeExtra}
-                                                                            onChange={this.handleCakeSizeExtraChange}></Input>
-                                                                    </span>) : (<div></div>)
-                                                            }
-                                                            {
-                                                                cakeSize === '' || (cakeSize === '组合' && cakeSizeExtra === '') ? (
-                                                                    <div style={{ color: 'red' }}>“尺寸”是必填项</div>
-                                                                ) : (<span></span>)
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <span style={{ fontWeight: 'bold' }}>价格：</span>
-                                                        <span>{cakePrice}</span>
-                                                        <span> 元</span>
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>{
-                                                            canSelectCakeFilling ? '夹心（任选两种）：' : '夹心（默认夹心，无需选择）：'
-                                                        }</div>
-                                                        <CheckboxGroup
-                                                            disabled={canSelectCakeFilling ? false : true}
-                                                            style={{ marginTop: 8 }}
-                                                            options={KCakeFillingOptions}
-                                                            value={cakeFillings}
-                                                            onChange={this.handleCakeFillingChange} />
-                                                        {
-                                                            cakeFillings.length === 0 && canSelectCakeFilling ? (
-                                                                <div style={{ color: 'red' }}>“夹心”是必填项</div>
-                                                            ) : (<span></span>)
-                                                        }
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为爱心蜡烛一根，若蛋糕自带蜡烛则不送蜡烛）：</div>
-
-                                                        <Radio.Group style={{ marginTop: 8 }}
-                                                            options={KCandleTypeOptions}
-                                                            value={candleType}
-                                                            onChange={this.handleCandleTypeChange}>
-                                                        </Radio.Group>
-                                                        {
-                                                            candleType === '' ||
-                                                                (candleType === KCandleTypeOptions[2].value &&
-                                                                    number4candle === '') ? (
-                                                                <div style={{ color: 'red', marginLeft: 0 }}>“数字”是必填项</div>
-                                                            ) : (<span></span>)
-                                                        }
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
-
-                                                        <Radio.Group style={{ marginTop: 8 }}
-                                                            options={KIgnitorTypeOptions}
-                                                            value={ignitorType}
-                                                            onChange={this.handleIgnitorTypeChange}>
-                                                        </Radio.Group>
-                                                    </div>
-
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>帽子（任选一种，默认为金卡皇冠帽）：</div>
-
-                                                        <Radio.Group style={{ marginTop: 8 }}
-                                                            options={KHatTypeOptions}
-                                                            value={hatType}
-                                                            onChange={this.handleHatTypeChange}>
-                                                        </Radio.Group>
-                                                    </div>
-
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <span style={{ fontWeight: 'bold' }}>餐具：</span>
-                                                        <span>{cakePlateNumber}</span>
-                                                        <span> 套</span>
-                                                    </div>
-                                                </div>
-
-                                                <div key='c'>
-                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <div style={{ fontWeight: 'bold' }}>时间：</div>
-                                                        <div>
-                                                            <DatePicker
-                                                                ref={(dp) => this._datePicker4PickUpDay = dp}
-                                                                style={{ width: 180 }}
-                                                                size='large'
-                                                                placeholder='日期'
-                                                                format='YYYY-MM-DD dddd'
-                                                                value={pickUpDay}
-                                                                open={pickUpDayPopupOpen}
-                                                                showToday={false}
-                                                                inputReadOnly={true}
-                                                                onChange={this.handlePickUpDayChange}
-                                                                onFocus={this.handlePickUpDayOnFocus}
-                                                                onBlur={this.handlePickUpDayOnBlur}
-                                                                dateRender={(current) => {
-                                                                    const style = {};
-
-                                                                    if (current.date() === 1) {
-                                                                        style.border = '1px solid #1890ff';
-                                                                        style.borderRadius = '50%';
-                                                                    }
-
-                                                                    return (
-                                                                        <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                                                            this.setState({ pickUpDayPopupOpen: false }, () => {
-                                                                                setTimeout(() => {
-                                                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                                }, 300);
-                                                                            });
-                                                                        }}>
-                                                                            {current.date()}
-                                                                        </div>
-                                                                    );
-                                                                }}
-                                                                renderExtraFooter={() =>
-                                                                (<span>
-                                                                    <Button type='primary' size='small' onClick={() => {
-                                                                        this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false }, () => {
-                                                                            setTimeout(() => {
-                                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                            }, 300);
-                                                                        });
-                                                                    }}>今天</Button>
-                                                                    <span>   </span>
-                                                                    <Button type='primary' size='small' onClick={() => {
-                                                                        this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false }, () => {
-                                                                            setTimeout(() => {
-                                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                            }, 300);
-                                                                        });
-                                                                    }}>明天</Button>
-                                                                    <span>   </span>
-                                                                    <Button type='primary' size='small' onClick={() => {
-                                                                        this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false }, () => {
-                                                                            setTimeout(() => {
-                                                                                this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
-                                                                            }, 300);
-                                                                        });
-                                                                    }}>后天</Button>
-                                                                </span>)
-                                                                } />
-                                                        </div>
-                                                        <div style={{ marginTop: 4 }}>
-                                                            <DatePicker
-                                                                ref={(dp) => this._datePicker4PickUpTime = dp}
-                                                                picker='time'
-                                                                size='large'
-                                                                style={{ width: 150 }}
-                                                                placeholder='时间'
-                                                                locale={dpLocale}
-                                                                showTime={{
-                                                                    use12Hours: false,
-                                                                    showNow: false,
-                                                                    format: 'a HH:mm'
-                                                                }}
-                                                                panelRender={(originPicker) => {
-                                                                    return (
-                                                                        <div style={{ marginLeft: 10, marginRight: 10 }}>
-                                                                            {originPicker}
-                                                                        </div>)
-                                                                }}
-                                                                format='a HH:mm'
-                                                                value={pickUpTime}
-                                                                open={pickUpTimePopupOpen}
-                                                                onFocus={this.handlePickUpTimeOnFocus}
-                                                                onBlur={this.handlePickUpTimeOnBlur}
-                                                                onOk={this.handlePickUpTimeOnOk}
-                                                                inputReadOnly={true}
-                                                                onChange={this.handlePickUpTimeChange}
-                                                                renderExtraFooter={() => (
-                                                                    <span>
-                                                                        <Button type='primary' size='small' onClick={() => {
-                                                                            this.setState({ pickUpTime: moment('12:30', 'HH:mm'), pickUpTimePopupOpen: false }, () => {
-                                                                                setTimeout(() => {
-                                                                                    this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
-                                                                                }, 300);
-                                                                            });
-                                                                        }}>中午 12点30分</Button>
-                                                                        <span>   </span>
-                                                                        <Button type='primary' size='small' onClick={() => {
-                                                                            this.setState({ pickUpTime: moment('18:30', 'HH:mm'), pickUpTimePopupOpen: false }, () => {
-                                                                                setTimeout(() => {
-                                                                                    this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
-                                                                                }, 300);
-                                                                            });
-                                                                        }}>晚上 18点30分</Button>
-                                                                    </span>
-                                                                )} />
-                                                        </div>
-                                                        {
-                                                            (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
-                                                                <div style={{ color: 'red' }}>“时间”是必填项</div>
-                                                            ) : (<div></div>)
-                                                        }
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <span style={{ fontWeight: 'bold' }}>方式：</span>
-                                                        <Radio.Group
-                                                            size='large'
-                                                            options={KPickUpTypeOptions}
-                                                            onChange={this.onPickUpTypeChange}
-                                                            value={pickUpType}
-                                                            optionType='default'
-                                                        />
-                                                        {
-                                                            pickUpType === '' ? (
-                                                                <div style={{ color: 'red' }}>“方式”是必填项</div>
-                                                            ) : (<div></div>)
-                                                        }
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                                        <Select value={responseShop} style={{ width: 160 }}
-                                                            onChange={this.handleResponseShopChange}
-                                                            options={KResponseShopOptions}>
-                                                        </Select>
-                                                        {
-                                                            responseShop === '' ? (
-                                                                <div style={{ color: 'red' }}>“门店”是必填项</div>
-                                                            ) : (<div></div>)
-                                                        }
-                                                    </div>
-                                                    {
-                                                        pickUpType === KPickUpTypeOptions[1].value ? (
-                                                            <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                                <Input.Group>
-                                                                    <span style={{ fontWeight: 'bold' }}>地址：</span>
-                                                                    <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                                        placeholder='填写地址' prefix={<HomeOutlined />}
-                                                                        value={deliverAddress}
-                                                                        onChange={this.handleDeliverAddressChange} />
-                                                                    {
-                                                                        deliverAddress === '' ? (
-                                                                            <div style={{ color: 'red' }}>“地址”是必填项</div>
-                                                                        ) : (<div></div>)
-                                                                    }
-                                                                </Input.Group>
-                                                            </div>
-                                                        ) : (
-                                                            <div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <Input.Group>
-                                                            <span style={{ fontWeight: 'bold' }}>姓名：</span>
-                                                            <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                                placeholder='填写姓名'
-                                                                prefix={<UserOutlined />}
-                                                                value={pickUpName}
-                                                                onChange={this.handlePickUpPeopleChange} />
-                                                            {
-                                                                pickUpName === '' ? (
-                                                                    <div style={{ color: 'red' }}>“姓名”是必填项</div>
-                                                                ) : (<div></div>)
-                                                            }
-                                                        </Input.Group>
-                                                    </div>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                        <Input.Group>
-                                                            <span style={{ fontWeight: 'bold' }}>手机：</span>
-                                                            <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                                placeholder='填写手机号'
-                                                                prefix={<PhoneOutlined />}
-                                                                value={phoneNumber}
-                                                                onChange={this.handlePhoneNumberChange} />
-                                                            {
-                                                                phoneNumber === '' ? (
-                                                                    <div style={{ color: 'red' }}>“手机”是必填项</div>
-                                                                ) : (<div></div>)
-                                                            }
-                                                        </Input.Group>
-                                                    </div>
-                                                </div>
-
-                                                <div key='d'>
-                                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
-                                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 24, marginRight: 24, textAlign: 'center' }}>
-                                                        <Input.Group>
-                                                            <span style={{ fontWeight: 'bold' }}>备注：</span>
-                                                            <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={5}
-                                                                placeholder='有特殊要求，请备注在这里' value={remarks}
-                                                                onChange={this.handleRemarksChange} />
-                                                        </Input.Group>
-                                                    </div>
-                                                    <div style={{ height: 80 }}></div>
-                                                </div>
-                                            </QueueAnim>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div key='b'>
+                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <Input.Group style={{ marginBottom: 20 }}>
+                                                <span style={{ fontWeight: 'bold' }}>奶油：</span>
+                                                <Radio.Group
+                                                    size='large'
+                                                    options={creamOptions}
+                                                    onChange={this.handleCreamChange}
+                                                    value={cakeOrderInfo.making.creamId}
+                                                    optionType='default'
+                                                />
+                                                {
+                                                    cakeOrderInfo.making.creamId === undefined ? (
+                                                        <div style={{ color: 'red' }}>“奶油”是必填项</div>
+                                                    ) : (<div></div>)
+                                                }
+                                            </Input.Group>
                                         </div>
-                                    ) : (<div></div>)
-                                }
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <div>
+                                                <span style={{ fontWeight: 'bold' }}>尺寸：</span>
+                                                <Select value={cakeOrderInfo.making.sizeId}
+                                                    style={{ width: 80, marginRight: 8 }}
+                                                    onChange={this.handleSizeChange}
+                                                    onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
+                                                    options={sizeOptions}>
+                                                </Select>
+                                                {
+                                                    cakeOrderInfo.making.sizeId === -500 ? (
+                                                        <span>
+                                                            <Input placeholder='叠加或悬浮|几寸+几寸'
+                                                                prefix={<EditOutlined />}
+                                                                style={{ width: 190 }}
+                                                                value={cakeOrderInfo.making.sizeExtra}
+                                                                onChange={this.handleSizeExtraChange}></Input>
+                                                        </span>) : (<div></div>)
+                                                }
+                                                {
+                                                    cakeOrderInfo.making.sizeId === '' ||
+                                                        (cakeOrderInfo.making.sizeId === -500 &&
+                                                            (cakeOrderInfo.making.sizeExtra === undefined ||
+                                                                cakeOrderInfo.making.sizeExtra === '')) ? (
+                                                        <div style={{ color: 'red' }}>“尺寸”是必填项</div>
+                                                    ) : (<span></span>)
+                                                }
+                                            </div>
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <span style={{ fontWeight: 'bold' }}>价格：</span>
+                                            <span>{cakeOrderInfo.making.price}</span>
+                                            <span> 元</span>
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <div style={{ fontWeight: 'bold' }}>
+                                                {`夹心（任选${cakeOrderInfo.product.fillingNumber}种）`}
+                                            </div>
+                                            <CheckboxGroup
+                                                disabled={cakeOrderInfo.product.fillingNumber > 0 ? false : true}
+                                                style={{ marginTop: 8 }}
+                                                options={fillingOptions}
+                                                value={cakeOrderInfo.making.fillingIds}
+                                                onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product.fillingNumber)} />
+                                            {
+                                                cakeOrderInfo.making.fillingIds?.length === 0 && cakeOrderInfo.product.fillingNumber > 0 ? (
+                                                    <div style={{ color: 'red' }}>“夹心”是必填项</div>
+                                                ) : (<span></span>)
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为爱心蜡烛一根，若蛋糕自带蜡烛则不送蜡烛）：</div>
+
+                                            <Radio.Group style={{ marginTop: 8 }}
+                                                options={candleOptions}
+                                                value={cakeOrderInfo.making.candleId}
+                                                onChange={this.handleCandleChange}>
+                                            </Radio.Group>
+                                            {
+                                                cakeOrderInfo.making.candleId === undefined ||
+                                                    (cakeOrderInfo.making.candleId === 3 &&
+                                                        (cakeOrderInfo.making.candleExtra === undefined ||
+                                                            cakeOrderInfo.making.candleExtra === '')) ? (
+                                                    <div style={{ color: 'red', marginLeft: 0 }}>“蜡烛”是必填项</div>
+                                                ) : (<span></span>)
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
+
+                                            <Radio.Group style={{ marginTop: 8 }}
+                                                options={kindlingOptions}
+                                                value={cakeOrderInfo.making.kindlingId}
+                                                onChange={this.handleKindlingChange}>
+                                            </Radio.Group>
+                                        </div>
+
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <div style={{ fontWeight: 'bold' }}>帽子（任选一种，默认为金卡皇冠帽）：</div>
+
+                                            <Radio.Group style={{ marginTop: 8 }}
+                                                options={hatOptions}
+                                                value={cakeOrderInfo.making.hatId}
+                                                onChange={this.handleHatChange}>
+                                            </Radio.Group>
+                                        </div>
+
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <span style={{ fontWeight: 'bold' }}>餐具：</span>
+                                            <span>{cakeOrderInfo.making.plates}</span>
+                                            <span> 套</span>
+                                        </div>
+                                    </div>
+                                    <div key='c'>
+                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <div style={{ fontWeight: 'bold' }}>时间：</div>
+                                            <div>
+                                                <DatePicker
+                                                    ref={(dp) => this._datePicker4PickUpDay = dp}
+                                                    style={{ width: 180 }}
+                                                    size='large'
+                                                    placeholder='日期'
+                                                    format='YYYY-MM-DD dddd'
+                                                    value={pickUpDay}
+                                                    open={pickUpDayPopupOpen}
+                                                    showToday={false}
+                                                    inputReadOnly={true}
+                                                    onChange={this.handlePickUpDayChange}
+                                                    onFocus={this.handlePickUpDayOnFocus}
+                                                    onBlur={this.handlePickUpDayOnBlur}
+                                                    dateRender={(current) => {
+                                                        const style = {};
+
+                                                        if (current.date() === 1) {
+                                                            style.border = '1px solid #1890ff';
+                                                            style.borderRadius = '50%';
+                                                        }
+
+                                                        return (
+                                                            <div className="ant-picker-cell-inner" style={style} onClick={() => {
+                                                                this.setState({ pickUpDayPopupOpen: false }, () => {
+                                                                    setTimeout(() => {
+                                                                        this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                    }, 300);
+                                                                });
+                                                            }}>
+                                                                {current.date()}
+                                                            </div>
+                                                        );
+                                                    }}
+                                                    renderExtraFooter={() =>
+                                                    (<span>
+                                                        <Button type='primary' size='small' onClick={() => {
+                                                            this.setState({ pickUpDay: moment(), pickUpDayPopupOpen: false }, () => {
+                                                                setTimeout(() => {
+                                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                }, 300);
+                                                            });
+                                                        }}>今天</Button>
+                                                        <span>   </span>
+                                                        <Button type='primary' size='small' onClick={() => {
+                                                            this.setState({ pickUpDay: moment().add(1, 'day'), pickUpDayPopupOpen: false }, () => {
+                                                                setTimeout(() => {
+                                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                }, 300);
+                                                            });
+                                                        }}>明天</Button>
+                                                        <span>   </span>
+                                                        <Button type='primary' size='small' onClick={() => {
+                                                            this.setState({ pickUpDay: moment().add(2, 'day'), pickUpDayPopupOpen: false }, () => {
+                                                                setTimeout(() => {
+                                                                    this._datePicker4PickUpDay && this._datePicker4PickUpDay.blur();
+                                                                }, 300);
+                                                            });
+                                                        }}>后天</Button>
+                                                    </span>)
+                                                    } />
+                                            </div>
+                                            <div style={{ marginTop: 4 }}>
+                                                <DatePicker
+                                                    ref={(dp) => this._datePicker4PickUpTime = dp}
+                                                    picker='time'
+                                                    size='large'
+                                                    style={{ width: 150 }}
+                                                    placeholder='时间'
+                                                    locale={dpLocale}
+                                                    showTime={{
+                                                        use12Hours: false,
+                                                        showNow: false,
+                                                        format: 'a HH:mm'
+                                                    }}
+                                                    panelRender={(originPicker) => {
+                                                        return (
+                                                            <div style={{ marginLeft: 10, marginRight: 10 }}>
+                                                                {originPicker}
+                                                            </div>)
+                                                    }}
+                                                    format='a HH:mm'
+                                                    value={pickUpTime}
+                                                    open={pickUpTimePopupOpen}
+                                                    onFocus={this.handlePickUpTimeOnFocus}
+                                                    onBlur={this.handlePickUpTimeOnBlur}
+                                                    onOk={this.handlePickUpTimeOnOk}
+                                                    inputReadOnly={true}
+                                                    onChange={this.handlePickUpTimeChange}
+                                                    renderExtraFooter={() => (
+                                                        <span>
+                                                            <Button type='primary' size='small' onClick={() => {
+                                                                this.setState({ pickUpTime: moment('12:30', 'HH:mm'), pickUpTimePopupOpen: false }, () => {
+                                                                    setTimeout(() => {
+                                                                        this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+                                                                    }, 300);
+                                                                });
+                                                            }}>中午 12点30分</Button>
+                                                            <span>   </span>
+                                                            <Button type='primary' size='small' onClick={() => {
+                                                                this.setState({ pickUpTime: moment('18:30', 'HH:mm'), pickUpTimePopupOpen: false }, () => {
+                                                                    setTimeout(() => {
+                                                                        this._datePicker4PickUpTime && this._datePicker4PickUpTime.blur();
+                                                                    }, 300);
+                                                                });
+                                                            }}>晚上 18点30分</Button>
+                                                        </span>
+                                                    )} />
+                                            </div>
+                                            {
+                                                (pickUpDay === '' || pickUpDay === null) || (pickUpTime === '' || pickUpTime === null) ? (
+                                                    <div style={{ color: 'red' }}>“时间”是必填项</div>
+                                                ) : (<div></div>)
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <span style={{ fontWeight: 'bold' }}>方式：</span>
+                                            <Radio.Group
+                                                size='large'
+                                                options={KPickUpTypeOptions}
+                                                onChange={this.onPickUpTypeChange}
+                                                value={pickUpType}
+                                                optionType='default'
+                                            />
+                                            {
+                                                pickUpType === '' ? (
+                                                    <div style={{ color: 'red' }}>“方式”是必填项</div>
+                                                ) : (<div></div>)
+                                            }
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <span style={{ fontWeight: 'bold' }}>门店：</span>
+                                            <Select value={responseShop} style={{ width: 160 }}
+                                                onChange={this.handleResponseShopChange}
+                                                options={KResponseShopOptions}>
+                                            </Select>
+                                            {
+                                                responseShop === '' ? (
+                                                    <div style={{ color: 'red' }}>“门店”是必填项</div>
+                                                ) : (<div></div>)
+                                            }
+                                        </div>
+                                        {
+                                            pickUpType === KPickUpTypeOptions[1].value ? (
+                                                <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                                    <Input.Group>
+                                                        <span style={{ fontWeight: 'bold' }}>地址：</span>
+                                                        <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
+                                                            placeholder='填写地址' prefix={<HomeOutlined />}
+                                                            value={deliverAddress}
+                                                            onChange={this.handleDeliverAddressChange} />
+                                                        {
+                                                            deliverAddress === '' ? (
+                                                                <div style={{ color: 'red' }}>“地址”是必填项</div>
+                                                            ) : (<div></div>)
+                                                        }
+                                                    </Input.Group>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                </div>
+                                            )
+                                        }
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <Input.Group>
+                                                <span style={{ fontWeight: 'bold' }}>姓名：</span>
+                                                <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
+                                                    placeholder='填写姓名'
+                                                    prefix={<UserOutlined />}
+                                                    value={pickUpName}
+                                                    onChange={this.handlePickUpPeopleChange} />
+                                                {
+                                                    pickUpName === '' ? (
+                                                        <div style={{ color: 'red' }}>“姓名”是必填项</div>
+                                                    ) : (<div></div>)
+                                                }
+                                            </Input.Group>
+                                        </div>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                            <Input.Group>
+                                                <span style={{ fontWeight: 'bold' }}>手机：</span>
+                                                <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
+                                                    placeholder='填写手机号'
+                                                    prefix={<PhoneOutlined />}
+                                                    value={phoneNumber}
+                                                    onChange={this.handlePhoneNumberChange} />
+                                                {
+                                                    phoneNumber === '' ? (
+                                                        <div style={{ color: 'red' }}>“手机”是必填项</div>
+                                                    ) : (<div></div>)
+                                                }
+                                            </Input.Group>
+                                        </div>
+                                    </div>
+                                    <div key='d'>
+                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 24, marginRight: 24, textAlign: 'center' }}>
+                                            <Input.Group>
+                                                <span style={{ fontWeight: 'bold' }}>备注：</span>
+                                                <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={5}
+                                                    placeholder='有特殊要求，请备注在这里' value={remarks}
+                                                    onChange={this.handleRemarksChange} />
+                                            </Input.Group>
+                                        </div>
+                                        <div style={{ height: 80 }}></div>
+                                    </div>
+                                </QueueAnim>
 
                                 <div style={{
                                     width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
@@ -1653,7 +1536,6 @@ class birthdayCakeMenu extends React.Component {
                                         <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成订购单</Button>
                                     </Space>
                                 </div>
-
                             </div>
                         ) : (<div></div>)
                     }
@@ -1688,7 +1570,7 @@ class birthdayCakeMenu extends React.Component {
                                             {/* <Button key='edit' type='dashed' onClick={() => {
                                                 this.setState({
                                                     orderImageModalVisiable: false,
-                                                    orderCakeInfoModalVisiable: true
+                                                    cakeOrderInfoModalVisiable: true
                                                 });
                                                 document.documentElement.style.overflow = 'hidden';
                                             }}>返回修改</Button> */}
@@ -1699,23 +1581,19 @@ class birthdayCakeMenu extends React.Component {
                         ) : (<div></div>)
                     }
 
+                    {/* 联系方式 */}
                     <div style={{
                         textAlign: 'center', color: '#00A2A5',
                         fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                     }}>
-                        <TextLoop springConfig={{ stiffness: 70, damping: 31 }}
-                            adjustingSpeed={500}>
-                            <span>
-                                <span>联系弯麦总店2号</span>
-                                <span style={{ textDecoration: 'underline' }}>
-                                    <a href="tel:18599568588">18599568588</a>
-                                </span>
-                                <span> (微信同号)</span>
-                            </span>
-                            {/* <span>生日蛋糕新鲜现做，最好提前1天预定...</span> */}
-                        </TextLoop>
+                        <span>联系弯麦总店2号</span>
+                        <span style={{ textDecoration: 'underline' }}>
+                            <a href="tel:18599568588">18599568588</a>
+                        </span>
+                        <span> (微信同号)</span>
                     </div>
 
+                    {/* 搜索框 */}
                     <div style={{ padding: 12 }}>
                         <Input
                             placeholder="请输入蛋糕名称"
@@ -1726,336 +1604,112 @@ class birthdayCakeMenu extends React.Component {
                         />
                     </div>
 
+                    {/* 展示区 */}
                     {
-                        (!searchName || searchName === '') ? (
-                            <div>
-                                <div style={{
-                                    textAlign: 'center', marginTop: 0, fontSize: 16,
-                                    backgroundColor: '#00A2A5', color: 'white',
-                                    borderRadius: 30, paddingTop: 8, paddingBottom: 8
-                                }}>
-                                    {`${birthdayCakesRecommend.name}`}
-                                </div>
-                                <List style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
-                                    grid={{ gutter: 4, column: columnNumber }}
-                                    dataSource={birthdayCakesRecommend.products}
-                                    renderItem={(product) => {
-                                        let rank = birthdayCakesRecommend.products.indexOf(product) + 1;
-                                        let theMinimumSize = {};
-                                        let theMinimumPrice = 0;
-                                        if (product.specifications.length > 0) {
-                                            let firstSpec = product.specifications[0];
-                                            theMinimumPrice = firstSpec.price;
-                                            for (let i = 0; i < birthdayCakeSizes.length; ++i) {
-                                                let size = birthdayCakeSizes[i];
-                                                if (size.id === firstSpec.sizeId) {
-                                                    theMinimumSize = size;
-                                                    break;
-                                                }
-                                            }
+                        (!searchName || searchName === '') ?
+                            (
+                                <div>
+                                    {/* 私人订制 */}
+                                    <div style={{
+                                        textAlign: 'center', marginTop: 0, fontSize: 24,
+                                        backgroundColor: 'red', color: 'white',
+                                        borderRadius: 8, paddingTop: 8, paddingBottom: 8
+                                    }} onClick={() => {
+                                        let customizedProduct = {};
+                                        customizedProduct.name = '私人订制';
+                                        customizedProduct.description = '通过下方+号上传蛋糕图片，订制自己喜欢的蛋糕';
+                                        // customizedProduct.images
+                                        this.handleOrderNowClick(customizedProduct);
+                                    }}>
+                                        <span>私人订制蛋糕</span>
+                                        <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击后上传蛋糕照片</span>
+                                    </div>
+                                    {/* 推荐区域 */}
+                                    <div style={{
+                                        textAlign: 'center', marginTop: 10, fontSize: 16,
+                                        backgroundColor: '#00A2A5', color: 'white',
+                                        borderRadius: 30, paddingTop: 8, paddingBottom: 8
+                                    }}>
+                                        {`${cakeRecommend.name}`}
+                                    </div>
+                                    <List style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                                        grid={{ gutter: 4, column: columnNumber }}
+                                        dataSource={cakeRecommend.products}
+                                        renderItem={renderItemFunc4Product}
+                                    />
+                                    <div style={{
+                                        textAlign: 'center', color: '#00A2A5',
+                                        fontSize: 18, paddingTop: 10, paddingBottom: 20
+                                    }}>
+                                        更多款式请点击下方分类查看
+                                    </div>
+
+                                    {/* 分类区域 */}
+                                    <Collapse
+                                        bordered={true}
+                                        expandIcon={({ isActive }) =>
+                                            <RightSquareFilled
+                                                style={{ fontSize: 24, color: 'whitesmoke' }}
+                                                rotate={isActive ? 90 : 0} />
                                         }
-                                        return (
-                                            <List.Item>
-                                                <div key={product.name}>
-                                                    {
-                                                        (rank === 1 || rank === 2 || rank === 3) ? (
-                                                            <div style={{
-                                                                borderRadius: 20,
-                                                                position: 'absolute', zIndex: 10
-                                                            }}>
-                                                                <Image style={{
-                                                                    width: 40, height: 40,
-                                                                }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
-                                                            </div>
-                                                        ) : (<div></div>)
-                                                    }
-
-                                                    <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                                        fallback='data:image/png;base64,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'
-                                                        preview={true} src={`${KBrithdayCakeRootWith3}/${product.name}-方图.jpg`} />
-
-                                                    <div>
-                                                        <div style={{ marginTop: 4 }}>
-                                                            <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
-                                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${product.name}》`}</span>
-                                                            <span style={{
-                                                                fontSize: 14, marginTop: 4,
-                                                                float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                                                textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
-                                                            }} onClick={() => {
-                                                                this.handleOrderNowClick(0, product.name, product.description, product, product.fillingCan);
-                                                            }}>
-                                                                {`预定`}
-                                                            </span>
-                                                        </div>
-                                                        <div style={{ fontSize: 14 }}>
-                                                            <span>{product.description}</span>
-                                                        </div>
-                                                        <div style={{ fontSize: 13 }}>
-                                                            <InfoCircleOutlined style={{ color: '#00A2A5' }} />
-                                                            <span>{` ${theMinimumSize.number}${theMinimumSize.unit} `}</span>
-                                                            <span>起</span>
-
-                                                            <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
-                                                            <span>{` ${theMinimumPrice}元 `}</span>
-                                                            <span>起</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </List.Item>
-                                        );
-                                    }}
-                                />
-                                <div style={{
-                                    textAlign: 'center', color: '#00A2A5',
-                                    fontSize: 18, paddingTop: 10, paddingBottom: 20
-                                }}>
-                                    更多款式请点击下方分类查看
-                                </div>
-
-                                <Collapse
-                                    bordered={true}
-                                    expandIcon={({ isActive }) => <RightSquareFilled style={{ fontSize: 24, color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
-                                    expandIconPosition='end'
-                                    onChange={this.handleCollapseOnChange}>
-                                    {
-                                        birthdayCakeCategorys.map((categoryItem) => {
-                                            return (
-                                                <Panel
-                                                    header=
-                                                    {
+                                        expandIconPosition='end'
+                                        onChange={this.handleCollapseOnChange}>
+                                        {
+                                            cakeCategorys.map((category) => {
+                                                return (<Panel
+                                                    header={
                                                         (
                                                             <div style={{ color: 'white', fontSize: 20 }}>
                                                                 <div style={{ marginLeft: 12 }}>
                                                                     <div>
-                                                                        {`${categoryItem.categoryName}`}
+                                                                        {`${category.name}`}
                                                                     </div>
                                                                     <div style={{ fontSize: 12, color: 'whitesmoke' }}>
-                                                                        {`${categoryItem.description}`}
+                                                                        {`${category.description}`}
                                                                     </div>
                                                                 </div>
-
                                                                 <div style={{ marginLeft: 4, marginTop: 8 }}>
                                                                     {
-                                                                        categoryItem.thumbnails.map((thumbnail) => {
-                                                                            let key = categoryItem.thumbnails.indexOf(thumbnail);
-                                                                            let lastIndex = categoryItem.thumbnails.length - 1;
+                                                                        category.images.map((image) => {
+                                                                            let index = category.images.indexOf(image);
+                                                                            let lastIndex = category.images.length - 1;
                                                                             return (
-                                                                                <span key={key}>
+                                                                                <span key={index}>
                                                                                     <Image style={{ marginLeft: 6, width: 44, height: 44, borderRadius: 22 }}
-                                                                                        preview={false} src={thumbnail} />
-                                                                                    {key === lastIndex ? <span style={{ marginLeft: 6 }}>......</span> : <span></span>}
+                                                                                        preview={false} src={image} />
+                                                                                    {index === lastIndex ? <span style={{ marginLeft: 6 }}>......</span> : <span></span>}
                                                                                 </span>
-
                                                                             );
                                                                         })
                                                                     }
                                                                 </div>
-
                                                             </div>
                                                         )
                                                     }
                                                     style={{ backgroundColor: '#00A2A5', borderRadius: 40 }}
-                                                    key={categoryItem.categoryId}
-                                                    extra={(<span style={{ fontSize: 16, color: 'whitesmoke' }}>{categoryItem.opened ? '点击收起' : '点击查看更多'}</span>)}>
-                                                    <Spin spinning={categoryItem.spinning}>
-                                                        <List
-                                                            style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
-                                                            grid={{ gutter: 4, column: columnNumber }}
-                                                            dataSource={Object.keys(categoryItem.productItems)}
-                                                            renderItem={item => {
-                                                                let pricesObj = categoryItem.productItems[item]['价格'];
-                                                                let description = categoryItem.productItems[item]['描述'];
-                                                                let can = categoryItem.productItems[item]['可选夹心'];
-                                                                let pricesKeys = Object.keys(pricesObj);
-                                                                let theMinimumPrice = '0';
-                                                                let theMinimumSize = '6寸';
+                                                    key={category.id}
+                                                    extra={
+                                                        <span style={{ fontSize: 16, color: 'whitesmoke' }}>
+                                                            {category.opened ? '点击收起' : '点击查看更多'}
+                                                        </span>
+                                                    }>
 
-                                                                let index = Object.keys(categoryItem.productItems).indexOf(item);
-                                                                let rank = index + 1;
-
-                                                                if (pricesKeys.length > 0) {
-                                                                    let type = pricesKeys[0];
-
-                                                                    let thePrices = pricesObj[type];
-                                                                    let theThePrices = Object.keys(thePrices);
-                                                                    if (theThePrices.length > 0) {
-                                                                        let firstPrice = theThePrices[0];
-                                                                        theMinimumSize = firstPrice;
-                                                                        theMinimumPrice = thePrices[firstPrice];
-                                                                    }
-                                                                }
-                                                                return (
-                                                                    <List.Item>
-                                                                        <div key={item}>
-                                                                            {
-                                                                                (rank === 1 || rank === 2 || rank === 3) ? (
-                                                                                    <div style={{
-                                                                                        borderRadius: 20,
-                                                                                        position: 'absolute', zIndex: 10
-                                                                                    }}>
-                                                                                        <Image style={{
-                                                                                            width: 40, height: 40,
-                                                                                        }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
-                                                                                    </div>
-                                                                                ) : (<div></div>)
-                                                                            }
-
-                                                                            <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                                                                fallback='data:image/png;base64,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'
-                                                                                preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
-
-                                                                            <div>
-                                                                                <div style={{ marginTop: 4 }}>
-                                                                                    <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
-                                                                                    <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
-                                                                                    <span style={{
-                                                                                        fontSize: 14, marginTop: 4,
-                                                                                        float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                                        paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                                                                        textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
-                                                                                    }} onClick={() => {
-                                                                                        this.handleOrderNowClick(0, item, description, pricesObj, can);
-                                                                                    }}>
-                                                                                        {`预定`}
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div style={{ fontSize: 14 }}>
-                                                                                    <span>{description}</span>
-                                                                                </div>
-                                                                                <div style={{ fontSize: 13 }}>
-                                                                                    <InfoCircleOutlined style={{ color: '#00A2A5' }} />
-                                                                                    <span>{` ${theMinimumSize} `}</span>
-                                                                                    <span>起</span>
-
-                                                                                    <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
-                                                                                    <span>{` ${theMinimumPrice}元 `}</span>
-                                                                                    <span>起</span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </List.Item>
-                                                                );
-                                                            }}
-                                                        />
-                                                    </Spin>
-                                                </Panel>
-                                            );
-                                        })
-                                    }
-                                </Collapse>
-
-                                <div style={{
-                                    textAlign: 'center', marginTop: 0, fontSize: 24,
-                                    backgroundColor: '#00A2A5', color: 'white',
-                                    borderRadius: 0, paddingTop: 30, paddingBottom: 30
-                                }} onClick={() => {
-                                    let price4customized = {
-                                        "牛奶奶油": {
-                                            "6寸": "--",
-                                            "8寸": "--",
-                                            "10寸": "--",
-                                            "12寸": "--"
-                                        },
-                                        "动物奶油": {
-                                            "6寸": "--",
-                                            "8寸": "--",
-                                            "10寸": "--",
-                                            "12寸": "--"
+                                                    <List style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
+                                                        grid={{ gutter: 4, column: columnNumber }}
+                                                        dataSource={category.products}
+                                                        renderItem={renderItemFunc4Product} />
+                                                </Panel>)
+                                            })
                                         }
-                                    }
-                                    this.handleOrderNowClick(1, '私人定制', '点击+选择私人订制蛋糕图片', price4customized, true);
-                                }}>
-                                    <span>私人订制蛋糕</span>
-                                    <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击预定</span>
+                                    </Collapse>
                                 </div>
-                            </div >
-                        ) : (
-                            <div>
-                                <List
-                                    style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                            ) :
+                            (
+                                <List style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
                                     grid={{ gutter: 4, column: columnNumber }}
-                                    dataSource={Object.keys(birthdayCakesSearchItems)}
-                                    renderItem={item => {
-                                        let pricesObj = birthdayCakesSearchItems[item]['价格'];
-                                        let description = birthdayCakesSearchItems[item]['描述'];
-                                        let can = birthdayCakesSearchItems[item]['可选夹心'];
-                                        let pricesKeys = Object.keys(pricesObj);
-
-                                        let theMinimumSize = '6寸';
-                                        let theMinimumPrice = '0';
-
-                                        if (pricesKeys.length > 0) {
-                                            let type = pricesKeys[0];
-
-                                            let thePrices = pricesObj[type];
-                                            let theThePrices = Object.keys(thePrices);
-                                            if (theThePrices.length > 0) {
-                                                let firstPrice = theThePrices[0];
-                                                theMinimumSize = firstPrice;
-                                                theMinimumPrice = thePrices[firstPrice];
-                                            }
-                                        }
-
-                                        let index = Object.keys(birthdayCakesSearchItems).indexOf(item);
-                                        let rank = index + 1;
-
-                                        return (
-                                            <List.Item>
-                                                <div key={item}>
-                                                    {
-                                                        (rank === 1 || rank === 2 || rank === 3) ? (
-                                                            <div style={{
-                                                                borderRadius: 20,
-                                                                position: 'absolute', zIndex: 10
-                                                            }}>
-                                                                <Image style={{
-                                                                    width: 40, height: 40,
-                                                                }} preview={false} src={`/image/生日蛋糕/排行/排名${rank}.png`} />
-                                                            </div>
-                                                        ) : (<div></div>)
-                                                    }
-
-                                                    <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                                        fallback='data:image/png;base64,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'
-                                                        preview={true} src={`${KBrithdayCakeRootWith3}/${item}-方图.jpg`} />
-
-                                                    <div>
-                                                        <div style={{ marginTop: 4 }}>
-                                                            <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
-                                                            <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${item}》`}</span>
-                                                            <span style={{
-                                                                fontSize: 14, marginTop: 4,
-                                                                float: 'right', paddingTop: 4, paddingBottom: 4,
-                                                                paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                                                textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
-                                                            }} onClick={() => {
-                                                                this.handleOrderNowClick(0, item, description, pricesObj, can);
-                                                            }}>
-                                                                {`预定`}
-                                                            </span>
-                                                        </div>
-                                                        <div style={{ fontSize: 14 }}>
-                                                            <span>{description}</span>
-                                                        </div>
-                                                        <div style={{ fontSize: 13 }}>
-                                                            <InfoCircleOutlined style={{ color: '#00A2A5' }} />
-                                                            <span>{` ${theMinimumSize} `}</span>
-                                                            <span>起</span>
-
-                                                            <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
-                                                            <span>{` ${theMinimumPrice}元 `}</span>
-                                                            <span>起</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </List.Item>
-                                        );
-                                    }}
-                                />
-                            </div>
-                        )
+                                    dataSource={cake4Search}
+                                    renderItem={renderItemFunc4Product} />
+                            )
                     }
 
                     {
@@ -2097,7 +1751,7 @@ class birthdayCakeMenu extends React.Component {
                                             background: '#D8D8D8',
                                             borderBottom: '1px dashed black'
                                         }}>
-                                            <span>{`《${cakeName}》`}</span>
+                                            <span>{`《${cakeOrderInfo.product.name}》`}</span>
                                         </div>
                                         <div>
                                             <div style={{ position: 'relative' }}>

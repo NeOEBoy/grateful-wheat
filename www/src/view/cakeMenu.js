@@ -57,11 +57,11 @@ const orderInfoInit = () => {
     init.making.size = undefined;
     init.making.sizeExtra = undefined;
     init.making.price = undefined;
-    init.making.fillingIds = [];
-    init.making.candleId = undefined;
+    init.making.fillings = [];
+    init.making.candle = undefined;
     init.making.candleExtra = undefined;
-    init.making.kindlingId = undefined;
-    init.making.hatId = undefined;
+    init.making.kindling = undefined;
+    init.making.hat = undefined;
     init.making.plates = undefined;
     init.delivery = {};
     init.delivery.pickUpDay = undefined;
@@ -69,13 +69,13 @@ const orderInfoInit = () => {
     init.delivery.pickUpTime = undefined;
     init.delivery.pickUpTimePopupOpen = false;
     init.delivery.pickUpType = undefined;
-    init.delivery.shopId = undefined;
+    init.delivery.shop = undefined;
     init.delivery.address = undefined;
     init.delivery.pickUpName = undefined;
     init.delivery.phoneNumber = undefined;
     init.delivery.pickUpTypes = undefined;
     init.other = {};
-    init.other.remarks = undefined;
+    init.other.remarks = "";
 
     return init;
 };
@@ -387,16 +387,52 @@ class cakeMenu extends React.Component {
             // cakeOrderInfo.making.sizeExtra = undefined
             // cakeOrderInfo.making.price = 188
             // cakeOrderInfo.product.fillingNumber = 2
-            // cakeOrderInfo.making.fillingIds = [1, 2]
-            // cakeOrderInfo.making.candleId = 1
+            // cakeOrderInfo.making.fillings = [
+            //     {
+            //         "id": 1,
+            //         "name": "布蕾布丁",
+            //         "description": "布蕾布丁",
+            //         "image": "生日蛋糕/夹心/布蕾布丁.jpg"
+            //     },
+            //     {
+            //         "id": 2,
+            //         "name": "新鲜芒果",
+            //         "description": "新鲜芒果",
+            //         "image": "生日蛋糕/夹心/新鲜芒果.jpg"
+            //     },
+            // ]
+            // cakeOrderInfo.making.candle = {
+            //     "id": 1,
+            //     "name": "爱心蜡烛",
+            //     "description": "爱心蜡烛",
+            //     "image": "生日蛋糕/蜡烛/爱心蜡烛.jpg"
+            // }
             // cakeOrderInfo.making.candleExtra = undefined
-            // cakeOrderInfo.making.kindlingId = 2
-            // cakeOrderInfo.making.hatId = 2
+            // cakeOrderInfo.making.kindling = {
+            //     "id": 2,
+            //     "name": "火柴盒",
+            //     "description": "火柴盒",
+            //     "image": "生日蛋糕/蜡烛/火柴盒.jpg"
+            // }
+            // cakeOrderInfo.making.hat = {
+            //     "id": 4,
+            //     "name": "金卡磨砂圆锥帽",
+            //     "description": "金卡磨砂圆锥帽",
+            //     "image": "生日蛋糕/帽子/金卡磨砂圆锥帽.jpg"
+            // }
             // cakeOrderInfo.making.plates = 15
             // cakeOrderInfo.delivery.pickUpDay = moment().add(1, 'day')
             // cakeOrderInfo.delivery.pickUpTime = moment().add(1, 'day')
-            // cakeOrderInfo.delivery.pickUpType = 2
-            // cakeOrderInfo.delivery.shopId = 1
+            // cakeOrderInfo.delivery.pickUpType = {
+            //     "id": 2,
+            //     "name": "商家配送",
+            //     "description": "商家配送"
+            // }
+            // cakeOrderInfo.delivery.shop = {
+            //     "id": 2,
+            //     "name": "汤泉世纪店",
+            //     "description": "汤泉世纪店"
+            // },
             // cakeOrderInfo.delivery.address = '钱隆首府2期9栋1301'
             // cakeOrderInfo.delivery.pickUpName = '王荣慧'
             // cakeOrderInfo.delivery.phoneNumber = '18698036807'
@@ -404,103 +440,185 @@ class cakeMenu extends React.Component {
         }
         // log
         {
-            console.log('名字：' + cakeOrderInfo.product.name);
-            console.log('描述：' + cakeOrderInfo.product.description);
-            console.log('图片：' + cakeOrderInfo.product.images[0]);
-            console.log('奶油：' + cakeOrderInfo.making.cream.name);
-            console.log('尺寸：' + cakeOrderInfo.making.size.name);
-            console.log('组合：' + cakeOrderInfo.making.sizeExtra);
-            console.log('价格：' + cakeOrderInfo.making.price);
-            console.log('夹心数量：' + cakeOrderInfo.product.fillingNumber);
-            console.log('夹心：' + cakeOrderInfo.making.fillingIds);
-            console.log('蜡烛：' + cakeOrderInfo.making.candleId);
-            console.log('蜡烛Extra：' + cakeOrderInfo.making.candleExtra);
-            console.log('火柴：' + cakeOrderInfo.making.kindlingId);
-            console.log('帽子：' + cakeOrderInfo.making.hatId);
+            console.log('名字：' + cakeOrderInfo.product?.name);
+            console.log('描述：' + cakeOrderInfo.product?.description);
+            console.log('图片：' + cakeOrderInfo.product?.images[0]);
+            console.log('奶油：' + cakeOrderInfo.making.cream?.name);
+            console.log('尺寸：' + cakeOrderInfo.making.size?.name);
+            console.log('组合：' + cakeOrderInfo.making?.sizeExtra);
+            console.log('价格：' + cakeOrderInfo.making?.price);
+            console.log('夹心数量：' + cakeOrderInfo.product?.fillingNumber);
+            console.log('夹心：' + cakeOrderInfo.making.fillings.map(item => this.evalWith(item).name));
+            console.log('蜡烛：' + this.evalWith(cakeOrderInfo.making.candle)?.name);
+            console.log('蜡烛Extra：' + cakeOrderInfo.making?.candleExtra);
+            console.log('火柴：' + this.evalWith(cakeOrderInfo.making.kindling)?.name);
+            console.log('帽子：' + this.evalWith(cakeOrderInfo.making.hat)?.name);
             console.log('餐盘：' + cakeOrderInfo.making.plates);
-            console.log('日期：' + cakeOrderInfo.delivery.pickUpDay);
-            console.log('时间：' + cakeOrderInfo.delivery.pickUpTime);
-            console.log('方式：' + cakeOrderInfo.delivery.pickUpType);
-            console.log('门店：' + cakeOrderInfo.delivery.shopId);
+            console.log('日期：' + cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd'));
+            console.log('时间：' + cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
+            console.log('方式：' + this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name);
+            console.log('门店：' + this.evalWith(cakeOrderInfo.delivery.shop)?.name);
             console.log('地址：' + cakeOrderInfo.delivery.address);
             console.log('姓名：' + cakeOrderInfo.delivery.pickUpName);
             console.log('手机：' + cakeOrderInfo.delivery.phoneNumber);
             console.log('备注：' + cakeOrderInfo.other.remarks);
         }
+        // valid check
+        {
+            if (cakeOrderInfo.making.cream === undefined) {
+                message.warning('请选择奶油类型！');
+                return;
+            }
+            if (cakeOrderInfo.making.size === undefined) {
+                message.warning('请选择尺寸大小！');
+                return;
+            }
+            if (cakeOrderInfo.making.size.id === -500 &&
+                (cakeOrderInfo.making.sizeExtra === undefined ||
+                    cakeOrderInfo.making.sizeExtra === '')) {
+                message.warning('请输入组合类型和尺寸！');
+                return;
+            }
+            if (cakeOrderInfo.making.fillings.length <= 0) {
+                message.warning('请选择夹心！');
+                return;
+            }
+            if (cakeOrderInfo.making.candle === undefined) {
+                message.warning('请选择蜡烛！');
+                return;
+            }
+            if (cakeOrderInfo.making.candle.id === 3 &&
+                (cakeOrderInfo.making.candleExtra === undefined ||
+                    cakeOrderInfo.making.candleExtra === '')) {
+                message.warning('请输入数字蜡烛的数字！');
+                return;
+            }
+            if (cakeOrderInfo.making.kindling === undefined) {
+                message.warning('请选择是否需要火柴！');
+                return;
+            }
+            if (cakeOrderInfo.making.hat === undefined) {
+                message.warning('请选择生日帽！');
+                return;
+            }
+            if (cakeOrderInfo.delivery.pickUpDay === undefined ||
+                cakeOrderInfo.delivery.pickUpDay === null) {
+                message.warning('请选择取货日期！');
+                return;
+            }
+            if (cakeOrderInfo.delivery.pickUpTime === undefined ||
+                cakeOrderInfo.delivery.pickUpTime === null) {
+                message.warning('请选择取货时间！');
+                return;
+            }
+            if (cakeOrderInfo.delivery.pickUpType === undefined) {
+                message.warning('请选择取货方式！');
+                return;
+            }
+            if (cakeOrderInfo.delivery.shop === undefined) {
+                message.warning('请选择预定门店！');
+                return;
+            }
+            if (this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 &&
+                (cakeOrderInfo.delivery.address === undefined ||
+                    cakeOrderInfo.delivery.address === null ||
+                    cakeOrderInfo.delivery.address === '')) {
+                message.warning('请输入配送地址！');
+                return;
+            }
+            if (cakeOrderInfo.delivery.pickUpName === undefined ||
+                cakeOrderInfo.delivery.pickUpName === null ||
+                cakeOrderInfo.delivery.pickUpName === '') {
+                message.warning('请输入姓名！');
+                return;
+            }
+            if (cakeOrderInfo.delivery.phoneNumber === undefined ||
+                cakeOrderInfo.delivery.phoneNumber === null ||
+                cakeOrderInfo.delivery.phoneNumber === '') {
+                message.warning('请输入电话号码！');
+                return;
+            }
+        }
 
+        this.setState({
+            orderInfoModalVisiable: false,
+            makingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
+            image4QRCode: ''
+        }, () => {
+            setTimeout(() => {
+                this.setState({
+                    imageCapturing: true
+                }, async () => {
+                    if (!this._theDiv4Capture) return;
 
-        if (cakeOrderInfo.making.cream === undefined) {
-            message.warning('请选择奶油类型！');
-            return;
-        }
-        if (cakeOrderInfo.making.size === undefined) {
-            message.warning('请选择尺寸大小！');
-            return;
-        }
-        if (cakeOrderInfo.making.size.id === -500 &&
-            (cakeOrderInfo.making.sizeExtra === undefined ||
-                cakeOrderInfo.making.sizeExtra === '')) {
-            message.warning('请输入组合类型和尺寸！');
-            return;
-        }
-        if (cakeOrderInfo.making.fillingIds.length <= 0) {
-            message.warning('请选择夹心！');
-            return;
-        }
-        if (cakeOrderInfo.making.candleId === undefined) {
-            message.warning('请选择蜡烛！');
-            return;
-        }
-        if (cakeOrderInfo.making.candleId === 3 &&
-            (cakeOrderInfo.making.candleExtra === undefined ||
-                cakeOrderInfo.making.candleExtra === '')) {
-            message.warning('请输入数字蜡烛的数字！');
-            return;
-        }
-        if (cakeOrderInfo.making.kindlingId === undefined) {
-            message.warning('请选择是否需要火柴！');
-            return;
-        }
-        if (cakeOrderInfo.making.hatId === undefined) {
-            message.warning('请选择生日帽！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.pickUpDay === undefined ||
-            cakeOrderInfo.delivery.pickUpDay === null) {
-            message.warning('请选择取货日期！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.pickUpTime === undefined ||
-            cakeOrderInfo.delivery.pickUpTime === null) {
-            message.warning('请选择取货时间！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.pickUpType === undefined) {
-            message.warning('请选择取货方式！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.shopId === undefined) {
-            message.warning('请选择预定门店！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.address === undefined ||
-            cakeOrderInfo.delivery.address === null ||
-            cakeOrderInfo.delivery.address === '') {
-            message.warning('请输入配送地址！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.pickUpName === undefined ||
-            cakeOrderInfo.delivery.pickUpName === null ||
-            cakeOrderInfo.delivery.pickUpName === '') {
-            message.warning('请输入姓名！');
-            return;
-        }
-        if (cakeOrderInfo.delivery.phoneNumber === undefined ||
-            cakeOrderInfo.delivery.phoneNumber === null ||
-            cakeOrderInfo.delivery.phoneNumber === '') {
-            message.warning('请输入电话号码！');
-            return;
-        }
+                    /// 保存蛋糕订单，返回_id
+                    let createResult = { _id: '123' };
+                    // let createResult = await createBirthdaycakeOrder(
+                    //     cakeName,
+                    //     cakeDescription,
+                    //     creamType,
+                    //     cakeSize,
+                    //     cakeSizeExtra,
+                    //     cakePrice,
+                    //     cakeFillings,
+                    //     candleType,
+                    //     ignitorType,
+                    //     hatType,
+                    //     number4candle,
+                    //     cakePlateNumber,
+                    //     pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : '',
+                    //     pickUpTime ? pickUpTime.format(' a HH:mm') : '',
+                    //     pickUpType,
+                    //     responseShop,
+                    //     deliverAddress,
+                    //     pickUpName,
+                    //     phoneNumber,
+                    //     remarks);
+                    // console.log(createResult);
+                    // if (createResult.errCode !== 0) {
+                    //     message.error('订单保存失败');
+                    //     return;
+                    // }
+
+                    let birthdayCakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
+                    let opts = {
+                        errorCorrectionLevel: 'L',
+                        type: 'image/png',
+                        quality: 0.5,
+                        margin: 1,
+                        color: {
+                            dark: "#E5E4E2",
+                            light: "#00A2A5"
+                        }
+                    }
+                    let qrCode = await QRCode.toDataURL(birthdayCakeOrderUrl, opts);
+
+                    this.setState({ image4QRCode: qrCode },
+                        async () => {
+                            let canvas = await html2Canvas(this._theDiv4Capture);
+                            let imageSrc = canvas.toDataURL('image/png');
+
+                            this.setState({
+                                orderImageSrc: imageSrc,
+                                imageCapturing: false
+                            }, () => {
+                                this.setState({ orderImageModalVisiable: true }, async () => {
+                                    document.documentElement.style.overflow = 'hidden';
+
+                                    /// 模板通知指定人员有人生成订购单了，避免漏单
+                                    // let title = '有顾客生成蛋糕订购单了';
+                                    // let style = '《' + cakeName + '》';
+                                    // let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
+                                    // let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
+                                    // console.log(sendResult);
+                                    // message.info(JSON.stringify(sendResult));
+                                });
+                            });
+                        });
+                })
+            }, 0);
+        });
+        
         document.documentElement.style.overflow = 'visible';
     }
 
@@ -558,32 +676,33 @@ class cakeMenu extends React.Component {
     }
 
     handleCakeFillingChange = (value, fillingNumber) => {
+        // console.log('value = ' + value);
         if (value.length > fillingNumber) {
             message.warning(`只能选择 ${fillingNumber} 两种夹心，请反选不需要的夹心后，重新选择！`);
             return;
         }
 
         const { cakeOrderInfo } = this.state;
-        cakeOrderInfo.making.fillingIds = value;
+        cakeOrderInfo.making.fillings = value;
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
     handleCandleChange = (e) => {
         const { cakeOrderInfo } = this.state;
-        cakeOrderInfo.making.candleId = e.target.value;
+        cakeOrderInfo.making.candle = e.target.value;
         this.updateCandleOptions(cakeOrderInfo);
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
     handleKindlingChange = (e) => {
         const { cakeOrderInfo } = this.state;
-        cakeOrderInfo.making.kindlingId = e.target.value;
+        cakeOrderInfo.making.kindling = e.target.value;
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
     handleHatChange = (e) => {
         const { cakeOrderInfo } = this.state;
-        cakeOrderInfo.making.hatId = e.target.value;
+        cakeOrderInfo.making.hat = e.target.value;
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
@@ -648,7 +767,7 @@ class cakeMenu extends React.Component {
 
     handleShopChange = (value) => {
         const { cakeOrderInfo } = this.state;
-        cakeOrderInfo.delivery.shopId = value;
+        cakeOrderInfo.delivery.shop = value;
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
@@ -725,10 +844,10 @@ class cakeMenu extends React.Component {
                 }
             }
         }
-        // if (this._sizeOptions.length > 1) {
-        //     this._sizeOptions.push({ label: '组合', value: JSON.stringify({ "id": -500 }) });
-        // }
-        console.log('this._sizeOptions = ' + JSON.stringify(this._sizeOptions));
+        if (this._sizeOptions.length > 1) {
+            this._sizeOptions.push({ label: '组合', value: JSON.stringify({ "id": -500, "name": '组合' }) });
+        }
+        // console.log('this._sizeOptions = ' + JSON.stringify(this._sizeOptions));
     }
 
     updateFillingOptions = () => {
@@ -742,7 +861,7 @@ class cakeMenu extends React.Component {
                             <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src={filling.image} />
                             <div style={{ width: 54, textAlign: 'center' }}>{filling.name}</div>
                         </div>,
-                    value: filling.id
+                    value: JSON.stringify(filling)
                 });
             }
         }
@@ -763,7 +882,7 @@ class cakeMenu extends React.Component {
                                 {
                                     candle.id === 3 ?
                                         <Input style={{ width: 70, height: 30 }}
-                                            disabled={cakeOrderInfo.making.candleId !== 3}
+                                            disabled={this.evalWith(cakeOrderInfo.making.candle)?.id !== 3}
                                             placeholder='数字'
                                             prefix={<EditOutlined />}
                                             value={cakeOrderInfo.making.candleExtra}
@@ -772,7 +891,7 @@ class cakeMenu extends React.Component {
                                 }
                             </div>
                         </div>,
-                    value: candle.id
+                    value: JSON.stringify(candle)
                 });
             }
         }
@@ -790,7 +909,7 @@ class cakeMenu extends React.Component {
                             <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={kindling.image} />
                             <div style={{ width: 70, textAlign: 'center' }}>{kindling.name}</div>
                         </div>,
-                    value: kindling.id
+                    value: JSON.stringify(kindling)
                 })
             }
         }
@@ -808,7 +927,7 @@ class cakeMenu extends React.Component {
                             <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={hat.image} />
                             <div style={{ width: 70, textAlign: 'center' }}>{hat.name}</div>
                         </div>,
-                    value: hat.id
+                    value: JSON.stringify(hat)
                 })
             }
         }
@@ -819,10 +938,10 @@ class cakeMenu extends React.Component {
         this._pickUpTypesOptions = [];
         if (this._cakePickUpTypes) {
             for (let i = 0; i < this._cakePickUpTypes.length; ++i) {
-                let pickUpTypes = this._cakePickUpTypes[i];
+                let pickUpType = this._cakePickUpTypes[i];
                 this._pickUpTypesOptions.push({
-                    label: pickUpTypes.name,
-                    value: pickUpTypes.id
+                    label: pickUpType.name,
+                    value: JSON.stringify(pickUpType)
                 })
             }
         }
@@ -836,7 +955,7 @@ class cakeMenu extends React.Component {
                 let shop = this._cakeShops[i];
                 this._shopOptions.push({
                     label: shop.name,
-                    value: shop.id
+                    value: JSON.stringify(shop)
                 })
             }
         }
@@ -912,6 +1031,9 @@ class cakeMenu extends React.Component {
         }
     }
 
+    evalWith = (obj) => {
+        return eval("(" + obj + ")");
+    }
     render() {
         const {
             searchName,
@@ -1144,10 +1266,10 @@ class cakeMenu extends React.Component {
                                                 disabled={cakeOrderInfo.product.fillingNumber > 0 ? false : true}
                                                 style={{ marginTop: 8 }}
                                                 options={this._fillingOptions}
-                                                value={cakeOrderInfo.making.fillingIds}
+                                                value={cakeOrderInfo.making.fillings}
                                                 onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product.fillingNumber)} />
                                             {
-                                                cakeOrderInfo.making.fillingIds?.length === 0 && cakeOrderInfo.product.fillingNumber > 0 ? (
+                                                cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product.fillingNumber > 0 ? (
                                                     <div style={{ color: 'red' }}>“夹心”是必填项</div>
                                                 ) : (<span></span>)
                                             }
@@ -1157,12 +1279,12 @@ class cakeMenu extends React.Component {
 
                                             <Radio.Group style={{ marginTop: 8 }}
                                                 options={this._candleOptions}
-                                                value={cakeOrderInfo.making.candleId}
+                                                value={cakeOrderInfo.making.candle}
                                                 onChange={this.handleCandleChange}>
                                             </Radio.Group>
                                             {
-                                                cakeOrderInfo.making.candleId === undefined ||
-                                                    (cakeOrderInfo.making.candleId === 3 &&
+                                                cakeOrderInfo.making.candle === undefined ||
+                                                    (this.evalWith(cakeOrderInfo.making.candle).id === 3 &&
                                                         (cakeOrderInfo.making.candleExtra === undefined ||
                                                             cakeOrderInfo.making.candleExtra === '')) ? (
                                                     <div style={{ color: 'red', marginLeft: 0 }}>“蜡烛”是必填项</div>
@@ -1174,7 +1296,7 @@ class cakeMenu extends React.Component {
 
                                             <Radio.Group style={{ marginTop: 8 }}
                                                 options={this._kindlingOptions}
-                                                value={cakeOrderInfo.making.kindlingId}
+                                                value={cakeOrderInfo.making.kindling}
                                                 onChange={this.handleKindlingChange}>
                                             </Radio.Group>
                                         </div>
@@ -1185,7 +1307,7 @@ class cakeMenu extends React.Component {
                                             <Radio.Group style={{ marginTop: 8 }}
                                                 options={this._hatOptions}
                                                 onChange={this.handleHatChange}>
-                                                value={cakeOrderInfo.making.hatId}
+                                                value={cakeOrderInfo.making.hat}
                                             </Radio.Group>
                                         </div>
 
@@ -1351,19 +1473,20 @@ class cakeMenu extends React.Component {
                                         </div>
                                         <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                             <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                            <Select value={cakeOrderInfo.delivery.shopId} style={{ width: 160 }}
+                                            <Select style={{ width: 160 }}
                                                 onChange={this.handleShopChange}
+                                                value={cakeOrderInfo.delivery.shop}
                                                 options={this._shopOptions}>
                                             </Select>
                                             {
-                                                cakeOrderInfo.delivery.shopId === undefined ||
-                                                    cakeOrderInfo.delivery.shopId === null ? (
+                                                this.evalWith(cakeOrderInfo.delivery.shop)?.id === undefined ||
+                                                    this.evalWith(cakeOrderInfo.delivery.shop)?.id === null ? (
                                                     <div style={{ color: 'red' }}>“门店”是必填项</div>
                                                 ) : (<div></div>)
                                             }
                                         </div>
                                         {
-                                            cakeOrderInfo.delivery.pickUpType === 2 ? (
+                                            this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 ? (
                                                 <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                                     <Input.Group>
                                                         <span style={{ fontWeight: 'bold' }}>地址：</span>
@@ -1372,7 +1495,8 @@ class cakeMenu extends React.Component {
                                                             value={cakeOrderInfo.delivery.address}
                                                             onChange={this.handleDeliverAddressChange} />
                                                         {
-                                                            cakeOrderInfo.delivery.address === '' ? (
+                                                            cakeOrderInfo.delivery.address === undefined ||
+                                                                cakeOrderInfo.delivery.address === '' ? (
                                                                 <div style={{ color: 'red' }}>“地址”是必填项</div>
                                                             ) : (<div></div>)
                                                         }
@@ -1549,7 +1673,7 @@ class cakeMenu extends React.Component {
                                                 style={{ fontSize: 24, color: 'whitesmoke' }}
                                                 rotate={isActive ? 90 : 0} />
                                         }
-                                        expandIconPosition='end'
+                                        expandIconPosition='right'
                                         onChange={this.handleCollapseOnChange}>
                                         {
                                             cakeCategorys.map((category) => {
@@ -1689,9 +1813,9 @@ class cakeMenu extends React.Component {
                                         </div>
                                         <div style={{ marginTop: 4, marginBottom: 4 }}>
                                             <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.candleId}</span>
+                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.making.candle).name}</span>
                                             {
-                                                cakeOrderInfo.making.candleId === 3 ? (
+                                                this.evalWith(cakeOrderInfo.making.candle).id === 3 ? (
                                                     <span style={{ fontSize: 14 }}>
                                                         {`${cakeOrderInfo.making.candleExtra}`}
                                                     </span>) : (
@@ -1700,7 +1824,7 @@ class cakeMenu extends React.Component {
                                                 )
                                             }
                                             {
-                                                cakeOrderInfo.making.kindlingId === 2 ? (
+                                                cakeOrderInfo.making.kindling === 2 ? (
                                                     <span style={{ fontSize: 14 }}>
                                                         {`+火柴盒`}
                                                     </span>
@@ -1709,7 +1833,7 @@ class cakeMenu extends React.Component {
                                         </div>
                                         <div style={{ marginTop: 4, marginBottom: 4 }}>
                                             <span style={{ fontSize: 14, fontWeight: 'bold' }}>帽子：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.hatId}</span>
+                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.making.hat).name}</span>
                                         </div>
                                         <div style={{ marginTop: 4, marginBottom: 4 }}>
                                             <span style={{ fontSize: 14, fontWeight: 'bold' }}>餐具：</span>
@@ -1719,19 +1843,19 @@ class cakeMenu extends React.Component {
                                         <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
                                         <div>
                                             <span style={{ fontSize: 14, fontWeight: 'bold' }}>时间：</span>
-                                            <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpDay ? cakeOrderInfo.delivery.pickUpDay.format('YYYY-MM-DD ddd') : ''}</span>
-                                            <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpTime ? cakeOrderInfo.delivery.pickUpTime.format(' a HH:mm') : ''}</span>
+                                            <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd')}</span>
+                                            <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpTime?.format(' a HH:mm')}</span>
                                         </div>
                                         <div style={{ marginTop: 4, marginBottom: 4 }}>
                                             <span style={{ fontSize: 14, fontWeight: 'bold' }}>方式：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.delivery.pickUpType}</span>
+                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name}</span>
                                         </div>
                                         <div style={{ marginTop: 4, marginBottom: 4 }}>
                                             <span style={{ fontSize: 14, fontWeight: 'bold' }}>门店：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.delivery.shopId}</span>
+                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.delivery.shop)?.name}</span>
                                         </div>
                                         {
-                                            cakeOrderInfo.delivery.pickUpType === 2 ? (
+                                            this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 ? (
                                                 <div style={{ marginTop: 4, marginBottom: 4 }}>
                                                     <span style={{ fontSize: 14, fontWeight: 'bold' }}>地址：</span>
                                                     <span style={{ fontSize: 14 }}>{cakeOrderInfo.delivery.address}</span>

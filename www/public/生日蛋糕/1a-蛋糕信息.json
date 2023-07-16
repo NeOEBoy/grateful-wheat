@@ -191,6 +191,35 @@
             "image": "生日蛋糕/帽子/金卡磨砂圆锥帽.jpg"
         }
     ],
+    "pickUpTypes": [
+        {
+            "id": 1,
+            "name": "自己提货",
+            "description": "自己提货"
+        },
+        {
+            "id": 2,
+            "name": "商家配送",
+            "description": "商家配送"
+        }
+    ],
+    "shops": [
+        {
+            "id": 1,
+            "name": "教育局店",
+            "description": "教育局店"
+        },
+        {
+            "id": 2,
+            "name": "汤泉世纪店",
+            "description": "汤泉世纪店"
+        },
+        {
+            "id": 3,
+            "name": "盘陀店",
+            "description": "盘陀店"
+        }
+    ],
     "categorys": [
         {
             "id": 1,

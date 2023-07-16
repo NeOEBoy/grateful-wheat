@@ -1136,7 +1136,6 @@ class birthdayCakeSale extends React.Component {
             {
                 label: (<div style={{ marginBottom: 6 }}>
                     <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src="/image/生日蛋糕/蜡烛/数字蜡烛.jpg" />
-
                     <div style={{ width: 70, textAlign: 'center' }}>
                         数字蜡烛
                         <Input style={{ width: 70, height: 30 }}

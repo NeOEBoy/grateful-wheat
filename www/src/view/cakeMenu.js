@@ -18,10 +18,8 @@ import Icon, {
     HomeOutlined,
     PhoneOutlined,
     EditOutlined,
-    PlusOutlined,
     RotateLeftOutlined,
     RotateRightOutlined,
-    LoadingOutlined,
     PayCircleOutlined,
     InfoCircleOutlined
 } from '@ant-design/icons';
@@ -47,7 +45,7 @@ const { Panel } = Collapse;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
 
-const KBrithdayCakeRootWith3 = '/生日蛋糕';
+const KCakeRoot = '/生日蛋糕';
 
 const orderInfoInit = () => {
     let init = {};
@@ -96,17 +94,14 @@ class cakeMenu extends React.Component {
             orderInfoModalVisiable: false,
             cakeOrderInfo: orderInfoInit(),
 
-            cakeImage: '',
-            /// 制单时间
-            makingTime: '',
-
+            /// 生成预定单图片
+            orderingTime: '',
             orderImageModalVisiable: false,
             orderImageSrc: undefined,
-            imageCapturing: false,
+            orderImageCapturing: false,
             imageBeforeCrop: '',
             imageCropperModalVisiable: false,
             localImgDataLoading: false,
-            divImageLoading: false,
             image4QRCode: ''
         };
     }
@@ -122,6 +117,7 @@ class cakeMenu extends React.Component {
         this._cakeHats = cakeInfosObj.hats;
         this._cakePickUpTypes = cakeInfosObj.pickUpTypes;
         this._cakeShops = cakeInfosObj.shops;
+        this._private = cakeInfosObj.private;
 
         this.makeRenderItemFunc4Product();
         this.initLocal();
@@ -193,7 +189,7 @@ class cakeMenu extends React.Component {
                     },
                     fail: function (res) {
                         // 设置失败
-                        // console.log('window.wx.updateAppMessageShareData fail res=' + res);
+                        // console.log('window.wx.updateAppMessageShareData fail res=' + JSON.stringify(res));
                     }
                 });
 
@@ -206,9 +202,9 @@ class cakeMenu extends React.Component {
                         // 设置成功
                         // console.log('window.wx.updateTimelineShareData success');
                     },
-                    fail: function () {
+                    fail: function (res) {
                         // 设置失败
-                        // console.log('window.wx.updateTimelineShareData fail');
+                        // console.log('window.wx.updateTimelineShareData fail res = ' + JSON.stringify(res));
                     }
                 });
             });
@@ -353,8 +349,6 @@ class cakeMenu extends React.Component {
             this.setState({
                 orderInfoModalVisiable: true,
                 cakeOrderInfo: cakeOrderInfo
-                // cakeImage: type === 0 ? KBrithdayCakeRootWith3 + '/' + name + '-方图.jpg' : '私人订制蛋糕',
-                // makingTime: '',
             }, () => {
                 this.makeCakeConfig(cakeOrderInfo);
             });
@@ -541,50 +535,56 @@ class cakeMenu extends React.Component {
         }
 
         this.setState({
-            // orderInfoModalVisiable: false,
-            imageCapturing: true,
-            makingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
+            orderImageCapturing: true,
+            orderingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
             image4QRCode: ''
         }, () => {
             setTimeout(async () => {
                 /// 保存蛋糕订单，返回_id
-                let createResult = { _id: '123' };
-                // let createResult = await createBirthdaycakeOrder(
-                //     cakeName,
-                //     cakeDescription,
-                //     creamType,
-                //     cakeSize,
-                //     cakeSizeExtra,
-                //     cakePrice,
-                //     cakeFillings,
-                //     candleType,
-                //     ignitorType,
-                //     hatType,
-                //     number4candle,
-                //     cakePlateNumber,
-                //     pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : '',
-                //     pickUpTime ? pickUpTime.format(' a HH:mm') : '',
-                //     pickUpType,
-                //     responseShop,
-                //     deliverAddress,
-                //     pickUpName,
-                //     phoneNumber,
-                //     remarks);
-                // console.log(createResult);
-                // if (createResult.errCode !== 0) {
-                //     message.error('订单保存失败！');
-                //     return;
-                // }
+                let createResult = { _id: '' };
+                try {
+                    createResult = await createBirthdaycakeOrder(
+                        cakeOrderInfo.product?.name,
+                        cakeOrderInfo.product?.description,
+                        cakeOrderInfo.making.cream?.name,
+                        cakeOrderInfo.making.size?.name,
+                        cakeOrderInfo.making?.sizeExtra,
+                        cakeOrderInfo.making?.price,
+                        cakeOrderInfo.making.fillings.map(item => this.evalWith(item).name),
+                        this.evalWith(cakeOrderInfo.making.candle)?.name,
+                        this.evalWith(cakeOrderInfo.making.kindling)?.name,
+                        this.evalWith(cakeOrderInfo.making.hat)?.name,
+                        cakeOrderInfo.making?.candleExtra,
+                        cakeOrderInfo.making.plates,
+                        cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd'),
+                        cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'),
+                        this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name,
+                        this.evalWith(cakeOrderInfo.delivery.shop)?.name,
+                        cakeOrderInfo.delivery.address,
+                        cakeOrderInfo.delivery.pickUpName,
+                        cakeOrderInfo.delivery.phoneNumber,
+                        cakeOrderInfo.other.remarks);
+                    // console.log(createResult);
+                    if (createResult.errCode !== 0) {
+                        message.error('订单保存失败！');
+                        this.setState({ orderImageCapturing: false });
+                        return;
+                    }
+                } catch {
+                    message.error('订单保存失败！');
+                    this.setState({ orderImageCapturing: false });
+                    return;
+                }
 
                 let cakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
                 let qrOpts = {
                     errorCorrectionLevel: 'L',
-                    type: 'image/png',
-                    quality: 0.5,
-                    margin: 1,
+                    type: 'image/jpeg',
+                    quality: 0.8,
+                    margin: 2,
                     color: {
-                        dark: "#E5E4E2",
-                        light: "#00A2A5"
+                        dark: "#000000ff",
+                        light: "#ffffffff"
                     }
                 }
                 let qrCode = await QRCode.toDataURL(cakeOrderUrl, qrOpts);
@@ -593,23 +593,26 @@ class cakeMenu extends React.Component {
                     async () => {
                         let canvas = await html2Canvas(this._theDiv4Capture);
                         let imageSrc = canvas.toDataURL('image/png');
-
                         this.setState({
                             orderImageSrc: imageSrc,
-                            imageCapturing: false
-                        }, () => {
-                            this.setState({ orderImageModalVisiable: true }, async () => {
-                                document.documentElement.style.overflow = 'hidden';
-
-                                /// 模板通知指定人员有人生成订购单了，避免漏单
-                                // let title = '有顾客生成蛋糕订购单了';
-                                // let style = '《' + cakeName + '》';
-                                // let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
-                                // let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
-                                // console.log(sendResult);
-                                // message.info(JSON.stringify(sendResult));
-                            });
+                            orderImageCapturing: false,
+                            orderImageModalVisiable: true
                         });
+                        document.documentElement.style.overflow = 'hidden';
+
+                        /// 模板通知指定人员有人生成订购单了，避免漏单
+                        let title = '有顾客生成蛋糕订购单了';
+                        let style = '《' + cakeOrderInfo.product?.name + '》';
+                        let time = cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd') +
+                            cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm');
+                        let sendResult = await templateSendToSomePeople(
+                            createResult._id,
+                            title,
+                            this.evalWith(cakeOrderInfo.delivery.shop)?.name,
+                            style, time,
+                            cakeOrderInfo.delivery.pickUpName,
+                            cakeOrderInfo.delivery.phoneNumber);
+                        message.info(JSON.stringify(sendResult));
                     });
             }, 300);
         });
@@ -809,7 +812,7 @@ class cakeMenu extends React.Component {
             for (let i = 0; i < this._cakeCreams.length; ++i) {
                 let cakeCream = this._cakeCreams[i];
                 if (cakeOrderInfo.product) {
-                    for (let j = 0; j < cakeOrderInfo.product.specifications.length; ++j) {
+                    for (let j = 0; j < cakeOrderInfo.product.specifications?.length; ++j) {
                         let specification = cakeOrderInfo.product.specifications[j];
                         if (specification.creamId === cakeCream.id) {
                             this._creamOptions.push({ label: cakeCream.name, value: JSON.stringify(cakeCream) });
@@ -984,14 +987,14 @@ class cakeMenu extends React.Component {
                                 }}>
                                     <Image style={{
                                         width: 40, height: 40,
-                                    }} preview={false} src={`/生日蛋糕/排行/排名${rank}.png`} />
+                                    }} preview={false} src={`${KCakeRoot}/排行/排名${rank}.png`} />
                                 </div>
                             ) : (<div></div>)
                         }
 
                         <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
                             fallback='data:image/png;base64,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'
-                            preview={true} src={`${KBrithdayCakeRootWith3}/${product.name}-方图.jpg`} />
+                            preview={true} src={`${KCakeRoot}/${product.name}-方图.jpg`} />
                         <div>
                             <div style={{ marginTop: 4 }}>
                                 <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
@@ -1042,30 +1045,30 @@ class cakeMenu extends React.Component {
             cakeCategorys,
             cakeOrderInfo,
             orderInfoModalVisiable,
-            cakeImage,
-            makingTime,
+            orderingTime,
             orderImageModalVisiable,
             orderImageSrc,
-            imageCapturing,
+            orderImageCapturing,
             imageCropperModalVisiable,
             imageBeforeCrop,
             localImgDataLoading,
-            divImageLoading,
             image4QRCode
         } = this.state;
 
         return (
-
             <div>
-                {/* 私人订制，图片裁剪 */}
                 {
+                    // 私人订制，图片裁剪
                     imageCropperModalVisiable ? (
                         <div style={{
-                            opacity: 1, background: 'black', position: 'fixed',
+                            opacity: 1, background: 'white', position: 'fixed',
                             zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
                             overflowY: 'hidden', overflowX: 'hidden', textAlign: 'center'
                         }}>
-                            <Spin spinning={localImgDataLoading} size='large' style={{ marginTop: 100 }} tip='正在获取图片' />
+                            <Spin spinning={localImgDataLoading}
+                                size='large'
+                                style={{ marginTop: 160 }}
+                                tip='正在获取图片...' />
 
                             <Cropper
                                 src={imageBeforeCrop}
@@ -1078,55 +1081,40 @@ class cakeMenu extends React.Component {
                                 autoCropArea={0.85}
                             />
 
-                            <div style={{
-                                width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
-                                position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
-                            }}>
-                            </div>
-
                             {
                                 !localImgDataLoading ? (
-                                    <div style={{
-                                        width: 'calc(100%)', height: 64,
-                                        position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
-                                    }}>
-                                        <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
-                                            <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
-                                                this._imageCropper.rotate(-90);
-                                            }} />
-                                            <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
-                                                this._imageCropper.rotate(90);
-                                            }} />
-                                        </Space>
-                                    </div>
-                                ) : (<div></div>)
-                            }
+                                    <div>
+                                        <div style={{
+                                            width: 'calc(100%)', height: 64,
+                                            position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                        }}>
+                                            <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
+                                                <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                                    this._imageCropper.rotate(-90);
+                                                }} />
+                                                <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                                    this._imageCropper.rotate(90);
+                                                }} />
+                                            </Space>
+                                        </div>
 
-                            <div style={{
-                                width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
-                                position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                            }}>
-                            </div>
-
-                            {
-                                !localImgDataLoading ? (
-                                    <div style={{
-                                        width: 'calc(100%)', height: 64,
-                                        position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                                    }}>
-                                        <Space style={{ marginTop: 16, marginBottom: 16 }}>
-                                            <Button type='default' onClick={() => {
-                                                this.setState({ imageCropperModalVisiable: false });
-                                            }}>取消</Button>
-                                            <Button type='primary' onClick={() => {
-                                                let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
-                                                this.setState({ imageCropperModalVisiable: false, divImageLoading: true }, () => {
-                                                    setTimeout(() => {
-                                                        this.setState({ cakeImage: dataUrlAfterCroped, divImageLoading: false })
-                                                    }, 500);
-                                                });
-                                            }}>确定裁剪</Button>
-                                        </Space>
+                                        <div style={{
+                                            width: 'calc(100%)', height: 64,
+                                            position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                        }}>
+                                            <Space style={{ marginTop: 16, marginBottom: 16 }}>
+                                                <Button type='default' onClick={() => {
+                                                    this.setState({ imageCropperModalVisiable: false });
+                                                }}>取消</Button>
+                                                <Button type='primary' onClick={() => {
+                                                    this.setState({ imageCropperModalVisiable: false });
+                                                    let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
+                                                    let customizedProduct = this._private;
+                                                    customizedProduct.images = [dataUrlAfterCroped];
+                                                    this.handleOrderNowClick(customizedProduct);
+                                                }}>确定裁剪</Button>
+                                            </Space>
+                                        </div>
                                     </div>
                                 ) : (<div></div>)
                             }
@@ -1134,15 +1122,14 @@ class cakeMenu extends React.Component {
                     ) : (<div></div>)
                 }
 
-                {/* 订单信息 */}
                 {
+                    // 订单信息
                     orderInfoModalVisiable ? (
                         <div style={{
                             opacity: 0.99, background: 'white', position: 'fixed',
                             zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
                             overflowY: 'auto', overflowX: 'hidden'
                         }}>
-
                             <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
                                 {`《${cakeOrderInfo.product.name}》`}
                             </div>
@@ -1151,10 +1138,10 @@ class cakeMenu extends React.Component {
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
                                 <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                    src={cakeOrderInfo.product.images[0]} />
+                                    src={cakeOrderInfo.product.images?.[0]} />
                                 <Image style={{
                                     position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
-                                }} src={`/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
+                                }} src={`${KCakeRoot}/尺寸/蛋糕尺寸展示板.jpg`} />
                             </div>
                             <QueueAnim type={['bottom', 'top']}>
                                 <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
@@ -1162,7 +1149,7 @@ class cakeMenu extends React.Component {
                                     {
                                         this._cakeCreams.map(cream => {
                                             let creamExist = false;
-                                            for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
+                                            for (let i = 0; i < cakeOrderInfo.product.specifications?.length; ++i) {
                                                 let specification = cakeOrderInfo.product.specifications[i];
                                                 if (specification.creamId === cream.id) {
                                                     creamExist = true;
@@ -1561,14 +1548,14 @@ class cakeMenu extends React.Component {
                             }}>
                                 <Space style={{ marginTop: 16, marginBottom: 16 }}>
                                     <Button type='default' onClick={this.handleOrderCakeInfoModalCancel}>取消</Button>
-                                    <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成订购单</Button>
+                                    <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成蛋糕订购单</Button>
                                 </Space>
                             </div>
                         </div>) : (<div></div>)
                 }
 
-                {/* 订单图片 */}
                 {
+                    // 订单图片
                     orderImageModalVisiable ? (
                         <div style={{
                             background: 'rgba(0,0,0,0.9)', position: 'fixed',
@@ -1603,21 +1590,22 @@ class cakeMenu extends React.Component {
                 }
 
                 {
-                    imageCapturing ? (
+                    // 截图模板
+                    orderImageCapturing ? (
                         <div style={{
                             opacity: 0.99, background: 'white', position: 'fixed',
                             zIndex: '200', width: 'calc(100%)', height: 'calc(100%)',
                             overflowY: 'hidden', overflowX: 'hidden'
                         }}>
-                            <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
+                            <Spin spinning={orderImageCapturing} size='large' tip='生成蛋糕订购单中...' >
                                 <div ref={(current) => { this._theDiv4Capture = current; }}
                                     style={this._theDiv4CaptureStyle}>
                                     <div id="qrcode" style={{
                                         textAlign: 'right', position: 'absolute',
-                                        paddingRight: 20, paddingTop: 10,
+                                        paddingRight: 18, paddingTop: 10,
                                         width: this._theDiv4CaptureWidth, height: 150
                                     }}>
-                                        <div style={{ fontSize: 14, fontWeight: 'bold' }}>电子订购单二维码：</div>
+                                        <div style={{ fontSize: 12, fontWeight: 'bold' }}>电子订购单二维码</div>
                                         <Image style={{ width: 150, height: 150 }}
                                             preview={false}
                                             src={image4QRCode}
@@ -1627,7 +1615,7 @@ class cakeMenu extends React.Component {
                                     <div style={{
                                         textAlign: 'left', position: 'absolute', paddingLeft: 20,
                                         width: this._theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
-                                    }}>{`订购时间：${makingTime}`}</div>
+                                    }}>{`订购时间：${orderingTime}`}</div>
 
                                     <div style={{
                                         fontSize: 22,
@@ -1790,11 +1778,33 @@ class cakeMenu extends React.Component {
                                         backgroundColor: 'red', color: 'white',
                                         borderRadius: 8, paddingTop: 8, paddingBottom: 8
                                     }} onClick={() => {
-                                        let customizedProduct = {};
-                                        customizedProduct.name = '私人订制';
-                                        customizedProduct.description = '通过下方+号上传蛋糕图片，订制自己喜欢的蛋糕';
-                                        // customizedProduct.images
-                                        this.handleOrderNowClick(customizedProduct);
+                                        let that = this;
+                                        window.wx.chooseImage({
+                                            count: 1, // 默认9
+                                            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                                            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                                            success: function (res) {
+                                                that.setState({
+                                                    imageCropperModalVisiable: true,
+                                                    localImgDataLoading: true,
+                                                    imageBeforeCrop: ''
+                                                });
+
+                                                let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
+                                                window.wx.getLocalImgData({
+                                                    localId: localIds[0], // 图片的localID
+                                                    success: function (res) {
+                                                        // console.log('4')
+                                                        let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
+                                                        /// 如果缺少base64头部补充上
+                                                        if (!(localData.startsWith('data:image/jpg;base64,'))) {
+                                                            localData = 'data:image/jpg;base64,' + localData;
+                                                        }
+                                                        that.setState({ localImgDataLoading: false, imageBeforeCrop: localData });
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }}>
                                         <span>私人订制蛋糕</span>
                                         <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击后上传蛋糕照片</span>

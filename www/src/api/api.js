@@ -604,6 +604,7 @@ const allCakeInfos = async () => {
   cakeInfos.hats = allCakeInfosResponseJson.hats;
   cakeInfos.pickUpTypes = allCakeInfosResponseJson.pickUpTypes;
   cakeInfos.shops = allCakeInfosResponseJson.shops;
+  cakeInfos.private = allCakeInfosResponseJson.private;
   cakeInfos.categorys = allCakeInfosResponseJson.categorys;
   cakeInfos.products = allCakeInfosResponseJson.products;
   cakeInfos.recommend = allCakeInfosResponseJson.recommend;

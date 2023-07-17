@@ -13,23 +13,11 @@ const urlParams = require('../util/url-params');
  */
 const KConfig4Bread = {
     // 测试地址
-    // appid: 'wx7442006a24f09334',
-    // appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
+    // appid: 'wx28edef2758aca583',
+    // appsecret: '44663ff523ae9823dad8b5c043654b7f',
     // 正式地址
     appid: 'wxb2070ea52da2dfc7',
     appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',
-}
-
-/**
- * 配置数据-弯麦科技
- */
-const KConfig4Tech = {
-    // 测试地址
-    // appid: 'wx7442006a24f09334',
-    // appsecret: '07cc776cdb5d55168e0b8718b3f5e8a9',
-    // 正式地址
-    appid: 'wx67eec99994012f29',
-    appsecret: 'c3a7f6bc8cfaf3645664bf6f8db3ff7a',
 }
 
 const KGetAccessTokenUrl = 'https://api.weixin.qq.com/cgi-bin/token';

@@ -220,7 +220,63 @@
             "description": "盘陀店"
         }
     ],
+    "private": {
+        "name": "私人订制",
+        "description": "私人订制，专属于你的偏爱，送给独一无二的你",
+        "categoryId": -500,
+        "fillingNumber": 2,
+        "images": [],
+        "specifications": [
+            {
+                "creamId": 1,
+                "sizeId": 2,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 3,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 4,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 5,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 2,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 3,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 4,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 5,
+                "price": "--"
+            }
+        ]
+    },
     "categorys": [
+        {
+            "id": -500,
+            "name": "私人订制蛋糕",
+            "description": "私人订制，专属于你的偏爱，送给独一无二的你",
+            "images": [],
+            "products": []
+        },
         {
             "id": 1,
             "name": "常规款蛋糕",

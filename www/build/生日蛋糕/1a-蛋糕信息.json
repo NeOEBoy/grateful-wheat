@@ -1,0 +1,437 @@
+﻿{
+    "recommend": {
+        "name": "2023年7月最新蛋糕",
+        "productNames": [
+            "夏洛特",
+            "变形金刚"
+        ],
+        "products": []
+    },
+    "creams": [
+        {
+            "id": 1,
+            "name": "牛奶奶油",
+            "description": "牛奶奶油"
+        },
+        {
+            "id": 2,
+            "name": "动物奶油",
+            "description": "动物奶油"
+        }
+    ],
+    "sizes": [
+        {
+            "id": 1,
+            "name": "5寸",
+            "unit": "寸",
+            "number": 5,
+            "description": "直径12.5厘米 | 1-2人",
+            "plates": 5
+        },
+        {
+            "id": 2,
+            "name": "6寸",
+            "unit": "寸",
+            "number": 6,
+            "description": "直径15厘米 | 3-5人",
+            "plates": 10
+        },
+        {
+            "id": 3,
+            "name": "8寸",
+            "unit": "寸",
+            "number": 8,
+            "description": "直径20厘米 | 6-9人",
+            "plates": 15
+        },
+        {
+            "id": 4,
+            "name": "10寸",
+            "unit": "寸",
+            "number": 10,
+            "description": "直径25厘米 | 10-15人",
+            "plates": 20
+        },
+        {
+            "id": 5,
+            "name": "12寸",
+            "unit": "寸",
+            "number": 12,
+            "description": "直径30厘米 | 16-20人",
+            "plates": 25
+        },
+        {
+            "id": 6,
+            "name": "14寸",
+            "unit": "寸",
+            "number": 14,
+            "description": "直径46厘米 | 21-30人",
+            "plates": 30
+        }
+    ],
+    "fillings": [
+        {
+            "id": 1,
+            "name": "布蕾布丁",
+            "description": "布蕾布丁",
+            "image": "生日蛋糕/夹心/布蕾布丁.jpg"
+        },
+        {
+            "id": 2,
+            "name": "新鲜芒果",
+            "description": "新鲜芒果",
+            "image": "生日蛋糕/夹心/新鲜芒果.jpg"
+        },
+        {
+            "id": 3,
+            "name": "新鲜火龙果",
+            "description": "新鲜火龙果",
+            "image": "生日蛋糕/夹心/新鲜火龙果.jpg"
+        },
+        {
+            "id": 4,
+            "name": "现蒸芋泥",
+            "description": "现蒸芋泥",
+            "image": "生日蛋糕/夹心/现蒸芋泥.jpg"
+        },
+        {
+            "id": 5,
+            "name": "提子干",
+            "description": "提子干",
+            "image": "生日蛋糕/夹心/提子干.jpg"
+        },
+        {
+            "id": 6,
+            "name": "奥利奥饼干碎",
+            "description": "奥利奥饼干碎",
+            "image": "生日蛋糕/夹心/奥利奥饼干碎.jpg"
+        },
+        {
+            "id": 7,
+            "name": "黑糖晶球",
+            "description": "黑糖晶球",
+            "image": "生日蛋糕/夹心/黑糖晶球.jpg"
+        },
+        {
+            "id": 8,
+            "name": "巧克力麦脆",
+            "description": "巧克力麦脆",
+            "image": "生日蛋糕/夹心/巧克力麦脆.jpg"
+        }
+    ],
+    "candles": [
+        {
+            "id": 1,
+            "name": "爱心蜡烛",
+            "description": "爱心蜡烛",
+            "image": "生日蛋糕/蜡烛/爱心蜡烛.jpg"
+        },
+        {
+            "id": 2,
+            "name": "五星蜡烛",
+            "description": "五星蜡烛",
+            "image": "生日蛋糕/蜡烛/五星蜡烛.jpg"
+        },
+        {
+            "id": 3,
+            "name": "数字蜡烛",
+            "description": "数字蜡烛",
+            "image": "生日蛋糕/蜡烛/数字蜡烛.jpg"
+        },
+        {
+            "id": 4,
+            "name": "曲线蜡烛",
+            "description": "曲线蜡烛",
+            "image": "生日蛋糕/蜡烛/曲线蜡烛.jpg"
+        },
+        {
+            "id": 5,
+            "name": "荷花音乐蜡烛",
+            "description": "荷花音乐蜡烛",
+            "image": "生日蛋糕/蜡烛/荷花音乐蜡烛.jpg"
+        }
+    ],
+    "kindlings": [
+        {
+            "id": 1,
+            "name": "无需火柴",
+            "description": "无需火柴",
+            "image": "生日蛋糕/蜡烛/无需火柴.jpg"
+        },
+        {
+            "id": 2,
+            "name": "火柴盒",
+            "description": "火柴盒",
+            "image": "生日蛋糕/蜡烛/火柴盒.jpg"
+        }
+    ],
+    "hats": [
+        {
+            "id": 1,
+            "name": "无需生日帽",
+            "description": "无需生日帽",
+            "image": "生日蛋糕/帽子/无需生日帽.jpg"
+        },
+        {
+            "id": 2,
+            "name": "金卡皇冠帽",
+            "description": "金卡皇冠帽",
+            "image": "生日蛋糕/帽子/金卡皇冠帽.jpg"
+        },
+        {
+            "id": 3,
+            "name": "红卡皇冠帽",
+            "description": "红卡皇冠帽",
+            "image": "生日蛋糕/帽子/红卡皇冠帽.jpg"
+        },
+        {
+            "id": 4,
+            "name": "金卡磨砂圆锥帽",
+            "description": "金卡磨砂圆锥帽",
+            "image": "生日蛋糕/帽子/金卡磨砂圆锥帽.jpg"
+        }
+    ],
+    "pickUpTypes": [
+        {
+            "id": 1,
+            "name": "自己提货",
+            "description": "自己提货"
+        },
+        {
+            "id": 2,
+            "name": "商家配送",
+            "description": "商家配送"
+        }
+    ],
+    "shops": [
+        {
+            "id": 1,
+            "name": "教育局店",
+            "description": "教育局店"
+        },
+        {
+            "id": 2,
+            "name": "汤泉世纪店",
+            "description": "汤泉世纪店"
+        },
+        {
+            "id": 3,
+            "name": "盘陀店",
+            "description": "盘陀店"
+        }
+    ],
+    "categorys": [
+        {
+            "id": 1,
+            "name": "常规款蛋糕",
+            "description": "平凡人生、快乐生活",
+            "images": [
+                "/生日蛋糕/夏洛特-方图.jpg",
+                "/生日蛋糕/小时光-方图.jpg",
+                "/生日蛋糕/芒芒物语-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 2,
+            "name": "女孩款蛋糕",
+            "description": "小小公主、永远开心",
+            "images": [
+                "/生日蛋糕/旋转木马-女孩-方图.jpg",
+                "/生日蛋糕/皮卡丘-方图.jpg",
+                "/生日蛋糕/白雪公主-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 3,
+            "name": "男孩款蛋糕",
+            "description": "小男子汉、顶天立地",
+            "images": [
+                "/生日蛋糕/乐高幻影忍者-方图.jpg",
+                "/生日蛋糕/小小航天员-方图.jpg",
+                "/生日蛋糕/奥特曼打怪兽-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 4,
+            "name": "女神款蛋糕",
+            "description": "我的女神、爱你永远",
+            "images": [
+                "/生日蛋糕/渐变爱心-方图.jpg",
+                "/生日蛋糕/王冠-方图.jpg",
+                "/生日蛋糕/纯洁爱恋-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 5,
+            "name": "男神款蛋糕",
+            "description": "公里之内、属你最帅",
+            "images": [
+                "/生日蛋糕/奥利奥先生-方图.jpg",
+                "/生日蛋糕/礼遇-方图.jpg",
+                "/生日蛋糕/一家之主-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 6,
+            "name": "情侣款蛋糕",
+            "description": "两颗红心、相知相伴",
+            "images": [
+                "/生日蛋糕/小爱心-方图.jpg",
+                "/生日蛋糕/小熊LOVE-方图.jpg",
+                "/生日蛋糕/余生是你-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 7,
+            "name": "祝寿款蛋糕",
+            "description": "福寿绵绵、如海滔滔",
+            "images": [
+                "/生日蛋糕/大寿吉祥-方图.jpg",
+                "/生日蛋糕/万寿无疆-男-方图.jpg",
+                "/生日蛋糕/丰盈一生-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 8,
+            "name": "庆典派对款蛋糕",
+            "description": "共同举杯、共敬未来",
+            "images": [
+                "/生日蛋糕/猫大吉-方图.jpg",
+                "/生日蛋糕/招财进宝-方图.jpg",
+                "/生日蛋糕/乔迁猫-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 9,
+            "name": "结婚订婚纪念蛋糕",
+            "description": "先生/女士、周年快乐",
+            "images": [
+                "/生日蛋糕/余生是你-方图.jpg",
+                "/生日蛋糕/周年纪念-方图.jpg",
+                "/生日蛋糕/双喜订婚-方图.jpg"
+            ],
+            "products": []
+        },
+        {
+            "id": 10,
+            "name": "搞怪款蛋糕",
+            "description": "今生只对你搞怪",
+            "images": [
+                "/生日蛋糕/蜡笔小新-方图.jpg"
+            ],
+            "products": []
+        }
+    ],
+    "products": [
+        {
+            "name": "夏洛特",
+            "description": "芒果和草莓的完美融合，一口下去夏洛无烦恼",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/夏洛特-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "变形金刚",
+            "description": "汽车人，集合，出发，目的是地球",
+            "categoryId": 3,
+            "fillingCan": true,
+            "images": [
+                "/生日蛋糕/变形金刚-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        }
+    ]
+}

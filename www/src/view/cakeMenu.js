@@ -12,7 +12,7 @@ import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import QRCode from 'qrcode'
 
-import Icon, {
+import {
     RightSquareFilled,
     UserOutlined,
     HomeOutlined,
@@ -27,8 +27,7 @@ import {
     Collapse, Image, Spin,
     DatePicker, Radio, List,
     Select, Input, Checkbox, Divider,
-    message, Timeline, Button, Space,
-    BackTop
+    message, Timeline, Button, Space
 } from 'antd';
 import {
     loadBirthdayCakesWXConfig,

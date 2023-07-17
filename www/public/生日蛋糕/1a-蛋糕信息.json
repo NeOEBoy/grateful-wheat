@@ -271,13 +271,6 @@
     },
     "categorys": [
         {
-            "id": -500,
-            "name": "私人订制蛋糕",
-            "description": "私人订制，专属于你的偏爱，送给独一无二的你",
-            "images": [],
-            "products": []
-        },
-        {
             "id": 1,
             "name": "常规款蛋糕",
             "description": "平凡人生、快乐生活",
@@ -435,6 +428,547 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 258
+                }
+            ]
+        },
+        {
+            "name": "小时光",
+            "description": "惬意小时光，愿我们都甜蜜在小时光里",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/小时光-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "鲜果裸蛋糕",
+            "description": "新鲜时令水果，简约风格裸蛋糕",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/鲜果裸蛋糕-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "芒芒物语",
+            "description": "芒果在下，蓝莓在上，犹如低低细语",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/芒芒物语-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "圆舞曲",
+            "description": "华尔兹，优雅的旋转，甜蜜的感觉",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/圆舞曲-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "夏后晴",
+            "description": "炎炎夏季，冰爽水果，尽享夏侯时光",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/夏后晴-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "马达加斯加",
+            "description": "丰富美味的各式水果，犹如来到马达加斯加王国",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/马达加斯加-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "长情",
+            "description": "你陪我长大，我陪你变老，你我共长情",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/长情-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "河畔",
+            "description": "河畔的小草，溪边的小牛，小时候的感觉",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/河畔-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "甜心密语",
+            "description": "哈尼甜心，一组甜蜜水果的欢乐聚会",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/甜心密语-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "发财手绘款",
+            "description": "让我们一起发发发，一起赚赚赚",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/发财手绘款-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "奶茶生日蛋糕",
+            "description": "奶茶不单单是可以喝的哦，还可以吃的哟",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/奶茶生日蛋糕-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
                 }
             ]
         },

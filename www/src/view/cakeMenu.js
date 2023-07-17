@@ -228,7 +228,7 @@ class cakeMenu extends React.Component {
         this._lastKeys = [];
 
         // 订单模板
-        this._theDiv4CaptureWidth = 750;
+        this._theDiv4CaptureWidth = 760;
         let theDiv4CaptureHeight = this._theDiv4CaptureWidth * 148 / 210;
         this._theDiv4CaptureStyle = {
             width: this._theDiv4CaptureWidth,
@@ -248,7 +248,7 @@ class cakeMenu extends React.Component {
 
         // 订单图片
         let orderImageWidth = window.innerWidth;
-        if (orderImageWidth > 640) orderImageWidth = 640;
+        if (orderImageWidth > 680) orderImageWidth = 680;
         let orderImageHeight = orderImageWidth * 148 / 210;
         let titleAndFooterHeight = 190;
         this._orderImageDivStyle = {
@@ -432,7 +432,7 @@ class cakeMenu extends React.Component {
             //     "id": 2,
             //     "name": "汤泉世纪店",
             //     "description": "汤泉世纪店"
-            // },
+            // }
             // cakeOrderInfo.delivery.address = '钱隆首府2期9栋1301'
             // cakeOrderInfo.delivery.pickUpName = '王荣慧'
             // cakeOrderInfo.delivery.phoneNumber = '18698036807'
@@ -476,7 +476,7 @@ class cakeMenu extends React.Component {
             if (cakeOrderInfo.making.size.id === -500 &&
                 (cakeOrderInfo.making.sizeExtra === undefined ||
                     cakeOrderInfo.making.sizeExtra === '')) {
-                message.warning('请输入组合类型和尺寸！');
+                message.warning('请输入组合类型和组合尺寸！');
                 return;
             }
             if (cakeOrderInfo.making.fillings.length <= 0) {
@@ -487,7 +487,7 @@ class cakeMenu extends React.Component {
                 message.warning('请选择蜡烛！');
                 return;
             }
-            if (cakeOrderInfo.making.candle.id === 3 &&
+            if (this.evalWith(cakeOrderInfo.making.candle)?.id === 3 &&
                 (cakeOrderInfo.making.candleExtra === undefined ||
                     cakeOrderInfo.making.candleExtra === '')) {
                 message.warning('请输入数字蜡烛的数字！');
@@ -541,84 +541,79 @@ class cakeMenu extends React.Component {
         }
 
         this.setState({
-            orderInfoModalVisiable: false,
+            // orderInfoModalVisiable: false,
+            imageCapturing: true,
             makingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
             image4QRCode: ''
         }, () => {
-            setTimeout(() => {
-                this.setState({
-                    imageCapturing: true
-                }, async () => {
-                    if (!this._theDiv4Capture) return;
+            setTimeout(async () => {
+                /// 保存蛋糕订单，返回_id
+                let createResult = { _id: '123' };
+                // let createResult = await createBirthdaycakeOrder(
+                //     cakeName,
+                //     cakeDescription,
+                //     creamType,
+                //     cakeSize,
+                //     cakeSizeExtra,
+                //     cakePrice,
+                //     cakeFillings,
+                //     candleType,
+                //     ignitorType,
+                //     hatType,
+                //     number4candle,
+                //     cakePlateNumber,
+                //     pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : '',
+                //     pickUpTime ? pickUpTime.format(' a HH:mm') : '',
+                //     pickUpType,
+                //     responseShop,
+                //     deliverAddress,
+                //     pickUpName,
+                //     phoneNumber,
+                //     remarks);
+                // console.log(createResult);
+                // if (createResult.errCode !== 0) {
+                //     message.error('订单保存失败！');
+                //     return;
+                // }
 
-                    /// 保存蛋糕订单，返回_id
-                    let createResult = { _id: '123' };
-                    // let createResult = await createBirthdaycakeOrder(
-                    //     cakeName,
-                    //     cakeDescription,
-                    //     creamType,
-                    //     cakeSize,
-                    //     cakeSizeExtra,
-                    //     cakePrice,
-                    //     cakeFillings,
-                    //     candleType,
-                    //     ignitorType,
-                    //     hatType,
-                    //     number4candle,
-                    //     cakePlateNumber,
-                    //     pickUpDay ? pickUpDay.format('YYYY-MM-DD ddd') : '',
-                    //     pickUpTime ? pickUpTime.format(' a HH:mm') : '',
-                    //     pickUpType,
-                    //     responseShop,
-                    //     deliverAddress,
-                    //     pickUpName,
-                    //     phoneNumber,
-                    //     remarks);
-                    // console.log(createResult);
-                    // if (createResult.errCode !== 0) {
-                    //     message.error('订单保存失败');
-                    //     return;
-                    // }
-
-                    let birthdayCakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
-                    let opts = {
-                        errorCorrectionLevel: 'L',
-                        type: 'image/png',
-                        quality: 0.5,
-                        margin: 1,
-                        color: {
-                            dark: "#E5E4E2",
-                            light: "#00A2A5"
-                        }
+                let cakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
+                let qrOpts = {
+                    errorCorrectionLevel: 'L',
+                    type: 'image/png',
+                    quality: 0.5,
+                    margin: 1,
+                    color: {
+                        dark: "#E5E4E2",
+                        light: "#00A2A5"
                     }
-                    let qrCode = await QRCode.toDataURL(birthdayCakeOrderUrl, opts);
+                }
+                let qrCode = await QRCode.toDataURL(cakeOrderUrl, qrOpts);
 
-                    this.setState({ image4QRCode: qrCode },
-                        async () => {
-                            let canvas = await html2Canvas(this._theDiv4Capture);
-                            let imageSrc = canvas.toDataURL('image/png');
+                this.setState({ image4QRCode: qrCode },
+                    async () => {
+                        let canvas = await html2Canvas(this._theDiv4Capture);
+                        let imageSrc = canvas.toDataURL('image/png');
 
-                            this.setState({
-                                orderImageSrc: imageSrc,
-                                imageCapturing: false
-                            }, () => {
-                                this.setState({ orderImageModalVisiable: true }, async () => {
-                                    document.documentElement.style.overflow = 'hidden';
+                        this.setState({
+                            orderImageSrc: imageSrc,
+                            imageCapturing: false
+                        }, () => {
+                            this.setState({ orderImageModalVisiable: true }, async () => {
+                                document.documentElement.style.overflow = 'hidden';
 
-                                    /// 模板通知指定人员有人生成订购单了，避免漏单
-                                    // let title = '有顾客生成蛋糕订购单了';
-                                    // let style = '《' + cakeName + '》';
-                                    // let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
-                                    // let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
-                                    // console.log(sendResult);
-                                    // message.info(JSON.stringify(sendResult));
-                                });
+                                /// 模板通知指定人员有人生成订购单了，避免漏单
+                                // let title = '有顾客生成蛋糕订购单了';
+                                // let style = '《' + cakeName + '》';
+                                // let time = pickUpDay.format('YYYY-MM-DD ddd') + pickUpTime.format(' a HH:mm');
+                                // let sendResult = await templateSendToSomePeople(createResult._id, title, responseShop, style, time, pickUpName, phoneNumber);
+                                // console.log(sendResult);
+                                // message.info(JSON.stringify(sendResult));
                             });
                         });
-                })
-            }, 0);
+                    });
+            }, 300);
         });
-        
+
         document.documentElement.style.overflow = 'visible';
     }
 
@@ -1032,6 +1027,11 @@ class cakeMenu extends React.Component {
     }
 
     evalWith = (obj) => {
+        // console.log('evalWith obj = ' + obj);
+        // 有时候转义对象后无法获取属性，eval处理一下
+        // if (obj === undefined ||
+        //     obj === null ||
+        //     Object.keys(obj) !== null) return obj;
         return eval("(" + obj + ")");
     }
     render() {
@@ -1055,553 +1055,707 @@ class cakeMenu extends React.Component {
         } = this.state;
 
         return (
-            <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
-                <div>
-                    {/* 私人订制，图片裁剪 */}
-                    {
-                        imageCropperModalVisiable ? (
+
+            <div>
+                {/* 私人订制，图片裁剪 */}
+                {
+                    imageCropperModalVisiable ? (
+                        <div style={{
+                            opacity: 1, background: 'black', position: 'fixed',
+                            zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
+                            overflowY: 'hidden', overflowX: 'hidden', textAlign: 'center'
+                        }}>
+                            <Spin spinning={localImgDataLoading} size='large' style={{ marginTop: 100 }} tip='正在获取图片' />
+
+                            <Cropper
+                                src={imageBeforeCrop}
+                                onInitialized={(cropper) => {
+                                    this._imageCropper = cropper;
+                                }}
+                                style={{ height: '100%', width: "100%", zIndex: '80' }}
+                                aspectRatio={1}
+                                guides={true}
+                                autoCropArea={0.85}
+                            />
+
                             <div style={{
-                                opacity: 1, background: 'black', position: 'fixed',
-                                zIndex: '105', width: 'calc(100%)', height: 'calc(100%)',
-                                overflowY: 'hidden', overflowX: 'hidden', textAlign: 'center'
+                                width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
+                                position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
                             }}>
-                                <Spin spinning={localImgDataLoading} size='large' style={{ marginTop: 100 }} tip='正在获取图片' />
-
-                                <Cropper
-                                    src={imageBeforeCrop}
-                                    onInitialized={(cropper) => {
-                                        this._imageCropper = cropper;
-                                    }}
-                                    style={{ height: '100%', width: "100%", zIndex: '80' }}
-                                    aspectRatio={1}
-                                    guides={true}
-                                    autoCropArea={0.85}
-                                />
-
-                                <div style={{
-                                    width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
-                                    position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
-                                }}>
-                                </div>
-
-                                {
-                                    !localImgDataLoading ? (
-                                        <div style={{
-                                            width: 'calc(100%)', height: 64,
-                                            position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
-                                        }}>
-                                            <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
-                                                <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
-                                                    this._imageCropper.rotate(-90);
-                                                }} />
-                                                <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
-                                                    this._imageCropper.rotate(90);
-                                                }} />
-                                            </Space>
-                                        </div>
-                                    ) : (<div></div>)
-                                }
-
-                                <div style={{
-                                    width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
-                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                                }}>
-                                </div>
-
-                                {
-                                    !localImgDataLoading ? (
-                                        <div style={{
-                                            width: 'calc(100%)', height: 64,
-                                            position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                                        }}>
-                                            <Space style={{ marginTop: 16, marginBottom: 16 }}>
-                                                <Button type='default' onClick={() => {
-                                                    this.setState({ imageCropperModalVisiable: false });
-                                                }}>取消</Button>
-                                                <Button type='primary' onClick={() => {
-                                                    let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
-                                                    this.setState({ imageCropperModalVisiable: false, divImageLoading: true }, () => {
-                                                        setTimeout(() => {
-                                                            this.setState({ cakeImage: dataUrlAfterCroped, divImageLoading: false })
-                                                        }, 500);
-                                                    });
-                                                }}>确定裁剪</Button>
-                                            </Space>
-                                        </div>
-                                    ) : (<div></div>)
-                                }
                             </div>
-                        ) : (<div></div>)
-                    }
 
-                    {/* 订单信息 */}
-                    {
-                        orderInfoModalVisiable ? (
+                            {
+                                !localImgDataLoading ? (
+                                    <div style={{
+                                        width: 'calc(100%)', height: 64,
+                                        position: 'fixed', top: 0, textAlign: 'center', zIndex: '100'
+                                    }}>
+                                        <Space size='large' style={{ marginTop: 16, marginBottom: 16 }}>
+                                            <RotateLeftOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                                this._imageCropper.rotate(-90);
+                                            }} />
+                                            <RotateRightOutlined style={{ color: 'white', fontSize: 24 }} onClick={() => {
+                                                this._imageCropper.rotate(90);
+                                            }} />
+                                        </Space>
+                                    </div>
+                                ) : (<div></div>)
+                            }
+
                             <div style={{
-                                opacity: 0.99, background: 'white', position: 'fixed',
-                                zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
-                                overflowY: 'auto', overflowX: 'hidden'
+                                width: 'calc(100%)', height: 64, backgroundColor: 'black', opacity: 0.8,
+                                position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
                             }}>
-                                <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
-                                    {`《${cakeOrderInfo.product.name}》`}
-                                </div>
-                                <div style={{ textAlign: 'center', fontSize: 14, paddingLeft: 8, paddingRight: 8 }}>
-                                    {cakeOrderInfo.product.description}
-                                </div>
-                                <div style={{ textAlign: 'center', width: '100%' }}>
-                                    <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                        src={cakeOrderInfo.product.images[0]} />
-                                    <Image style={{
-                                        position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
-                                    }} src={`/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
-                                </div>
-                                <QueueAnim type={['bottom', 'top']}>
-                                    <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
-                                        {
-                                            this._cakeCreams.map(cream => {
-                                                let creamExist = false;
-                                                for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
-                                                    let specification = cakeOrderInfo.product.specifications[i];
-                                                    if (specification.creamId === cream.id) {
-                                                        creamExist = true;
-                                                        break;
-                                                    }
+                            </div>
+
+                            {
+                                !localImgDataLoading ? (
+                                    <div style={{
+                                        width: 'calc(100%)', height: 64,
+                                        position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                                    }}>
+                                        <Space style={{ marginTop: 16, marginBottom: 16 }}>
+                                            <Button type='default' onClick={() => {
+                                                this.setState({ imageCropperModalVisiable: false });
+                                            }}>取消</Button>
+                                            <Button type='primary' onClick={() => {
+                                                let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
+                                                this.setState({ imageCropperModalVisiable: false, divImageLoading: true }, () => {
+                                                    setTimeout(() => {
+                                                        this.setState({ cakeImage: dataUrlAfterCroped, divImageLoading: false })
+                                                    }, 500);
+                                                });
+                                            }}>确定裁剪</Button>
+                                        </Space>
+                                    </div>
+                                ) : (<div></div>)
+                            }
+                        </div>
+                    ) : (<div></div>)
+                }
+
+                {/* 订单信息 */}
+                {
+                    orderInfoModalVisiable ? (
+                        <div style={{
+                            opacity: 0.99, background: 'white', position: 'fixed',
+                            zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
+                            overflowY: 'auto', overflowX: 'hidden'
+                        }}>
+
+                            <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
+                                {`《${cakeOrderInfo.product.name}》`}
+                            </div>
+                            <div style={{ textAlign: 'center', fontSize: 14, paddingLeft: 8, paddingRight: 8 }}>
+                                {cakeOrderInfo.product.description}
+                            </div>
+                            <div style={{ textAlign: 'center', width: '100%' }}>
+                                <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
+                                    src={cakeOrderInfo.product.images[0]} />
+                                <Image style={{
+                                    position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
+                                }} src={`/生日蛋糕/尺寸/蛋糕尺寸展示板.jpg`} />
+                            </div>
+                            <QueueAnim type={['bottom', 'top']}>
+                                <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
+                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>规格</Divider>
+                                    {
+                                        this._cakeCreams.map(cream => {
+                                            let creamExist = false;
+                                            for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
+                                                let specification = cakeOrderInfo.product.specifications[i];
+                                                if (specification.creamId === cream.id) {
+                                                    creamExist = true;
+                                                    break;
                                                 }
-                                                return (
-                                                    <div key={cream.id} >
-                                                        {creamExist ?
-                                                            <div style={{ display: 'inline-block', marginLeft: 25, marginRight: 25 }}>
-                                                                <div style={{ fontWeight: 'bold' }}>{cream.name}</div>
-                                                                {
-                                                                    this._cakeSizes.map(size => {
-                                                                        let price = -1;
-                                                                        for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
-                                                                            let specification = cakeOrderInfo.product.specifications[i];
-                                                                            if (specification.creamId === cream.id &&
-                                                                                specification.sizeId === size.id) {
-                                                                                price = specification.price;
-                                                                                break;
-                                                                            }
+                                            }
+                                            return (
+                                                <div key={cream.id} >
+                                                    {creamExist ?
+                                                        <div style={{ display: 'inline-block', marginLeft: 25, marginRight: 25 }}>
+                                                            <div style={{ fontWeight: 'bold' }}>{cream.name}</div>
+                                                            {
+                                                                this._cakeSizes.map(size => {
+                                                                    let price = -1;
+                                                                    for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
+                                                                        let specification = cakeOrderInfo.product.specifications[i];
+                                                                        if (specification.creamId === cream.id &&
+                                                                            specification.sizeId === size.id) {
+                                                                            price = specification.price;
+                                                                            break;
                                                                         }
-                                                                        return (
-                                                                            <div key={size.id}>
-                                                                                {
-                                                                                    price !== -1 ?
-                                                                                        <div>
-                                                                                            <span style={{ color: '#00A2A5' }}>{size.name}</span>
-                                                                                            <span style={{ color: 'gray', fontSize: 12 }}>{`（${size.description}）`}</span>
-                                                                                            <span style={{ color: '#00A2A5' }}>{`${price}元`}</span>
-                                                                                            <span></span>
-                                                                                        </div> : <div></div>
-                                                                                }
-                                                                            </div>
-                                                                        )
-                                                                    })
-                                                                }
-                                                            </div> : <div></div>}
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    <div key='b'>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
-                                        <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <Input.Group style={{ marginBottom: 20 }}>
-                                                <span style={{ fontWeight: 'bold' }}>奶油：</span>
-                                                <Radio.Group
-                                                    size='large'
-                                                    options={this._creamOptions}
-                                                    onChange={this.handleCreamChange}
-                                                    value={JSON.stringify(cakeOrderInfo.making.cream)}
-                                                    optionType='default'
-                                                />
-                                                {
-                                                    cakeOrderInfo.making.cream === undefined ? (
-                                                        <div style={{ color: 'red' }}>“奶油”是必填项</div>
-                                                    ) : (<div></div>)
-                                                }
-                                            </Input.Group>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <div>
-                                                <span style={{ fontWeight: 'bold' }}>尺寸：</span>
-                                                <Select
-                                                    style={{ width: 80, marginRight: 8 }}
-                                                    onChange={this.handleSizeChange}
-                                                    onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
-                                                    options={this._sizeOptions}
-                                                    value={JSON.stringify(cakeOrderInfo.making.size)} />
-                                                {
-                                                    cakeOrderInfo.making.size?.id === -500 ? (
-                                                        <span>
-                                                            <Input placeholder='叠加或悬浮|几寸+几寸'
-                                                                prefix={<EditOutlined />}
-                                                                style={{ width: 190 }}
-                                                                value={cakeOrderInfo.making.sizeExtra}
-                                                                onChange={this.handleSizeExtraChange} />
-                                                        </span>) : (<div></div>)
-                                                }
-                                                {
-                                                    cakeOrderInfo.making.size === undefined ||
-                                                        (cakeOrderInfo.making.size.id === -500 &&
-                                                            (cakeOrderInfo.making.sizeExtra === undefined ||
-                                                                cakeOrderInfo.making.sizeExtra === '')) ? (
-                                                        <div style={{ color: 'red' }}>“尺寸”是必填项</div>
-                                                    ) : (<span></span>)
-                                                }
-                                            </div>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <span style={{ fontWeight: 'bold' }}>价格：</span>
-                                            <span>{cakeOrderInfo.making.price}</span>
-                                            <span> 元</span>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <div style={{ fontWeight: 'bold' }}>
-                                                {`夹心（任选${cakeOrderInfo.product.fillingNumber}种）`}
-                                            </div>
-                                            <CheckboxGroup
-                                                disabled={cakeOrderInfo.product.fillingNumber > 0 ? false : true}
-                                                style={{ marginTop: 8 }}
-                                                options={this._fillingOptions}
-                                                value={cakeOrderInfo.making.fillings}
-                                                onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product.fillingNumber)} />
-                                            {
-                                                cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product.fillingNumber > 0 ? (
-                                                    <div style={{ color: 'red' }}>“夹心”是必填项</div>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为爱心蜡烛一根，若蛋糕自带蜡烛则不送蜡烛）：</div>
-
-                                            <Radio.Group style={{ marginTop: 8 }}
-                                                options={this._candleOptions}
-                                                value={cakeOrderInfo.making.candle}
-                                                onChange={this.handleCandleChange}>
-                                            </Radio.Group>
-                                            {
-                                                cakeOrderInfo.making.candle === undefined ||
-                                                    (this.evalWith(cakeOrderInfo.making.candle).id === 3 &&
-                                                        (cakeOrderInfo.making.candleExtra === undefined ||
-                                                            cakeOrderInfo.making.candleExtra === '')) ? (
-                                                    <div style={{ color: 'red', marginLeft: 0 }}>“蜡烛”是必填项</div>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
-
-                                            <Radio.Group style={{ marginTop: 8 }}
-                                                options={this._kindlingOptions}
-                                                value={cakeOrderInfo.making.kindling}
-                                                onChange={this.handleKindlingChange}>
-                                            </Radio.Group>
-                                        </div>
-
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <div style={{ fontWeight: 'bold' }}>帽子（任选一种，默认为金卡皇冠帽）：</div>
-
-                                            <Radio.Group style={{ marginTop: 8 }}
-                                                options={this._hatOptions}
-                                                onChange={this.handleHatChange}>
-                                                value={cakeOrderInfo.making.hat}
-                                            </Radio.Group>
-                                        </div>
-
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <span style={{ fontWeight: 'bold' }}>餐具：</span>
-                                            <span>{cakeOrderInfo.making.plates}</span>
-                                            <span> 套</span>
-                                        </div>
-                                    </div>
-                                    <div key='c'>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <div style={{ fontWeight: 'bold' }}>时间：</div>
-                                            <div>
-                                                <DatePicker
-                                                    ref={(dp) => this._datePicker4PickUpDay = dp}
-                                                    style={{ width: 180 }}
-                                                    size='large'
-                                                    placeholder='日期'
-                                                    format='YYYY-MM-DD dddd'
-                                                    value={cakeOrderInfo.delivery.pickUpDay}
-                                                    open={cakeOrderInfo.delivery.pickUpDayPopupOpen}
-                                                    showToday={false}
-                                                    inputReadOnly={true}
-                                                    onChange={this.handlePickUpDayChange}
-                                                    onFocus={this.handlePickUpDayOnFocus}
-                                                    onBlur={this.handlePickUpDayOnBlur}
-                                                    dateRender={(current) => {
-                                                        const style = {};
-
-                                                        if (current.date() === 1) {
-                                                            style.border = '1px solid #1890ff';
-                                                            style.borderRadius = '50%';
-                                                        }
-
-                                                        return (
-                                                            <div className="ant-picker-cell-inner" style={style} onClick={() => {
-                                                                this.setState({ pickUpDayPopupOpen: false }, () => {
-                                                                    setTimeout(() => {
-                                                                        this._datePicker4PickUpDay.blur();
-                                                                    }, 300);
-                                                                });
-                                                            }}>
-                                                                {current.date()}
-                                                            </div>
-                                                        );
-                                                    }}
-                                                    renderExtraFooter={() =>
-                                                    (<span>
-                                                        <Button type='primary' size='small' onClick={() => {
-                                                            const { cakeOrderInfo } = this.state;
-                                                            cakeOrderInfo.delivery.pickUpDayPopupOpen = false;
-                                                            cakeOrderInfo.delivery.pickUpDay = moment();
-                                                            this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
-                                                                setTimeout(() => {
-                                                                    this._datePicker4PickUpDay.blur();
-                                                                }, 300);
-                                                            });
-                                                        }}>今天</Button>
-                                                        <span>   </span>
-                                                        <Button type='primary' size='small' onClick={() => {
-                                                            const { cakeOrderInfo } = this.state;
-                                                            cakeOrderInfo.delivery.pickUpDayPopupOpen = false;
-                                                            cakeOrderInfo.delivery.pickUpDay = moment().add(1, 'day');
-                                                            this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
-                                                                setTimeout(() => {
-                                                                    this._datePicker4PickUpDay.blur();
-                                                                }, 300);
-                                                            });
-                                                        }}>明天</Button>
-                                                        <span>   </span>
-                                                        <Button type='primary' size='small' onClick={() => {
-                                                            const { cakeOrderInfo } = this.state;
-                                                            cakeOrderInfo.delivery.pickUpDayPopupOpen = false;
-                                                            cakeOrderInfo.delivery.pickUpDay = moment().add(2, 'day');
-                                                            this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
-                                                                setTimeout(() => {
-                                                                    this._datePicker4PickUpDay.blur();
-                                                                }, 300);
-                                                            });
-                                                        }}>后天</Button>
-                                                    </span>)
-                                                    } />
-                                            </div>
-                                            <div style={{ marginTop: 4 }}>
-                                                <DatePicker
-                                                    ref={(dp) => this._datePicker4PickUpTime = dp}
-                                                    picker='time'
-                                                    size='large'
-                                                    style={{ width: 150 }}
-                                                    placeholder='时间'
-                                                    locale={dpLocale}
-                                                    showTime={{
-                                                        use12Hours: false,
-                                                        showNow: false,
-                                                        format: 'a HH:mm'
-                                                    }}
-                                                    panelRender={(originPicker) => {
-                                                        return (
-                                                            <div style={{ marginLeft: 10, marginRight: 10 }}>
-                                                                {originPicker}
-                                                            </div>)
-                                                    }}
-                                                    format='a HH:mm'
-                                                    value={cakeOrderInfo.delivery.pickUpTime}
-                                                    open={cakeOrderInfo.delivery.pickUpTimePopupOpen}
-                                                    onFocus={this.handlePickUpTimeOnFocus}
-                                                    onBlur={this.handlePickUpTimeOnBlur}
-                                                    onOk={this.handlePickUpTimeOnOk}
-                                                    inputReadOnly={true}
-                                                    onChange={this.handlePickUpTimeChange}
-                                                    renderExtraFooter={() => (
-                                                        <span>
-                                                            <Button type='primary' size='small' onClick={() => {
-                                                                const { cakeOrderInfo } = this.state;
-                                                                cakeOrderInfo.delivery.pickUpTimePopupOpen = false;
-                                                                cakeOrderInfo.delivery.pickUpTime = moment('12:30', 'HH:mm')
-                                                                this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
-                                                                    setTimeout(() => {
-                                                                        this._datePicker4PickUpTime.blur();
-                                                                    }, 300);
-                                                                });
-                                                            }}>中午 12点30分</Button>
-                                                            <span>   </span>
-                                                            <Button type='primary' size='small' onClick={() => {
-                                                                const { cakeOrderInfo } = this.state;
-                                                                cakeOrderInfo.delivery.pickUpTimePopupOpen = false;
-                                                                cakeOrderInfo.delivery.pickUpTime = moment('18:30', 'HH:mm')
-                                                                this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
-                                                                    setTimeout(() => {
-                                                                        this._datePicker4PickUpTime.blur();
-                                                                    }, 300);
-                                                                });
-                                                            }}>晚上 18点30分</Button>
-                                                        </span>
-                                                    )} />
-                                            </div>
-                                            {
-                                                (cakeOrderInfo.delivery.pickUpDay === undefined ||
-                                                    cakeOrderInfo.delivery.pickUpDay === null ||
-                                                    cakeOrderInfo.delivery.pickUpDay === '') ||
-                                                    (cakeOrderInfo.delivery.pickUpTime === undefined ||
-                                                        cakeOrderInfo.delivery.pickUpTime === null ||
-                                                        cakeOrderInfo.delivery.pickUpTime === '') ? (
-                                                    <div style={{ color: 'red' }}>“时间”是必填项</div>
-                                                ) : (<div></div>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <span style={{ fontWeight: 'bold' }}>方式：</span>
+                                                                    }
+                                                                    return (
+                                                                        <div key={size.id}>
+                                                                            {
+                                                                                price !== -1 ?
+                                                                                    <div>
+                                                                                        <span style={{ color: '#00A2A5' }}>{size.name}</span>
+                                                                                        <span style={{ color: 'gray', fontSize: 12 }}>{`（${size.description}）`}</span>
+                                                                                        <span style={{ color: '#00A2A5' }}>{`${price}元`}</span>
+                                                                                        <span></span>
+                                                                                    </div> : <div></div>
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div> : <div></div>}
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <div key='b'>
+                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>制作</Divider>
+                                    <div style={{ marginTop: 8, marginBottom: 8, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <Input.Group style={{ marginBottom: 20 }}>
+                                            <span style={{ fontWeight: 'bold' }}>奶油：</span>
                                             <Radio.Group
                                                 size='large'
-                                                options={this._pickUpTypesOptions}
-                                                onChange={this.handlePickUpTypeChange}
-                                                value={cakeOrderInfo.delivery.pickUpType}
+                                                options={this._creamOptions}
+                                                onChange={this.handleCreamChange}
+                                                value={JSON.stringify(cakeOrderInfo.making.cream)}
                                                 optionType='default'
                                             />
                                             {
-                                                cakeOrderInfo.delivery.pickUpType === undefined ? (
-                                                    <div style={{ color: 'red' }}>“方式”是必填项</div>
+                                                cakeOrderInfo.making.cream === undefined ? (
+                                                    <div style={{ color: 'red' }}>“奶油”是必填项</div>
                                                 ) : (<div></div>)
                                             }
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <span style={{ fontWeight: 'bold' }}>门店：</span>
-                                            <Select style={{ width: 160 }}
-                                                onChange={this.handleShopChange}
-                                                value={cakeOrderInfo.delivery.shop}
-                                                options={this._shopOptions}>
-                                            </Select>
+                                        </Input.Group>
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <div>
+                                            <span style={{ fontWeight: 'bold' }}>尺寸：</span>
+                                            <Select
+                                                style={{ width: 80, marginRight: 8 }}
+                                                onChange={this.handleSizeChange}
+                                                onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
+                                                options={this._sizeOptions}
+                                                value={JSON.stringify(cakeOrderInfo.making.size)} />
                                             {
-                                                this.evalWith(cakeOrderInfo.delivery.shop)?.id === undefined ||
-                                                    this.evalWith(cakeOrderInfo.delivery.shop)?.id === null ? (
-                                                    <div style={{ color: 'red' }}>“门店”是必填项</div>
-                                                ) : (<div></div>)
+                                                cakeOrderInfo.making.size?.id === -500 ? (
+                                                    <span>
+                                                        <Input placeholder='叠加或悬浮|几寸+几寸'
+                                                            prefix={<EditOutlined />}
+                                                            style={{ width: 190 }}
+                                                            value={cakeOrderInfo.making.sizeExtra}
+                                                            onChange={this.handleSizeExtraChange} />
+                                                    </span>) : (<div></div>)
                                             }
-                                        </div>
-                                        {
-                                            this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 ? (
-                                                <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                                    <Input.Group>
-                                                        <span style={{ fontWeight: 'bold' }}>地址：</span>
-                                                        <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                            placeholder='填写地址' prefix={<HomeOutlined />}
-                                                            value={cakeOrderInfo.delivery.address}
-                                                            onChange={this.handleDeliverAddressChange} />
-                                                        {
-                                                            cakeOrderInfo.delivery.address === undefined ||
-                                                                cakeOrderInfo.delivery.address === '' ? (
-                                                                <div style={{ color: 'red' }}>“地址”是必填项</div>
-                                                            ) : (<div></div>)
-                                                        }
-                                                    </Input.Group>
-                                                </div>
-                                            ) : (
-                                                <div>
-                                                </div>
-                                            )
-                                        }
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>姓名：</span>
-                                                <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                    placeholder='填写姓名'
-                                                    prefix={<UserOutlined />}
-                                                    value={cakeOrderInfo.delivery.pickUpName}
-                                                    onChange={this.handlePickUpNameChange} />
-                                                {
-                                                    cakeOrderInfo.delivery.pickUpName === '' ||
-                                                        cakeOrderInfo.delivery.pickUpName === undefined ? (
-                                                        <div style={{ color: 'red' }}>“姓名”是必填项</div>
-                                                    ) : (<div></div>)
-                                                }
-                                            </Input.Group>
-                                        </div>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>手机：</span>
-                                                <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                    placeholder='填写手机号'
-                                                    prefix={<PhoneOutlined />}
-                                                    value={cakeOrderInfo.delivery.phoneNumber}
-                                                    onChange={this.handlePhoneNumberChange} />
-                                                {
-                                                    cakeOrderInfo.delivery.phoneNumber === '' ||
-                                                        cakeOrderInfo.delivery.phoneNumber === undefined ? (
-                                                        <div style={{ color: 'red' }}>“手机”是必填项</div>
-                                                    ) : (<div></div>)
-                                                }
-                                            </Input.Group>
+                                            {
+                                                cakeOrderInfo.making.size === undefined ||
+                                                    (cakeOrderInfo.making.size.id === -500 &&
+                                                        (cakeOrderInfo.making.sizeExtra === undefined ||
+                                                            cakeOrderInfo.making.sizeExtra === '')) ? (
+                                                    <div style={{ color: 'red' }}>“尺寸”是必填项</div>
+                                                ) : (<span></span>)
+                                            }
                                         </div>
                                     </div>
-                                    <div key='d'>
-                                        <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
-                                        <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 24, marginRight: 24, textAlign: 'center' }}>
-                                            <Input.Group>
-                                                <span style={{ fontWeight: 'bold' }}>备注：</span>
-                                                <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={5}
-                                                    placeholder='有特殊要求，请备注在这里' value={cakeOrderInfo.other.remarks}
-                                                    onChange={this.handleRemarksChange} />
-                                            </Input.Group>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <span style={{ fontWeight: 'bold' }}>价格：</span>
+                                        <span>{cakeOrderInfo.making.price}</span>
+                                        <span> 元</span>
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <div style={{ fontWeight: 'bold' }}>
+                                            {`夹心（任选${cakeOrderInfo.product.fillingNumber}种）`}
                                         </div>
-                                        <div style={{ height: 80 }}></div>
+                                        <CheckboxGroup
+                                            disabled={cakeOrderInfo.product.fillingNumber > 0 ? false : true}
+                                            style={{ marginTop: 8 }}
+                                            options={this._fillingOptions}
+                                            value={cakeOrderInfo.making.fillings}
+                                            onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product.fillingNumber)} />
+                                        {
+                                            cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product.fillingNumber > 0 ? (
+                                                <div style={{ color: 'red' }}>“夹心”是必填项</div>
+                                            ) : (<span></span>)
+                                        }
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为爱心蜡烛一根，若蛋糕自带蜡烛则不送蜡烛）：</div>
+
+                                        <Radio.Group style={{ marginTop: 8 }}
+                                            options={this._candleOptions}
+                                            value={cakeOrderInfo.making.candle}
+                                            onChange={this.handleCandleChange}>
+                                        </Radio.Group>
+                                        {
+                                            cakeOrderInfo.making.candle === undefined ||
+                                                (this.evalWith(cakeOrderInfo.making.candle)?.id === 3 &&
+                                                    (cakeOrderInfo.making.candleExtra === undefined ||
+                                                        cakeOrderInfo.making.candleExtra === '')) ? (
+                                                <div style={{ color: 'red', marginLeft: 0 }}>“蜡烛”是必填项</div>
+                                            ) : (<span></span>)
+                                        }
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
+
+                                        <Radio.Group style={{ marginTop: 8 }}
+                                            options={this._kindlingOptions}
+                                            value={cakeOrderInfo.making.kindling}
+                                            onChange={this.handleKindlingChange}>
+                                        </Radio.Group>
+                                    </div>
+
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <div style={{ fontWeight: 'bold' }}>帽子（任选一种，默认为金卡皇冠帽）：</div>
+
+                                        <Radio.Group style={{ marginTop: 8 }}
+                                            options={this._hatOptions}
+                                            onChange={this.handleHatChange}>
+                                            value={cakeOrderInfo.making.hat}
+                                        </Radio.Group>
+                                    </div>
+
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <span style={{ fontWeight: 'bold' }}>餐具：</span>
+                                        <span>{cakeOrderInfo.making.plates}</span>
+                                        <span> 套</span>
+                                    </div>
+                                </div>
+                                <div key='c'>
+                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <div style={{ fontWeight: 'bold' }}>时间：</div>
+                                        <div>
+                                            <DatePicker
+                                                ref={(dp) => this._datePicker4PickUpDay = dp}
+                                                style={{ width: 180 }}
+                                                size='large'
+                                                placeholder='日期'
+                                                format='YYYY-MM-DD dddd'
+                                                value={cakeOrderInfo.delivery.pickUpDay}
+                                                open={cakeOrderInfo.delivery.pickUpDayPopupOpen}
+                                                showToday={false}
+                                                inputReadOnly={true}
+                                                onChange={this.handlePickUpDayChange}
+                                                onFocus={this.handlePickUpDayOnFocus}
+                                                onBlur={this.handlePickUpDayOnBlur}
+                                                dateRender={(current) => {
+                                                    const style = {};
+
+                                                    if (current.date() === 1) {
+                                                        style.border = '1px solid #1890ff';
+                                                        style.borderRadius = '50%';
+                                                    }
+
+                                                    return (
+                                                        <div className="ant-picker-cell-inner" style={style} onClick={() => {
+                                                            this.setState({ pickUpDayPopupOpen: false }, () => {
+                                                                setTimeout(() => {
+                                                                    this._datePicker4PickUpDay.blur();
+                                                                }, 300);
+                                                            });
+                                                        }}>
+                                                            {current.date()}
+                                                        </div>
+                                                    );
+                                                }}
+                                                renderExtraFooter={() =>
+                                                (<span>
+                                                    <Button type='primary' size='small' onClick={() => {
+                                                        const { cakeOrderInfo } = this.state;
+                                                        cakeOrderInfo.delivery.pickUpDayPopupOpen = false;
+                                                        cakeOrderInfo.delivery.pickUpDay = moment();
+                                                        this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
+                                                            setTimeout(() => {
+                                                                this._datePicker4PickUpDay.blur();
+                                                            }, 300);
+                                                        });
+                                                    }}>今天</Button>
+                                                    <span>   </span>
+                                                    <Button type='primary' size='small' onClick={() => {
+                                                        const { cakeOrderInfo } = this.state;
+                                                        cakeOrderInfo.delivery.pickUpDayPopupOpen = false;
+                                                        cakeOrderInfo.delivery.pickUpDay = moment().add(1, 'day');
+                                                        this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
+                                                            setTimeout(() => {
+                                                                this._datePicker4PickUpDay.blur();
+                                                            }, 300);
+                                                        });
+                                                    }}>明天</Button>
+                                                    <span>   </span>
+                                                    <Button type='primary' size='small' onClick={() => {
+                                                        const { cakeOrderInfo } = this.state;
+                                                        cakeOrderInfo.delivery.pickUpDayPopupOpen = false;
+                                                        cakeOrderInfo.delivery.pickUpDay = moment().add(2, 'day');
+                                                        this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
+                                                            setTimeout(() => {
+                                                                this._datePicker4PickUpDay.blur();
+                                                            }, 300);
+                                                        });
+                                                    }}>后天</Button>
+                                                </span>)
+                                                } />
+                                        </div>
+                                        <div style={{ marginTop: 4 }}>
+                                            <DatePicker
+                                                ref={(dp) => this._datePicker4PickUpTime = dp}
+                                                picker='time'
+                                                size='large'
+                                                style={{ width: 150 }}
+                                                placeholder='时间'
+                                                locale={dpLocale}
+                                                showTime={{
+                                                    use12Hours: false,
+                                                    showNow: false,
+                                                    format: 'a HH:mm'
+                                                }}
+                                                panelRender={(originPicker) => {
+                                                    return (
+                                                        <div style={{ marginLeft: 10, marginRight: 10 }}>
+                                                            {originPicker}
+                                                        </div>)
+                                                }}
+                                                format='a HH:mm'
+                                                value={cakeOrderInfo.delivery.pickUpTime}
+                                                open={cakeOrderInfo.delivery.pickUpTimePopupOpen}
+                                                onFocus={this.handlePickUpTimeOnFocus}
+                                                onBlur={this.handlePickUpTimeOnBlur}
+                                                onOk={this.handlePickUpTimeOnOk}
+                                                inputReadOnly={true}
+                                                onChange={this.handlePickUpTimeChange}
+                                                renderExtraFooter={() => (
+                                                    <span>
+                                                        <Button type='primary' size='small' onClick={() => {
+                                                            const { cakeOrderInfo } = this.state;
+                                                            cakeOrderInfo.delivery.pickUpTimePopupOpen = false;
+                                                            cakeOrderInfo.delivery.pickUpTime = moment('12:30', 'HH:mm')
+                                                            this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
+                                                                setTimeout(() => {
+                                                                    this._datePicker4PickUpTime.blur();
+                                                                }, 300);
+                                                            });
+                                                        }}>中午 12点30分</Button>
+                                                        <span>   </span>
+                                                        <Button type='primary' size='small' onClick={() => {
+                                                            const { cakeOrderInfo } = this.state;
+                                                            cakeOrderInfo.delivery.pickUpTimePopupOpen = false;
+                                                            cakeOrderInfo.delivery.pickUpTime = moment('18:30', 'HH:mm')
+                                                            this.setState({ cakeOrderInfo: cakeOrderInfo }, () => {
+                                                                setTimeout(() => {
+                                                                    this._datePicker4PickUpTime.blur();
+                                                                }, 300);
+                                                            });
+                                                        }}>晚上 18点30分</Button>
+                                                    </span>
+                                                )} />
+                                        </div>
+                                        {
+                                            (cakeOrderInfo.delivery.pickUpDay === undefined ||
+                                                cakeOrderInfo.delivery.pickUpDay === null ||
+                                                cakeOrderInfo.delivery.pickUpDay === '') ||
+                                                (cakeOrderInfo.delivery.pickUpTime === undefined ||
+                                                    cakeOrderInfo.delivery.pickUpTime === null ||
+                                                    cakeOrderInfo.delivery.pickUpTime === '') ? (
+                                                <div style={{ color: 'red' }}>“时间”是必填项</div>
+                                            ) : (<div></div>)
+                                        }
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <span style={{ fontWeight: 'bold' }}>方式：</span>
+                                        <Radio.Group
+                                            size='large'
+                                            options={this._pickUpTypesOptions}
+                                            onChange={this.handlePickUpTypeChange}
+                                            value={cakeOrderInfo.delivery.pickUpType}
+                                            optionType='default'
+                                        />
+                                        {
+                                            cakeOrderInfo.delivery.pickUpType === undefined ? (
+                                                <div style={{ color: 'red' }}>“方式”是必填项</div>
+                                            ) : (<div></div>)
+                                        }
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <span style={{ fontWeight: 'bold' }}>门店：</span>
+                                        <Select style={{ width: 160 }}
+                                            onChange={this.handleShopChange}
+                                            value={cakeOrderInfo.delivery.shop}
+                                            options={this._shopOptions}>
+                                        </Select>
+                                        {
+                                            this.evalWith(cakeOrderInfo.delivery.shop)?.id === undefined ||
+                                                this.evalWith(cakeOrderInfo.delivery.shop)?.id === null ? (
+                                                <div style={{ color: 'red' }}>“门店”是必填项</div>
+                                            ) : (<div></div>)
+                                        }
+                                    </div>
+                                    {
+                                        this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 ? (
+                                            <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                                <Input.Group>
+                                                    <span style={{ fontWeight: 'bold' }}>地址：</span>
+                                                    <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
+                                                        placeholder='填写地址' prefix={<HomeOutlined />}
+                                                        value={cakeOrderInfo.delivery.address}
+                                                        onChange={this.handleDeliverAddressChange} />
+                                                    {
+                                                        cakeOrderInfo.delivery.address === undefined ||
+                                                            cakeOrderInfo.delivery.address === '' ? (
+                                                            <div style={{ color: 'red' }}>“地址”是必填项</div>
+                                                        ) : (<div></div>)
+                                                    }
+                                                </Input.Group>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                            </div>
+                                        )
+                                    }
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <Input.Group>
+                                            <span style={{ fontWeight: 'bold' }}>姓名：</span>
+                                            <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
+                                                placeholder='填写姓名'
+                                                prefix={<UserOutlined />}
+                                                value={cakeOrderInfo.delivery.pickUpName}
+                                                onChange={this.handlePickUpNameChange} />
+                                            {
+                                                cakeOrderInfo.delivery.pickUpName === '' ||
+                                                    cakeOrderInfo.delivery.pickUpName === undefined ? (
+                                                    <div style={{ color: 'red' }}>“姓名”是必填项</div>
+                                                ) : (<div></div>)
+                                            }
+                                        </Input.Group>
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <Input.Group>
+                                            <span style={{ fontWeight: 'bold' }}>手机：</span>
+                                            <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
+                                                placeholder='填写手机号'
+                                                prefix={<PhoneOutlined />}
+                                                value={cakeOrderInfo.delivery.phoneNumber}
+                                                onChange={this.handlePhoneNumberChange} />
+                                            {
+                                                cakeOrderInfo.delivery.phoneNumber === '' ||
+                                                    cakeOrderInfo.delivery.phoneNumber === undefined ? (
+                                                    <div style={{ color: 'red' }}>“手机”是必填项</div>
+                                                ) : (<div></div>)
+                                            }
+                                        </Input.Group>
+                                    </div>
+                                </div>
+                                <div key='d'>
+                                    <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>其它</Divider>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 24, marginRight: 24, textAlign: 'center' }}>
+                                        <Input.Group>
+                                            <span style={{ fontWeight: 'bold' }}>备注：</span>
+                                            <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={5}
+                                                placeholder='有特殊要求，请备注在这里' value={cakeOrderInfo.other.remarks}
+                                                onChange={this.handleRemarksChange} />
+                                        </Input.Group>
+                                    </div>
+                                    <div style={{ height: 80 }}></div>
+                                </div>
+                            </QueueAnim>
+
+                            <div style={{
+                                width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
+                                position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
+                            }}>
+                                <Space style={{ marginTop: 16, marginBottom: 16 }}>
+                                    <Button type='default' onClick={this.handleOrderCakeInfoModalCancel}>取消</Button>
+                                    <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成订购单</Button>
+                                </Space>
+                            </div>
+                        </div>) : (<div></div>)
+                }
+
+                {/* 订单图片 */}
+                {
+                    orderImageModalVisiable ? (
+                        <div style={{
+                            background: 'rgba(0,0,0,0.9)', position: 'fixed',
+                            zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
+                            overflowY: 'hidden', overflowX: 'hidden'
+                        }}>
+                            <div style={this._orderImageDivStyle}>
+                                <div key='a' style={{ height: 110 }}>
+                                    <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
+                                        <Timeline.Item color='white' style={{ color: 'white' }}>{`长按虚线框内的订购单图片并转发给客服`}</Timeline.Item>
+                                        <Timeline.Item color='white' style={{ color: 'white' }}>{`注意：不要识别二维码，也不要截屏`}</Timeline.Item>
+                                    </Timeline>
+                                </div>
+
+                                <QueueAnim type={['bottom', 'top']}>
+                                    <div key='a' style={this._orderImageStyle}>
+                                        <Image style={this._orderImageInStyle} preview={false} src={orderImageSrc} />
                                     </div>
                                 </QueueAnim>
 
-                                <div style={{
-                                    width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
-                                    position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
-                                }}>
-                                    <Space style={{ marginTop: 16, marginBottom: 16 }}>
-                                        <Button type='default' onClick={this.handleOrderCakeInfoModalCancel}>取消</Button>
-                                        <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成订购单</Button>
+                                <div style={{ height: 80, textAlign: 'center' }}>
+                                    <Space style={{ marginTop: 24 }}>
+                                        <Button key='back' type='primary' danger onClick={() => {
+                                            this.setState({ orderImageModalVisiable: false });
+                                            document.documentElement.style.overflow = 'visible';
+                                        }}>X</Button>
                                     </Space>
                                 </div>
                             </div>
-                        ) : (<div></div>)
-                    }
+                        </div>
+                    ) : (<div></div>)
+                }
 
-                    {/* 订单图片 */}
-                    {
-                        orderImageModalVisiable ? (
-                            <div style={{
-                                background: 'rgba(0,0,0,0.9)', position: 'fixed',
-                                zIndex: '100', width: 'calc(100%)', height: 'calc(100%)',
-                                overflowY: 'hidden', overflowX: 'hidden'
-                            }}>
-                                <div style={this._orderImageDivStyle}>
-                                    <div key='a' style={{ height: 110 }}>
-                                        <Timeline style={{ paddingTop: 30, paddingLeft: 24, paddingRight: 24 }}>
-                                            <Timeline.Item color='white' style={{ color: 'white' }}>{`长按虚线框内的订购单图片并转发给客服`}</Timeline.Item>
-                                            <Timeline.Item color='white' style={{ color: 'white' }}>{`注意：不要识别二维码，也不要截屏`}</Timeline.Item>
-                                        </Timeline>
+                {
+                    imageCapturing ? (
+                        <div style={{
+                            opacity: 0.99, background: 'white', position: 'fixed',
+                            zIndex: '200', width: 'calc(100%)', height: 'calc(100%)',
+                            overflowY: 'hidden', overflowX: 'hidden'
+                        }}>
+                            <Spin spinning={imageCapturing} size='large' tip='正在生成订购单...' >
+                                <div ref={(current) => { this._theDiv4Capture = current; }}
+                                    style={this._theDiv4CaptureStyle}>
+                                    <div id="qrcode" style={{
+                                        textAlign: 'right', position: 'absolute',
+                                        paddingRight: 20, paddingTop: 10,
+                                        width: this._theDiv4CaptureWidth, height: 150
+                                    }}>
+                                        <div style={{ fontSize: 14, fontWeight: 'bold' }}>电子订购单二维码：</div>
+                                        <Image style={{ width: 150, height: 150 }}
+                                            preview={false}
+                                            src={image4QRCode}
+                                        />
                                     </div>
 
-                                    <QueueAnim type={['bottom', 'top']}>
-                                        <div key='a' style={this._orderImageStyle}>
-                                            <Image style={this._orderImageInStyle} preview={false} src={orderImageSrc} />
-                                        </div>
-                                    </QueueAnim>
+                                    <div style={{
+                                        textAlign: 'left', position: 'absolute', paddingLeft: 20,
+                                        width: this._theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
+                                    }}>{`订购时间：${makingTime}`}</div>
 
-                                    <div style={{ height: 80, textAlign: 'center' }}>
-                                        <Space style={{ marginTop: 24 }}>
-                                            <Button key='back' type='primary' danger onClick={() => {
-                                                this.setState({ orderImageModalVisiable: false });
-                                                document.documentElement.style.overflow = 'visible';
-                                            }}>X</Button>
-                                        </Space>
+                                    <div style={{
+                                        fontSize: 22,
+                                        fontWeight: 'bold',
+                                        textAlign: 'center',
+                                        paddingTop: 6,
+                                        paddingBottom: 6
+                                    }}> 蛋糕订购单</div>
+                                    <div>
+                                        <div style={this._theLeftDivInTheDiv4CaptureStyle}>
+                                            <div style={{
+                                                fontSize: 20,
+                                                textAlign: 'center',
+                                                paddingTop: 4,
+                                                paddingBottom: 4,
+                                                fontWeight: 'bold',
+                                                background: '#D8D8D8',
+                                                borderBottom: '1px dashed black'
+                                            }}>
+                                                <span>{`《${cakeOrderInfo.product.name}》`}</span>
+                                            </div>
+                                            <div>
+                                                <div style={{ position: 'relative' }}>
+                                                    <Image preview={false} src={cakeOrderInfo.product?.images?.[0]} />
+                                                    <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
+                                                </div>
+                                                <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
+                                            </div>
+                                        </div>
+                                        <div style={this._theRightDivInTheDiv4CaptureStyle}>
+                                            <Divider orientation='left' dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>制作</Divider>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>奶油：</span>
+                                                <span style={{ fontSize: 18, color: 'green' }}>{cakeOrderInfo.making.cream.name}</span>
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>尺寸：</span>
+                                                <span style={{ fontSize: 18, color: 'green' }}>{cakeOrderInfo.making.size.name}</span>
+                                                {
+                                                    cakeOrderInfo.making.size.id === -500 ? (
+                                                        <span style={{ fontSize: 18, color: 'green' }}>
+                                                            {cakeOrderInfo.making.sizeExtra}
+                                                        </span>) : (<span></span>)
+                                                }
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>
+                                                <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.price}</span>
+                                                <span style={{ fontSize: 14 }}>元</span>
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
+                                                <span style={{ fontSize: 16, color: 'green' }}>{
+                                                    cakeOrderInfo.making.fillings.length > 0 ?
+                                                        cakeOrderInfo.making.fillings.map(item => this.evalWith(item)?.name).join('+') :
+                                                        '没有夹心'
+                                                }</span>
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
+                                                <span style={{ fontSize: 16, color: 'blue' }}>{this.evalWith(cakeOrderInfo.making.candle).name}</span>
+                                                {
+                                                    this.evalWith(cakeOrderInfo.making.candle).id === 3 ? (
+                                                        <span style={{ fontSize: 16, color: 'blue' }}>
+                                                            {`(${cakeOrderInfo.making.candleExtra})`}
+                                                        </span>) : (<span></span>)
+                                                }
+                                                {
+                                                    this.evalWith(cakeOrderInfo.making.kindling)?.id === 2 ? (
+                                                        <span style={{ fontSize: 16, color: 'blue' }}>
+                                                            {`+火柴盒`}
+                                                        </span>
+                                                    ) : (<span></span>)
+                                                }
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>帽子：</span>
+                                                <span style={{ fontSize: 16, color: 'blue' }}>{this.evalWith(cakeOrderInfo.making.hat).name}</span>
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>餐具：</span>
+                                                <span style={{ fontSize: 16, color: 'blue' }}>{cakeOrderInfo.making.plates}</span>
+                                                <span style={{ fontSize: 16, color: 'blue' }}>套</span>
+                                            </div>
+                                            <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
+                                            <div>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>时间：</span>
+                                                <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd')}</span>
+                                                <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpTime?.format(' a HH:mm')}</span>
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>方式：</span>
+                                                <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name}</span>
+                                            </div>
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>门店：</span>
+                                                <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.delivery.shop)?.name}</span>
+                                            </div>
+                                            {
+                                                this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 ? (
+                                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>地址：</span>
+                                                        <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.address}</span>
+                                                    </div>
+                                                ) : (<div></div>)
+                                            }
+
+                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>姓名：</span>
+                                                <span style={{ fontSize: 18, color: 'red' }}>
+                                                    {`${cakeOrderInfo.delivery.pickUpName}（${cakeOrderInfo.delivery.phoneNumber}）`}
+                                                </span>
+                                            </div>
+                                            <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>其它</Divider>
+                                            <div style={{ marginTop: 4, marginBottom: 4, marginRight: 8 }}>
+                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>备注：</span>
+                                                <span style={{ fontSize: 18, color: 'red', wordWrap: 'break-word' }}>
+                                                    {cakeOrderInfo.other.remarks}
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ) : (<div></div>)
-                    }
+                            </Spin>
+                        </div>) : (<div></div>)
+                }
 
+                <div>
                     {/* 联系方式 */}
                     <div style={{
                         textAlign: 'center', color: '#00A2A5',
@@ -1733,160 +1887,12 @@ class cakeMenu extends React.Component {
                             )
                     }
 
-                    {
-                        imageCapturing ? (
-                            <div ref={(current) => { this._theDiv4Capture = current; }}
-                                style={this._theDiv4CaptureStyle}>
-                                <div id="qrcode" style={{
-                                    textAlign: 'right', position: 'absolute',
-                                    paddingRight: 20, paddingTop: 10,
-                                    width: this._theDiv4CaptureWidth, height: 150
-                                }}>
-                                    <div style={{ fontSize: 14, fontWeight: 'bold' }}>电子订购单二维码：</div>
-                                    <Image style={{ width: 150, height: 150 }}
-                                        preview={false}
-                                        src={image4QRCode}
-                                    />
-                                </div>
-
-                                <div style={{
-                                    textAlign: 'left', position: 'absolute', paddingLeft: 20,
-                                    width: this._theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
-                                }}>{`订购时间：${makingTime}`}</div>
-
-                                <div style={{
-                                    fontSize: 22,
-                                    fontWeight: 'bold',
-                                    textAlign: 'center',
-                                    paddingTop: 6,
-                                    paddingBottom: 6
-                                }}> 蛋糕订购单</div>
-                                <div>
-                                    <div style={this._theLeftDivInTheDiv4CaptureStyle}>
-                                        <div style={{
-                                            fontSize: 20,
-                                            textAlign: 'center',
-                                            paddingTop: 4,
-                                            paddingBottom: 4,
-                                            fontWeight: 'bold',
-                                            background: '#D8D8D8',
-                                            borderBottom: '1px dashed black'
-                                        }}>
-                                            <span>{`《${cakeOrderInfo.product.name}》`}</span>
-                                        </div>
-                                        <div>
-                                            <div style={{ position: 'relative' }}>
-                                                <Image preview={false} src={cakeImage} />
-                                                <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
-                                            </div>
-                                            <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
-                                        </div>
-                                    </div>
-                                    <div style={this._theRightDivInTheDiv4CaptureStyle}>
-                                        <Divider orientation='left' dashed style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>制作</Divider>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>奶油：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.cream.name}</span>
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>尺寸：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.size.name}</span>
-                                            {
-                                                cakeOrderInfo.making.size.id === -500 ? (
-                                                    <span style={{ fontSize: 14 }}>
-                                                        {cakeOrderInfo.making.sizeExtra}
-                                                    </span>) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.price}</span>
-                                            <span style={{ fontSize: 14 }}>元</span>
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
-                                            <span style={{ fontSize: 14 }}>{
-                                                cakeOrderInfo.product.fillingNumber.length > 0 ?
-                                                    cakeOrderInfo.making.cakeFillings.join('+') :
-                                                    '无需夹心'
-                                            }</span>
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
-                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.making.candle).name}</span>
-                                            {
-                                                this.evalWith(cakeOrderInfo.making.candle).id === 3 ? (
-                                                    <span style={{ fontSize: 14 }}>
-                                                        {`${cakeOrderInfo.making.candleExtra}`}
-                                                    </span>) : (
-                                                    <span>
-                                                    </span>
-                                                )
-                                            }
-                                            {
-                                                cakeOrderInfo.making.kindling === 2 ? (
-                                                    <span style={{ fontSize: 14 }}>
-                                                        {`+火柴盒`}
-                                                    </span>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>帽子：</span>
-                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.making.hat).name}</span>
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>餐具：</span>
-                                            <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.plates}</span>
-                                            <span style={{ fontSize: 14 }}>套</span>
-                                        </div>
-                                        <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>取货</Divider>
-                                        <div>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>时间：</span>
-                                            <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd')}</span>
-                                            <span style={{ fontSize: 18, color: 'red' }}>{cakeOrderInfo.delivery.pickUpTime?.format(' a HH:mm')}</span>
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>方式：</span>
-                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name}</span>
-                                        </div>
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>门店：</span>
-                                            <span style={{ fontSize: 14 }}>{this.evalWith(cakeOrderInfo.delivery.shop)?.name}</span>
-                                        </div>
-                                        {
-                                            this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 ? (
-                                                <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                                    <span style={{ fontSize: 14, fontWeight: 'bold' }}>地址：</span>
-                                                    <span style={{ fontSize: 14 }}>{cakeOrderInfo.delivery.address}</span>
-                                                </div>
-                                            ) : (<div></div>)
-                                        }
-
-                                        <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>姓名：</span>
-                                            <span style={{ fontSize: 18, color: 'red' }}>
-                                                {`${cakeOrderInfo.delivery.pickUpName}（${cakeOrderInfo.delivery.phoneNumber}）`}
-                                            </span>
-                                        </div>
-                                        <Divider orientation='left' style={{ marginTop: 0, marginBottom: 0, fontSize: 8 }}>其它</Divider>
-                                        <div style={{ marginTop: 4, marginBottom: 4, marginRight: 8 }}>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>备注：</span>
-                                            <span style={{ fontSize: 18, color: 'red', wordWrap: 'break-word' }}>
-                                                {cakeOrderInfo.other.remarks}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>) : (<div></div>)
-                    }
-
                     {/* 地址，ICP备案，公安备案 */}
                     <div style={{ textAlign: 'center', background: '#D8D8D8', height: 100 }}>
                         <div style={{ paddingTop: 12, marginTop: 10 }}>
                             地址：漳州市漳浦县府前街西247号(教育局对面)
                         </div>
-                        <div style={{ color: 'blue', fontSize: 14 }}>
+                        <div style={{ color: 'green', fontSize: 14 }}>
                             <span style={{ color: 'black' }}>©弯麦</span>
 
                             <a href='http://beian.miit.gov.cn'>
@@ -1905,9 +1911,9 @@ class cakeMenu extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div >
-                <BackTop />
-            </Spin >
+                </div>
+            </div >
+
         )
     }
 }

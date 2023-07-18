@@ -161,6 +161,7 @@ class cakeMenu extends React.Component {
                 ] // 必填，需要使用的JS接口列表
             });
 
+            let that = this;
             window.wx.ready(async function () {
                 /**
                  * config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，
@@ -170,7 +171,7 @@ class cakeMenu extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let wXConfig = this._weixin;            
+                let wXConfig = that._weixin;            
                 let title = wXConfig.title;
                 let desc = wXConfig.desc;
                 let imgUrl = wXConfig.imgUrl;

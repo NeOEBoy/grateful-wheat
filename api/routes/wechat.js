@@ -13,11 +13,11 @@ const urlParams = require('../util/url-params');
  */
 const KConfig4Bread = {
     // 测试地址
-    // appid: 'wx28edef2758aca583',
-    // appsecret: '44663ff523ae9823dad8b5c043654b7f',
+    appid: 'wx28edef2758aca583',
+    appsecret: '44663ff523ae9823dad8b5c043654b7f',
     // 正式地址
-    appid: 'wxb2070ea52da2dfc7',
-    appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',
+    // appid: 'wxb2070ea52da2dfc7',
+    // appsecret: 'dc6d5cdbf4850672dd344f59bfb47d8d',
 }
 
 const KGetAccessTokenUrl = 'https://api.weixin.qq.com/cgi-bin/token';

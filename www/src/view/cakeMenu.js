@@ -30,7 +30,6 @@ import {
     message, Timeline, Button, Space
 } from 'antd';
 import {
-    loadBirthdayCakesWXConfig,
     wechatSign,
     templateSendToSomePeople,
     createBirthdaycakeOrder,
@@ -117,6 +116,7 @@ class cakeMenu extends React.Component {
         this._cakePickUpTypes = cakeInfosObj.pickUpTypes;
         this._cakeShops = cakeInfosObj.shops;
         this._private = cakeInfosObj.private;
+        this._weixin = cakeInfosObj.weixin;
 
         this.makeRenderItemFunc4Product();
         this.initLocal();
@@ -170,8 +170,7 @@ class cakeMenu extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let wXConfig = await loadBirthdayCakesWXConfig();
-
+                let wXConfig = this._weixin;            
                 let title = wXConfig.title;
                 let desc = wXConfig.desc;
                 let imgUrl = wXConfig.imgUrl;
@@ -1806,7 +1805,7 @@ class cakeMenu extends React.Component {
                                         });
                                     }}>
                                         <span>私人订制蛋糕</span>
-                                        <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>点击后上传蛋糕照片</span>
+                                        <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>选择蛋糕照片</span>
                                     </div>
                                     {/* 推荐区域 */}
                                     <div style={{
@@ -1859,7 +1858,7 @@ class cakeMenu extends React.Component {
                                                                             let lastIndex = category.images.length - 1;
                                                                             return (
                                                                                 <span key={index}>
-                                                                                    <Image style={{ marginLeft: 6, width: 44, height: 44, borderRadius: 22 }}
+                                                                                    <Image style={{ marginLeft: 6, width: 44, height: 44, borderRadius: 10 }}
                                                                                         preview={false} src={image} />
                                                                                     {index === lastIndex ? <span style={{ marginLeft: 6 }}>......</span> : <span></span>}
                                                                                 </span>

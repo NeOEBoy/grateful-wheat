@@ -608,7 +608,8 @@ const allCakeInfos = async () => {
   cakeInfos.categorys = allCakeInfosResponseJson.categorys;
   cakeInfos.products = allCakeInfosResponseJson.products;
   cakeInfos.recommend = allCakeInfosResponseJson.recommend;
-
+  cakeInfos.weixin = allCakeInfosResponseJson.weixin;
+  
   for (let i = 0; i < cakeInfos.products.length; ++i) {
     let product = cakeInfos.products[i];
     for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {

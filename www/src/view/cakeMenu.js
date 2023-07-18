@@ -82,7 +82,7 @@ class cakeMenu extends React.Component {
         // 初始化state
         this.state = {
             // 主页
-            cakeRecommend: {},
+            cakeRecommend: { name: '', products: [] },
             cakeCategorys: [],
             cakeProducts: [],
             /// 搜索
@@ -171,7 +171,7 @@ class cakeMenu extends React.Component {
                  * */
                 // console.log('window.wx ready');
 
-                let wXConfig = that._weixin;            
+                let wXConfig = that._weixin;
                 let title = wXConfig.title;
                 let desc = wXConfig.desc;
                 let imgUrl = wXConfig.imgUrl;

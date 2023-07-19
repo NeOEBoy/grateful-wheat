@@ -45,7 +45,7 @@ const KCakeRoot = '/生日蛋糕';
 
 const orderInfoInit = () => {
     let init = {};
-    init.product = undefined;
+    init.product = { name: '', description: '' };
     init.making = {};
     init.making.cream = undefined;
     init.making.size = undefined;

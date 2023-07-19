@@ -339,7 +339,7 @@ class OrderManagement extends React.Component {
             }
 
             this.setState({ beginDateTime4OrderList: data[0], endDateTime4OrderList: data[1] },
-                this.fetchOrderList());
+                () => this.fetchOrderList());
         }
     }
 

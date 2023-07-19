@@ -35,9 +35,7 @@ import {
     createBirthdaycakeOrder,
     allCakeInfos
 } from '../api/api';
-import {
-    getWWWHost,
-} from '../api/util';
+import { getWWWHost } from '../api/util';
 
 const { Panel } = Collapse;
 const CheckboxGroup = Checkbox.Group;
@@ -52,7 +50,7 @@ const orderInfoInit = () => {
     init.making.cream = undefined;
     init.making.size = undefined;
     init.making.sizeExtra = undefined;
-    init.making.price = undefined;
+    init.making.price = '--';
     init.making.fillings = [];
     init.making.candle = undefined;
     init.making.candleExtra = undefined;
@@ -285,8 +283,8 @@ class cakeMenu extends React.Component {
         let products4Search = [];
         for (let i = 0; i < cakeProducts.length; ++i) {
             let product = cakeProducts[i];
-            if (product.name.indexOf(newSearchName) !== -1 ||
-                product.description.indexOf(newSearchName) !== -1) {
+            if (product?.name.indexOf(newSearchName) !== -1 ||
+                product?.description.indexOf(newSearchName) !== -1) {
                 products4Search.push(product);
             }
         }
@@ -341,16 +339,18 @@ class cakeMenu extends React.Component {
 
     // 立即预定按钮
     handleOrderNowClick = (product) => {
-        this.setState({ cakeOrderInfo: orderInfoInit() }, () => {
-            const { cakeOrderInfo } = this.state;
-            cakeOrderInfo.product = product;
-
-            this.setState({
-                orderInfoModalVisiable: true,
-                cakeOrderInfo: cakeOrderInfo
-            }, () => {
+        this.setState({
+            orderInfoModalVisiable: true,
+            cakeOrderInfo: orderInfoInit()
+        }, () => {
+            setTimeout(() => {
+                const { cakeOrderInfo } = this.state;
+                cakeOrderInfo.product = product;
                 this.makeCakeConfig(cakeOrderInfo);
-            });
+                this.setState({
+                    cakeOrderInfo: cakeOrderInfo
+                });
+            }, 0);
         })
 
         document.documentElement.style.overflow = 'hidden';
@@ -361,9 +361,9 @@ class cakeMenu extends React.Component {
 
         // 测试数据
         {
-            // cakeOrderInfo.product.name = "变形金刚"
-            // cakeOrderInfo.product.description = "汽车人，集合，出发，目的是地球"
-            // cakeOrderInfo.product.images = ["/生日蛋糕/变形金刚-方图.jpg"]
+            // cakeOrderInfo.product?.name = "变形金刚"
+            // cakeOrderInfo.product?.description = "汽车人，集合，出发，目的是地球"
+            // cakeOrderInfo.product?.images = ["/生日蛋糕/变形金刚-方图.jpg"]
             // cakeOrderInfo.making.cream = {
             //     "id": 2,
             //     "name": "动物奶油",
@@ -379,7 +379,7 @@ class cakeMenu extends React.Component {
             // }
             // cakeOrderInfo.making.sizeExtra = undefined
             // cakeOrderInfo.making.price = 188
-            // cakeOrderInfo.product.fillingNumber = 2
+            // cakeOrderInfo.product?.fillingNumber = 2
             // cakeOrderInfo.making.fillings = [
             //     {
             //         "id": 1,
@@ -628,6 +628,7 @@ class cakeMenu extends React.Component {
         const { cakeOrderInfo } = this.state;
         cakeOrderInfo.making.cream = JSON.parse(e.target.value);
         cakeOrderInfo.making.size = undefined;
+        cakeOrderInfo.making.price = '--';
         this.updateSizeOptions(cakeOrderInfo);
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
@@ -637,8 +638,8 @@ class cakeMenu extends React.Component {
         cakeOrderInfo.making.size = JSON.parse(value);
 
         cakeOrderInfo.making.price = '--';
-        for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
-            let specification = cakeOrderInfo.product.specifications[i];
+        for (let i = 0; i < cakeOrderInfo.product?.specifications.length; ++i) {
+            let specification = cakeOrderInfo.product?.specifications[i];
             if (specification.creamId === cakeOrderInfo.making.cream.id &&
                 specification.sizeId === cakeOrderInfo.making.size.id) {
                 cakeOrderInfo.making.price = specification.price;
@@ -768,7 +769,7 @@ class cakeMenu extends React.Component {
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
 
-    handleDeliverAddressChange = (e) => {
+    handleAddressChange = (e) => {
         const { cakeOrderInfo } = this.state;
         cakeOrderInfo.delivery.address = e.target.value;
         this.setState({ cakeOrderInfo: cakeOrderInfo });
@@ -793,16 +794,13 @@ class cakeMenu extends React.Component {
     }
 
     makeCakeConfig = (cakeOrderInfo) => {
-        setTimeout(() => {
-            this.updateCreamOptions(cakeOrderInfo);
-            this.updateFillingOptions();
-            this.updateCandleOptions(cakeOrderInfo);
-            this.updateKindlingOptions();
-            this.updateHatOptions();
-            this.updatePickUpTypesOptions();
-            this.updateShopOptions();
-            this.forceUpdate();
-        }, 0);
+        this.updateCreamOptions(cakeOrderInfo);
+        this.updateFillingOptions();
+        this.updateCandleOptions(cakeOrderInfo);
+        this.updateKindlingOptions();
+        this.updateHatOptions();
+        this.updatePickUpTypesOptions();
+        this.updateShopOptions();
     }
 
     updateCreamOptions = (cakeOrderInfo) => {
@@ -811,8 +809,8 @@ class cakeMenu extends React.Component {
             for (let i = 0; i < this._cakeCreams.length; ++i) {
                 let cakeCream = this._cakeCreams[i];
                 if (cakeOrderInfo.product) {
-                    for (let j = 0; j < cakeOrderInfo.product.specifications?.length; ++j) {
-                        let specification = cakeOrderInfo.product.specifications[j];
+                    for (let j = 0; j < cakeOrderInfo.product?.specifications?.length; ++j) {
+                        let specification = cakeOrderInfo.product?.specifications[j];
                         if (specification.creamId === cakeCream.id) {
                             this._creamOptions.push({ label: cakeCream.name, value: JSON.stringify(cakeCream) });
                             break;
@@ -830,8 +828,8 @@ class cakeMenu extends React.Component {
             for (let i = 0; i < this._cakeSizes.length; ++i) {
                 let cakeSize = this._cakeSizes[i];
                 if (cakeOrderInfo.product) {
-                    for (let j = 0; j < cakeOrderInfo.product.specifications.length; ++j) {
-                        let specification = cakeOrderInfo.product.specifications[j];
+                    for (let j = 0; j < cakeOrderInfo.product?.specifications.length; ++j) {
+                        let specification = cakeOrderInfo.product?.specifications[j];
                         if (specification.creamId === cakeOrderInfo.making.cream.id &&
                             specification.sizeId === cakeSize.id) {
                             this._sizeOptions.push({ label: cakeSize.name, value: JSON.stringify(cakeSize) });
@@ -964,8 +962,8 @@ class cakeMenu extends React.Component {
             let rank = index + 1;
             let theMinimumSize = {};
             let theMinimumPrice = 0;
-            if (product.specifications.length > 0) {
-                let firstSpec = product.specifications[0];
+            if (product?.specifications.length > 0) {
+                let firstSpec = product?.specifications[0];
                 theMinimumPrice = firstSpec.price;
                 for (let i = 0; i < this._cakeSizes.length; ++i) {
                     let size = this._cakeSizes[i];
@@ -977,7 +975,7 @@ class cakeMenu extends React.Component {
             }
             return (
                 <List.Item>
-                    <div key={product.name}>
+                    <div key={product?.name}>
                         {
                             (rank === 1 || rank === 2 || rank === 3) ? (
                                 <div style={{
@@ -992,12 +990,11 @@ class cakeMenu extends React.Component {
                         }
 
                         <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                            fallback='data:image/png;base64,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'
-                            preview={true} src={`${KCakeRoot}/${product.name}-方图.jpg`} />
+                            preview={true} src={`${KCakeRoot}/${product?.name}-方图.jpg`} />
                         <div>
                             <div style={{ marginTop: 4 }}>
                                 <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${product.name}》`}</span>
+                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${product?.name}》`}</span>
                                 <span style={{
                                     fontSize: 14, marginTop: 4,
                                     float: 'right', paddingTop: 4, paddingBottom: 4,
@@ -1010,7 +1007,7 @@ class cakeMenu extends React.Component {
                                 </span>
                             </div>
                             <div style={{ fontSize: 14 }}>
-                                <span>{product.description}</span>
+                                <span>{product?.description}</span>
                             </div>
                             <div style={{ fontSize: 13 }}>
                                 <InfoCircleOutlined style={{ color: '#00A2A5' }} />
@@ -1106,11 +1103,14 @@ class cakeMenu extends React.Component {
                                                     this.setState({ imageCropperModalVisiable: false });
                                                 }}>取消</Button>
                                                 <Button type='primary' onClick={() => {
-                                                    this.setState({ imageCropperModalVisiable: false });
                                                     let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
                                                     let customizedProduct = this._private;
                                                     customizedProduct.images = [dataUrlAfterCroped];
-                                                    this.handleOrderNowClick(customizedProduct);
+                                                    this.setState({ imageCropperModalVisiable: false }, () => {
+                                                        setTimeout(() => {
+                                                            this.handleOrderNowClick(customizedProduct);
+                                                        }, 0);
+                                                    });
                                                 }}>确定裁剪</Button>
                                             </Space>
                                         </div>
@@ -1130,14 +1130,14 @@ class cakeMenu extends React.Component {
                             overflowY: 'auto', overflowX: 'hidden'
                         }}>
                             <div style={{ textAlign: 'center', fontSize: 14, marginTop: 8, fontWeight: 'bold' }}>
-                                {`《${cakeOrderInfo.product.name}》`}
+                                {`《${cakeOrderInfo.product?.name}》`}
                             </div>
                             <div style={{ textAlign: 'center', fontSize: 14, paddingLeft: 8, paddingRight: 8 }}>
-                                {cakeOrderInfo.product.description}
+                                {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
                                 <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
-                                    src={cakeOrderInfo.product.images?.[0]} />
+                                    src={cakeOrderInfo.product?.images?.[0]} />
                                 <Image style={{
                                     position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
                                 }} src={`${KCakeRoot}/尺寸/蛋糕尺寸展示板.jpg`} />
@@ -1148,8 +1148,8 @@ class cakeMenu extends React.Component {
                                     {
                                         this._cakeCreams.map(cream => {
                                             let creamExist = false;
-                                            for (let i = 0; i < cakeOrderInfo.product.specifications?.length; ++i) {
-                                                let specification = cakeOrderInfo.product.specifications[i];
+                                            for (let i = 0; i < cakeOrderInfo.product?.specifications?.length; ++i) {
+                                                let specification = cakeOrderInfo.product?.specifications[i];
                                                 if (specification.creamId === cream.id) {
                                                     creamExist = true;
                                                     break;
@@ -1163,8 +1163,8 @@ class cakeMenu extends React.Component {
                                                             {
                                                                 this._cakeSizes.map(size => {
                                                                     let price = -1;
-                                                                    for (let i = 0; i < cakeOrderInfo.product.specifications.length; ++i) {
-                                                                        let specification = cakeOrderInfo.product.specifications[i];
+                                                                    for (let i = 0; i < cakeOrderInfo.product?.specifications.length; ++i) {
+                                                                        let specification = cakeOrderInfo.product?.specifications[i];
                                                                         if (specification.creamId === cream.id &&
                                                                             specification.sizeId === size.id) {
                                                                             price = specification.price;
@@ -1247,16 +1247,16 @@ class cakeMenu extends React.Component {
                                     </div>
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>
-                                            {`夹心（任选${cakeOrderInfo.product.fillingNumber}种）`}
+                                            {`夹心（任选${cakeOrderInfo.product?.fillingNumber}种）`}
                                         </div>
                                         <CheckboxGroup
-                                            disabled={cakeOrderInfo.product.fillingNumber > 0 ? false : true}
+                                            disabled={cakeOrderInfo.product?.fillingNumber > 0 ? false : true}
                                             style={{ marginTop: 8 }}
                                             options={this._fillingOptions}
                                             value={cakeOrderInfo.making.fillings}
-                                            onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product.fillingNumber)} />
+                                            onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product?.fillingNumber)} />
                                         {
-                                            cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product.fillingNumber > 0 ? (
+                                            cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product?.fillingNumber > 0 ? (
                                                 <div style={{ color: 'red' }}>“夹心”是必填项</div>
                                             ) : (<span></span>)
                                         }
@@ -1480,7 +1480,7 @@ class cakeMenu extends React.Component {
                                                     <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
                                                         placeholder='填写地址' prefix={<HomeOutlined />}
                                                         value={cakeOrderInfo.delivery.address}
-                                                        onChange={this.handleDeliverAddressChange} />
+                                                        onChange={this.handleAddressChange} />
                                                     {
                                                         cakeOrderInfo.delivery.address === undefined ||
                                                             cakeOrderInfo.delivery.address === '' ? (
@@ -1634,7 +1634,7 @@ class cakeMenu extends React.Component {
                                                 background: '#D8D8D8',
                                                 borderBottom: '1px dashed black'
                                             }}>
-                                                <span>{`《${cakeOrderInfo.product.name}》`}</span>
+                                                <span>{`《${cakeOrderInfo.product?.name}》`}</span>
                                             </div>
                                             <div>
                                                 <div style={{ position: 'relative' }}>

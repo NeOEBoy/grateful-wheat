@@ -465,30 +465,34 @@ class ProductDistributePrinter extends React.Component {
             LODOP.SET_PRINT_STYLEA(2, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(2, "FontSize", 7);
 
-            LODOP.ADD_PRINT_BARCODE(28, 16, 174, 18, "128Auto", barcode);
+            LODOP.ADD_PRINT_BARCODE(28, 16, 174, 16, "128Auto", barcode);
             LODOP.SET_PRINT_STYLEA(3, "ShowBarText", 0);
 
-            LODOP.ADD_PRINT_TEXT(46, 6, 150, 15, ingredients);
+            LODOP.ADD_PRINT_TEXT(44, 6, 150, 15, ingredients);
             LODOP.SET_PRINT_STYLEA(4, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(4, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(58, 6, 150, 15, productLabelPrintProductionDateAndTime);
+            LODOP.ADD_PRINT_TEXT(56, 6, 150, 15, productLabelPrintProductionDateAndTime);
             LODOP.SET_PRINT_STYLEA(5, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(5, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(70, 6, 150, 15, expirationDate);
+            LODOP.ADD_PRINT_TEXT(68, 6, 150, 15, expirationDate);
             LODOP.SET_PRINT_STYLEA(6, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(6, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(82, 6, 150, 15, '生产商：漳州古西优作食品有限公司漳浦分公司');
+            LODOP.ADD_PRINT_TEXT(80, 6, 150, 15, '生产商：漳州古西优作食品有限公司漳浦分公司');
             LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(90, 6, 150, 15, '地址：漳浦县府前街西247号');
+            LODOP.ADD_PRINT_TEXT(88, 6, 150, 15, '经营许可证编号：JY23506230105266');
+            LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
+
+            LODOP.ADD_PRINT_TEXT(96, 6, 150, 15, '地址：漳浦县府前街西247号');
             LODOP.SET_PRINT_STYLEA(8, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(8, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(98, 6, 150, 15, '电话：13290768588');
+            LODOP.ADD_PRINT_TEXT(104, 6, 150, 15, '电话：13290768588');
             LODOP.SET_PRINT_STYLEA(9, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(9, "FontSize", 5);
 
@@ -848,7 +852,7 @@ class ProductDistributePrinter extends React.Component {
                             </span>
                             <div style={{ border: 1, borderStyle: 'solid', color: 'lightgray', margeLeft: 8, marginTop: 6, marginBottom: 2 }} />
                             <div style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 18, marginTop: 0, marginBottom: 2 }}>标签预览</div>
-                            <div style={{ borderStyle: 'dotted', width: 320, height: 240, marginLeft: 80 }}>
+                            <div style={{ borderStyle: 'dotted', width: 320, height: 260, marginLeft: 80 }}>
                                 <div style={{ textAlign: 'center', fontSize: 16, marginTop: 2 }}>
                                     {productLabelPrintProductionTemplate4Preview.name}
                                 </div>
@@ -869,7 +873,10 @@ class ProductDistributePrinter extends React.Component {
                                     <span>{productLabelPrintProductionTemplate4Preview.expirationDate}</span>
                                 </div>
                                 <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
-                                    生产商：漳州市古西优作食品有限公司漳浦分公司
+                                    生产商：漳州古西优作食品有限公司漳浦分公司
+                                </div>
+                                <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
+                                    经营许可证编号：JY23506230105266
                                 </div>
                                 <div style={{ textAlign: 'left', fontSize: 12, marginTop: 0, marginLeft: 14 }}>
                                     地址：漳浦县府前街西247号

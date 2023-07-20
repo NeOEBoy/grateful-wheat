@@ -465,38 +465,38 @@ class ProductDistributePrinter extends React.Component {
             LODOP.SET_PRINT_STYLEA(2, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(2, "FontSize", 7);
 
-            LODOP.ADD_PRINT_BARCODE(28, 16, 174, 16, "128Auto", barcode);
+            LODOP.ADD_PRINT_BARCODE(28, 16, 174, 14, "128Auto", barcode);
             LODOP.SET_PRINT_STYLEA(3, "ShowBarText", 0);
 
-            LODOP.ADD_PRINT_TEXT(44, 6, 150, 15, ingredients);
+            LODOP.ADD_PRINT_TEXT(42, 6, 150, 15, ingredients);
             LODOP.SET_PRINT_STYLEA(4, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(4, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(56, 6, 150, 15, productLabelPrintProductionDateAndTime);
+            LODOP.ADD_PRINT_TEXT(54, 6, 150, 15, productLabelPrintProductionDateAndTime);
             LODOP.SET_PRINT_STYLEA(5, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(5, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(68, 6, 150, 15, expirationDate);
+            LODOP.ADD_PRINT_TEXT(66, 6, 150, 15, expirationDate);
             LODOP.SET_PRINT_STYLEA(6, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(6, "FontSize", 7);
 
-            LODOP.ADD_PRINT_TEXT(80, 6, 150, 15, '生产商：漳州古西优作食品有限公司漳浦分公司');
+            LODOP.ADD_PRINT_TEXT(78, 6, 150, 15, '生产商：漳州古西优作食品有限公司漳浦分公司');
             LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(88, 6, 150, 15, '经营许可证编号：JY23506230105266');
+            LODOP.ADD_PRINT_TEXT(86, 6, 150, 15, '经营许可证编号：JY23506230105266');
             LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(96, 6, 150, 15, '地址：漳浦县府前街西247号');
+            LODOP.ADD_PRINT_TEXT(94, 6, 150, 15, '地址：漳浦县府前街西247号');
             LODOP.SET_PRINT_STYLEA(8, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(8, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(104, 6, 150, 15, '电话：13290768588');
+            LODOP.ADD_PRINT_TEXT(102, 6, 150, 15, '电话：13290768588');
             LODOP.SET_PRINT_STYLEA(9, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(9, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(90, 100, 150, 15, transferPrice);
+            LODOP.ADD_PRINT_TEXT(95, 100, 150, 15, transferPrice);
             LODOP.SET_PRINT_STYLEA(10, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(10, "FontSize", 12);
 

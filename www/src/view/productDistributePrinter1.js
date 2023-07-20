@@ -485,20 +485,20 @@ class ProductDistributePrinter extends React.Component {
             LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
 
             LODOP.ADD_PRINT_TEXT(86, 6, 150, 15, '经营许可证编号：JY23506230105266');
-            LODOP.SET_PRINT_STYLEA(7, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(7, "FontSize", 5);
-
-            LODOP.ADD_PRINT_TEXT(94, 6, 150, 15, '地址：漳浦县府前街西247号');
             LODOP.SET_PRINT_STYLEA(8, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(8, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(102, 6, 150, 15, '电话：13290768588');
+            LODOP.ADD_PRINT_TEXT(94, 6, 150, 15, '地址：漳浦县府前街西247号');
             LODOP.SET_PRINT_STYLEA(9, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(9, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(95, 100, 150, 15, transferPrice);
+            LODOP.ADD_PRINT_TEXT(102, 6, 150, 15, '电话：13290768588');
             LODOP.SET_PRINT_STYLEA(10, "FontName", "微软雅黑");
-            LODOP.SET_PRINT_STYLEA(10, "FontSize", 12);
+            LODOP.SET_PRINT_STYLEA(10, "FontSize", 5);
+
+            LODOP.ADD_PRINT_TEXT(96, 100, 150, 15, transferPrice);
+            LODOP.SET_PRINT_STYLEA(11, "FontName", "微软雅黑");
+            LODOP.SET_PRINT_STYLEA(11, "FontSize", 12);
 
             LODOP.PRINT();
             // LODOP.PREVIEW();

@@ -496,7 +496,7 @@ class ProductDistributePrinter extends React.Component {
             LODOP.SET_PRINT_STYLEA(10, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(10, "FontSize", 5);
 
-            LODOP.ADD_PRINT_TEXT(96, 100, 150, 15, transferPrice);
+            LODOP.ADD_PRINT_TEXT(94, 100, 150, 15, transferPrice);
             LODOP.SET_PRINT_STYLEA(11, "FontName", "微软雅黑");
             LODOP.SET_PRINT_STYLEA(11, "FontSize", 12);
 

@@ -32,7 +32,7 @@ import {
 import {
     wechatSign,
     templateSendToSomePeople,
-    createBirthdaycakeOrder,
+    createCakeOrder,
     allCakeInfos
 } from '../api/api';
 import { getWWWHost } from '../api/util';
@@ -360,102 +360,102 @@ class cakeMenu extends React.Component {
         const { cakeOrderInfo } = this.state;
 
         // 测试数据
-        {
-            // cakeOrderInfo.product?.name = "变形金刚"
-            // cakeOrderInfo.product?.description = "汽车人，集合，出发，目的是地球"
-            // cakeOrderInfo.product?.images = ["/生日蛋糕/变形金刚-方图.jpg"]
-            // cakeOrderInfo.making.cream = {
-            //     "id": 2,
-            //     "name": "动物奶油",
-            //     "description": "动物奶油"
-            // };
-            // cakeOrderInfo.making.size = {
-            //     "id": 3,
-            //     "name": "8寸",
-            //     "unit": "寸",
-            //     "number": 8,
-            //     "description": "直径20厘米 | 6-9人",
-            //     "plates": 15
-            // }
-            // cakeOrderInfo.making.sizeExtra = undefined
-            // cakeOrderInfo.making.price = 188
-            // cakeOrderInfo.product?.fillingNumber = 2
-            // cakeOrderInfo.making.fillings = [
-            //     {
-            //         "id": 1,
-            //         "name": "布蕾布丁",
-            //         "description": "布蕾布丁",
-            //         "image": "生日蛋糕/夹心/布蕾布丁.jpg"
-            //     },
-            //     {
-            //         "id": 2,
-            //         "name": "新鲜芒果",
-            //         "description": "新鲜芒果",
-            //         "image": "生日蛋糕/夹心/新鲜芒果.jpg"
-            //     },
-            // ]
-            // cakeOrderInfo.making.candle = {
-            //     "id": 1,
-            //     "name": "爱心蜡烛",
-            //     "description": "爱心蜡烛",
-            //     "image": "生日蛋糕/蜡烛/爱心蜡烛.jpg"
-            // }
-            // cakeOrderInfo.making.candleExtra = undefined
-            // cakeOrderInfo.making.kindling = {
-            //     "id": 2,
-            //     "name": "火柴盒",
-            //     "description": "火柴盒",
-            //     "image": "生日蛋糕/蜡烛/火柴盒.jpg"
-            // }
-            // cakeOrderInfo.making.hat = {
-            //     "id": 4,
-            //     "name": "金卡磨砂圆锥帽",
-            //     "description": "金卡磨砂圆锥帽",
-            //     "image": "生日蛋糕/帽子/金卡磨砂圆锥帽.jpg"
-            // }
-            // cakeOrderInfo.making.plates = 15
-            // cakeOrderInfo.delivery.pickUpDay = moment().add(1, 'day')
-            // cakeOrderInfo.delivery.pickUpTime = moment().add(1, 'day')
-            // cakeOrderInfo.delivery.pickUpType = {
-            //     "id": 2,
-            //     "name": "商家配送",
-            //     "description": "商家配送"
-            // }
-            // cakeOrderInfo.delivery.shop = {
-            //     "id": 2,
-            //     "name": "汤泉世纪店",
-            //     "description": "汤泉世纪店"
-            // }
-            // cakeOrderInfo.delivery.address = '钱隆首府2期9栋1301'
-            // cakeOrderInfo.delivery.pickUpName = '王荣慧'
-            // cakeOrderInfo.delivery.phoneNumber = '18698036807'
-            // cakeOrderInfo.other.remarks = '多一顶帽子'
-        }
+        // {
+        //     cakeOrderInfo.product.name = "变形金刚"
+        //     cakeOrderInfo.product.description = "汽车人，集合，出发，目的是地球"
+        //     cakeOrderInfo.product.images = ["/生日蛋糕/变形金刚-方图.jpg"]
+        //     cakeOrderInfo.making.cream = {
+        //         "id": 2,
+        //         "name": "动物奶油",
+        //         "description": "动物奶油"
+        //     };
+        //     cakeOrderInfo.making.size = {
+        //         "id": 3,
+        //         "name": "8寸",
+        //         "unit": "寸",
+        //         "number": 8,
+        //         "description": "直径20厘米 | 6-9人",
+        //         "plates": 15
+        //     }
+        //     cakeOrderInfo.making.sizeExtra = undefined
+        //     cakeOrderInfo.making.price = 188
+        //     cakeOrderInfo.product.fillingNumber = 2
+        //     cakeOrderInfo.making.fillings = [
+        //         {
+        //             "id": 1,
+        //             "name": "布蕾布丁",
+        //             "description": "布蕾布丁",
+        //             "image": "生日蛋糕/夹心/布蕾布丁.jpg"
+        //         },
+        //         {
+        //             "id": 2,
+        //             "name": "新鲜芒果",
+        //             "description": "新鲜芒果",
+        //             "image": "生日蛋糕/夹心/新鲜芒果.jpg"
+        //         },
+        //     ]
+        //     cakeOrderInfo.making.candle = {
+        //         "id": 1,
+        //         "name": "爱心蜡烛",
+        //         "description": "爱心蜡烛",
+        //         "image": "生日蛋糕/蜡烛/爱心蜡烛.jpg"
+        //     }
+        //     cakeOrderInfo.making.candleExtra = undefined
+        //     cakeOrderInfo.making.kindling = {
+        //         "id": 2,
+        //         "name": "火柴盒",
+        //         "description": "火柴盒",
+        //         "image": "生日蛋糕/蜡烛/火柴盒.jpg"
+        //     }
+        //     cakeOrderInfo.making.hat = {
+        //         "id": 4,
+        //         "name": "金卡磨砂圆锥帽",
+        //         "description": "金卡磨砂圆锥帽",
+        //         "image": "生日蛋糕/帽子/金卡磨砂圆锥帽.jpg"
+        //     }
+        //     cakeOrderInfo.making.plates = 15
+        //     cakeOrderInfo.delivery.pickUpDay = moment().add(1, 'day')
+        //     cakeOrderInfo.delivery.pickUpTime = moment().add(1, 'day')
+        //     cakeOrderInfo.delivery.pickUpType = {
+        //         "id": 2,
+        //         "name": "商家配送",
+        //         "description": "商家配送"
+        //     }
+        //     cakeOrderInfo.delivery.shop = {
+        //         "id": 2,
+        //         "name": "汤泉世纪店",
+        //         "description": "汤泉世纪店"
+        //     }
+        //     cakeOrderInfo.delivery.address = '钱隆首府2期9栋1301'
+        //     cakeOrderInfo.delivery.pickUpName = '王荣慧'
+        //     cakeOrderInfo.delivery.phoneNumber = '18698036807'
+        //     cakeOrderInfo.other.remarks = '多一顶帽子'
+        // }
         // log
-        {
-            console.log('名字：' + cakeOrderInfo.product?.name);
-            console.log('描述：' + cakeOrderInfo.product?.description);
-            console.log('图片：' + cakeOrderInfo.product?.images[0]);
-            console.log('奶油：' + cakeOrderInfo.making.cream?.name);
-            console.log('尺寸：' + cakeOrderInfo.making.size?.name);
-            console.log('组合：' + cakeOrderInfo.making?.sizeExtra);
-            console.log('价格：' + cakeOrderInfo.making?.price);
-            console.log('夹心数量：' + cakeOrderInfo.product?.fillingNumber);
-            console.log('夹心：' + cakeOrderInfo.making.fillings.map(item => this.evalWith(item).name));
-            console.log('蜡烛：' + this.evalWith(cakeOrderInfo.making.candle)?.name);
-            console.log('蜡烛Extra：' + cakeOrderInfo.making?.candleExtra);
-            console.log('火柴：' + this.evalWith(cakeOrderInfo.making.kindling)?.name);
-            console.log('帽子：' + this.evalWith(cakeOrderInfo.making.hat)?.name);
-            console.log('餐盘：' + cakeOrderInfo.making.plates);
-            console.log('日期：' + cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd'));
-            console.log('时间：' + cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
-            console.log('方式：' + this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name);
-            console.log('门店：' + this.evalWith(cakeOrderInfo.delivery.shop)?.name);
-            console.log('地址：' + cakeOrderInfo.delivery.address);
-            console.log('姓名：' + cakeOrderInfo.delivery.pickUpName);
-            console.log('手机：' + cakeOrderInfo.delivery.phoneNumber);
-            console.log('备注：' + cakeOrderInfo.other.remarks);
-        }
+        // {
+        //     console.log('名字：' + cakeOrderInfo.product?.name);
+        //     console.log('描述：' + cakeOrderInfo.product?.description);
+        //     console.log('图片：' + cakeOrderInfo.product?.images[0]);
+        //     console.log('奶油：' + cakeOrderInfo.making.cream?.name);
+        //     console.log('尺寸：' + cakeOrderInfo.making.size?.name);
+        //     console.log('组合：' + cakeOrderInfo.making?.sizeExtra);
+        //     console.log('价格：' + cakeOrderInfo.making?.price);
+        //     console.log('夹心数量：' + cakeOrderInfo.product?.fillingNumber);
+        //     console.log('夹心：' + cakeOrderInfo.making.fillings.map(item => this.evalWith(item).name));
+        //     console.log('蜡烛：' + this.evalWith(cakeOrderInfo.making.candle)?.name);
+        //     console.log('蜡烛Extra：' + cakeOrderInfo.making?.candleExtra);
+        //     console.log('火柴：' + this.evalWith(cakeOrderInfo.making.kindling)?.name);
+        //     console.log('帽子：' + this.evalWith(cakeOrderInfo.making.hat)?.name);
+        //     console.log('餐盘：' + cakeOrderInfo.making.plates);
+        //     console.log('日期：' + cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd'));
+        //     console.log('时间：' + cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
+        //     console.log('方式：' + this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name);
+        //     console.log('门店：' + this.evalWith(cakeOrderInfo.delivery.shop)?.name);
+        //     console.log('地址：' + cakeOrderInfo.delivery.address);
+        //     console.log('姓名：' + cakeOrderInfo.delivery.pickUpName);
+        //     console.log('手机：' + cakeOrderInfo.delivery.phoneNumber);
+        //     console.log('备注：' + cakeOrderInfo.other.remarks);
+        // }
         // valid check
         {
             if (cakeOrderInfo.making.cream === undefined) {
@@ -542,7 +542,7 @@ class cakeMenu extends React.Component {
                 /// 保存蛋糕订单，返回_id
                 let createResult = { _id: '' };
                 try {
-                    createResult = await createBirthdaycakeOrder(
+                    createResult = await createCakeOrder(
                         cakeOrderInfo.product?.name,
                         cakeOrderInfo.product?.description,
                         cakeOrderInfo.making.cream?.name,
@@ -551,9 +551,9 @@ class cakeMenu extends React.Component {
                         cakeOrderInfo.making?.price,
                         cakeOrderInfo.making.fillings.map(item => this.evalWith(item).name),
                         this.evalWith(cakeOrderInfo.making.candle)?.name,
+                        cakeOrderInfo.making?.candleExtra,
                         this.evalWith(cakeOrderInfo.making.kindling)?.name,
                         this.evalWith(cakeOrderInfo.making.hat)?.name,
-                        cakeOrderInfo.making?.candleExtra,
                         cakeOrderInfo.making.plates,
                         cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd'),
                         cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'),
@@ -565,17 +565,17 @@ class cakeMenu extends React.Component {
                         cakeOrderInfo.other.remarks);
                     // console.log(createResult);
                     if (createResult.errCode !== 0) {
-                        message.error('订单保存失败！');
+                        message.error('生成蛋糕订购单不成功，请检查网络');
                         this.setState({ orderImageCapturing: false });
                         return;
                     }
                 } catch {
-                    message.error('订单保存失败！');
+                    message.error('生成蛋糕订购单不成功，请检查网络');
                     this.setState({ orderImageCapturing: false });
                     return;
                 }
 
-                let cakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
+                let cakeOrderUrl = getWWWHost() + `/cakeOrder?_id=${createResult._id}`;
                 let qrOpts = {
                     errorCorrectionLevel: 'L',
                     type: 'image/jpeg',
@@ -600,20 +600,17 @@ class cakeMenu extends React.Component {
                         document.documentElement.style.overflow = 'hidden';
 
                         /// 模板通知指定人员有人生成订购单了，避免漏单
-                        let title = '有顾客生成蛋糕订购单了';
-                        let style = '《' + cakeOrderInfo.product?.name + '》';
-                        let time = cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd') +
-                            cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm');
                         let sendResult = await templateSendToSomePeople(
                             createResult._id,
-                            title,
                             this.evalWith(cakeOrderInfo.delivery.shop)?.name,
-                            style, time,
-                            cakeOrderInfo.delivery.pickUpName,
-                            cakeOrderInfo.delivery.phoneNumber);
-                        message.info(JSON.stringify(sendResult));
+                            this.state.orderingTime,
+                            `《${cakeOrderInfo.product?.name}》`,
+                            `${cakeOrderInfo.delivery.pickUpName}（${cakeOrderInfo.delivery.phoneNumber}）`,
+                            cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd') +
+                            cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
+                        // message.info(JSON.stringify(sendResult));
                     });
-            }, 300);
+            }, 0);
         });
 
         document.documentElement.style.overflow = 'visible';
@@ -1028,9 +1025,9 @@ class cakeMenu extends React.Component {
     evalWith = (obj) => {
         // console.log('evalWith obj = ' + obj);
         // 有时候转义对象后无法获取属性，eval处理一下
-        // if (obj === undefined ||
-        //     obj === null ||
-        //     Object.keys(obj) !== null) return obj;
+        if (obj === undefined ||
+            obj === null ||
+            Object.keys(obj) !== null) return obj;
         return eval("(" + obj + ")");
     }
     render() {
@@ -1622,7 +1619,7 @@ class cakeMenu extends React.Component {
                                         textAlign: 'center',
                                         paddingTop: 6,
                                         paddingBottom: 6
-                                    }}> 蛋糕订购单</div>
+                                    }}>蛋糕订购单</div>
                                     <div>
                                         <div style={this._theLeftDivInTheDiv4CaptureStyle}>
                                             <div style={{

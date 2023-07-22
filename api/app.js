@@ -11,7 +11,7 @@ var couponRouter = require('./routes/coupon');
 var memberRouter = require('./routes/member');
 var wechatRouter = require('./routes/wechat');
 var amapRouter = require('./routes/amap');
-var birthdaycakeRouter = require('./routes/birthdaycake');
+var cakeRouter = require('./routes/cake');
 
 const mongoManager = require('./stores/mongo-manager')
 
@@ -56,7 +56,7 @@ app.use('/coupon', couponRouter);
 app.use('/member', memberRouter);
 app.use('/wechat', wechatRouter);
 app.use('/amap', amapRouter);
-app.use('/birthdaycake', birthdaycakeRouter);
+app.use('/cake', cakeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

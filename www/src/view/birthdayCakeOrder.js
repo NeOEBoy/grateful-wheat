@@ -5,7 +5,7 @@ import {
 import {
     wechatSign,
     geocode,
-    findBirthdaycakeOrder
+    findCakeOrder
 } from '../api/api';
 
 const KPickUpTypeOptions = [
@@ -50,7 +50,7 @@ class BirthdayCakeOrder extends React.Component {
         let query = this.props.query;
         let _id = query && query.get('_id');
         if (_id) {
-            let findResult = await findBirthdaycakeOrder(_id);
+            let findResult = await findCakeOrder(_id);
             if (findResult && findResult.errCode === 0) {
                 let order = findResult.order;
                 this.setState({

@@ -54,15 +54,13 @@ router.get('/sign', async function (req, res, next) {
     }
 });
 
-router.get('/templateSendToSomePeople', async function (req, res, next) {
+router.post('/templateSendToSomePeople', async function (req, res, next) {
     try {
-        let _id = req.query._id;
-        let title = req.query.title;
-        let orderNum = req.query.orderNum;
-        let style = req.query.style;
-        let deliverTime = req.query.deliverTime;
-        let name = req.query.name;
-        let phone = req.query.phone;
+        let body = req.body;
+        if (!body._id) {
+            next(httpErrors(500));
+            return;
+        }
 
         let accessToken = await getAccessToken(KConfig4Bread);
         if (!accessToken.access_token) {
@@ -70,27 +68,28 @@ router.get('/templateSendToSomePeople', async function (req, res, next) {
             return;
         }
 
-        /// 王荣慧，Kate，教育局1号
+        /// 微信：王荣慧，Kate，教育局1号
         const openIds = [
-            "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",
-            "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",
-            "oBO-bs7Oiijwq5vi-CfGfW0CaIC0"];
+            "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E",//王荣慧
+            "oBO-bs_Qzz_bXoLPPyfFlXPW-eos",//Kate
+            "oBO-bs7Oiijwq5vi-CfGfW0CaIC0" //教育局1号
+        ];
         // const openIds = [
-        //     "oBO-bs9qqq-ZtaKzvQHhR1zNOK4E"];
+        //     "owtex6iWZ-iU37FycmAEyRluxWT0"];//王荣慧
         for (let index = 0; index < openIds.length; ++index) {
             let openId = openIds[index];
             let templateBody = makeCakeOrderTemplateBody(openId,
-                _id, title, orderNum, style, deliverTime, name, phone);
+                body._id, body.shop, body.orderTime, body.cakeName,
+                body.nameWithPhone, body.deliverTime);
             makeTemplateSend(accessToken.access_token, templateBody);
         }
-
         res.send({ "errcode": 0, "errmsg": "ok" });
     } catch (err) {
         next(err);
     }
 });
 
-const makeCakeOrderTemplateBody = (toUser, _id, title, orderNum, style, deliverTime, name, phone, remark) => {
+const makeCakeOrderTemplateBody = (toUser, _id, shop, orderTime, cakeName, nameWithPhone, deliverTime) => {
     let templateBody = {};
     // 测试openid
     // templateBody.touser = 'o7-RGwtoM8co7KEXMwBggYb_oQbI';
@@ -99,18 +98,17 @@ const makeCakeOrderTemplateBody = (toUser, _id, title, orderNum, style, deliverT
     /// 测试模板id
     // templateBody.template_id = 'b1MVp0K09kYViUxkVo5qm4Oiub5L4F4kS1oRlUjbONM';
     /// 正式模板id从公众号的'功能'=>'模板消息'=>'我的模板'里获取
-    templateBody.template_id = 'dB9yNsbM9ivoGouAkQGEvCSeIPr-liSUQ18PTlpWvvs';
+    templateBody.template_id = '7_bGsplyIQ8RaeIp6zKvOKV1OAeTZDkoy4RphNVhF40';
     let templateData = {};
-    templateData.first = { value: title, color: "#008000" };
-    templateData.keyword1 = { value: orderNum, color: "#008000" }
-    templateData.keyword2 = { value: style, color: "#008000" }
-    templateData.keyword3 = { value: deliverTime, color: "#008000" }
-    templateData.keyword4 = { value: name, color: "#008000" }
-    templateData.keyword5 = { value: phone, color: "#008000" }
+    templateData.thing2 = { value: shop };
+    templateData.time13 = { value: orderTime }
+    templateData.thing15 = { value: cakeName }
+    templateData.phrase6 = { value: nameWithPhone }
+    templateData.time16 = { value: deliverTime }
     templateBody.data = templateData;
 
     /// 设置跳转Url
-    let clickUrl = `http://gratefulwheat.ruyue.xyz/birthdayCakeOrder?_id=${_id}`;
+    let clickUrl = `http://gratefulwheat.ruyue.xyz/cakeOrder?_id=${_id}`;
     templateBody.url = clickUrl;
 
     return templateBody;
@@ -125,7 +123,7 @@ const makeTemplateSend = async (accessToken, templateBody) => {
     let templateBodyStr = JSON.stringify(templateBody);
     const templateResponse = await fetch(templateUrl, { method: 'POST', body: templateBodyStr });
     const templateJson = await templateResponse.json();
-    console.log(JSON.stringify(templateJson));
+    // console.log(JSON.stringify(templateJson));
     return templateJson;
 }
 

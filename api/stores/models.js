@@ -45,28 +45,26 @@ exports.Pages = mongo.model('pages', PageSchema);
 /*
   蛋糕订购单Scheme
 */
-var BirthdayCakeOrderSchema = new Schema({
-  /// 蛋糕信息
-  cakeName: String,
-  cakeDescription: String,
-  creamType: String,
-  cakeSize: String,
-  cakeSizeExtra: String,
-  cakePrice: String,
-  cakeFillings: String,
-  candleType: String,
-  ignitorType: String,
-  hatType: String,
-  number4candle: String,
-  cakePlateNumber: String,
-  /// 配送信息
+var CakeOrderSchema = new Schema({
+  name: String,
+  description: String,
+  cream: String,
+  size: String,
+  sizeExtra: String,
+  price: String,
+  fillings: [String],
+  candle: String,
+  candleExtra: String,
+  kindling: String,
+  hat: String,
+  plates: String,
   pickUpDay: String,
   pickUpTime: String,
   pickUpType: String,
-  responseShop: String,
-  deliverAddress: String,
+  shop: String,
+  address: String,
   pickUpName: String,
   phoneNumber: String,
-  remarks: String,
+  remarks: String
 });
-exports.BirthdayCakeOrders = mongo.model('birthdayCakeOrder', BirthdayCakeOrderSchema);
+exports.CakeOrders = mongo.model('cakeOrders', CakeOrderSchema);

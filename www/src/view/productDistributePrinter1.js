@@ -555,7 +555,7 @@ class ProductDistributePrinter extends React.Component {
             productLabelPrintProductionTemplate4Preview,
             productLabelPrintProductionTitle,
             productLabelPrintTemplateProductModalVisible,
-            productLabelPrintTemplateProductList
+            // productLabelPrintTemplateProductList
         } = this.state;
 
         let labelPrintModalOkText = '';
@@ -591,20 +591,20 @@ class ProductDistributePrinter extends React.Component {
             {
                 title: '分类商品', dataIndex: 'templateName', key: 'templateName', width: '*', render: (text) => {
                     return <Button disabled size='small' style={{ fontSize: 10, textAlign: 'center' }} onClick={() => {
-                        // this.setState({
-                        //     productLabelPrintTemplateProductModalVisible: true,
-                        //     productLabelPrintTemplateProductList: []
-                        // }, () => {
-                        //     const { productLabelPrintTemplateList } = this.state;
-                        //     for (let index = 0; index < productLabelPrintTemplateList.length; ++index) {
-                        //         let name = productLabelPrintTemplateList.templateName;
-                        //         if (name === text) {
-                        //             let items = productLabelPrintTemplateList.items;
-                        //             this.setState({ productLabelPrintTemplateProductList: items });
-                        //         }
-                        //     }
-                        //     /// todo 洗洗睡了，有空再码
-                        // });
+                        this.setState({
+                            productLabelPrintTemplateProductModalVisible: true,
+                            productLabelPrintTemplateProductList: []
+                        }, () => {
+                            // const { productLabelPrintTemplateList } = this.state;
+                            // for (let index = 0; index < productLabelPrintTemplateList.length; ++index) {
+                            //     let name = productLabelPrintTemplateList.templateName;
+                            //     if (name === text) {
+                            //         let items = productLabelPrintTemplateList.items;
+                            //         this.setState({ productLabelPrintTemplateProductList: items });
+                            //     }
+                            // }
+                            /// todo 洗洗睡了，有空再码
+                        });
                     }}>点击打开商品</Button>;
                 }
             },

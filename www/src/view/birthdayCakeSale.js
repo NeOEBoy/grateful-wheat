@@ -43,7 +43,7 @@ import {
     loadBirthdayCakesWXConfig,
     wechatSign,
     templateSendToSomePeople,
-    createBirthdaycakeOrder
+    createCakeOrder
 } from '../api/api';
 import {
     getWWWHost,
@@ -735,7 +735,7 @@ class birthdayCakeSale extends React.Component {
 
                     /// 保存蛋糕订单，返回_id
                     // let createResult = { _id: '123' };
-                    let createResult = await createBirthdaycakeOrder(
+                    let createResult = await createCakeOrder(
                         cakeName,
                         cakeDescription,
                         creamType,
@@ -762,7 +762,7 @@ class birthdayCakeSale extends React.Component {
                         return;
                     }
 
-                    let birthdayCakeOrderUrl = getWWWHost() + `/birthdayCakeOrder?_id=${createResult._id}`;
+                    let birthdayCakeOrderUrl = getWWWHost() + `/cakeOrder?_id=${createResult._id}`;
                     let opts = {
                         errorCorrectionLevel: 'L',
                         type: 'image/png',

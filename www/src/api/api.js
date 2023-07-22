@@ -469,28 +469,33 @@ const wechatSign = async (url) => {
   return wechatSignResponseJson;
 }
 
-const templateSendToSomePeople = async (_id, title, orderNum, style, deliverTime, name, phone) => {
-  let templateSendToTechUrl = getApiHost() + '/wechat/templateSendToSomePeople';
-  templateSendToTechUrl += '?_id='
-  templateSendToTechUrl += _id;
-  templateSendToTechUrl += '&title='
-  templateSendToTechUrl += title;
-  templateSendToTechUrl += '&orderNum='
-  templateSendToTechUrl += orderNum;
-  templateSendToTechUrl += '&style='
-  templateSendToTechUrl += style;
-  templateSendToTechUrl += '&deliverTime='
-  templateSendToTechUrl += deliverTime;
-  templateSendToTechUrl += '&name='
-  templateSendToTechUrl += name;
-  templateSendToTechUrl += '&phone='
-  templateSendToTechUrl += phone;
+const templateSendToSomePeople =
+  async (_id, shop, orderTime,
+    cakeName, nameWithPhone, deliverTime
+  ) => {
+    let templateSendUrl = getApiHost() + '/wechat/templateSendToSomePeople';
 
-  // console.log(templateSendToTechUrl);
-  const templateSendToTechResponse = await fetch(templateSendToTechUrl);
-  const templateSendToTechResponseJson = await templateSendToTechResponse.json();
-  return templateSendToTechResponseJson;
-}
+    let sendParamObj = {
+      _id: _id,
+      shop: shop,
+      orderTime: orderTime,
+      cakeName: cakeName,
+      nameWithPhone: nameWithPhone,
+      deliverTime: deliverTime
+    };
+
+    // console.log(templateSendUrl);
+    const templateSendResponse = await fetch(templateSendUrl, {
+      method: 'post',
+      body: JSON.stringify(sendParamObj),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const templateSendResponseJson = await templateSendResponse.json();
+    return templateSendResponseJson;
+  }
 
 const geocode = async (address, city) => {
   let geocodeUrl = getApiHost() + '/amap/geocode';
@@ -505,85 +510,74 @@ const geocode = async (address, city) => {
   return geocodeResponseJson;
 }
 
-const createBirthdaycakeOrder = async (
-  cakeName,
-  cakeDescription,
-  creamType,
-  cakeSize,
-  cakeSizeExtra,
-  cakePrice,
-  cakeFillings,
-  candleType,
-  ignitorType,
-  hatType,
-  number4candle,
-  cakePlateNumber,
+const createCakeOrder = async (
+  name,
+  description,
+  cream,
+  size,
+  sizeExtra,
+  price,
+  fillings,
+  candle,
+  candleExtra,
+  kindling,
+  hat,
+  plates,
   pickUpDay,
   pickUpTime,
   pickUpType,
-  responseShop,
-  deliverAddress,
+  shop,
+  address,
   pickUpName,
   phoneNumber,
   remarks
 ) => {
-  let createBirthdaycakeOrderUrl = getApiHost() + '/birthdaycake/createOrder';
-  createBirthdaycakeOrderUrl += '?cakeName='
-  createBirthdaycakeOrderUrl += cakeName;
-  createBirthdaycakeOrderUrl += '&cakeDescription='
-  createBirthdaycakeOrderUrl += cakeDescription;
-  createBirthdaycakeOrderUrl += '&creamType='
-  createBirthdaycakeOrderUrl += creamType;
-  createBirthdaycakeOrderUrl += '&cakeSize='
-  createBirthdaycakeOrderUrl += cakeSize;
-  createBirthdaycakeOrderUrl += '&cakeSizeExtra='
-  createBirthdaycakeOrderUrl += cakeSizeExtra;
-  createBirthdaycakeOrderUrl += '&cakePrice='
-  createBirthdaycakeOrderUrl += cakePrice;
-  createBirthdaycakeOrderUrl += '&cakeFillings='
-  createBirthdaycakeOrderUrl += cakeFillings;
-  createBirthdaycakeOrderUrl += '&candleType='
-  createBirthdaycakeOrderUrl += candleType;
-  createBirthdaycakeOrderUrl += '&ignitorType='
-  createBirthdaycakeOrderUrl += ignitorType;
-  createBirthdaycakeOrderUrl += '&hatType='
-  createBirthdaycakeOrderUrl += hatType;
-  createBirthdaycakeOrderUrl += '&number4candle='
-  createBirthdaycakeOrderUrl += number4candle;
-  createBirthdaycakeOrderUrl += '&cakePlateNumber='
-  createBirthdaycakeOrderUrl += cakePlateNumber;
-  createBirthdaycakeOrderUrl += '&pickUpDay='
-  createBirthdaycakeOrderUrl += pickUpDay;
-  createBirthdaycakeOrderUrl += '&pickUpTime='
-  createBirthdaycakeOrderUrl += pickUpTime;
-  createBirthdaycakeOrderUrl += '&pickUpType='
-  createBirthdaycakeOrderUrl += pickUpType;
-  createBirthdaycakeOrderUrl += '&responseShop='
-  createBirthdaycakeOrderUrl += responseShop;
-  createBirthdaycakeOrderUrl += '&deliverAddress='
-  createBirthdaycakeOrderUrl += deliverAddress;
-  createBirthdaycakeOrderUrl += '&pickUpName='
-  createBirthdaycakeOrderUrl += pickUpName;
-  createBirthdaycakeOrderUrl += '&phoneNumber='
-  createBirthdaycakeOrderUrl += phoneNumber;
-  createBirthdaycakeOrderUrl += '&remarks='
-  createBirthdaycakeOrderUrl += remarks;
+  let createCakeOrderUrl = getApiHost() + '/cake/createOrder';
 
-  // console.log(createBirthdaycakeOrderUrl);
-  const createBirthdaycakeOrderResponse = await fetch(createBirthdaycakeOrderUrl);
-  const createBirthdaycakeOrderResponseJson = await createBirthdaycakeOrderResponse.json();
-  return createBirthdaycakeOrderResponseJson;
+  let creatParamObj = {
+    name: name,
+    description: description,
+    cream: cream,
+    size: size,
+    sizeExtra: sizeExtra,
+    price: price,
+    fillings: fillings,
+    candle: candle,
+    candleExtra: candleExtra,
+    kindling: kindling,
+    hat: hat,
+    plates: plates,
+    pickUpDay: pickUpDay,
+    pickUpTime: pickUpTime,
+    pickUpType: pickUpType,
+    shop: shop,
+    address: address,
+    pickUpName: pickUpName,
+    phoneNumber: phoneNumber,
+    remarks: remarks
+  };
+
+  // console.log(createCakeOrderUrl);
+  const createCakeOrderResponse = await fetch(createCakeOrderUrl, {
+    method: 'post',
+    body: JSON.stringify(creatParamObj),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+  const createCakeOrderResponseJson = await createCakeOrderResponse.json();
+  return createCakeOrderResponseJson;
 }
 
-const findBirthdaycakeOrder = async (_id) => {
-  let findBirthdaycakeOrderUrl = getApiHost() + '/birthdaycake/findOrder';
-  findBirthdaycakeOrderUrl += '?_id='
-  findBirthdaycakeOrderUrl += _id;
+const findCakeOrder = async (_id) => {
+  let findCakeOrderUrl = getApiHost() + '/cake/findOrder';
+  findCakeOrderUrl += '?_id='
+  findCakeOrderUrl += _id;
 
-  // console.log(findBirthdaycakeOrderUrl);
-  const findBirthdaycakeOrderResponse = await fetch(findBirthdaycakeOrderUrl);
-  const findBirthdaycakeOrderResponseJson = await findBirthdaycakeOrderResponse.json();
-  return findBirthdaycakeOrderResponseJson;
+  // console.log(findCakeOrderUrl);
+  const findCakeOrderResponse = await fetch(findCakeOrderUrl);
+  const findCakeOrderResponseJson = await findCakeOrderResponse.json();
+  return findCakeOrderResponseJson;
 }
 
 const allCakeInfos = async () => {
@@ -591,7 +585,6 @@ const allCakeInfos = async () => {
   allCakeInfosUrl += '?random=';
   allCakeInfosUrl += Math.floor(Math.random() * 1000);
 
-  // console.log(findBirthdaycakeOrderUrl);
   const allCakeInfosResponse = await fetch(allCakeInfosUrl);
   const allCakeInfosResponseJson = await allCakeInfosResponse.json();
 
@@ -609,7 +602,7 @@ const allCakeInfos = async () => {
   cakeInfos.products = allCakeInfosResponseJson.products;
   cakeInfos.recommend = allCakeInfosResponseJson.recommend;
   cakeInfos.weixin = allCakeInfosResponseJson.weixin;
-  
+
   for (let i = 0; i < cakeInfos.products.length; ++i) {
     let product = cakeInfos.products[i];
     for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
@@ -672,7 +665,7 @@ export {
   wechatSign,
   templateSendToSomePeople,
   geocode,
-  createBirthdaycakeOrder,
-  findBirthdaycakeOrder,
+  createCakeOrder,
+  findCakeOrder,
   allCakeInfos
 };

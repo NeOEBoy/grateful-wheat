@@ -1025,9 +1025,9 @@ class cakeMenu extends React.Component {
     evalWith = (obj) => {
         // console.log('evalWith obj = ' + obj);
         // 有时候转义对象后无法获取属性，eval处理一下
-        if (obj === undefined ||
-            obj === null ||
-            Object.keys(obj) !== null) return obj;
+        // if (obj === undefined ||
+        //     obj === null ||
+        //     Object.keys(obj) !== null) return obj;
         return eval("(" + obj + ")");
     }
     render() {

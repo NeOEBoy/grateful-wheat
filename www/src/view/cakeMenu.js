@@ -457,80 +457,78 @@ class cakeMenu extends React.Component {
         //     console.log('备注：' + cakeOrderInfo.other.remarks);
         // }
         // valid check
-        {
-            if (cakeOrderInfo.making.cream === undefined) {
-                message.warning('请选择奶油类型！');
-                return;
-            }
-            if (cakeOrderInfo.making.size === undefined) {
-                message.warning('请选择尺寸大小！');
-                return;
-            }
-            if (cakeOrderInfo.making.size.id === -500 &&
-                (cakeOrderInfo.making.sizeExtra === undefined ||
-                    cakeOrderInfo.making.sizeExtra === '')) {
-                message.warning('请输入组合类型和组合尺寸！');
-                return;
-            }
-            if (cakeOrderInfo.making.fillings.length <= 0) {
-                message.warning('请选择夹心！');
-                return;
-            }
-            if (cakeOrderInfo.making.candle === undefined) {
-                message.warning('请选择蜡烛！');
-                return;
-            }
-            if (this.evalWith(cakeOrderInfo.making.candle)?.id === 3 &&
-                (cakeOrderInfo.making.candleExtra === undefined ||
-                    cakeOrderInfo.making.candleExtra === '')) {
-                message.warning('请输入数字蜡烛的数字！');
-                return;
-            }
-            if (cakeOrderInfo.making.kindling === undefined) {
-                message.warning('请选择是否需要火柴！');
-                return;
-            }
-            if (cakeOrderInfo.making.hat === undefined) {
-                message.warning('请选择生日帽！');
-                return;
-            }
-            if (cakeOrderInfo.delivery.pickUpDay === undefined ||
-                cakeOrderInfo.delivery.pickUpDay === null) {
-                message.warning('请选择取货日期！');
-                return;
-            }
-            if (cakeOrderInfo.delivery.pickUpTime === undefined ||
-                cakeOrderInfo.delivery.pickUpTime === null) {
-                message.warning('请选择取货时间！');
-                return;
-            }
-            if (cakeOrderInfo.delivery.pickUpType === undefined) {
-                message.warning('请选择取货方式！');
-                return;
-            }
-            if (cakeOrderInfo.delivery.shop === undefined) {
-                message.warning('请选择预定门店！');
-                return;
-            }
-            if (this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 &&
-                (cakeOrderInfo.delivery.address === undefined ||
-                    cakeOrderInfo.delivery.address === null ||
-                    cakeOrderInfo.delivery.address === '')) {
-                message.warning('请输入配送地址！');
-                return;
-            }
-            if (cakeOrderInfo.delivery.pickUpName === undefined ||
-                cakeOrderInfo.delivery.pickUpName === null ||
-                cakeOrderInfo.delivery.pickUpName === '') {
-                message.warning('请输入姓名！');
-                return;
-            }
-            if (cakeOrderInfo.delivery.phoneNumber === undefined ||
-                cakeOrderInfo.delivery.phoneNumber === null ||
-                cakeOrderInfo.delivery.phoneNumber === '') {
-                message.warning('请输入电话号码！');
-                return;
-            }
+        if (cakeOrderInfo.making.cream === undefined) {
+            message.warning('请选择奶油类型！');
+            return;
+        }
+        if (cakeOrderInfo.making.size === undefined) {
+            message.warning('请选择尺寸大小！');
+            return;
+        }
+        if (cakeOrderInfo.making.size.id === -500 &&
+            (cakeOrderInfo.making.sizeExtra === undefined ||
+                cakeOrderInfo.making.sizeExtra === '')) {
+            message.warning('请输入组合类型和组合尺寸！');
+            return;
+        }
+        if (cakeOrderInfo.making.fillings.length <= 0) {
+            message.warning('请选择夹心！');
+            return;
+        }
+        if (cakeOrderInfo.making.candle === undefined) {
+            message.warning('请选择蜡烛！');
+            return;
+        }
+        if (this.evalWith(cakeOrderInfo.making.candle)?.id === 3 &&
+            (cakeOrderInfo.making.candleExtra === undefined ||
+                cakeOrderInfo.making.candleExtra === '')) {
+            message.warning('请输入数字蜡烛的数字！');
+            return;
+        }
+        if (cakeOrderInfo.making.kindling === undefined) {
+            message.warning('请选择是否需要火柴！');
+            return;
+        }
+        if (cakeOrderInfo.making.hat === undefined) {
+            message.warning('请选择生日帽！');
+            return;
+        }
+        if (cakeOrderInfo.delivery.pickUpDay === undefined ||
+            cakeOrderInfo.delivery.pickUpDay === null) {
+            message.warning('请选择取货日期！');
+            return;
+        }
+        if (cakeOrderInfo.delivery.pickUpTime === undefined ||
+            cakeOrderInfo.delivery.pickUpTime === null) {
+            message.warning('请选择取货时间！');
+            return;
+        }
+        if (cakeOrderInfo.delivery.pickUpType === undefined) {
+            message.warning('请选择取货方式！');
+            return;
+        }
+        if (cakeOrderInfo.delivery.shop === undefined) {
+            message.warning('请选择预定门店！');
+            return;
+        }
+        if (this.evalWith(cakeOrderInfo.delivery.pickUpType)?.id === 2 &&
+            (cakeOrderInfo.delivery.address === undefined ||
+                cakeOrderInfo.delivery.address === null ||
+                cakeOrderInfo.delivery.address === '')) {
+            message.warning('请输入配送地址！');
+            return;
+        }
+        if (cakeOrderInfo.delivery.pickUpName === undefined ||
+            cakeOrderInfo.delivery.pickUpName === null ||
+            cakeOrderInfo.delivery.pickUpName === '') {
+            message.warning('请输入姓名！');
+            return;
+        }
+        if (cakeOrderInfo.delivery.phoneNumber === undefined ||
+            cakeOrderInfo.delivery.phoneNumber === null ||
+            cakeOrderInfo.delivery.phoneNumber === '') {
+            message.warning('请输入电话号码！');
+            return;
         }
 
         this.setState({

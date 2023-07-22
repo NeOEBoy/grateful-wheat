@@ -133,7 +133,7 @@ class CakeOrder extends React.Component {
                     borderBottom: '1px dashed black'
                 }}>{`《${order?.name}》`}</div>
                 <div style={{ width: '100%', textAlign: 'center' }}>
-                    <Image style={{ width: '100%' }} preview={false}
+                    <Image style={{ width: 150 }} preview={false}
                         src={`http://gratefulwheat.ruyue.xyz/生日蛋糕/${order?.name}-方图.jpg`} />
                 </div>
                 <div style={{ marginLeft: 24, marginRight: 24 }}>

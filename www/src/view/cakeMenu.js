@@ -608,7 +608,7 @@ class cakeMenu extends React.Component {
                             `${cakeOrderInfo.delivery.pickUpName}（${cakeOrderInfo.delivery.phoneNumber}）`,
                             cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd') +
                             cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
-                        // message.info(JSON.stringify(sendResult));
+                        message.info(JSON.stringify(sendResult));
                     });
             }, 0);
         });

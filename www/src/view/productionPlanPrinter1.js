@@ -280,7 +280,7 @@ class ProductionPlanPrinter extends React.Component {
                                                                                             let unit = '';
                                                                                             let spec = productItem.specification;
                                                                                             if (spec.length > 0) {
-                                                                                                let specs = spec.split('x') | spec.split('X');
+                                                                                                let specs = spec.split('x');
                                                                                                 if (specs.length > 0) {
                                                                                                     specs.forEach(s => {
                                                                                                         let num = s.replace(/[\u4E00-\u9FA5\\s]+/, '');

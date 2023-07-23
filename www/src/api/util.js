@@ -188,7 +188,7 @@ const getCategory4ProductDistributePrint = () => {
     },
     {
       'pDepartment': '后场',
-      'pCategory': ['弯麦吐司面包']
+      'pCategory': ['弯麦切片面包', '弯麦吐司面包']
     }];
 }
 

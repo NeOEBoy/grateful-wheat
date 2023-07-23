@@ -58,7 +58,7 @@
         "name": "2023年7月最新蛋糕",
         "productNames": [
             "Happy小虎",
-            "变形金刚",
+            "米奇の爱",
             "治愈不开心",
             "乐高幻影忍者",
             "珠光宝气",
@@ -1977,6 +1977,57 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
+                }
+            ]
+        },
+        {
+            "name": "米奇の爱",
+            "description": "我们是相亲相爱一家，miki，miki",
+            "categoryId": 2,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/米奇の爱-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },
@@ -8584,7 +8635,7 @@
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 238
+                    "price": 218
                 }
             ]
         },

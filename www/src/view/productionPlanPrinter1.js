@@ -276,12 +276,37 @@ class ProductionPlanPrinter extends React.Component {
                                                                                 <tbody>
                                                                                     {
                                                                                         categoryGroupItem.categoryItems.map((productItem) => {
+                                                                                            let oneWeight = 1;
+                                                                                            let unit = '';
+                                                                                            let spec = productItem.specification;
+                                                                                            if (spec.length > 0) {
+                                                                                                let specs = spec.split('x') | spec.split('X');
+                                                                                                if (specs.length > 0) {
+                                                                                                    specs.forEach(s => {
+                                                                                                        let num = s.replace(/[\u4E00-\u9FA5\\s]+/, '');
+                                                                                                        if (unit.length <= 0 && specs.indexOf(s) === 0) {
+                                                                                                            unit = s.replace(/[0-9]*/g, '').replace(/\./, '');
+                                                                                                        }
+                                                                                                        if (num > 0) {
+                                                                                                            oneWeight *= num;
+                                                                                                        }
+                                                                                                    });
+                                                                                                }
+                                                                                            }
+
+                                                                                            let orderName = productItem.orderProductName;
+                                                                                            if (oneWeight > 1) {
+                                                                                                orderName += '-';
+                                                                                                orderName += (productItem.orderNumber * oneWeight);
+                                                                                                orderName += unit;
+                                                                                            }
+
                                                                                             return (
                                                                                                 <tr key={productItem.key}>
                                                                                                     <th key='1' style={{
                                                                                                         textAlign: 'center', fontWeight: 'lighter', fontSize: 22,
                                                                                                         paddingTop: 4, paddingBottom: 4
-                                                                                                    }}>{productItem.orderProductName}</th>
+                                                                                                    }}>{orderName}</th>
                                                                                                     <th key='2' style={{
                                                                                                         textAlign: 'center', fontWeight: 'lighter', fontSize: 24,
                                                                                                         paddingTop: 4, paddingBottom: 4

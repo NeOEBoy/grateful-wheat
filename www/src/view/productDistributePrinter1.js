@@ -100,7 +100,7 @@ class ProductDistributePrinter extends React.Component {
                         productSpinTipText: `获取<<${orderItem.orderShop}>>-${orderItem.orderId}...`
                     });
                     const productOrderResult = await getProductOrderItems(orderItem.orderId);
-                    // console.log('orderItem = ' + JSON.stringify(orderItem))
+                    // console.log('productOrderResult = ' + JSON.stringify(productOrderResult));
                     if (productOrderResult.errCode === 0 && productOrderResult.items) {
                         for (let j = 0; j < productOrderResult.items.length; ++j) {
                             let product = productOrderResult.items[j];

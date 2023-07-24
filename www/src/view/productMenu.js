@@ -57,9 +57,16 @@ const KCategorys = [{
         `${KImageRoot}/弯麦西点慕斯/黑森林慕斯.jpg`
     ], productItems: []
 }, {
+    categoryId: '1690087312515867590', categoryName: '弯麦切片面包', description: '切片吐司、片片留香',
+    thumbnails: [
+        `${KImageRoot}/弯麦切片面包/鲜奶切片吐司.jpg`,
+        `${KImageRoot}/弯麦切片面包/抹茶红豆切片吐司.jpg`,
+        `${KImageRoot}/弯麦切片面包/提子切片吐司.jpg`
+    ], productItems: []
+}, {
     categoryId: '1593049854760654816', categoryName: '弯麦吐司面包', description: '切片吐司、片片留香',
     thumbnails: [
-        `${KImageRoot}/弯麦吐司面包/抹茶红豆切片吐司.jpg`,
+        `${KImageRoot}/弯麦吐司面包/肉松小吐司.jpg`,
         `${KImageRoot}/弯麦吐司面包/纯奶拉丝小吐司.jpg`,
         `${KImageRoot}/弯麦吐司面包/红豆小吐司.jpg`
     ], productItems: []
@@ -675,7 +682,7 @@ class ProductMenu extends React.Component {
                 <Collapse
                     bordered={true}
                     expandIcon={({ isActive }) => <RightSquareFilled style={{ fontSize: 24, color: 'whitesmoke' }} rotate={isActive ? 90 : 0} />}
-                    expandIconPosition='end'
+                    expandIconPosition='right'
                     onChange={this.handleCollapseOnChange}>
                     {
                         foodCategorys.map((item) => {

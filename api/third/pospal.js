@@ -288,7 +288,8 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           normalizeTags: true
         });
       if (result) {
-        const orderItemTable = result.root.input[2].input[2].input[2].div[2].div[0].div[0].table[0];
+        const orderItemTable = result.root.input[2].input[2].input[2].input[0].div[2].div[0].div[0].table[0];
+        // console.log(JSON.stringify(orderItemTable));
         if (orderItemTable) {
           let orderProductNameIndex = -1;
           let barcodeIndex = -1;
@@ -411,7 +412,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
     }
     return { errCode: 0, items: productItems };
   } catch (err) {
-    console.log('error');
+    console.log('error err = ' + err);
 
     return { errCode: -1 };
   }

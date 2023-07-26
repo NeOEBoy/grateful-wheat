@@ -4634,6 +4634,57 @@
             ]
         },
         {
+            "name": "足球之夜",
+            "description": "今夜注定无眠，你我将开创历史",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/足球之夜-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "乐高幻影忍者",
             "description": "幻影忍者，LEGO Ninjago，方块可以吃哦",
             "categoryId": 3,

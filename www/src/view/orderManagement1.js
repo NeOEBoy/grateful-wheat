@@ -376,11 +376,6 @@ class OrderManagement extends React.Component {
             currentTemplate4OrderList.templateId !== '' ||
             selectedRowKeys4OrderList.length <= 0;
 
-        // let disableSubmitButton =
-        //     currentShop4OrderList.userId === '' ||
-        //     currentTemplate4OrderList.templateId !== '' ||
-        //     alreadyOrderLoading;
-
         /// 订单列表头配置
         const KOrderColumns4Table = [
             { title: '序', dataIndex: 'key', key: 'key', width: 40, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
@@ -416,6 +411,42 @@ class OrderManagement extends React.Component {
 
         return (
             <div>
+                <Modal
+                    width={1000}
+                    centered
+                    keyboard={true}
+                    maskClosable={false}
+                    title={(
+                        <div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderShopName}</div>
+                            <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderTime}</div>
+                        </div>
+                    )}
+                    open={orderDetailModalVisible}
+                    okText='知道了'
+                    cancelButtonProps={{ hidden: true }}
+                    onOk={() => {
+                        this.setState({ orderDetailModalVisible: false });
+                    }}
+                    onCancel={() => {
+                        this.setState({ orderDetailModalVisible: false });
+                    }}>
+                    <Table
+                        style={{ marginTop: 10 }}
+                        size='small'
+                        loading={orderDetailLoading}
+                        dataSource={orderDetailData}
+                        columns={KOrderDetailColumns4Table}
+                        pagination={false} bordered
+                        scroll={{ y: 400, scrollToFirstRowOnChange: true }}
+                        footer={() => {
+                            return (
+                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
+                                    {`总共 ${orderDetailData.length} 项`}
+                                </div>
+                            )
+                        }} />
+                </Modal>
                 {/* 标题 */}
                 <div style={{ marginLeft: 30, marginTop: 8, fontSize: 18 }}>
                     <span>生产 VS 配货</span>
@@ -585,52 +616,10 @@ class OrderManagement extends React.Component {
                                         style={{ width: 160, height: 30, marginLeft: 20, marginTop: 10 }}>
                                         打印配货单&标签
                                     </Button>
-                                    {/* <Button danger disabled={disableSubmitButton} type='primary'
-                                        onClick={this.handleDistributionInput}
-                                        style={{ width: 160, height: 30, marginLeft: 20, marginTop: 10 }}>
-                                        开始配货
-                                    </Button> */}
                                 </div>
                             )
                         }} />
                 </div>
-
-                <Modal
-                    width={1000}
-                    centered
-                    keyboard={true}
-                    maskClosable={false}
-                    title={(
-                        <div>
-                            <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderShopName}</div>
-                            <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderTime}</div>
-                        </div>
-                    )}
-                    open={orderDetailModalVisible}
-                    okText='知道了'
-                    cancelButtonProps={{ hidden: true }}
-                    onOk={() => {
-                        this.setState({ orderDetailModalVisible: false });
-                    }}
-                    onCancel={() => {
-                        this.setState({ orderDetailModalVisible: false });
-                    }}>
-                    <Table
-                        style={{ marginTop: 10 }}
-                        size='small'
-                        loading={orderDetailLoading}
-                        dataSource={orderDetailData}
-                        columns={KOrderDetailColumns4Table}
-                        pagination={false} bordered
-                        scroll={{ y: 400, scrollToFirstRowOnChange: true }}
-                        footer={() => {
-                            return (
-                                <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    {`总共 ${orderDetailData.length} 项`}
-                                </div>
-                            )
-                        }} />
-                </Modal>
             </div >
         );
     }

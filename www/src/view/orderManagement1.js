@@ -422,7 +422,7 @@ class OrderManagement extends React.Component {
                             <div style={{ color: 'gray', fontSize: 8 }}>{currentOrderTime}</div>
                         </div>
                     )}
-                    open={orderDetailModalVisible}
+                    visible={orderDetailModalVisible}
                     okText='知道了'
                     cancelButtonProps={{ hidden: true }}
                     onOk={() => {

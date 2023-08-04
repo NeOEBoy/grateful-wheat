@@ -471,7 +471,8 @@ class cakeMenu extends React.Component {
             message.warning('请输入组合类型和组合尺寸！');
             return;
         }
-        if (cakeOrderInfo.making.fillings.length <= 0) {
+        if (cakeOrderInfo.making?.fillings?.length <= 0 &&
+            cakeOrderInfo.product?.fillingNumber > 0) {
             message.warning('请选择夹心！');
             return;
         }

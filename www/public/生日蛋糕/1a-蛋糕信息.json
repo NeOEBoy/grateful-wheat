@@ -55,13 +55,13 @@
         }
     },
     "recommend": {
-        "name": "2023年7月最新蛋糕",
+        "name": "2023年8月最新蛋糕",
         "productNames": [
-            "Happy小虎",
-            "米奇の爱",
+            "kitty-love",
+            "阳光狮子座",
             "治愈不开心",
             "乐高幻影忍者",
-            "珠光宝气",
+            "皮卡丘",
             "男人的玩具"
         ],
         "products": []
@@ -1977,6 +1977,108 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
+                }
+            ]
+        },
+        {
+            "name": "kitty-love",
+            "description": "你是我的乖乖kitty，永远的小甜心",
+            "categoryId": 2,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/kitty-love-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "阳光狮子座",
+            "description": "狮子座女孩/男孩，你值得阳光",
+            "categoryId": 2,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/阳光狮子座-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },

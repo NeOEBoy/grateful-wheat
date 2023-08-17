@@ -294,6 +294,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           let orderProductNameIndex = -1;
           let barcodeIndex = -1;
           let orderNumberIndex = -1;
+          let amountIndex = -1;
           let specificationIndex = -1;
           let transferPriceIndex = -1;
           let remarkIndex = -1;
@@ -323,6 +324,10 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
                 continue;
               }
 
+              if (titleName === '小计(元)') {
+                amountIndex = index;
+              }
+
               if (titleName === '规格') {
                 specificationIndex = index;
                 continue;
@@ -349,6 +354,7 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
           // console.log(orderProductNameIndex);
           // console.log(barcodeIndex);
           // console.log(orderNumberIndex);
+          // console.log(amountIndex);
           // console.log(specificationIndex);
           // console.log(transferPriceIndex);
           // console.log(remarkIndex);
@@ -385,6 +391,10 @@ const getProductOrderItem = async (thePOSPALAUTH30220, orderId) => {
             let orderNumber = element.td[orderNumberIndex].span[0]._;
             // console.log(orderNumber);
             productOrderItem.orderNumber = parseInt(orderNumber);
+
+            let amount = element.td[amountIndex]._;
+            // console.log(amount);
+            productOrderItem.amount = amount;
 
             let transferPrice = element.td[transferPriceIndex].input[0].$.VALUE;
             // console.log(parseFloat(transferPrice));

@@ -44,6 +44,8 @@ const KOrderDetailColumns4Table = [
     { title: '规格', dataIndex: 'specification', key: 'specification', width: 140, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '类别', dataIndex: 'categoryName', key: 'categoryName', width: 100, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '订货量', dataIndex: 'orderNumber', key: 'orderNumber', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '配货价', dataIndex: 'transferPrice', key: 'transferPrice', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
+    { title: '总计(元)', dataIndex: 'amount', key: 'amount', width: 80, render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
     { title: '备注', dataIndex: 'remark', key: 'remark', width: '*', render: (text) => { return <span style={{ fontSize: 10 }}>{text}</span>; } },
 ];
 
@@ -68,6 +70,7 @@ class OrderManagement extends React.Component {
             orderDetailData: [],
             orderDetailLoading: false,
             orderDetailModalVisible: false,
+            orderDetailDataAmount: 0,
             currentOrderShopName: '',
             currentOrderTime: ''
         };
@@ -196,8 +199,16 @@ class OrderManagement extends React.Component {
                 if (orderItems && orderItems.errCode === 0 && orderItems.items) {
                     list = orderItems.items;
                 }
-
-                this.setState({ orderDetailData: list, orderDetailLoading: false });
+                let amount = list.reduce((pre, cur) => {
+                    let amount = parseFloat(cur.amount)
+                    return pre + amount;
+                }, 0)
+                // console.log('amount = ' + amount)
+                this.setState({
+                    orderDetailData: list,
+                    orderDetailLoading: false,
+                    orderDetailDataAmount: amount.toFixed(2)
+                });
             });
         } catch (err) {
             this.setState({ orderDetailLoading: false });
@@ -355,7 +366,8 @@ class OrderManagement extends React.Component {
             currentOrderType4OrderList, currentOrderCashier, currentOrderTimeType,
             alreadyOrderLoading, beginDateTime4OrderList, endDateTime4OrderList,
             timePickerOpen4OrderList, selectedRowKeys4OrderList,
-            orderDetailData, orderDetailLoading, orderDetailModalVisible,
+            orderDetailData, orderDetailLoading,
+            orderDetailDataAmount, orderDetailModalVisible,
             currentOrderShopName, currentOrderTime
         } = this.state;
 
@@ -442,7 +454,7 @@ class OrderManagement extends React.Component {
                         footer={() => {
                             return (
                                 <div style={{ textAlign: 'center', height: 15, fontSize: 12 }}>
-                                    {`总共 ${orderDetailData.length} 项`}
+                                    {`总共 ${orderDetailData.length} 项，总计 ${orderDetailDataAmount} 元`}
                                 </div>
                             )
                         }} />

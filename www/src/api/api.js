@@ -612,6 +612,7 @@ const allCakeInfos = async () => {
         if (product.fillingNumber === undefined) {
           product.fillingNumber = 2;
         }
+        product.sortId = j;
         cakeInfos.recommend.products.push(product);
         break;
       }
@@ -626,7 +627,57 @@ const allCakeInfos = async () => {
     }
   }
 
+  /// 根据sortId排序，sortId是位置索引
+  cakeInfos.recommend.products =
+    cakeInfos.recommend.products.sort((a, b) => a.sortId - b.sortId);
+
   return cakeInfos;
+}
+
+const allBreadInfos = async () => {
+  let allBreadInfosUrl = '/面包/1a-面包信息.json';
+  allBreadInfosUrl += '?random=';
+  allBreadInfosUrl += Math.floor(Math.random() * 1000);
+
+  const allBreadInfosResponse = await fetch(allBreadInfosUrl);
+  const allBreadInfosResponseJson = await allBreadInfosResponse.json();
+
+  let breadInfos = {};
+  breadInfos.categorys = allBreadInfosResponseJson.categorys;
+  breadInfos.products = allBreadInfosResponseJson.products;
+  breadInfos.recommend = allBreadInfosResponseJson.recommend;
+  breadInfos.weixin = allBreadInfosResponseJson.weixin;
+
+  for (let i = 0; i < breadInfos.products.length; ++i) {
+    let product = breadInfos.products[i];
+
+    for (let j = 0; j < breadInfos.recommend.productNames.length; ++j) {
+      let productName = breadInfos.recommend.productNames[j];
+      if (productName === product.name) {
+        let productNew = JSON.parse(JSON.stringify(product));
+        productNew.sortId = j;
+        productNew.buyNumber = 0;
+        breadInfos.recommend.products.push(productNew);
+        break;
+      }
+    }
+
+    for (let k = 0; k < breadInfos.categorys.length; ++k) {
+      let category = breadInfos.categorys[k];
+      if (product.categoryId === category.id) {
+        let productNew = JSON.parse(JSON.stringify(product));
+        productNew.buyNumber = 0;
+        category.products.push(productNew);
+        break;
+      }
+    }
+  }
+
+  /// 根据sortId排序，sortId是位置索引
+  breadInfos.recommend.products =
+    breadInfos.recommend.products.sort((a, b) => a.sortId - b.sortId);
+
+  return breadInfos;
 }
 
 export {
@@ -667,5 +718,6 @@ export {
   geocode,
   createCakeOrder,
   findCakeOrder,
-  allCakeInfos
+  allCakeInfos,
+  allBreadInfos
 };

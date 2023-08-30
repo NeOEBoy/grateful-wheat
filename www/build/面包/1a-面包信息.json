@@ -1,0 +1,308 @@
+﻿{
+    "weixin": {
+        "title": "弯麦 | 面包蛋糕牛奶电子菜单，点击预定",
+        "desc": "现烤面包，慕斯蛋糕，常温蛋糕，吐司面包，餐包面包，小蛋糕，牛奶，饮料等美食~",
+        "imgUrl": "http://gratefulwheat.ruyue.xyz/面包蛋糕牛奶/芝士鸡排三明治.jpg",
+        "常规": {
+            "title": "弯麦 | 面包蛋糕牛奶电子菜单，点击预定",
+            "desc": "现烤面包，慕斯蛋糕，常温蛋糕，吐司面包，餐包面包，小蛋糕，牛奶，饮料等美食~",
+            "imgUrl": "http://gratefulwheat.ruyue.xyz/生日蛋糕/夏洛特-方图.jpg"
+        }
+    },
+    "recommend": {
+        "name": "最近热销",
+        "productNames": [
+            "手打金桔柠檬",
+            "蜂蜜烧仙草",
+            "芝士鸡排三明治",
+            "迷你小蛋糕",
+            "海盐波波小蛋糕(咸口味)",
+            "纸质菜单卷轴"
+        ],
+        "products": []
+    },
+    "categorys": [
+        {
+            "id": 1,
+            "name": "弯麦特饮",
+            "description": "优选特饮，好喝看得见",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 2,
+            "name": "弯麦小蛋糕",
+            "description": "小小仪式感，快乐到永远",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 3,
+            "name": "弯麦常温蛋糕",
+            "description": "冰爽小糕点，回味亦无穷",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 4,
+            "name": "弯麦甜点慕斯蛋糕",
+            "description": "甜点慕斯，烦恼拜拜",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 5,
+            "name": "弯麦现烤面包",
+            "description": "新鲜现烤，美味无限",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 6,
+            "name": "弯麦切片面包",
+            "description": "切片吐司，片片留香",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 7,
+            "name": "弯麦吐司面包",
+            "description": "方方正正，稳固永远",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 8,
+            "name": "弯麦餐包面包",
+            "description": "圆圆面包，生活美满",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 9,
+            "name": "弯麦干点饼干",
+            "description": "传统干点，经典传承",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 10,
+            "name": "长富常温牛奶",
+            "description": "精品牛奶，强壮身体",
+            "images": [],
+            "products": []
+        }
+    ],
+    "products": [
+        {
+            "name": "手打金桔柠檬",
+            "ingredient": "新鲜金桔，新鲜柠檬，话梅，糖，水，酸酸甜甜，解暑必备",
+            "categoryId": 1,
+            "images": [
+                "/面包/手打金桔柠檬.jpg"
+            ],
+            "specification": {
+                "name": "500ml/杯",
+                "unit": "杯",
+                "price": 10
+            },
+            "expirationDate": "1天"
+        },
+        {
+            "name": "蜂蜜烧仙草",
+            "ingredient": "上等仙草，野生蜂蜜，手工制作而成，清爽甘甜，夏日必备",
+            "categoryId": 1,
+            "images": [
+                "/面包/蜂蜜烧仙草.jpg"
+            ],
+            "specification": {
+                "name": "500ml/杯",
+                "unit": "杯",
+                "price": 8
+            },
+            "expirationDate": "1天"
+        },
+        {
+            "name": "迷你小蛋糕",
+            "ingredient": "芒果，草莓，蓝莓，混合奶油，蛋糕胚，迷你可爱，卡哇伊",
+            "categoryId": 2,
+            "images": [
+                "/面包/迷你小蛋糕.jpg"
+            ],
+            "specification": {
+                "name": "3寸/个",
+                "unit": "个",
+                "price": 13.8
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "海盐波波小蛋糕(咸口味)",
+            "ingredient": "奶油，海盐，晶球，混合奶油，蛋糕胚",
+            "categoryId": 2,
+            "images": [
+                "/面包/海盐波波小蛋糕(咸口味).jpg"
+            ],
+            "specification": {
+                "name": "3寸/个",
+                "unit": "个",
+                "price": 14.8
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "水果蛋糕(5寸)",
+            "ingredient": "芒果，草莓，混合奶油，戚风蛋糕胚",
+            "categoryId": 2,
+            "images": [
+                "/面包/水果蛋糕(5寸).jpg"
+            ],
+            "specification": {
+                "name": "5寸/个",
+                "unit": "个",
+                "price": 38
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "奶茶蛋糕(5寸)",
+            "ingredient": "黑糖晶球，蓝莓，奶茶奶油，戚风蛋糕胚",
+            "categoryId": 2,
+            "images": [
+                "/面包/奶茶蛋糕(5寸).jpg"
+            ],
+            "specification": {
+                "name": "5寸/个",
+                "unit": "个",
+                "price": 38
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "海绵蛋糕",
+            "ingredient": "小麦粉，食用油，鸡蛋，白糖，盐，牛奶",
+            "categoryId": 3,
+            "images": [
+                "/面包/海绵蛋糕.jpg"
+            ],
+            "specification": {
+                "name": "8条/袋",
+                "unit": "袋",
+                "price": 9
+            },
+            "expirationDate": "常温环境1~2天"
+        },
+        {
+            "name": "轻乳酪芝士蛋糕",
+            "ingredient": "芝士，奶油奶酪，牛奶，鸡蛋，小麦粉",
+            "categoryId": 3,
+            "images": [
+                "/面包/轻乳酪芝士蛋糕.jpg"
+            ],
+            "specification": {
+                "name": "4寸/个",
+                "unit": "个",
+                "price": 12.8
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "虎皮蛋糕卷",
+            "ingredient": "蛋黄，食用油，淡奶油，奶酪酱",
+            "categoryId": 3,
+            "images": [
+                "/面包/虎皮蛋糕卷.jpg"
+            ],
+            "specification": {
+                "name": "5个/盒",
+                "unit": "盒",
+                "price": 10
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "巧克力奶冻卷",
+            "ingredient": "巧克力，小麦粉，牛奶，淡奶油，奶酪酱",
+            "categoryId": 3,
+            "images": [
+                "/面包/巧克力奶冻卷.jpg"
+            ],
+            "specification": {
+                "name": "5个/盒",
+                "unit": "盒",
+                "price": 8
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "奶酪白玉卷",
+            "ingredient": "奶酪，小麦粉，蛋白，食用油",
+            "categoryId": 3,
+            "images": [
+                "/面包/奶酪白玉卷.jpg"
+            ],
+            "specification": {
+                "name": "5个/盒",
+                "unit": "盒",
+                "price": 8.5
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "酸奶仔仔小蛋糕",
+            "ingredient": "奶酪酱（酸奶味），鸡蛋，小麦粉，食用油",
+            "categoryId": 3,
+            "images": [
+                "/面包/酸奶仔仔小蛋糕.jpg"
+            ],
+            "specification": {
+                "name": "20个/盒",
+                "unit": "盒",
+                "price": 8
+            },
+            "expirationDate": "常温环境3~4天"
+        },
+        {
+            "name": "泡芙",
+            "ingredient": "泡芙预拌粉，大黄油，小麦粉，淡奶油，奶酪酱",
+            "categoryId": 3,
+            "images": [
+                "/面包/泡芙.jpg"
+            ],
+            "specification": {
+                "name": "4个/盒",
+                "unit": "盒",
+                "price": 10.8
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "海苔小贝",
+            "ingredient": "3A级海苔肉松，沙拉酱，淡奶油，小麦粉，玉米淀粉，食用油",
+            "categoryId": 3,
+            "images": [
+                "/面包/海苔小贝.jpg"
+            ],
+            "specification": {
+                "name": "3个/盒",
+                "unit": "盒",
+                "price": 10
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        },
+        {
+            "name": "咸蛋卷",
+            "ingredient": "咸蛋黄酱，沙拉酱，鸡蛋，牛奶，小麦粉",
+            "categoryId": 3,
+            "images": [
+                "/面包/咸蛋卷.jpg"
+            ],
+            "specification": {
+                "name": "3个/盒",
+                "unit": "盒",
+                "price": 10
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+        }
+    ]
+}

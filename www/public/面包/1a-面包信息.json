@@ -12,12 +12,12 @@
     "recommend": {
         "name": "最近热销",
         "productNames": [
+            "纸质菜单卷轴",
             "手打金桔柠檬",
             "蜂蜜烧仙草",
             "芝士鸡排三明治",
-            "迷你小蛋糕",
-            "海盐波波小蛋糕(咸口味)",
-            "纸质菜单卷轴"
+            "迷你小蛋糕(3寸)",
+            "海盐波波小蛋糕(咸口味,3寸)"
         ],
         "products": []
     },
@@ -32,21 +32,21 @@
         {
             "id": 2,
             "name": "弯麦小蛋糕",
-            "description": "小小仪式感，快乐到永远",
+            "description": "给你小小仪式感，每日快快乐乐",
             "images": [],
             "products": []
         },
         {
             "id": 3,
             "name": "弯麦常温蛋糕",
-            "description": "冰爽小糕点，回味亦无穷",
+            "description": "清凉小糕点，冰冰爽爽，舒舒服服",
             "images": [],
             "products": []
         },
         {
             "id": 4,
             "name": "弯麦甜点慕斯蛋糕",
-            "description": "甜点慕斯，烦恼拜拜",
+            "description": "甜点慕斯蛋糕，跟烦恼说拜拜喽",
             "images": [],
             "products": []
         },
@@ -67,14 +67,14 @@
         {
             "id": 7,
             "name": "弯麦吐司面包",
-            "description": "方方正正，稳固永远",
+            "description": "做人方方正正，如弯麦吐司面包",
             "images": [],
             "products": []
         },
         {
             "id": 8,
             "name": "弯麦餐包面包",
-            "description": "圆圆面包，生活美满",
+            "description": "圆圆圆面包，生活美美满满",
             "images": [],
             "products": []
         },
@@ -89,6 +89,13 @@
             "id": 10,
             "name": "长富常温牛奶",
             "description": "精品牛奶，强壮身体",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 11,
+            "name": "其它",
+            "description": "其它商品",
             "images": [],
             "products": []
         }
@@ -106,7 +113,8 @@
                 "unit": "杯",
                 "price": 10
             },
-            "expirationDate": "1天"
+            "expirationDate": "1天",
+            "onSale": true
         },
         {
             "name": "蜂蜜烧仙草",
@@ -120,10 +128,11 @@
                 "unit": "杯",
                 "price": 8
             },
-            "expirationDate": "1天"
+            "expirationDate": "1天",
+            "onSale": true
         },
         {
-            "name": "迷你小蛋糕",
+            "name": "迷你小蛋糕(3寸)",
             "ingredient": "芒果，草莓，蓝莓，混合奶油，蛋糕胚，迷你可爱，卡哇伊",
             "categoryId": 2,
             "images": [
@@ -134,10 +143,11 @@
                 "unit": "个",
                 "price": 13.8
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
-            "name": "海盐波波小蛋糕(咸口味)",
+            "name": "海盐波波小蛋糕(咸口味,3寸)",
             "ingredient": "奶油，海盐，晶球，混合奶油，蛋糕胚",
             "categoryId": 2,
             "images": [
@@ -148,7 +158,8 @@
                 "unit": "个",
                 "price": 14.8
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "水果蛋糕(5寸)",
@@ -162,7 +173,8 @@
                 "unit": "个",
                 "price": 38
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "奶茶蛋糕(5寸)",
@@ -176,7 +188,8 @@
                 "unit": "个",
                 "price": 38
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "海绵蛋糕",
@@ -190,7 +203,8 @@
                 "unit": "袋",
                 "price": 9
             },
-            "expirationDate": "常温环境1~2天"
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "轻乳酪芝士蛋糕",
@@ -204,7 +218,8 @@
                 "unit": "个",
                 "price": 12.8
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "虎皮蛋糕卷",
@@ -218,10 +233,11 @@
                 "unit": "盒",
                 "price": 10
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
-            "name": "巧克力奶冻卷",
+            "name": "巧克力奶冻卷蛋糕",
             "ingredient": "巧克力，小麦粉，牛奶，淡奶油，奶酪酱",
             "categoryId": 3,
             "images": [
@@ -232,10 +248,11 @@
                 "unit": "盒",
                 "price": 8
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
-            "name": "奶酪白玉卷",
+            "name": "奶酪白玉卷蛋糕",
             "ingredient": "奶酪，小麦粉，蛋白，食用油",
             "categoryId": 3,
             "images": [
@@ -246,7 +263,8 @@
                 "unit": "盒",
                 "price": 8.5
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "酸奶仔仔小蛋糕",
@@ -260,11 +278,12 @@
                 "unit": "盒",
                 "price": 8
             },
-            "expirationDate": "常温环境3~4天"
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
         },
         {
-            "name": "泡芙",
-            "ingredient": "泡芙预拌粉，大黄油，小麦粉，淡奶油，奶酪酱",
+            "name": "泡芙(法式)",
+            "ingredient": "淡奶油，泡芙预拌粉，大黄油，小麦粉，奶酪酱",
             "categoryId": 3,
             "images": [
                 "/面包/泡芙.jpg"
@@ -274,10 +293,11 @@
                 "unit": "盒",
                 "price": 10.8
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
-            "name": "海苔小贝",
+            "name": "海苔肉松小贝",
             "ingredient": "3A级海苔肉松，沙拉酱，淡奶油，小麦粉，玉米淀粉，食用油",
             "categoryId": 3,
             "images": [
@@ -288,10 +308,11 @@
                 "unit": "盒",
                 "price": 10
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
         },
         {
-            "name": "咸蛋卷",
+            "name": "咸蛋卷蛋糕",
             "ingredient": "咸蛋黄酱，沙拉酱，鸡蛋，牛奶，小麦粉",
             "categoryId": 3,
             "images": [
@@ -302,7 +323,848 @@
                 "unit": "盒",
                 "price": 10
             },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天"
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "爆浆提拉米苏蛋糕",
+            "ingredient": "巧克力蛋糕胚，巧克力脆脆球，奥利奥碎，淡奶油，奶油奶酪",
+            "categoryId": 4,
+            "images": [
+                "/面包/爆浆提拉米苏.jpg"
+            ],
+            "specification": {
+                "name": "160克/盒",
+                "unit": "盒",
+                "price": 15
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "雪媚娘(芒果x2)",
+            "ingredient": "糯米皮，芒果，淡奶油，奶油奶酪",
+            "categoryId": 4,
+            "images": [
+                "/面包/雪媚娘(芒果x2).jpg"
+            ],
+            "specification": {
+                "name": "185克(2个)/盒",
+                "unit": "盒",
+                "price": 15
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "雪媚娘(芒果+草莓)",
+            "ingredient": "糯米皮，草莓，芒果，淡奶油，奶油奶酪",
+            "categoryId": 4,
+            "images": [
+                "/面包/雪媚娘(芒果+草莓).jpg"
+            ],
+            "specification": {
+                "name": "185克(2个)/盒",
+                "unit": "盒",
+                "price": 15
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "雪媚娘(奥利奥x2)",
+            "ingredient": "糯米皮，奥利奥饼干脆，淡奶油，奶油奶酪",
+            "categoryId": 4,
+            "images": [
+                "/面包/雪媚娘(奥利奥x2).jpg"
+            ],
+            "specification": {
+                "name": "170克(2个)/盒",
+                "unit": "盒",
+                "price": 15
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "榴莲千层三角蛋糕",
+            "ingredient": "榴莲肉，淡奶油，千层皮",
+            "categoryId": 4,
+            "images": [
+                "/面包/榴莲千层三角蛋糕.jpg"
+            ],
+            "specification": {
+                "name": "150克(切角)/个",
+                "unit": "个",
+                "price": 22
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "提拉米苏慕斯三角蛋糕",
+            "ingredient": "马斯卡彭奶酪，淡奶油，巧克力，君度酒",
+            "categoryId": 4,
+            "images": [
+                "/面包/提拉米苏慕斯.jpg"
+            ],
+            "specification": {
+                "name": "150克(切角)/个",
+                "unit": "个",
+                "price": 22
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "黑森林慕斯三角蛋糕",
+            "ingredient": "百利黑樱桃，草莓，黑巧克力碎，淡奶油，朗姆酒，巧克力戚风",
+            "categoryId": 4,
+            "images": [
+                "/面包/黑森林慕斯.jpg"
+            ],
+            "specification": {
+                "name": "120克(切角)/个",
+                "unit": "个",
+                "price": 16
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "双莓乳酪慕斯三角蛋糕",
+            "ingredient": "草莓慕斯，树莓慕斯，乳酪，淡奶油",
+            "categoryId": 4,
+            "images": [
+                "/面包/双莓乳酪慕斯.jpg"
+            ],
+            "specification": {
+                "name": "120克(切角)/个",
+                "unit": "个",
+                "price": 12.8
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "蓝莓乳酪慕斯三角蛋糕",
+            "ingredient": "巧克力蛋糕胚，蓝莓慕斯，乳酪，淡奶油",
+            "categoryId": 4,
+            "images": [
+                "/面包/蓝莓乳酪慕斯.jpg"
+            ],
+            "specification": {
+                "name": "120克(切角)/个",
+                "unit": "个",
+                "price": 13.8
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "抹茶芒果慕斯三角蛋糕",
+            "ingredient": "抹茶蛋糕胚，芒果慕斯，淡奶油，吉利丁",
+            "categoryId": 4,
+            "images": [
+                "/面包/抹茶芒果慕斯.jpg"
+            ],
+            "specification": {
+                "name": "120克(切角)/个",
+                "unit": "个",
+                "price": 12.8
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "蜜桃多多慕斯三角蛋糕",
+            "ingredient": "戚风蛋糕胚，密桃慕斯，密桃果肉，淡奶油",
+            "categoryId": 4,
+            "images": [
+                "/面包/蜜桃多多慕斯.jpg"
+            ],
+            "specification": {
+                "name": "120克(切角)/个",
+                "unit": "个",
+                "price": 13.8
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "芒果毛巾卷",
+            "ingredient": "芒果，千层皮，淡奶油",
+            "categoryId": 4,
+            "images": [
+                "/面包/芒果毛巾卷.jpg"
+            ],
+            "specification": {
+                "name": "210克/盒",
+                "unit": "盒",
+                "price": 17
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "芋泥毛巾卷",
+            "ingredient": "芋泥，布丁，千层皮，淡奶油",
+            "categoryId": 4,
+            "images": [
+                "/面包/芋泥毛巾卷.jpg"
+            ],
+            "specification": {
+                "name": "210克/盒",
+                "unit": "盒",
+                "price": 17
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "芝士鸡排三明治",
+            "ingredient": "芝士片，奥尔良腿排，鲜奶吐司，煎蛋，生菜，沙拉酱",
+            "categoryId": 5,
+            "images": [
+                "/面包/芝士鸡排三明治.jpg"
+            ],
+            "specification": {
+                "name": "3个/盒",
+                "unit": "盒",
+                "price": 14
+            },
+            "expirationDate": "冷藏环境2~3天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "巧克力麻薯球",
+            "ingredient": "巧克力豆，麻薯粉，可可粉，鸡蛋",
+            "categoryId": 5,
+            "images": [
+                "/面包/巧克力麻薯球.jpg"
+            ],
+            "specification": {
+                "name": "-",
+                "unit": "个",
+                "price": 3.5
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "手工蛋挞(2个)",
+            "ingredient": "蛋挞皮，淡奶油，纯牛奶，鸡蛋",
+            "categoryId": 5,
+            "images": [
+                "/面包/手工蛋挞(2个).jpg"
+            ],
+            "specification": {
+                "name": "2个/盒",
+                "unit": "盒",
+                "price": 7
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "全麦杂粮双堡",
+            "ingredient": "奥尔良腿排，全麦吐司，五谷杂粮，生菜，芝士片",
+            "categoryId": 5,
+            "images": [
+                "/面包/全麦杂粮双堡.jpg"
+            ],
+            "specification": {
+                "name": "2个/盒",
+                "unit": "盒",
+                "price": 10.8
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "青瓜鸡肉卷",
+            "ingredient": "奥尔良腿排，青瓜，沙拉酱，番茄酱",
+            "categoryId": 5,
+            "images": [
+                "/面包/青瓜鸡肉卷.jpg"
+            ],
+            "specification": {
+                "name": "-",
+                "unit": "个",
+                "price": 8
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "香肠披萨",
+            "ingredient": "香肠，沙拉酱，番茄酱，马苏里拉芝士",
+            "categoryId": 5,
+            "images": [
+                "/面包/香肠披萨.jpg"
+            ],
+            "specification": {
+                "name": "-",
+                "unit": "个",
+                "price": 8.8
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "维也纳热狗",
+            "ingredient": "热狗香肠，马苏里拉芝士，沙拉酱，番茄酱",
+            "categoryId": 5,
+            "images": [
+                "/面包/维也纳热狗.jpg"
+            ],
+            "specification": {
+                "name": "-",
+                "unit": "个",
+                "price": 6
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "德国猪排包",
+            "ingredient": "德式猪排，德式猪排酱，沙拉酱",
+            "categoryId": 5,
+            "images": [
+                "/面包/德国猪排包.jpg"
+            ],
+            "specification": {
+                "name": "-",
+                "unit": "个",
+                "price": 9
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "鲜奶切片吐司",
+            "ingredient": "牛奶，黄油，白糖，盐，奶粉，高粉，鸡蛋",
+            "categoryId": 6,
+            "images": [
+                "/面包/鲜奶切片吐司.jpg"
+            ],
+            "specification": {
+                "name": "6片/袋",
+                "unit": "袋",
+                "price": 9.5
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "抹茶红豆切片吐司",
+            "ingredient": "抹茶，红豆，鸡蛋，黄油，牛奶，高粉，奶粉",
+            "categoryId": 6,
+            "images": [
+                "/面包/抹茶红豆切片吐司.jpg"
+            ],
+            "specification": {
+                "name": "6片/袋",
+                "unit": "袋",
+                "price": 9.8
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "提子切片吐司",
+            "ingredient": "提子干，牛奶，鸡蛋，白糖，高粉，奶粉，黄油",
+            "categoryId": 6,
+            "images": [
+                "/面包/提子切片吐司.jpg"
+            ],
+            "specification": {
+                "name": "6片/袋",
+                "unit": "袋",
+                "price": 9.5
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "全麦切片吐司",
+            "ingredient": "全麦粉，黄油，牛奶，鸡蛋，白糖，高粉，奶粉",
+            "categoryId": 6,
+            "images": [
+                "/面包/全麦切片吐司.jpg"
+            ],
+            "specification": {
+                "name": "6片/袋",
+                "unit": "袋",
+                "price": 9.5
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "山崎切片吐司(咸口味)",
+            "ingredient": "黄油，牛奶，白糖，鸡蛋，盐，高粉，奶粉",
+            "categoryId": 6,
+            "images": [
+                "/面包/山崎切片吐司(咸口味).jpg"
+            ],
+            "specification": {
+                "name": "6片/袋",
+                "unit": "袋",
+                "price": 9.5
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "纯奶拉丝小吐司",
+            "ingredient": "巴氏鲜奶，黄油，鸡蛋，白糖，奶粉，高粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/纯奶拉丝小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 11.8
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "肉松蛋黄小吐司",
+            "ingredient": "肉松，咸蛋黄，鸡蛋，白糖，牛奶，黄油，盐，高粉，黑芝麻，奶粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/肉松小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 12.8
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "坚果小吐司",
+            "ingredient": "葡萄干，核桃，鸡蛋，白糖，牛奶，黄油，盐，高粉，奶粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/坚果小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 10
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "椰蓉小吐司",
+            "ingredient": "椰丝，鸡蛋，白糖，牛奶，黄油，盐，高粉，蔓越莓，奶粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/椰蓉小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 10
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "红豆小吐司",
+            "ingredient": "红豆，牛奶，白糖，鸡蛋，盐，黄油，高粉，白芝麻，奶粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/红豆小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 10
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "南瓜小吐司",
+            "ingredient": "南瓜，南瓜子，白糖，鸡蛋，牛奶，盐，高粉，黄油，奶粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/南瓜小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 10
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "枫糖小吐司",
+            "ingredient": "枫糖，黄油，牛奶，白糖，鸡蛋，盐，高粉，奶粉",
+            "categoryId": 7,
+            "images": [
+                "/面包/枫糖小吐司.jpg"
+            ],
+            "specification": {
+                "name": "280克/袋",
+                "unit": "袋",
+                "price": 10
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": false
+        },
+        {
+            "name": "沙拉面包",
+            "ingredient": "练乳，奶粉，鸡蛋，白糖，牛奶，高粉，黄油，盐",
+            "categoryId": 8,
+            "images": [
+                "/面包/沙拉包.jpg"
+            ],
+            "specification": {
+                "name": "6个/袋",
+                "unit": "袋",
+                "price": 7
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "紫薯芋泥餐包",
+            "ingredient": "紫薯，芋泥，白糖，黄油，牛奶，盐，高粉，奶粉",
+            "categoryId": 8,
+            "images": [
+                "/面包/紫薯芋泥餐包.jpg"
+            ],
+            "specification": {
+                "name": "6个/袋",
+                "unit": "袋",
+                "price": 8.5
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "南瓜餐包",
+            "ingredient": "南瓜，牛奶，黄油，白糖，盐，鸡蛋，高粉，奶粉",
+            "categoryId": 8,
+            "images": [
+                "/面包/南瓜餐包.jpg"
+            ],
+            "specification": {
+                "name": "6个/袋",
+                "unit": "袋",
+                "price": 8.5
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "养生红枣餐包",
+            "ingredient": "红枣，白糖，黄油，牛奶，鸡蛋，高粉，盐，奶酪，奶粉",
+            "categoryId": 8,
+            "images": [
+                "/面包/养生红枣餐包.jpg"
+            ],
+            "specification": {
+                "name": "5个/袋",
+                "unit": "袋",
+                "price": 8.5
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "椰奶餐包",
+            "ingredient": "椰丝，鸡蛋，白糖，牛奶，黄油，高粉，奶粉，盐",
+            "categoryId": 8,
+            "images": [
+                "/面包/椰奶餐包.jpg"
+            ],
+            "specification": {
+                "name": "5个/袋",
+                "unit": "袋",
+                "price": 8.5
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "招牌奶黄饼餐包",
+            "ingredient": "奶黄，黄油，盐，奶粉，鸡蛋，牛奶，白糖，高粉",
+            "categoryId": 8,
+            "images": [
+                "/面包/招牌奶黄饼餐包.jpg"
+            ],
+            "specification": {
+                "name": "6个/袋",
+                "unit": "袋",
+                "price": 8.5
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "红豆奶酪餐包",
+            "ingredient": "红豆，奶酪，鸡蛋，白糖，高粉，黄油，牛奶，奶粉，盐",
+            "categoryId": 8,
+            "images": [
+                "/面包/红豆奶酪餐包.jpg"
+            ],
+            "specification": {
+                "name": "5个/袋",
+                "unit": "袋",
+                "price": 7
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "牛角餐包",
+            "ingredient": "鸡蛋，白糖，盐，高粉，牛奶，练乳，黄油，黑芝麻，奶粉",
+            "categoryId": 8,
+            "images": [
+                "/面包/牛角餐包.jpg"
+            ],
+            "specification": {
+                "name": "6个/袋",
+                "unit": "袋",
+                "price": 8
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "牛奶馒头餐包",
+            "ingredient": "炼乳，高粉，奶粉，盐，鸡蛋，白糖，牛奶，黄油",
+            "categoryId": 8,
+            "images": [
+                "/面包/牛奶馒头餐包.jpg"
+            ],
+            "specification": {
+                "name": "10个/袋",
+                "unit": "袋",
+                "price": 7
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "胡萝卜肉松棒",
+            "ingredient": "肉松，胡萝卜，鸡蛋，牛奶，白糖，盐，黄油，白芝麻",
+            "categoryId": 8,
+            "images": [
+                "/面包/胡萝卜肉松棒.jpg"
+            ],
+            "specification": {
+                "name": "5条/袋",
+                "unit": "袋",
+                "price": 8.5
+            },
+            "expirationDate": "常温环境2~3天",
+            "onSale": true
+        },
+        {
+            "name": "特香包",
+            "ingredient": "黄油，牛奶，白糖，高粉，盐，练乳，奶粉",
+            "categoryId": 8,
+            "images": [
+                "/面包/特香包.jpg"
+            ],
+            "specification": {
+                "name": "-",
+                "unit": "袋",
+                "price": 8
+            },
+            "expirationDate": "常温环境3~4天",
+            "onSale": true
+        },
+        {
+            "name": "牛油曲奇饼干",
+            "ingredient": "黄油，糖粉，盐，牛奶，低粉",
+            "categoryId": 9,
+            "images": [
+                "/面包/牛油曲奇饼干.jpg"
+            ],
+            "specification": {
+                "name": "15个/盒",
+                "unit": "盒",
+                "price": 12
+            },
+            "expirationDate": "常温环境25天",
+            "onSale": true
+        },
+        {
+            "name": "长富24精品纯奶",
+            "ingredient": "生牛乳",
+            "categoryId": 10,
+            "images": [
+                "/面包/长富24精品纯奶.jpg"
+            ],
+            "specification": {
+                "name": "250毫升/瓶",
+                "unit": "瓶",
+                "price": 3.5
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "长富天然牧场纯牛奶",
+            "ingredient": "生牛乳",
+            "categoryId": 10,
+            "images": [
+                "/面包/长富天然牧场纯牛奶.jpg"
+            ],
+            "specification": {
+                "name": "250毫升/瓶",
+                "unit": "瓶",
+                "price": 4.5
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "长富高钙牛奶",
+            "ingredient": "生牛乳，钙（碳酸钙），维生素A，维生素D",
+            "categoryId": 10,
+            "images": [
+                "/面包/长富高钙牛奶.jpg"
+            ],
+            "specification": {
+                "name": "250毫升/瓶",
+                "unit": "瓶",
+                "price": 4
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "长富武夷森林牧场红枣牛奶",
+            "ingredient": "生牛乳，水，红枣枸杞汁，白砂糖，浓缩枣汁，麦芽糊精",
+            "categoryId": 10,
+            "images": [
+                "/面包/长富武夷森林牧场红枣牛奶.jpg"
+            ],
+            "specification": {
+                "name": "250毫升/瓶",
+                "unit": "瓶",
+                "price": 6
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "儿童成长牛奶（智聪）",
+            "ingredient": "生牛乳，白砂糖，聚葡萄糖，低聚果糖，花生四烯酸油脂，DHA藻油",
+            "categoryId": 10,
+            "images": [
+                "/面包/儿童成长牛奶（智聪）.jpg"
+            ],
+            "specification": {
+                "name": "200毫升/瓶",
+                "unit": "瓶",
+                "price": 5.5
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "儿童成长牛奶（骨乐）",
+            "ingredient": "生牛乳，白砂糖，聚葡萄糖，低聚果糖，DHA藻油",
+            "categoryId": 10,
+            "images": [
+                "/面包/儿童成长牛奶（骨乐）.jpg"
+            ],
+            "specification": {
+                "name": "200毫升/瓶",
+                "unit": "瓶",
+                "price": 5.5
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "美酸乳（原味）",
+            "ingredient": "水，生牛乳，全脂乳粉，果葡糖浆，白砂糖",
+            "categoryId": 10,
+            "images": [
+                "/面包/美酸乳（原味）.jpg"
+            ],
+            "specification": {
+                "name": "250毫升/瓶",
+                "unit": "瓶",
+                "price": 3
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "美酸乳（草莓）",
+            "ingredient": "水，生牛乳，全脂乳粉，白砂糖，草莓汁",
+            "categoryId": 10,
+            "images": [
+                "/面包/美酸乳（草莓）.jpg"
+            ],
+            "specification": {
+                "name": "250毫升/瓶",
+                "unit": "瓶",
+                "price": 3
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "小酸乳（原味）",
+            "ingredient": "水，全脂乳粉，果葡糖浆，白砂糖，浓缩苹果汁",
+            "categoryId": 10,
+            "images": [
+                "/面包/小酸乳（原味）.jpg"
+            ],
+            "specification": {
+                "name": "200毫升/瓶",
+                "unit": "瓶",
+                "price": 3
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "小酸乳（草莓味）",
+            "ingredient": "水，全脂乳粉，白砂糖，草莓饮料浓浆，浓缩苹果汁",
+            "categoryId": 10,
+            "images": [
+                "/面包/小酸乳（草莓味）.jpg"
+            ],
+            "specification": {
+                "name": "200毫升/瓶",
+                "unit": "瓶",
+                "price": 3
+            },
+            "expirationDate": "常温环境6个月",
+            "onSale": true
+        },
+        {
+            "name": "纸质菜单卷轴",
+            "ingredient": "展示弯麦餐包，吐司，蛋糕，西点，饮料等商品纸质菜单",
+            "categoryId": 11,
+            "images": [
+                "/面包/纸质菜单卷轴.jpg"
+            ],
+            "specification": {
+                "name": "若干A4纸张/份",
+                "unit": "份",
+                "price": 0.1
+            },
+            "expirationDate": "永久",
+            "onSale": true
         }
     ]
 }

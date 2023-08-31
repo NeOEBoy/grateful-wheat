@@ -650,6 +650,8 @@ const allBreadInfos = async () => {
 
   for (let i = 0; i < breadInfos.products.length; ++i) {
     let product = breadInfos.products[i];
+    /// 是否上架，上架的才显示
+    if (product?.onSale === false) continue;
 
     for (let j = 0; j < breadInfos.recommend.productNames.length; ++j) {
       let productName = breadInfos.recommend.productNames[j];

@@ -289,8 +289,8 @@ class ProductMenu extends React.Component {
             return (
                 <List.Item>
                     <div>
-                        <Image preview={true} src={`${product?.images?.[0]}`}
-                            fallback={`${KImageRoot}/暂时缺货.jpg`} />
+                        <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
+                            preview={true} src={`${product?.images?.[0]}`} />
                         <div style={{
                             paddingTop: 4,
                             paddingLeft: 4,
@@ -611,44 +611,39 @@ class ProductMenu extends React.Component {
                                     itemLayout='vertical'
                                     dataSource={orderList}
                                     renderItem={item => {
-                                        console.log(JSON.stringify(item));
                                         let totalPrice = item.specification.price * item.buyNumber;
                                         totalPrice = this.fixTo2(totalPrice)
 
                                         return (
-                                            <div>
-                                                <div style={{ margin: 10, height: 70, backgroundColor: 'white' }}>
-                                                    <div style={{ float: 'left', width: 70, height: 70 }}>
-                                                        <Image style={{ width: 70, height: 70 }}
-                                                            preview={false} src={item?.images?.[0]} />
+                                            <div style={{ margin: 10, height: 100, backgroundColor: 'white' }}>
+                                                <div style={{ float: 'left', width: 70, height: 70, marginRight: 10 }}>
+                                                    <Image style={{ width: 70, height: 70 }}
+                                                        preview={false} src={item?.images?.[0]} />
+                                                </div>
+                                                <div style={{ marginTop: 0, height: 70 }}>
+                                                    <div style={{ fontSize: 16, fontWeight: "bold" }}>{item.name}</div>
+                                                    <div style={{ fontSize: 8 }}>{item.specification.name}</div>
+                                                    <div style={{ marginTop: 4, fontSize: 15, fontWeight: "bold" }}>
+                                                        <span>¥ </span>
+                                                        <span>{totalPrice}</span>
                                                     </div>
+                                                </div>
 
-                                                    <div style={{ float: 'left', marginLeft: 10, marginTop: 4 }}>
-                                                        <div style={{ fontSize: 16, fontWeight: "bold" }}>{item.name}</div>
-                                                        <div style={{ fontSize: 8 }}>{item.specification.name}</div>
-
-                                                        <div style={{ marginTop: 4, fontSize: 15, fontWeight: "bold" }}>
-                                                            <span>¥ </span>
-                                                            <span>{totalPrice}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <span style={{ float: 'right', marginTop: 25, backgroundColor: 'transparent' }}>
-                                                        <span>
-                                                            <Button size='small' shape='circle' icon={<MinusOutlined />}
-                                                                onClick={() => { this.handleDecreaseItemFromCart(item) }} />
-                                                        </span>
-                                                        &nbsp;
-                                                        &nbsp;
-                                                        <span style={{ fontSize: 15, fontWeight: "bold" }}>
-                                                            {item.buyNumber}
-                                                        </span>
-                                                        &nbsp;
-                                                        &nbsp;
-                                                        <span>
-                                                            <Button danger size='middle' shape='circle' icon={<PlusOutlined />}
-                                                                onClick={() => { this.handleIncreaseItemToCart(item) }} />
-                                                        </span>
+                                                <div style={{ float: 'right', marginTop: 0, backgroundColor: 'transparent', display: 'inline-block' }}>
+                                                    <span>
+                                                        <Button size='small' shape='circle' icon={<MinusOutlined />}
+                                                            onClick={() => { this.handleDecreaseItemFromCart(item) }} />
+                                                    </span>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <span style={{ fontSize: 15, fontWeight: "bold" }}>
+                                                        {item.buyNumber}
+                                                    </span>
+                                                    &nbsp;
+                                                    &nbsp;
+                                                    <span>
+                                                        <Button danger size='middle' shape='circle' icon={<PlusOutlined />}
+                                                            onClick={() => { this.handleIncreaseItemToCart(item) }} />
                                                     </span>
                                                 </div>
                                             </div>
@@ -735,7 +730,7 @@ class ProductMenu extends React.Component {
                                                 <div style={{ textAlign: 'center' }}>
                                                     <div>-----------</div>
                                                     {orderTextArray.length > 0 ? orderTextArray.map((text) => {
-                                                        return (<div key={text}>{text}</div>);
+                                                        return (<div key={Math.floor(Math.random() * 1000)}>{text}</div>);
                                                     }) : <div></div>}
                                                     <div>-----------</div>
                                                     {

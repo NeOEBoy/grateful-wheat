@@ -1,29 +1,30 @@
 {
   "files": {
     "main.css": "/static/css/main.672d7986.chunk.css",
-    "main.js": "/static/js/main.d7b237d8.chunk.js",
-    "main.js.map": "/static/js/main.d7b237d8.chunk.js.map",
+    "main.js": "/static/js/main.da55045a.chunk.js",
+    "main.js.map": "/static/js/main.da55045a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.08521ef5.js",
     "runtime-main.js.map": "/static/js/runtime-main.08521ef5.js.map",
     "static/css/2.45609364.chunk.css": "/static/css/2.45609364.chunk.css",
-    "static/js/2.54ab870b.chunk.js": "/static/js/2.54ab870b.chunk.js",
-    "static/js/2.54ab870b.chunk.js.map": "/static/js/2.54ab870b.chunk.js.map",
+    "static/js/2.189530f4.chunk.js": "/static/js/2.189530f4.chunk.js",
+    "static/js/2.189530f4.chunk.js.map": "/static/js/2.189530f4.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.6dad50558be99abef68f52b57c4937af.js": "/precache-manifest.6dad50558be99abef68f52b57c4937af.js",
+    "precache-manifest.8fd386e12a3827d92881b6b8d07a85c0.js": "/precache-manifest.8fd386e12a3827d92881b6b8d07a85c0.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.45609364.chunk.css.map": "/static/css/2.45609364.chunk.css.map",
     "static/css/main.672d7986.chunk.css.map": "/static/css/main.672d7986.chunk.css.map",
-    "static/js/2.54ab870b.chunk.js.LICENSE.txt": "/static/js/2.54ab870b.chunk.js.LICENSE.txt",
+    "static/js/2.189530f4.chunk.js.LICENSE.txt": "/static/js/2.189530f4.chunk.js.LICENSE.txt",
     "static/media/di.wav": "/static/media/di.0258c2a5.wav",
     "static/media/logo.png": "/static/media/logo.224b18a1.png",
     "static/media/shoppingCart.png": "/static/media/shoppingCart.09b8794b.png",
+    "static/media/弯麦logo方-黑白.png": "/static/media/弯麦logo方-黑白.af8ef17f.png",
     "static/media/教育局总店2号微信.jpg": "/static/media/教育局总店2号微信.a0f6db3a.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.08521ef5.js",
     "static/css/2.45609364.chunk.css",
-    "static/js/2.54ab870b.chunk.js",
+    "static/js/2.189530f4.chunk.js",
     "static/css/main.672d7986.chunk.css",
-    "static/js/main.d7b237d8.chunk.js"
+    "static/js/main.da55045a.chunk.js"
   ]
 }

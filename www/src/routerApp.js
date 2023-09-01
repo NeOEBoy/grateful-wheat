@@ -22,6 +22,7 @@ import ProductMenu4Printer from "./view/productMenu4Printer";
 import ProductMenu4Printer1 from "./view/productMenu4Printer1";
 import ProductStockManagement from "./view/productStockManagement";
 import BuildingMap from "./view/buildingMap";
+import Building from "./view/building";
 // import MapContainer from "./view/MapContainer";
 import BirthdayCakeOrder from "./view/birthdayCakeOrder";
 
@@ -62,6 +63,7 @@ function Inside4QueryParams() {
       <Route path="/productMenu4Printer1" children={<ProductMenu4Printer1 query={query} />} />
       <Route path="/productStockManagement" children={<ProductStockManagement query={query} />} />
       <Route path="/buildingMap" children={<BuildingMap query={query} />} />
+      <Route path="/Building" children={<Building query={query} />} />
       <Route path="/birthdayCakeOrder" children={<BirthdayCakeOrder query={query} />} />
     </div>
   );

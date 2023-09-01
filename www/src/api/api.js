@@ -682,6 +682,21 @@ const allBreadInfos = async () => {
   return breadInfos;
 }
 
+const allBuildingInfos = async () => {
+  let allBuildingInfosUrl = '/小区楼栋图/1a-楼栋信息.json';
+  allBuildingInfosUrl += '?random=';
+  allBuildingInfosUrl += Math.floor(Math.random() * 1000);
+
+  const allBuildingInfosResponse = await fetch(allBuildingInfosUrl);
+  const allBuildingInfosResponseJson = await allBuildingInfosResponse.json();
+
+  let buildingInfos = {};
+  buildingInfos.buildings = allBuildingInfosResponseJson.buildings;
+  buildingInfos.weixin = allBuildingInfosResponseJson.weixin;
+
+  return buildingInfos;
+}
+
 export {
   getProductSaleList,
   getProductDiscardList,
@@ -721,5 +736,6 @@ export {
   createCakeOrder,
   findCakeOrder,
   allCakeInfos,
-  allBreadInfos
+  allBreadInfos,
+  allBuildingInfos
 };

@@ -546,7 +546,7 @@ class CakeOrder extends React.Component {
 
                         <div style={{ marginTop: 4, marginBottom: 4 }}>
                             <span style={{ textDecoration: 'underline', fontSize: 20, fontWeight: 'bold' }}>
-                                <a href={"http://gratefulwheat.ruyue.xyz/buildingMap"}>漳浦小区楼栋图</a>
+                                <a href={"http://gratefulwheat.ruyue.xyz/building"}>漳浦小区楼栋图</a>
                             </span>
                         </div>
                     </div>

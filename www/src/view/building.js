@@ -147,7 +147,7 @@ class Building extends React.Component {
             <div style={{ marginLeft: 20, marginTop: 5, marginRight: 20 }}>
                 <div style={{
                     textAlign: 'center', color: '#B9B973',
-                    fontSize: 14, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
+                    fontSize: 12, fontWeight: "bold", paddingTop: 7, paddingBottom: 5
                 }}>
                     <span>预定蛋糕请先添加教育局总店2号</span>
                     <span style={{ textDecoration: 'underline' }}>

@@ -31,15 +31,18 @@ const signIn = async () => {
         method: 'POST', body: JSON.stringify(signInBody),
         headers: { 'Content-Type': 'application/json' }
       });
+      // console.log("signInResponse = " + signInResponse)
       let setCookie = signInResponse.headers.get('set-cookie');
-      let cookieArray = setCookie.split('; ');
-      cookieArray.forEach(element => {
-        let cookieSingle = element.split('=');
-        if (cookieSingle[0] === 'HttpOnly, .POSPALAUTH30220') {
-          // console.log(cookieSingle[1]);
-          thePOSPALAUTH30220 = cookieSingle[1];
+      // console.log("setCookie = " + setCookie)
+      let cookieArray = setCookie.split(';');
+      for (let i = 0; i < cookieArray.length; ++i) {
+        let element = cookieArray[i];
+        let index = element.indexOf('SameSite=Lax, .POSPALAUTH30220=');
+        if (index !== -1) {
+          thePOSPALAUTH30220 = element.replace('SameSite=Lax, .POSPALAUTH30220=', '').trim();
+          break;
         }
-      });
+      }
       signTimeMoment = moment();
       // console.log('登录银豹...');
     }

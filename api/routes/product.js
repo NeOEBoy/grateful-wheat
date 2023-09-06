@@ -68,6 +68,7 @@ router.get('/orderList', async function (req, res, next) {
     }
 
     let thePOSPALAUTH30220 = await signIn();
+    // console.log('thePOSPALAUTH30220 = ' + thePOSPALAUTH30220)
     let productOrderResponseJson = await getProductOrderList(
       thePOSPALAUTH30220,
       userId,

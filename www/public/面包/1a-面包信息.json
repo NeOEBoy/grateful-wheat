@@ -264,7 +264,7 @@
                 "price": 8
             },
             "expirationDate": "冷藏环境3~4天，常温环境1~2天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "奶酪白玉卷蛋糕",

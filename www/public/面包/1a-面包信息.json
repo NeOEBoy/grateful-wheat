@@ -852,6 +852,21 @@
             "onSale": false
         },
         {
+            "name": "古早味面包干",
+            "ingredient": "吐司边角，面包边角，白糖",
+            "categoryId": 8,
+            "images": [
+                "/面包/古早味面包干.jpg"
+            ],
+            "specification": {
+                "name": "若干条/袋",
+                "unit": "袋",
+                "price": 6
+            },
+            "expirationDate": "常温环境15天",
+            "onSale": true
+        },
+        {
             "name": "沙拉面包",
             "ingredient": "练乳，奶粉，鸡蛋，白糖，牛奶，高粉，黄油，盐",
             "categoryId": 8,

@@ -194,6 +194,21 @@
             "onSale": true
         },
         {
+            "name": "蛋糕边",
+            "ingredient": "做生日蛋糕切下来的边边角角，有原味，抹茶味，红丝绒味，巧克力味等等，口味随机",
+            "categoryId": 3,
+            "images": [
+                "/面包/蛋糕边.jpg"
+            ],
+            "specification": {
+                "name": "160克/盒",
+                "unit": "盒",
+                "price": 4
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
             "name": "葡萄卷蛋糕(特惠)",
             "ingredient": "提子干，沙拉酱，小麦粉，食用油，鸡蛋，白糖，盐，牛奶",
             "categoryId": 3,

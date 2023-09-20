@@ -58,13 +58,13 @@
         "name": "2023年最受欢迎生日蛋糕",
         "productNames": [
             "治愈不开心",
-            "渐变爱心",
-            "夏洛特",
+            "爱心周年1",
+            "帕恰狗",
             "Happy小猪",
             "星黛露星球",
-            "王冠",
-            "粉色王冠",
-            "纯洁爱恋"
+            "kitty-love",
+            "蜘蛛侠归来",
+            "花样年华"
         ],
         "products": []
     },
@@ -1979,6 +1979,57 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
+                }
+            ]
+        },
+        {
+            "name": "帕恰狗",
+            "description": "帕恰，帕恰，我是胖胖狗",
+            "categoryId": 2,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/帕恰狗-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },
@@ -4636,6 +4687,108 @@
             ]
         },
         {
+            "name": "虎头虎脑",
+            "description": "小老虎，祝你生而无忧，快乐似神仙",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/虎头虎脑-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 258
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 258
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 308
+                }
+            ]
+        },
+        {
+            "name": "蜘蛛侠归来",
+            "description": "能力越大，责任越大",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/蜘蛛侠归来-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "小熊脆脆",
             "description": "嗨，祝你生日快乐，我是你的好朋友，QQ熊",
             "categoryId": 3,
@@ -7234,6 +7387,57 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 288
+                }
+            ]
+        },
+        {
+            "name": "花样年华",
+            "description": "送你一段鲜花般的记忆，追溯你的花样年华",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/花样年华-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 268
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 268
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 318
                 }
             ]
         },
@@ -13350,6 +13554,99 @@
             ]
         },
         {
+            "name": "爱心周年",
+            "description": "女士，周年快乐（中间文字可改）",
+            "categoryId": 9,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/爱心周年-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                }
+            ]
+        },
+        {
+            "name": "爱心周年1",
+            "description": "女士，周年快乐（中间文字可改）",
+            "categoryId": 9,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/爱心周年1-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                }
+            ]
+        },
+        {
+            "name": "爱心纪念",
+            "description": "女士，周年快乐（中间文字可改）",
+            "categoryId": 9,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/爱心纪念-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                }
+            ]
+        },
+        {
             "name": "年轮之花",
             "description": "愿我们的爱情，如盛开的花朵，一样绚烂",
             "categoryId": 9,
@@ -13499,37 +13796,6 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
-                }
-            ]
-        },
-        {
-            "name": "爱心纪念",
-            "description": "女士，周年快乐（中间文字可改）",
-            "categoryId": 9,
-            "fillingNumber": 2,
-            "images": [
-                "/生日蛋糕/爱心纪念-方图.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 108
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 138
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 178
                 }
             ]
         },

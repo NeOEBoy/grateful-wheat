@@ -955,6 +955,7 @@ class cakeMenu extends React.Component {
 
     makeRenderItemFunc4Product = () => {
         this._renderItemFunc4Product = (product, index) => {
+            // console.log('product=' + JSON.stringify(product))
             let rank = index + 1;
             let theMinimumSize = {};
             let theMinimumPrice = 0;

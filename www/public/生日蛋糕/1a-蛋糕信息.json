@@ -58,12 +58,12 @@
         "name": "2023年最受欢迎生日蛋糕",
         "productNames": [
             "治愈不开心",
-            "爱心周年1",
-            "帕恰狗",
-            "Happy小猪",
+            "小手一牵2",
+            "小手一牵",
+            "白蝶纷飞",
             "星黛露星球",
-            "kitty-love",
-            "蜘蛛侠归来",
+            "乔迁大顺",
+            "金色流年",
             "花样年华"
         ],
         "products": []
@@ -210,6 +210,24 @@
             "name": "荷花音乐蜡烛",
             "description": "荷花音乐蜡烛",
             "image": "生日蛋糕/蜡烛/荷花音乐蜡烛.jpg"
+        },
+        {
+            "id": 6,
+            "name": "小熊蜡烛",
+            "description": "小熊蜡烛",
+            "image": "生日蛋糕/蜡烛/小熊蜡烛.jpg"
+        },
+        {
+            "id": 7,
+            "name": "红色草莓蜡烛",
+            "description": "红色草莓蜡烛",
+            "image": "生日蛋糕/蜡烛/红色草莓蜡烛.jpg"
+        },
+        {
+            "id": 8,
+            "name": "粉色草莓蜡烛",
+            "description": "粉色草莓蜡烛",
+            "image": "生日蛋糕/蜡烛/粉色草莓蜡烛.jpg"
         }
     ],
     "kindlings": [
@@ -4687,6 +4705,57 @@
             ]
         },
         {
+            "name": "无篮球不兄弟",
+            "description": "篮球伙伴们，加油加油，一起打出新天地",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/无篮球不兄弟-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "虎头虎脑",
             "description": "小老虎，祝你生而无忧，快乐似神仙",
             "categoryId": 3,
@@ -7391,9 +7460,60 @@
             ]
         },
         {
+            "name": "白蝶纷飞",
+            "description": "白色蝴蝶纷飞，祝福您，我的白月光",
+            "categoryId": 4,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/白蝶纷飞-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "花样年华",
-            "description": "送你一段鲜花般的记忆，追溯你的花样年华",
-            "categoryId": 1,
+            "description": "<<鲜花蛋糕>>：送你一段鲜花般的记忆，追溯你的花样年华",
+            "categoryId": 4,
             "fillingNumber": 2,
             "images": [
                 "/生日蛋糕/花样年华-方图.jpg"
@@ -12707,6 +12827,57 @@
             ]
         },
         {
+            "name": "金色流年",
+            "description": "祝您大寿，忆往昔，似金色流年，渊源流传",
+            "categoryId": 7,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/金色流年-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "健康长寿",
             "description": "祝您大寿，吉祥如意",
             "categoryId": 7,
@@ -13217,6 +13388,57 @@
             ]
         },
         {
+            "name": "乔迁大顺",
+            "description": "乔迁大顺，福星照满屋，家宅安宁，红红火火",
+            "categoryId": 8,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/乔迁大顺-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "开业大吉大利",
             "description": "我们开业了，祝你大吉大利，财源滚滚来",
             "categoryId": 8,
@@ -13458,6 +13680,159 @@
             "fillingNumber": 2,
             "images": [
                 "/生日蛋糕/开业招财-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "双喜双喜",
+            "description": "女士&男士，小手一牵，岁岁年年，往后余生，全部是你",
+            "categoryId": 9,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/双喜双喜-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "小手一牵",
+            "description": "女士&男士，小手一牵，岁岁年年，往后余生，全部是你",
+            "categoryId": 9,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/小手一牵-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "小手一牵2",
+            "description": "女士&男士，小手一牵，岁岁年年，往后余生，全部是你",
+            "categoryId": 9,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/小手一牵2-方图.jpg"
             ],
             "specifications": [
                 {

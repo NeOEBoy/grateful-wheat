@@ -57,8 +57,8 @@
     "recommend": {
         "name": "2023年最受欢迎生日蛋糕",
         "productNames": [
-            "治愈不开心",
-            "小手一牵2",
+            "蛋仔派对",
+            "柿柿如意",
             "小手一牵",
             "白蝶纷飞",
             "星黛露星球",
@@ -459,6 +459,37 @@
         }
     ],
     "products": [
+        {
+            "name": "柿柿如意",
+            "description": "祝你顺风顺水，柿柿如意，事事无忧",
+            "categoryId": 1,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/柿柿如意-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                }
+            ]
+        },
         {
             "name": "夏洛特",
             "description": "芒果和草莓的完美融合，一口下去夏洛无烦恼",
@@ -2919,6 +2950,57 @@
             ]
         },
         {
+            "name": "童心童趣",
+            "description": "守护你的童心，守护你的童趣，给你一片童话里的森林",
+            "categoryId": 2,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/童心童趣-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "公主城堡",
             "description": "住在城堡里，王子和白马都会出现",
             "categoryId": 2,
@@ -4501,57 +4583,6 @@
             ]
         },
         {
-            "name": "童心童趣",
-            "description": "守护你的童心，守护你的童趣，给你一片童话里的森林",
-            "categoryId": 1,
-            "fillingNumber": 2,
-            "images": [
-                "/生日蛋糕/童心童趣-方图.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
             "name": "小兔の家",
             "description": "我有一个小小家，那是温暖的小窝",
             "categoryId": 2,
@@ -4752,6 +4783,98 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
+                }
+            ]
+        },
+        {
+            "name": "无足球不兄弟",
+            "description": "足球伙伴们，加油加油，一起打出新天地",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/无足球不兄弟-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 118
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                }
+            ]
+        },
+        {
+            "name": "蛋仔派对",
+            "description": "幻影来到蛋仔岛，参加我的派对",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/蛋仔派对-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
                 }
             ]
         },

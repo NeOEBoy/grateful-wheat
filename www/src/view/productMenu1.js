@@ -12,7 +12,7 @@ import {
 const { Panel } = Collapse;
 const { confirm } = Modal;
 
-const KImageRoot = '/面包';
+// const KImageRoot = '/面包';
 const KOrderMiniPrice = 20;
 
 class ProductMenu extends React.Component {

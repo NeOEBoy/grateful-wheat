@@ -1006,6 +1006,9 @@ class cakeMenu extends React.Component {
                             <div style={{ fontSize: 14 }}>
                                 <span>{product?.description}</span>
                             </div>
+                            <div style={{ fontSize: 12 }}>
+                                <span>{`分类标签：${product?.categoryId}`}</span>
+                            </div>
                             <div style={{ fontSize: 13 }}>
                                 <InfoCircleOutlined style={{ color: '#00A2A5' }} />
                                 <span>{` ${theMinimumSize.number}${theMinimumSize.unit} `}</span>
@@ -1843,7 +1846,7 @@ class cakeMenu extends React.Component {
                                                             <div style={{ color: 'white', fontSize: 20 }}>
                                                                 <div style={{ marginLeft: 12 }}>
                                                                     <div>
-                                                                        {`${category.name}`}
+                                                                        {`${category.id}：${category.name}`}
                                                                     </div>
                                                                     <div style={{ fontSize: 12, color: 'whitesmoke' }}>
                                                                         {`${category.description}`}

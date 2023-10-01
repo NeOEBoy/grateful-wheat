@@ -867,12 +867,12 @@ class cakeMenu extends React.Component {
                 this._candleOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={candle.image} />
-                            <div style={{ width: 70, textAlign: 'center' }}>
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={candle.image} />
+                            <div style={{ width: 64, textAlign: 'center' }}>
                                 {candle.name}
                                 {
                                     candle.id === 3 ?
-                                        <Input style={{ width: 70, height: 30 }}
+                                        <Input style={{ width: 64, height: 30 }}
                                             disabled={this.evalWith(cakeOrderInfo.making.candle)?.id !== 3}
                                             placeholder='数字'
                                             prefix={<EditOutlined />}
@@ -897,8 +897,8 @@ class cakeMenu extends React.Component {
                 this._kindlingOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={kindling.image} />
-                            <div style={{ width: 70, textAlign: 'center' }}>{kindling.name}</div>
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={kindling.image} />
+                            <div style={{ width: 64, textAlign: 'center' }}>{kindling.name}</div>
                         </div>,
                     value: JSON.stringify(kindling)
                 })
@@ -915,8 +915,8 @@ class cakeMenu extends React.Component {
                 this._hatOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 70, height: 70, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={hat.image} />
-                            <div style={{ width: 70, textAlign: 'center' }}>{hat.name}</div>
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={hat.image} />
+                            <div style={{ width: 64, textAlign: 'center' }}>{hat.name}</div>
                         </div>,
                     value: JSON.stringify(hat)
                 })
@@ -1223,7 +1223,7 @@ class cakeMenu extends React.Component {
                                             {
                                                 cakeOrderInfo.making.size?.id === -500 ? (
                                                     <span>
-                                                        <Input placeholder='叠加或悬浮|几寸+几寸'
+                                                        <Input placeholder='叠加|几寸+几寸'
                                                             prefix={<EditOutlined />}
                                                             style={{ width: 190 }}
                                                             value={cakeOrderInfo.making.sizeExtra}

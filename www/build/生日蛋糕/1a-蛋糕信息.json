@@ -182,6 +182,12 @@
     ],
     "candles": [
         {
+            "id": 0,
+            "name": "无需蜡烛",
+            "description": "无需蜡烛",
+            "image": "生日蛋糕/蜡烛/无需蜡烛.jpg"
+        },
+        {
             "id": 1,
             "name": "爱心蜡烛",
             "description": "爱心蜡烛",

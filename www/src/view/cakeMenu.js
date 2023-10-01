@@ -1262,7 +1262,7 @@ class cakeMenu extends React.Component {
                                         }
                                     </div>
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，默认为爱心蜡烛一根，若蛋糕自带蜡烛则不送蜡烛）：</div>
+                                        <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，若蛋糕自带蜡烛则不额外赠送蜡烛）：</div>
 
                                         <Radio.Group style={{ marginTop: 8 }}
                                             options={this._candleOptions}

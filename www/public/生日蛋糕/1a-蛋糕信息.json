@@ -58,13 +58,13 @@
         "name": "2023年最受欢迎生日蛋糕",
         "productNames": [
             "蛋仔派对",
-            "柿柿如意",
+            "爱心烛台",
             "小手一牵",
             "白蝶纷飞",
-            "星黛露星球",
+            "名气妈妈",
             "乔迁大顺",
-            "金色流年",
-            "花样年华"
+            "小笨熊",
+            "我爱学习"
         ],
         "products": []
     },
@@ -5834,6 +5834,57 @@
             ]
         },
         {
+            "name": "我爱学习",
+            "description": "我爱学习，学习使全家快乐",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/我爱学习-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "乐高我的世界",
             "description": "我的世界，我们都是方块人，方块可以吃哦",
             "categoryId": 3,
@@ -7038,6 +7089,57 @@
             ]
         },
         {
+            "name": "小笨熊",
+            "description": "我是呆萌的小笨熊，请您再说一句，生日快乐",
+            "categoryId": 3,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/小笨熊-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "Happy小虎",
             "description": "我是呆萌的小虎，请你再说一句，生日快乐",
             "categoryId": 3,
@@ -7589,6 +7691,57 @@
             ]
         },
         {
+            "name": "爱心烛台",
+            "description": "送你一个爱心烛台，点亮你的爱心",
+            "categoryId": 4,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/爱心烛台-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "白蝶纷飞",
             "description": "白色蝴蝶纷飞，祝福您，我的白月光",
             "categoryId": 4,
@@ -7738,6 +7891,57 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
+                }
+            ]
+        },
+        {
+            "name": "名气妈妈",
+            "description": "妈妈，你是当地小有名气的好妈妈",
+            "categoryId": 4,
+            "fillingNumber": 2,
+            "images": [
+                "/生日蛋糕/名气妈妈-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },

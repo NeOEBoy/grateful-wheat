@@ -987,7 +987,7 @@ class cakeMenu extends React.Component {
                         }
 
                         <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                            preview={true} src={`${KCakeRoot}/${product?.name}-方图.jpg`} />
+                            preview={{mask:<div>点击放大</div>}} src={`${KCakeRoot}/${product?.name}-方图.jpg`} />
                         <div>
                             <div style={{ marginTop: 4 }}>
                                 <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />

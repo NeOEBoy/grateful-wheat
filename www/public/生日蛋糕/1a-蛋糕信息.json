@@ -314,6 +314,11 @@
         "specifications": [
             {
                 "creamId": 1,
+                "sizeId": 1,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
                 "sizeId": 2,
                 "price": "--"
             },
@@ -330,6 +335,11 @@
             {
                 "creamId": 1,
                 "sizeId": 5,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 1,
                 "price": "--"
             },
             {

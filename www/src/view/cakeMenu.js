@@ -693,9 +693,15 @@ class cakeMenu extends React.Component {
         const { cakeOrderInfo } = this.state;
 
         cakeOrderInfo.making.height = value;
+        let heightObj = JSON.parse(value);
         if (cakeOrderInfo.product.fillingRequired) {
-            let heightObj = JSON.parse(value);
             cakeOrderInfo.product.fillingNumber = heightObj.fillingNumber;
+        }
+
+        // 同步下price
+        if (cakeOrderInfo.making.size) {
+            this.handleSizeChange(JSON.stringify(cakeOrderInfo.making.size));
+            cakeOrderInfo.making.price += heightObj.extraMoney;
         }
 
         this.setState({ cakeOrderInfo: cakeOrderInfo });
@@ -1267,6 +1273,7 @@ class cakeMenu extends React.Component {
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>尺寸：</span>
                                         <Select
+                                            disabled={!cakeOrderInfo.making.cream}
                                             style={{ width: 110, marginRight: 8 }}
                                             onChange={this.handleSizeChange}
                                             onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
@@ -1293,12 +1300,14 @@ class cakeMenu extends React.Component {
                                     </div>
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>高度：</span>
-                                        <Select style={{ width: 100 }}
+                                        <Select
+                                            disabled={!cakeOrderInfo.making.cream}
+                                            style={{ width: 100 }}
                                             onChange={this.handleHeightChange}
                                             value={cakeOrderInfo.making.height}
                                             options={this._heightOptions}>
                                         </Select>
-                                        <div style={{ fontSize: 8, color: 'gray' }}>{this._cakeHeightsDescription}</div>
+                                        <div style={{ fontSize: 14, color: 'gray' }}>{this._cakeHeightsDescription}</div>
                                         {
                                             this.evalWith(cakeOrderInfo.making.height)?.id === undefined ||
                                                 this.evalWith(cakeOrderInfo.making.height)?.id === null ? (
@@ -1536,7 +1545,7 @@ class cakeMenu extends React.Component {
                                             value={cakeOrderInfo.delivery.shop}
                                             options={this._shopOptions}>
                                         </Select>
-                                        <div style={{ fontSize: 8, color: 'gray' }}>{this._cakeShopsDescription}</div>
+                                        <div style={{ fontSize: 14, color: 'gray' }}>{this._cakeShopsDescription}</div>
                                         {
                                             this.evalWith(cakeOrderInfo.delivery.shop)?.id === undefined ||
                                                 this.evalWith(cakeOrderInfo.delivery.shop)?.id === null ? (

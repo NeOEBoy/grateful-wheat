@@ -527,6 +527,7 @@ const createCakeOrder = async (
   pickUpTime,
   pickUpType,
   shop,
+  height,
   address,
   pickUpName,
   phoneNumber,
@@ -551,6 +552,7 @@ const createCakeOrder = async (
     pickUpTime: pickUpTime,
     pickUpType: pickUpType,
     shop: shop,
+    height: height,
     address: address,
     pickUpName: pickUpName,
     phoneNumber: phoneNumber,
@@ -588,29 +590,16 @@ const allCakeInfos = async () => {
   const allCakeInfosResponse = await fetch(allCakeInfosUrl);
   const allCakeInfosResponseJson = await allCakeInfosResponse.json();
 
-  let cakeInfos = {};
-  cakeInfos.creams = allCakeInfosResponseJson.creams;
-  cakeInfos.sizes = allCakeInfosResponseJson.sizes;
-  cakeInfos.fillings = allCakeInfosResponseJson.fillings;
-  cakeInfos.candles = allCakeInfosResponseJson.candles;
-  cakeInfos.kindlings = allCakeInfosResponseJson.kindlings;
-  cakeInfos.hats = allCakeInfosResponseJson.hats;
-  cakeInfos.pickUpTypes = allCakeInfosResponseJson.pickUpTypes;
-  cakeInfos.shops = allCakeInfosResponseJson.shops;
-  cakeInfos.private = allCakeInfosResponseJson.private;
-  cakeInfos.categorys = allCakeInfosResponseJson.categorys;
-  cakeInfos.products = allCakeInfosResponseJson.products;
-  cakeInfos.recommend = allCakeInfosResponseJson.recommend;
-  cakeInfos.weixin = allCakeInfosResponseJson.weixin;
+  let cakeInfos = allCakeInfosResponseJson;
 
   for (let i = 0; i < cakeInfos.products.length; ++i) {
     let product = cakeInfos.products[i];
     for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
       let productName = cakeInfos.recommend.productNames[j];
       if (productName === product.name) {
-        /// 补上默认夹心数量
-        if (product.fillingNumber === undefined) {
-          product.fillingNumber = 2;
+        /// 补上，是否需要夹心，默认需要
+        if (product.fillingRequired === undefined) {
+          product.fillingRequired = true;
         }
         product.sortId = j;
         cakeInfos.recommend.products.push(product);

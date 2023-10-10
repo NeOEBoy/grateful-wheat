@@ -62,6 +62,7 @@ var CakeOrderSchema = new Schema({
   pickUpTime: String,
   pickUpType: String,
   shop: String,
+  height: String,
   address: String,
   pickUpName: String,
   phoneNumber: String,

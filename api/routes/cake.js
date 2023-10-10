@@ -56,6 +56,7 @@ router.post('/createOrder', async function (req, res, next) {
             pickUpTime: body.pickUpTime,
             pickUpType: body.pickUpType,
             shop: body.shop,
+            height: body.height,
             address: body.address,
             pickUpName: body.pickUpName,
             phoneNumber: body.phoneNumber,

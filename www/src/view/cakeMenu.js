@@ -64,6 +64,7 @@ const orderInfoInit = () => {
     init.delivery.pickUpTimePopupOpen = false;
     init.delivery.pickUpType = undefined;
     init.delivery.shop = undefined;
+    init.making.height = undefined;
     init.delivery.address = undefined;
     init.delivery.pickUpName = undefined;
     init.delivery.phoneNumber = undefined;
@@ -113,6 +114,9 @@ class cakeMenu extends React.Component {
         this._cakeHats = cakeInfosObj.hats;
         this._cakePickUpTypes = cakeInfosObj.pickUpTypes;
         this._cakeShops = cakeInfosObj.shops;
+        this._cakeShopsDescription = cakeInfosObj.shopsDescription;
+        this._cakeHeights = cakeInfosObj.heights;
+        this._cakeHeightsDescription = cakeInfosObj.heightsDescription;
         this._private = cakeInfosObj.private;
         this._weixin = cakeInfosObj.weixin;
 
@@ -346,6 +350,7 @@ class cakeMenu extends React.Component {
             setTimeout(() => {
                 const { cakeOrderInfo } = this.state;
                 cakeOrderInfo.product = product;
+                product.fillingNumber = 0;
                 this.makeCakeConfig(cakeOrderInfo);
                 this.setState({
                     cakeOrderInfo: cakeOrderInfo
@@ -426,6 +431,12 @@ class cakeMenu extends React.Component {
         //         "name": "汤泉世纪店",
         //         "description": "汤泉世纪店"
         //     }
+        //     cakeOrderInfo.making.height = {
+        //         "id": 1,
+        //         "name": "通用款",
+        //         "description": "通用款式，使用3层蛋糕胚，双层夹心",
+        //         "extraMoney": 0
+        //     }
         //     cakeOrderInfo.delivery.address = '钱隆首府2期9栋1301'
         //     cakeOrderInfo.delivery.pickUpName = '王荣慧'
         //     cakeOrderInfo.delivery.phoneNumber = '18698036807'
@@ -438,6 +449,7 @@ class cakeMenu extends React.Component {
         //     console.log('图片：' + cakeOrderInfo.product?.images[0]);
         //     console.log('奶油：' + cakeOrderInfo.making.cream?.name);
         //     console.log('尺寸：' + cakeOrderInfo.making.size?.name);
+        //     console.log('高度：' + this.evalWith(cakeOrderInfo.making.height)?.name);        
         //     console.log('组合：' + cakeOrderInfo.making?.sizeExtra);
         //     console.log('价格：' + cakeOrderInfo.making?.price);
         //     console.log('夹心数量：' + cakeOrderInfo.product?.fillingNumber);
@@ -450,7 +462,7 @@ class cakeMenu extends React.Component {
         //     console.log('日期：' + cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd'));
         //     console.log('时间：' + cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
         //     console.log('方式：' + this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name);
-        //     console.log('门店：' + this.evalWith(cakeOrderInfo.delivery.shop)?.name);
+        //     console.log('门店：' + this.evalWith(cakeOrderInfo.delivery.shop)?.name);        
         //     console.log('地址：' + cakeOrderInfo.delivery.address);
         //     console.log('姓名：' + cakeOrderInfo.delivery.pickUpName);
         //     console.log('手机：' + cakeOrderInfo.delivery.phoneNumber);
@@ -463,6 +475,10 @@ class cakeMenu extends React.Component {
         }
         if (cakeOrderInfo.making.size === undefined) {
             message.warning('请选择尺寸大小！');
+            return;
+        }
+        if (cakeOrderInfo.making.height === undefined) {
+            message.warning('请选择高度款式！');
             return;
         }
         if (cakeOrderInfo.making.size.id === -500 &&
@@ -558,6 +574,7 @@ class cakeMenu extends React.Component {
                         cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'),
                         this.evalWith(cakeOrderInfo.delivery.pickUpType)?.name,
                         this.evalWith(cakeOrderInfo.delivery.shop)?.name,
+                        this.evalWith(cakeOrderInfo.making.height)?.name,
                         cakeOrderInfo.delivery.address,
                         cakeOrderInfo.delivery.pickUpName,
                         cakeOrderInfo.delivery.phoneNumber,
@@ -625,6 +642,8 @@ class cakeMenu extends React.Component {
         cakeOrderInfo.making.cream = JSON.parse(e.target.value);
         cakeOrderInfo.making.size = undefined;
         cakeOrderInfo.making.price = '--';
+        // cakeOrderInfo.making.height = JSON.stringify(this._cakeHeights[0]);
+        cakeOrderInfo.making.height = undefined;
         this.updateSizeOptions(cakeOrderInfo);
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
@@ -669,10 +688,23 @@ class cakeMenu extends React.Component {
         }
     }
 
+    handleHeightChange = (value) => {
+        // console.log('handleHeightChange value = ' + value);
+        const { cakeOrderInfo } = this.state;
+
+        cakeOrderInfo.making.height = value;
+        if (cakeOrderInfo.product.fillingRequired) {
+            let heightObj = JSON.parse(value);
+            cakeOrderInfo.product.fillingNumber = heightObj.fillingNumber;
+        }
+
+        this.setState({ cakeOrderInfo: cakeOrderInfo });
+    }
+
     handleCakeFillingChange = (value, fillingNumber) => {
         // console.log('value = ' + value);
         if (value.length > fillingNumber) {
-            message.warning(`只能选择 ${fillingNumber} 两种夹心，请反选不需要的夹心后，重新选择！`);
+            message.warning(`只能选择 ${fillingNumber} 种夹心，请反选不需要的夹心后，重新选择！`);
             return;
         }
 
@@ -791,6 +823,7 @@ class cakeMenu extends React.Component {
 
     makeCakeConfig = (cakeOrderInfo) => {
         this.updateCreamOptions(cakeOrderInfo);
+        this.updateHeightOptions();
         this.updateFillingOptions();
         this.updateCandleOptions(cakeOrderInfo);
         this.updateKindlingOptions();
@@ -836,9 +869,23 @@ class cakeMenu extends React.Component {
             }
         }
         if (this._sizeOptions.length > 1) {
-            this._sizeOptions.push({ label: '组合', value: JSON.stringify({ "id": -500, "name": '组合' }) });
+            this._sizeOptions.push({ label: '叠加组合', value: JSON.stringify({ "id": -500, "name": '叠加组合' }) });
         }
         // console.log('this._sizeOptions = ' + JSON.stringify(this._sizeOptions));
+    }
+
+    updateHeightOptions = () => {
+        this._heightOptions = [];
+        if (this._cakeHeights) {
+            for (let i = 0; i < this._cakeHeights.length; ++i) {
+                let height = this._cakeHeights[i];
+                this._heightOptions.push({
+                    label: height.name,
+                    value: JSON.stringify(height)
+                })
+            }
+        }
+        // console.log('this._heightOptions = ' + JSON.stringify(this._heightOptions));
     }
 
     updateFillingOptions = () => {
@@ -987,7 +1034,7 @@ class cakeMenu extends React.Component {
                         }
 
                         <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                            preview={{mask:<div>点击放大</div>}} src={`${KCakeRoot}/${product?.name}-方图.jpg`} />
+                            preview={{ mask: <div>点击放大</div> }} src={`${KCakeRoot}/${product?.name}-方图.jpg`} />
                         <div>
                             <div style={{ marginTop: 4 }}>
                                 <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
@@ -1186,6 +1233,12 @@ class cakeMenu extends React.Component {
                                                                     )
                                                                 })
                                                             }
+                                                            {
+                                                                this._cakeSizes.length >= 2 ? (
+                                                                    <div style={{ fontSize: 10, fontWeight: 'bold', color: 'gray' }}>
+                                                                        <div>叠加组合，价格为对应尺寸之和</div>
+                                                                    </div>) : (<div></div>)
+                                                            }
                                                         </div> : <div></div>}
                                                 </div>
                                             )
@@ -1212,33 +1265,46 @@ class cakeMenu extends React.Component {
                                         </Input.Group>
                                     </div>
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
-                                        <div>
-                                            <span style={{ fontWeight: 'bold' }}>尺寸：</span>
-                                            <Select
-                                                style={{ width: 80, marginRight: 8 }}
-                                                onChange={this.handleSizeChange}
-                                                onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
-                                                options={this._sizeOptions}
-                                                value={JSON.stringify(cakeOrderInfo.making.size)} />
-                                            {
-                                                cakeOrderInfo.making.size?.id === -500 ? (
-                                                    <span>
-                                                        <Input placeholder='叠加|几寸+几寸'
-                                                            prefix={<EditOutlined />}
-                                                            style={{ width: 190 }}
-                                                            value={cakeOrderInfo.making.sizeExtra}
-                                                            onChange={this.handleSizeExtraChange} />
-                                                    </span>) : (<div></div>)
-                                            }
-                                            {
-                                                cakeOrderInfo.making.size === undefined ||
-                                                    (cakeOrderInfo.making.size.id === -500 &&
-                                                        (cakeOrderInfo.making.sizeExtra === undefined ||
-                                                            cakeOrderInfo.making.sizeExtra === '')) ? (
-                                                    <div style={{ color: 'red' }}>“尺寸”是必填项</div>
-                                                ) : (<span></span>)
-                                            }
-                                        </div>
+                                        <span style={{ fontWeight: 'bold' }}>尺寸：</span>
+                                        <Select
+                                            style={{ width: 110, marginRight: 8 }}
+                                            onChange={this.handleSizeChange}
+                                            onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
+                                            options={this._sizeOptions}
+                                            value={JSON.stringify(cakeOrderInfo.making.size)} />
+                                        {
+                                            cakeOrderInfo.making.size?.id === -500 ? (
+                                                <span>
+                                                    <Input placeholder='几寸+几寸'
+                                                        prefix={<EditOutlined />}
+                                                        style={{ width: 180 }}
+                                                        value={cakeOrderInfo.making.sizeExtra}
+                                                        onChange={this.handleSizeExtraChange} />
+                                                </span>) : (<div></div>)
+                                        }
+                                        {
+                                            cakeOrderInfo.making.size === undefined ||
+                                                (cakeOrderInfo.making.size.id === -500 &&
+                                                    (cakeOrderInfo.making.sizeExtra === undefined ||
+                                                        cakeOrderInfo.making.sizeExtra === '')) ? (
+                                                <div style={{ color: 'red' }}>“尺寸”是必填项</div>
+                                            ) : (<span></span>)
+                                        }
+                                    </div>
+                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                        <span style={{ fontWeight: 'bold' }}>高度：</span>
+                                        <Select style={{ width: 100 }}
+                                            onChange={this.handleHeightChange}
+                                            value={cakeOrderInfo.making.height}
+                                            options={this._heightOptions}>
+                                        </Select>
+                                        <div style={{ fontSize: 8, color: 'gray' }}>{this._cakeHeightsDescription}</div>
+                                        {
+                                            this.evalWith(cakeOrderInfo.making.height)?.id === undefined ||
+                                                this.evalWith(cakeOrderInfo.making.height)?.id === null ? (
+                                                <div style={{ color: 'red' }}>“高度”是必填项</div>
+                                            ) : (<div></div>)
+                                        }
                                     </div>
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>价格：</span>
@@ -1247,7 +1313,12 @@ class cakeMenu extends React.Component {
                                     </div>
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>
-                                            {`夹心（任选${cakeOrderInfo.product?.fillingNumber}种）`}
+                                            <span>夹心</span>
+                                            {
+                                                this.evalWith(cakeOrderInfo.making.height)?.name ? <span>
+                                                    {`（${this.evalWith(cakeOrderInfo.making.height)?.name}，任选 ${cakeOrderInfo.product?.fillingNumber} 种）：`}
+                                                </span> : <span>：</span>
+                                            }
                                         </div>
                                         <CheckboxGroup
                                             disabled={cakeOrderInfo.product?.fillingNumber > 0 ? false : true}
@@ -1465,6 +1536,7 @@ class cakeMenu extends React.Component {
                                             value={cakeOrderInfo.delivery.shop}
                                             options={this._shopOptions}>
                                         </Select>
+                                        <div style={{ fontSize: 8, color: 'gray' }}>{this._cakeShopsDescription}</div>
                                         {
                                             this.evalWith(cakeOrderInfo.delivery.shop)?.id === undefined ||
                                                 this.evalWith(cakeOrderInfo.delivery.shop)?.id === null ? (
@@ -1656,9 +1728,12 @@ class cakeMenu extends React.Component {
                                                 {
                                                     cakeOrderInfo.making.size.id === -500 ? (
                                                         <span style={{ fontSize: 18, color: 'green' }}>
-                                                            {cakeOrderInfo.making.sizeExtra}
+                                                            {` | ${cakeOrderInfo.making.sizeExtra}`}
                                                         </span>) : (<span></span>)
                                                 }
+                                                <span style={{ fontSize: 18, color: 'green' }}>
+                                                    {` | ${this.evalWith(cakeOrderInfo.making.height)?.name}`}
+                                                </span>
                                             </div>
                                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>

@@ -328,9 +328,12 @@ class CakeOrder extends React.Component {
                                                 {
                                                     order?.size === '组合' ? (
                                                         <span style={{ fontSize: 18, color: 'green' }}>
-                                                            {order?.sizeExtra}
+                                                            {` | ${order?.sizeExtra}`}
                                                         </span>) : (<span></span>)
                                                 }
+                                                <span style={{ fontSize: 18, color: 'green' }}>
+                                                    {` | ${order?.height}`}
+                                                </span>
                                             </div>
                                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>

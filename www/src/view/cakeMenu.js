@@ -31,7 +31,7 @@ import {
 } from 'antd';
 import {
     wechatSign,
-    templateSendToSomePeople,
+    // templateSendToSomePeople,
     createCakeOrder,
     allCakeInfos
 } from '../api/api';
@@ -616,15 +616,15 @@ class cakeMenu extends React.Component {
                         document.documentElement.style.overflow = 'hidden';
 
                         /// 模板通知指定人员有人生成订购单了，避免漏单
-                        let sendResult = await templateSendToSomePeople(
-                            createResult._id,
-                            this.evalWith(cakeOrderInfo.delivery.shop)?.name,
-                            this.state.orderingTime,
-                            `《${cakeOrderInfo.product?.name}》`,
-                            `${cakeOrderInfo.delivery.pickUpName}（${cakeOrderInfo.delivery.phoneNumber}）`,
-                            cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd') +
-                            cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
-                        message.info(JSON.stringify(sendResult));
+                        // let sendResult = await templateSendToSomePeople(
+                        //     createResult._id,
+                        //     this.evalWith(cakeOrderInfo.delivery.shop)?.name,
+                        //     this.state.orderingTime,
+                        //     `《${cakeOrderInfo.product?.name}》`,
+                        //     `${cakeOrderInfo.delivery.pickUpName}（${cakeOrderInfo.delivery.phoneNumber}）`,
+                        //     cakeOrderInfo.delivery.pickUpDay?.format('YYYY-MM-DD ddd') +
+                        //     cakeOrderInfo.delivery.pickUpTime?.format('a HH:mm'));
+                        // message.info(JSON.stringify(sendResult));
                     });
             }, 0);
         });
@@ -875,7 +875,7 @@ class cakeMenu extends React.Component {
             }
         }
         if (this._sizeOptions.length > 1) {
-            this._sizeOptions.push({ label: '叠加组合', value: JSON.stringify({ "id": -500, "name": '叠加组合' }) });
+            this._sizeOptions.push({ label: '组合', value: JSON.stringify({ "id": -500, "name": '组合' }) });
         }
         // console.log('this._sizeOptions = ' + JSON.stringify(this._sizeOptions));
     }
@@ -1242,7 +1242,7 @@ class cakeMenu extends React.Component {
                                                             {
                                                                 this._cakeSizes.length >= 2 ? (
                                                                     <div style={{ fontSize: 10, fontWeight: 'bold', color: 'gray' }}>
-                                                                        <div>叠加组合，价格为对应尺寸之和</div>
+                                                                        <div>组合，价格为对应尺寸之和</div>
                                                                     </div>) : (<div></div>)
                                                             }
                                                         </div> : <div></div>}
@@ -1686,7 +1686,7 @@ class cakeMenu extends React.Component {
                                         width: this._theDiv4CaptureWidth, height: 150
                                     }}>
                                         <div style={{ fontSize: 12, fontWeight: 'bold' }}>电子订购单二维码</div>
-                                        <Image style={{ width: 150, height: 150 }}
+                                        <Image style={{ width: 135, height: 135 }}
                                             preview={false}
                                             src={image4QRCode}
                                         />

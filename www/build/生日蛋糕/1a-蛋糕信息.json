@@ -137,18 +137,68 @@
             "description": "3层蛋糕胚，双层夹心",
             "embryoNumber": 3,
             "fillingNumber": 2,
-            "extraMoney": 0
+            "extraMoneys": [
+                {
+                    "sizeId": 1,
+                    "money": 0
+                },
+                {
+                    "sizeId": 2,
+                    "money": 0
+                },
+                {
+                    "sizeId": 3,
+                    "money": 0
+                },
+                {
+                    "sizeId": 4,
+                    "money": 0
+                },
+                {
+                    "sizeId": 5,
+                    "money": 0
+                },
+                {
+                    "sizeId": 6,
+                    "money": 0
+                }
+            ]
         },
         {
             "id": 2,
             "name": "加高款",
-            "description": "4层蛋糕胚，三层夹心，金额加20元",
+            "description": "4层蛋糕胚，三层夹心",
             "embryoNumber": 4,
             "fillingNumber": 3,
-            "extraMoney": 20
+            "extraMoneys": [
+                {
+                    "sizeId": 1,
+                    "money": 10
+                },
+                {
+                    "sizeId": 2,
+                    "money": 20
+                },
+                {
+                    "sizeId": 3,
+                    "money": 30
+                },
+                {
+                    "sizeId": 4,
+                    "money": 40
+                },
+                {
+                    "sizeId": 5,
+                    "money": 50
+                },
+                {
+                    "sizeId": 6,
+                    "money": 60
+                }
+            ]
         }
     ],
-    "heightsDescription": "通用款：3层蛋糕胚，双层夹心; 加高款：4层蛋糕胚，三层夹心，金额加20元",
+    "heightsDescription": "通用款=>3层蛋糕胚，双层夹心; 加高款=>4层蛋糕胚，三层夹心",
     "fillings": [
         {
             "id": 1,

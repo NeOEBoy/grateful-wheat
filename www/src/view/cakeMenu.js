@@ -431,12 +431,37 @@ class cakeMenu extends React.Component {
         //         "name": "汤泉世纪店",
         //         "description": "汤泉世纪店"
         //     }
-        //     cakeOrderInfo.making.height = {
-        //         "id": 1,
-        //         "name": "通用款",
-        //         "description": "通用款式，使用3层蛋糕胚，双层夹心",
-        //         "extraMoney": 0
-        //     }
+        // cakeOrderInfo.making.height = {
+        //     "id": 1,
+        //     "name": "通用款",
+        //     "description": "通用款式，使用3层蛋糕胚，双层夹心",
+        //     "extraMoneys": [
+        //         {
+        //             "sizeId": 1,
+        //             "money": 0
+        //         },
+        //         {
+        //             "sizeId": 2,
+        //             "money": 0
+        //         },
+        //         {
+        //             "sizeId": 3,
+        //             "money": 0
+        //         },
+        //         {
+        //             "sizeId": 4,
+        //             "money": 0
+        //         },
+        //         {
+        //             "sizeId": 5,
+        //             "money": 0
+        //         },
+        //         {
+        //             "sizeId": 6,
+        //             "money": 0
+        //         }
+        //     ]
+        // }
         //     cakeOrderInfo.delivery.address = '钱隆首府2期9栋1301'
         //     cakeOrderInfo.delivery.pickUpName = '王荣慧'
         //     cakeOrderInfo.delivery.phoneNumber = '18698036807'
@@ -652,23 +677,8 @@ class cakeMenu extends React.Component {
         const { cakeOrderInfo } = this.state;
         cakeOrderInfo.making.size = JSON.parse(value);
 
-        cakeOrderInfo.making.price = '--';
-        for (let i = 0; i < cakeOrderInfo.product?.specifications.length; ++i) {
-            let specification = cakeOrderInfo.product?.specifications[i];
-            if (specification.creamId === cakeOrderInfo.making.cream.id &&
-                specification.sizeId === cakeOrderInfo.making.size.id) {
-                cakeOrderInfo.making.price = specification.price;
-                break;
-            }
-        }
-        cakeOrderInfo.making.plates = '--';
-        for (let i = 0; i < this._cakeSizes.length; ++i) {
-            let size = this._cakeSizes[i];
-            if (size.id === cakeOrderInfo.making.size.id) {
-                cakeOrderInfo.making.plates = size.plates;
-                break;
-            }
-        }
+        this.updatePrice(cakeOrderInfo);
+        this.updatePlate(cakeOrderInfo);
 
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
@@ -693,16 +703,9 @@ class cakeMenu extends React.Component {
         const { cakeOrderInfo } = this.state;
 
         cakeOrderInfo.making.height = value;
-        let heightObj = JSON.parse(value);
-        if (cakeOrderInfo.product.fillingRequired) {
-            cakeOrderInfo.product.fillingNumber = heightObj.fillingNumber;
-        }
 
-        // 同步下price
-        if (cakeOrderInfo.making.size) {
-            this.handleSizeChange(JSON.stringify(cakeOrderInfo.making.size));
-            cakeOrderInfo.making.price += heightObj.extraMoney;
-        }
+        this.updateFillingNumber(cakeOrderInfo);
+        this.updatePrice(cakeOrderInfo);
 
         this.setState({ cakeOrderInfo: cakeOrderInfo });
     }
@@ -836,6 +839,53 @@ class cakeMenu extends React.Component {
         this.updateHatOptions();
         this.updatePickUpTypesOptions();
         this.updateShopOptions();
+    }
+
+    updateFillingNumber = (cakeOrderInfo) => {
+        let heightObj = JSON.parse(cakeOrderInfo.making.height);
+        if (cakeOrderInfo.product.fillingRequired) {
+            cakeOrderInfo.product.fillingNumber = heightObj.fillingNumber;
+        }
+    }
+
+    updatePrice = (cakeOrderInfo) => {
+        // 同步下price
+        if (cakeOrderInfo.making.size) {
+            cakeOrderInfo.making.price = '--';
+            for (let i = 0; i < cakeOrderInfo.product?.specifications.length; ++i) {
+                let specification = cakeOrderInfo.product?.specifications[i];
+                if (specification.creamId === cakeOrderInfo.making.cream.id &&
+                    specification.sizeId === cakeOrderInfo.making.size.id) {
+                    cakeOrderInfo.making.price = specification.price;
+                    break;
+                }
+            }
+
+            if (cakeOrderInfo.making.height) {
+                let money = 0;
+                let heightObj = JSON.parse(cakeOrderInfo.making.height);
+                for (let i = 0; i < heightObj.extraMoneys.length; ++i) {
+                    let extraMoney = heightObj.extraMoneys[i];
+                    if (extraMoney.sizeId === cakeOrderInfo.making.size.id) {
+                        money = extraMoney.money;
+                        break;
+                    }
+                }
+
+                cakeOrderInfo.making.price += money;
+            }
+        }
+    }
+
+    updatePlate = (cakeOrderInfo) => {
+        cakeOrderInfo.making.plates = '--';
+        for (let i = 0; i < this._cakeSizes.length; ++i) {
+            let size = this._cakeSizes[i];
+            if (size.id === cakeOrderInfo.making.size.id) {
+                cakeOrderInfo.making.plates = size.plates;
+                break;
+            }
+        }
     }
 
     updateCreamOptions = (cakeOrderInfo) => {
@@ -1230,7 +1280,7 @@ class cakeMenu extends React.Component {
                                                                                 price !== -1 ?
                                                                                     <div>
                                                                                         <span style={{ color: '#00A2A5' }}>{size.name}</span>
-                                                                                        <span style={{ color: 'gray', fontSize: 12 }}>{`（${size.description}）`}</span>
+                                                                                        <span style={{ color: 'gray', fontSize: 12 }}>{`${size.description} `}</span>
                                                                                         <span style={{ color: '#00A2A5' }}>{`${price}元`}</span>
                                                                                         <span></span>
                                                                                     </div> : <div></div>
@@ -1242,7 +1292,8 @@ class cakeMenu extends React.Component {
                                                             {
                                                                 this._cakeSizes.length >= 2 ? (
                                                                     <div style={{ fontSize: 10, fontWeight: 'bold', color: 'gray' }}>
-                                                                        <div>组合，价格为对应尺寸之和</div>
+                                                                        <div>注1：加高款，价格比通用款增加10~50元不等</div>
+                                                                        <div>注2：组合蛋糕，价格为对应尺寸蛋糕价格之和</div>
                                                                     </div>) : (<div></div>)
                                                             }
                                                         </div> : <div></div>}
@@ -1559,7 +1610,7 @@ class cakeMenu extends React.Component {
                                                 <Input.Group>
                                                     <span style={{ fontWeight: 'bold' }}>地址：</span>
                                                     <Input style={{ width: 'calc(100% - 100px)', textAlign: 'left' }}
-                                                        placeholder='填写地址' prefix={<HomeOutlined />}
+                                                        placeholder='填写地址（详细到门牌号）' prefix={<HomeOutlined />}
                                                         value={cakeOrderInfo.delivery.address}
                                                         onChange={this.handleAddressChange} />
                                                     {

@@ -1301,7 +1301,7 @@ class cakeMenu extends React.Component {
                                     <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>高度：</span>
                                         <Select
-                                            disabled={!cakeOrderInfo.making.cream}
+                                            disabled={!cakeOrderInfo.making.cream || !cakeOrderInfo.making.size}
                                             style={{ width: 100 }}
                                             onChange={this.handleHeightChange}
                                             value={cakeOrderInfo.making.height}

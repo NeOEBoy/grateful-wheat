@@ -1,10 +1,10 @@
 ﻿{
     "weixin": {
-        "title": "弯麦 | 2023年生日蛋糕，送一个给爱的人吧",
+        "title": "弯麦蛋糕 | 2023年生日蛋糕，送一个给爱的人吧",
         "desc": "男孩款、女孩款、女神款、男神款、情侣款、祝寿款等各种款式~任你挑选~",
         "imgUrl": "http://gratefulwheat.ruyue.xyz/生日蛋糕/爱心烛台-方图.jpg",
         "常规": {
-            "title": "弯麦 | 2023年生日蛋糕，送一个给爱的人吧",
+            "title": "弯麦蛋糕 | 2023年生日蛋糕，送一个给爱的人吧",
             "desc": "男孩款、女孩款、女神款、男神款、情侣款、祝寿款等各种款式~任你挑选~",
             "imgUrl": "http://gratefulwheat.ruyue.xyz/生日蛋糕/夏洛特-方图.jpg"
         },
@@ -57,13 +57,13 @@
     "recommend": {
         "name": "2023年最受欢迎生日蛋糕",
         "productNames": [
+            "Tom and Jerry",
             "蛋仔派对",
-            "爱心烛台",
-            "小手一牵",
-            "白蝶纷飞",
-            "名气妈妈",
+            "恐龙森林",
+            "爹爹请用茶",
+            "海绵宝宝",
             "乔迁大顺",
-            "小笨熊",
+            "名气妈妈",
             "我爱学习"
         ],
         "products": []
@@ -2163,12 +2163,63 @@
             ]
         },
         {
-            "name": "帕恰狗",
+            "name": "欢乐帕恰狗",
+            "description": "I am pochacco，I like basketball and football",
+            "categoryId": 2,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/欢乐帕恰狗-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "简约帕恰狗",
             "description": "帕恰，帕恰，我是胖胖狗",
             "categoryId": 2,
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/帕恰狗-方图.jpg"
+                "/生日蛋糕/简约帕恰狗-方图.jpg"
             ],
             "specifications": [
                 {
@@ -2363,6 +2414,57 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
+                }
+            ]
+        },
+        {
+            "name": "二次元蓝",
+            "description": "欢迎进入二次元的世界",
+            "categoryId": 2,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/二次元蓝-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
                 }
             ]
         },
@@ -4867,6 +4969,108 @@
             ]
         },
         {
+            "name": "Tom and Jerry",
+            "description": "汤姆和杰瑞，一对欢乐的冤家，愿快乐伴你左右",
+            "categoryId": 3,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/Tom and Jerry-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "海绵宝宝",
+            "description": "派大星，我们去抓水母吧！",
+            "categoryId": 3,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/海绵宝宝-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "无篮球不兄弟",
             "description": "篮球伙伴们，加油加油，一起打出新天地",
             "categoryId": 3,
@@ -4960,7 +5164,7 @@
         },
         {
             "name": "蛋仔派对",
-            "description": "幻影来到蛋仔岛，参加我的派对",
+            "description": "欢迎来到蛋仔岛，参加我的派对",
             "categoryId": 3,
             "fillingRequired": true,
             "images": [
@@ -5169,6 +5373,57 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/小熊祝你快乐-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "消防员",
+            "description": "我是一个消防员，哪里有火，我去哪",
+            "categoryId": 3,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/消防员-方图.jpg"
             ],
             "specifications": [
                 {
@@ -6112,12 +6367,12 @@
             ]
         },
         {
-            "name": "冲锋1号",
+            "name": "特种兵",
             "description": "我是一个兵，吹响冲锋号，勇往直前",
             "categoryId": 3,
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/冲锋1号-方图.jpg"
+                "/生日蛋糕/特种兵-方图.jpg"
             ],
             "specifications": [
                 {
@@ -6363,6 +6618,57 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
+                }
+            ]
+        },
+        {
+            "name": "恐龙森林",
+            "description": "准备好了吗？请跟随我的足迹，带你踏遍原始森林",
+            "categoryId": 3,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/恐龙森林-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
                 }
             ]
         },
@@ -11361,6 +11667,108 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/烛光520-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "爹爹请用茶",
+            "description": "爹爹请用茶，您辛苦了，我给你捶捶背",
+            "categoryId": 5,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/爹爹请用茶-方图.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "笔砚一生",
+            "description": "金戈铁马，笔砚一生，爸爸，您辛苦了",
+            "categoryId": 5,
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/笔砚一生-方图.jpg"
             ],
             "specifications": [
                 {

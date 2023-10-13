@@ -861,7 +861,7 @@ class cakeMenu extends React.Component {
                 }
             }
 
-            if (cakeOrderInfo.making.height) {
+            if (cakeOrderInfo.making.height && cakeOrderInfo.making.price !== '--') {
                 let money = 0;
                 let heightObj = JSON.parse(cakeOrderInfo.making.height);
                 for (let i = 0; i < heightObj.extraMoneys.length; ++i) {

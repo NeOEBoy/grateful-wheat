@@ -644,11 +644,6 @@ const allCakeInfos = async () => {
   const privateInfos = await privateResponse.json();
   cakeInfos.private = privateInfos.private;
 
-
-  console.log('xxx = ' + JSON.stringify(cakeInfos.private));
-
-  cakeInfos.products = [];
-
   for (let k = 0; k < cakeInfos.categorys.length; ++k) {
     let category = cakeInfos.categorys[k];
     let idAndName = category.id + '-' + category.name;

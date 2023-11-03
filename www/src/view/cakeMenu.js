@@ -80,6 +80,7 @@ class cakeMenu extends React.Component {
         this.state = {
             // 主页
             cakeRecommend: { name: '', products: [] },
+            allCakeInfosLoading: false,
             cakeCategorys: [],
             cakeProducts: [],
             /// 搜索
@@ -102,7 +103,9 @@ class cakeMenu extends React.Component {
     }
 
     componentDidMount = async () => {
+        this.setState({ allCakeInfosLoading: true });
         const cakeInfosObj = await allCakeInfos();
+        this.setState({ allCakeInfosLoading: false });
         // console.log('cakeInfosObj = ' + JSON.stringify(cakeInfosObj));
         this._cakeSizes = cakeInfosObj.sizes;
         this._cakeCreams = cakeInfosObj.creams;
@@ -1116,6 +1119,7 @@ class cakeMenu extends React.Component {
             searchName,
             cake4Search,
             cakeRecommend,
+            allCakeInfosLoading,
             cakeCategorys,
             cakeOrderInfo,
             orderInfoModalVisiable,
@@ -1922,7 +1926,8 @@ class cakeMenu extends React.Component {
                                     }}>
                                         {`${cakeRecommend.name}`}
                                     </div>
-                                    <List style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                                    <List loading={allCakeInfosLoading}
+                                        style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
                                         grid={{ gutter: 4, column: this._columnNumber }}
                                         dataSource={cakeRecommend.products}
                                         renderItem={this._renderItemFunc4Product}

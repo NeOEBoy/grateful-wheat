@@ -1,0 +1,16 @@
+{
+    "kindlings": [
+        {
+            "id": 1,
+            "name": "无需火柴",
+            "description": "无需火柴",
+            "image": "生日蛋糕/点火器/无需火柴.jpg"
+        },
+        {
+            "id": 2,
+            "name": "火柴盒",
+            "description": "火柴盒",
+            "image": "生日蛋糕/点火器/火柴盒.jpg"
+        }
+    ]
+}

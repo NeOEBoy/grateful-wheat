@@ -1,0 +1,45 @@
+{
+    "shopsDescription": "注：在哪个门店预定的",
+    "shops": [
+        {
+            "id": 1,
+            "name": "教育局店",
+            "description": "教育局店"
+        },
+        {
+            "id": 2,
+            "name": "汤泉世纪店",
+            "description": "汤泉世纪店"
+        },
+        {
+            "id": 3,
+            "name": "盘陀店",
+            "description": "盘陀店"
+        },
+        {
+            "id": 4,
+            "name": "德林-火烧铺店",
+            "description": "德林-火烧铺店"
+        },
+        {
+            "id": 5,
+            "name": "德林-假日店",
+            "description": "德林-假日店"
+        },
+        {
+            "id": 6,
+            "name": "德林-学府店",
+            "description": "德林-学府店"
+        },
+        {
+            "id": 7,
+            "name": "德林-湖滨店",
+            "description": "德林-湖滨店"
+        },
+        {
+            "id": 8,
+            "name": "锦客隆-西湖店",
+            "description": "锦客隆-西湖店"
+        }
+    ]
+}

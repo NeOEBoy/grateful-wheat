@@ -1,0 +1,61 @@
+{
+    "private": {
+        "name": "私人订制",
+        "description": "私人订制，专属于你的偏爱，送给独一无二的你",
+        "categoryId": -500,
+        "fillingRequired": true,
+        "images": [],
+        "specifications": [
+            {
+                "creamId": 1,
+                "sizeId": 1,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 2,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 3,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 4,
+                "price": "--"
+            },
+            {
+                "creamId": 1,
+                "sizeId": 5,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 1,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 2,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 3,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 4,
+                "price": "--"
+            },
+            {
+                "creamId": 2,
+                "sizeId": 5,
+                "price": "--"
+            }
+        ]
+    }
+}

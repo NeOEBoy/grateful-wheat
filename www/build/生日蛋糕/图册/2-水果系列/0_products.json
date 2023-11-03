@@ -1,0 +1,1895 @@
+﻿{
+    "products": [
+        {
+            "name": "六角多拼",
+            "description": "五颜六色的水果盛宴，望你心情愉悦，如沐春风",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/六角多拼_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "六角多拼皇冠",
+            "description": "五颜六色的水果盛宴，望你心情愉悦，如沐春风",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/六角多拼皇冠_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "彩虹多拼",
+            "description": "五颜六色的彩虹，如朝如歌，如雨后朝阳，温暖如初",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/彩虹多拼_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "水果盛宴",
+            "description": "五颜六色的彩虹，如朝如歌，如雨后朝阳，温暖如初",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/水果盛宴_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "水果大树蛋糕",
+            "description": "水果大树蛋糕",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/水果大树蛋糕.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "水果大树蛋糕之陪伴",
+            "description": "水果大树蛋糕之陪伴",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/水果大树蛋糕之陪伴_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+
+        {
+            "name": "水果裸蛋糕",
+            "description": "水果裸蛋糕",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/水果裸蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "草莓之恋",
+            "description": "酸酸甜甜的草莓，祝你拥有甜蜜的爱恋",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/草莓之恋_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "草莓芒果双拼A款",
+            "description": "经典的草莓芒果双拼，一半红艳，一半金黄",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/草莓芒果双拼A款_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "草莓芒果双拼B款",
+            "description": "经典的草莓芒果双拼，一半红艳，一半金黄",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/草莓芒果双拼B款_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "草莓提子双拼",
+            "description": "草莓提子双拼，一半红艳，一半翠绿",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/草莓提子双拼_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果火龙果双拼",
+            "description": "当芒果遇到火龙果，一半火红，一半金黄",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果火龙果双拼爱心月亮",
+            "description": "当芒果遇到火龙果，一半火红，一半金黄",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼爱心月亮_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果蓝莓双拼A款",
+            "description": "当芒果遇到蓝莓，一半黑金，一半金黄",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果蓝莓双拼A款_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果蓝莓双拼B款",
+            "description": "当芒果遇到蓝莓，一半黑金，一半金黄",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果蓝莓双拼B款_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果提子双拼A款",
+            "description": "芒果提子双拼A款",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果提子双拼A款_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果提子双拼B款",
+            "description": "芒果提子双拼B款",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果提子双拼B款_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "芒果单拼半圆",
+            "description": "满满的芒果，一片金黄，芒果控的福音",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果单拼半圆_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "芒果单拼爱心",
+            "description": "满满的芒果，一片金黄，芒果控的福音",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果单拼爱心_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "芒果单拼花纹",
+            "description": "满满的芒果，一片金黄，芒果控的福音",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/芒果单拼花纹_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "火龙果单拼爱心",
+            "description": "满满的火龙果，一片深红，火龙果控的福音",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/火龙果单拼爱心_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "提子单拼",
+            "description": "满满的青提，一片青绿，青提控的福音",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/提子单拼_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "提子之恋",
+            "description": "满满的紫提，一眼紫色，空气中弥漫着暧昧的感觉",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/提子之恋_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "提子复古",
+            "description": "一片青绿，望你拥有，穿越时空的爱恋",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/提子复古_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "柠檬清晨",
+            "description": "一口柠檬，一口清晨，快乐每一天",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/柠檬清晨_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "水果简约蛋糕",
+            "description": "水果简约蛋糕",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/水果简约蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "橘芒相会",
+            "description": "橘芒相会",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/橘芒相会_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "朴实人生",
+            "description": "朴实人生",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/朴实人生_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "石榴蓝莓简约",
+            "description": "石榴蓝莓简约",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/石榴蓝莓简约_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "青青河畔",
+            "description": "青青河畔",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/青青河畔_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "夏后晴",
+            "description": "夏后晴",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/夏后晴_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "秘果简约",
+            "description": "秘果简约",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/秘果简约_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "草莓蓝莓简约",
+            "description": "草莓蓝莓简约",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/草莓蓝莓简约_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "夏夜",
+            "description": "夏夜",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/夏夜_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        },
+        {
+            "name": "小夜曲",
+            "description": "小夜曲",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/小夜曲_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        }
+    ]
+}

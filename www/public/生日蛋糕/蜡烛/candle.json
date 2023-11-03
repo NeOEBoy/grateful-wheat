@@ -1,0 +1,58 @@
+{
+    "candles": [
+        {
+            "id": 0,
+            "name": "无需蜡烛",
+            "description": "无需蜡烛",
+            "image": "生日蛋糕/蜡烛/无需蜡烛.jpg"
+        },
+        {
+            "id": 1,
+            "name": "爱心蜡烛",
+            "description": "爱心蜡烛",
+            "image": "生日蛋糕/蜡烛/爱心蜡烛.jpg"
+        },
+        {
+            "id": 2,
+            "name": "五星蜡烛",
+            "description": "五星蜡烛",
+            "image": "生日蛋糕/蜡烛/五星蜡烛.jpg"
+        },
+        {
+            "id": 3,
+            "name": "数字蜡烛",
+            "description": "数字蜡烛",
+            "image": "生日蛋糕/蜡烛/数字蜡烛.jpg"
+        },
+        {
+            "id": 4,
+            "name": "曲线蜡烛",
+            "description": "曲线蜡烛",
+            "image": "生日蛋糕/蜡烛/曲线蜡烛.jpg"
+        },
+        {
+            "id": 5,
+            "name": "荷花音乐蜡烛",
+            "description": "荷花音乐蜡烛",
+            "image": "生日蛋糕/蜡烛/荷花音乐蜡烛.jpg"
+        },
+        {
+            "id": 6,
+            "name": "小熊蜡烛",
+            "description": "小熊蜡烛",
+            "image": "生日蛋糕/蜡烛/小熊蜡烛.jpg"
+        },
+        {
+            "id": 7,
+            "name": "红色草莓蜡烛",
+            "description": "红色草莓蜡烛",
+            "image": "生日蛋糕/蜡烛/红色草莓蜡烛.jpg"
+        },
+        {
+            "id": 8,
+            "name": "粉色草莓蜡烛",
+            "description": "粉色草莓蜡烛",
+            "image": "生日蛋糕/蜡烛/粉色草莓蜡烛.jpg"
+        }
+    ]
+}

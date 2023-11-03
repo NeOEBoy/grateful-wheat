@@ -1,5 +1,5 @@
 /*
-* 蛋糕图册链接
+* 弯麦●蛋糕 图册链接
 * http://gratefulwheat.ruyue.xyz/cakeMenu
 */
 
@@ -40,8 +40,6 @@ import { getWWWHost } from '../api/util';
 const { Panel } = Collapse;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
-
-const KCakeRoot = '/生日蛋糕';
 
 const orderInfoInit = () => {
     let init = {};
@@ -1059,7 +1057,6 @@ class cakeMenu extends React.Component {
     makeRenderItemFunc4Product = () => {
         this._renderItemFunc4Product = (product, index) => {
             // console.log('product=' + JSON.stringify(product))
-            let rank = index + 1;
             let theMinimumSize = {};
             let theMinimumPrice = 0;
             if (product?.specifications.length > 0) {
@@ -1075,44 +1072,22 @@ class cakeMenu extends React.Component {
             }
             return (
                 <List.Item>
-                    <div key={product?.name}>
-                        {
-                            (rank === 1 || rank === 2 || rank === 3) ? (
-                                <div style={{
-                                    borderRadius: 20,
-                                    position: 'absolute', zIndex: 10
-                                }}>
-                                    <Image style={{
-                                        width: 40, height: 40,
-                                    }} preview={false} src={`${KCakeRoot}/排行/排名${rank}.png`} />
-                                </div>
-                            ) : (<div></div>)
-                        }
-
+                    <div key={product?.name} style={{ background: '#E8EBE4', borderRadius: 8 }} onClick={() => {
+                        this.handleOrderNowClick(product);
+                    }}>
                         <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
-                            preview={{ mask: <div>点击放大</div> }} src={`${KCakeRoot}/${product?.name}-方图.jpg`} />
-                        <div>
-                            <div style={{ marginTop: 4 }}>
-                                <Image style={{ width: 30, height: 30 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
-                                <span style={{ fontSize: 16, fontWeight: 'bold' }}>{`《${product?.name}》`}</span>
-                                <span style={{
-                                    fontSize: 14, marginTop: 4,
-                                    float: 'right', paddingTop: 4, paddingBottom: 4,
-                                    paddingLeft: 8, paddingRight: 8, borderRadius: 10,
-                                    textAlign: 'center', backgroundColor: '#00A2A5', color: 'white',
-                                }} onClick={() => {
-                                    this.handleOrderNowClick(product);
-                                }}>
-                                    {`预定`}
-                                </span>
-                            </div>
-                            <div style={{ fontSize: 14 }}>
-                                <span>{product?.description}</span>
-                            </div>
-                            <div style={{ fontSize: 12 }}>
-                                <span>{`分类标签：${product?.categoryId}`}</span>
+                            preview={false} src={`${product?.images?.[0]}`} />
+                        <div style={{ paddingLeft: 6, paddingRight: 4, paddingTop: 4, paddingBottom: 4 }}>
+                            <div style={{ fontSize: 16, fontWeight: 'bold' }}>
+                                {`${product?.name}`}
                             </div>
                             <div style={{ fontSize: 13 }}>
+                                {product?.description}
+                            </div>
+                            <div style={{ fontSize: 12 }}>
+                                {`分类：${product?.category?.id}-${product?.category?.name}`}
+                            </div>
+                            <div style={{ fontSize: 14 }}>
                                 <InfoCircleOutlined style={{ color: '#00A2A5' }} />
                                 <span>{` ${theMinimumSize.number}${theMinimumSize.unit} `}</span>
                                 <span>起</span>
@@ -1239,11 +1214,8 @@ class cakeMenu extends React.Component {
                                 {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
-                                <Image style={{ width: 120, height: 120, border: '1px dotted #00A2A5', borderRadius: 8 }}
+                                <Image preview={false} style={{ width: '88%', border: '1px dotted #00A2A5', borderRadius: 8 }}
                                     src={cakeOrderInfo.product?.images?.[0]} />
-                                <Image style={{
-                                    position: 'absolute', width: 54, height: 54, marginLeft: 4, borderRadius: 4
-                                }} src={`${KCakeRoot}/尺寸/蛋糕尺寸展示板.jpg`} />
                             </div>
                             <QueueAnim type={['bottom', 'top']}>
                                 <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
@@ -1771,7 +1743,6 @@ class cakeMenu extends React.Component {
                                             <div>
                                                 <div style={{ position: 'relative' }}>
                                                     <Image preview={false} src={cakeOrderInfo.product?.images?.[0]} />
-                                                    <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                                 </div>
                                                 <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
                                             </div>
@@ -1981,7 +1952,8 @@ class cakeMenu extends React.Component {
                                                             <div style={{ color: 'white', fontSize: 20 }}>
                                                                 <div style={{ marginLeft: 12 }}>
                                                                     <div>
-                                                                        {`${category.id}：${category.name}`}
+                                                                        <span>{`${category.id}：${category.name}`}</span>
+                                                                        <span style={{ fontSize: 16 }}>{`-${category.products.length}`}</span>
                                                                     </div>
                                                                     <div style={{ fontSize: 12, color: 'whitesmoke' }}>
                                                                         {`${category.description}`}
@@ -1994,9 +1966,9 @@ class cakeMenu extends React.Component {
                                                                             let lastIndex = category.images.length - 1;
                                                                             return (
                                                                                 <span key={index}>
-                                                                                    <Image style={{ marginLeft: 6, width: 44, height: 44, borderRadius: 10 }}
+                                                                                    <Image style={{ marginLeft: 6, width: 64, height: 64, borderRadius: 6 }}
                                                                                         preview={false} src={image} />
-                                                                                    {index === lastIndex ? <span style={{ marginLeft: 6 }}>......</span> : <span></span>}
+                                                                                    {index === lastIndex ? <span style={{ fontSize: 16, marginLeft: 6 }}>{category.opened ? '' : '查看更多'}</span> : <span></span>}
                                                                                 </span>
                                                                             );
                                                                         })
@@ -2005,14 +1977,8 @@ class cakeMenu extends React.Component {
                                                             </div>
                                                         )
                                                     }
-                                                    style={{ backgroundColor: '#00A2A5', borderRadius: 40 }}
-                                                    key={category.id}
-                                                    extra={
-                                                        <span style={{ fontSize: 16, color: 'whitesmoke' }}>
-                                                            {category.opened ? '点击收起' : '点击查看更多'}
-                                                        </span>
-                                                    }>
-
+                                                    style={{ backgroundColor: '#00A2A5', borderRadius: 24 }}
+                                                    key={category.id}>
                                                     <List style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
                                                         grid={{ gutter: 4, column: this._columnNumber }}
                                                         dataSource={category.products}

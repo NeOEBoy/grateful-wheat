@@ -583,42 +583,116 @@ const findCakeOrder = async (_id) => {
 }
 
 const allCakeInfos = async () => {
-  let allCakeInfosUrl = '/生日蛋糕/1a-蛋糕信息.json';
-  allCakeInfosUrl += '?random=';
-  allCakeInfosUrl += Math.floor(Math.random() * 1000);
+  const allCakeInfosResponse = await fetch(
+    `/生日蛋糕/图册/1a-蛋糕信息.json?random=${Math.floor(Math.random() * 1000)}`);
+  const cakeInfos = await allCakeInfosResponse.json();
 
-  const allCakeInfosResponse = await fetch(allCakeInfosUrl);
-  const allCakeInfosResponseJson = await allCakeInfosResponse.json();
+  const weixinInfosResponse = await fetch(
+    `/生日蛋糕/微信/weixin.json?random=${Math.floor(Math.random() * 1000)}`);
+  const weixinInfos = await weixinInfosResponse.json();
+  cakeInfos.weixin = weixinInfos.weixin;
 
-  let cakeInfos = allCakeInfosResponseJson;
+  const creamInfosResponse = await fetch(
+    `/生日蛋糕/奶油/cream.json?random=${Math.floor(Math.random() * 1000)}`);
+  const creamInfos = await creamInfosResponse.json();
+  cakeInfos.creams = creamInfos.creams;
 
-  for (let i = 0; i < cakeInfos.products.length; ++i) {
-    let product = cakeInfos.products[i];
-    for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
-      let productName = cakeInfos.recommend.productNames[j];
-      if (productName === product.name) {
-        /// 补上，是否需要夹心，默认需要
-        if (product.fillingRequired === undefined) {
-          product.fillingRequired = true;
-        }
-        product.sortId = j;
-        cakeInfos.recommend.products.push(product);
-        break;
-      }
-    }
+  const sizeInfosResponse = await fetch(
+    `/生日蛋糕/尺寸/size.json?random=${Math.floor(Math.random() * 1000)}`);
+  const sizeInfos = await sizeInfosResponse.json();
+  cakeInfos.sizes = sizeInfos.sizes;
 
-    for (let k = 0; k < cakeInfos.categorys.length; ++k) {
-      let category = cakeInfos.categorys[k];
-      if (product.categoryId === category.id) {
-        category.products.push(product);
-        break;
-      }
-    }
+  const heightInfosResponse = await fetch(
+    `/生日蛋糕/高度/height.json?random=${Math.floor(Math.random() * 1000)}`);
+  const heightInfos = await heightInfosResponse.json();
+  cakeInfos.heights = heightInfos.heights;
+  cakeInfos.heightsDescription = heightInfos.heightsDescription;
+
+  const fillingsResponse = await fetch(
+    `/生日蛋糕/夹心/filling.json?random=${Math.floor(Math.random() * 1000)}`);
+  const fillingInfos = await fillingsResponse.json();
+  cakeInfos.fillings = fillingInfos.fillings;
+
+  const candlesResponse = await fetch(
+    `/生日蛋糕/蜡烛/candle.json?random=${Math.floor(Math.random() * 1000)}`);
+  const candleInfos = await candlesResponse.json();
+  cakeInfos.candles = candleInfos.candles;
+
+  const kindlingResponse = await fetch(
+    `/生日蛋糕/点火器/kindling.json?random=${Math.floor(Math.random() * 1000)}`);
+  const kindlingInfos = await kindlingResponse.json();
+  cakeInfos.kindlings = kindlingInfos.kindlings;
+
+  const hatResponse = await fetch(
+    `/生日蛋糕/帽子/hat.json?random=${Math.floor(Math.random() * 1000)}`);
+  const hatInfos = await hatResponse.json();
+  cakeInfos.hats = hatInfos.hats;
+
+  const pickUpTypeResponse = await fetch(
+    `/生日蛋糕/提货/pickUpType.json?random=${Math.floor(Math.random() * 1000)}`);
+  const pickUpTypeInfos = await pickUpTypeResponse.json();
+  cakeInfos.pickUpTypes = pickUpTypeInfos.pickUpTypes;
+
+  const shopResponse = await fetch(
+    `/生日蛋糕/门店/shop.json?random=${Math.floor(Math.random() * 1000)}`);
+  const shopInfos = await shopResponse.json();
+  cakeInfos.shops = shopInfos.shops;
+  cakeInfos.shopsDescription = shopInfos.shopsDescription;
+
+  const privateResponse = await fetch(
+    `/生日蛋糕/私人定制/private.json?random=${Math.floor(Math.random() * 1000)}`);
+  const privateInfos = await privateResponse.json();
+  cakeInfos.private = privateInfos.private;
+
+
+  console.log('xxx = ' + JSON.stringify(cakeInfos.private));
+
+  cakeInfos.products = [];
+
+  for (let k = 0; k < cakeInfos.categorys.length; ++k) {
+    let category = cakeInfos.categorys[k];
+    let idAndName = category.id + '-' + category.name;
+
+    let productsUrl = `/生日蛋糕/图册/${idAndName}/0_products.json`;
+    productsUrl += '?random=';
+    productsUrl += Math.floor(Math.random() * 1000);
+    const productsResponse = await fetch(productsUrl);
+    const products = await productsResponse.json();
+
+    products.products.forEach(product => {
+      category.products.push(product);
+      cakeInfos.products.push(product);
+    });
   }
 
-  /// 根据sortId排序，sortId是位置索引
-  cakeInfos.recommend.products =
-    cakeInfos.recommend.products.sort((a, b) => a.sortId - b.sortId);
+
+  // for (let i = 0; i < cakeInfos.products.length; ++i) {
+  //   let product = cakeInfos.products[i];
+  //   for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
+  //     let productName = cakeInfos.recommend.productNames[j];
+  //     if (productName === product.name) {
+  //       /// 补上，是否需要夹心，默认需要
+  //       if (product.fillingRequired === undefined) {
+  //         product.fillingRequired = true;
+  //       }
+  //       product.sortId = j;
+  //       cakeInfos.recommend.products.push(product);
+  //       break;
+  //     }
+  //   }
+
+  //   for (let k = 0; k < cakeInfos.categorys.length; ++k) {
+  //     let category = cakeInfos.categorys[k];
+  //     if (product.categoryId === category.id) {
+  //       category.products.push(product);
+  //       break;
+  //     }
+  //   }
+  // }
+
+  // /// 根据sortId排序，sortId是位置索引
+  // cakeInfos.recommend.products =
+  //   cakeInfos.recommend.products.sort((a, b) => a.sortId - b.sortId);
 
   return cakeInfos;
 }

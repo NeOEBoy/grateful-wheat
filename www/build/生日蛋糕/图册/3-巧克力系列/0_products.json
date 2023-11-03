@@ -1,0 +1,490 @@
+﻿{
+    "products": [
+        {
+            "name": "奥利奥巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/奥利奥巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "方块巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/方块巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "小熊巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/小熊巧克力_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "黑森林巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/黑森林巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "简约巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/简约巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "恐龙巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/恐龙巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "蓝莓巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/蓝莓巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "芒果蓝莓巧克力",
+            "description": "巧克力，甜蜜的感觉",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/芒果蓝莓巧克力.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "小时光",
+            "description": "夏后晴_logo",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/小时光_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 258
+                }
+            ]
+        }
+    ]
+}

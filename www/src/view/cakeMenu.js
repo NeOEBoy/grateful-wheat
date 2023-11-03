@@ -1218,7 +1218,7 @@ class cakeMenu extends React.Component {
                                 {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
-                                <Image preview={false} style={{ width: '88%', border: '1px dotted #00A2A5', borderRadius: 8 }}
+                                <Image preview={true} style={{ width: '99%', border: '1px dotted #00A2A5', borderRadius: 8 }}
                                     src={cakeOrderInfo.product?.images?.[0]} />
                             </div>
                             <QueueAnim type={['bottom', 'top']}>

@@ -2,7 +2,7 @@
     "products": [
         {
             "name": "奥利奥巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -56,7 +56,7 @@
         },
         {
             "name": "方块巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -110,7 +110,7 @@
         },
         {
             "name": "小熊巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -163,62 +163,8 @@
             ]
         },
         {
-            "name": "黑森林巧克力",
-            "description": "巧克力，甜蜜的感觉",
-            "category": {
-                "id": 3,
-                "name": "巧克力系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/3-巧克力系列/黑森林巧克力.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 168
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 208
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 248
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 168
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 208
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 248
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 298
-                }
-            ]
-        },
-        {
             "name": "简约巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -272,7 +218,7 @@
         },
         {
             "name": "恐龙巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力制作的恐龙，可以吃的恐龙，你们喜欢吗~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -326,7 +272,7 @@
         },
         {
             "name": "蓝莓巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -380,7 +326,7 @@
         },
         {
             "name": "芒果蓝莓巧克力",
-            "description": "巧克力，甜蜜的感觉",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"
@@ -434,7 +380,7 @@
         },
         {
             "name": "小时光",
-            "description": "夏后晴_logo",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
                 "id": 3,
                 "name": "巧克力系列"

@@ -584,7 +584,7 @@ const findCakeOrder = async (_id) => {
 
 const allCakeInfos = async () => {
   const allCakeInfosResponse = await fetch(
-    `/生日蛋糕/图册/1a-蛋糕信息.json?random=${Math.floor(Math.random() * 1000)}`);
+    `/生日蛋糕/图册/0-蛋糕信息.json?random=${Math.floor(Math.random() * 1000)}`);
   const cakeInfos = await allCakeInfosResponse.json();
 
   const weixinInfosResponse = await fetch(

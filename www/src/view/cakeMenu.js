@@ -1916,7 +1916,7 @@ class cakeMenu extends React.Component {
                                         });
                                     }}>
                                         <span>私人订制蛋糕</span>
-                                        <span style={{ color: 'whitesmoke', fontSize: 14, marginLeft: 8 }}>选择蛋糕照片</span>
+                                        <span style={{ color: 'whitesmoke', fontSize: 13, marginLeft: 8 }}>点击选择蛋糕照片</span>
                                     </div>
                                     {/* 推荐区域 */}
                                     <div style={{
@@ -1954,11 +1954,11 @@ class cakeMenu extends React.Component {
                                                 return (<Panel
                                                     header={
                                                         (
-                                                            <div style={{ color: 'white', fontSize: 20 }}>
-                                                                <div style={{ marginLeft: 12 }}>
+                                                            <div style={{ marginLeft: 0, marginRight: 4, color: 'white', fontSize: 20 }}>
+                                                                <div>
                                                                     <div>
                                                                         <span>{`${category.id}：${category.name}`}</span>
-                                                                        <span style={{ fontSize: 16 }}>{`-${category.products.length}`}</span>
+                                                                        <span style={{ fontSize: 14 }}>{`-${category.products.length}`}</span>
                                                                     </div>
                                                                     <div style={{ fontSize: 12, color: 'whitesmoke' }}>
                                                                         {`${category.description}`}
@@ -1968,16 +1968,15 @@ class cakeMenu extends React.Component {
                                                                     {
                                                                         category.images.map((image) => {
                                                                             let index = category.images.indexOf(image);
-                                                                            let lastIndex = category.images.length - 1;
                                                                             return (
                                                                                 <span key={index}>
-                                                                                    <Image style={{ marginLeft: 6, width: 64, height: 64, borderRadius: 6 }}
+                                                                                    <Image style={{ marginRight: 6, width: 64, height: 64, borderRadius: 6 }}
                                                                                         preview={false} src={image} />
-                                                                                    {index === lastIndex ? <span style={{ fontSize: 16, marginLeft: 6 }}>{category.opened ? '' : '查看更多'}</span> : <span></span>}
                                                                                 </span>
                                                                             );
                                                                         })
                                                                     }
+                                                                    <div style={{ fontSize: 16, marginLeft: 4, marginTop: 4 }}>{category.opened ? '' : '查看更多......'}</div>
                                                                 </div>
                                                             </div>
                                                         )

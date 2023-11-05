@@ -348,6 +348,11 @@ class cakeMenu extends React.Component {
             orderInfoModalVisiable: true,
             cakeOrderInfo: orderInfoInit()
         }, () => {
+            /// 压入当前页面，拦截后退按键事件
+            window.history.pushState(null, '', document.URL);
+            window.onpopstate = () => {
+                this.handleOrderCakeInfoModalBack();
+            }
             setTimeout(() => {
                 const { cakeOrderInfo } = this.state;
                 cakeOrderInfo.product = product;
@@ -579,6 +584,11 @@ class cakeMenu extends React.Component {
             orderingTime: moment().format('YYYY.MM.DD ddd a HH:mm'),
             image4QRCode: ''
         }, () => {
+            /// 压入当前页面，拦截后退按键事件
+            window.history.pushState(null, '', document.URL);
+            window.onpopstate = () => {
+                this.handleOrderImageModalBack();
+            }
             setTimeout(async () => {
                 /// 保存蛋糕订单，返回_id
                 let createResult = { _id: '' };
@@ -606,6 +616,7 @@ class cakeMenu extends React.Component {
                         cakeOrderInfo.delivery.phoneNumber,
                         cakeOrderInfo.other.remarks);
                     // console.log(createResult);
+                    if (!this.state.orderImageCapturing) return;
                     if (createResult.errCode !== 0) {
                         message.error('生成蛋糕订购单不成功，请检查网络');
                         this.setState({ orderImageCapturing: false });
@@ -629,10 +640,11 @@ class cakeMenu extends React.Component {
                     }
                 }
                 let qrCode = await QRCode.toDataURL(cakeOrderUrl, qrOpts);
-
+                if (!this.state.orderImageCapturing) return;
                 this.setState({ image4QRCode: qrCode },
                     async () => {
                         let canvas = await html2Canvas(this._theDiv4Capture);
+                        if (!this.state.orderImageCapturing) return;
                         let imageSrc = canvas.toDataURL('image/png');
                         this.setState({
                             orderImageSrc: imageSrc,
@@ -659,8 +671,52 @@ class cakeMenu extends React.Component {
     }
 
     handleOrderCakeInfoModalCancel = () => {
+        console.log('handleOrderCakeInfoModalCancel begin');
+
         this.setState({ orderInfoModalVisiable: false });
         document.documentElement.style.overflow = 'visible';
+
+        /// 后退且不再拦截后退按键事件
+        window.history.back();
+        window.onpopstate = null;
+    }
+
+    handleOrderCakeInfoModalBack = () => {
+        console.log('handleOrderCakeInfoModalBack begin');
+
+        this.setState({ orderInfoModalVisiable: false });
+        document.documentElement.style.overflow = 'visible';
+        /// 不再拦截后退按键事件
+        window.onpopstate = null;
+    }
+
+    handleOrderImageModalCancel = () => {
+        console.log('handleOrderImageModalCancel begin');
+
+        this.setState({ orderImageModalVisiable: false });
+        document.documentElement.style.overflow = 'visible';
+        /// 后退且不再拦截后退按键事件
+        this._programBack = true;
+        window.history.back();
+        window.onpopstate = () => {
+            if (this._programBack) {
+                this._programBack = false;
+                return;
+            }
+
+            this.handleOrderCakeInfoModalBack();
+        };
+    }
+
+    handleOrderImageModalBack = () => {
+        console.log('handleOrderImageModalBack begin');
+
+        this.setState({ orderImageModalVisiable: false, orderImageCapturing: false });
+        document.documentElement.style.overflow = 'visible';
+        /// 不再拦截后退按键事件
+        window.onpopstate = () => {
+            this.handleOrderCakeInfoModalBack();
+        };
     }
 
     handleCreamChange = e => {
@@ -1654,8 +1710,8 @@ class cakeMenu extends React.Component {
                                 position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
                             }}>
                                 <Space style={{ marginTop: 16, marginBottom: 16 }}>
-                                    <Button type='default' onClick={this.handleOrderCakeInfoModalCancel}>取消</Button>
-                                    <Button type='primary' onClick={this.handleOrderCakeInfoModalOk}>生成蛋糕订购单</Button>
+                                    <Button type='default' onClick={() => this.handleOrderCakeInfoModalCancel()}>取消</Button>
+                                    <Button type='primary' onClick={() => this.handleOrderCakeInfoModalOk()}>生成蛋糕订购单</Button>
                                 </Space>
                             </div>
                         </div>) : (<div></div>)
@@ -1685,10 +1741,7 @@ class cakeMenu extends React.Component {
 
                                 <div style={{ height: 80, textAlign: 'center' }}>
                                     <Space style={{ marginTop: 24 }}>
-                                        <Button key='back' type='primary' danger onClick={() => {
-                                            this.setState({ orderImageModalVisiable: false });
-                                            document.documentElement.style.overflow = 'visible';
-                                        }}>X</Button>
+                                        <Button key='back' type='primary' danger onClick={() => this.handleOrderImageModalCancel()}>X</Button>
                                     </Space>
                                 </div>
                             </div>

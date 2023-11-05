@@ -7,6 +7,7 @@ const getApiHost = () => {
   let host;
   if (process.env.NODE_ENV === 'development') {
     host = 'http://localhost:9001';
+    // host = 'http://192.168.205.133:9001';
   } else {
     let rule = /^(([-\u4E00-\u9FA5a-z0-9]{1,63})\.)+([\u4E00-\u9FA5a-z]{2,63})\.?$/
     if (rule.test(document.domain)) {

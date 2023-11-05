@@ -26,7 +26,6 @@ import BuildingMap from "./view/buildingMap";
 import Building from "./view/building";
 // import MapContainer from "./view/MapContainer";
 import BirthdayCakeOrder from "./view/birthdayCakeOrder";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -39,6 +38,10 @@ import {
 } from 'antd';
 // 在需要用到的 组件文件中引入中文语言包
 import zhCN from 'antd/es/locale/zh_CN';
+import VConsole from 'vconsole';
+if (process.env.NODE_ENV === 'development') {
+  new VConsole();
+}
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

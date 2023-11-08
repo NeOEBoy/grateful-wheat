@@ -9,7 +9,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/3-巧克力系列/奥利奥巧克力.jpg"
+                "/生日蛋糕/图册/3-巧克力系列/奥利奥巧克力_logo.jpg"
             ],
             "specifications": [
                 {
@@ -63,7 +63,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/3-巧克力系列/方块巧克力.jpg"
+                "/生日蛋糕/图册/3-巧克力系列/方块巧克力_logo.jpg"
             ],
             "specifications": [
                 {
@@ -171,7 +171,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/3-巧克力系列/简约巧克力.jpg"
+                "/生日蛋糕/图册/3-巧克力系列/简约巧克力_logo.jpg"
             ],
             "specifications": [
                 {
@@ -217,60 +217,6 @@
             ]
         },
         {
-            "name": "恐龙巧克力",
-            "description": "巧克力制作的恐龙，可以吃的恐龙，你们喜欢吗~",
-            "category": {
-                "id": 3,
-                "name": "巧克力系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/3-巧克力系列/恐龙巧克力.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
             "name": "蓝莓巧克力",
             "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {
@@ -279,7 +225,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/3-巧克力系列/蓝莓巧克力.jpg"
+                "/生日蛋糕/图册/3-巧克力系列/蓝莓巧克力_logo.jpg"
             ],
             "specifications": [
                 {
@@ -333,7 +279,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/3-巧克力系列/芒果蓝莓巧克力.jpg"
+                "/生日蛋糕/图册/3-巧克力系列/芒果蓝莓巧克力_logo.jpg"
             ],
             "specifications": [
                 {
@@ -375,6 +321,114 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 288
+                }
+            ]
+        },
+        {
+            "name": "恐龙巧克力",
+            "description": "巧克力制作的恐龙，可以吃的恐龙，你们喜欢吗~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/恐龙巧克力_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "人鱼巧克力",
+            "description": "巧克力制作的美人鱼，可以吃的美人鱼，你们喜欢吗~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/人鱼巧克力_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },

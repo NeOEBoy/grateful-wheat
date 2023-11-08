@@ -3,6 +3,60 @@
         "name": "2023年最受欢迎生日蛋糕",
         "products": [
             {
+                "name": "香槟玫瑰之恋",
+                "description": "女神生日快乐，送你一朵玫瑰，愿你我的情谊用长久",
+                "category": {
+                    "id": 4,
+                    "name": "鲜花花卉系列"
+                },
+                "fillingRequired": true,
+                "images": [
+                    "/生日蛋糕/图册/4-鲜花花卉系列/香槟玫瑰之恋_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 158
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 198
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 238
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 158
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 198
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 238
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 288
+                    }
+                ]
+            },
+            {
                 "name": "六角多拼皇冠",
                 "description": "多种水果拼盘而成，五颜六色的水果盛宴，甜甜蜜蜜的感觉~",
                 "category": {
@@ -66,60 +120,6 @@
                 "fillingRequired": true,
                 "images": [
                     "/生日蛋糕/图册/3-巧克力系列/小熊巧克力_logo.jpg"
-                ],
-                "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 2,
-                        "price": 128
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 288
-                    }
-                ]
-            },
-            {
-                "name": "香槟玫瑰之恋",
-                "description": "女神生日快乐，送你一朵玫瑰，愿你我的情谊用长久",
-                "category": {
-                    "id": 4,
-                    "name": "鲜花花卉系列"
-                },
-                "fillingRequired": true,
-                "images": [
-                    "/生日蛋糕/图册/4-鲜花花卉系列/香槟玫瑰之恋.jpg"
                 ],
                 "specifications": [
                     {

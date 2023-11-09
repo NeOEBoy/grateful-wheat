@@ -1,6 +1,816 @@
 {
     "products": [
         {
+            "name": "蛋仔派对",
+            "description": "你好，欢迎来到蛋仔岛，参加我的派对，让我们一起战斗吧~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/蛋仔派对_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "加油少年",
+            "description": "少年智则国智，少年富则国富，少年强则国强，少年独立则国独立~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/加油少年_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "火影忍者",
+            "description": "让我们一起冒险，维护村庄的和平，保护我们需要保护的人吧~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/火影忍者_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "特种兵",
+            "description": "以铁的意志，钢的纪律，火一样的热情，守护着我们，他们是特种兵",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/特种兵_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "无篮球不兄弟",
+            "description": "篮球让我感到无比的力量和决心，篮球无界，热血青春",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/无篮球不兄弟_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "无足球不兄弟",
+            "description": "足球，踢的是希望，跑的是健康，滚动的是财富，飞扬的是梦想，射入的是幸福~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/无足球不兄弟_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "晚上吃鸡大吉大利",
+            "description": "吃鸡这事只能靠队友，我能做的就是躺好等着吃~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/晚上吃鸡大吉大利_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "汽车总动员",
+            "description": "我想让你去向世界证明一些我已经知道的事情，那就是，你才是世界上最棒的赛车~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/汽车总动员_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "海绵宝宝",
+            "description": "你在我身边的时候，我从来没有羡慕过任何人",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/海绵宝宝_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "消防员",
+            "description": "世界上最帅的逆行，他们总是在教别人往外跑，可是自己却往里进，加油消防员~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/消防员_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "奥特曼加油",
+            "description": "奥特曼加油",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼加油_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "奥特曼打怪兽",
+            "description": "奥特曼打怪兽",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼打怪兽_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "奥特曼祝福",
+            "description": "奥特曼祝福",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼祝福_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "奥特曼联盟",
+            "description": "奥特曼联盟",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼联盟_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "奥特曼集合",
+            "description": "奥特曼集合",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼集合_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "ins发财牛",
             "description": "ins发财牛",
             "category": {
@@ -429,60 +1239,6 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
-                }
-            ]
-        },
-        {
-            "name": "加油少年",
-            "description": "加油少年",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/加油少年_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
                 }
             ]
         },
@@ -928,276 +1684,6 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/6-男孩男生系列/太空人_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "奥特曼加油",
-            "description": "奥特曼加油",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼加油_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "奥特曼打怪兽",
-            "description": "奥特曼打怪兽",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼打怪兽_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "奥特曼祝福",
-            "description": "奥特曼祝福",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼祝福_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "奥特曼联盟",
-            "description": "奥特曼联盟",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼联盟_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "奥特曼集合",
-            "description": "奥特曼集合",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼集合_20.jpg"
             ],
             "specifications": [
                 {
@@ -2161,168 +2647,6 @@
             ]
         },
         {
-            "name": "无篮球不兄弟",
-            "description": "无篮球不兄弟",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/无篮球不兄弟_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "无足球不兄弟",
-            "description": "无足球不兄弟",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/无足球不兄弟_30.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
-            "name": "晚上吃鸡大吉大利",
-            "description": "晚上吃鸡大吉大利",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/晚上吃鸡大吉大利_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
             "name": "汤姆和杰瑞",
             "description": "汤姆和杰瑞",
             "category": {
@@ -2427,276 +2751,6 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
-                }
-            ]
-        },
-        {
-            "name": "汽车总动员",
-            "description": "汽车总动员",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/汽车总动员_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "海绵宝宝",
-            "description": "海绵宝宝",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/海绵宝宝_30.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
-            "name": "消防员",
-            "description": "消防员",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/消防员_30.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
-            "name": "火影忍者",
-            "description": "火影忍者",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/火影忍者_30_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
-            "name": "特种兵",
-            "description": "特种兵",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/特种兵_30.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
                 }
             ]
         },
@@ -3142,60 +3196,6 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/6-男孩男生系列/虎头虎脑_30.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
-            "name": "蛋仔派对",
-            "description": "蛋仔派对",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/蛋仔派对_30.jpg"
             ],
             "specifications": [
                 {

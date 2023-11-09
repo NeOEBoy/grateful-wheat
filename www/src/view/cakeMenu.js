@@ -1921,7 +1921,7 @@ class cakeMenu extends React.Component {
                     {/* 搜索框 */}
                     <div style={{ padding: 12 }}>
                         <Input
-                            placeholder="请输入蛋糕名称"
+                            placeholder="输入关键词搜索蛋糕"
                             allowClear
                             size='middle'
                             value={searchName}

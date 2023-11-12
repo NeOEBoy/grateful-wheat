@@ -57,6 +57,60 @@
                 ]
             },
             {
+                "name": "火影忍者",
+                "description": "让我们一起冒险，维护村庄的和平，保护我们需要保护的人吧~",
+                "category": {
+                    "id": "6",
+                    "name": "男孩男生系列"
+                },
+                "fillingRequired": true,
+                "images": [
+                    "/生日蛋糕/图册/6-男孩男生系列/火影忍者_30_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 158
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 198
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 238
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 158
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 198
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 238
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 288
+                    }
+                ]
+            },
+            {
                 "name": "六角多拼皇冠",
                 "description": "多种水果拼盘而成，五颜六色的水果盛宴，甜甜蜜蜜的感觉~",
                 "category": {
@@ -111,177 +165,123 @@
                 ]
             },
             {
-                "name": "小熊巧克力",
-                "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
-                "category": {
-                    "id": 3,
-                    "name": "巧克力系列"
-                },
-                "fillingRequired": true,
-                "images": [
-                    "/生日蛋糕/图册/3-巧克力系列/小熊巧克力_logo.jpg"
-                ],
-                "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 2,
-                        "price": 128
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 288
-                    }
-                ]
-            },
-            {
-                "name": "罗汉小猪",
-                "description": "罗汉小猪",
-                "category": {
-                    "id": 5,
-                    "name": "女孩女生系列"
-                },
-                "fillingRequired": true,
-                "images": [
-                    "/生日蛋糕/图册/5-女孩女生系列/罗汉小猪_logo.jpg"
-                ],
-                "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 2,
-                        "price": 128
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 288
-                    }
-                ]
-            },
-            {
-                "name": "火影忍者",
-                "description": "火影忍者",
+                "name": "足球之夜",
+                "description": "足球之夜",
                 "category": {
                     "id": "6",
                     "name": "男孩男生系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/6-男孩男生系列/火影忍者_30_logo.jpg"
+                    "/生日蛋糕/图册/6-男孩男生系列/足球之夜_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
                         "sizeId": 2,
-                        "price": 128
+                        "price": 118
                     },
                     {
                         "creamId": 1,
                         "sizeId": 3,
-                        "price": 158
+                        "price": 148
                     },
                     {
                         "creamId": 1,
                         "sizeId": 4,
-                        "price": 198
+                        "price": 188
                     },
                     {
                         "creamId": 1,
                         "sizeId": 5,
-                        "price": 238
+                        "price": 228
                     },
                     {
                         "creamId": 2,
                         "sizeId": 2,
-                        "price": 158
+                        "price": 148
                     },
                     {
                         "creamId": 2,
                         "sizeId": 3,
-                        "price": 198
+                        "price": 188
                     },
                     {
                         "creamId": 2,
                         "sizeId": 4,
-                        "price": 238
+                        "price": 228
                     },
                     {
                         "creamId": 2,
                         "sizeId": 5,
-                        "price": 288
+                        "price": 278
+                    }
+                ]
+            },
+            {
+                "name": "风车宝宝",
+                "description": "风车宝宝",
+                "category": {
+                    "id": "6",
+                    "name": "男孩男生系列"
+                },
+                "fillingRequired": true,
+                "images": [
+                    "/生日蛋糕/图册/6-男孩男生系列/风车宝宝_20_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             },
             {
                 "name": "无足球不兄弟",
-                "description": "无足球不兄弟",
+                "description": "足球，踢的是希望，跑的是健康，滚动的是财富，飞扬的是梦想，射入的是幸福~",
                 "category": {
                     "id": "6",
                     "name": "男孩男生系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/6-男孩男生系列/无足球不兄弟_30.jpg"
+                    "/生日蛋糕/图册/6-男孩男生系列/无足球不兄弟_30_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -489,15 +489,15 @@
                 ]
             },
             {
-                "name": "二次元粉红爱心",
-                "description": "二次元粉红爱心",
+                "name": "二次元蓝",
+                "description": "二次元蓝",
                 "category": {
                     "id": "19",
                     "name": "二次元系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/19-二次元系列/二次元粉红爱心_20.jpg"
+                    "/生日蛋糕/图册/19-二次元系列/二次元蓝_20.jpg"
                 ],
                 "specifications": [
                     {

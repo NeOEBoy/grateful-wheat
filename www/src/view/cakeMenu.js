@@ -1697,7 +1697,7 @@ class cakeMenu extends React.Component {
                                         <Input.Group>
                                             <span style={{ fontWeight: 'bold' }}>备注：</span>
                                             <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={5}
-                                                placeholder='有特殊要求，请备注在这里' value={cakeOrderInfo.other.remarks}
+                                                placeholder={`1：如果蛋糕上有文字或者数字，请务必备注修改；${'\n'}2：有其它特殊要求，请务必备注说明；`} value={cakeOrderInfo.other.remarks}
                                                 onChange={this.handleRemarksChange} />
                                         </Input.Group>
                                     </div>

@@ -4,7 +4,7 @@
         "products": [
             {
                 "name": "香槟玫瑰之恋",
-                "description": "女神生日快乐，送你一朵玫瑰，愿你我的情谊用长久",
+                "description": "女神生日快乐，送你一朵玫瑰，愿你我的情谊更长久",
                 "category": {
                     "id": 4,
                     "name": "鲜花花卉系列"
@@ -124,11 +124,6 @@
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 2,
-                        "price": 118
-                    },
-                    {
-                        "creamId": 1,
                         "sizeId": 3,
                         "price": 148
                     },
@@ -141,11 +136,6 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 148
                     },
                     {
                         "creamId": 2,
@@ -166,7 +156,7 @@
             },
             {
                 "name": "足球之夜",
-                "description": "足球之夜",
+                "description": "绿茵，狂欢之夜！感受足球的魅力，共度热血时光！",
                 "category": {
                     "id": "6",
                     "name": "男孩男生系列"
@@ -220,7 +210,7 @@
             },
             {
                 "name": "风车宝宝",
-                "description": "风车宝宝",
+                "description": "旋转的风车，快乐的童年！让孩子们在阳光下享受童年的快乐~",
                 "category": {
                     "id": "6",
                     "name": "男孩男生系列"
@@ -328,7 +318,7 @@
             },
             {
                 "name": "渐变圆形",
-                "description": "渐变圆形",
+                "description": "一朵花，一生情，愿幸福与你相伴，祝福你，MyLover~",
                 "category": {
                     "id": "7",
                     "name": "女神女王系列"
@@ -629,7 +619,7 @@
             "images": [
                 "/生日蛋糕/图册/9-祝寿系列/大寿吉祥_30.jpg",
                 "/生日蛋糕/图册/9-祝寿系列/爹爹请用茶_30.jpg",
-                "/生日蛋糕/图册/9-祝寿系列/格格驾到_20.jpg"
+                "/生日蛋糕/图册/9-祝寿系列/健康长寿_30.jpg"
             ],
             "products": []
         },

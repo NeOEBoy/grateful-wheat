@@ -68,11 +68,6 @@
             "specifications": [
                 {
                     "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
                     "sizeId": 3,
                     "price": 148
                 },
@@ -85,11 +80,6 @@
                     "creamId": 1,
                     "sizeId": 5,
                     "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
                 },
                 {
                     "creamId": 2,

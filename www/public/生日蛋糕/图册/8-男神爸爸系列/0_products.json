@@ -595,15 +595,69 @@
             ]
         },
         {
-            "name": "好好先生",
-            "description": "好好先生",
+            "name": "吴先生致好",
+            "description": "吴先生致好",
             "category": {
                 "id": "8",
                 "name": "男神爸爸系列"
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/8-男神爸爸系列/好好先生_10.jpg"
+                "/生日蛋糕/图册/8-男神爸爸系列/吴先生致好_10.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "张同学祝好",
+            "description": "张同学祝好",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/张同学祝好_10.jpg"
             ],
             "specifications": [
                 {
@@ -1090,60 +1144,6 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/8-男神爸爸系列/最棒爸爸_10.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 108
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 178
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 218
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 178
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 218
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 268
-                }
-            ]
-        },
-        {
-            "name": "爸爸生日快乐",
-            "description": "爸爸生日快乐",
-            "category": {
-                "id": "8",
-                "name": "男神爸爸系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/8-男神爸爸系列/爸爸生日快乐_10.jpg"
             ],
             "specifications": [
                 {

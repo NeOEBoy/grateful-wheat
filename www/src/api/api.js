@@ -514,6 +514,7 @@ const geocode = async (address, city) => {
 const createCakeOrder = async (
   name,
   description,
+  images,
   cream,
   size,
   sizeExtra,
@@ -539,6 +540,7 @@ const createCakeOrder = async (
   let creatParamObj = {
     name: name,
     description: description,
+    images:images,
     cream: cream,
     size: size,
     sizeExtra: sizeExtra,

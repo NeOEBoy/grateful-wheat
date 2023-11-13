@@ -596,6 +596,7 @@ class cakeMenu extends React.Component {
                     createResult = await createCakeOrder(
                         cakeOrderInfo.product?.name,
                         cakeOrderInfo.product?.description,
+                        cakeOrderInfo.product?.images,
                         cakeOrderInfo.making.cream?.name,
                         cakeOrderInfo.making.size?.name,
                         cakeOrderInfo.making?.sizeExtra,

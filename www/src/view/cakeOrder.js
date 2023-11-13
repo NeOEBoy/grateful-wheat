@@ -42,7 +42,7 @@ class CakeOrder extends React.Component {
                 this.updateWeixinConfig(
                     '蛋糕订购单',
                     `${order?.name}-${order?.cream}-${order?.size}-${order?.pickUpDay}-${order?.pickUpTime}-${order?.pickUpName}-${order?.phoneNumber}`,
-                    `http://gratefulwheat.ruyue.xyz/生日蛋糕/${order?.name}-方图.jpg`
+                    `http://gratefulwheat.ruyue.xyz${order.images[0]}`
                 );
             }
         }
@@ -310,7 +310,7 @@ class CakeOrder extends React.Component {
                                             </div>
                                             <div>
                                                 <div style={{ position: 'relative' }}>
-                                                    <Image preview={false} src={`/生日蛋糕/${order?.name}-方图.jpg`} />
+                                                    <Image preview={false} src={`${order?.images[0]}`} />
                                                     <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                                 </div>
                                                 <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
@@ -429,7 +429,7 @@ class CakeOrder extends React.Component {
                     }}>{`《${order?.name}》`}</div>
                     <div style={{ width: '100%', textAlign: 'center' }}>
                         <Image style={{ width: '100%' }} preview={false}
-                            src={`/生日蛋糕/${order?.name}-方图.jpg`} />
+                            src={`${order?.images[0]}`} />
                     </div>
                     <div style={{ marginLeft: 24, marginRight: 24 }}>
                         <Divider style={{ marginTop: 8, marginBottom: 0, fontSize: 8 }}>制作</Divider>

@@ -42,6 +42,7 @@ router.post('/createOrder', async function (req, res, next) {
         let newOrder = new CakeOrders({
             name: body.name,
             description: body.description,
+            images: body.images,
             cream: body.cream,
             size: body.size,
             sizeExtra: body.sizeExtra,

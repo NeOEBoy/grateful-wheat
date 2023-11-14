@@ -237,7 +237,7 @@ class cakeMenu extends React.Component {
             width: theDiv4CaptureHeight - 180,
             height: theDiv4CaptureHeight - 180 + 40,
             float: 'left', marginLeft: 8,
-            borderRadius: 8, border: '2px dotted #00A2A5'
+            borderRadius: 8, border: '2px dotted #5F9EA0'
         };
         this._theRightDivInTheDiv4CaptureStyle = {
             float: 'right',
@@ -259,7 +259,7 @@ class cakeMenu extends React.Component {
         this._orderImageStyle = {
             width: orderImageWidth,
             height: orderImageHeight,
-            border: '2px dashed #00A2A5'
+            border: '2px dashed #5F9EA0'
         };
 
         this._orderImageInStyle = {
@@ -672,7 +672,7 @@ class cakeMenu extends React.Component {
     }
 
     handleOrderCakeInfoModalCancel = () => {
-        console.log('handleOrderCakeInfoModalCancel begin');
+        // console.log('handleOrderCakeInfoModalCancel begin');
 
         this.setState({ orderInfoModalVisiable: false });
         document.documentElement.style.overflow = 'visible';
@@ -1010,7 +1010,7 @@ class cakeMenu extends React.Component {
                 this._fillingOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #00A2A5' }} preview={false} src={filling.image} />
+                            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #5F9EA0' }} preview={false} src={filling.image} />
                             <div style={{ width: 54, textAlign: 'center' }}>{filling.name}</div>
                         </div>,
                     value: JSON.stringify(filling)
@@ -1028,7 +1028,7 @@ class cakeMenu extends React.Component {
                 this._candleOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={candle.image} />
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #5F9EA0' }} preview={false} src={candle.image} />
                             <div style={{ width: 64, textAlign: 'center' }}>
                                 {candle.name}
                                 {
@@ -1058,7 +1058,7 @@ class cakeMenu extends React.Component {
                 this._kindlingOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={kindling.image} />
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #5F9EA0' }} preview={false} src={kindling.image} />
                             <div style={{ width: 64, textAlign: 'center' }}>{kindling.name}</div>
                         </div>,
                     value: JSON.stringify(kindling)
@@ -1076,7 +1076,7 @@ class cakeMenu extends React.Component {
                 this._hatOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #00A2A5' }} preview={false} src={hat.image} />
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #5F9EA0' }} preview={false} src={hat.image} />
                             <div style={{ width: 64, textAlign: 'center' }}>{hat.name}</div>
                         </div>,
                     value: JSON.stringify(hat)
@@ -1135,7 +1135,7 @@ class cakeMenu extends React.Component {
                     <div key={product?.name} style={{ background: '#E8EBE4', borderRadius: 8 }} onClick={() => {
                         this.handleOrderNowClick(product);
                     }}>
-                        <Image style={{ border: '1px dotted #00A2A5', borderRadius: 8 }}
+                        <Image style={{ border: '1px dotted #5F9EA0', borderRadius: 8 }}
                             preview={false} src={`${product?.images?.[0]}`} />
                         <div style={{ paddingLeft: 6, paddingRight: 4, paddingTop: 4, paddingBottom: 4 }}>
                             <div style={{ fontSize: 16, fontWeight: 'bold' }}>
@@ -1148,11 +1148,11 @@ class cakeMenu extends React.Component {
                                 {`分类：${product?.category?.id}-${product?.category?.name}`}
                             </div>
                             <div style={{ fontSize: 14 }}>
-                                <InfoCircleOutlined style={{ color: '#00A2A5' }} />
+                                <InfoCircleOutlined style={{ color: '#5F9EA0' }} />
                                 <span>{` ${theMinimumSize.number}${theMinimumSize.unit} `}</span>
                                 <span>起</span>
 
-                                <PayCircleOutlined style={{ color: '#00A2A5', marginLeft: 8 }} />
+                                <PayCircleOutlined style={{ color: '#5F9EA0', marginLeft: 8 }} />
                                 <span>{` ${theMinimumPrice}元 `}</span>
                                 <span>起</span>
                             </div>
@@ -1275,7 +1275,7 @@ class cakeMenu extends React.Component {
                                 {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
-                                <Image preview={true} style={{ width: '99%', border: '1px dotted #00A2A5', borderRadius: 8 }}
+                                <Image preview={true} style={{ width: '99%', border: '1px dotted #5F9EA0', borderRadius: 8 }}
                                     src={cakeOrderInfo.product?.images?.[0]} />
                             </div>
                             <QueueAnim type={['bottom', 'top']}>
@@ -1312,9 +1312,9 @@ class cakeMenu extends React.Component {
                                                                             {
                                                                                 price !== -1 ?
                                                                                     <div>
-                                                                                        <span style={{ color: '#00A2A5' }}>{size.name}</span>
+                                                                                        <span style={{ color: '#5F9EA0' }}>{size.name}</span>
                                                                                         <span style={{ color: 'gray', fontSize: 12 }}>{`${size.description} `}</span>
-                                                                                        <span style={{ color: '#00A2A5' }}>{`${price}元`}</span>
+                                                                                        <span style={{ color: '#5F9EA0' }}>{`${price}元`}</span>
                                                                                         <span></span>
                                                                                     </div> : <div></div>
                                                                             }
@@ -1909,7 +1909,7 @@ class cakeMenu extends React.Component {
                 <div>
                     {/* 联系方式 */}
                     <div style={{
-                        textAlign: 'center', color: '#00A2A5',
+                        textAlign: 'center', color: '#5F9EA0',
                         fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                     }}>
                         <span>联系弯麦总店2号</span>
@@ -1975,7 +1975,7 @@ class cakeMenu extends React.Component {
                                     {/* 推荐区域 */}
                                     <div style={{
                                         textAlign: 'center', marginTop: 10, fontSize: 16,
-                                        backgroundColor: '#00A2A5', color: 'white',
+                                        backgroundColor: '#5F9EA0', color: 'white',
                                         borderRadius: 30, paddingTop: 8, paddingBottom: 8
                                     }}>
                                         {`${cakeRecommend.name}`}
@@ -1987,7 +1987,7 @@ class cakeMenu extends React.Component {
                                         renderItem={this._renderItemFunc4Product}
                                     />
                                     <div style={{
-                                        textAlign: 'center', color: '#00A2A5',
+                                        textAlign: 'center', color: '#5F9EA0',
                                         fontSize: 18, paddingTop: 10, paddingBottom: 20
                                     }}>
                                         更多款式请点击下方分类查看
@@ -2035,7 +2035,7 @@ class cakeMenu extends React.Component {
                                                             </div>
                                                         )
                                                     }
-                                                    style={{ backgroundColor: '#00A2A5', borderRadius: 24 }}
+                                                    style={{ backgroundColor: '#5F9EA0', borderRadius: 24 }}
                                                     key={category.id}>
                                                     <List style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
                                                         grid={{ gutter: 4, column: this._columnNumber }}

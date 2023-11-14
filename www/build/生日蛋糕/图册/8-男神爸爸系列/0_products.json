@@ -1,6 +1,60 @@
 {
     "products": [
         {
+            "name": "风生水起_20",
+            "description": "祝老板，生意兴隆，风生水起，平安顺遂~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/风生水起_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "男人的玩具",
             "description": "送你一辆男人的玩具，愿你生活如意，想走就走~",
             "category": {

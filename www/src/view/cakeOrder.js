@@ -311,7 +311,6 @@ class CakeOrder extends React.Component {
                                             <div>
                                                 <div style={{ position: 'relative' }}>
                                                     <Image preview={false} src={`${order?.images?.[0]}`} />
-                                                    <Image style={{ width: 60, height: 60, position: 'absolute', top: -212, right: 2 }} preview={false} src={`/image/弯麦logo方-黑白.png`} />
                                                 </div>
                                                 <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
                                             </div>

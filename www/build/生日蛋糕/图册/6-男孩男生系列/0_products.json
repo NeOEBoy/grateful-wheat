@@ -2,7 +2,7 @@
     "products": [
         {
             "name": "维尼小伙伴",
-            "description": "维尼小伙伴",
+            "description": "他们用善良和可爱感动着每一个人，成为我们生命中最美好的存在~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -110,7 +110,7 @@
         },
         {
             "name": "名侦探柯南",
-            "description": "名侦探柯南",
+            "description": "真相只有一个！名侦探柯南用超凡的智慧，拨开迷雾，揭示事实真相~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -164,7 +164,7 @@
         },
         {
             "name": "汪汪队蓝色",
-            "description": "汪汪队蓝色",
+            "description": "汪汪队，代表着勇气、智慧与忠诚，勇敢地面对一切挑战，用智慧解决难题，用忠诚守护着他们的使命",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -218,7 +218,7 @@
         },
         {
             "name": "小猪佩奇的一家",
-            "description": "小猪佩奇的一家",
+            "description": "她的故事充满了温馨和爱，让我们感受到家庭和友谊的重要性~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -603,7 +603,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/快乐篮球_20.jpg"
+                "/生日蛋糕/图册/6-男孩男生系列/快乐篮球_20_logo.jpg"
             ],
             "specifications": [
                 {
@@ -1082,7 +1082,7 @@
         },
         {
             "name": "海绵宝宝",
-            "description": "你在我身边的时候，我从来没有羡慕过任何人",
+            "description": "你在我身边的时候，我从来没有羡慕过任何人~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1406,7 +1406,7 @@
         },
         {
             "name": "奥特曼集合",
-            "description": "奥特曼集合",
+            "description": "我会变身奥特曼，游走天地间阻挡怪兽，拯救地球~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1460,7 +1460,7 @@
         },
         {
             "name": "ins发财牛",
-            "description": "ins发财牛",
+            "description": "发财牛，寓意着稳健、力量和勇气，它代表着一种积极向上的精神状态~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1514,7 +1514,7 @@
         },
         {
             "name": "一生好朋友",
-            "description": "一生好朋友",
+            "description": "他们在你遇到困难时给予鼓励和支持，在你犯错时给予提醒和帮助，一起成长，一起进步~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1568,7 +1568,7 @@
         },
         {
             "name": "中国航天",
-            "description": "中国航天",
+            "description": "探索外太空，扩展对地球和宇宙的认识，和平利用外太空，促进人类文明和社会进步，造福全人类~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1622,7 +1622,7 @@
         },
         {
             "name": "乐高幻影忍者",
-            "description": "乐高幻影忍者",
+            "description": "乐高幻影忍者，用积木搭建的梦想世界，演绎忍者英雄的传奇冒险~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1676,7 +1676,7 @@
         },
         {
             "name": "乐高我的世界",
-            "description": "乐高我的世界",
+            "description": "每一次创造，都是一个全新的奇迹，每一次探索，都是一次勇敢的冒险~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1730,7 +1730,7 @@
         },
         {
             "name": "乘风破浪B款",
-            "description": "乘风破浪B款",
+            "description": "乘风破浪，不断超越。每一次的尝试都是对自我极限的挑战，每一次的突破都是对成功的追求~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1784,7 +1784,7 @@
         },
         {
             "name": "乘风破浪",
-            "description": "乘风破浪",
+            "description": "乘风破浪，不断超越。每一次的尝试都是对自我极限的挑战，每一次的突破都是对成功的追求~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1838,7 +1838,7 @@
         },
         {
             "name": "今天你最帅",
-            "description": "今天你最帅",
+            "description": "谢谢您的夸奖，我会继续努力保持我的良好状态~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1892,7 +1892,7 @@
         },
         {
             "name": "原始大森林",
-            "description": "原始大森林",
+            "description": "在这片未受人类干扰的绿色世界中，每一棵树都拥有着独特的生命故事，每一片叶子都闪耀着自然的灵光~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -1946,7 +1946,7 @@
         },
         {
             "name": "变形金刚擎天柱",
-            "description": "变形金刚擎天柱",
+            "description": "无论面对怎样的挑战，他都会坚定地站在最前线，为了自由和正义而战~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2000,7 +2000,7 @@
         },
         {
             "name": "叮当王子",
-            "description": "叮当王子",
+            "description": "一位善良、勇敢、聪明的王子，他拥有神奇的力量，可以变身为各种不同的角色~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2054,7 +2054,7 @@
         },
         {
             "name": "周岁牛气冲天",
-            "description": "周岁牛气冲天",
+            "description": "象征着一种强大的生命力和耐力，就像一头牛一样，可以在任何环境下生存和奋斗~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2108,7 +2108,7 @@
         },
         {
             "name": "周岁茁壮成长",
-            "description": "周岁茁壮成长",
+            "description": "象征着一种强大的生命力和耐力，就像一头牛一样，可以在任何环境下生存和奋斗~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2161,62 +2161,8 @@
             ]
         },
         {
-            "name": "天空之城",
-            "description": "天空之城",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/天空之城_20_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
             "name": "太空人",
-            "description": "太空人",
+            "description": "他们用自己的勇气和毅力，为人类的未来和发展做出了不可磨灭的贡献~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2270,7 +2216,7 @@
         },
         {
             "name": "实况挖掘机",
-            "description": "实况挖掘机",
+            "description": "强大的挖掘力量，无与伦比的工作效率，让您的工程更加高效、快速~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2324,7 +2270,7 @@
         },
         {
             "name": "小小航天员",
-            "description": "小小航天员",
+            "description": "他们用自己的勇气和毅力，为人类的未来和发展做出了不可磨灭的贡献~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2378,7 +2324,7 @@
         },
         {
             "name": "小小警察员",
-            "description": "小小警察员",
+            "description": "小小警察员，大大勇气心。他们用幼小的身躯，守护着我们的安全和秩序~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2432,7 +2378,7 @@
         },
         {
             "name": "小王子星月",
-            "description": "小王子星月",
+            "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在星球上的小王子，与他一起守护着那份纯真的爱~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2486,7 +2432,7 @@
         },
         {
             "name": "小王子星空之上",
-            "description": "小王子星空之上",
+            "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在星球上的小王子，与他一起守护着那份纯真的爱~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2540,7 +2486,7 @@
         },
         {
             "name": "小财牛牛",
-            "description": "小财牛牛",
+            "description": "为您带来财运的小精灵，让您财源滚滚，事业有成~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2593,62 +2539,8 @@
             ]
         },
         {
-            "name": "开心男孩",
-            "description": "开心男孩",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/开心男孩_10_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 108
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 178
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 218
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 178
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 218
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 268
-                }
-            ]
-        },
-        {
             "name": "快乐小虎",
-            "description": "快乐小虎",
+            "description": "快乐小虎，传递着快乐和乐观，让我们一起享受生活的美好~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2702,7 +2594,7 @@
         },
         {
             "name": "恐龙大世界",
-            "description": "恐龙大世界",
+            "description": "走进恐龙大世界，感受恐龙的魅力，揭开史前生物的神秘面纱~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2756,7 +2648,7 @@
         },
         {
             "name": "恐龙大森林",
-            "description": "恐龙大森林",
+            "description": "走进恐龙大世界，感受恐龙的魅力，揭开史前生物的神秘面纱~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2810,7 +2702,7 @@
         },
         {
             "name": "我是派大星手绘",
-            "description": "我是派大星手绘",
+            "description": "派大星，一个勇敢、机智、善良的小海星，总是让人感到快乐和温暖~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2864,7 +2756,7 @@
         },
         {
             "name": "我爱学习B款",
-            "description": "我爱学习B款",
+            "description": "我爱学习，因为知识是力量，它可以改变我们的思维和行为~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2918,7 +2810,7 @@
         },
         {
             "name": "我爱学习",
-            "description": "我爱学习",
+            "description": "我爱学习，因为知识是力量，它可以改变我们的思维和行为~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -2972,7 +2864,7 @@
         },
         {
             "name": "旋转木马蓝色",
-            "description": "旋转木马蓝色",
+            "description": "旋转木马，旋转着无尽的快乐与童真，让我们沉浸在这份梦幻与浪漫之中~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3026,7 +2918,7 @@
         },
         {
             "name": "汤姆和杰瑞",
-            "description": "汤姆和杰瑞",
+            "description": "一对永恒的对手，却也是最好的朋友，他们的互动让我们在欢笑中感受到生活的温馨与美好~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3080,7 +2972,7 @@
         },
         {
             "name": "登月航天员蓝色",
-            "description": "登月航天员蓝色",
+            "description": "他们是人类智慧的代表，是科技进步的象征；他们的成功，让我们对未来充满希望和期待~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3134,7 +3026,7 @@
         },
         {
             "name": "登月航天员黑色",
-            "description": "登月航天员黑色",
+            "description": "他们是人类智慧的代表，是科技进步的象征；他们的成功，让我们对未来充满希望和期待",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3188,7 +3080,7 @@
         },
         {
             "name": "篮球小伙伴",
-            "description": "篮球小伙伴",
+            "description": "篮球小伙伴，让我们一起在球场上挥洒汗水，享受篮球带来的快乐与激情~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3242,7 +3134,7 @@
         },
         {
             "name": "美国队长",
-            "description": "美国队长",
+            "description": "美国队长，永不言败的象征，用勇气和信念捍卫着自由与正义~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3296,7 +3188,7 @@
         },
         {
             "name": "翻糖小虎",
-            "description": "翻糖小虎",
+            "description": "用萌动的造型和甜美的味道，为您带来一份特别的惊喜和甜蜜~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3350,7 +3242,7 @@
         },
         {
             "name": "老虎头",
-            "description": "老虎头",
+            "description": "用萌动的造型和甜美的味道，为您带来一份特别的惊喜和甜蜜~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3358,114 +3250,6 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/6-男孩男生系列/老虎头_30_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
-            "name": "肚皮男孩",
-            "description": "肚皮男孩",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/肚皮男孩_20_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
-            "name": "小笨熊",
-            "description": "小笨熊",
-            "category": {
-                "id": "6",
-                "name": "男孩男生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/小笨熊_30_logo.jpg"
             ],
             "specifications": [
                 {
@@ -3565,8 +3349,116 @@
             ]
         },
         {
+            "name": "肚皮男孩",
+            "description": "这款肚皮男孩，将快乐与自信完美融合。他是您分享快乐、传递温情的最佳伙伴~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/肚皮男孩_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小笨熊",
+            "description": "小笨熊，将童趣与情感完美融合。它是您表达爱意、分享快乐的最佳方式~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/小笨熊_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "蜘蛛侠归来",
-            "description": "蜘蛛侠归来",
+            "description": "《蜘蛛侠：英雄归来》带你重温熟悉的英雄故事，见证新一代英雄的崛起~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3620,7 +3512,7 @@
         },
         {
             "name": "警察叔叔",
-            "description": "警察叔叔",
+            "description": "警察叔叔，他们是社会的守护神，是我们安全的护卫者~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3674,7 +3566,7 @@
         },
         {
             "name": "超凡蜘蛛侠",
-            "description": "超凡蜘蛛侠",
+            "description": "《超凡蜘蛛侠》不仅是一部超级英雄电影，更是一部充满青春、爱情与成长的励志作品~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"

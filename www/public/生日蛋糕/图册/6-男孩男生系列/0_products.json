@@ -595,8 +595,62 @@
             ]
         },
         {
+            "name": "快乐篮球",
+            "description": "篮球让我感到无比的力量和决心，篮球无界，热血青春~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/快乐篮球_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "无篮球不兄弟",
-            "description": "篮球让我感到无比的力量和决心，篮球无界，热血青春",
+            "description": "篮球让我感到无比的力量和决心，篮球无界，热血青春~",
             "category": {
                 "id": "6",
                 "name": "男孩男生系列"
@@ -3399,6 +3453,60 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小笨熊",
+            "description": "小笨熊",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/小笨熊_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
                 }
             ]
         },

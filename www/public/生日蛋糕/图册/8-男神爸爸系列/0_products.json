@@ -55,6 +55,114 @@
             ]
         },
         {
+            "name": "干一杯",
+            "description": "举起双手，让我们一起为未来加油助威，祝福你吧，我的朋友~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/干一杯_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "天下第一帅",
+            "description": "帅是分等级的，你这个属于天下第一帅~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/天下第一帅_30.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "男人的玩具",
             "description": "送你一辆男人的玩具，愿你生活如意，想走就走~",
             "category": {
@@ -379,6 +487,60 @@
             ]
         },
         {
+            "name": "全家的主",
+            "description": "全家的主",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/全家的主_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "一家之主",
             "description": "一家之主",
             "category": {
@@ -388,6 +550,60 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/8-男神爸爸系列/一家之主_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "酒坛子",
+            "description": "酒坛子",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/酒坛子_20.jpg"
             ],
             "specifications": [
                 {
@@ -488,7 +704,7 @@
         },
         {
             "name": "俺家男神",
-            "description": "俺家男神",
+            "description": "你是我们家的顶梁柱，我的爱人，未来请携手与共~",
             "category": {
                 "id": "8",
                 "name": "男神爸爸系列"
@@ -537,6 +753,114 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 288
+                }
+            ]
+        },
+        {
+            "name": "搞钱鸭",
+            "description": "油盐不进，专注搞钱~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/搞钱鸭_10_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "开心快乐",
+            "description": "开开心心每一天~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/开心快乐_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },
@@ -591,6 +915,30 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
+                }
+            ]
+        },
+        {
+            "name": "敬你一根",
+            "description": "男神爸爸，您辛苦了，中华敬上~",
+            "category": {
+                "id": 8,
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/敬你一根_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 98
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 128
                 }
             ]
         },
@@ -1459,60 +1807,6 @@
             ]
         },
         {
-            "name": "快乐篮球",
-            "description": "快乐篮球",
-            "category": {
-                "id": "8",
-                "name": "男神爸爸系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/8-男神爸爸系列/快乐篮球_20.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
             "name": "我爱爸爸",
             "description": "我爱爸爸",
             "category": {
@@ -1580,43 +1874,13 @@
             "specifications": [
                 {
                     "creamId": 1,
-                    "sizeId": 2,
+                    "sizeId": 1,
                     "price": 108
                 },
                 {
-                    "creamId": 1,
-                    "sizeId": 3,
+                    "creamId": 2,
+                    "sizeId": 1,
                     "price": 138
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 178
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 218
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 178
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 218
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 268
                 }
             ]
         },

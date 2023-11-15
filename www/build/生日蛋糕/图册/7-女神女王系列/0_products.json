@@ -109,6 +109,114 @@
             ]
         },
         {
+            "name": "最美新娘",
+            "description": "你是最美的新娘，当音乐响起的那一刻，全世界都将聚焦于你~",
+            "category": {
+                "id": "7",
+                "name": "女神女王系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/7-女神女王系列/最美新娘_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "黑色桃心",
+            "description": "我对你就像这个桃心一样，一心一意，痴心不渝~",
+            "category": {
+                "id": "7",
+                "name": "女神女王系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/7-女神女王系列/黑色桃心_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "星星皇冠",
             "description": "星星皇冠",
             "category": {
@@ -118,6 +226,60 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/7-女神女王系列/星星皇冠_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "芭蕾舞女孩",
+            "description": "你是最美的芭蕾舞女孩，愿你星光璀璨，聚光云集，众星捧月~",
+            "category": {
+                "id": "7",
+                "name": "女神女王系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/7-女神女王系列/芭蕾舞女孩_20_logo.jpg"
             ],
             "specifications": [
                 {
@@ -429,6 +591,60 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 298
+                }
+            ]
+        },
+        {
+            "name": "女神背影杀",
+            "description": "当你系上丝带的时候，美丽的身影让人久久无法忘怀~",
+            "category": {
+                "id": "7",
+                "name": "女神女王系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/7-女神女王系列/女神背影杀_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         },

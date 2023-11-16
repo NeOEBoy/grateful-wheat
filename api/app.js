@@ -23,7 +23,7 @@ var app = express();
 /// 设置跨域访问---
 const KTestHostLocal = 'http://localhost'
 const KWWWTestHostLocal = KTestHostLocal + ':4000';
-const KTestHostLocalIp = 'http://192.168.205.133'
+const KTestHostLocalIp = 'http://192.168.244.133';
 const KWWWTestHostLocalIp = KTestHostLocalIp + ':4000';
 
 const KAllowHosts = [KWWWTestHostLocal, KWWWTestHostLocalIp];
@@ -47,7 +47,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit: '100mb' })); /// 默认1k，此处修改大一些
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

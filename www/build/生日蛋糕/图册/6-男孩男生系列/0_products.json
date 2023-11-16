@@ -1567,6 +1567,60 @@
             ]
         },
         {
+            "name": "中国象棋",
+            "description": "中国象棋，挑战你的智慧和耐心，让你体验胜利的快感~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/中国象棋_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "中国航天",
             "description": "探索外太空，扩展对地球和宇宙的认识，和平利用外太空，促进人类文明和社会进步，造福全人类~",
             "category": {
@@ -2431,6 +2485,114 @@
             ]
         },
         {
+            "name": "小王子城堡",
+            "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在城堡上的小王子，与他一起守护着那份纯真的爱~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/小王子城堡_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小王子花海",
+            "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在花海上的小王子，与他一起守护着那份纯真的爱~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/小王子花海_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "小王子星空之上",
             "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在星球上的小王子，与他一起守护着那份纯真的爱~",
             "category": {
@@ -2440,6 +2602,114 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/6-男孩男生系列/小王子星空之上_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "小王子花园",
+            "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在花园里的小王子，与他一起守护着那份纯真的爱~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/小王子花园_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "小王子花丛",
+            "description": "让我们一起追寻那个纯真的梦想，寻找那个迷失在花丛里的小王子，与他一起守护着那份纯真的爱~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/小王子花丛_30_logo.jpg"
             ],
             "specifications": [
                 {

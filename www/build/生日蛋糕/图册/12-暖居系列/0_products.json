@@ -1,1 +1,220 @@
-{"products":[{"name":"乔迁大顺","description":"乔迁大顺","category":{"id":"12","name":"暖居系列"},"fillingRequired":true,"images":["/生日蛋糕/图册/12-暖居系列/乔迁大顺_20.jpg"],"specifications":[{"creamId":1,"sizeId":2,"price":118},{"creamId":1,"sizeId":3,"price":148},{"creamId":1,"sizeId":4,"price":188},{"creamId":1,"sizeId":5,"price":228},{"creamId":2,"sizeId":2,"price":148},{"creamId":2,"sizeId":3,"price":188},{"creamId":2,"sizeId":4,"price":228},{"creamId":2,"sizeId":5,"price":278}]},{"name":"乔迁猫","description":"乔迁猫","category":{"id":"12","name":"暖居系列"},"fillingRequired":true,"images":["/生日蛋糕/图册/12-暖居系列/乔迁猫_10.jpg"],"specifications":[{"creamId":1,"sizeId":2,"price":108},{"creamId":1,"sizeId":3,"price":138},{"creamId":1,"sizeId":4,"price":178},{"creamId":1,"sizeId":5,"price":218},{"creamId":2,"sizeId":2,"price":138},{"creamId":2,"sizeId":3,"price":178},{"creamId":2,"sizeId":4,"price":218},{"creamId":2,"sizeId":5,"price":268}]},{"name":"平安喜乐","description":"平安喜乐","category":{"id":"12","name":"暖居系列"},"fillingRequired":true,"images":["/生日蛋糕/图册/12-暖居系列/平安喜乐_10.jpg"],"specifications":[{"creamId":1,"sizeId":2,"price":108},{"creamId":1,"sizeId":3,"price":138},{"creamId":1,"sizeId":4,"price":178},{"creamId":1,"sizeId":5,"price":218},{"creamId":2,"sizeId":2,"price":138},{"creamId":2,"sizeId":3,"price":178},{"creamId":2,"sizeId":4,"price":218},{"creamId":2,"sizeId":5,"price":268}]}]}
+{
+    "products": [
+        {
+            "name": "暖居之乔迁之喜",
+            "description": "暖居之乔迁之喜",
+            "category": {
+                "id": "12",
+                "name": "暖居系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居系列/暖居之乔迁之喜_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "乔迁大顺",
+            "description": "乔迁大顺",
+            "category": {
+                "id": "12",
+                "name": "暖居系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居系列/乔迁大顺_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "乔迁猫",
+            "description": "乔迁猫",
+            "category": {
+                "id": "12",
+                "name": "暖居系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居系列/乔迁猫_10.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "平安喜乐",
+            "description": "平安喜乐",
+            "category": {
+                "id": "12",
+                "name": "暖居系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居系列/平安喜乐_10.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        }
+    ]
+}

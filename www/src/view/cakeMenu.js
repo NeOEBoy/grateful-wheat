@@ -25,7 +25,7 @@ import {
 } from '@ant-design/icons';
 import {
     Collapse, Image, Spin,
-    DatePicker, Radio, List,
+    DatePicker, Radio, List, Carousel,
     Select, Input, Checkbox, Divider,
     message, Timeline, Button, Space
 } from 'antd';
@@ -1275,8 +1275,17 @@ class cakeMenu extends React.Component {
                                 {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
-                                <Image preview={true} style={{ width: '99%', border: '1px dotted #5F9EA0', borderRadius: 8 }}
-                                    src={cakeOrderInfo.product?.images?.[0]} />
+                                <Carousel effect='fade' autoplay>
+                                    {
+                                        cakeOrderInfo.product?.images?.map((i) => {
+                                            return (
+                                                <Image key={cakeOrderInfo.product?.images.indexOf(i)}
+                                                    preview={true} style={{ width: '99%', border: '1px dotted #5F9EA0', borderRadius: 8 }}
+                                                    src={i} />
+                                            );
+                                        })
+                                    }
+                                </Carousel>
                             </div>
                             <QueueAnim type={['bottom', 'top']}>
                                 <div key='a' style={{ textAlign: 'center', width: '100%', marginBottom: 18 }}>
@@ -1922,6 +1931,7 @@ class cakeMenu extends React.Component {
                     {/* 搜索框 */}
                     <div style={{ padding: 12 }}>
                         <Input
+                            disabled={allCakeInfosLoading}
                             placeholder="输入关键词搜索蛋糕"
                             allowClear
                             size='middle'

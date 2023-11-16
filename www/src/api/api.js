@@ -540,7 +540,7 @@ const createCakeOrder = async (
   let creatParamObj = {
     name: name,
     description: description,
-    images:images,
+    images: images,
     cream: cream,
     size: size,
     sizeExtra: sizeExtra,
@@ -661,36 +661,26 @@ const allCakeInfos = async () => {
       category.products.push(product);
       cakeInfos.products.push(product);
     });
+
+    if (category.images.length <= 0) {
+      let randomIndexs = [];
+      let countOfCategoryImages = 3;
+      if (countOfCategoryImages > products.products.length) {
+        countOfCategoryImages = products.products.length;
+      }
+      while (randomIndexs.length < countOfCategoryImages) {
+        let index = parseInt(Math.random() * products.products.length)
+        if (randomIndexs.indexOf(index) === -1) {
+          randomIndexs.push(index)
+        }
+      }
+
+      randomIndexs.forEach(index => {
+        let image = category.products[index]?.images[0];
+        category.images.push(image);
+      });
+    }
   }
-
-
-  // for (let i = 0; i < cakeInfos.products.length; ++i) {
-  //   let product = cakeInfos.products[i];
-  //   for (let j = 0; j < cakeInfos.recommend.productNames.length; ++j) {
-  //     let productName = cakeInfos.recommend.productNames[j];
-  //     if (productName === product.name) {
-  //       /// 补上，是否需要夹心，默认需要
-  //       if (product.fillingRequired === undefined) {
-  //         product.fillingRequired = true;
-  //       }
-  //       product.sortId = j;
-  //       cakeInfos.recommend.products.push(product);
-  //       break;
-  //     }
-  //   }
-
-  //   for (let k = 0; k < cakeInfos.categorys.length; ++k) {
-  //     let category = cakeInfos.categorys[k];
-  //     if (product.categoryId === category.id) {
-  //       category.products.push(product);
-  //       break;
-  //     }
-  //   }
-  // }
-
-  // /// 根据sortId排序，sortId是位置索引
-  // cakeInfos.recommend.products =
-  //   cakeInfos.recommend.products.sort((a, b) => a.sortId - b.sortId);
 
   return cakeInfos;
 }

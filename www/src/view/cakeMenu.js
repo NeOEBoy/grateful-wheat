@@ -1275,7 +1275,7 @@ class cakeMenu extends React.Component {
                                 {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
-                                <Carousel effect='fade' autoplay>
+                                <Carousel effect='scrollx' autoplay>
                                     {
                                         cakeOrderInfo.product?.images?.map((i) => {
                                             return (

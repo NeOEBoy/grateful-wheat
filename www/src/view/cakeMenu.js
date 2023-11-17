@@ -619,12 +619,12 @@ class cakeMenu extends React.Component {
                     // console.log(createResult);
                     if (!this.state.orderImageCapturing) return;
                     if (createResult.errCode !== 0) {
-                        message.error('生成蛋糕订购单不成功，请检查网络');
+                        message.error('生成订购单不成功，请检查网络');
                         this.setState({ orderImageCapturing: false });
                         return;
                     }
                 } catch {
-                    message.error('生成蛋糕订购单不成功，请检查网络');
+                    message.error('生成订购单不成功，请检查网络');
                     this.setState({ orderImageCapturing: false });
                     return;
                 }
@@ -1716,12 +1716,12 @@ class cakeMenu extends React.Component {
                             </QueueAnim>
 
                             <div style={{
-                                width: 'calc(100%)', height: 64, backgroundColor: '#E5E4E2',
+                                width: 'calc(100%)', height: 64, backgroundColor: '#E8EBE4',
                                 position: 'fixed', bottom: 0, textAlign: 'center', zIndex: '100'
                             }}>
                                 <Space style={{ marginTop: 16, marginBottom: 16 }}>
                                     <Button type='default' onClick={() => this.handleOrderCakeInfoModalCancel()}>取消</Button>
-                                    <Button type='primary' onClick={() => this.handleOrderCakeInfoModalOk()}>生成蛋糕订购单</Button>
+                                    <Button danger type='primary' onClick={() => this.handleOrderCakeInfoModalOk()}>生成订购单</Button>
                                 </Space>
                             </div>
                         </div>) : (<div></div>)
@@ -1767,7 +1767,7 @@ class cakeMenu extends React.Component {
                             zIndex: '200', width: 'calc(100%)', height: 'calc(100%)',
                             overflowY: 'hidden', overflowX: 'hidden'
                         }}>
-                            <Spin spinning={orderImageCapturing} size='large' tip='生成蛋糕订购单中...' >
+                            <Spin spinning={orderImageCapturing} size='large' tip='生成订购单中...' >
                                 <div ref={(current) => { this._theDiv4Capture = current; }}
                                     style={this._theDiv4CaptureStyle}>
                                     <div id="qrcode" style={{

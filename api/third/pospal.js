@@ -529,6 +529,7 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
         let priceIndex = -1;
         let memberPriceIndex = -1;
         let wholePriceIndex = -1;
+        let articleNumberIndex = -1;
 
         let procuctsTitleTh = result.root.thead[0].tr[0].th;
         // console.log(procuctsTitleTh);
@@ -566,6 +567,10 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
               wholePriceIndex = index;
               continue;
             }
+            if (titleName === '货号') {
+              articleNumberIndex = index;
+              continue;
+            }
           }
         }
 
@@ -576,6 +581,7 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
         // console.log(priceIndex);
         // console.log(memberPriceIndex);
         // console.log(wholePriceIndex);
+        // console.log(articleNumberIndex);
 
         let procuctsDataTh = result.root.tbody[0].tr;
         // console.log(procuctOrderDataTh);
@@ -615,6 +621,22 @@ const loadProductsByKeyword = async (thePOSPALAUTH30220, keyword) => {
           wholePrice = wholePrice.replace(/\r\n/g, "").trim();
           // console.log(wholePrice);
           productItem.wholePrice = parseFloat(wholePrice);
+
+          let articleNumber = element.td[articleNumberIndex];
+          articleNumber = articleNumber.replace(/\r\n/g, "").trim();
+          // console.log(articleNumber);
+          productItem.articleNumber = articleNumber;
+
+          productItem.qualityDay = '-';
+          productItem.ingredients = '-';
+          if (articleNumber.indexOf('|||') !== -1) {
+            let articleNumberArray = articleNumber.split('|||');
+            // console.log(articleNumberArray);
+            if (articleNumberArray.length >= 2) {
+              productItem.qualityDay = articleNumberArray[0].trim();
+              productItem.ingredients = articleNumberArray[1].trim();
+            }
+          }
 
           productItems.push(productItem);
         });

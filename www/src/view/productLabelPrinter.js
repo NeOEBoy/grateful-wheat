@@ -39,6 +39,7 @@ class ProductLabelPrinter extends React.Component {
 
         this.state = {
             productList: [],
+            searching: false,
             amOrPmType: KAmOrPmTypeOptions[0].value,
             markType: KMarkTypeOptions[0].value,
             productLabelPrintProductionDate: moment()
@@ -52,8 +53,11 @@ class ProductLabelPrinter extends React.Component {
     handleOnSearch = async (value) => {
         if (value.trim() === '' || value === undefined) return;
 
+        this.setState({ searching: true });
         let result = await loadProductsByKeyword(value);
+        this.setState({ searching: false });
         if (!result || result.errCode !== 0) {
+            this.setState({ productList: [] });
             message.warning('查找商品信息失败~');
             return;
         }
@@ -73,10 +77,6 @@ class ProductLabelPrinter extends React.Component {
 
     handleProductLabelPrintProductionDateChange = (date) => {
         this.setState({ productLabelPrintProductionDate: date });
-    }
-
-    handleNumberChange = (value) => {
-        this.setState({ printNum: value });
     }
 
     getTitleHtml = (text, fontSize) => {
@@ -175,10 +175,10 @@ class ProductLabelPrinter extends React.Component {
     render() {
         const {
             productList,
+            searching,
             amOrPmType,
             markType,
-            productLabelPrintProductionDate,
-            printNum
+            productLabelPrintProductionDate
         } = this.state;
 
         return (
@@ -187,27 +187,25 @@ class ProductLabelPrinter extends React.Component {
                     标签打印
                 </div>
                 <div>
-                    <span style={{ marginRight: 0 }}>
-                        <Radio.Group style={{ marginTop: 8, margeLeft: 8 }}
-                            options={KMarkTypeOptions}
-                            value={markType}
-                            onChange={this.handleMarkTypeChange}>
-                        </Radio.Group>
-                    </span>
                     <DatePicker picker='day'
                         size='small'
-                        style={{ width: 170, marginLeft: 100 }}
+                        style={{ width: 170 }}
                         placeholder='选择生产日期'
                         format='YYYY-MM-DD dddd'
                         value={productLabelPrintProductionDate}
                         onChange={this.handleProductLabelPrintProductionDateChange} />
-                    <span style={{ marginLeft: 18 }}>
-                        <Radio.Group style={{ marginTop: 8, margeLeft: 8 }}
-                            options={KAmOrPmTypeOptions}
-                            value={amOrPmType}
-                            onChange={this.handleAmOrPmTypeChange}>
-                        </Radio.Group>
-                    </span>
+                    <Radio.Group style={{ marginLeft: 18 }}
+                        options={KAmOrPmTypeOptions}
+                        value={amOrPmType}
+                        onChange={this.handleAmOrPmTypeChange}>
+                    </Radio.Group>
+                    <Radio.Group style={{ marginLeft: 18 }}
+                        optionType='button'
+                        buttonStyle="solid"
+                        options={KMarkTypeOptions}
+                        value={markType}
+                        onChange={this.handleMarkTypeChange}>
+                    </Radio.Group>
                 </div>
                 <div style={{ marginTop: 20 }}>
                     <Search
@@ -219,8 +217,8 @@ class ProductLabelPrinter extends React.Component {
                     />
                 </div>
 
-
                 <List
+                    loading={searching}
                     style={{
                         marginTop: 20, marginBottom: 20,
                         marginLeft: 10, marginRight: 10
@@ -252,6 +250,9 @@ class ProductLabelPrinter extends React.Component {
                                     <div style={{ textAlign: 'left', fontSize: 14, marginLeft: 8 }}>
                                         {`配料表: ${item.ingredients}`}
                                     </div>
+                                    <div style={{ textAlign: 'left', fontSize: 14, marginLeft: 8 }}>
+                                        {`保质期: ${item.qualityDay}天`}
+                                    </div>
                                     <div style={{ textAlign: 'left', fontSize: 12, marginLeft: 8 }}>
                                         生产商：漳州市古西优作食品有限公司漳浦分公司
                                     </div>
@@ -266,13 +267,16 @@ class ProductLabelPrinter extends React.Component {
 
                                 <div style={{ marginTop: 8 }}>
                                     <span style={{ textAlign: 'left' }}>
-                                        <InputNumber min={1} max={100} defaultValue={1} value={printNum}
+                                        <InputNumber min={1} max={100} defaultValue={1} value={
+                                            item._printCount ? item._printCount : 1
+                                        }
                                             onChange={(value) => {
                                                 item._printCount = value;
+                                                this.forceUpdate();
                                             }}></InputNumber>
                                     </span>
                                     <span style={{ textAlign: 'right', marginLeft: 8 }}>
-                                        <Button onClick={() => {
+                                        <Button type='primary' danger onClick={() => {
                                             let qualityDay = item.qualityDay;
                                             let qualityDayInt = 3;
                                             try {

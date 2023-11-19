@@ -28,6 +28,11 @@ const KAmOrPmTypeOptions = [
     { label: '下午 zz', value: 'zz' }
 ];
 
+const KMarkTypeOptions = [
+    { label: '不加点号', value: '' },
+    { label: '加点号', value: '•' }
+];
+
 class ProductLabelPrinter extends React.Component {
     constructor(props) {
         super(props);
@@ -35,6 +40,7 @@ class ProductLabelPrinter extends React.Component {
         this.state = {
             productList: [],
             amOrPmType: KAmOrPmTypeOptions[0].value,
+            markType: KMarkTypeOptions[0].value,
             productLabelPrintProductionDate: moment()
         };
     }
@@ -59,6 +65,10 @@ class ProductLabelPrinter extends React.Component {
 
     handleAmOrPmTypeChange = (e) => {
         this.setState({ amOrPmType: e.target.value });
+    }
+
+    handleMarkTypeChange = (e) => {
+        this.setState({ markType: e.target.value });
     }
 
     handleProductLabelPrintProductionDateChange = (date) => {
@@ -166,6 +176,7 @@ class ProductLabelPrinter extends React.Component {
         const {
             productList,
             amOrPmType,
+            markType,
             productLabelPrintProductionDate,
             printNum
         } = this.state;
@@ -176,6 +187,13 @@ class ProductLabelPrinter extends React.Component {
                     标签打印
                 </div>
                 <div>
+                    <span style={{ marginRight: 0 }}>
+                        <Radio.Group style={{ marginTop: 8, margeLeft: 8 }}
+                            options={KMarkTypeOptions}
+                            value={markType}
+                            onChange={this.handleMarkTypeChange}>
+                        </Radio.Group>
+                    </span>
                     <DatePicker picker='day'
                         size='small'
                         style={{ width: 170, marginLeft: 100 }}
@@ -270,7 +288,7 @@ class ProductLabelPrinter extends React.Component {
                                                 price: '¥' + Number(item.price).toFixed(1),
                                                 ingredients: '配料表：' + item.ingredients,
                                                 productLabelPrintProductionDateAndTime:
-                                                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' ' + amOrPmType,
+                                                    '生产日期：' + productLabelPrintProductionDate.format('MM/DD') + ' ' + amOrPmType + ' ' + markType,
                                                 expirationDate: '保质期至：' + expirationDate.format('MM/DD HH:mm')
                                             };
                                             // console.log('template = ' + JSON.stringify(template));

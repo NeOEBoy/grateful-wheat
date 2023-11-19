@@ -11,6 +11,9 @@
 # production
 # /build
 
+/public/生日蛋糕/图册/待定
+/build/生日蛋糕/图册/待定
+
 # misc
 .DS_Store
 .env.local

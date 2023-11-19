@@ -51,7 +51,10 @@ class ProductLabelPrinter extends React.Component {
 
     // 搜索
     handleOnSearch = async (value) => {
-        if (value.trim() === '' || value === undefined) return;
+        if (value.trim() === '' || value === undefined) {
+            this.setState({ productList: [] });
+            return;
+        }
 
         this.setState({ searching: true });
         let result = await loadProductsByKeyword(value);
@@ -209,6 +212,8 @@ class ProductLabelPrinter extends React.Component {
                 </div>
                 <div style={{ marginTop: 20 }}>
                     <Search
+                        ref={(ref) => this._searchRef = ref}
+                        autoFocus
                         style={{ width: 280 }}
                         placeholder="输入条形码或者名称"
                         allowClear
@@ -313,6 +318,9 @@ class ProductLabelPrinter extends React.Component {
                                                     template.expirationDate
                                                 );
                                             }
+
+                                            /// 焦点返回，方便下次输入
+                                            this._searchRef.select();
                                         }}>发送</Button>
                                     </span>
                                 </div>

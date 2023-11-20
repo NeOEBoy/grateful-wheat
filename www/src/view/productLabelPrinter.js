@@ -241,7 +241,7 @@ class ProductLabelPrinter extends React.Component {
                     dataSource={productList}
                     renderItem={item => (
                         <List.Item key={item.key} style={{ marginTop: 20 }}>
-                            <Card title={item.productName}>
+                            <Card title={item.productName} headStyle={{ backgroundColor: '#E8EBE4' }}>
                                 <div style={{ border: '1px dotted #5F9EA0' }}>
                                     <div style={{ textAlign: 'center', fontSize: 16, marginTop: 2 }}>
                                         {`弯麦-${item.productName}`}

@@ -1297,7 +1297,7 @@
             ]
         },
         {
-            "name": "奥特曼祝福",
+            "name": "奥特曼打怪兽2",
             "description": "我会变身奥特曼，游走天地间阻挡怪兽，拯救地球~",
             "category": {
                 "id": "6",
@@ -1305,7 +1305,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼祝福_20_logo.jpg"
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼打怪兽2_20_logo.jpg"
             ],
             "specifications": [
                 {
@@ -1351,7 +1351,7 @@
             ]
         },
         {
-            "name": "奥特曼联盟",
+            "name": "奥特曼祝福",
             "description": "我会变身奥特曼，游走天地间阻挡怪兽，拯救地球~",
             "category": {
                 "id": "6",
@@ -1359,7 +1359,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/6-男孩男生系列/奥特曼联盟_20_logo.jpg"
+                "/生日蛋糕/图册/6-男孩男生系列/奥特曼祝福_20_logo.jpg"
             ],
             "specifications": [
                 {

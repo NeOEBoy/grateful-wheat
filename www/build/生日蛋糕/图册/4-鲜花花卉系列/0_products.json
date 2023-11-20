@@ -55,6 +55,60 @@
             ]
         },
         {
+            "name": "Love玫瑰",
+            "description": "爱人玫瑰，祝你美丽动人，开心快乐~",
+            "category": {
+                "id": 4,
+                "name": "鲜花花卉系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/4-鲜花花卉系列/Love玫瑰_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "香槟玫瑰之爱",
             "description": "千言万语，不抵鲜花一朵，我的女神，生日快乐~",
             "category": {

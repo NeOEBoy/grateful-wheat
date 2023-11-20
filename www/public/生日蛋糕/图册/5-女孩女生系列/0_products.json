@@ -649,6 +649,60 @@
             ]
         },
         {
+            "name": "兔子花篮蛋糕",
+            "description": "兔子花篮，是你童年最美好的回忆之一，让你感受到无限温暖与关爱~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/兔子花篮蛋糕_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "粉红发财牛",
             "description": "勤劳，刻苦，有毅力，愿你最终通过努力，坚持实现发财致富的梦想~",
             "category": {
@@ -3437,7 +3491,7 @@
             ]
         },
         {
-            "name": "羊羊蛋糕2",
+            "name": "羊羊蛋糕3",
             "description": "你是勇敢的羊羊，打败灰太狼的任务就交给你啦",
             "category": {
                 "id": 5,
@@ -3445,7 +3499,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/5-女孩女生系列/羊羊蛋糕2_logo.jpg"
+                "/生日蛋糕/图册/5-女孩女生系列/羊羊蛋糕3_logo.jpg"
             ],
             "specifications": [
                 {

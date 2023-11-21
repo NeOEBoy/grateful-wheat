@@ -15,9 +15,8 @@
             "纸质菜单卷轴",
             "手打金桔柠檬",
             "蜂蜜烧仙草",
-            "葡萄卷蛋糕(特惠)",
+            "葡萄卷蛋糕",
             "芝士鸡排三明治",
-            "全麦牛排三明治",
             "迷你小蛋糕(3寸)",
             "海盐波波小蛋糕(咸口味,3寸)"
         ],
@@ -284,21 +283,6 @@
             "onSale": false
         },
         {
-            "name": "奶酪白玉卷蛋糕",
-            "ingredient": "奶酪，小麦粉，蛋白，食用油",
-            "categoryId": 3,
-            "images": [
-                "/面包/奶酪白玉卷.jpg"
-            ],
-            "specification": {
-                "name": "5个/盒",
-                "unit": "盒",
-                "price": 8.5
-            },
-            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
-            "onSale": true
-        },
-        {
             "name": "酸奶仔仔小蛋糕",
             "ingredient": "奶酪酱（酸奶味），鸡蛋，小麦粉，食用油",
             "categoryId": 3,
@@ -431,7 +415,7 @@
                 "price": 22
             },
             "expirationDate": "冷藏环境2~3天，常温环境1~2天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "提拉米苏慕斯三角蛋糕",
@@ -461,7 +445,7 @@
                 "price": 16
             },
             "expirationDate": "冷藏环境2~3天，常温环境1~2天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "双莓乳酪慕斯三角蛋糕",
@@ -536,7 +520,7 @@
                 "price": 17
             },
             "expirationDate": "冷藏环境2~3天，常温环境1~2天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "芋泥毛巾卷",
@@ -551,7 +535,7 @@
                 "price": 17
             },
             "expirationDate": "冷藏环境2~3天，常温环境1~2天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "芝士鸡排三明治",
@@ -569,11 +553,11 @@
             "onSale": true
         },
         {
-            "name": "全麦牛排三明治",
-            "ingredient": "牛排，全麦吐司，煎蛋，青瓜",
+            "name": "全麦熏鸡三明治",
+            "ingredient": "全麦吐司 鸡蛋 熏鸡片 青瓜",
             "categoryId": 5,
             "images": [
-                "/面包/全麦牛排三明治.jpg"
+                "/面包/全麦熏鸡三明治.jpg"
             ],
             "specification": {
                 "name": "3个/盒",
@@ -1059,6 +1043,21 @@
                 "name": "15个/盒",
                 "unit": "盒",
                 "price": 12
+            },
+            "expirationDate": "常温环境25天",
+            "onSale": true
+        },
+        {
+            "name": "罗马盾牌",
+            "ingredient": "黄油，糖粉，牛奶，低粉，杏仁片",
+            "categoryId": 9,
+            "images": [
+                "/面包/罗马盾牌.jpg"
+            ],
+            "specification": {
+                "name": "15个/盒",
+                "unit": "盒",
+                "price": 15.8
             },
             "expirationDate": "常温环境25天",
             "onSale": true

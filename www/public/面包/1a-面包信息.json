@@ -130,7 +130,7 @@
                 "price": 8
             },
             "expirationDate": "1天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "迷你小蛋糕(3寸)",
@@ -640,7 +640,7 @@
                 "price": 8.8
             },
             "expirationDate": "常温环境1~2天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "维也纳热狗",
@@ -1060,7 +1060,7 @@
                 "price": 15.8
             },
             "expirationDate": "常温环境25天",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "长富24精品纯奶",

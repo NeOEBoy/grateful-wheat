@@ -1,6 +1,114 @@
 {
     "products": [
         {
+            "name": "福气满天星",
+            "description": "祝奶奶福气满天星，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
+            "category": {
+                "id": "9",
+                "name": "祝寿系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/9-祝寿系列/福气满天星_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "福气满满",
+            "description": "祝爷爷奶奶福气满满，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
+            "category": {
+                "id": "9",
+                "name": "祝寿系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/9-祝寿系列/福气满满_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "万寿无疆",
             "description": "祝爷爷万寿无疆，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
             "category": {

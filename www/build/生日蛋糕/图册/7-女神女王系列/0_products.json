@@ -541,6 +541,60 @@
             ]
         },
         {
+            "name": "粉色小熊领结",
+            "description": "粉色小熊，祝你生日快乐~",
+            "category": {
+                "id": "7",
+                "name": "女神女王系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/7-女神女王系列/粉色小熊领结_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "小熊公主",
             "description": "愿这只会说话的小熊，为你的生活带来无尽的乐趣和美好的回忆~",
             "category": {

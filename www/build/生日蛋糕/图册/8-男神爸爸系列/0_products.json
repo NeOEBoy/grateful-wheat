@@ -163,6 +163,60 @@
             ]
         },
         {
+            "name": "爸爸幸福快乐",
+            "description": "爸爸幸福快乐，祝顺风顺水，幸福一家~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/爸爸幸福快乐_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "天下第一帅",
             "description": "帅是分等级的，你这个属于天下第一帅~",
             "category": {

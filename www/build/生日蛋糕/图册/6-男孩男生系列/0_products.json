@@ -433,6 +433,60 @@
             ]
         },
         {
+            "name": "蛋仔派对2",
+            "description": "你好，欢迎来到蛋仔岛，参加我的派对，让我们一起战斗吧~",
+            "category": {
+                "id": "6",
+                "name": "男孩男生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/6-男孩男生系列/蛋仔派对2_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "加油少年",
             "description": "少年智则国智，少年富则国富，少年强则国强，少年独立则国独立~",
             "category": {

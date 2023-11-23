@@ -572,10 +572,8 @@ class cakeMenu extends React.Component {
             message.warning('请输入姓名！');
             return;
         }
-        if (cakeOrderInfo.delivery.phoneNumber === undefined ||
-            cakeOrderInfo.delivery.phoneNumber === null ||
-            cakeOrderInfo.delivery.phoneNumber === '') {
-            message.warning('请输入电话号码！');
+        if (!/^\d{11}$/.test(cakeOrderInfo.delivery.phoneNumber)) {
+            message.warning('请输入正确的11位电话号码！');
             return;
         }
 
@@ -1693,9 +1691,8 @@ class cakeMenu extends React.Component {
                                                 value={cakeOrderInfo.delivery.phoneNumber}
                                                 onChange={this.handlePhoneNumberChange} />
                                             {
-                                                cakeOrderInfo.delivery.phoneNumber === '' ||
-                                                    cakeOrderInfo.delivery.phoneNumber === undefined ? (
-                                                    <div style={{ color: 'red' }}>“手机”是必填项</div>
+                                                /^\d{11}$/.test(cakeOrderInfo.delivery.phoneNumber) === false ? (
+                                                    <div style={{ color: 'red' }}>“手机号”必须是11位</div>
                                                 ) : (<div></div>)
                                             }
                                         </Input.Group>
@@ -1707,7 +1704,7 @@ class cakeMenu extends React.Component {
                                         <Input.Group>
                                             <span style={{ fontWeight: 'bold' }}>备注：</span>
                                             <TextArea style={{ width: 'calc(100% - 0px)', textAlign: 'left' }} rows={5}
-                                                placeholder={`1：如果蛋糕上有文字或者数字，请务必备注修改；${'\n'}2：有其它特殊要求，请务必备注说明；`} value={cakeOrderInfo.other.remarks}
+                                                placeholder={`1：如果蛋糕上有文字或者数字，请务必备注是否修改；${'\n'}2：有其它特殊要求，请务必备注说明；`} value={cakeOrderInfo.other.remarks}
                                                 onChange={this.handleRemarksChange} />
                                         </Input.Group>
                                     </div>

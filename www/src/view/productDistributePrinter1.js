@@ -278,8 +278,8 @@ class ProductDistributePrinter extends React.Component {
                 paramObj.shop.name + '=>' + paramObj.orderType.name + '=>' + paramObj.orderCashier.name,
             productLabelPrintTemplateList: productLabelPrintTemplateList,
             productLabelPrintModalVisible: true,
-            selectedRowKeys4LabelPrintTemplateList: [],
-            selectedRows4LabelPrintTemplateList: [],
+            selectedRowKeys4LabelPrintTemplateList: productLabelPrintTemplateList.map((item) => item.key),
+            selectedRows4LabelPrintTemplateList: productLabelPrintTemplateList,
             productLabelPrintState: KLabelPrintState.prepare,
             amOrPmType: KAmOrPmTypeOptions[0].value,
             productLabelPrintProductionTemplate4Preview: {
@@ -506,7 +506,8 @@ class ProductDistributePrinter extends React.Component {
     }
 
     onTemplateItemSelectChange = (selectedRowKeys, selectedRows) => {
-        // console.log('onTemplateItemSelectChange: ', selectedRowKeys);
+        // console.log('onTemplateItemSelectChange selectedRowKeys = ', selectedRowKeys);
+        // console.log('onTemplateItemSelectChange selectedRows =', JSON.stringify(selectedRows));
         this.setState({
             selectedRowKeys4LabelPrintTemplateList: selectedRowKeys,
             selectedRows4LabelPrintTemplateList: selectedRows

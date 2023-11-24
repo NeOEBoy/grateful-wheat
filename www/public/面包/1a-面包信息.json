@@ -14,7 +14,6 @@
         "productNames": [
             "纸质菜单卷轴",
             "手打金桔柠檬",
-            "蜂蜜烧仙草",
             "葡萄卷蛋糕",
             "芝士鸡排三明治",
             "迷你小蛋糕(3寸)",
@@ -208,7 +207,7 @@
             "onSale": true
         },
         {
-            "name": "葡萄卷蛋糕(特惠)",
+            "name": "葡萄卷蛋糕",
             "ingredient": "提子干，沙拉酱，小麦粉，食用油，鸡蛋，白糖，盐，牛奶",
             "categoryId": 3,
             "images": [
@@ -217,7 +216,7 @@
             "specification": {
                 "name": "135克/卷",
                 "unit": "卷",
-                "price": 4
+                "price": 4.5
             },
             "expirationDate": "常温环境1~2天",
             "onSale": true
@@ -1105,7 +1104,7 @@
                 "price": 4.5
             },
             "expirationDate": "常温环境6个月",
-            "onSale": true
+            "onSale": false
         },
         {
             "name": "长富武夷森林牧场红枣牛奶",

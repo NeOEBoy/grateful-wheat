@@ -129,7 +129,7 @@
                 "price": 8
             },
             "expirationDate": "1天",
-            "onSale": false
+            "onSale": true
         },
         {
             "name": "迷你小蛋糕(3寸)",

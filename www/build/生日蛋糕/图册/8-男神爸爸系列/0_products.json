@@ -1,6 +1,60 @@
 {
     "products": [
         {
+            "name": "爸爸福气满满",
+            "description": "愿爸爸的生活充满阳光，每天都有好心情，福气满满~",
+            "category": {
+                "id": "8",
+                "name": "男神爸爸系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/8-男神爸爸系列/爸爸福气满满_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
             "name": "风生水起",
             "description": "祝老板，生意兴隆，风生水起，平安顺遂~",
             "category": {

@@ -595,6 +595,60 @@
             ]
         },
         {
+            "name": "欢乐帕恰狗",
+            "description": "愿你的生活充满欢乐和惊喜，像帕恰狗一样快乐无比~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/欢乐帕恰狗_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "草莓熊蛋糕",
             "description": "草莓熊，是你童年最美好的回忆之一，让你感受到无限温暖与关爱~",
             "category": {
@@ -712,6 +766,114 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/5-女孩女生系列/粉红发财牛_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "治愈不开心",
+            "description": "愿这个美味的蛋糕能为你的心情带来一丝甜蜜，让你的笑容重新绽放~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/治愈不开心_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "蜡烛小熊",
+            "description": "小熊伴你左右，蜡烛照亮前路，愿你的人生充满美好和幸福~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/蜡烛小熊_20_logo.jpg"
             ],
             "specifications": [
                 {

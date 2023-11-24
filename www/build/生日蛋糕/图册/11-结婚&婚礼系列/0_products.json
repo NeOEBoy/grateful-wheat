@@ -1,0 +1,544 @@
+{
+    "products": [
+        {
+            "name": "金凤凰双喜",
+            "description": "凤舞九天，喜事连连，愿你的生活如同这金凤凰双喜蛋糕一样甜蜜~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/金凤凰双喜_50_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "翻糖蝴蝶双喜",
+            "description": "蝴蝶翩翩，双喜临门，愿这个翻糖蝴蝶双喜蛋糕为你带来幸福和甜蜜~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/翻糖蝴蝶双喜_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "嫁给我吧",
+            "description": "你是我人生中最重要的人，愿我们的爱情像这个蛋糕一样甜蜜，嫁给我吧~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/嫁给我吧_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "粉色出嫁",
+            "description": "我想和你一起变老，祝你们的爱情像这个粉色蛋糕一样甜蜜，长长久久~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/粉色出嫁_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "嫁给我吧红心",
+            "description": "你是我人生中最重要的人，愿我们的爱情像这个蛋糕一样甜蜜，嫁给我吧~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/嫁给我吧红心_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小熊之爱",
+            "description": "你是我心中的宝贝，愿我们的爱情像这个小熊之爱蛋糕一样甜蜜，祝你们幸福永远~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/小熊之爱_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "双喜双喜",
+            "description": "花开花落，双喜临门，愿你们的爱情和事业如同这双喜双喜蛋糕一样甜蜜幸福~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/双喜双喜_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "双喜订婚",
+            "description": "鸳鸯双栖，喜气洋洋，祝你们的爱情和事业如这双喜蛋糕一样甜蜜幸福~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/双喜订婚_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小手一牵",
+            "description": "小手一牵，爱情甜甜，愿你们的生活如这蛋糕一样幸福甜蜜~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/小手一牵_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "岁岁年年",
+            "description": "朝朝暮暮，沉淀过往，迎来新光，祝你们的爱情如这蛋糕一样甜蜜~",
+            "category": {
+                "id": "10",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/岁岁年年_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        }
+    ]
+}

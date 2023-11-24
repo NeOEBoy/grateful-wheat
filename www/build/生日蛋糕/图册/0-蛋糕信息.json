@@ -3,56 +3,110 @@
         "name": "最新生日蛋糕",
         "products": [
             {
-                "name": "白玫瑰小熊",
-                "description": "白色小熊搭配白色玫瑰，如我们之间的情谊，洁白无瑕~",
+                "name": "全家的主",
+                "description": "全家和谐，相互扶持，共同创造幸福生活~",
                 "category": {
-                    "id": 4,
-                    "name": "鲜花花卉系列"
+                    "id": "8",
+                    "name": "男神爸爸系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/4-鲜花花卉系列/白玫瑰小熊_logo.jpg"
+                    "/生日蛋糕/图册/8-男神爸爸系列/全家的主_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
                         "sizeId": 2,
-                        "price": 128
+                        "price": 118
                     },
                     {
                         "creamId": 1,
                         "sizeId": 3,
-                        "price": 158
+                        "price": 148
                     },
                     {
                         "creamId": 1,
                         "sizeId": 4,
-                        "price": 198
+                        "price": 188
                     },
                     {
                         "creamId": 1,
                         "sizeId": 5,
-                        "price": 238
+                        "price": 228
                     },
                     {
                         "creamId": 2,
                         "sizeId": 2,
-                        "price": 158
+                        "price": 148
                     },
                     {
                         "creamId": 2,
                         "sizeId": 3,
-                        "price": 198
+                        "price": 188
                     },
                     {
                         "creamId": 2,
                         "sizeId": 4,
-                        "price": 238
+                        "price": 228
                     },
                     {
                         "creamId": 2,
                         "sizeId": 5,
-                        "price": 288
+                        "price": 278
+                    }
+                ]
+            },
+            {
+                "name": "爸爸福气满满",
+                "description": "愿爸爸的生活充满阳光，每天都有好心情，福气满满~",
+                "category": {
+                    "id": "8",
+                    "name": "男神爸爸系列"
+                },
+                "fillingRequired": true,
+                "images": [
+                    "/生日蛋糕/图册/8-男神爸爸系列/爸爸福气满满_40_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 138
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 298
                     }
                 ]
             },
@@ -107,60 +161,6 @@
                         "creamId": 2,
                         "sizeId": 5,
                         "price": 288
-                    }
-                ]
-            },
-            {
-                "name": "芒果火龙果双拼",
-                "description": "当芒果遇到火龙果，一半霞红红，一半金黄黄",
-                "category": {
-                    "id": 2,
-                    "name": "水果系列"
-                },
-                "fillingRequired": true,
-                "images": [
-                    "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼_logo.jpg"
-                ],
-                "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 2,
-                        "price": 108
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 138
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 178
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 218
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 138
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 178
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 218
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 268
                     }
                 ]
             },
@@ -327,69 +327,15 @@
                 ]
             },
             {
-                "name": "爹爹请用茶",
-                "description": "爹爹请用茶",
+                "name": "福气满天星",
+                "description": "祝奶奶福气满天星，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
                 "category": {
                     "id": "9",
                     "name": "祝寿系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/9-祝寿系列/爹爹请用茶_30.jpg"
-                ],
-                "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 2,
-                        "price": 128
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 288
-                    }
-                ]
-            },
-            {
-                "name": "二次元粉红爱心",
-                "description": "二次元粉红爱心",
-                "category": {
-                    "id": "19",
-                    "name": "二次元系列"
-                },
-                "fillingRequired": true,
-                "images": [
-                    "/生日蛋糕/图册/19-二次元系列/二次元粉红爱心_20.jpg"
+                    "/生日蛋糕/图册/10-祝寿系列/福气满天星_20_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -431,6 +377,60 @@
                         "creamId": 2,
                         "sizeId": 5,
                         "price": 278
+                    }
+                ]
+            },
+            {
+                "name": "周年快乐",
+                "description": "往后余生，喜乐有分享，共度日月长，祝你们周年快乐~",
+                "category": {
+                    "id": "11",
+                    "name": "情侣系列&婚礼系列"
+                },
+                "fillingRequired": true,
+                "images": [
+                    "/生日蛋糕/图册/9-情侣系列/周年快乐_30_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 158
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 198
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 238
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 158
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 198
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 238
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 288
                     }
                 ]
             }
@@ -488,21 +488,21 @@
         },
         {
             "id": 9,
+            "name": "情侣系列",
+            "description": "祝福你们的爱情像美丽的花朵一样，绽放出永恒的美丽~",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 10,
             "name": "祝寿系列",
             "description": "让我们一起恭祝老寿星，福如东海，日月昌明。松鹤长春，春秋不老，古稀重新，欢乐远长~",
             "images": [],
             "products": []
         },
         {
-            "id": 10,
-            "name": "结婚&婚礼系列",
-            "description": "祝福你们的爱情像美丽的花朵一样，绽放出永恒的美丽~",
-            "images": [],
-            "products": []
-        },
-        {
             "id": 11,
-            "name": "情侣系列",
+            "name": "结婚&婚礼系列",
             "description": "祝福你们的爱情像美丽的花朵一样，绽放出永恒的美丽~",
             "images": [],
             "products": []
@@ -523,48 +523,34 @@
         },
         {
             "id": 14,
-            "name": "森系系列",
-            "description": "绿色有氧森林，养颜的森系蛋糕",
-            "images": [],
-            "products": []
-        },
-        {
-            "id": 15,
-            "name": "ins简约风系列",
-            "description": "ins简约风系列",
-            "images": [],
-            "products": []
-        },
-        {
-            "id": 16,
             "name": "拜拜系列",
             "description": "拜天拜地拜天地，拜人拜神拜神明",
             "images": [],
             "products": []
         },
         {
-            "id": 17,
+            "id": 15,
             "name": "复古系列",
             "description": "复古系列",
             "images": [],
             "products": []
         },
         {
-            "id": 18,
+            "id": 16,
             "name": "千层慕斯系列",
             "description": "千层慕斯系列",
             "images": [],
             "products": []
         },
         {
-            "id": 19,
+            "id": 17,
             "name": "二次元系列",
-            "description": "二次元系列，由黑白二次元，彩色二次元~",
+            "description": "二次元系列，有黑白二次元，彩色二次元，简易线条组成的蛋糕，倡导简约生活，反对内卷~",
             "images": [],
             "products": []
         },
         {
-            "id": 20,
+            "id": 18,
             "name": "其它系列",
             "description": "其它系列",
             "images": [],

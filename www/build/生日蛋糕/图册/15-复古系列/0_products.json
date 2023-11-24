@@ -1,0 +1,220 @@
+{
+    "products": [
+        {
+            "name": "义结金兰",
+            "description": "义结金兰",
+            "category": {
+                "id": "17",
+                "name": "复古系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/15-复古系列/义结金兰_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "太阳花之恋",
+            "description": "太阳花之恋",
+            "category": {
+                "id": "17",
+                "name": "复古系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/15-复古系列/太阳花之恋_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "春意盎然",
+            "description": "春意盎然",
+            "category": {
+                "id": "17",
+                "name": "复古系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/15-复古系列/春意盎然_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "烛光之恋",
+            "description": "烛光之恋",
+            "category": {
+                "id": "17",
+                "name": "复古系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/15-复古系列/烛光之恋_20.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        }
+    ]
+}

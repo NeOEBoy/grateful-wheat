@@ -1,9 +1,9 @@
 {
-    "heightsDescription": "通用款=>3层蛋糕胚，双层夹心; 加高款=>4层蛋糕胚，三层夹心",
+    "heightsDescription": "正常高度=>3层蛋糕胚，双层夹心; 加高=>4层蛋糕胚，三层夹心",
     "heights": [
         {
             "id": 1,
-            "name": "通用款",
+            "name": "正常高度",
             "description": "3层蛋糕胚，双层夹心",
             "embryoNumber": 3,
             "fillingNumber": 2,
@@ -36,7 +36,7 @@
         },
         {
             "id": 2,
-            "name": "加高款",
+            "name": "加高",
             "description": "4层蛋糕胚，三层夹心",
             "embryoNumber": 4,
             "fillingNumber": 3,

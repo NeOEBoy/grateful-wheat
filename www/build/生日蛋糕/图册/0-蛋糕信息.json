@@ -331,11 +331,11 @@
                 "description": "祝奶奶福气满天星，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
                 "category": {
                     "id": "9",
-                    "name": "祝寿系列"
+                    "name": "老人&祝寿系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/10-祝寿系列/福气满天星_20_logo.jpg"
+                    "/生日蛋糕/图册/10-老人&祝寿系列/福气满天星_20_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -385,11 +385,11 @@
                 "description": "往后余生，喜乐有分享，共度日月长，祝你们周年快乐~",
                 "category": {
                     "id": "11",
-                    "name": "情侣系列&婚礼系列"
+                    "name": "情侣&周年系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/9-情侣系列/周年快乐_30_logo.jpg"
+                    "/生日蛋糕/图册/9-情侣&周年系列/周年快乐_30_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -488,14 +488,14 @@
         },
         {
             "id": 9,
-            "name": "情侣系列",
+            "name": "情侣&周年系列",
             "description": "祝福你们的爱情像美丽的花朵一样，绽放出永恒的美丽~",
             "images": [],
             "products": []
         },
         {
             "id": 10,
-            "name": "祝寿系列",
+            "name": "老人&祝寿系列",
             "description": "让我们一起恭祝老寿星，福如东海，日月昌明。松鹤长春，春秋不老，古稀重新，欢乐远长~",
             "images": [],
             "products": []
@@ -523,8 +523,8 @@
         },
         {
             "id": 14,
-            "name": "拜拜系列",
-            "description": "拜天拜地拜天地，拜人拜神拜神明",
+            "name": "拜拜&招财系列",
+            "description": "拜天拜地拜天地，拜人拜神拜神明，祝你有福气有财气~",
             "images": [],
             "products": []
         },
@@ -538,7 +538,7 @@
         {
             "id": 16,
             "name": "千层&慕斯系列",
-            "description": "千层慕斯系列",
+            "description": "千层层层叠，慕斯丝丝滑，这就是千层慕斯蛋糕带给你的美味享受~",
             "images": [],
             "products": []
         },

@@ -1332,7 +1332,7 @@ class cakeMenu extends React.Component {
                                                             {
                                                                 this._cakeSizes.length >= 2 ? (
                                                                     <div style={{ fontSize: 10, fontWeight: 'bold', color: 'gray' }}>
-                                                                        <div>注1：加高款，价格比通用款增加10~50元不等</div>
+                                                                        <div>注1：加高价格比正常高度，增加10~50元不等</div>
                                                                         <div>注2：组合蛋糕，价格为对应尺寸蛋糕价格之和</div>
                                                                     </div>) : (<div></div>)
                                                             }
@@ -1361,11 +1361,11 @@ class cakeMenu extends React.Component {
                                             }
                                         </Input.Group>
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>尺寸：</span>
                                         <Select
                                             disabled={!cakeOrderInfo.making.cream}
-                                            style={{ width: 110, marginRight: 8 }}
+                                            style={{ width: 120, marginRight: 8 }}
                                             onChange={this.handleSizeChange}
                                             onDropdownVisibleChange={this.handleSizeSelectDropdownVisibleChange}
                                             options={this._sizeOptions}
@@ -1389,11 +1389,11 @@ class cakeMenu extends React.Component {
                                             ) : (<span></span>)
                                         }
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>高度：</span>
                                         <Select
                                             disabled={!cakeOrderInfo.making.cream || !cakeOrderInfo.making.size}
-                                            style={{ width: 100 }}
+                                            style={{ width: 120 }}
                                             onChange={this.handleHeightChange}
                                             value={cakeOrderInfo.making.height}
                                             options={this._heightOptions}>
@@ -1406,12 +1406,12 @@ class cakeMenu extends React.Component {
                                             ) : (<div></div>)
                                         }
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>价格：</span>
                                         <span>{cakeOrderInfo.making.price}</span>
                                         <span> 元</span>
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>
                                             <span>夹心</span>
                                             {
@@ -1432,7 +1432,7 @@ class cakeMenu extends React.Component {
                                             ) : (<span></span>)
                                         }
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，若蛋糕自带蜡烛则不额外赠送蜡烛）：</div>
 
                                         <Radio.Group style={{ marginTop: 8 }}
@@ -1445,11 +1445,11 @@ class cakeMenu extends React.Component {
                                                 (this.evalWith(cakeOrderInfo.making.candle)?.id === 3 &&
                                                     (cakeOrderInfo.making.candleExtra === undefined ||
                                                         cakeOrderInfo.making.candleExtra === '')) ? (
-                                                <div style={{ color: 'red', marginLeft: 0 }}>“蜡烛”是必填项</div>
+                                                <div style={{ color: 'red' }}>“蜡烛”是必填项</div>
                                             ) : (<span></span>)
                                         }
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>火柴（如需要请选择，默认没有火柴）：</div>
 
                                         <Radio.Group style={{ marginTop: 8 }}
@@ -1459,7 +1459,7 @@ class cakeMenu extends React.Component {
                                         </Radio.Group>
                                     </div>
 
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>帽子（任选一种，默认为金卡皇冠帽）：</div>
 
                                         <Radio.Group style={{ marginTop: 8 }}
@@ -1469,7 +1469,7 @@ class cakeMenu extends React.Component {
                                         </Radio.Group>
                                     </div>
 
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>餐具：</span>
                                         <span>{cakeOrderInfo.making.plates}</span>
                                         <span> 套</span>
@@ -1477,7 +1477,7 @@ class cakeMenu extends React.Component {
                                 </div>
                                 <div key='c'>
                                     <Divider style={{ marginTop: 10, marginBottom: 0, fontSize: 12 }}>取货</Divider>
-                                    <div style={{ marginTop: 8, marginBottom: 18, marginLeft: 12, marginRight: 12, textAlign: 'center' }}>
+                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>时间：</div>
                                         <div>
                                             <DatePicker

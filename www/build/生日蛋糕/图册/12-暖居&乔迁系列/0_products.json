@@ -1,8 +1,62 @@
 {
     "products": [
         {
+            "name": "暖居之喜",
+            "description": "祝贺你的新家落成，愿你在这个温馨的家中，享受无尽的欢乐和幸福~",
+            "category": {
+                "id": "12",
+                "name": "暖居&乔迁系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居&乔迁系列/暖居之喜_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "暖居之乔迁之喜",
-            "description": "暖居之乔迁之喜",
+            "description": "乔迁之喜，大吉大利，喜迁新居，万事如意~",
             "category": {
                 "id": "12",
                 "name": "暖居&乔迁系列"
@@ -55,8 +109,62 @@
             ]
         },
         {
+            "name": "乔迁之喜",
+            "description": "乔迁之喜，大吉大利，良辰安宅，吉日迁居~",
+            "category": {
+                "id": "12",
+                "name": "暖居&乔迁系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居&乔迁系列/乔迁之喜_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "乔迁大顺",
-            "description": "乔迁大顺",
+            "description": "喜迁新居，万事如意，乔迁之喜，大吉大利~",
             "category": {
                 "id": "12",
                 "name": "暖居&乔迁系列"
@@ -109,7 +217,7 @@
             ]
         },
         {
-            "name": "乔迁猫1_20",
+            "name": "乔迁猫1",
             "description": "新环境，新开始，猫咪相伴，快乐永远~",
             "category": {
                 "id": "12",
@@ -163,7 +271,7 @@
             ]
         },
         {
-            "name": "乔迁猫2_20",
+            "name": "乔迁猫2",
             "description": "新环境，新开始，猫咪相伴，快乐永远~",
             "category": {
                 "id": "12",
@@ -272,14 +380,14 @@
         },
         {
             "name": "平安喜乐",
-            "description": "平安喜乐",
+            "description": "祝你平安喜乐，幸福永远~",
             "category": {
                 "id": "12",
                 "name": "暖居&乔迁系列"
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/12-暖居&乔迁系列/平安喜乐_10.jpg"
+                "/生日蛋糕/图册/12-暖居&乔迁系列/平安喜乐1_10_logo.jpg"
             ],
             "specifications": [
                 {
@@ -321,6 +429,60 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 268
+                }
+            ]
+        },
+        {
+            "name": "平安喜乐2",
+            "description": "祝你平安喜乐，幸福永远~",
+            "category": {
+                "id": "12",
+                "name": "暖居&乔迁系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/12-暖居&乔迁系列/平安喜乐2_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
                 }
             ]
         }

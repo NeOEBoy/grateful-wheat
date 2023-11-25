@@ -1,1 +1,166 @@
-{"products":[{"name":"开业大吉","description":"开业大吉","category":{"id":"13","name":"开业系列"},"fillingRequired":true,"images":["/生日蛋糕/图册/13-开业系列/开业大吉_10.jpg"],"specifications":[{"creamId":1,"sizeId":2,"price":108},{"creamId":1,"sizeId":3,"price":138},{"creamId":1,"sizeId":4,"price":178},{"creamId":1,"sizeId":5,"price":218},{"creamId":2,"sizeId":2,"price":138},{"creamId":2,"sizeId":3,"price":178},{"creamId":2,"sizeId":4,"price":218},{"creamId":2,"sizeId":5,"price":268}]},{"name":"开业大吉大利","description":"开业大吉大利","category":{"id":"13","name":"开业系列"},"fillingRequired":true,"images":["/生日蛋糕/图册/13-开业系列/开业大吉大利_30.jpg"],"specifications":[{"creamId":1,"sizeId":2,"price":128},{"creamId":1,"sizeId":3,"price":158},{"creamId":1,"sizeId":4,"price":198},{"creamId":1,"sizeId":5,"price":238},{"creamId":2,"sizeId":2,"price":158},{"creamId":2,"sizeId":3,"price":198},{"creamId":2,"sizeId":4,"price":238},{"creamId":2,"sizeId":5,"price":288}]},{"name":"开业招财","description":"开业招财","category":{"id":"13","name":"开业系列"},"fillingRequired":true,"images":["/生日蛋糕/图册/13-开业系列/开业招财_20.jpg"],"specifications":[{"creamId":1,"sizeId":2,"price":118},{"creamId":1,"sizeId":3,"price":148},{"creamId":1,"sizeId":4,"price":188},{"creamId":1,"sizeId":5,"price":228},{"creamId":2,"sizeId":2,"price":148},{"creamId":2,"sizeId":3,"price":188},{"creamId":2,"sizeId":4,"price":228},{"creamId":2,"sizeId":5,"price":278}]}]}
+{
+    "products": [
+        {
+            "name": "方形开业大吉",
+            "description": "开业大吉，大吉大利~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/方形开业大吉_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "开业大吉大利",
+            "description": "开业大吉，大吉大利~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/开业大吉大利_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "招财猫开业大吉",
+            "description": "恭喜发财，招财猫来~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/招财猫开业大吉_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        }
+    ]
+}

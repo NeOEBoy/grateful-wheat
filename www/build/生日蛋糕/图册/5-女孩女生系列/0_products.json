@@ -379,6 +379,60 @@
             ]
         },
         {
+            "name": "简约星空蛋糕",
+            "description": "这个简约星空蛋糕是如此美丽，就像你的心灵一样，愿你的每一天都充满欢乐和惊喜~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/简约星空蛋糕_10_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
             "name": "白雪公主B款",
             "description": "白雪公主，这个名字代表着纯真与善良，美丽与温柔，相信真善美的力量~",
             "category": {
@@ -595,60 +649,6 @@
             ]
         },
         {
-            "name": "欢乐帕恰狗",
-            "description": "愿你的生活充满欢乐和惊喜，像帕恰狗一样快乐无比~",
-            "category": {
-                "id": 5,
-                "name": "女孩女生系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/5-女孩女生系列/欢乐帕恰狗_30_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 128
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 158
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 198
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 158
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 198
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 238
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 288
-                }
-            ]
-        },
-        {
             "name": "草莓熊蛋糕",
             "description": "草莓熊，是你童年最美好的回忆之一，让你感受到无限温暖与关爱~",
             "category": {
@@ -811,6 +811,60 @@
             ]
         },
         {
+            "name": "粉色猫咪",
+            "description": "愿这个粉色猫咪蛋糕带给你无尽的快乐和甜蜜，就像你带给我的一样，生日快乐~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/粉色猫咪_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "治愈不开心",
             "description": "愿这个美味的蛋糕能为你的心情带来一丝甜蜜，让你的笑容重新绽放~",
             "category": {
@@ -861,6 +915,114 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小猫咪咪",
+            "description": "祝小猫咪咪在这个特别的日子里，感受到无尽的欢乐和幸福~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/小猫咪咪_10_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
+            "name": "小猪花花",
+            "description": "祝小猪花花在这个特别的日子里，感受到无尽的欢乐和幸福~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/小猪花花_10_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
                 }
             ]
         },
@@ -3059,6 +3221,60 @@
             ]
         },
         {
+            "name": "欢乐帕恰狗",
+            "description": "愿你的生活充满欢乐和惊喜，像帕恰狗一样快乐无比~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/欢乐帕恰狗_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "天真帕恰狗",
             "description": "无论何时何地，总是展现出一种无忧无虑、快乐无比的形象，它的纯真和善良感染着每一个人的心~",
             "category": {
@@ -3068,6 +3284,60 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/5-女孩女生系列/天真帕恰狗_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "简约帕恰狗",
+            "description": "帕恰狗是如此可爱，就像你一样，愿你的每一天都充满欢乐和惊喜~",
+            "category": {
+                "id": 5,
+                "name": "女孩女生系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/5-女孩女生系列/简约帕恰狗_20_logo.jpg"
             ],
             "specifications": [
                 {

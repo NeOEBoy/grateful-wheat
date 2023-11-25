@@ -1278,7 +1278,7 @@ class cakeMenu extends React.Component {
                                         cakeOrderInfo.product?.images?.map((i) => {
                                             return (
                                                 <Image key={cakeOrderInfo.product?.images.indexOf(i)}
-                                                    preview={true} style={{ width: '99%', border: '1px dotted #5F9EA0', borderRadius: 8 }}
+                                                    preview={{ mask: <div>点击查看大图</div> }} style={{ width: '99%', border: '1px dotted #5F9EA0', borderRadius: 8 }}
                                                     src={i} />
                                             );
                                         })

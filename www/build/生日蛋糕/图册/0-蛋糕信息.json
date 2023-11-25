@@ -7,11 +7,11 @@
                 "description": "全家和谐，相互扶持，共同创造幸福生活~",
                 "category": {
                     "id": "8",
-                    "name": "男神爸爸系列"
+                    "name": "男神&爸爸系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/8-男神爸爸系列/全家的主_20_logo.jpg"
+                    "/生日蛋糕/图册/8-男神&爸爸系列/全家的主_20_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -61,11 +61,11 @@
                 "description": "愿爸爸的生活充满阳光，每天都有好心情，福气满满~",
                 "category": {
                     "id": "8",
-                    "name": "男神爸爸系列"
+                    "name": "男神&爸爸系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/8-男神爸爸系列/爸爸福气满满_40_logo.jpg"
+                    "/生日蛋糕/图册/8-男神&爸爸系列/爸爸福气满满_40_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -115,11 +115,11 @@
                 "description": "绿茵，狂欢之夜！感受足球的魅力，共度热血时光！",
                 "category": {
                     "id": "6",
-                    "name": "男孩男生系列"
+                    "name": "男孩&男生系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/6-男孩男生系列/欢乐足球_30_logo.jpg"
+                    "/生日蛋糕/图册/6-男孩&男生系列/欢乐足球_30_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -169,11 +169,11 @@
                 "description": "旋转的风车，快乐的童年！让孩子们在阳光下享受童年的快乐~",
                 "category": {
                     "id": "6",
-                    "name": "男孩男生系列"
+                    "name": "男孩&男生系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/6-男孩男生系列/风车宝宝_20_logo.jpg"
+                    "/生日蛋糕/图册/6-男孩&男生系列/风车宝宝_20_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -223,11 +223,11 @@
                 "description": "一朵花，一生情，愿幸福与你相伴，祝福你，MyLover~",
                 "category": {
                     "id": "7",
-                    "name": "女神女王系列"
+                    "name": "女神&女王系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/7-女神女王系列/渐变圆形_30.jpg"
+                    "/生日蛋糕/图册/7-女神&女王系列/渐变圆形_30.jpg"
                 ],
                 "specifications": [
                     {
@@ -277,11 +277,11 @@
                 "description": "祝老板，生意兴隆，风生水起，平安顺遂~",
                 "category": {
                     "id": "8",
-                    "name": "男神爸爸系列"
+                    "name": "男神&爸爸系列"
                 },
                 "fillingRequired": true,
                 "images": [
-                    "/生日蛋糕/图册/8-男神爸爸系列/风生水起_20_logo.jpg"
+                    "/生日蛋糕/图册/8-男神&爸爸系列/风生水起_20_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -453,35 +453,35 @@
         },
         {
             "id": 4,
-            "name": "鲜花花卉系列",
+            "name": "鲜花&花卉系列",
             "description": "鲜花，乃爱的象征，古往今来，人民常用鲜花来表达爱意，不管对父母，对恋人，一朵鲜花，即一份爱意~",
             "images": [],
             "products": []
         },
         {
             "id": 5,
-            "name": "女孩女生系列",
+            "name": "女孩&女生系列",
             "description": "各种适合女孩子的卡通玩具蛋糕，祝你拥有快乐的童年，在有爱的氛围，茁壮成长~",
             "images": [],
             "products": []
         },
         {
             "id": 6,
-            "name": "男孩男生系列",
+            "name": "男孩&男生系列",
             "description": "各种适合男孩子的卡通玩具蛋糕，祝你拥有快乐的童年，在有爱的氛围，茁壮成长",
             "images": [],
             "products": []
         },
         {
             "id": 7,
-            "name": "女神女王系列",
+            "name": "女神&女王系列",
             "description": "我的女神，祝你每天幸福开心，爱意永留存，幸福常相伴，我愿高举我的双手，把你托进爱的空间~",
             "images": [],
             "products": []
         },
         {
             "id": 8,
-            "name": "男神爸爸系列",
+            "name": "男神&爸爸系列",
             "description": "男神爸爸，你是我们全家的天，是全家的顶梁柱，希望你开心，我们会伴你左右~",
             "images": [],
             "products": []
@@ -509,7 +509,7 @@
         },
         {
             "id": 12,
-            "name": "暖居系列",
+            "name": "暖居&乔迁系列",
             "description": "搬进新居吉祥，搬进高楼福寿安康。乔迁之喜天地，新居荣福禄寿全荣~",
             "images": [],
             "products": []
@@ -537,7 +537,7 @@
         },
         {
             "id": 16,
-            "name": "千层慕斯系列",
+            "name": "千层&慕斯系列",
             "description": "千层慕斯系列",
             "images": [],
             "products": []

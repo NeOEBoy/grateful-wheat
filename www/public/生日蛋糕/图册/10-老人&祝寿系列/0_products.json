@@ -1,10 +1,118 @@
 {
     "products": [
         {
+            "name": "最好婆婆",
+            "description": "感谢婆婆一直以来的关爱和支持，你是全世界最好的婆婆，祝您生日快乐~",
+            "category": {
+                "id": "10",
+                "name": "老人&祝寿系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/10-老人&祝寿系列/最好婆婆_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "发发发福福福",
+            "description": "祝婆婆福气满天星，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
+            "category": {
+                "id": "10",
+                "name": "老人&祝寿系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/10-老人&祝寿系列/发发发福福福_50_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 258
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 258
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 308
+                }
+            ]
+        },
+        {
             "name": "福气满天星",
             "description": "祝奶奶福气满天星，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -58,7 +166,7 @@
             "name": "福气满满",
             "description": "祝爷爷奶奶福气满满，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -112,7 +220,7 @@
             "name": "万寿无疆",
             "description": "祝爷爷万寿无疆，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -166,7 +274,7 @@
             "name": "金色流年",
             "description": "金色的流年，是回忆与憧憬交织的岁月~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -220,7 +328,7 @@
             "name": "长寿桃复古",
             "description": "长寿桃，品尝岁月的甜蜜果实，享受健康的长寿人生~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -274,7 +382,7 @@
             "name": "丰盈一生",
             "description": "丰盈一生，绽放精彩，这一句话，充满了对生活的热爱和对未来的期待~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -328,7 +436,7 @@
             "name": "爹爹请用茶",
             "description": "爹爹，您一直都是女儿心中的楷模和榜样~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -382,7 +490,7 @@
             "name": "健康长寿手绘",
             "description": "愿您的每一天都充满阳光和活力，健康长寿，快乐无忧~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -436,7 +544,7 @@
             "name": "健康长寿",
             "description": "愿您的每一天都充满阳光和活力，健康长寿，快乐无忧~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -490,7 +598,7 @@
             "name": "大寿吉祥",
             "description": "在这个特别的日子里，我们欢聚一堂，共同庆祝一位尊敬的长者~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -544,7 +652,7 @@
             "name": "富贵高寿",
             "description": "值此金秋时节，我们欢聚一堂，共同庆贺XXX（寿星的名字）的富贵高寿~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -598,7 +706,7 @@
             "name": "寿比南山",
             "description": "值此盛世年华，我们欢聚一堂，共同庆贺XXX（寿星的名字）的寿比南山~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -652,7 +760,7 @@
             "name": "松乔之寿",
             "description": "值此仙鹤衔桃、群贤毕至的吉日，我们欢聚一堂，共同庆贺XXX（寿星的名字）的松乔之寿~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,
@@ -706,7 +814,7 @@
             "name": "福寿绵绵",
             "description": "值此良辰吉日，我们欢聚一堂，共同庆贺XXX（寿星的名字）的福寿绵绵~",
             "category": {
-                "id": "9",
+                "id": "10",
                 "name": "老人&祝寿系列"
             },
             "fillingRequired": true,

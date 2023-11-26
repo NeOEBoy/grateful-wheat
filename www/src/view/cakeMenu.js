@@ -1239,7 +1239,7 @@ class cakeMenu extends React.Component {
                                                 <Button type='default' onClick={() => {
                                                     this.setState({ imageCropperModalVisiable: false });
                                                 }}>取消</Button>
-                                                <Button type='primary' onClick={() => {
+                                                <Button type='primary' danger onClick={() => {
                                                     let dataUrlAfterCroped = this._imageCropper.getCroppedCanvas().toDataURL();
                                                     let customizedProduct = this._private;
                                                     customizedProduct.images = [dataUrlAfterCroped];

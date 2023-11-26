@@ -4,7 +4,7 @@
             "name": "榴莲千层蛋糕1(需提前一天预定)",
             "description": "榴莲千层，层层都是榴莲的热情，每一口都是对味蕾的宠爱~",
             "category": {
-                "id": "18",
+                "id": "16",
                 "name": "千层&慕斯系列"
             },
             "fillingRequired": false,
@@ -28,7 +28,7 @@
             "name": "榴莲千层蛋糕2(需提前一天预定)",
             "description": "榴莲千层，层层都是榴莲的热情，每一口都是对味蕾的宠爱~",
             "category": {
-                "id": "18",
+                "id": "16",
                 "name": "千层&慕斯系列"
             },
             "fillingRequired": false,
@@ -52,7 +52,7 @@
             "name": "芒果千层蛋糕1(需提前一天预定)",
             "description": "品味芒果千层，感受芒果的魅力，让你的舌尖沉浸在幸福的滋味中~",
             "category": {
-                "id": "18",
+                "id": "16",
                 "name": "千层&慕斯系列"
             },
             "fillingRequired": false,
@@ -76,7 +76,7 @@
             "name": "芒果千层蛋糕2(需提前一天预定)",
             "description": "品味芒果千层，感受芒果的魅力，让你的舌尖沉浸在幸福的滋味中~",
             "category": {
-                "id": "18",
+                "id": "16",
                 "name": "千层&慕斯系列"
             },
             "fillingRequired": false,
@@ -100,7 +100,7 @@
             "name": "抹茶奥利奥千层蛋糕(需提前一天预定)",
             "description": "品味抹茶奥利奥千层，感受抹茶的细腻与奥利奥的香脆，让你的舌尖沉浸在幸福的滋味中~",
             "category": {
-                "id": "18",
+                "id": "16",
                 "name": "千层&慕斯系列"
             },
             "fillingRequired": false,

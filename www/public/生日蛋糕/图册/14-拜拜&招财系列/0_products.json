@@ -4,7 +4,7 @@
             "name": "存钱罐之发财树",
             "description": "愿这棵发财树为你带来源源不断的财富和好运，财源广进~",
             "category": {
-                "id": "16",
+                "id": "14",
                 "name": "拜拜&招财系列"
             },
             "fillingRequired": true,
@@ -58,7 +58,7 @@
             "name": "存钱罐之发发发",
             "description": "希望这个存钱罐之发发发蛋糕为你的生活带来财富和好运，恭喜发财~",
             "category": {
-                "id": "16",
+                "id": "14",
                 "name": "拜拜&招财系列"
             },
             "fillingRequired": true,
@@ -112,7 +112,7 @@
             "name": "金色钱袋子",
             "description": "愿这个金色钱袋子蛋糕为你带来源源不断的财富，钱袋子越来越鼓~",
             "category": {
-                "id": "16",
+                "id": "14",
                 "name": "拜拜&招财系列"
             },
             "fillingRequired": true,
@@ -166,7 +166,7 @@
             "name": "招财进宝",
             "description": "希望这个招财进宝蛋糕为你的生活增添更多的财富和喜悦，恭喜发财~",
             "category": {
-                "id": "16",
+                "id": "14",
                 "name": "拜拜&招财系列"
             },
             "fillingRequired": true,
@@ -220,7 +220,7 @@
             "name": "招财猫祝福你",
             "description": "招财猫，祝你生日快乐~",
             "category": {
-                "id": "16",
+                "id": "14",
                 "name": "拜拜&招财系列"
             },
             "fillingRequired": true,

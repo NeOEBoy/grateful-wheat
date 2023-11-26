@@ -4,7 +4,7 @@
             "name": "二次元粉红爱心",
             "description": "二次元粉红爱心",
             "category": {
-                "id": "19",
+                "id": "17",
                 "name": "二次元系列"
             },
             "fillingRequired": true,
@@ -58,7 +58,7 @@
             "name": "二次元粉红",
             "description": "二次元粉红",
             "category": {
-                "id": "19",
+                "id": "17",
                 "name": "二次元系列"
             },
             "fillingRequired": true,
@@ -112,7 +112,7 @@
             "name": "二次元公主",
             "description": "二次元公主",
             "category": {
-                "id": "19",
+                "id": "17",
                 "name": "二次元系列"
             },
             "fillingRequired": true,
@@ -166,7 +166,7 @@
             "name": "二次元球鞋",
             "description": "二次元球鞋",
             "category": {
-                "id": "19",
+                "id": "17",
                 "name": "二次元系列"
             },
             "fillingRequired": true,
@@ -220,7 +220,7 @@
             "name": "二次元蓝",
             "description": "二次元蓝",
             "category": {
-                "id": "19",
+                "id": "17",
                 "name": "二次元系列"
             },
             "fillingRequired": true,

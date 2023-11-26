@@ -4,7 +4,7 @@
             "name": "搞怪橘子",
             "description": "搞怪橘子",
             "category": {
-                "id": "20",
+                "id": "18",
                 "name": "其它系列"
             },
             "fillingRequired": true,
@@ -58,7 +58,7 @@
             "name": "时光不老",
             "description": "时光不老",
             "category": {
-                "id": "20",
+                "id": "18",
                 "name": "其它系列"
             },
             "fillingRequired": true,
@@ -112,7 +112,7 @@
             "name": "暴富暴美",
             "description": "暴富暴美",
             "category": {
-                "id": "20",
+                "id": "18",
                 "name": "其它系列"
             },
             "fillingRequired": true,
@@ -166,7 +166,7 @@
             "name": "粑粑蛋糕",
             "description": "粑粑蛋糕",
             "category": {
-                "id": "20",
+                "id": "18",
                 "name": "其它系列"
             },
             "fillingRequired": true,
@@ -220,7 +220,7 @@
             "name": "柿柿如意",
             "description": "柿柿如意",
             "category": {
-                "id": "20",
+                "id": "18",
                 "name": "其它系列"
             },
             "fillingRequired": true,
@@ -274,7 +274,7 @@
             "name": "蜡笔小新",
             "description": "蜡笔小新",
             "category": {
-                "id": "20",
+                "id": "18",
                 "name": "其它系列"
             },
             "fillingRequired": true,

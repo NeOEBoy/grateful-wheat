@@ -1,6 +1,114 @@
 {
     "products": [
         {
+            "name": "招财猫发发发1",
+            "description": "财猫送福，招财进宝，祝您财源广进，日进斗金~",
+            "category": {
+                "id": "14",
+                "name": "拜拜&招财系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/14-拜拜&招财系列/招财猫发发发1_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "招财猫发发发2",
+            "description": "财猫送福，招财进宝，祝您财源广进，日进斗金~",
+            "category": {
+                "id": "14",
+                "name": "拜拜&招财系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/14-拜拜&招财系列/招财猫发发发2_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "存钱罐之发财树",
             "description": "愿这棵发财树为你带来源源不断的财富和好运，财源广进~",
             "category": {

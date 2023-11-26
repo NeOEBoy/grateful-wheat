@@ -110,6 +110,60 @@
             ]
         },
         {
+            "name": "请柬蛋糕",
+            "description": "请柬传递喜悦，蛋糕分享甜蜜，祝您快乐常在，笑口常开~",
+            "category": {
+                "id": "11",
+                "name": "结婚&婚礼系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/11-结婚&婚礼系列/请柬蛋糕_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
             "name": "嫁给我吧",
             "description": "你是我人生中最重要的人，愿我们的爱情像这个蛋糕一样甜蜜，嫁给我吧~",
             "category": {

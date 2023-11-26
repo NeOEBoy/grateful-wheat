@@ -1,6 +1,276 @@
 {
     "products": [
         {
+            "name": "蝴蝶结开业大吉",
+            "description": "开业大吉，大吉大利~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/蝴蝶结开业大吉_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "开业大吉1",
+            "description": "开业大吉，大吉大利~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/开业大吉1_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "开业大吉2",
+            "description": "开业大吉，大吉大利~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/开业大吉2_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "招财猫开业大吉1",
+            "description": "恭喜发财，招财猫来~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/招财猫开业大吉1_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
+            "name": "开业大吉发发发",
+            "description": "开业大吉，大吉大利~",
+            "category": {
+                "id": "13",
+                "name": "开业系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/13-开业系列/开业大吉发发发_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "方形开业大吉",
             "description": "开业大吉，大吉大利~",
             "category": {
@@ -109,7 +379,7 @@
             ]
         },
         {
-            "name": "招财猫开业大吉",
+            "name": "招财猫开业大吉2",
             "description": "恭喜发财，招财猫来~",
             "category": {
                 "id": "13",
@@ -117,7 +387,7 @@
             },
             "fillingRequired": true,
             "images": [
-                "/生日蛋糕/图册/13-开业系列/招财猫开业大吉_30_logo.jpg"
+                "/生日蛋糕/图册/13-开业系列/招财猫开业大吉2_30_logo.jpg"
             ],
             "specifications": [
                 {

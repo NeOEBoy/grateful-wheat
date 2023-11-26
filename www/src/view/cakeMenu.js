@@ -237,7 +237,7 @@ class cakeMenu extends React.Component {
             width: theDiv4CaptureHeight - 180,
             height: theDiv4CaptureHeight - 180 + 40,
             float: 'left', marginLeft: 8,
-            borderRadius: 8, border: '2px dotted #5F9EA0'
+            borderRadius: 8, border: '2px dotted #008B8B'
         };
         this._theRightDivInTheDiv4CaptureStyle = {
             float: 'right',
@@ -259,7 +259,7 @@ class cakeMenu extends React.Component {
         this._orderImageStyle = {
             width: orderImageWidth,
             height: orderImageHeight,
-            border: '2px dashed #5F9EA0'
+            border: '2px dashed #008B8B'
         };
 
         this._orderImageInStyle = {
@@ -1008,7 +1008,7 @@ class cakeMenu extends React.Component {
                 this._fillingOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #5F9EA0' }} preview={false} src={filling.image} />
+                            <Image style={{ width: 54, height: 54, borderRadius: 27, border: '1px dotted #008B8B' }} preview={false} src={filling.image} />
                             <div style={{ width: 54, textAlign: 'center' }}>{filling.name}</div>
                         </div>,
                     value: JSON.stringify(filling)
@@ -1026,7 +1026,7 @@ class cakeMenu extends React.Component {
                 this._candleOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #5F9EA0' }} preview={false} src={candle.image} />
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #008B8B' }} preview={false} src={candle.image} />
                             <div style={{ width: 64, textAlign: 'center' }}>
                                 {candle.name}
                                 {
@@ -1056,7 +1056,7 @@ class cakeMenu extends React.Component {
                 this._kindlingOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #5F9EA0' }} preview={false} src={kindling.image} />
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #008B8B' }} preview={false} src={kindling.image} />
                             <div style={{ width: 64, textAlign: 'center' }}>{kindling.name}</div>
                         </div>,
                     value: JSON.stringify(kindling)
@@ -1074,7 +1074,7 @@ class cakeMenu extends React.Component {
                 this._hatOptions.push({
                     label:
                         <div style={{ marginBottom: 6 }}>
-                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #5F9EA0' }} preview={false} src={hat.image} />
+                            <Image style={{ width: 64, height: 64, borderRadius: 10, border: '1px dotted #008B8B' }} preview={false} src={hat.image} />
                             <div style={{ width: 64, textAlign: 'center' }}>{hat.name}</div>
                         </div>,
                     value: JSON.stringify(hat)
@@ -1133,7 +1133,7 @@ class cakeMenu extends React.Component {
                     <div key={product?.name} style={{ background: '#E8EBE4', borderRadius: 8 }} onClick={() => {
                         this.handleOrderNowClick(product);
                     }}>
-                        <Image style={{ border: '1px dotted #5F9EA0', borderRadius: 8 }}
+                        <Image style={{ border: '1px dotted #008B8B', borderRadius: 8 }}
                             preview={false} src={`${product?.images?.[0]}`} />
                         <div style={{ paddingLeft: 6, paddingRight: 4, paddingTop: 4, paddingBottom: 4 }}>
                             <div style={{ fontSize: 16, fontWeight: 'bold' }}>
@@ -1146,11 +1146,11 @@ class cakeMenu extends React.Component {
                                 {`分类：${product?.category?.id}-${product?.category?.name}`}
                             </div>
                             <div style={{ fontSize: 14 }}>
-                                <InfoCircleOutlined style={{ color: '#5F9EA0' }} />
+                                <InfoCircleOutlined style={{ color: '#008B8B' }} />
                                 <span>{` ${theMinimumSize.number}${theMinimumSize.unit} `}</span>
                                 <span>起</span>
 
-                                <PayCircleOutlined style={{ color: '#5F9EA0', marginLeft: 8 }} />
+                                <PayCircleOutlined style={{ color: '#008B8B', marginLeft: 8 }} />
                                 <span>{` ${theMinimumPrice}元 `}</span>
                                 <span>起</span>
                             </div>
@@ -1278,7 +1278,7 @@ class cakeMenu extends React.Component {
                                         cakeOrderInfo.product?.images?.map((i) => {
                                             return (
                                                 <Image key={cakeOrderInfo.product?.images.indexOf(i)}
-                                                    preview={{ mask: <div>点击查看大图</div> }} style={{ width: '99%', border: '1px dotted #5F9EA0', borderRadius: 8 }}
+                                                    preview={{ mask: <div>点击查看大图</div> }} style={{ width: '99%', border: '1px dotted #008B8B', borderRadius: 8 }}
                                                     src={i} />
                                             );
                                         })
@@ -1319,9 +1319,9 @@ class cakeMenu extends React.Component {
                                                                             {
                                                                                 price !== -1 ?
                                                                                     <div>
-                                                                                        <span style={{ color: '#5F9EA0' }}>{size.name}</span>
+                                                                                        <span style={{ color: '#008B8B' }}>{size.name}</span>
                                                                                         <span style={{ color: 'gray', fontSize: 12 }}>{`${size.description} `}</span>
-                                                                                        <span style={{ color: '#5F9EA0' }}>{`${price}元`}</span>
+                                                                                        <span style={{ color: '#008B8B' }}>{`${price}元`}</span>
                                                                                         <span></span>
                                                                                     </div> : <div></div>
                                                                             }
@@ -1416,7 +1416,7 @@ class cakeMenu extends React.Component {
                                             <span>夹心</span>
                                             {
                                                 this.evalWith(cakeOrderInfo.making.height)?.name ? <span>
-                                                    {`（${this.evalWith(cakeOrderInfo.making.height)?.name}，任选 ${cakeOrderInfo.product?.fillingNumber} 种）：`}
+                                                    {`（${this.evalWith(cakeOrderInfo.making.height)?.name}，任选 ${cakeOrderInfo.product?.fillingNumber} 种，已选 ${cakeOrderInfo.making.fillings?.length} 种）：`}
                                                 </span> : <span>：</span>
                                             }
                                         </div>
@@ -1915,7 +1915,7 @@ class cakeMenu extends React.Component {
                 <div>
                     {/* 联系方式 */}
                     <div style={{
-                        textAlign: 'center', color: '#5F9EA0',
+                        textAlign: 'center', color: '#008B8B',
                         fontSize: 16, fontWeight: 'normal', paddingTop: 7, paddingBottom: 5
                     }}>
                         <span>联系弯麦总店2号</span>
@@ -1926,16 +1926,19 @@ class cakeMenu extends React.Component {
                     </div>
 
                     {/* 搜索框 */}
-                    <div style={{ padding: 12 }}>
-                        <Input
-                            disabled={allCakeInfosLoading}
-                            placeholder="输入关键词搜索蛋糕"
-                            allowClear
-                            size='middle'
-                            value={searchName}
-                            onChange={this.handleSearchInputOnChange}
-                        />
-                    </div>
+                    {
+                        !allCakeInfosLoading ?
+                            (<div style={{ padding: 12 }}>
+                                <Input
+                                    disabled={allCakeInfosLoading}
+                                    placeholder="输入关键词搜索蛋糕"
+                                    allowClear
+                                    size='middle'
+                                    value={searchName}
+                                    onChange={this.handleSearchInputOnChange}
+                                />
+                            </div>) : (<div></div>)
+                    }
 
                     {/* 展示区 */}
                     {
@@ -1943,61 +1946,81 @@ class cakeMenu extends React.Component {
                             (
                                 <div>
                                     {/* 私人订制 */}
-                                    <div style={{
-                                        textAlign: 'center', marginTop: 0, fontSize: 24,
-                                        backgroundColor: 'red', color: 'white',
-                                        borderRadius: 8, paddingTop: 8, paddingBottom: 8
-                                    }} onClick={() => {
-                                        let that = this;
-                                        window.wx.chooseImage({
-                                            count: 1, // 默认9
-                                            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-                                            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-                                            success: function (res) {
-                                                that.setState({
-                                                    imageCropperModalVisiable: true,
-                                                    localImgDataLoading: true,
-                                                    imageBeforeCrop: ''
-                                                });
-
-                                                let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
-                                                window.wx.getLocalImgData({
-                                                    localId: localIds[0], // 图片的localID
+                                    {
+                                        !allCakeInfosLoading ?
+                                            (<div style={{
+                                                textAlign: 'center', marginTop: 0, fontSize: 24,
+                                                backgroundColor: 'red', color: 'white',
+                                                borderRadius: 8, paddingTop: 8, paddingBottom: 8
+                                            }} onClick={() => {
+                                                let that = this;
+                                                window.wx.chooseImage({
+                                                    count: 1, // 默认9
+                                                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                                                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
                                                     success: function (res) {
-                                                        // console.log('4')
-                                                        let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
-                                                        /// 如果缺少base64头部补充上
-                                                        if (!(localData.startsWith('data:image/jpg;base64,'))) {
-                                                            localData = 'data:image/jpg;base64,' + localData;
-                                                        }
-                                                        that.setState({ localImgDataLoading: false, imageBeforeCrop: localData });
+                                                        that.setState({
+                                                            imageCropperModalVisiable: true,
+                                                            localImgDataLoading: true,
+                                                            imageBeforeCrop: ''
+                                                        });
+
+                                                        let localIds = res.localIds; // 返回选定照片的本地 ID 列表，localId可以作为 img 标签的 src 属性显示图片
+                                                        window.wx.getLocalImgData({
+                                                            localId: localIds[0], // 图片的localID
+                                                            success: function (res) {
+                                                                // console.log('4')
+                                                                let localData = res.localData; // localData是图片的base64数据，可以用 img 标签显示
+                                                                /// 如果缺少base64头部补充上
+                                                                if (!(localData.startsWith('data:image/jpg;base64,'))) {
+                                                                    localData = 'data:image/jpg;base64,' + localData;
+                                                                }
+                                                                that.setState({ localImgDataLoading: false, imageBeforeCrop: localData });
+                                                            }
+                                                        });
                                                     }
                                                 });
-                                            }
-                                        });
-                                    }}>
-                                        <span>私人订制蛋糕</span>
-                                        <span style={{ color: 'whitesmoke', fontSize: 13, marginLeft: 8 }}>点击选择蛋糕照片</span>
-                                    </div>
+                                            }}>
+                                                <span>私人订制蛋糕</span>
+                                                <span style={{ color: 'whitesmoke', fontSize: 13, marginLeft: 8 }}>点击选择蛋糕照片</span>
+                                            </div>) : <div></div>
+                                    }
+
                                     {/* 推荐区域 */}
-                                    <div style={{
-                                        textAlign: 'center', marginTop: 10, fontSize: 16,
-                                        backgroundColor: '#5F9EA0', color: 'white',
-                                        borderRadius: 30, paddingTop: 8, paddingBottom: 8
-                                    }}>
-                                        {`${cakeRecommend.name}`}
-                                    </div>
-                                    <List loading={allCakeInfosLoading}
-                                        style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
-                                        grid={{ gutter: 4, column: this._columnNumber }}
-                                        dataSource={cakeRecommend.products}
-                                        renderItem={this._renderItemFunc4Product}
-                                    />
-                                    <div style={{
-                                        textAlign: 'center', color: '#5F9EA0',
-                                        fontSize: 18, paddingTop: 10, paddingBottom: 20
-                                    }}>
-                                        更多款式请点击下方分类查看
+                                    <div>
+                                        {
+                                            !allCakeInfosLoading ? (
+                                                <div style={{
+                                                    textAlign: 'center', marginTop: 10, fontSize: 18,
+                                                    backgroundColor: '#008B8B', color: 'white',
+                                                    borderRadius: 30, paddingTop: 8, paddingBottom: 8
+                                                }}>
+                                                    {`${cakeRecommend.name}`}
+                                                    <span style={{ fontSize: 14 }}>{`-${cakeRecommend.products.length}`}</span>
+                                                </div>
+                                            ) :
+                                                <div style={{ textAlign: 'center', fontSize: 15 }}>
+                                                    <Image style={{ width: 120, height: 120 }} preview={false}
+                                                        src={`/生日蛋糕/弯麦logo方-黑白.png`} />
+                                                    <div style={{ marginTop: 6, color: '#008B8B' }}>蛋糕图册获取中</div>
+                                                </div>
+                                        }
+                                        <List loading={allCakeInfosLoading}
+                                            style={{ marginLeft: 4, marginRight: 4, marginTop: 4 }}
+                                            grid={{ gutter: 4, column: this._columnNumber }}
+                                            dataSource={cakeRecommend.products}
+                                            renderItem={this._renderItemFunc4Product}
+                                        />
+                                        {
+                                            !allCakeInfosLoading ? (
+                                                <div style={{
+                                                    textAlign: 'center', color: '#008B8B',
+                                                    fontSize: 18, paddingTop: 10, paddingBottom: 20
+                                                }}>
+                                                    更多款式请点击下方分类查看
+                                                </div>
+                                            ) : <div></div>
+                                        }
                                     </div>
 
                                     {/* 分类区域 */}
@@ -2042,7 +2065,7 @@ class cakeMenu extends React.Component {
                                                             </div>
                                                         )
                                                     }
-                                                    style={{ backgroundColor: '#5F9EA0', borderRadius: 24 }}
+                                                    style={{ backgroundColor: '#008B8B', borderRadius: 24 }}
                                                     key={category.id}>
                                                     <List style={{ marginLeft: -12, marginRight: -12, marginTop: -12 }}
                                                         grid={{ gutter: 4, column: this._columnNumber }}
@@ -2071,11 +2094,11 @@ class cakeMenu extends React.Component {
                             <span style={{ color: 'black' }}>©弯麦</span>
 
                             <a href='http://beian.miit.gov.cn'>
-                                <span style={{ marginLeft: 8 }}>闽ICP备2022007668号-1</span>
+                                <span style={{ marginLeft: 8, color: '#008B8B' }}>闽ICP备2022007668号-1</span>
                             </a>
 
                             <div>
-                                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062302000230">
+                                <a style={{ color: '#008B8B' }} href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=35062302000230">
                                     <span>
                                         <Image preview={false} src="/image/公安备案图标.png" style={{ float: 'left' }} />
                                     </span>

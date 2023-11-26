@@ -177,42 +177,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 138
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 168
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 208
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 248
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 168
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 208
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 248
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 298
                 }
             ]
         },
@@ -231,42 +231,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 138
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 168
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 208
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 248
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 168
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 208
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 248
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 298
                 }
             ]
         },
@@ -280,6 +280,60 @@
             "fillingRequired": true,
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺爱恋_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "卡布奇诺珠宝",
+            "description": "望你一生珠光宝气，气度不凡，大富大贵，生而无忧~",
+            "category": {
+                "id": 4,
+                "name": "鲜花&花卉系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺珠宝_logo.jpg"
             ],
             "specifications": [
                 {
@@ -321,60 +375,6 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 288
-                }
-            ]
-        },
-        {
-            "name": "卡布奇诺珠宝",
-            "description": "望你一生珠光宝气，气度不凡，大富大贵，生而无忧~",
-            "category": {
-                "id": 4,
-                "name": "鲜花&花卉系列"
-            },
-            "fillingRequired": true,
-            "images": [
-                "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺珠宝_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
                 }
             ]
         },
@@ -501,42 +501,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -555,42 +555,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -879,42 +879,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -987,42 +987,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -1095,42 +1095,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -1149,42 +1149,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -1203,42 +1203,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -1257,42 +1257,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         },
@@ -1311,42 +1311,42 @@
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 118
+                    "price": 128
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 148
+                    "price": 158
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 188
+                    "price": 198
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 228
+                    "price": 238
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 278
+                    "price": 288
                 }
             ]
         }

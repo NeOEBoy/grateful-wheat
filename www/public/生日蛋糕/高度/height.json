@@ -4,7 +4,7 @@
         {
             "id": 1,
             "name": "正常高度",
-            "description": "3层蛋糕胚，双层夹心",
+            "description": "3层蛋糕胚，双层夹心，可选两种夹心类型~",
             "embryoNumber": 3,
             "fillingNumber": 2,
             "extraMoneys": [
@@ -37,7 +37,7 @@
         {
             "id": 2,
             "name": "加高",
-            "description": "4层蛋糕胚，三层夹心",
+            "description": "4层蛋糕胚，三层夹心，可选三种夹心类型~",
             "embryoNumber": 4,
             "fillingNumber": 3,
             "extraMoneys": [

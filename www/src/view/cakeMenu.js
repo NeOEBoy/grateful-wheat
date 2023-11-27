@@ -2,7 +2,6 @@
 * 弯麦●蛋糕 图册链接
 * http://gratefulwheat.ruyue.xyz/cakeMenu
 */
-
 import React from 'react';
 import moment from 'moment';
 import html2Canvas from 'html2canvas';
@@ -690,7 +689,7 @@ class cakeMenu extends React.Component {
     }
 
     handleOrderImageModalCancel = () => {
-        console.log('handleOrderImageModalCancel begin');
+        // console.log('handleOrderImageModalCancel begin');
 
         this.setState({ orderImageModalVisiable: false });
         document.documentElement.style.overflow = 'visible';
@@ -764,6 +763,9 @@ class cakeMenu extends React.Component {
         this.updatePrice(cakeOrderInfo);
 
         this.setState({ cakeOrderInfo: cakeOrderInfo });
+
+        let heightObj = JSON.parse(value);
+        message.info(heightObj.description);
     }
 
     handleCakeFillingChange = (value, fillingNumber) => {

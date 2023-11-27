@@ -1,6 +1,60 @@
 {
     "products": [
         {
+            "name": "福气满满身体健康",
+            "description": "愿你福如东海，寿比南山，身体健康，笑口常开~",
+            "category": {
+                "id": "10",
+                "name": "老人&祝寿系列"
+            },
+            "fillingRequired": true,
+            "images": [
+                "/生日蛋糕/图册/10-老人&祝寿系列/福气满满身体健康_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
             "name": "最好婆婆",
             "description": "感谢婆婆一直以来的关爱和支持，你是全世界最好的婆婆，祝您生日快乐~",
             "category": {

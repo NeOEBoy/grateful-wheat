@@ -676,7 +676,7 @@ const allCakeInfos = async () => {
       }
 
       randomIndexs.forEach(index => {
-        let image = category.products[index]?.images[0];
+        let image = category.products[index]?.thumbnail;
         category.images.push(image);
       });
     }

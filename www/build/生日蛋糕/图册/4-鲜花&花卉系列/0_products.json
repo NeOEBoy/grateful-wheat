@@ -1,4 +1,4 @@
-﻿{
+{
     "products": [
         {
             "name": "香槟玫瑰之恋",
@@ -8,6 +8,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/香槟玫瑰之恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/香槟玫瑰之恋_logo.jpg"
             ],
@@ -62,6 +63,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/Love玫瑰_30.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/Love玫瑰_30_logo.jpg"
             ],
@@ -116,6 +118,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/香槟玫瑰之爱.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/香槟玫瑰之爱_logo.jpg"
             ],
@@ -170,6 +173,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺丝绸.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺丝绸_logo.jpg"
             ],
@@ -224,6 +228,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺之恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺之恋_logo.jpg"
             ],
@@ -278,6 +283,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺爱恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺爱恋_logo.jpg"
             ],
@@ -332,6 +338,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺珠宝.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/卡布奇诺珠宝_logo.jpg"
             ],
@@ -386,6 +393,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/白玫瑰小熊.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/白玫瑰小熊_logo.jpg"
             ],
@@ -440,6 +448,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/白玫瑰皇冠.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/白玫瑰皇冠_logo.jpg"
             ],
@@ -494,6 +503,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/白玫瑰纪念.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/白玫瑰纪念_logo.jpg"
             ],
@@ -548,6 +558,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰爱恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰爱恋_logo.jpg"
             ],
@@ -602,6 +613,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰爱心.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰爱心_logo.jpg"
             ],
@@ -656,6 +668,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰存爱.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰存爱_logo.jpg"
             ],
@@ -710,6 +723,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰的祝福.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰的祝福_logo.jpg"
             ],
@@ -764,6 +778,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰妈妈之爱.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰妈妈之爱_logo.jpg"
             ],
@@ -818,6 +833,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰妈妈之恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰妈妈之恋_logo.jpg"
             ],
@@ -872,6 +888,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰之爱.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉红玫瑰之爱_logo.jpg"
             ],
@@ -926,6 +943,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/粉色玫瑰妈妈快乐.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/粉色玫瑰妈妈快乐_logo.jpg"
             ],
@@ -980,6 +998,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰爱心.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰爱心_logo.jpg"
             ],
@@ -1034,6 +1053,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰爱心老婆.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰爱心老婆_logo.jpg"
             ],
@@ -1088,6 +1108,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰的爱恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰的爱恋_logo.jpg"
             ],
@@ -1142,6 +1163,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰黑金.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰黑金_logo.jpg"
             ],
@@ -1196,6 +1218,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰相恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰相恋_logo.jpg"
             ],
@@ -1250,6 +1273,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰之恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/红玫瑰之恋_logo.jpg"
             ],
@@ -1304,6 +1328,7 @@
                 "name": "鲜花&花卉系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/4-鲜花&花卉系列/向日葵的爱恋.jpg",
             "images": [
                 "/生日蛋糕/图册/4-鲜花&花卉系列/向日葵的爱恋_logo.jpg"
             ],

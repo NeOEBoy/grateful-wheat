@@ -10,6 +10,7 @@ import QueueAnim from 'rc-queue-anim';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import QRCode from 'qrcode'
+import VideoJS from 'video.js';
 
 import {
     RightSquareFilled,
@@ -680,7 +681,7 @@ class cakeMenu extends React.Component {
     }
 
     handleOrderCakeInfoModalBack = () => {
-        console.log('handleOrderCakeInfoModalBack begin');
+        // console.log('handleOrderCakeInfoModalBack begin');
 
         this.setState({ orderInfoModalVisiable: false });
         document.documentElement.style.overflow = 'visible';
@@ -2054,6 +2055,7 @@ class cakeMenu extends React.Component {
                                                                     {
                                                                         category.images.map((image) => {
                                                                             let index = category.images.indexOf(image);
+                                                                            // console.log('index = ' + index);
                                                                             return (
                                                                                 <span key={index}>
                                                                                     <Image style={{ marginRight: 6, width: 64, height: 64, borderRadius: 6 }}

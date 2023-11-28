@@ -1,4 +1,4 @@
-﻿{
+{
     "products": [
         {
             "name": "六角多拼",
@@ -8,6 +8,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/六角多拼.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/六角多拼_logo.jpg"
             ],
@@ -62,6 +63,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/六角多拼皇冠.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/六角多拼皇冠_logo.jpg"
             ],
@@ -106,6 +108,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/彩虹多拼.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/彩虹多拼_logo.jpg"
             ],
@@ -160,6 +163,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/水果盛宴.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/水果盛宴_logo.jpg"
             ],
@@ -214,6 +218,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/水果大树蛋糕.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/水果大树蛋糕_logo.jpg"
             ],
@@ -268,6 +273,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/水果大树蛋糕之陪伴.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/水果大树蛋糕之陪伴_logo.jpg"
             ],
@@ -322,6 +328,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/水果裸蛋糕.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/水果裸蛋糕_logo.jpg"
             ],
@@ -376,6 +383,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓之恋.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/草莓之恋_logo.jpg"
             ],
@@ -430,6 +438,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓芒果双拼A款.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/草莓芒果双拼A款_logo.jpg"
             ],
@@ -484,6 +493,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓芒果双拼B款.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/草莓芒果双拼B款_logo.jpg"
             ],
@@ -538,6 +548,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓提子双拼.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/草莓提子双拼_logo.jpg"
             ],
@@ -592,6 +603,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼_logo.jpg"
             ],
@@ -646,6 +658,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼爱心月亮.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果火龙果双拼爱心月亮_logo.jpg"
             ],
@@ -700,6 +713,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果蓝莓双拼A款.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果蓝莓双拼A款_logo.jpg"
             ],
@@ -754,6 +768,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果蓝莓双拼B款.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果蓝莓双拼B款_logo.jpg"
             ],
@@ -808,6 +823,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果提子双拼A款.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果提子双拼A款_logo.jpg"
             ],
@@ -862,6 +878,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果提子双拼B款.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果提子双拼B款_logo.jpg"
             ],
@@ -916,6 +933,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果单拼半圆.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果单拼半圆_logo.jpg"
             ],
@@ -970,6 +988,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果单拼爱心.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果单拼爱心_logo.jpg"
             ],
@@ -1024,6 +1043,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/芒果单拼花纹.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/芒果单拼花纹_logo.jpg"
             ],
@@ -1078,6 +1098,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/火龙果单拼爱心.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/火龙果单拼爱心_logo.jpg"
             ],
@@ -1132,6 +1153,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/提子单拼.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/提子单拼_logo.jpg"
             ],
@@ -1186,6 +1208,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/提子之恋.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/提子之恋_logo.jpg"
             ],
@@ -1240,6 +1263,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/提子复古.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/提子复古_logo.jpg"
             ],
@@ -1294,6 +1318,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/柠檬清晨.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/柠檬清晨_logo.jpg"
             ],
@@ -1348,6 +1373,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/水果简约蛋糕.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/水果简约蛋糕_logo.jpg"
             ],
@@ -1402,6 +1428,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/橘芒相会.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/橘芒相会_logo.jpg"
             ],
@@ -1456,6 +1483,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/朴实人生.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/朴实人生_logo.jpg"
             ],
@@ -1510,6 +1538,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/石榴蓝莓简约.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/石榴蓝莓简约_logo.jpg"
             ],
@@ -1564,6 +1593,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/青青河畔.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/青青河畔_logo.jpg"
             ],
@@ -1618,6 +1648,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/夏后晴.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/夏后晴_logo.jpg"
             ],
@@ -1672,6 +1703,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/秘果简约.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/秘果简约_logo.jpg"
             ],
@@ -1726,6 +1758,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蓝莓简约.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/草莓蓝莓简约_logo.jpg"
             ],
@@ -1780,6 +1813,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/夏夜.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/夏夜_logo.jpg"
             ],
@@ -1834,6 +1868,7 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/小夜曲.jpg",
             "images": [
                 "/生日蛋糕/图册/2-水果系列/小夜曲_logo.jpg"
             ],

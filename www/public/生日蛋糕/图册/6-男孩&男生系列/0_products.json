@@ -1,6 +1,61 @@
 {
     "products": [
         {
+            "name": "小王子小公主",
+            "description": "祝小王子/小公主快乐每一天，永远被爱包围~",
+            "category": {
+                "id": "6",
+                "name": "男孩&男生系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40.jpg",
+            "images": [
+                "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
             "name": "维尼小伙伴",
             "description": "他们用善良和可爱感动着每一个人，成为我们生命中最美好的存在~",
             "category": {
@@ -8,6 +63,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/维尼小伙伴_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/维尼小伙伴_20_logo.jpg"
             ],
@@ -62,6 +118,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/加油鸭_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/加油鸭_20_logo.jpg"
             ],
@@ -116,6 +173,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/名侦探柯南_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/名侦探柯南_20_logo.jpg"
             ],
@@ -170,6 +228,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色_20_logo.jpg"
             ],
@@ -224,6 +283,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小猪佩奇的一家_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小猪佩奇的一家_20_logo.jpg"
             ],
@@ -278,6 +338,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小挖机_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小挖机_20_logo.jpg"
             ],
@@ -332,6 +393,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/汽车总动员_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/汽车总动员_20_logo.jpg"
             ],
@@ -386,6 +448,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对_30_logo.jpg"
             ],
@@ -440,6 +503,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对2_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对2_30_logo.jpg"
             ],
@@ -494,6 +558,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/加油少年_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/加油少年_20_logo.jpg"
             ],
@@ -548,6 +613,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/火影忍者_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/火影忍者_30_logo.jpg"
             ],
@@ -602,6 +668,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/特种兵_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/特种兵_30_logo.jpg"
             ],
@@ -656,6 +723,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/快乐篮球_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/快乐篮球_20_logo.jpg"
             ],
@@ -710,6 +778,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/无篮球不兄弟_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/无篮球不兄弟_20_logo.jpg"
             ],
@@ -764,6 +833,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/无足球不兄弟_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/无足球不兄弟_30_logo.jpg"
             ],
@@ -818,6 +888,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/足球之夜_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/足球之夜_20_logo.jpg"
             ],
@@ -872,6 +943,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/足球小子_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/足球小子_20_logo.jpg"
             ],
@@ -926,6 +998,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/欢乐足球_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/欢乐足球_30_logo.jpg"
             ],
@@ -980,6 +1053,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/大吉大利今晚吃鸡_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/大吉大利今晚吃鸡_20_logo.jpg"
             ],
@@ -1034,6 +1108,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/大吉大利今晚吃鸡2_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/大吉大利今晚吃鸡2_20_logo.jpg"
             ],
@@ -1088,6 +1163,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/风车宝宝_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/风车宝宝_20_logo.jpg"
             ],
@@ -1142,6 +1218,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/海绵宝宝_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/海绵宝宝_30_logo.jpg"
             ],
@@ -1196,6 +1273,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/消防员_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/消防员_30_logo.jpg"
             ],
@@ -1250,6 +1328,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/奥特曼加油_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/奥特曼加油_20_logo.jpg"
             ],
@@ -1304,6 +1383,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/奥特曼打怪兽_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/奥特曼打怪兽_20_logo.jpg"
             ],
@@ -1358,6 +1438,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/奥特曼打怪兽2_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/奥特曼打怪兽2_20_logo.jpg"
             ],
@@ -1412,6 +1493,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/奥特曼祝福_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/奥特曼祝福_20_logo.jpg"
             ],
@@ -1466,6 +1548,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/奥特曼集合_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/奥特曼集合_20_logo.jpg"
             ],
@@ -1520,6 +1603,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/ins发财牛_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/ins发财牛_20_logo.jpg"
             ],
@@ -1574,6 +1658,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/一生好朋友_40.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/一生好朋友_40_logo.jpg"
             ],
@@ -1628,6 +1713,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/中国象棋_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/中国象棋_20_logo.jpg"
             ],
@@ -1682,6 +1768,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/中国航天_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/中国航天_20_logo.jpg"
             ],
@@ -1736,6 +1823,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/乐高幻影忍者_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/乐高幻影忍者_30_logo.jpg"
             ],
@@ -1790,6 +1878,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/乐高我的世界_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/乐高我的世界_20_logo.jpg"
             ],
@@ -1844,6 +1933,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/乘风破浪B款_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/乘风破浪B款_20_logo.jpg"
             ],
@@ -1898,6 +1988,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/乘风破浪_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/乘风破浪_20_logo.jpg"
             ],
@@ -1952,6 +2043,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/今天你最帅_10.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/今天你最帅_10_logo.jpg"
             ],
@@ -2006,6 +2098,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/原始大森林_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/原始大森林_20_logo.jpg"
             ],
@@ -2060,6 +2153,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/变形金刚擎天柱_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/变形金刚擎天柱_20_logo.jpg"
             ],
@@ -2114,6 +2208,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/叮当王子_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/叮当王子_20_logo.jpg"
             ],
@@ -2168,6 +2263,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/周岁牛气冲天_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/周岁牛气冲天_20_logo.jpg"
             ],
@@ -2222,6 +2318,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/周岁茁壮成长_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/周岁茁壮成长_20_logo.jpg"
             ],
@@ -2276,6 +2373,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/太空人_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/太空人_20_logo.jpg"
             ],
@@ -2330,6 +2428,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/实况挖掘机_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/实况挖掘机_30_logo.jpg"
             ],
@@ -2384,6 +2483,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小小航天员_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小小航天员_20_logo.jpg"
             ],
@@ -2438,6 +2538,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小小警察员_10.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小小警察员_10_logo.jpg"
             ],
@@ -2492,6 +2593,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子星月_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子星月_20_logo.jpg"
             ],
@@ -2546,6 +2648,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子城堡_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子城堡_20_logo.jpg"
             ],
@@ -2600,6 +2703,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子花海_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子花海_20_logo.jpg"
             ],
@@ -2654,6 +2758,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子星空之上_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子星空之上_30_logo.jpg"
             ],
@@ -2708,6 +2813,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子花园_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子花园_30_logo.jpg"
             ],
@@ -2762,6 +2868,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子花丛_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子花丛_30_logo.jpg"
             ],
@@ -2816,6 +2923,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小财牛牛_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小财牛牛_20_logo.jpg"
             ],
@@ -2870,6 +2978,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/快乐小虎_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/快乐小虎_30_logo.jpg"
             ],
@@ -2924,6 +3033,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/恐龙大世界_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/恐龙大世界_20_logo.jpg"
             ],
@@ -2978,6 +3088,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/恐龙大森林_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/恐龙大森林_30_logo.jpg"
             ],
@@ -3032,6 +3143,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/我是派大星手绘_40.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/我是派大星手绘_40_logo.jpg"
             ],
@@ -3086,6 +3198,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/我爱学习B款_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/我爱学习B款_20_logo.jpg"
             ],
@@ -3140,6 +3253,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/我爱学习_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/我爱学习_30_logo.jpg"
             ],
@@ -3194,6 +3308,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/旋转木马蓝色_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/旋转木马蓝色_20_logo.jpg"
             ],
@@ -3248,6 +3363,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/汤姆和杰瑞_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/汤姆和杰瑞_30_logo.jpg"
             ],
@@ -3302,6 +3418,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/登月航天员蓝色_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/登月航天员蓝色_30_logo.jpg"
             ],
@@ -3356,6 +3473,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/登月航天员黑色_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/登月航天员黑色_30_logo.jpg"
             ],
@@ -3410,6 +3528,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/篮球小伙伴_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/篮球小伙伴_20_logo.jpg"
             ],
@@ -3464,6 +3583,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/美国队长_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/美国队长_20_logo.jpg"
             ],
@@ -3518,6 +3638,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/翻糖小虎_60.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/翻糖小虎_60_logo.jpg"
             ],
@@ -3572,6 +3693,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/老虎头_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/老虎头_30_logo.jpg"
             ],
@@ -3626,6 +3748,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/虎头虎脑_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/虎头虎脑_30_logo.jpg"
             ],
@@ -3680,6 +3803,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/肚皮男孩_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/肚皮男孩_20_logo.jpg"
             ],
@@ -3734,6 +3858,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小笨熊_30.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/小笨熊_30_logo.jpg"
             ],
@@ -3788,6 +3913,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蜘蛛侠归来_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/蜘蛛侠归来_20_logo.jpg"
             ],
@@ -3842,6 +3968,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/警察叔叔_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/警察叔叔_20_logo.jpg"
             ],
@@ -3896,6 +4023,7 @@
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/超凡蜘蛛侠_20.jpg",
             "images": [
                 "/生日蛋糕/图册/6-男孩&男生系列/超凡蜘蛛侠_20_logo.jpg"
             ],

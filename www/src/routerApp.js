@@ -25,6 +25,8 @@ import BuildingMap from "./view/buildingMap";
 import Building from "./view/building";
 // import MapContainer from "./view/MapContainer";
 import BirthdayCakeOrder from "./view/birthdayCakeOrder";
+import TestVideo from "./view/testVideo";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -68,6 +70,7 @@ function Inside4QueryParams() {
       <Route path="/buildingMap" children={<BuildingMap query={query} />} />
       <Route path="/Building" children={<Building query={query} />} />
       <Route path="/birthdayCakeOrder" children={<BirthdayCakeOrder query={query} />} />
+      <Route path="/testVideo" children={<TestVideo query={query} />} />
     </div>
   );
 }

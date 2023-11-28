@@ -1,4 +1,4 @@
-﻿{
+{
     "products": [
         {
             "name": "奥利奥巧克力",
@@ -8,6 +8,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/奥利奥巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/奥利奥巧克力_logo.jpg"
             ],
@@ -62,6 +63,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/方块巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/方块巧克力_logo.jpg"
             ],
@@ -116,6 +118,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/小熊巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/小熊巧克力_logo.jpg"
             ],
@@ -170,6 +173,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/简约巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/简约巧克力_logo.jpg"
             ],
@@ -224,6 +228,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/蓝莓巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/蓝莓巧克力_logo.jpg"
             ],
@@ -278,6 +283,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/芒果蓝莓巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/芒果蓝莓巧克力_logo.jpg"
             ],
@@ -332,6 +338,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/恐龙巧克力.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/恐龙巧克力_logo.jpg"
             ],
@@ -386,6 +393,7 @@
                 "name": "巧克力系列"
             },
             "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/小时光.jpg",
             "images": [
                 "/生日蛋糕/图册/3-巧克力系列/小时光_logo.jpg"
             ],

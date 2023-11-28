@@ -10,7 +10,6 @@ import QueueAnim from 'rc-queue-anim';
 import Cropper from 'react-cropper'
 import 'cropperjs/dist/cropper.css'
 import QRCode from 'qrcode'
-import VideoJS from 'video.js';
 
 import {
     RightSquareFilled,

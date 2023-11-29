@@ -310,7 +310,11 @@ class CakeOrder extends React.Component {
                                             </div>
                                             <div>
                                                 <div style={{ position: 'relative' }}>
-                                                    <Image preview={false} src={`${order?.images?.[0]}`} />
+                                                    <Image preview={false} src={
+                                                        order?.images?.[0].type === 1
+                                                            ? order?.images?.[0].thumbnail
+                                                            : order?.images?.[0]
+                                                    } />
                                                 </div>
                                                 <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
                                             </div>
@@ -428,7 +432,11 @@ class CakeOrder extends React.Component {
                     }}>{`《${order?.name}》`}</div>
                     <div style={{ width: '100%', textAlign: 'center' }}>
                         <Image style={{ width: '100%' }} preview={false}
-                            src={`${order?.images?.[0]}`} />
+                            src={
+                                order?.images?.[0].type === 1
+                                    ? order?.images?.[0].thumbnail
+                                    : order?.images?.[0]
+                            } />
                     </div>
                     <div style={{ marginLeft: 24, marginRight: 24 }}>
                         <Divider style={{ marginTop: 8, marginBottom: 0, fontSize: 8 }}>制作</Divider>

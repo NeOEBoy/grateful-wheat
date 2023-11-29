@@ -761,11 +761,13 @@ class cakeMenu extends React.Component {
 
         this.updateFillingNumber(cakeOrderInfo);
         this.updatePrice(cakeOrderInfo);
+        /// 复位夹心选择
+        cakeOrderInfo.making.fillings = [];
 
         this.setState({ cakeOrderInfo: cakeOrderInfo });
 
-        let heightObj = JSON.parse(value);
-        message.info(heightObj.description);
+        // let heightObj = JSON.parse(value);
+        // message.info(heightObj.description);
     }
 
     handleCakeFillingChange = (value, fillingNumber) => {
@@ -1849,8 +1851,7 @@ class cakeMenu extends React.Component {
                                                 <div style={{ position: 'relative' }}>
                                                     <Image preview={false} src={
                                                         cakeOrderInfo.product?.images?.[0].type === 1 ?
-                                                            cakeOrderInfo.product?.images?.[0].thumbnail
-                                                            :
+                                                            cakeOrderInfo.product?.images?.[0].thumbnail :
                                                             cakeOrderInfo.product?.images?.[0]
                                                     } />
                                                 </div>

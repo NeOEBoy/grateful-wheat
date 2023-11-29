@@ -14,15 +14,15 @@
         },
         {
             "id": 2,
-            "name": "新鲜芒果",
-            "description": "新鲜芒果",
-            "image": "生日蛋糕/夹心/新鲜芒果.jpg"
-        },
-        {
-            "id": 3,
             "name": "新鲜火龙果",
             "description": "新鲜火龙果",
             "image": "生日蛋糕/夹心/新鲜火龙果.jpg"
+        },
+        {
+            "id": 3,
+            "name": "新鲜芒果",
+            "description": "新鲜芒果",
+            "image": "生日蛋糕/夹心/新鲜芒果.jpg"
         },
         {
             "id": 4,

@@ -3,6 +3,141 @@
         "name": "最新生日蛋糕",
         "products": [
             {
+                "name": "草莓炸弹",
+                "description": "草莓的红色象征着热情和活力，愿这款草莓炸弹蛋糕为你带来无限的快乐和好运~",
+                "category": {
+                    "id": 2,
+                    "name": "水果系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓炸弹.jpg",
+                "images": [
+                    {
+                        "type": 1,
+                        "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓炸弹_logo.jpg",
+                        "source": "/生日蛋糕/图册/2-水果系列/草莓炸弹_logo.mp4"
+                    },
+                    "/生日蛋糕/图册/2-水果系列/草莓炸弹_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 1,
+                        "price": 48
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 98
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 58
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 258
+                    }
+                ]
+            },
+            {
+                "name": "提子炸弹",
+                "description": "提子的香甜与蛋糕的绵软相互融合，愿这款提子炸弹蛋糕为你带来无限的快乐和好运~",
+                "category": {
+                    "id": 2,
+                    "name": "水果系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/提子炸弹.jpg",
+                "images": [
+                    "/生日蛋糕/图册/2-水果系列/提子炸弹_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 1,
+                        "price": 48
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 98
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 58
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 128
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 258
+                    }
+                ]
+            },
+            {
                 "name": "小王子小公主",
                 "description": "祝小王子/小公主快乐每一天，永远被爱包围~",
                 "category": {

@@ -1847,7 +1847,12 @@ class cakeMenu extends React.Component {
                                             </div>
                                             <div>
                                                 <div style={{ position: 'relative' }}>
-                                                    <Image preview={false} src={cakeOrderInfo.product?.images?.[0]} />
+                                                    <Image preview={false} src={
+                                                        cakeOrderInfo.product?.images?.[0].type === 1 ?
+                                                            cakeOrderInfo.product?.images?.[0].thumbnail
+                                                            :
+                                                            cakeOrderInfo.product?.images?.[0]
+                                                    } />
                                                 </div>
                                                 <Image style={{ marginTop: 16 }} preview={false} src="/image/弯麦logo长.png" />
                                             </div>

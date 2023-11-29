@@ -48,7 +48,7 @@ exports.Pages = mongo.model('pages', PageSchema);
 var CakeOrderSchema = new Schema({
   name: String,
   description: String,
-  images: [String],
+  images: [],
   cream: String,
   size: String,
   sizeExtra: String,

@@ -1135,8 +1135,23 @@ class cakeMenu extends React.Component {
                     <div key={product?.name} style={{ background: '#E8EBE4', borderRadius: 8 }} onClick={() => {
                         this.handleOrderNowClick(product);
                     }}>
-                        <Image style={{ border: '1px dotted #008B8B', borderRadius: 8 }}
-                            preview={false} src={`${product?.images?.[0]}`} />
+                        {
+                            product?.images?.[0].type === 1 ?
+                                <div style={{ position: 'relative' }}>
+                                    <img style={{
+                                        width: '100%', border: '1px dotted #008B8B', borderRadius: 8
+                                    }} src={product?.images?.[0].thumbnail} alt='' />
+                                    <img style={{
+                                        width: 30, height: 30,
+                                        position: 'absolute',
+                                        left: 4, bottom: 4,
+                                        zIndex: 5
+                                    }} src="/生日蛋糕/播放器/红色圆形播放按钮.png" alt='' />
+                                </div> :
+                                <Image style={{ width: '100%', border: '1px dotted #008B8B', borderRadius: 8 }}
+                                    preview={false} src={`${product?.images?.[0]}`} />
+                        }
+
                         <div style={{ paddingLeft: 6, paddingRight: 4, paddingTop: 4, paddingBottom: 4 }}>
                             <div style={{ fontSize: 16, fontWeight: 'bold' }}>
                                 {`${product?.name}`}
@@ -1275,13 +1290,37 @@ class cakeMenu extends React.Component {
                                 {cakeOrderInfo.product?.description}
                             </div>
                             <div style={{ textAlign: 'center', width: '100%' }}>
-                                <Carousel effect='scrollx' autoplay>
+                                <Carousel effect='scrollx' dotPosition='top'>
                                     {
                                         cakeOrderInfo.product?.images?.map((i) => {
+                                            // console.log('i = ' + i.type);
                                             return (
-                                                <Image key={cakeOrderInfo.product?.images.indexOf(i)}
-                                                    preview={{ mask: <div>点击查看大图</div> }} style={{ width: '99%', border: '1px dotted #008B8B', borderRadius: 8 }}
-                                                    src={i} />
+                                                <div key={cakeOrderInfo.product?.images.indexOf(i)}>
+                                                    {
+                                                        i.type === 1 ?
+                                                            <div style={{ position: 'relative' }}>
+                                                                <img style={{
+                                                                    width: '100%', height: '100%',
+                                                                    border: '1px dotted #008B8B',
+                                                                    borderRadius: 8
+                                                                }} src={i.thumbnail} alt='' />
+                                                                <video
+                                                                    style={{
+                                                                        width: '100%', height: '100%', position: 'absolute',
+                                                                        top: 0, left: 0, right: 0, bottom: 0, margin: 'auto',
+                                                                        zIndex: 1, objectFit: 'cover'
+                                                                    }}
+                                                                    id="video-player"
+                                                                    controls
+                                                                    src={i.source}
+                                                                />
+                                                            </div> :
+                                                            <Image preview={{ mask: <div>点击查看大图</div> }}
+                                                                style={{ width: '100%', border: '1px dotted #008B8B', borderRadius: 8 }}
+                                                                src={i} />
+                                                    }
+                                                </div>
+
                                             );
                                         })
                                     }

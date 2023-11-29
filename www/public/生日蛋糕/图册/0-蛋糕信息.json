@@ -3,6 +3,66 @@
         "name": "最新生日蛋糕",
         "products": [
             {
+                "name": "小王子小公主",
+                "description": "祝小王子/小公主快乐每一天，永远被爱包围~",
+                "category": {
+                    "id": "6",
+                    "name": "男孩&男生系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40.jpg",
+                "images": [
+                    {
+                        "type": 1,
+                        "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.jpg",
+                        "source": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.mp4"
+                    },
+                    "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 138
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 298
+                    }
+                ]
+            },
+            {
                 "name": "全家的主",
                 "description": "全家和谐，相互扶持，共同创造幸福生活~",
                 "category": {
@@ -282,60 +342,6 @@
                 "fillingRequired": true,
                 "images": [
                     "/生日蛋糕/图册/8-男神&爸爸系列/风生水起_20_logo.jpg"
-                ],
-                "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 2,
-                        "price": 118
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 148
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 188
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 2,
-                        "price": 148
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 188
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 278
-                    }
-                ]
-            },
-            {
-                "name": "福气满天星",
-                "description": "祝奶奶福气满天星，长命百岁，年年有今日，岁岁有今朝，老如松柏~",
-                "category": {
-                    "id": "9",
-                    "name": "老人&祝寿系列"
-                },
-                "fillingRequired": true,
-                "images": [
-                    "/生日蛋糕/图册/10-老人&祝寿系列/福气满天星_20_logo.jpg"
                 ],
                 "specifications": [
                     {

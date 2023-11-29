@@ -10,6 +10,11 @@
             "fillingRequired": true,
             "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40.jpg",
             "images": [
+                {
+                    "type": 1,
+                    "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.jpg",
+                    "source": "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.mp4"
+                },
                 "/生日蛋糕/图册/6-男孩&男生系列/小王子小公主_40_logo.jpg"
             ],
             "specifications": [

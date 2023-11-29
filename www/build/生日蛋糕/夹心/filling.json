@@ -1,6 +1,12 @@
 {
     "fillings": [
         {
+            "id": 0,
+            "name": "蓝莓果酱",
+            "description": "蓝莓果酱",
+            "image": "生日蛋糕/夹心/蓝莓果酱.jpg"
+        },
+        {
             "id": 1,
             "name": "布蕾布丁",
             "description": "布蕾布丁",

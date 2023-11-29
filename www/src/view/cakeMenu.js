@@ -1146,7 +1146,7 @@ class cakeMenu extends React.Component {
                                     <img style={{
                                         width: 30, height: 30,
                                         position: 'absolute',
-                                        left: 4, bottom: 4,
+                                        left: 4, top: 4,
                                         zIndex: 5
                                     }} src="/生日蛋糕/播放器/红色圆形播放按钮.png" alt='' />
                                 </div> :

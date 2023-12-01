@@ -3,6 +3,116 @@
         "name": "最新生日蛋糕",
         "products": [
             {
+                "name": "草莓蛋糕1",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
+                "category": {
+                    "id": 2,
+                    "name": "水果系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕1_40.jpg",
+                "images": [
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕1_40_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 138
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 298
+                    }
+                ]
+            },
+            {
+                "name": "草莓蛋糕2",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
+                "category": {
+                    "id": 2,
+                    "name": "水果系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕2_40.jpg",
+                "images": [
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕2_40_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 138
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 168
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 208
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 248
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 298
+                    }
+                ]
+            },
+            {
                 "name": "草莓炸弹",
                 "description": "草莓的红色象征着热情和活力，愿这款草莓炸弹蛋糕为你带来无限的快乐和好运~",
                 "category": {

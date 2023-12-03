@@ -3,16 +3,16 @@
         "name": "最新生日蛋糕",
         "products": [
             {
-                "name": "草莓蛋糕1",
+                "name": "草莓蛋糕A款",
                 "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
                     "id": 2,
                     "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕1_40.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_40.jpg",
                 "images": [
-                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕1_40_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_40_logo.jpg"
                 ],
                 "specifications": [
                     {
@@ -58,16 +58,16 @@
                 ]
             },
             {
-                "name": "草莓蛋糕2",
+                "name": "草莓蛋糕B款",
                 "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
                     "id": 2,
                     "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕2_40.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_40.jpg",
                 "images": [
-                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕2_40_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_40_logo.jpg"
                 ],
                 "specifications": [
                     {

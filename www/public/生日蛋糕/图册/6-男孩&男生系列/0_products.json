@@ -446,16 +446,16 @@
             ]
         },
         {
-            "name": "蛋仔派对",
+            "name": "蛋仔派对A款",
             "description": "你好，欢迎来到蛋仔岛，参加我的派对，让我们一起战斗吧~",
             "category": {
                 "id": "6",
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对_30.jpg",
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对A款_30.jpg",
             "images": [
-                "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对_30_logo.jpg"
+                "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对A款_30_logo.jpg"
             ],
             "specifications": [
                 {
@@ -501,16 +501,16 @@
             ]
         },
         {
-            "name": "蛋仔派对2",
+            "name": "蛋仔派对B款",
             "description": "你好，欢迎来到蛋仔岛，参加我的派对，让我们一起战斗吧~",
             "category": {
                 "id": "6",
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对2_30.jpg",
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对B款_30.jpg",
             "images": [
-                "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对2_30_logo.jpg"
+                "/生日蛋糕/图册/6-男孩&男生系列/蛋仔派对B款_30_logo.jpg"
             ],
             "specifications": [
                 {

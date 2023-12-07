@@ -474,7 +474,7 @@ function deleteUser(_x10, _x11) {
   return _deleteUser.apply(this, arguments);
 }
 
-/** 获取订单列表 GET /api/order */
+/** 获取订单列表 GET /apis/order */
 function _deleteUser() {
   _deleteUser = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee5(params, options) {
     var param0;
@@ -498,7 +498,7 @@ function getOrders(_x12, _x13) {
   return _getOrders.apply(this, arguments);
 }
 
-/** 新建订单 POST /api/order */
+/** 新建订单 POST /apis/order */
 function _getOrders() {
   _getOrders = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee6(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -506,7 +506,7 @@ function _getOrders() {
     return regeneratorRuntime_default()().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          return _context6.abrupt("return", (0,_umi_production_exports.request)('/api/cake/orders', objectSpread2_default()({
+          return _context6.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/orders', objectSpread2_default()({
             method: 'GET',
             params: objectSpread2_default()({}, params)
           }, options || {})));
@@ -522,13 +522,13 @@ function addOrder(_x14, _x15) {
   return _addOrder.apply(this, arguments);
 }
 
-/** 删除订单 DELETE /api/order */
+/** 删除订单 DELETE /apis/order */
 function _addOrder() {
   _addOrder = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee7(body, options) {
     return regeneratorRuntime_default()().wrap(function _callee7$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
         case 0:
-          return _context7.abrupt("return", (0,_umi_production_exports.request)('/api/cake/orders', objectSpread2_default()({
+          return _context7.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/orders', objectSpread2_default()({
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -551,7 +551,7 @@ function _removeOrder() {
     return regeneratorRuntime_default()().wrap(function _callee8$(_context8) {
       while (1) switch (_context8.prev = _context8.next) {
         case 0:
-          return _context8.abrupt("return", (0,_umi_production_exports.request)('/cake/orders', objectSpread2_default()({
+          return _context8.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/orders', objectSpread2_default()({
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json'

@@ -379,7 +379,7 @@ var mapRoutes = function mapRoutes(routes) {
     loading = initialInfo.loading,
     setInitialState = initialInfo.setInitialState;
   var userConfig = {
-    "title": "@umijs/max"
+    "title": "蛋糕票后台"
   };
   var formatMessage = undefined;
   var runtimeConfig = pluginManager.applyPlugins({

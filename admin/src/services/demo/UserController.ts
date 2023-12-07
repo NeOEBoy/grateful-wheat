@@ -96,13 +96,13 @@ export async function deleteUser(
 }
 
 
-/** 获取订单列表 GET /api/order */
+/** 获取订单列表 GET /apis/order */
 export async function getOrders(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
   params: API.GetSomeListParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.OrderList>('/api/cake/orders', {
+  return request<API.OrderList>('/apis/cake/orders', {
     method: 'GET',
     params: {
       ...params,
@@ -111,9 +111,9 @@ export async function getOrders(
   });
 }
 
-/** 新建订单 POST /api/order */
+/** 新建订单 POST /apis/order */
 export async function addOrder(body: API.OrderListItem, options?: { [key: string]: any }) {
-  return request<API.CommonResult>('/api/cake/orders', {
+  return request<API.CommonResult>('/apis/cake/orders', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -123,9 +123,9 @@ export async function addOrder(body: API.OrderListItem, options?: { [key: string
   });
 }
 
-/** 删除订单 DELETE /api/order */
+/** 删除订单 DELETE /apis/order */
 export async function removeOrder(body: {}, options?: { [key: string]: any }) {
-  return request<API.CommonResult>('/cake/orders', {
+  return request<API.CommonResult>('/apis/cake/orders', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

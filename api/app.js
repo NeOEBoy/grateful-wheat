@@ -1,46 +1,40 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
+
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var productRouter = require('./routes/product');
-var couponRouter = require('./routes/coupon');
-var memberRouter = require('./routes/member');
-var wechatRouter = require('./routes/wechat');
-var amapRouter = require('./routes/amap');
-var cakeRouter = require('./routes/cake');
-
-const mongoManager = require('./stores/mongo-manager')
-
 // 启动时连接下数据库
-mongoManager.connectDB();
-
-var app = express();
+const mongoManager = require('./stores/mongo-manager')
+mongoManager.connect();
 
 /// 设置跨域访问---
-const KTestHostLocal = 'http://localhost'
-const KWWWTestHostLocal = KTestHostLocal + ':4000';
+const KTestHostLocal = 'http://localhost';
+const KWWWTestHostWWW = KTestHostLocal + ':4000';
+const KWWWTestHostAdmin = KTestHostLocal + ':8888';
 const KTestHostLocalIp = 'http://192.168.244.133';
-const KWWWTestHostLocalIp = KTestHostLocalIp + ':4000';
-
-const KAllowHosts = [KWWWTestHostLocal, KWWWTestHostLocalIp];
+const KWWWTestHostWWWIp = KTestHostLocalIp + ':4000';
+const KWWWTestHostAdminIp = KTestHostLocalIp + ':8888';
+const KAllowHosts = [
+  KWWWTestHostWWW,
+  KWWWTestHostWWWIp,
+  KWWWTestHostAdmin,
+  KWWWTestHostAdminIp
+];
 app.all('*', function (req, res, next) {
   let origin = req.get('origin');
   console.log('app.all origin = ' + origin);
   if (KAllowHosts.indexOf(origin) !== -1) {
-    console.log('允许跨域访问');
     res.header("Access-Control-Allow-Origin", origin);
+    console.log(origin + ' allow Access');
   }
-
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "X-Requested-With, accept, origin, content-type, x-csrftoken, x-token");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   next();
 });
-/// 设置跨域访问---
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,14 +46,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/product', productRouter);
-app.use('/coupon', couponRouter);
-app.use('/member', memberRouter);
-app.use('/wechat', wechatRouter);
-app.use('/amap', amapRouter);
-app.use('/cake', cakeRouter);
+// 设置Router
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/product', require('./routes/product'));
+app.use('/coupon', require('./routes/coupon'));
+app.use('/member', require('./routes/member'));
+app.use('/wechat', require('./routes/wechat'));
+app.use('/amap', require('./routes/amap'));
+app.use('/cake', require('./routes/cake'));
+
+// 引入express-ws的WebSocket功能，并混入app，
+// 相当于为 app实例添加 .ws 方法
+require('express-ws')(app);
+app.use(require('./routes/ws4Order'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

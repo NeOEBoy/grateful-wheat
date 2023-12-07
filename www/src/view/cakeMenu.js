@@ -1,5 +1,5 @@
 /*
-* 弯麦●蛋糕 图册链接
+* 弯麦蛋糕 图册链接
 * http://gratefulwheat.ruyue.xyz/cakeMenu
 */
 import React from 'react';

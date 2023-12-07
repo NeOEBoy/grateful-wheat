@@ -2,10 +2,39 @@ var express = require('express');
 var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
+const { makeSuccessResJson } = require('../tool/res-json-maker');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
+});
+
+router.get('/orders', async function (req, res, next) {
+    try {
+        console.log('get orders');
+        console.log('req.query = ' + JSON.stringify(req.query));
+        const current = parseInt(req.query.current);
+        const pageSize = parseInt(req.query.pageSize);
+
+        if (current < 1 || pageSize < 1)
+            return next(createError(500));
+
+        const filterData = {};
+
+        const skip = (current - 1) * pageSize;
+        const limit = pageSize;
+        let CakeOrders = models.CakeOrders;
+        const total = await CakeOrders.countDocuments();
+
+        let orderFinded = await CakeOrders.find().skip(skip).limit(limit).exec();
+
+        const resJson = makeSuccessResJson(orderFinded, total);
+        console.log('resJson = ' + JSON.stringify(resJson));
+        res.status(200).send(resJson);
+    } catch (err) {
+        console.log('err = ' + err);
+        next(err)
+    }
 });
 
 router.post('/createOrder', async function (req, res, next) {
@@ -22,11 +51,12 @@ router.post('/createOrder', async function (req, res, next) {
 
         /// 删除较老的数据，保证条目不超过固定条数，
         /// 防止数据库过大
+        const KMaxCount4Order = 100;
         for (; ;) {
             let count = await CakeOrders.countDocuments();
-            // console.log('count = ' + count);
+            console.log('数量为：' + count);
 
-            if (count < 50) {
+            if (count < KMaxCount4Order) {
                 break;
             }
 
@@ -35,11 +65,13 @@ router.post('/createOrder', async function (req, res, next) {
             if (firstOrder && firstOrder.length >= 1) {
                 let deleteOneResult = await CakeOrders.deleteOne(
                     { "_id": firstOrder[0]._id }).exec();
+                console.log('超过 ' + KMaxCount4Order + ' 条，删除最早一条: ');
                 console.log(deleteOneResult);
             }
         }
 
         let newOrder = new CakeOrders({
+            createdAt: new Date(),
             name: body.name,
             description: body.description,
             images: body.images,
@@ -63,7 +95,8 @@ router.post('/createOrder', async function (req, res, next) {
             phoneNumber: body.phoneNumber,
             remarks: body.remarks
         });
-        await newOrder.save();
+        let order = await newOrder.save();
+        console.log(order);
         res.send({ errCode: 0, _id: newOrder._id });
     } catch (err) {
         console.log('err = ' + err);

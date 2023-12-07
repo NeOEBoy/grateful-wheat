@@ -40,7 +40,7 @@ class MongoManager {
 
       /// 自动重连
       setTimeout(() => {
-        this.connectDB();
+        this.connect();
       }, 5000);
     });
   }
@@ -49,9 +49,9 @@ class MongoManager {
     return this.connectState === KConnectState.connected;
   }
 
-  async connectDB() {
+  async connect() {
     try {
-      // console.log('MongoManager connectDB');
+      console.log('MongoManager connect');
 
       if (this.connectState === KConnectState.connected) {
         return;
@@ -74,12 +74,12 @@ class MongoManager {
     } catch (err) {
       // err = MongoNetworkError: failed to connect to server [localhost:2701] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:2701]
       // console.log('Mongoose 连接错误 err = ' + err);
-      // this.disConnectDB();
+      // this.disConnect();
     }
   }
 
-  async disConnectDB() {
-    // console.log('MongoManager disConnectDB');
+  async disConnect() {
+    // console.log('MongoManager disConnect');
     if (this.connectState === KConnectState.disconnecting ||
       this.connectState === KConnectState.disconnected) {
       return;

@@ -46,6 +46,7 @@ exports.Pages = mongo.model('pages', PageSchema);
   蛋糕订购单Scheme
 */
 var CakeOrderSchema = new Schema({
+  createdAt: Date,
   name: String,
   description: String,
   images: [],

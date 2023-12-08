@@ -234,15 +234,9 @@ var Order = function Order() {
     render: function render(_, record) {
       return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
         onClick: function onClick() {
+          setImage4QRCode('dummy4init');
           setCurrentRow(record);
           setCreateOrUpdateModalOpen(true);
-          setTimeout(function () {
-            if (imgRef.current && imgRef.current.src) {
-              // 获取绘制后的 canvas 的 dataURL
-              // const imageData = canvasRef.current?.toDataURL('image/jpeg');
-              // imgRef.current.src = imageData ? imageData : '';
-            }
-          }, 0);
         },
         children: "\u67E5\u770B"
       }, "view")];

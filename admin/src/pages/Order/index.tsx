@@ -227,15 +227,9 @@ const Order: React.FC = () => {
             width: 80,
             render: (_, record) => [
                 <a key="view" onClick={() => {
+                    setImage4QRCode('dummy4init');
                     setCurrentRow(record);
                     setCreateOrUpdateModalOpen(true);
-                    setTimeout(() => {
-                        if (imgRef.current && imgRef.current.src) {
-                            // 获取绘制后的 canvas 的 dataURL
-                            // const imageData = canvasRef.current?.toDataURL('image/jpeg');
-                            // imgRef.current.src = imageData ? imageData : '';
-                        }
-                    }, 0);
                 }}>查看</a>
             ]
         }
@@ -261,7 +255,6 @@ const Order: React.FC = () => {
     };
 
     const orderingTime = moment(currentRow?.createdAt).format('YYYY年M月D日 HH:mm:ss');;
-
 
     return (
         <PageContainer title={false}>

@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ 67294);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ 29820);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ 96074);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ 15867);
 /* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ant-design/pro-components */ 1524);
 /* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ant-design/pro-components */ 57062);
 /* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/pro-components */ 37476);
@@ -42,6 +43,7 @@ var getOrders = _services_demo__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.
 
 
 moment__WEBPACK_IMPORTED_MODULE_5___default().locale('zh-cn');
+var PrintHTML = __webpack_require__(/*! react-print-html */ 39934);
 var KTableColumnsConfig = [{
   title: '序',
   dataIndex: 'index',
@@ -223,7 +225,7 @@ var Order = function Order() {
     _useState6 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState5, 2),
     image4QRCode = _useState6[0],
     setImage4QRCode = _useState6[1];
-  var imgRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+  var divRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
   // const canvasRef = useRef<HTMLCanvasElement>(null);
 
   var tableColumnsConfig = [].concat(KTableColumnsConfig, [{
@@ -318,11 +320,12 @@ var Order = function Order() {
         style: {
           textAlign: 'center'
         }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         style: {
           opacity: 1
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          ref: divRef,
           style: _theDiv4CaptureStyle,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             id: "qrcode",
@@ -732,7 +735,23 @@ var Order = function Order() {
               })]
             })]
           })]
-        })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+          style: {
+            marginTop: 20
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .ZP, {
+            danger: true,
+            type: "primary",
+            style: {
+              width: 160,
+              height: 80
+            },
+            onClick: function onClick() {
+              PrintHTML(divRef.current);
+            },
+            children: "\u6253\u5370"
+          })
+        })]
       })]
     })]
   });

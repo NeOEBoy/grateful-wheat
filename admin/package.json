@@ -15,7 +15,8 @@
     "@ant-design/pro-components": "^2.4.4",
     "@umijs/max": "^4.0.89",
     "antd": "^5.4.0",
-    "qrcode": "^1.5.3"
+    "qrcode": "^1.5.3",
+    "react-print-html": "^1.0.5"
   },
   "devDependencies": {
     "@types/qrcode": "^1.5.5",

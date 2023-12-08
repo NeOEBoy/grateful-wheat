@@ -20,6 +20,7 @@ const { getOrders } = services.UserController;
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
+const PrintHTML = require('react-print-html');
 
 const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
     {
@@ -215,7 +216,7 @@ const Order: React.FC = () => {
     const [createOrUpdateModalOpen, setCreateOrUpdateModalOpen] = useState<boolean>(false);
     const [currentRow, setCurrentRow] = useState<API.OrderListItem>();
     const [image4QRCode, setImage4QRCode] = useState<string>('dummy4init');
-    const imgRef = useRef<HTMLImageElement>(null);
+    const divRef = useRef<HTMLDivElement>(null);
     // const canvasRef = useRef<HTMLCanvasElement>(null);
 
     const tableColumnsConfig: ProColumns<API.OrderListItem>[] = [
@@ -293,7 +294,7 @@ const Order: React.FC = () => {
                 </div>
                 <div style={{ opacity: 1 }}>
                     {/* <canvas width={100} height={100} style={{ background: 'red' }} ref={canvasRef} /> */}
-                    <div style={_theDiv4CaptureStyle}>
+                    <div ref={divRef} style={_theDiv4CaptureStyle}>
                         <div id="qrcode" style={{
                             textAlign: 'right', position: 'absolute',
                             paddingRight: 18, paddingTop: 10,
@@ -459,6 +460,12 @@ const Order: React.FC = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div style={{ marginTop: 20 }}>
+                        <Button danger type='primary' style={{ width: 160, height: 80 }} onClick={() => {
+                            PrintHTML(divRef.current);
+                        }}>打印</Button>
                     </div>
                 </div>
             </ModalForm>

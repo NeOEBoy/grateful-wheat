@@ -26,7 +26,7 @@ router.get('/orders', async function (req, res, next) {
         let CakeOrders = models.CakeOrders;
         const total = await CakeOrders.countDocuments();
 
-        let orderFinded = await CakeOrders.find().skip(skip).limit(limit).exec();
+        let orderFinded = await CakeOrders.find().sort({ _id: -1 }).skip(skip).limit(limit).exec();
 
         const resJson = makeSuccessResJson(orderFinded, total);
         console.log('resJson = ' + JSON.stringify(resJson));

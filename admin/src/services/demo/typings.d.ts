@@ -3,8 +3,7 @@
 
 declare namespace API {
   interface PageInfo {
-    /** 
-1 */
+    /** 1 */
     current?: number;
     pageSize?: number;
     total?: number;
@@ -12,8 +11,7 @@ declare namespace API {
   }
 
   interface PageInfo_UserInfo_ {
-    /** 
-1 */
+    /** 1 */
     current?: number;
     pageSize?: number;
     total?: number;
@@ -88,27 +86,31 @@ declare namespace API {
   };
 
   type OrderListItem = {
-    id?: string;
+    _id?: string;
     createdAt?: string;
     updatedAt?: string;
     userId?: string;
     name?: string;
     description?: string;
-    creamId?: string;
-    sizeId?: string;
-    fillingId1?: string;
-    fillingId2?: string;
-    candleId?: string;
-    kindlingId?: string;
-    hatId?: string;
-    shopId?: string;
-    pickUpType?: string;
-    pickUpDay?: any;
-    pickUpTime?: any;
-    pickUpDayAndTime?: any;
-    deliverAddress?: string;
-    pickUpName?: string;
-    pickUpPhoneNumber?: string;
-    remarks?: string;
+    images?: [string],
+    cream?: string;
+    size?: string;
+    sizeExtra?: string;
+    price?: string;
+    fillings?: [];
+    candle?: String,
+    candleExtra?: String,
+    kindling?: String,
+    hat?: String,
+    plates?: String,
+    pickUpDay?: String,
+    pickUpTime?: String,
+    pickUpType?: String,
+    shop?: String,
+    height?: String,
+    address?: String,
+    pickUpName?: String,
+    phoneNumber?: String,
+    remarks?: String
   };
 }

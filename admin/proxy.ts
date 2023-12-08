@@ -12,7 +12,7 @@
 export default {
   dev: {
     // localhost:8000/api/** -> https://preview.pro.ant.design/api/**
-    '/api/': {
+    '/apis/': {
       // 要代理的地址
       target: 'http://localhost:9001',
       // 配置了这个可以从 http 代理到 https
@@ -26,14 +26,14 @@ export default {
    * @doc https://github.com/chimurai/http-proxy-middleware
    */
   test: {
-    '/api/': {
+    '/apis/': {
       target: 'https://proapi.azurewebsites.net',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   pre: {
-    '/api/': {
+    '/apis/': {
       target: 'your pre url',
       changeOrigin: true,
       pathRewrite: { '^': '' },

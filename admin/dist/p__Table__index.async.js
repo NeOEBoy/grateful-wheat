@@ -31,8 +31,8 @@ var asyncToGenerator_default = /*#__PURE__*/__webpack_require__.n(asyncToGenerat
 var demo = __webpack_require__(18580);
 // EXTERNAL MODULE: ./node_modules/@ant-design/pro-layout/es/components/PageContainer/index.js + 7 modules
 var PageContainer = __webpack_require__(1524);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-table/es/Table.js + 70 modules
-var Table = __webpack_require__(26359);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-table/es/Table.js + 71 modules
+var Table = __webpack_require__(57062);
 // EXTERNAL MODULE: ./node_modules/@ant-design/pro-layout/es/components/FooterToolbar/index.js + 2 modules
 var FooterToolbar = __webpack_require__(2236);
 // EXTERNAL MODULE: ./node_modules/@ant-design/pro-descriptions/es/index.js + 6 modules
@@ -972,14 +972,12 @@ __webpack_require__.d(__webpack_exports__, {
 var UserController_namespaceObject = {};
 __webpack_require__.r(UserController_namespaceObject);
 __webpack_require__.d(UserController_namespaceObject, {
-  addOrder: function() { return addOrder; },
   addUser: function() { return addUser; },
   deleteUser: function() { return deleteUser; },
   getOrders: function() { return getOrders; },
   getUserDetail: function() { return getUserDetail; },
   modifyUser: function() { return modifyUser; },
-  queryUserList: function() { return queryUserList; },
-  removeOrder: function() { return removeOrder; }
+  queryUserList: function() { return queryUserList; }
 });
 
 // EXTERNAL MODULE: ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/regeneratorRuntime.js
@@ -1128,8 +1126,6 @@ function _deleteUser() {
 function getOrders(_x12, _x13) {
   return _getOrders.apply(this, arguments);
 }
-
-/** 新建订单 POST /apis/order */
 function _getOrders() {
   _getOrders = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee6(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -1148,54 +1144,6 @@ function _getOrders() {
     }, _callee6);
   }));
   return _getOrders.apply(this, arguments);
-}
-function addOrder(_x14, _x15) {
-  return _addOrder.apply(this, arguments);
-}
-
-/** 删除订单 DELETE /apis/order */
-function _addOrder() {
-  _addOrder = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee7(body, options) {
-    return regeneratorRuntime_default()().wrap(function _callee7$(_context7) {
-      while (1) switch (_context7.prev = _context7.next) {
-        case 0:
-          return _context7.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/orders', objectSpread2_default()({
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            data: body
-          }, options || {})));
-        case 1:
-        case "end":
-          return _context7.stop();
-      }
-    }, _callee7);
-  }));
-  return _addOrder.apply(this, arguments);
-}
-function removeOrder(_x16, _x17) {
-  return _removeOrder.apply(this, arguments);
-}
-function _removeOrder() {
-  _removeOrder = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee8(body, options) {
-    return regeneratorRuntime_default()().wrap(function _callee8$(_context8) {
-      while (1) switch (_context8.prev = _context8.next) {
-        case 0:
-          return _context8.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/orders', objectSpread2_default()({
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            data: body
-          }, options || {})));
-        case 1:
-        case "end":
-          return _context8.stop();
-      }
-    }, _callee8);
-  }));
-  return _removeOrder.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: ./src/services/demo/index.ts
 /* eslint-disable */

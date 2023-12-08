@@ -1,4 +1,4 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([[13],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([[106],{
 
 /***/ 48689:
 /*!*******************************************************************************!*\
@@ -14882,103 +14882,38 @@ var useGridHelpers = function useGridHelpers(props) {
 
 /***/ }),
 
-/***/ 184:
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@ant-design/pro-form/es/layouts/DrawerForm/index.js + 1 modules ***!
-  \**************************************************************************************/
+/***/ 37476:
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ant-design/pro-form/es/layouts/ModalForm/index.js ***!
+  \*************************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  a: function() { return /* binding */ DrawerForm; }
-});
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
-var defineProperty = __webpack_require__(4942);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/regeneratorRuntime.js
-var regeneratorRuntime = __webpack_require__(74165);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js
-var asyncToGenerator = __webpack_require__(15861);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectSpread2.js
-var objectSpread2 = __webpack_require__(1413);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js + 1 modules
-var slicedToArray = __webpack_require__(97685);
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js + 1 modules
-var objectWithoutProperties = __webpack_require__(91);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/omitUndefined/index.js
-var omitUndefined = __webpack_require__(51812);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/hooks/useRefFunction/index.js
-var useRefFunction = __webpack_require__(48171);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/compareVersions/openVisibleCompatible.js
-var openVisibleCompatible = __webpack_require__(73177);
-// EXTERNAL MODULE: ./node_modules/antd/es/config-provider/index.js + 7 modules
-var config_provider = __webpack_require__(28459);
-// EXTERNAL MODULE: ./node_modules/antd/es/drawer/index.js + 9 modules
-var drawer = __webpack_require__(89574);
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(94184);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
-// EXTERNAL MODULE: ./node_modules/lodash.merge/index.js
-var lodash_merge = __webpack_require__(72378);
-var lodash_merge_default = /*#__PURE__*/__webpack_require__.n(lodash_merge);
-// EXTERNAL MODULE: ./node_modules/rc-util/es/hooks/useMergedState.js
-var useMergedState = __webpack_require__(21770);
-// EXTERNAL MODULE: ./node_modules/rc-util/es/warning.js
-var warning = __webpack_require__(80334);
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(67294);
-// EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(73935);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/BaseForm/BaseForm.js + 4 modules
-var BaseForm = __webpack_require__(89671);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-provider/es/useStyle/index.js
-var useStyle = __webpack_require__(98082);
-;// CONCATENATED MODULE: ./node_modules/@ant-design/pro-form/es/layouts/DrawerForm/style.js
-
-
-
-var genDrawerFormStyle = function genDrawerFormStyle(token) {
-  return (0,defineProperty/* default */.Z)({}, token.componentCls, {
-    '&-sidebar-dragger': {
-      width: '5px',
-      cursor: 'ew-resize',
-      padding: '4px 0 0',
-      borderTop: '1px solid transparent',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      bottom: 0,
-      zIndex: 100,
-      backgroundColor: 'transparent',
-      '&-min-disabled': {
-        cursor: 'w-resize'
-      },
-      '&-max-disabled': {
-        cursor: 'e-resize'
-      }
-    }
-  });
-};
-function style_useStyle(prefixCls) {
-  return (0,useStyle/* useStyle */.Xj)('DrawerForm', function (token) {
-    var drawerFormToken = (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, token), {}, {
-      componentCls: ".".concat(prefixCls)
-    });
-    return [genDrawerFormStyle(drawerFormToken)];
-  });
-}
-// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
-var jsx_runtime = __webpack_require__(85893);
-;// CONCATENATED MODULE: ./node_modules/@ant-design/pro-form/es/layouts/DrawerForm/index.js
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Y: function() { return /* binding */ ModalForm; }
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @babel/runtime/helpers/esm/regeneratorRuntime */ 74165);
+/* harmony import */ var _babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime/helpers/esm/asyncToGenerator */ 15861);
+/* harmony import */ var _babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectSpread2 */ 1413);
+/* harmony import */ var _babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/esm/slicedToArray */ 97685);
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ 91);
+/* harmony import */ var _ant_design_pro_utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/pro-utils */ 73177);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd */ 28459);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ 5914);
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash.merge */ 72378);
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var rc_util_es_hooks_useMergedState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rc-util/es/hooks/useMergedState */ 21770);
+/* harmony import */ var rc_util_es_warning__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rc-util/es/warning */ 80334);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ 67294);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom */ 73935);
+/* harmony import */ var _BaseForm__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../BaseForm */ 89671);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ 85893);
 
 
 
 
 
-
-var _excluded = ["children", "trigger", "onVisibleChange", "drawerProps", "onFinish", "submitTimeout", "title", "width", "resize", "onOpenChange", "visible", "open"];
+var _excluded = ["children", "trigger", "onVisibleChange", "onOpenChange", "modalProps", "onFinish", "submitTimeout", "title", "width", "visible", "open"];
 
 
 
@@ -14990,123 +14925,80 @@ var _excluded = ["children", "trigger", "onVisibleChange", "drawerProps", "onFin
 
 
 
-
-
-function DrawerForm(_ref) {
-  var _context$locale3, _context$locale4, _classNames;
+function ModalForm(_ref) {
+  var _context$locale3, _context$locale4;
   var children = _ref.children,
     trigger = _ref.trigger,
     onVisibleChange = _ref.onVisibleChange,
-    drawerProps = _ref.drawerProps,
+    onOpenChange = _ref.onOpenChange,
+    modalProps = _ref.modalProps,
     onFinish = _ref.onFinish,
     submitTimeout = _ref.submitTimeout,
     title = _ref.title,
     width = _ref.width,
-    resize = _ref.resize,
-    onOpenChange = _ref.onOpenChange,
     propVisible = _ref.visible,
     propsOpen = _ref.open,
-    rest = (0,objectWithoutProperties/* default */.Z)(_ref, _excluded);
-  (0,warning/* noteOnce */.ET)(
+    rest = (0,_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_6__/* ["default"] */ .Z)(_ref, _excluded);
+  (0,rc_util_es_warning__WEBPACK_IMPORTED_MODULE_2__/* .noteOnce */ .ET)(
   // eslint-disable-next-line @typescript-eslint/dot-notation
-  !rest['footer'] || !(drawerProps !== null && drawerProps !== void 0 && drawerProps.footer), 'DrawerForm 是一个 ProForm 的特殊布局，如果想自定义按钮，请使用 submit.render 自定义。');
-  var resizeInfo = react.useMemo(function () {
-    var _resize$onResize, _resize$maxWidth, _resize$minWidth;
-    var defaultResize = {
-      onResize: function onResize() {},
-      maxWidth: window.innerWidth * 0.8,
-      minWidth: 300
-    };
-    if (typeof resize === 'boolean') {
-      if (resize) {
-        return defaultResize;
-      } else {
-        return {};
-      }
-    }
-    return (0,omitUndefined/* omitUndefined */.Y)({
-      onResize: (_resize$onResize = resize === null || resize === void 0 ? void 0 : resize.onResize) !== null && _resize$onResize !== void 0 ? _resize$onResize : defaultResize.onResize,
-      maxWidth: (_resize$maxWidth = resize === null || resize === void 0 ? void 0 : resize.maxWidth) !== null && _resize$maxWidth !== void 0 ? _resize$maxWidth : defaultResize.maxWidth,
-      minWidth: (_resize$minWidth = resize === null || resize === void 0 ? void 0 : resize.minWidth) !== null && _resize$minWidth !== void 0 ? _resize$minWidth : defaultResize.minWidth
-    });
-  }, [resize]);
-  var context = (0,react.useContext)(config_provider/* default.ConfigContext */.ZP.ConfigContext);
-  var baseClassName = context.getPrefixCls('pro-form-drawer');
-  var _useStyle = style_useStyle(baseClassName),
-    wrapSSR = _useStyle.wrapSSR,
-    hashId = _useStyle.hashId;
-  var getCls = function getCls(className) {
-    return "".concat(baseClassName, "-").concat(className, " ").concat(hashId);
-  };
-  var _useState = (0,react.useState)([]),
-    _useState2 = (0,slicedToArray/* default */.Z)(_useState, 2),
+  !rest['footer'] || !(modalProps !== null && modalProps !== void 0 && modalProps.footer), 'ModalForm 是一个 ProForm 的特殊布局，如果想自定义按钮，请使用 submit.render 自定义。');
+  var context = (0,react__WEBPACK_IMPORTED_MODULE_3__.useContext)(antd__WEBPACK_IMPORTED_MODULE_7__/* ["default"].ConfigContext */ .ZP.ConfigContext);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
+    _useState2 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z)(_useState, 2),
     forceUpdate = _useState2[1];
-  var _useState3 = (0,react.useState)(false),
-    _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 2),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState4 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z)(_useState3, 2),
     loading = _useState4[0],
     setLoading = _useState4[1];
-  var _useState5 = (0,react.useState)(false),
-    _useState6 = (0,slicedToArray/* default */.Z)(_useState5, 2),
-    resizableDrawer = _useState6[0],
-    setResizableDrawer = _useState6[1];
-  var _useState7 = (0,react.useState)(width ? width : resize ? resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth : 800),
-    _useState8 = (0,slicedToArray/* default */.Z)(_useState7, 2),
-    drawerWidth = _useState8[0],
-    setDrawerWidth = _useState8[1];
-  var _useMergedState = (0,useMergedState/* default */.Z)(!!propVisible, {
+  var _useMergedState = (0,rc_util_es_hooks_useMergedState__WEBPACK_IMPORTED_MODULE_1__/* ["default"] */ .Z)(!!propVisible, {
       value: propsOpen || propVisible,
       onChange: onOpenChange || onVisibleChange
     }),
-    _useMergedState2 = (0,slicedToArray/* default */.Z)(_useMergedState, 2),
+    _useMergedState2 = (0,_babel_runtime_helpers_esm_slicedToArray__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z)(_useMergedState, 2),
     open = _useMergedState2[0],
     setOpen = _useMergedState2[1];
-  var footerRef = (0,react.useRef)(null);
-  var footerDomRef = (0,react.useCallback)(function (element) {
+  var footerRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+  var footerDomRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)(function (element) {
     if (footerRef.current === null && element) {
       forceUpdate([]);
     }
     footerRef.current = element;
   }, []);
-  var formRef = (0,react.useRef)();
-  var resetFields = (0,react.useCallback)(function () {
-    var _ref2, _rest$formRef$current, _rest$formRef;
-    var form = (_ref2 = (_rest$formRef$current = (_rest$formRef = rest.formRef) === null || _rest$formRef === void 0 ? void 0 : _rest$formRef.current) !== null && _rest$formRef$current !== void 0 ? _rest$formRef$current : rest.form) !== null && _ref2 !== void 0 ? _ref2 : formRef.current;
+  var formRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
+  var resetFields = (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)(function () {
+    var _ref2, _rest$form, _rest$formRef;
+    var form = (_ref2 = (_rest$form = rest.form) !== null && _rest$form !== void 0 ? _rest$form : (_rest$formRef = rest.formRef) === null || _rest$formRef === void 0 ? void 0 : _rest$formRef.current) !== null && _ref2 !== void 0 ? _ref2 : formRef.current;
     // 重置表单
-    if (form && drawerProps !== null && drawerProps !== void 0 && drawerProps.destroyOnClose) {
+    if (form && modalProps !== null && modalProps !== void 0 && modalProps.destroyOnClose) {
       form.resetFields();
     }
-  }, [drawerProps === null || drawerProps === void 0 ? void 0 : drawerProps.destroyOnClose, rest.form, rest.formRef]);
-  (0,react.useEffect)(function () {
+  }, [modalProps === null || modalProps === void 0 ? void 0 : modalProps.destroyOnClose, rest.form, rest.formRef]);
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useImperativeHandle)(rest.formRef, function () {
+    return formRef.current;
+  }, [formRef.current]);
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
     if (open && (propsOpen || propVisible)) {
       onOpenChange === null || onOpenChange === void 0 || onOpenChange(true);
       onVisibleChange === null || onVisibleChange === void 0 || onVisibleChange(true);
     }
-    if (resizableDrawer) {
-      setDrawerWidth(resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth);
-    }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propVisible, open, resizableDrawer]);
-  (0,react.useImperativeHandle)(rest.formRef, function () {
-    return formRef.current;
-  }, [formRef.current]);
-  var triggerDom = (0,react.useMemo)(function () {
+  }, [propVisible, propsOpen, open]);
+  var triggerDom = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
     if (!trigger) {
       return null;
     }
-    return /*#__PURE__*/react.cloneElement(trigger, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3__.cloneElement(trigger, (0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)((0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)({
       key: 'trigger'
     }, trigger.props), {}, {
       onClick: function () {
-        var _onClick = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee(e) {
+        var _onClick = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)().mark(function _callee(e) {
           var _trigger$props, _trigger$props$onClic;
-          return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee$(_context) {
+          return (0,_babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)().wrap(function _callee$(_context) {
             while (1) switch (_context.prev = _context.next) {
               case 0:
                 setOpen(!open);
-                setResizableDrawer(!Object.keys(resizeInfo));
                 (_trigger$props = trigger.props) === null || _trigger$props === void 0 || (_trigger$props$onClic = _trigger$props.onClick) === null || _trigger$props$onClic === void 0 || _trigger$props$onClic.call(_trigger$props, e);
-              case 3:
+              case 2:
               case "end":
                 return _context.stop();
             }
@@ -15118,41 +15010,41 @@ function DrawerForm(_ref) {
         return onClick;
       }()
     }));
-  }, [setOpen, trigger, open, setResizableDrawer, resizableDrawer]);
-  var submitterConfig = (0,react.useMemo)(function () {
-    var _context$locale$Modal, _context$locale, _context$locale$Modal2, _context$locale2;
+  }, [setOpen, trigger, open]);
+  var submitterConfig = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    var _ref3, _modalProps$okText, _context$locale, _ref4, _modalProps$cancelTex, _context$locale2;
     if (rest.submitter === false) {
       return false;
     }
-    return lodash_merge_default()({
+    return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({
       searchConfig: {
-        submitText: (_context$locale$Modal = (_context$locale = context.locale) === null || _context$locale === void 0 || (_context$locale = _context$locale.Modal) === null || _context$locale === void 0 ? void 0 : _context$locale.okText) !== null && _context$locale$Modal !== void 0 ? _context$locale$Modal : '确认',
-        resetText: (_context$locale$Modal2 = (_context$locale2 = context.locale) === null || _context$locale2 === void 0 || (_context$locale2 = _context$locale2.Modal) === null || _context$locale2 === void 0 ? void 0 : _context$locale2.cancelText) !== null && _context$locale$Modal2 !== void 0 ? _context$locale$Modal2 : '取消'
+        submitText: (_ref3 = (_modalProps$okText = modalProps === null || modalProps === void 0 ? void 0 : modalProps.okText) !== null && _modalProps$okText !== void 0 ? _modalProps$okText : (_context$locale = context.locale) === null || _context$locale === void 0 || (_context$locale = _context$locale.Modal) === null || _context$locale === void 0 ? void 0 : _context$locale.okText) !== null && _ref3 !== void 0 ? _ref3 : '确认',
+        resetText: (_ref4 = (_modalProps$cancelTex = modalProps === null || modalProps === void 0 ? void 0 : modalProps.cancelText) !== null && _modalProps$cancelTex !== void 0 ? _modalProps$cancelTex : (_context$locale2 = context.locale) === null || _context$locale2 === void 0 || (_context$locale2 = _context$locale2.Modal) === null || _context$locale2 === void 0 ? void 0 : _context$locale2.cancelText) !== null && _ref4 !== void 0 ? _ref4 : '取消'
       },
       resetButtonProps: {
         preventDefault: true,
         // 提交表单loading时，不可关闭弹框
         disabled: submitTimeout ? loading : undefined,
         onClick: function onClick(e) {
-          var _drawerProps$onClose;
+          var _modalProps$onCancel;
           setOpen(false);
-          // fix: #6006 点击取消按钮时,那么必然会触发抽屉关闭，我们无需在 此处重置表单，只需在抽屉关闭时重置即可
-          drawerProps === null || drawerProps === void 0 || (_drawerProps$onClose = drawerProps.onClose) === null || _drawerProps$onClose === void 0 || _drawerProps$onClose.call(drawerProps, e);
+          // fix: #6006 点击取消按钮时,那么必然会触发弹窗关闭，我们无需在 此处重置表单，只需在弹窗关闭时重置即可
+          modalProps === null || modalProps === void 0 || (_modalProps$onCancel = modalProps.onCancel) === null || _modalProps$onCancel === void 0 || _modalProps$onCancel.call(modalProps, e);
         }
       }
     }, rest.submitter);
-  }, [rest.submitter, (_context$locale3 = context.locale) === null || _context$locale3 === void 0 || (_context$locale3 = _context$locale3.Modal) === null || _context$locale3 === void 0 ? void 0 : _context$locale3.okText, (_context$locale4 = context.locale) === null || _context$locale4 === void 0 || (_context$locale4 = _context$locale4.Modal) === null || _context$locale4 === void 0 ? void 0 : _context$locale4.cancelText, submitTimeout, loading, setOpen, drawerProps]);
-  var contentRender = (0,react.useCallback)(function (formDom, submitter) {
-    return /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-      children: [formDom, footerRef.current && submitter ? /*#__PURE__*/(0,jsx_runtime.jsx)(react.Fragment, {
-        children: /*#__PURE__*/(0,react_dom.createPortal)(submitter, footerRef.current)
+  }, [(_context$locale3 = context.locale) === null || _context$locale3 === void 0 || (_context$locale3 = _context$locale3.Modal) === null || _context$locale3 === void 0 ? void 0 : _context$locale3.cancelText, (_context$locale4 = context.locale) === null || _context$locale4 === void 0 || (_context$locale4 = _context$locale4.Modal) === null || _context$locale4 === void 0 ? void 0 : _context$locale4.okText, modalProps, rest.submitter, setOpen, loading, submitTimeout]);
+  var contentRender = (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)(function (formDom, submitter) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+      children: [formDom, footerRef.current && submitter ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+        children: /*#__PURE__*/(0,react_dom__WEBPACK_IMPORTED_MODULE_4__.createPortal)(submitter, footerRef.current)
       }, "submitter") : submitter]
     });
   }, []);
-  var onFinishHandle = (0,useRefFunction/* useRefFunction */.J)( /*#__PURE__*/function () {
-    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee2(values) {
+  var onFinishHandle = (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)( /*#__PURE__*/function () {
+    var _ref5 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)().mark(function _callee2(values) {
       var response, timer, result;
-      return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee2$(_context2) {
+      return (0,_babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)().wrap(function _callee2$(_context2) {
         while (1) switch (_context2.prev = _context2.next) {
           case 0:
             response = onFinish === null || onFinish === void 0 ? void 0 : onFinish(values);
@@ -15182,106 +15074,75 @@ function DrawerForm(_ref) {
       }, _callee2);
     }));
     return function (_x2) {
-      return _ref3.apply(this, arguments);
+      return _ref5.apply(this, arguments);
     };
-  }());
-  var drawerOpenProps = (0,openVisibleCompatible/* openVisibleCompatible */.X)(open, onVisibleChange);
-  var cbHandleMouseMove = (0,react.useCallback)(function (e) {
-    var _resizeInfo$minWidth, _resizeInfo$maxWidth;
-    var offsetRight = (document.body.offsetWidth || 1000) - (e.clientX - document.body.offsetLeft);
-    var minWidth = (_resizeInfo$minWidth = resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth) !== null && _resizeInfo$minWidth !== void 0 ? _resizeInfo$minWidth : width || 800;
-    var maxWidth = (_resizeInfo$maxWidth = resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.maxWidth) !== null && _resizeInfo$maxWidth !== void 0 ? _resizeInfo$maxWidth : window.innerWidth * 0.8;
-    if (offsetRight < minWidth) {
-      setDrawerWidth(minWidth);
-      return;
-    }
-    if (offsetRight > maxWidth) {
-      setDrawerWidth(maxWidth);
-      return;
-    }
-    setDrawerWidth(offsetRight);
-  }, [resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.maxWidth, resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth, width]);
-  var cbHandleMouseUp = (0,react.useCallback)(function () {
-    document.removeEventListener('mousemove', cbHandleMouseMove);
-    document.removeEventListener('mouseup', cbHandleMouseUp);
-  }, [cbHandleMouseMove]);
-  return wrapSSR( /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-    children: [/*#__PURE__*/(0,jsx_runtime.jsxs)(drawer/* default */.Z, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
+  }(), [onFinish, setOpen, submitTimeout]);
+  var modalOpenProps = (0,_ant_design_pro_utils__WEBPACK_IMPORTED_MODULE_12__/* .openVisibleCompatible */ .X)(open);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__/* ["default"] */ .Z, (0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)((0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)((0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)({
       title: title,
-      width: drawerWidth
-    }, drawerProps), drawerOpenProps), {}, {
-      afterOpenChange: function afterOpenChange(e) {
-        var _drawerProps$afterOpe;
-        if (!e) resetFields();
-        drawerProps === null || drawerProps === void 0 || (_drawerProps$afterOpe = drawerProps.afterOpenChange) === null || _drawerProps$afterOpe === void 0 || _drawerProps$afterOpe.call(drawerProps, e);
-      },
-      onClose: function onClose(e) {
-        var _drawerProps$onClose2;
+      width: width || 800
+    }, modalProps), modalOpenProps), {}, {
+      onCancel: function onCancel(e) {
+        var _modalProps$onCancel2;
         // 提交表单loading时，阻止弹框关闭
         if (submitTimeout && loading) return;
         setOpen(false);
-        drawerProps === null || drawerProps === void 0 || (_drawerProps$onClose2 = drawerProps.onClose) === null || _drawerProps$onClose2 === void 0 || _drawerProps$onClose2.call(drawerProps, e);
+        modalProps === null || modalProps === void 0 || (_modalProps$onCancel2 = modalProps.onCancel) === null || _modalProps$onCancel2 === void 0 || _modalProps$onCancel2.call(modalProps, e);
       },
-      footer: rest.submitter !== false && /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      afterClose: function afterClose() {
+        var _modalProps$afterClos;
+        resetFields();
+        setOpen(false);
+        modalProps === null || modalProps === void 0 || (_modalProps$afterClos = modalProps.afterClose) === null || _modalProps$afterClos === void 0 || _modalProps$afterClos.call(modalProps);
+      },
+      footer: rest.submitter !== false ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         ref: footerDomRef,
         style: {
           display: 'flex',
           justifyContent: 'flex-end'
         }
-      }),
-      children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-        className: resize ? classnames_default()(getCls('sidebar-dragger'), hashId, (_classNames = {}, (0,defineProperty/* default */.Z)(_classNames, getCls('sidebar-dragger-min-disabled'), drawerWidth === (resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth)), (0,defineProperty/* default */.Z)(_classNames, getCls('sidebar-dragger-max-disabled'), drawerWidth === (resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.maxWidth)), _classNames)) : null,
-        onMouseDown: function onMouseDown(e) {
-          var _resizeInfo$onResize;
-          resizeInfo === null || resizeInfo === void 0 || (_resizeInfo$onResize = resizeInfo.onResize) === null || _resizeInfo$onResize === void 0 || _resizeInfo$onResize.call(resizeInfo);
-          e.stopPropagation();
-          e.preventDefault();
-          document.addEventListener('mousemove', cbHandleMouseMove);
-          document.addEventListener('mouseup', cbHandleMouseUp);
-          setResizableDrawer(true);
-        }
-      }), /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
-        children: /*#__PURE__*/(0,jsx_runtime.jsx)(BaseForm/* BaseForm */.I, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
-          formComponentType: "DrawerForm",
-          layout: "vertical"
-        }, rest), {}, {
-          formRef: formRef,
-          onInit: function onInit(_, form) {
-            var _rest$onInit;
-            if (rest.formRef) {
-              rest.formRef.current = form;
-            }
-            rest === null || rest === void 0 || (_rest$onInit = rest.onInit) === null || _rest$onInit === void 0 || _rest$onInit.call(rest, _, form);
-            formRef.current = form;
-          },
-          submitter: submitterConfig,
-          onFinish: /*#__PURE__*/function () {
-            var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee3(values) {
-              var result;
-              return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee3$(_context3) {
-                while (1) switch (_context3.prev = _context3.next) {
-                  case 0:
-                    _context3.next = 2;
-                    return onFinishHandle(values);
-                  case 2:
-                    result = _context3.sent;
-                    return _context3.abrupt("return", result);
-                  case 4:
-                  case "end":
-                    return _context3.stop();
-                }
-              }, _callee3);
-            }));
-            return function (_x3) {
-              return _ref4.apply(this, arguments);
-            };
-          }(),
-          contentRender: contentRender,
-          children: children
-        }))
-      })]
+      }) : null,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_BaseForm__WEBPACK_IMPORTED_MODULE_14__/* .BaseForm */ .I, (0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)((0,_babel_runtime_helpers_esm_objectSpread2__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z)({
+        formComponentType: "ModalForm",
+        layout: "vertical"
+      }, rest), {}, {
+        onInit: function onInit(_, form) {
+          var _rest$onInit;
+          if (rest.formRef) {
+            rest.formRef.current = form;
+          }
+          rest === null || rest === void 0 || (_rest$onInit = rest.onInit) === null || _rest$onInit === void 0 || _rest$onInit.call(rest, _, form);
+          formRef.current = form;
+        },
+        formRef: formRef,
+        submitter: submitterConfig,
+        onFinish: /*#__PURE__*/function () {
+          var _ref6 = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z)( /*#__PURE__*/(0,_babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)().mark(function _callee3(values) {
+            var result;
+            return (0,_babel_runtime_helpers_esm_regeneratorRuntime__WEBPACK_IMPORTED_MODULE_11__/* ["default"] */ .Z)().wrap(function _callee3$(_context3) {
+              while (1) switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.next = 2;
+                  return onFinishHandle(values);
+                case 2:
+                  result = _context3.sent;
+                  return _context3.abrupt("return", result);
+                case 4:
+                case "end":
+                  return _context3.stop();
+              }
+            }, _callee3);
+          }));
+          return function (_x3) {
+            return _ref6.apply(this, arguments);
+          };
+        }(),
+        contentRender: contentRender,
+        children: children
+      }))
     })), triggerDom]
-  }));
+  });
 }
 
 
@@ -16204,9 +16065,9 @@ StepsFormWarp.useForm = es_form/* default */.Z.useForm;
 
 /***/ }),
 
-/***/ 26359:
+/***/ 57062:
 /*!*********************************************************************!*\
-  !*** ./node_modules/@ant-design/pro-table/es/Table.js + 70 modules ***!
+  !*** ./node_modules/@ant-design/pro-table/es/Table.js + 71 modules ***!
   \*********************************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -17796,8 +17657,364 @@ var runFunction = __webpack_require__(22270);
 var useDeepCompareMemo = __webpack_require__(27833);
 // EXTERNAL MODULE: ./node_modules/antd/es/form/index.js + 21 modules
 var es_form = __webpack_require__(65520);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/layouts/DrawerForm/index.js + 1 modules
-var DrawerForm = __webpack_require__(184);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/compareVersions/openVisibleCompatible.js
+var openVisibleCompatible = __webpack_require__(73177);
+// EXTERNAL MODULE: ./node_modules/antd/es/drawer/index.js + 9 modules
+var drawer = __webpack_require__(89574);
+// EXTERNAL MODULE: ./node_modules/lodash.merge/index.js
+var lodash_merge = __webpack_require__(72378);
+var lodash_merge_default = /*#__PURE__*/__webpack_require__.n(lodash_merge);
+// EXTERNAL MODULE: ./node_modules/react-dom/index.js
+var react_dom = __webpack_require__(73935);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/BaseForm/BaseForm.js + 4 modules
+var BaseForm = __webpack_require__(89671);
+;// CONCATENATED MODULE: ./node_modules/@ant-design/pro-form/es/layouts/DrawerForm/style.js
+
+
+
+var genDrawerFormStyle = function genDrawerFormStyle(token) {
+  return (0,defineProperty/* default */.Z)({}, token.componentCls, {
+    '&-sidebar-dragger': {
+      width: '5px',
+      cursor: 'ew-resize',
+      padding: '4px 0 0',
+      borderTop: '1px solid transparent',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      zIndex: 100,
+      backgroundColor: 'transparent',
+      '&-min-disabled': {
+        cursor: 'w-resize'
+      },
+      '&-max-disabled': {
+        cursor: 'e-resize'
+      }
+    }
+  });
+};
+function DrawerForm_style_useStyle(prefixCls) {
+  return (0,useStyle/* useStyle */.Xj)('DrawerForm', function (token) {
+    var drawerFormToken = (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, token), {}, {
+      componentCls: ".".concat(prefixCls)
+    });
+    return [genDrawerFormStyle(drawerFormToken)];
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@ant-design/pro-form/es/layouts/DrawerForm/index.js
+
+
+
+
+
+
+var DrawerForm_excluded = ["children", "trigger", "onVisibleChange", "drawerProps", "onFinish", "submitTimeout", "title", "width", "resize", "onOpenChange", "visible", "open"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+function DrawerForm(_ref) {
+  var _context$locale3, _context$locale4, _classNames;
+  var children = _ref.children,
+    trigger = _ref.trigger,
+    onVisibleChange = _ref.onVisibleChange,
+    drawerProps = _ref.drawerProps,
+    onFinish = _ref.onFinish,
+    submitTimeout = _ref.submitTimeout,
+    title = _ref.title,
+    width = _ref.width,
+    resize = _ref.resize,
+    onOpenChange = _ref.onOpenChange,
+    propVisible = _ref.visible,
+    propsOpen = _ref.open,
+    rest = (0,objectWithoutProperties/* default */.Z)(_ref, DrawerForm_excluded);
+  (0,warning/* noteOnce */.ET)(
+  // eslint-disable-next-line @typescript-eslint/dot-notation
+  !rest['footer'] || !(drawerProps !== null && drawerProps !== void 0 && drawerProps.footer), 'DrawerForm 是一个 ProForm 的特殊布局，如果想自定义按钮，请使用 submit.render 自定义。');
+  var resizeInfo = react.useMemo(function () {
+    var _resize$onResize, _resize$maxWidth, _resize$minWidth;
+    var defaultResize = {
+      onResize: function onResize() {},
+      maxWidth: window.innerWidth * 0.8,
+      minWidth: 300
+    };
+    if (typeof resize === 'boolean') {
+      if (resize) {
+        return defaultResize;
+      } else {
+        return {};
+      }
+    }
+    return (0,omitUndefined/* omitUndefined */.Y)({
+      onResize: (_resize$onResize = resize === null || resize === void 0 ? void 0 : resize.onResize) !== null && _resize$onResize !== void 0 ? _resize$onResize : defaultResize.onResize,
+      maxWidth: (_resize$maxWidth = resize === null || resize === void 0 ? void 0 : resize.maxWidth) !== null && _resize$maxWidth !== void 0 ? _resize$maxWidth : defaultResize.maxWidth,
+      minWidth: (_resize$minWidth = resize === null || resize === void 0 ? void 0 : resize.minWidth) !== null && _resize$minWidth !== void 0 ? _resize$minWidth : defaultResize.minWidth
+    });
+  }, [resize]);
+  var context = (0,react.useContext)(config_provider/* default.ConfigContext */.ZP.ConfigContext);
+  var baseClassName = context.getPrefixCls('pro-form-drawer');
+  var _useStyle = DrawerForm_style_useStyle(baseClassName),
+    wrapSSR = _useStyle.wrapSSR,
+    hashId = _useStyle.hashId;
+  var getCls = function getCls(className) {
+    return "".concat(baseClassName, "-").concat(className, " ").concat(hashId);
+  };
+  var _useState = (0,react.useState)([]),
+    _useState2 = (0,slicedToArray/* default */.Z)(_useState, 2),
+    forceUpdate = _useState2[1];
+  var _useState3 = (0,react.useState)(false),
+    _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  var _useState5 = (0,react.useState)(false),
+    _useState6 = (0,slicedToArray/* default */.Z)(_useState5, 2),
+    resizableDrawer = _useState6[0],
+    setResizableDrawer = _useState6[1];
+  var _useState7 = (0,react.useState)(width ? width : resize ? resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth : 800),
+    _useState8 = (0,slicedToArray/* default */.Z)(_useState7, 2),
+    drawerWidth = _useState8[0],
+    setDrawerWidth = _useState8[1];
+  var _useMergedState = (0,useMergedState/* default */.Z)(!!propVisible, {
+      value: propsOpen || propVisible,
+      onChange: onOpenChange || onVisibleChange
+    }),
+    _useMergedState2 = (0,slicedToArray/* default */.Z)(_useMergedState, 2),
+    open = _useMergedState2[0],
+    setOpen = _useMergedState2[1];
+  var footerRef = (0,react.useRef)(null);
+  var footerDomRef = (0,react.useCallback)(function (element) {
+    if (footerRef.current === null && element) {
+      forceUpdate([]);
+    }
+    footerRef.current = element;
+  }, []);
+  var formRef = (0,react.useRef)();
+  var resetFields = (0,react.useCallback)(function () {
+    var _ref2, _rest$formRef$current, _rest$formRef;
+    var form = (_ref2 = (_rest$formRef$current = (_rest$formRef = rest.formRef) === null || _rest$formRef === void 0 ? void 0 : _rest$formRef.current) !== null && _rest$formRef$current !== void 0 ? _rest$formRef$current : rest.form) !== null && _ref2 !== void 0 ? _ref2 : formRef.current;
+    // 重置表单
+    if (form && drawerProps !== null && drawerProps !== void 0 && drawerProps.destroyOnClose) {
+      form.resetFields();
+    }
+  }, [drawerProps === null || drawerProps === void 0 ? void 0 : drawerProps.destroyOnClose, rest.form, rest.formRef]);
+  (0,react.useEffect)(function () {
+    if (open && (propsOpen || propVisible)) {
+      onOpenChange === null || onOpenChange === void 0 || onOpenChange(true);
+      onVisibleChange === null || onVisibleChange === void 0 || onVisibleChange(true);
+    }
+    if (resizableDrawer) {
+      setDrawerWidth(resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [propVisible, open, resizableDrawer]);
+  (0,react.useImperativeHandle)(rest.formRef, function () {
+    return formRef.current;
+  }, [formRef.current]);
+  var triggerDom = (0,react.useMemo)(function () {
+    if (!trigger) {
+      return null;
+    }
+    return /*#__PURE__*/react.cloneElement(trigger, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
+      key: 'trigger'
+    }, trigger.props), {}, {
+      onClick: function () {
+        var _onClick = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee(e) {
+          var _trigger$props, _trigger$props$onClic;
+          return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee$(_context) {
+            while (1) switch (_context.prev = _context.next) {
+              case 0:
+                setOpen(!open);
+                setResizableDrawer(!Object.keys(resizeInfo));
+                (_trigger$props = trigger.props) === null || _trigger$props === void 0 || (_trigger$props$onClic = _trigger$props.onClick) === null || _trigger$props$onClic === void 0 || _trigger$props$onClic.call(_trigger$props, e);
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }, _callee);
+        }));
+        function onClick(_x) {
+          return _onClick.apply(this, arguments);
+        }
+        return onClick;
+      }()
+    }));
+  }, [setOpen, trigger, open, setResizableDrawer, resizableDrawer]);
+  var submitterConfig = (0,react.useMemo)(function () {
+    var _context$locale$Modal, _context$locale, _context$locale$Modal2, _context$locale2;
+    if (rest.submitter === false) {
+      return false;
+    }
+    return lodash_merge_default()({
+      searchConfig: {
+        submitText: (_context$locale$Modal = (_context$locale = context.locale) === null || _context$locale === void 0 || (_context$locale = _context$locale.Modal) === null || _context$locale === void 0 ? void 0 : _context$locale.okText) !== null && _context$locale$Modal !== void 0 ? _context$locale$Modal : '确认',
+        resetText: (_context$locale$Modal2 = (_context$locale2 = context.locale) === null || _context$locale2 === void 0 || (_context$locale2 = _context$locale2.Modal) === null || _context$locale2 === void 0 ? void 0 : _context$locale2.cancelText) !== null && _context$locale$Modal2 !== void 0 ? _context$locale$Modal2 : '取消'
+      },
+      resetButtonProps: {
+        preventDefault: true,
+        // 提交表单loading时，不可关闭弹框
+        disabled: submitTimeout ? loading : undefined,
+        onClick: function onClick(e) {
+          var _drawerProps$onClose;
+          setOpen(false);
+          // fix: #6006 点击取消按钮时,那么必然会触发抽屉关闭，我们无需在 此处重置表单，只需在抽屉关闭时重置即可
+          drawerProps === null || drawerProps === void 0 || (_drawerProps$onClose = drawerProps.onClose) === null || _drawerProps$onClose === void 0 || _drawerProps$onClose.call(drawerProps, e);
+        }
+      }
+    }, rest.submitter);
+  }, [rest.submitter, (_context$locale3 = context.locale) === null || _context$locale3 === void 0 || (_context$locale3 = _context$locale3.Modal) === null || _context$locale3 === void 0 ? void 0 : _context$locale3.okText, (_context$locale4 = context.locale) === null || _context$locale4 === void 0 || (_context$locale4 = _context$locale4.Modal) === null || _context$locale4 === void 0 ? void 0 : _context$locale4.cancelText, submitTimeout, loading, setOpen, drawerProps]);
+  var contentRender = (0,react.useCallback)(function (formDom, submitter) {
+    return /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+      children: [formDom, footerRef.current && submitter ? /*#__PURE__*/(0,jsx_runtime.jsx)(react.Fragment, {
+        children: /*#__PURE__*/(0,react_dom.createPortal)(submitter, footerRef.current)
+      }, "submitter") : submitter]
+    });
+  }, []);
+  var onFinishHandle = (0,useRefFunction/* useRefFunction */.J)( /*#__PURE__*/function () {
+    var _ref3 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee2(values) {
+      var response, timer, result;
+      return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            response = onFinish === null || onFinish === void 0 ? void 0 : onFinish(values);
+            if (submitTimeout && response instanceof Promise) {
+              setLoading(true);
+              timer = setTimeout(function () {
+                return setLoading(false);
+              }, submitTimeout);
+              response.finally(function () {
+                clearTimeout(timer);
+                setLoading(false);
+              });
+            }
+            _context2.next = 4;
+            return response;
+          case 4:
+            result = _context2.sent;
+            // 返回真值，关闭弹框
+            if (result) {
+              setOpen(false);
+            }
+            return _context2.abrupt("return", result);
+          case 7:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }));
+    return function (_x2) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+  var drawerOpenProps = (0,openVisibleCompatible/* openVisibleCompatible */.X)(open, onVisibleChange);
+  var cbHandleMouseMove = (0,react.useCallback)(function (e) {
+    var _resizeInfo$minWidth, _resizeInfo$maxWidth;
+    var offsetRight = (document.body.offsetWidth || 1000) - (e.clientX - document.body.offsetLeft);
+    var minWidth = (_resizeInfo$minWidth = resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth) !== null && _resizeInfo$minWidth !== void 0 ? _resizeInfo$minWidth : width || 800;
+    var maxWidth = (_resizeInfo$maxWidth = resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.maxWidth) !== null && _resizeInfo$maxWidth !== void 0 ? _resizeInfo$maxWidth : window.innerWidth * 0.8;
+    if (offsetRight < minWidth) {
+      setDrawerWidth(minWidth);
+      return;
+    }
+    if (offsetRight > maxWidth) {
+      setDrawerWidth(maxWidth);
+      return;
+    }
+    setDrawerWidth(offsetRight);
+  }, [resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.maxWidth, resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth, width]);
+  var cbHandleMouseUp = (0,react.useCallback)(function () {
+    document.removeEventListener('mousemove', cbHandleMouseMove);
+    document.removeEventListener('mouseup', cbHandleMouseUp);
+  }, [cbHandleMouseMove]);
+  return wrapSSR( /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
+    children: [/*#__PURE__*/(0,jsx_runtime.jsxs)(drawer/* default */.Z, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
+      title: title,
+      width: drawerWidth
+    }, drawerProps), drawerOpenProps), {}, {
+      afterOpenChange: function afterOpenChange(e) {
+        var _drawerProps$afterOpe;
+        if (!e) resetFields();
+        drawerProps === null || drawerProps === void 0 || (_drawerProps$afterOpe = drawerProps.afterOpenChange) === null || _drawerProps$afterOpe === void 0 || _drawerProps$afterOpe.call(drawerProps, e);
+      },
+      onClose: function onClose(e) {
+        var _drawerProps$onClose2;
+        // 提交表单loading时，阻止弹框关闭
+        if (submitTimeout && loading) return;
+        setOpen(false);
+        drawerProps === null || drawerProps === void 0 || (_drawerProps$onClose2 = drawerProps.onClose) === null || _drawerProps$onClose2 === void 0 || _drawerProps$onClose2.call(drawerProps, e);
+      },
+      footer: rest.submitter !== false && /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        ref: footerDomRef,
+        style: {
+          display: 'flex',
+          justifyContent: 'flex-end'
+        }
+      }),
+      children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        className: resize ? classnames_default()(getCls('sidebar-dragger'), hashId, (_classNames = {}, (0,defineProperty/* default */.Z)(_classNames, getCls('sidebar-dragger-min-disabled'), drawerWidth === (resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.minWidth)), (0,defineProperty/* default */.Z)(_classNames, getCls('sidebar-dragger-max-disabled'), drawerWidth === (resizeInfo === null || resizeInfo === void 0 ? void 0 : resizeInfo.maxWidth)), _classNames)) : null,
+        onMouseDown: function onMouseDown(e) {
+          var _resizeInfo$onResize;
+          resizeInfo === null || resizeInfo === void 0 || (_resizeInfo$onResize = resizeInfo.onResize) === null || _resizeInfo$onResize === void 0 || _resizeInfo$onResize.call(resizeInfo);
+          e.stopPropagation();
+          e.preventDefault();
+          document.addEventListener('mousemove', cbHandleMouseMove);
+          document.addEventListener('mouseup', cbHandleMouseUp);
+          setResizableDrawer(true);
+        }
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)(jsx_runtime.Fragment, {
+        children: /*#__PURE__*/(0,jsx_runtime.jsx)(BaseForm/* BaseForm */.I, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
+          formComponentType: "DrawerForm",
+          layout: "vertical"
+        }, rest), {}, {
+          formRef: formRef,
+          onInit: function onInit(_, form) {
+            var _rest$onInit;
+            if (rest.formRef) {
+              rest.formRef.current = form;
+            }
+            rest === null || rest === void 0 || (_rest$onInit = rest.onInit) === null || _rest$onInit === void 0 || _rest$onInit.call(rest, _, form);
+            formRef.current = form;
+          },
+          submitter: submitterConfig,
+          onFinish: /*#__PURE__*/function () {
+            var _ref4 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee3(values) {
+              var result;
+              return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee3$(_context3) {
+                while (1) switch (_context3.prev = _context3.next) {
+                  case 0:
+                    _context3.next = 2;
+                    return onFinishHandle(values);
+                  case 2:
+                    result = _context3.sent;
+                    return _context3.abrupt("return", result);
+                  case 4:
+                  case "end":
+                    return _context3.stop();
+                }
+              }, _callee3);
+            }));
+            return function (_x3) {
+              return _ref4.apply(this, arguments);
+            };
+          }(),
+          contentRender: contentRender,
+          children: children
+        }))
+      })]
+    })), triggerDom]
+  }));
+}
+
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(87462);
 ;// CONCATENATED MODULE: ./node_modules/@ant-design/icons-svg/es/asn/FilterOutlined.js
@@ -17827,8 +18044,6 @@ if (false) {}
 var FieldLabel = __webpack_require__(2122);
 // EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/components/FilterDropdown/index.js + 3 modules
 var FilterDropdown = __webpack_require__(1336);
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/BaseForm/BaseForm.js + 4 modules
-var BaseForm = __webpack_require__(89671);
 ;// CONCATENATED MODULE: ./node_modules/@ant-design/pro-form/es/layouts/LightFilter/style.js
 
 
@@ -18126,253 +18341,8 @@ function LightFilter(props) {
   }));
 }
 
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/compareVersions/openVisibleCompatible.js
-var openVisibleCompatible = __webpack_require__(73177);
-// EXTERNAL MODULE: ./node_modules/antd/es/modal/index.js + 1 modules
-var modal = __webpack_require__(5914);
-// EXTERNAL MODULE: ./node_modules/lodash.merge/index.js
-var lodash_merge = __webpack_require__(72378);
-var lodash_merge_default = /*#__PURE__*/__webpack_require__.n(lodash_merge);
-// EXTERNAL MODULE: ./node_modules/react-dom/index.js
-var react_dom = __webpack_require__(73935);
-;// CONCATENATED MODULE: ./node_modules/@ant-design/pro-form/es/layouts/ModalForm/index.js
-
-
-
-
-
-var ModalForm_excluded = ["children", "trigger", "onVisibleChange", "onOpenChange", "modalProps", "onFinish", "submitTimeout", "title", "width", "visible", "open"];
-
-
-
-
-
-
-
-
-
-
-
-function ModalForm(_ref) {
-  var _context$locale3, _context$locale4;
-  var children = _ref.children,
-    trigger = _ref.trigger,
-    onVisibleChange = _ref.onVisibleChange,
-    onOpenChange = _ref.onOpenChange,
-    modalProps = _ref.modalProps,
-    onFinish = _ref.onFinish,
-    submitTimeout = _ref.submitTimeout,
-    title = _ref.title,
-    width = _ref.width,
-    propVisible = _ref.visible,
-    propsOpen = _ref.open,
-    rest = (0,objectWithoutProperties/* default */.Z)(_ref, ModalForm_excluded);
-  (0,warning/* noteOnce */.ET)(
-  // eslint-disable-next-line @typescript-eslint/dot-notation
-  !rest['footer'] || !(modalProps !== null && modalProps !== void 0 && modalProps.footer), 'ModalForm 是一个 ProForm 的特殊布局，如果想自定义按钮，请使用 submit.render 自定义。');
-  var context = (0,react.useContext)(config_provider/* default.ConfigContext */.ZP.ConfigContext);
-  var _useState = (0,react.useState)([]),
-    _useState2 = (0,slicedToArray/* default */.Z)(_useState, 2),
-    forceUpdate = _useState2[1];
-  var _useState3 = (0,react.useState)(false),
-    _useState4 = (0,slicedToArray/* default */.Z)(_useState3, 2),
-    loading = _useState4[0],
-    setLoading = _useState4[1];
-  var _useMergedState = (0,useMergedState/* default */.Z)(!!propVisible, {
-      value: propsOpen || propVisible,
-      onChange: onOpenChange || onVisibleChange
-    }),
-    _useMergedState2 = (0,slicedToArray/* default */.Z)(_useMergedState, 2),
-    open = _useMergedState2[0],
-    setOpen = _useMergedState2[1];
-  var footerRef = (0,react.useRef)(null);
-  var footerDomRef = (0,react.useCallback)(function (element) {
-    if (footerRef.current === null && element) {
-      forceUpdate([]);
-    }
-    footerRef.current = element;
-  }, []);
-  var formRef = (0,react.useRef)();
-  var resetFields = (0,react.useCallback)(function () {
-    var _ref2, _rest$form, _rest$formRef;
-    var form = (_ref2 = (_rest$form = rest.form) !== null && _rest$form !== void 0 ? _rest$form : (_rest$formRef = rest.formRef) === null || _rest$formRef === void 0 ? void 0 : _rest$formRef.current) !== null && _ref2 !== void 0 ? _ref2 : formRef.current;
-    // 重置表单
-    if (form && modalProps !== null && modalProps !== void 0 && modalProps.destroyOnClose) {
-      form.resetFields();
-    }
-  }, [modalProps === null || modalProps === void 0 ? void 0 : modalProps.destroyOnClose, rest.form, rest.formRef]);
-  (0,react.useImperativeHandle)(rest.formRef, function () {
-    return formRef.current;
-  }, [formRef.current]);
-  (0,react.useEffect)(function () {
-    if (open && (propsOpen || propVisible)) {
-      onOpenChange === null || onOpenChange === void 0 || onOpenChange(true);
-      onVisibleChange === null || onVisibleChange === void 0 || onVisibleChange(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [propVisible, propsOpen, open]);
-  var triggerDom = (0,react.useMemo)(function () {
-    if (!trigger) {
-      return null;
-    }
-    return /*#__PURE__*/react.cloneElement(trigger, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
-      key: 'trigger'
-    }, trigger.props), {}, {
-      onClick: function () {
-        var _onClick = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee(e) {
-          var _trigger$props, _trigger$props$onClic;
-          return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee$(_context) {
-            while (1) switch (_context.prev = _context.next) {
-              case 0:
-                setOpen(!open);
-                (_trigger$props = trigger.props) === null || _trigger$props === void 0 || (_trigger$props$onClic = _trigger$props.onClick) === null || _trigger$props$onClic === void 0 || _trigger$props$onClic.call(_trigger$props, e);
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }, _callee);
-        }));
-        function onClick(_x) {
-          return _onClick.apply(this, arguments);
-        }
-        return onClick;
-      }()
-    }));
-  }, [setOpen, trigger, open]);
-  var submitterConfig = (0,react.useMemo)(function () {
-    var _ref3, _modalProps$okText, _context$locale, _ref4, _modalProps$cancelTex, _context$locale2;
-    if (rest.submitter === false) {
-      return false;
-    }
-    return lodash_merge_default()({
-      searchConfig: {
-        submitText: (_ref3 = (_modalProps$okText = modalProps === null || modalProps === void 0 ? void 0 : modalProps.okText) !== null && _modalProps$okText !== void 0 ? _modalProps$okText : (_context$locale = context.locale) === null || _context$locale === void 0 || (_context$locale = _context$locale.Modal) === null || _context$locale === void 0 ? void 0 : _context$locale.okText) !== null && _ref3 !== void 0 ? _ref3 : '确认',
-        resetText: (_ref4 = (_modalProps$cancelTex = modalProps === null || modalProps === void 0 ? void 0 : modalProps.cancelText) !== null && _modalProps$cancelTex !== void 0 ? _modalProps$cancelTex : (_context$locale2 = context.locale) === null || _context$locale2 === void 0 || (_context$locale2 = _context$locale2.Modal) === null || _context$locale2 === void 0 ? void 0 : _context$locale2.cancelText) !== null && _ref4 !== void 0 ? _ref4 : '取消'
-      },
-      resetButtonProps: {
-        preventDefault: true,
-        // 提交表单loading时，不可关闭弹框
-        disabled: submitTimeout ? loading : undefined,
-        onClick: function onClick(e) {
-          var _modalProps$onCancel;
-          setOpen(false);
-          // fix: #6006 点击取消按钮时,那么必然会触发弹窗关闭，我们无需在 此处重置表单，只需在弹窗关闭时重置即可
-          modalProps === null || modalProps === void 0 || (_modalProps$onCancel = modalProps.onCancel) === null || _modalProps$onCancel === void 0 || _modalProps$onCancel.call(modalProps, e);
-        }
-      }
-    }, rest.submitter);
-  }, [(_context$locale3 = context.locale) === null || _context$locale3 === void 0 || (_context$locale3 = _context$locale3.Modal) === null || _context$locale3 === void 0 ? void 0 : _context$locale3.cancelText, (_context$locale4 = context.locale) === null || _context$locale4 === void 0 || (_context$locale4 = _context$locale4.Modal) === null || _context$locale4 === void 0 ? void 0 : _context$locale4.okText, modalProps, rest.submitter, setOpen, loading, submitTimeout]);
-  var contentRender = (0,react.useCallback)(function (formDom, submitter) {
-    return /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-      children: [formDom, footerRef.current && submitter ? /*#__PURE__*/(0,jsx_runtime.jsx)(react.Fragment, {
-        children: /*#__PURE__*/(0,react_dom.createPortal)(submitter, footerRef.current)
-      }, "submitter") : submitter]
-    });
-  }, []);
-  var onFinishHandle = (0,react.useCallback)( /*#__PURE__*/function () {
-    var _ref5 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee2(values) {
-      var response, timer, result;
-      return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            response = onFinish === null || onFinish === void 0 ? void 0 : onFinish(values);
-            if (submitTimeout && response instanceof Promise) {
-              setLoading(true);
-              timer = setTimeout(function () {
-                return setLoading(false);
-              }, submitTimeout);
-              response.finally(function () {
-                clearTimeout(timer);
-                setLoading(false);
-              });
-            }
-            _context2.next = 4;
-            return response;
-          case 4:
-            result = _context2.sent;
-            // 返回真值，关闭弹框
-            if (result) {
-              setOpen(false);
-            }
-            return _context2.abrupt("return", result);
-          case 7:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2);
-    }));
-    return function (_x2) {
-      return _ref5.apply(this, arguments);
-    };
-  }(), [onFinish, setOpen, submitTimeout]);
-  var modalOpenProps = (0,openVisibleCompatible/* openVisibleCompatible */.X)(open);
-  return /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
-    children: [/*#__PURE__*/(0,jsx_runtime.jsx)(modal/* default */.Z, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
-      title: title,
-      width: width || 800
-    }, modalProps), modalOpenProps), {}, {
-      onCancel: function onCancel(e) {
-        var _modalProps$onCancel2;
-        // 提交表单loading时，阻止弹框关闭
-        if (submitTimeout && loading) return;
-        setOpen(false);
-        modalProps === null || modalProps === void 0 || (_modalProps$onCancel2 = modalProps.onCancel) === null || _modalProps$onCancel2 === void 0 || _modalProps$onCancel2.call(modalProps, e);
-      },
-      afterClose: function afterClose() {
-        var _modalProps$afterClos;
-        resetFields();
-        setOpen(false);
-        modalProps === null || modalProps === void 0 || (_modalProps$afterClos = modalProps.afterClose) === null || _modalProps$afterClos === void 0 || _modalProps$afterClos.call(modalProps);
-      },
-      footer: rest.submitter !== false ? /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-        ref: footerDomRef,
-        style: {
-          display: 'flex',
-          justifyContent: 'flex-end'
-        }
-      }) : null,
-      children: /*#__PURE__*/(0,jsx_runtime.jsx)(BaseForm/* BaseForm */.I, (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({
-        formComponentType: "ModalForm",
-        layout: "vertical"
-      }, rest), {}, {
-        onInit: function onInit(_, form) {
-          var _rest$onInit;
-          if (rest.formRef) {
-            rest.formRef.current = form;
-          }
-          rest === null || rest === void 0 || (_rest$onInit = rest.onInit) === null || _rest$onInit === void 0 || _rest$onInit.call(rest, _, form);
-          formRef.current = form;
-        },
-        formRef: formRef,
-        submitter: submitterConfig,
-        onFinish: /*#__PURE__*/function () {
-          var _ref6 = (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee3(values) {
-            var result;
-            return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee3$(_context3) {
-              while (1) switch (_context3.prev = _context3.next) {
-                case 0:
-                  _context3.next = 2;
-                  return onFinishHandle(values);
-                case 2:
-                  result = _context3.sent;
-                  return _context3.abrupt("return", result);
-                case 4:
-                case "end":
-                  return _context3.stop();
-              }
-            }, _callee3);
-          }));
-          return function (_x3) {
-            return _ref6.apply(this, arguments);
-          };
-        }(),
-        contentRender: contentRender,
-        children: children
-      }))
-    })), triggerDom]
-  });
-}
-
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/layouts/ModalForm/index.js
+var ModalForm = __webpack_require__(37476);
 // EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/layouts/ProForm/index.js + 2 modules
 var ProForm = __webpack_require__(97269);
 // EXTERNAL MODULE: ./node_modules/@ant-design/pro-utils/es/isBrowser/index.js
@@ -19324,12 +19294,12 @@ var SchemaForm_excluded = ["columns", "layoutType", "type", "action", "shouldUpd
 
 
 var FormLayoutType = {
-  DrawerForm: DrawerForm/* DrawerForm */.a,
+  DrawerForm: DrawerForm,
   QueryFilter: QueryFilter,
   LightFilter: LightFilter,
   StepForm: layouts_StepsForm/* StepsForm */.L0.StepForm,
   StepsForm: layoutType_StepsForm,
-  ModalForm: ModalForm,
+  ModalForm: ModalForm/* ModalForm */.Y,
   Embed: layoutType_Embed,
   Form: ProForm/* ProForm */.A
 };

@@ -3,7 +3,7 @@ var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
-var theWebSocket = undefined;
+var theWebSocket = null;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -137,10 +137,10 @@ router.get('/findOrder', async function (req, res, next) {
  * */
 router.ws('/ws4Order', (ws, req) => {
     try {
+        console.log('ws ws4Order');
         console.log('ws = ' + ws);
-        console.log('theWebSocket = ' + theWebSocket);
-
         theWebSocket = ws;
+        console.log('theWebSocket = ' + theWebSocket);        
         ws.send('已连接');
 
         // ws.on('message', function (msg) {

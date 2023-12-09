@@ -3,7 +3,7 @@ var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
-let theWebSocket = undefined;
+var theWebSocket = undefined;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

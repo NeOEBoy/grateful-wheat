@@ -139,7 +139,7 @@ router.ws('/ws4Order', (ws, req) => {
     console.log('ws = ' + ws);
     theWebSocket = ws;
     console.log('ws连接成功');
-    ws.send('已连接');
+    // ws.send('已连接');
 
     // ws.on('message', function (msg) {
     //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);

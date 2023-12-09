@@ -138,9 +138,9 @@ router.get('/findOrder', async function (req, res, next) {
 router.ws('/ws4Order', (ws, req) => {
     try {
         console.log('ws = ' + ws);
-        theWebSocket = ws;
         console.log('theWebSocket = ' + theWebSocket);
-        console.log('ws连接成功');
+
+        theWebSocket = ws;
         ws.send('已连接');
 
         // ws.on('message', function (msg) {

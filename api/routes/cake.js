@@ -3,6 +3,7 @@ var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
+let theWebSocket = undefined;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -29,7 +30,7 @@ router.get('/orders', async function (req, res, next) {
         let orderFinded = await CakeOrders.find().sort({ _id: -1 }).skip(skip).limit(limit).exec();
 
         const resJson = makeSuccessResJson(orderFinded, total);
-        console.log('resJson = ' + JSON.stringify(resJson));
+        // console.log('resJson = ' + JSON.stringify(resJson));
         res.status(200).send(resJson);
     } catch (err) {
         console.log('err = ' + err);
@@ -134,8 +135,8 @@ router.get('/findOrder', async function (req, res, next) {
  * ws.send方法用来向客户端发送信息
  * ws.on方法用于监听事件（如监听message事件，或监听close事件）
  * */
-let theWebSocket = undefined;
 router.ws('/ws4Order', (ws, req) => {
+    console.log('ws = ' + ws);
     theWebSocket = ws;
     console.log('ws连接成功');
     ws.send('已连接');

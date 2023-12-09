@@ -97,6 +97,7 @@ router.post('/createOrder', async function (req, res, next) {
         });
         let order = await newOrder.save();
         console.log(order);
+        console.log('theWebSocket = ' + theWebSocket);
         theWebSocket?.send(`订单已创建~`);
         res.send({ errCode: 0, _id: newOrder._id });
     } catch (err) {

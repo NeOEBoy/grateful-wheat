@@ -148,15 +148,15 @@ router.ws('/ws4Order', (ws, req) => {
         // });
 
         // 使用定时器不停的向客户端推动消息
-        let timer = setInterval(() => {
-            ws.send(`ws服务端定时推送消息: ` + Math.random());
-        }, 1000);
+        // let timer = setInterval(() => {
+        //     ws.send(`ws服务端定时推送消息: ` + Math.random());
+        // }, 1000);
 
-        ws.on('close', function (e) {
-            console.log('ws连接关闭');
-            clearInterval(timer);
-            timer = null;
-        })
+        // ws.on('close', function (e) {
+        //     console.log('ws连接关闭');
+        //     clearInterval(timer);
+        //     timer = null;
+        // })
     } catch (err) {
         console.log('err = ' + err);
         next(err)

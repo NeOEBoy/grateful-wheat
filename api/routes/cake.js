@@ -97,6 +97,7 @@ router.post('/createOrder', async function (req, res, next) {
         });
         let order = await newOrder.save();
         console.log(order);
+        theWebSocket?.send(`订单已创建~`);
         res.send({ errCode: 0, _id: newOrder._id });
     } catch (err) {
         console.log('err = ' + err);
@@ -123,5 +124,35 @@ router.get('/findOrder', async function (req, res, next) {
         next(err)
     }
 });
+
+/**
+ * route.ws('/url',(ws, req)=>{  })
+ * 建立WebSocket服务，并指定对应接口url，及相应回调
+ * ws为实例化的对象，req即为请求
+ * 
+ * ws.send方法用来向客户端发送信息
+ * ws.on方法用于监听事件（如监听message事件，或监听close事件）
+ * */
+let theWebSocket = undefined;
+router.ws('/ws4Order', (ws, req) => {
+    theWebSocket = ws;
+    console.log('ws连接成功');
+    ws.send('已连接');
+
+    // ws.on('message', function (msg) {
+    //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);
+    // });
+
+    // // 使用定时器不停的向客户端推动消息
+    // let timer = setInterval(() => {
+    //     ws.send(`ws服务端定时推送消息: ` + Math.random());
+    // }, 1000);
+
+    // ws.on('close', function (e) {
+    //     console.log('ws连接关闭');
+    //     clearInterval(timer);
+    //     timer = null;
+    // })
+})
 
 module.exports = router;

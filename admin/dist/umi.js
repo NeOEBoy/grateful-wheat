@@ -30527,7 +30527,7 @@ function _getRoutes() {
                 return Promise.all(/*! import() | p__WS__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(368)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/WS/index.tsx */ 51325));
               }),
               '6': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | p__Order__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(320), __webpack_require__.e(867), __webpack_require__.e(108), __webpack_require__.e(287), __webpack_require__.e(106), __webpack_require__.e(642), __webpack_require__.e(335)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Order/index.tsx */ 83960));
+                return Promise.all(/*! import() | p__Order__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(320), __webpack_require__.e(867), __webpack_require__.e(108), __webpack_require__.e(287), __webpack_require__.e(106), __webpack_require__.e(510), __webpack_require__.e(335)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Order/index.tsx */ 83960));
               }),
               'ant-design-pro-layout': /*#__PURE__*/react.lazy(function () {
                 return Promise.all(/*! import() | t__plugin-layout__Layout */[__webpack_require__.e(137), __webpack_require__.e(320), __webpack_require__.e(867), __webpack_require__.e(287), __webpack_require__.e(143), __webpack_require__.e(301)]).then(__webpack_require__.bind(__webpack_require__, /*! ./src/.umi-production/plugin-layout/Layout.tsx */ 27626));

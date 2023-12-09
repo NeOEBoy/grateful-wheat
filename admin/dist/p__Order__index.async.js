@@ -44,6 +44,8 @@ var getOrders = _services_demo__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.
 
 moment__WEBPACK_IMPORTED_MODULE_5___default().locale('zh-cn');
 var PrintHTML = __webpack_require__(/*! react-print-html */ 39934);
+var _require = __webpack_require__(/*! howler */ 41766),
+  Howl = _require.Howl;
 var KTableColumnsConfig = [{
   title: '序',
   dataIndex: 'index',
@@ -55,7 +57,9 @@ var KTableColumnsConfig = [{
   valueType: 'text',
   render: function render(_) {
     var imageSource = "";
-    if (_[0].indexOf('data:image') !== -1) {
+    if (_[0].type === 1) {
+      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0].thumbnail);
+    } else if (_[0].indexOf('data:image') !== -1) {
       imageSource = _[0];
     } else {
       imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0]);
@@ -225,9 +229,40 @@ var Order = function Order() {
     _useState6 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState5, 2),
     image4QRCode = _useState6[0],
     setImage4QRCode = _useState6[1];
+  var tableRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
   var divRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
-  // const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  // 创建 WebSocket 实例
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
+    _useState8 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState7, 2),
+    socket = _useState8[0],
+    setSocket = _useState8[1];
+  // 建立 WebSocket连接
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    var newSocket = new WebSocket('ws://localhost:9001/cake/ws4Order');
+    newSocket.onopen = function () {
+      setSocket(newSocket);
+    };
+    newSocket.onmessage = function (event) {
+      var _tableRef$current;
+      console.log('onmessage');
+      var source = '新订单.mp3';
+      if (event.data === '已连接') {
+        source = '已连接.mp3';
+      }
+      var sound = new Howl({
+        src: source,
+        autoplay: true
+      });
+      sound.play();
+      (_tableRef$current = tableRef.current) === null || _tableRef$current === void 0 || _tableRef$current.reload();
+    };
+    newSocket.onclose = function () {
+      setSocket(undefined);
+    };
+    return function () {
+      newSocket.close();
+    };
+  }, []);
   var tableColumnsConfig = [].concat(KTableColumnsConfig, [{
     title: '操作',
     dataIndex: 'option',
@@ -270,6 +305,7 @@ var Order = function Order() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_9__/* .PageContainer */ ._z, {
     title: false,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
+      actionRef: tableRef,
       headerTitle: "\u8BA2\u5355\u5217\u8868",
       rowKey: "_id",
       size: "small",

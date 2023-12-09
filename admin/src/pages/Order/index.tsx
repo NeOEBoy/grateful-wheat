@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     Button, message, Image, Divider
 } from 'antd';
@@ -21,6 +21,7 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 const PrintHTML = require('react-print-html');
+const { Howl } = require('howler');
 
 const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
     {
@@ -35,7 +36,9 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         valueType: 'text',
         render: (_: any) => {
             let imageSource = ``;
-            if (_[0].indexOf('data:image') !== -1) {
+            if (_[0].type === 1) {
+                imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
+            } else if (_[0].indexOf('data:image') !== -1) {
                 imageSource = _[0];
             } else {
                 imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
@@ -216,8 +219,37 @@ const Order: React.FC = () => {
     const [createOrUpdateModalOpen, setCreateOrUpdateModalOpen] = useState<boolean>(false);
     const [currentRow, setCurrentRow] = useState<API.OrderListItem>();
     const [image4QRCode, setImage4QRCode] = useState<string>('dummy4init');
+    const tableRef = useRef<ActionType>();
     const divRef = useRef<HTMLDivElement>(null);
-    // const canvasRef = useRef<HTMLCanvasElement>(null);
+    // 创建 WebSocket 实例
+    const [socket, setSocket] = useState<WebSocket>();
+    // 建立 WebSocket连接
+    useEffect(() => {
+        const newSocket = new WebSocket('ws://localhost:9001/cake/ws4Order');
+        newSocket.onopen = () => {
+            setSocket(newSocket);
+        };
+        newSocket.onmessage = (event) => {
+            console.log('onmessage')
+            let source = '新订单.mp3';
+            if (event.data === '已连接') {
+                source = '已连接.mp3'
+            }
+            var sound = new Howl({
+                src: source,
+                autoplay: true
+            });
+            sound.play();
+
+            tableRef.current?.reload();
+        };
+        newSocket.onclose = () => {
+            setSocket(undefined);
+        };
+        return () => {
+            newSocket.close();
+        };
+    }, []);
 
     const tableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         ...KTableColumnsConfig,
@@ -260,6 +292,7 @@ const Order: React.FC = () => {
     return (
         <PageContainer title={false}>
             <ProTable<API.OrderListItem, API.GetSomeListParams>
+                actionRef={tableRef}
                 headerTitle='订单列表'
                 rowKey="_id"
                 size='small'

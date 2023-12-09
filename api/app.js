@@ -47,6 +47,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 设置Router
+// 引入express-ws的WebSocket功能，并混入app，
+// 相当于为 app实例添加 .ws 方法
+require('express-ws')(app);
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/product', require('./routes/product'));
@@ -55,10 +58,6 @@ app.use('/member', require('./routes/member'));
 app.use('/wechat', require('./routes/wechat'));
 app.use('/amap', require('./routes/amap'));
 app.use('/cake', require('./routes/cake'));
-
-// 引入express-ws的WebSocket功能，并混入app，
-// 相当于为 app实例添加 .ws 方法
-require('express-ws')(app);
 app.use(require('./routes/ws4Order'));
 
 // catch 404 and forward to error handler

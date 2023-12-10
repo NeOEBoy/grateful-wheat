@@ -137,10 +137,13 @@ router.get('/findOrder', async function (req, res, next) {
  * */
 router.ws('/ws4Order', (ws, req) => {
     try {
+        setTimeout(() => {
+            console.log('ws ws4Order 300');
+        }, 300);
         console.log('ws ws4Order');
         console.log('ws = ' + ws);
         theWebSocket = ws;
-        console.log('theWebSocket = ' + theWebSocket);        
+        console.log('theWebSocket = ' + theWebSocket);
         ws.send('已连接');
 
         // ws.on('message', function (msg) {

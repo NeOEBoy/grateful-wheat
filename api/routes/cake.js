@@ -3,7 +3,6 @@ var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
-var that = this;
 // 创建一个全局对象来存储 WebSocket 连接
 let websocketConnections = {};
 
@@ -22,12 +21,7 @@ router.ws('/ws4Order', (ws, req) => {
         });
 
         // 将 WebSocket 连接存储到全局对象中，使用请求的 URL 作为键
-        console.log('req.url = ' + req.url);
         websocketConnections['/.websocket'] = ws;
-
-        // console.log('ws ws4Order');
-        // console.log('that = ' + that);
-        // that.theWebSocket = ws;
 
         // ws.on('message', function (msg) {
         //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);

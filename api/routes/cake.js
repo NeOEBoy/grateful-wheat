@@ -17,7 +17,9 @@ let websocketConnections = {};
  * */
 router.ws('/ws4Order', (ws, req) => {
     try {
-        ws.send('已连接');
+        ws.send('已连接', (err) => {
+            console.log('send err = ' + err);
+        });
 
         // 将 WebSocket 连接存储到全局对象中，使用请求的 URL 作为键
         console.log('req.url = ' + req.url);
@@ -45,8 +47,7 @@ router.ws('/ws4Order', (ws, req) => {
         console.log('err = ' + err);
         next(err)
     }
-
-})
+});
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

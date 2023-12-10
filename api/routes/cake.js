@@ -5,6 +5,42 @@ const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
 var that = this;
 
+/**
+ * route.ws('/url',(ws, req)=>{  })
+ * 建立WebSocket服务，并指定对应接口url，及相应回调
+ * ws为实例化的对象，req即为请求
+ * 
+ * ws.send方法用来向客户端发送信息
+ * ws.on方法用于监听事件（如监听message事件，或监听close事件）
+ * */
+router.ws('/ws4Order', (ws, req) => {
+    try {
+        console.log('ws ws4Order');
+        console.log('that = ' + that);
+        that.theWebSocket = ws;
+        ws.send('已连接');
+
+        // ws.on('message', function (msg) {
+        //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);
+        // });
+
+        // 使用定时器不停的向客户端推动消息
+        // let timer = setInterval(() => {
+        //     ws.send(`ws服务端定时推送消息: ` + Math.random());
+        // }, 1000);
+
+        // ws.on('close', function (e) {
+        //     console.log('ws连接关闭');
+        //     clearInterval(timer);
+        //     timer = null;
+        // })
+    } catch (err) {
+        console.log('err = ' + err);
+        next(err)
+    }
+
+})
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     res.send('respond with a resource');
@@ -126,42 +162,5 @@ router.get('/findOrder', async function (req, res, next) {
         next(err)
     }
 });
-
-/**
- * route.ws('/url',(ws, req)=>{  })
- * 建立WebSocket服务，并指定对应接口url，及相应回调
- * ws为实例化的对象，req即为请求
- * 
- * ws.send方法用来向客户端发送信息
- * ws.on方法用于监听事件（如监听message事件，或监听close事件）
- * */
-
-router.ws('/ws4Order', (ws, req) => {
-    try {
-        console.log('ws ws4Order');
-        console.log('that = ' + that);
-        that.theWebSocket = ws;
-        ws.send('已连接');
-
-        // ws.on('message', function (msg) {
-        //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);
-        // });
-
-        // 使用定时器不停的向客户端推动消息
-        // let timer = setInterval(() => {
-        //     ws.send(`ws服务端定时推送消息: ` + Math.random());
-        // }, 1000);
-
-        // ws.on('close', function (e) {
-        //     console.log('ws连接关闭');
-        //     clearInterval(timer);
-        //     timer = null;
-        // })
-    } catch (err) {
-        console.log('err = ' + err);
-        next(err)
-    }
-
-})
 
 module.exports = router;

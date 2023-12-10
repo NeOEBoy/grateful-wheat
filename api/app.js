@@ -58,7 +58,7 @@ app.use('/member', require('./routes/member'));
 app.use('/wechat', require('./routes/wechat'));
 app.use('/amap', require('./routes/amap'));
 app.use('/cake', require('./routes/cake'));
-app.use(require('./routes/ws4Order'));
+// app.use(require('./routes/ws4Order'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

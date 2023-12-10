@@ -4,6 +4,8 @@ var createError = require('http-errors');
 const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
 var that = this;
+// 创建一个全局对象来存储 WebSocket 连接
+let websocketConnections = {};
 
 /**
  * route.ws('/url',(ws, req)=>{  })
@@ -17,9 +19,13 @@ router.ws('/ws4Order', (ws, req) => {
     try {
         ws.send('已连接');
 
-        console.log('ws ws4Order');
-        console.log('that = ' + that);
-        that.theWebSocket = ws;
+        // 将 WebSocket 连接存储到全局对象中，使用请求的 URL 作为键
+        console.log('req.url = ' + req.url);
+        websocketConnections['/.websocket'] = ws;
+
+        // console.log('ws ws4Order');
+        // console.log('that = ' + that);
+        // that.theWebSocket = ws;
 
         // ws.on('message', function (msg) {
         //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);
@@ -135,8 +141,10 @@ router.post('/createOrder', async function (req, res, next) {
         });
         let order = await newOrder.save();
         console.log(order);
-        console.log('that.theWebSocket = ' + that.theWebSocket);
-        that.theWebSocket?.send(`订单已创建~`);
+        // 获取指定路由的 WebSocket 连接
+        const ws = websocketConnections['/.websocket'];
+        console.log('ws = ' + ws);
+        ws?.send(`订单已创建~`);
         res.send({ errCode: 0, _id: newOrder._id });
     } catch (err) {
         console.log('err = ' + err);

@@ -3,7 +3,7 @@ var router = express.Router();
 var createError = require('http-errors');
 const models = require('../stores/models');
 const { makeSuccessResJson } = require('../tool/res-json-maker');
-var theWebSocket = null;
+var that = this;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -98,8 +98,8 @@ router.post('/createOrder', async function (req, res, next) {
         });
         let order = await newOrder.save();
         console.log(order);
-        console.log('theWebSocket = ' + theWebSocket);
-        theWebSocket?.send(`订单已创建~`);
+        console.log('that.theWebSocket = ' + that.theWebSocket);
+        that.theWebSocket?.send(`订单已创建~`);
         res.send({ errCode: 0, _id: newOrder._id });
     } catch (err) {
         console.log('err = ' + err);
@@ -135,15 +135,12 @@ router.get('/findOrder', async function (req, res, next) {
  * ws.send方法用来向客户端发送信息
  * ws.on方法用于监听事件（如监听message事件，或监听close事件）
  * */
+
 router.ws('/ws4Order', (ws, req) => {
     try {
-        setTimeout(() => {
-            console.log('ws ws4Order 300');
-        }, 300);
         console.log('ws ws4Order');
-        console.log('ws = ' + ws);
-        theWebSocket = ws;
-        console.log('theWebSocket = ' + theWebSocket);
+        console.log('that = ' + that);
+        that.theWebSocket = ws;
         ws.send('已连接');
 
         // ws.on('message', function (msg) {

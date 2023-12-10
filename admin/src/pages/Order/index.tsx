@@ -19,6 +19,7 @@ import services from '@/services/demo';
 const { getOrders, deleteOrder } = services.UserController;
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import { render } from 'react-dom';
 moment.locale('zh-cn');
 const PrintHTML = require('react-print-html');
 const { Howl } = require('howler');
@@ -46,20 +47,22 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
             return <Image style={{ width: 60, height: 60 }} alt='' src={imageSource}></Image>
         }
     },
-    {
-        title: '订单号',
-        dataIndex: '_id',
-        valueType: 'text'
-    },
+    // {
+    //     title: '订单号',
+    //     dataIndex: '_id',
+    //     valueType: 'text'
+    // },
     {
         title: '日期',
         dataIndex: 'createdAt',
-        valueType: 'dateTime'
+        valueType: 'dateTime',
+        render: (_) => <div style={{ color: 'red', fontSize: 15 }}>{_}</div>
     },
     {
         title: '名称',
         dataIndex: 'name',
         valueType: 'text',
+        render: (_) => <div style={{ color: 'green', fontSize: 16 }}>{_}</div>
     },
     {
         title: '奶油',
@@ -75,6 +78,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '门店',
         dataIndex: 'shop',
         valueType: 'text',
+        render: (_) => <div style={{ color: 'darkcyan', fontSize: 15 }}>{_}</div>
     },
     {
         title: '姓名',
@@ -89,136 +93,136 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
 ];
 
 const KDescriptionsColumnsConfig: ProDescriptionsItemProps<API.OrderListItem>[] = [
-    {
-        title: '预定日期',
-        key: 'createdAt',
-        dataIndex: 'createdAt',
-        valueType: 'dateTime'
-    },
-    {
-        title: '名称',
-        dataIndex: 'name',
-        valueType: 'text',
-    },
-    {
-        title: '描述',
-        dataIndex: 'description',
-        valueType: 'text',
-    },
-    {
-        title: '图片',
-        dataIndex: 'images',
-        valueType: 'text',
-        render: (_: any) => {
-            let imageSource = ``;
-            if (_[0].type === 1) {
-                imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
-            } else if (_[0].indexOf('data:image') !== -1) {
-                imageSource = _[0];
-            } else {
-                imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
-            }
-            return (<Image style={{ width: 44, height: 44 }} alt='' src={imageSource} />)
-        }
-    },
-    {
-        title: '奶油',
-        dataIndex: 'cream',
-        valueType: 'text',
-    },
-    {
-        title: '大小',
-        dataIndex: 'size',
-        valueType: 'text',
-    },
-    {
-        title: '大小附加',
-        dataIndex: 'sizeExtra',
-        valueType: 'text',
-    },
-    {
-        title: '高度',
-        dataIndex: 'height',
-        valueType: 'text',
-    },
-    {
-        title: '价格',
-        dataIndex: 'price',
-        valueType: 'text',
-    },
-    {
-        title: '夹心',
-        dataIndex: 'fillings',
-        valueType: 'text'
-    },
-    {
-        title: '蜡烛',
-        dataIndex: 'candle',
-        valueType: 'text'
-    },
-    {
-        title: '蜡烛额外',
-        dataIndex: 'candleExtra',
-        valueType: 'text'
-    },
-    {
-        title: '火柴盒',
-        dataIndex: 'kindling',
-        valueType: 'text'
-    },
-    {
-        title: '帽子',
-        dataIndex: 'hat',
-        valueType: 'text'
-    },
-    {
-        title: '餐具',
-        dataIndex: 'plates',
-        valueType: 'text'
-    },
-    {
-        title: '取货日期',
-        dataIndex: 'pickUpDay',
-        valueType: 'text'
-    },
-    {
-        title: '取货时间',
-        dataIndex: 'pickUpTime',
-        valueType: 'text'
-    },
-    {
-        title: '取货方式',
-        dataIndex: 'pickUpType',
-        valueType: 'text'
-    },
-    {
-        title: '门店',
-        dataIndex: 'shop',
-        valueType: 'text',
-    },
-    {
-        title: '地址',
-        dataIndex: 'address',
-        valueType: 'text',
-    },
-    {
-        title: '姓名',
-        dataIndex: 'pickUpName',
-        valueType: 'text',
-    },
-    {
-        title: '电话',
-        dataIndex: 'phoneNumber',
-        valueType: 'text',
-    },
-    {
-        title: '备注',
-        key: 'remarks',
-        dataIndex: 'remarks',
-        valueType: 'text',
-        // ellipsis: true,
-        // copyable: true,
-    }
+    // {
+    //     title: '预定日期',
+    //     key: 'createdAt',
+    //     dataIndex: 'createdAt',
+    //     valueType: 'dateTime'
+    // },
+    // {
+    //     title: '名称',
+    //     dataIndex: 'name',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '描述',
+    //     dataIndex: 'description',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '图片',
+    //     dataIndex: 'images',
+    //     valueType: 'text',
+    //     render: (_: any) => {
+    //         let imageSource = ``;
+    //         if (_[0].type === 1) {
+    //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
+    //         } else if (_[0].indexOf('data:image') !== -1) {
+    //             imageSource = _[0];
+    //         } else {
+    //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
+    //         }
+    //         return (<Image style={{ width: 44, height: 44 }} alt='' src={imageSource} />)
+    //     }
+    // },
+    // {
+    //     title: '奶油',
+    //     dataIndex: 'cream',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '大小',
+    //     dataIndex: 'size',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '大小附加',
+    //     dataIndex: 'sizeExtra',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '高度',
+    //     dataIndex: 'height',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '价格',
+    //     dataIndex: 'price',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '夹心',
+    //     dataIndex: 'fillings',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '蜡烛',
+    //     dataIndex: 'candle',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '蜡烛额外',
+    //     dataIndex: 'candleExtra',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '火柴盒',
+    //     dataIndex: 'kindling',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '帽子',
+    //     dataIndex: 'hat',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '餐具',
+    //     dataIndex: 'plates',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '取货日期',
+    //     dataIndex: 'pickUpDay',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '取货时间',
+    //     dataIndex: 'pickUpTime',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '取货方式',
+    //     dataIndex: 'pickUpType',
+    //     valueType: 'text'
+    // },
+    // {
+    //     title: '门店',
+    //     dataIndex: 'shop',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '地址',
+    //     dataIndex: 'address',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '姓名',
+    //     dataIndex: 'pickUpName',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '电话',
+    //     dataIndex: 'phoneNumber',
+    //     valueType: 'text',
+    // },
+    // {
+    //     title: '备注',
+    //     key: 'remarks',
+    //     dataIndex: 'remarks',
+    //     valueType: 'text',
+    //     // ellipsis: true,
+    //     // copyable: true,
+    // }
 ];
 
 const Order: React.FC = () => {
@@ -334,8 +338,8 @@ const Order: React.FC = () => {
             />
 
             <ModalForm
-                modalProps={{ style: { top: 10 }, destroyOnClose: true }}
-                width={1400}
+                modalProps={{ style: { top: 10 }, destroyOnClose: true, okText: '打印订购单' }}
+                width={810}
                 open={createOrUpdateModalOpen}
                 onOpenChange={(open) => {
                     setCreateOrUpdateModalOpen(open);
@@ -343,6 +347,7 @@ const Order: React.FC = () => {
                 }}
                 onFinish={async (value) => {
                     console.log('onFinish value = ' + value);
+                    PrintHTML(divRef.current);
                     setCreateOrUpdateModalOpen(false);
                     currentRow && setCurrentRow(undefined);
                 }}>
@@ -356,6 +361,11 @@ const Order: React.FC = () => {
                     {/* <img style={{ width: 100, height: 100 }} alt='gi' ref={imgRef} src='' /> */}
                 </div>
                 <div style={{ opacity: 1 }}>
+                    {/* <div style={{ marginTop: 0, marginBottom: 10 }}>
+                        <Button danger type='primary' style={{ width: 160, height: 80 }} onClick={() => {
+                            PrintHTML(divRef.current);
+                        }}>打印</Button>
+                    </div> */}
                     {/* <canvas width={100} height={100} style={{ background: 'red' }} ref={canvasRef} /> */}
                     <div ref={divRef} style={_theDiv4CaptureStyle}>
                         <div id="qrcode" style={{
@@ -363,7 +373,7 @@ const Order: React.FC = () => {
                             paddingRight: 18, paddingTop: 10,
                             width: _theDiv4CaptureWidth, height: 150
                         }}>
-                            <div style={{ fontSize: 12, fontWeight: 'bold' }}>电子订购单二维码</div>
+                            <div style={{ fontSize: 12, fontWeight: 'bold', marginRight: 8 }}>电子订购单二维码</div>
                             <Image style={{ width: 135, height: 135 }}
                                 onLoad={() => {
                                 }}
@@ -391,15 +401,15 @@ const Order: React.FC = () => {
 
                         <div style={{
                             textAlign: 'left', position: 'absolute', paddingLeft: 20,
-                            width: _theDiv4CaptureWidth, fontSize: 14, paddingTop: 10,
+                            width: _theDiv4CaptureWidth, fontSize: 14, paddingTop: 15,
                         }}>{`订购时间：${orderingTime}`}</div>
 
                         <div style={{
                             fontSize: 22,
                             fontWeight: 'bold',
                             textAlign: 'center',
-                            paddingTop: 6,
-                            paddingBottom: 6
+                            paddingTop: 8,
+                            paddingBottom: 15
                         }}>蛋糕订购单</div>
                         <div>
                             <div style={_theLeftDivInTheDiv4CaptureStyle}>
@@ -490,6 +500,7 @@ const Order: React.FC = () => {
                                 <div>
                                     <span style={{ fontSize: 14, fontWeight: 'bold' }}>时间：</span>
                                     <span style={{ fontSize: 18, color: 'red' }}>{currentRow?.pickUpDay}</span>
+                                    <span style={{ fontSize: 18, color: 'red' }}> </span>
                                     <span style={{ fontSize: 18, color: 'red' }}>{currentRow?.pickUpTime}</span>
                                 </div>
                                 <div style={{ marginTop: 4, marginBottom: 4 }}>
@@ -525,12 +536,6 @@ const Order: React.FC = () => {
                             </div>
                         </div>
                     </div >
-
-                    <div style={{ marginTop: 20 }}>
-                        <Button danger type='primary' style={{ width: 160, height: 80 }} onClick={() => {
-                            PrintHTML(divRef.current);
-                        }}>打印</Button>
-                    </div>
                 </div >
             </ModalForm >
         </PageContainer >

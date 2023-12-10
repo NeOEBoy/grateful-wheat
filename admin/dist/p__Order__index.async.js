@@ -76,72 +76,36 @@ var KTableColumnsConfig = [{
       src: imageSource
     });
   }
-}, {
-  title: '订单号',
-  dataIndex: '_id',
-  valueType: 'text'
-}, {
+},
+// {
+//     title: '订单号',
+//     dataIndex: '_id',
+//     valueType: 'text'
+// },
+{
   title: '日期',
   dataIndex: 'createdAt',
-  valueType: 'dateTime'
+  valueType: 'dateTime',
+  render: function render(_) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      style: {
+        color: 'red',
+        fontSize: 15
+      },
+      children: _
+    });
+  }
 }, {
   title: '名称',
   dataIndex: 'name',
-  valueType: 'text'
-}, {
-  title: '奶油',
-  dataIndex: 'cream',
-  valueType: 'text'
-}, {
-  title: '大小',
-  dataIndex: 'size',
-  valueType: 'text'
-}, {
-  title: '门店',
-  dataIndex: 'shop',
-  valueType: 'text'
-}, {
-  title: '姓名',
-  dataIndex: 'pickUpName',
-  valueType: 'text'
-}, {
-  title: '电话',
-  dataIndex: 'phoneNumber',
-  valueType: 'text'
-}];
-var KDescriptionsColumnsConfig = [{
-  title: '预定日期',
-  key: 'createdAt',
-  dataIndex: 'createdAt',
-  valueType: 'dateTime'
-}, {
-  title: '名称',
-  dataIndex: 'name',
-  valueType: 'text'
-}, {
-  title: '描述',
-  dataIndex: 'description',
-  valueType: 'text'
-}, {
-  title: '图片',
-  dataIndex: 'images',
   valueType: 'text',
   render: function render(_) {
-    var imageSource = "";
-    if (_[0].type === 1) {
-      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0].thumbnail);
-    } else if (_[0].indexOf('data:image') !== -1) {
-      imageSource = _[0];
-    } else {
-      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0]);
-    }
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       style: {
-        width: 44,
-        height: 44
+        color: 'green',
+        fontSize: 16
       },
-      alt: "",
-      src: imageSource
+      children: _
     });
   }
 }, {
@@ -153,61 +117,18 @@ var KDescriptionsColumnsConfig = [{
   dataIndex: 'size',
   valueType: 'text'
 }, {
-  title: '大小附加',
-  dataIndex: 'sizeExtra',
-  valueType: 'text'
-}, {
-  title: '高度',
-  dataIndex: 'height',
-  valueType: 'text'
-}, {
-  title: '价格',
-  dataIndex: 'price',
-  valueType: 'text'
-}, {
-  title: '夹心',
-  dataIndex: 'fillings',
-  valueType: 'text'
-}, {
-  title: '蜡烛',
-  dataIndex: 'candle',
-  valueType: 'text'
-}, {
-  title: '蜡烛额外',
-  dataIndex: 'candleExtra',
-  valueType: 'text'
-}, {
-  title: '火柴盒',
-  dataIndex: 'kindling',
-  valueType: 'text'
-}, {
-  title: '帽子',
-  dataIndex: 'hat',
-  valueType: 'text'
-}, {
-  title: '餐具',
-  dataIndex: 'plates',
-  valueType: 'text'
-}, {
-  title: '取货日期',
-  dataIndex: 'pickUpDay',
-  valueType: 'text'
-}, {
-  title: '取货时间',
-  dataIndex: 'pickUpTime',
-  valueType: 'text'
-}, {
-  title: '取货方式',
-  dataIndex: 'pickUpType',
-  valueType: 'text'
-}, {
   title: '门店',
   dataIndex: 'shop',
-  valueType: 'text'
-}, {
-  title: '地址',
-  dataIndex: 'address',
-  valueType: 'text'
+  valueType: 'text',
+  render: function render(_) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      style: {
+        color: 'darkcyan',
+        fontSize: 15
+      },
+      children: _
+    });
+  }
 }, {
   title: '姓名',
   dataIndex: 'pickUpName',
@@ -216,15 +137,139 @@ var KDescriptionsColumnsConfig = [{
   title: '电话',
   dataIndex: 'phoneNumber',
   valueType: 'text'
-}, {
-  title: '备注',
-  key: 'remarks',
-  dataIndex: 'remarks',
-  valueType: 'text'
-  // ellipsis: true,
-  // copyable: true,
 }];
-
+var KDescriptionsColumnsConfig = [
+  // {
+  //     title: '预定日期',
+  //     key: 'createdAt',
+  //     dataIndex: 'createdAt',
+  //     valueType: 'dateTime'
+  // },
+  // {
+  //     title: '名称',
+  //     dataIndex: 'name',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '描述',
+  //     dataIndex: 'description',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '图片',
+  //     dataIndex: 'images',
+  //     valueType: 'text',
+  //     render: (_: any) => {
+  //         let imageSource = ``;
+  //         if (_[0].type === 1) {
+  //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
+  //         } else if (_[0].indexOf('data:image') !== -1) {
+  //             imageSource = _[0];
+  //         } else {
+  //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
+  //         }
+  //         return (<Image style={{ width: 44, height: 44 }} alt='' src={imageSource} />)
+  //     }
+  // },
+  // {
+  //     title: '奶油',
+  //     dataIndex: 'cream',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '大小',
+  //     dataIndex: 'size',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '大小附加',
+  //     dataIndex: 'sizeExtra',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '高度',
+  //     dataIndex: 'height',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '价格',
+  //     dataIndex: 'price',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '夹心',
+  //     dataIndex: 'fillings',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '蜡烛',
+  //     dataIndex: 'candle',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '蜡烛额外',
+  //     dataIndex: 'candleExtra',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '火柴盒',
+  //     dataIndex: 'kindling',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '帽子',
+  //     dataIndex: 'hat',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '餐具',
+  //     dataIndex: 'plates',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '取货日期',
+  //     dataIndex: 'pickUpDay',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '取货时间',
+  //     dataIndex: 'pickUpTime',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '取货方式',
+  //     dataIndex: 'pickUpType',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '门店',
+  //     dataIndex: 'shop',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '地址',
+  //     dataIndex: 'address',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '姓名',
+  //     dataIndex: 'pickUpName',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '电话',
+  //     dataIndex: 'phoneNumber',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '备注',
+  //     key: 'remarks',
+  //     dataIndex: 'remarks',
+  //     valueType: 'text',
+  //     // ellipsis: true,
+  //     // copyable: true,
+  // }
+];
 var Order = function Order() {
   var _currentRow$images, _currentRow$images2, _currentRow$images3, _currentRow$images4, _currentRow$images5, _currentRow$fillings, _currentRow$fillings2, _currentRow$fillings3;
   /// 当前条目设置
@@ -371,9 +416,10 @@ var Order = function Order() {
         style: {
           top: 10
         },
-        destroyOnClose: true
+        destroyOnClose: true,
+        okText: '打印订购单'
       },
-      width: 1400,
+      width: 810,
       open: createOrUpdateModalOpen,
       onOpenChange: function onOpenChange(open) {
         setCreateOrUpdateModalOpen(open);
@@ -385,9 +431,10 @@ var Order = function Order() {
             while (1) switch (_context2.prev = _context2.next) {
               case 0:
                 console.log('onFinish value = ' + value);
+                PrintHTML(divRef.current);
                 setCreateOrUpdateModalOpen(false);
                 currentRow && setCurrentRow(undefined);
-              case 3:
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -406,11 +453,11 @@ var Order = function Order() {
         style: {
           textAlign: 'center'
         }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         style: {
           opacity: 1
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           ref: divRef,
           style: _theDiv4CaptureStyle,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -426,7 +473,8 @@ var Order = function Order() {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               style: {
                 fontSize: 12,
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                marginRight: 8
               },
               children: "\u7535\u5B50\u8BA2\u8D2D\u5355\u4E8C\u7EF4\u7801"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
@@ -476,7 +524,7 @@ var Order = function Order() {
               paddingLeft: 20,
               width: _theDiv4CaptureWidth,
               fontSize: 14,
-              paddingTop: 10
+              paddingTop: 15
             },
             children: "\u8BA2\u8D2D\u65F6\u95F4\uFF1A".concat(orderingTime)
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
@@ -484,8 +532,8 @@ var Order = function Order() {
               fontSize: 22,
               fontWeight: 'bold',
               textAlign: 'center',
-              paddingTop: 6,
-              paddingBottom: 6
+              paddingTop: 8,
+              paddingBottom: 15
             },
             children: "\u86CB\u7CD5\u8BA2\u8D2D\u5355"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -718,6 +766,12 @@ var Order = function Order() {
                     fontSize: 18,
                     color: 'red'
                   },
+                  children: " "
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red'
+                  },
                   children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpTime
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -821,23 +875,7 @@ var Order = function Order() {
               })]
             })]
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          style: {
-            marginTop: 20
-          },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
-            danger: true,
-            type: "primary",
-            style: {
-              width: 160,
-              height: 80
-            },
-            onClick: function onClick() {
-              PrintHTML(divRef.current);
-            },
-            children: "\u6253\u5370"
-          })
-        })]
+        })
       })]
     })]
   });

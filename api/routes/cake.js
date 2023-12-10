@@ -15,12 +15,14 @@ var that = this;
  * */
 router.ws('/ws4Order', (ws, req) => {
     try {
-        ws.send('已连接');
+        console.log(ws);
 
-        console.log('ws ws4Order');
-        console.log('that = ' + that);
-        that.theWebSocket = ws;
-        req.theWebSocket = ws;
+        // ws.send('已连接');
+
+        // console.log('ws ws4Order');
+        // console.log('that = ' + that);
+        // that.theWebSocket = ws;
+        // req.theWebSocket = ws;
 
         // ws.on('message', function (msg) {
         //     ws.send(`ws收到客户端的消息为：${msg}，再返回去`);

@@ -567,7 +567,7 @@ var Order = function Order() {
                     color: 'green'
                   },
                   children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.size
-                }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.size) === '数字蜡烛' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+                }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.size) === '组合' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                   style: {
                     fontSize: 18,
                     color: 'green'

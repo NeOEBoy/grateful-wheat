@@ -437,7 +437,7 @@ const Order: React.FC = () => {
                                     <span style={{ fontSize: 14, fontWeight: 'bold' }}>尺寸：</span>
                                     <span style={{ fontSize: 18, color: 'green' }}>{currentRow?.size}</span>
                                     {
-                                        currentRow?.size === '数字蜡烛' ? (
+                                        currentRow?.size === '组合' ? (
                                             <span style={{ fontSize: 18, color: 'green' }}>
                                                 {` | ${currentRow?.sizeExtra}`}
                                             </span>) : (<span></span>)

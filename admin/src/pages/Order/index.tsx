@@ -274,13 +274,13 @@ const Order: React.FC = () => {
             valueType: 'option',
             width: 120,
             render: (_, record) => [
-                <span key="view">
-                    <a onClick={() => {
+                <div key="view">
+                    <Button type='primary' onClick={() => {
                         setImage4QRCode('dummy4init');
                         setCurrentRow(record);
                         setCreateOrUpdateModalOpen(true);
-                    }}>查看</a>
-                    <span>   |   </span>
+                    }}>查看</Button>
+                    <div style={{ height: 10 }}></div>
                     <Popconfirm
                         title="删除订单"
                         description="Are you sure to delete this task?"
@@ -293,7 +293,7 @@ const Order: React.FC = () => {
                     >
                         <Button danger type='primary'>删除</Button>
                     </Popconfirm>
-                </span >
+                </div >
             ]
         }
     ];

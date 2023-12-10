@@ -49,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // 设置Router
 // 引入express-ws的WebSocket功能，并混入app，
 // 相当于为 app实例添加 .ws 方法
-require('express-ws')(app);
+const expressWs = require('express-ws')(app);
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/product', require('./routes/product'));

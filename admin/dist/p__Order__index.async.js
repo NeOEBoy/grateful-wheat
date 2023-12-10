@@ -238,7 +238,7 @@ var Order = function Order() {
     setSocket = _useState8[1];
   // 建立 WebSocket连接
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    var newSocket = new WebSocket('ws://localhost:9001/cake/ws4Order');
+    var newSocket = new WebSocket('ws://admin.ruyue.xyz/websocket/cake/ws4Order');
     newSocket.onopen = function () {
       setSocket(newSocket);
     };

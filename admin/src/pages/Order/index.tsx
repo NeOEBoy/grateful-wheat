@@ -110,8 +110,15 @@ const KDescriptionsColumnsConfig: ProDescriptionsItemProps<API.OrderListItem>[] 
         dataIndex: 'images',
         valueType: 'text',
         render: (_: any) => {
-            return (<Image style={{ width: 44, height: 44 }} alt=''
-                src={`http://gratefulwheat.ruyue.xyz/${_[0]}`} />)
+            let imageSource = ``;
+            if (_[0].type === 1) {
+                imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
+            } else if (_[0].indexOf('data:image') !== -1) {
+                imageSource = _[0];
+            } else {
+                imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
+            }
+            return (<Image style={{ width: 44, height: 44 }} alt='' src={imageSource} />)
         }
     },
     {
@@ -217,7 +224,7 @@ const KDescriptionsColumnsConfig: ProDescriptionsItemProps<API.OrderListItem>[] 
 const Order: React.FC = () => {
     /// 当前条目设置
     const [createOrUpdateModalOpen, setCreateOrUpdateModalOpen] = useState<boolean>(false);
-    const [currentRow, setCurrentRow] = useState<API.OrderListItem>();
+    const [currentRow, setCurrentRow] = useState<any>();
     const [image4QRCode, setImage4QRCode] = useState<string>('dummy4init');
     const tableRef = useRef<ActionType>();
     const divRef = useRef<HTMLDivElement>(null);
@@ -274,7 +281,6 @@ const Order: React.FC = () => {
                         setCreateOrUpdateModalOpen(true);
                     }}>查看</a>
                     <span>   |   </span>
-
                     <Popconfirm
                         title="删除订单"
                         description="Are you sure to delete this task?"
@@ -360,7 +366,6 @@ const Order: React.FC = () => {
                             <div style={{ fontSize: 12, fontWeight: 'bold' }}>电子订购单二维码</div>
                             <Image style={{ width: 135, height: 135 }}
                                 onLoad={() => {
-
                                 }}
                                 onError={async () => {
                                     if (image4QRCode == 'dummy4init') {
@@ -382,7 +387,7 @@ const Order: React.FC = () => {
                                 preview={false}
                                 src={image4QRCode}
                             />
-                        </div>
+                        </div >
 
                         <div style={{
                             textAlign: 'left', position: 'absolute', paddingLeft: 20,
@@ -412,9 +417,11 @@ const Order: React.FC = () => {
                                 <div>
                                     <div style={{ position: 'relative' }}>
                                         <Image preview={false} src={
-                                            currentRow?.images?.[0].indexOf('data:image') !== -1 ?
-                                                currentRow?.images?.[0] :
-                                                `http://gratefulwheat.ruyue.xyz/${currentRow?.images?.[0]}`
+                                            currentRow?.images?.[0].type === 1 ?
+                                                `http://gratefulwheat.ruyue.xyz/${currentRow?.images?.[0].thumbnail}` :
+                                                currentRow?.images?.[0].indexOf('data:image') !== -1 ?
+                                                    currentRow?.images?.[0] :
+                                                    `http://gratefulwheat.ruyue.xyz/${currentRow?.images?.[0]}`
                                         } />
                                     </div>
                                     <Image style={{ marginTop: 16 }} preview={false} src="/弯麦logo长.png" />
@@ -517,15 +524,15 @@ const Order: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div >
 
                     <div style={{ marginTop: 20 }}>
                         <Button danger type='primary' style={{ width: 160, height: 80 }} onClick={() => {
                             PrintHTML(divRef.current);
                         }}>打印</Button>
                     </div>
-                </div>
-            </ModalForm>
+                </div >
+            </ModalForm >
         </PageContainer >
     );
 };

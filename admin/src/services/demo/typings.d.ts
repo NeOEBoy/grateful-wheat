@@ -92,7 +92,7 @@ declare namespace API {
     userId?: string;
     name?: string;
     description?: string;
-    images?: [string],
+    images?: [string | { type: number, thumbnail: string }],
     cream?: string;
     size?: string;
     sizeExtra?: string;

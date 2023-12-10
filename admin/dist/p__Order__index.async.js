@@ -127,13 +127,21 @@ var KDescriptionsColumnsConfig = [{
   dataIndex: 'images',
   valueType: 'text',
   render: function render(_) {
+    var imageSource = "";
+    if (_[0].type === 1) {
+      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0].thumbnail);
+    } else if (_[0].indexOf('data:image') !== -1) {
+      imageSource = _[0];
+    } else {
+      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0]);
+    }
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
       style: {
         width: 44,
         height: 44
       },
       alt: "",
-      src: "http://gratefulwheat.ruyue.xyz/".concat(_[0])
+      src: imageSource
     });
   }
 }, {
@@ -218,7 +226,7 @@ var KDescriptionsColumnsConfig = [{
 }];
 
 var Order = function Order() {
-  var _currentRow$images, _currentRow$images2, _currentRow$images3, _currentRow$fillings, _currentRow$fillings2, _currentRow$fillings3;
+  var _currentRow$images, _currentRow$images2, _currentRow$images3, _currentRow$images4, _currentRow$images5, _currentRow$fillings, _currentRow$fillings2, _currentRow$fillings3;
   /// 当前条目设置
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
     _useState2 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState, 2),
@@ -500,7 +508,7 @@ var Order = function Order() {
                   },
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
                     preview: false,
-                    src: (currentRow === null || currentRow === void 0 || (_currentRow$images = currentRow.images) === null || _currentRow$images === void 0 ? void 0 : _currentRow$images[0].indexOf('data:image')) !== -1 ? currentRow === null || currentRow === void 0 || (_currentRow$images2 = currentRow.images) === null || _currentRow$images2 === void 0 ? void 0 : _currentRow$images2[0] : "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images3 = currentRow.images) === null || _currentRow$images3 === void 0 ? void 0 : _currentRow$images3[0])
+                    src: (currentRow === null || currentRow === void 0 || (_currentRow$images = currentRow.images) === null || _currentRow$images === void 0 ? void 0 : _currentRow$images[0].type) === 1 ? "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images2 = currentRow.images) === null || _currentRow$images2 === void 0 ? void 0 : _currentRow$images2[0].thumbnail) : (currentRow === null || currentRow === void 0 || (_currentRow$images3 = currentRow.images) === null || _currentRow$images3 === void 0 ? void 0 : _currentRow$images3[0].indexOf('data:image')) !== -1 ? currentRow === null || currentRow === void 0 || (_currentRow$images4 = currentRow.images) === null || _currentRow$images4 === void 0 ? void 0 : _currentRow$images4[0] : "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images5 = currentRow.images) === null || _currentRow$images5 === void 0 ? void 0 : _currentRow$images5[0])
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
                   style: {

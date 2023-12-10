@@ -15,8 +15,8 @@ var that = this;
  * */
 router.ws('/ws4Order', (ws, req) => {
     try {
-        ws.send('已连接');
-        
+        // ws.send('已连接');
+
         console.log('ws ws4Order');
         console.log('that = ' + that);
         that.theWebSocket = ws;

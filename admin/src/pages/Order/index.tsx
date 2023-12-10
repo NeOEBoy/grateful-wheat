@@ -225,7 +225,7 @@ const Order: React.FC = () => {
     const [socket, setSocket] = useState<WebSocket>();
     // 建立 WebSocket连接
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:9001/cake/ws4Order');
+        const newSocket = new WebSocket('ws://admin.ruyue.xyz/websocket/cake/ws4Order');
         newSocket.onopen = () => {
             setSocket(newSocket);
         };

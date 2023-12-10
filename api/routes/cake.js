@@ -147,6 +147,25 @@ router.post('/createOrder', async function (req, res, next) {
     }
 });
 
+router.post('/deleteOrder', async function (req, res, next) {
+    try {
+        console.log('post deleteOrder');
+
+        const _id = req.query._id
+
+        if (_id.length <= 0)
+            return next(createError(500));
+
+        let CakeOrders = models.CakeOrders;
+        let deleteOneResult = await CakeOrders.deleteOne(
+            { "_id": _id }).exec();
+        res.send({ errCode: 0, _id: deleteOneResult._id });
+    } catch (err) {
+        console.log('err = ' + err);
+        next(err)
+    }
+});
+
 router.get('/findOrder', async function (req, res, next) {
     try {
         let _id = req.query._id;

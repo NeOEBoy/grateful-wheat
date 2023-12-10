@@ -973,6 +973,7 @@ var UserController_namespaceObject = {};
 __webpack_require__.r(UserController_namespaceObject);
 __webpack_require__.d(UserController_namespaceObject, {
   addUser: function() { return addUser; },
+  deleteOrder: function() { return deleteOrder; },
   deleteUser: function() { return deleteUser; },
   getOrders: function() { return getOrders; },
   getUserDetail: function() { return getUserDetail; },
@@ -1126,6 +1127,8 @@ function _deleteUser() {
 function getOrders(_x12, _x13) {
   return _getOrders.apply(this, arguments);
 }
+
+/** 获取订单列表 GET /apis/order */
 function _getOrders() {
   _getOrders = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee6(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -1144,6 +1147,28 @@ function _getOrders() {
     }, _callee6);
   }));
   return _getOrders.apply(this, arguments);
+}
+function deleteOrder(_x14, _x15) {
+  return _deleteOrder.apply(this, arguments);
+}
+function _deleteOrder() {
+  _deleteOrder = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee7(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params, options) {
+    return regeneratorRuntime_default()().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          return _context7.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/deleteOrder', objectSpread2_default()({
+            method: 'POST',
+            params: objectSpread2_default()({}, params)
+          }, options || {})));
+        case 1:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7);
+  }));
+  return _deleteOrder.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: ./src/services/demo/index.ts
 /* eslint-disable */

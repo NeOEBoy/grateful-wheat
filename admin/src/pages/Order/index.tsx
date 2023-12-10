@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-    Button, message, Image, Divider
+    Button, message, Image, Divider, Popconfirm
 } from 'antd';
 import {
     ActionType,
@@ -16,7 +16,7 @@ import {
 // import QRCode from 'qrcode';
 var QRCode = require('qrcode')
 import services from '@/services/demo';
-const { getOrders } = services.UserController;
+const { getOrders, deleteOrder } = services.UserController;
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
@@ -225,7 +225,15 @@ const Order: React.FC = () => {
     const [socket, setSocket] = useState<WebSocket>();
     // 建立 WebSocket连接
     useEffect(() => {
-        const newSocket = new WebSocket('ws://admin.ruyue.xyz/websocket/cake/ws4Order');
+        // 使用环境变量
+        let address = 'ws://admin.ruyue.xyz/websocket/cake/ws4Order';
+        if (process.env.NODE_ENV === 'development') {
+            address = 'ws://localhost:9001/cake/ws4Order';
+            console.log('开发环境');
+        } else {
+            console.log('生产环境');
+        }
+        const newSocket = new WebSocket(address);
         newSocket.onopen = () => {
             setSocket(newSocket);
         };
@@ -257,13 +265,29 @@ const Order: React.FC = () => {
             title: '操作',
             dataIndex: 'option',
             valueType: 'option',
-            width: 80,
+            width: 120,
             render: (_, record) => [
-                <a key="view" onClick={() => {
-                    setImage4QRCode('dummy4init');
-                    setCurrentRow(record);
-                    setCreateOrUpdateModalOpen(true);
-                }}>查看</a>
+                <span key="view">
+                    <a onClick={() => {
+                        setImage4QRCode('dummy4init');
+                        setCurrentRow(record);
+                        setCreateOrUpdateModalOpen(true);
+                    }}>查看</a>
+                    <span>   |   </span>
+
+                    <Popconfirm
+                        title="删除订单"
+                        description="Are you sure to delete this task?"
+                        onConfirm={async () => {
+                            await deleteOrder({ '_id': record._id });
+                            tableRef.current?.reload();
+                        }}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Button danger type='primary'>删除</Button>
+                    </Popconfirm>
+                </span >
             ]
         }
     ];

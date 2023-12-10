@@ -16,12 +16,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ 67294);
 /* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ 29820);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! antd */ 96074);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! antd */ 15867);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ant-design/pro-components */ 1524);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ant-design/pro-components */ 57062);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/pro-components */ 37476);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/pro-components */ 98097);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ 86738);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ 15867);
+/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ 96074);
+/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/pro-components */ 1524);
+/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/pro-components */ 57062);
+/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ant-design/pro-components */ 37476);
+/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/pro-components */ 98097);
 /* harmony import */ var _services_demo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/services/demo */ 18580);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ 30381);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
@@ -37,7 +38,9 @@ __webpack_require__.r(__webpack_exports__);
 // import QRCode from 'qrcode';
 var QRCode = __webpack_require__(/*! qrcode */ 92592);
 
-var getOrders = _services_demo__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.UserController.getOrders;
+var _services$UserControl = _services_demo__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.UserController,
+  getOrders = _services$UserControl.getOrders,
+  deleteOrder = _services$UserControl.deleteOrder;
 
 
 
@@ -238,7 +241,12 @@ var Order = function Order() {
     setSocket = _useState8[1];
   // 建立 WebSocket连接
   (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    var newSocket = new WebSocket('ws://admin.ruyue.xyz/websocket/cake/ws4Order');
+    // 使用环境变量
+    var address = 'ws://admin.ruyue.xyz/websocket/cake/ws4Order';
+    if (false) {} else {
+      console.log('生产环境');
+    }
+    var newSocket = new WebSocket(address);
     newSocket.onopen = function () {
       setSocket(newSocket);
     };
@@ -267,15 +275,46 @@ var Order = function Order() {
     title: '操作',
     dataIndex: 'option',
     valueType: 'option',
-    width: 80,
+    width: 120,
     render: function render(_, record) {
-      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
-        onClick: function onClick() {
-          setImage4QRCode('dummy4init');
-          setCurrentRow(record);
-          setCreateOrUpdateModalOpen(true);
-        },
-        children: "\u67E5\u770B"
+      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("a", {
+          onClick: function onClick() {
+            setImage4QRCode('dummy4init');
+            setCurrentRow(record);
+            setCreateOrUpdateModalOpen(true);
+          },
+          children: "\u67E5\u770B"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          children: "   |   "
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .Z, {
+          title: "\u5220\u9664\u8BA2\u5355",
+          description: "Are you sure to delete this task?",
+          onConfirm: /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee() {
+            var _tableRef$current2;
+            return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee$(_context) {
+              while (1) switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return deleteOrder({
+                    '_id': record._id
+                  });
+                case 2:
+                  (_tableRef$current2 = tableRef.current) === null || _tableRef$current2 === void 0 || _tableRef$current2.reload();
+                case 3:
+                case "end":
+                  return _context.stop();
+              }
+            }, _callee);
+          })),
+          okText: "Yes",
+          cancelText: "No",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .ZP, {
+            danger: true,
+            type: "primary",
+            children: "\u5220\u9664"
+          })
+        })]
       }, "view")];
     }
   }]);
@@ -302,9 +341,9 @@ var Order = function Order() {
   };
   var orderingTime = moment__WEBPACK_IMPORTED_MODULE_5___default()(currentRow === null || currentRow === void 0 ? void 0 : currentRow.createdAt).format('YYYY年M月D日 HH:mm:ss');
   ;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_9__/* .PageContainer */ ._z, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__/* .PageContainer */ ._z, {
     title: false,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z, {
       actionRef: tableRef,
       headerTitle: "\u8BA2\u5355\u5217\u8868",
       rowKey: "_id",
@@ -316,7 +355,7 @@ var Order = function Order() {
       },
       request: getOrders,
       columns: tableColumnsConfig
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__/* .ModalForm */ .Y, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_13__/* .ModalForm */ .Y, {
       modalProps: {
         style: {
           top: 10
@@ -330,24 +369,24 @@ var Order = function Order() {
         !open && currentRow && setCurrentRow(undefined);
       },
       onFinish: /*#__PURE__*/function () {
-        var _ref = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee(value) {
-          return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee$(_context) {
-            while (1) switch (_context.prev = _context.next) {
+        var _ref2 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee2(value) {
+          return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee2$(_context2) {
+            while (1) switch (_context2.prev = _context2.next) {
               case 0:
                 console.log('onFinish value = ' + value);
                 setCreateOrUpdateModalOpen(false);
                 currentRow && setCurrentRow(undefined);
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
-          }, _callee);
+          }, _callee2);
         }));
         return function (_x) {
-          return _ref.apply(this, arguments);
+          return _ref2.apply(this, arguments);
         };
       }(),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__/* .ProDescriptions */ .vY, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_14__/* .ProDescriptions */ .vY, {
         title: "\u8BA2\u5355\u8BE6\u60C5",
         column: 6,
         dataSource: currentRow,
@@ -385,13 +424,13 @@ var Order = function Order() {
                 height: 135
               },
               onLoad: function onLoad() {},
-              onError: /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee2() {
+              onError: /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee3() {
                 var cakeOrderUrl, qrOpts, qrCode;
-                return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee2$(_context2) {
-                  while (1) switch (_context2.prev = _context2.next) {
+                return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee3$(_context3) {
+                  while (1) switch (_context3.prev = _context3.next) {
                     case 0:
                       if (!(image4QRCode == 'dummy4init')) {
-                        _context2.next = 7;
+                        _context3.next = 7;
                         break;
                       }
                       cakeOrderUrl = "http://gratefulwheat.ruyue.xyz/cakeOrder?_id=".concat(currentRow._id);
@@ -405,16 +444,16 @@ var Order = function Order() {
                           light: "#ffffffff"
                         }
                       };
-                      _context2.next = 5;
+                      _context3.next = 5;
                       return QRCode.toDataURL(cakeOrderUrl, qrOpts);
                     case 5:
-                      qrCode = _context2.sent;
+                      qrCode = _context3.sent;
                       setImage4QRCode(qrCode);
                     case 7:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
-                }, _callee2);
+                }, _callee3);
               })),
               preview: false,
               src: image4QRCode
@@ -473,7 +512,7 @@ var Order = function Order() {
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               style: _theRightDivInTheDiv4CaptureStyle,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__/* ["default"] */ .Z, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {
                 orientation: "left",
                 dashed: true,
                 style: {
@@ -642,7 +681,7 @@ var Order = function Order() {
                   },
                   children: "\u5957"
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__/* ["default"] */ .Z, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {
                 orientation: "left",
                 style: {
                   marginTop: 0,
@@ -740,7 +779,7 @@ var Order = function Order() {
                   },
                   children: "".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpName, "\uFF08").concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.phoneNumber, "\uFF09")
                 })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_13__/* ["default"] */ .Z, {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {
                 orientation: "left",
                 style: {
                   marginTop: 0,
@@ -775,7 +814,7 @@ var Order = function Order() {
           style: {
             marginTop: 20
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_14__/* ["default"] */ .ZP, {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .ZP, {
             danger: true,
             type: "primary",
             style: {
@@ -813,6 +852,7 @@ var UserController_namespaceObject = {};
 __webpack_require__.r(UserController_namespaceObject);
 __webpack_require__.d(UserController_namespaceObject, {
   addUser: function() { return addUser; },
+  deleteOrder: function() { return deleteOrder; },
   deleteUser: function() { return deleteUser; },
   getOrders: function() { return getOrders; },
   getUserDetail: function() { return getUserDetail; },
@@ -966,6 +1006,8 @@ function _deleteUser() {
 function getOrders(_x12, _x13) {
   return _getOrders.apply(this, arguments);
 }
+
+/** 获取订单列表 GET /apis/order */
 function _getOrders() {
   _getOrders = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee6(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -984,6 +1026,28 @@ function _getOrders() {
     }, _callee6);
   }));
   return _getOrders.apply(this, arguments);
+}
+function deleteOrder(_x14, _x15) {
+  return _deleteOrder.apply(this, arguments);
+}
+function _deleteOrder() {
+  _deleteOrder = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee7(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params, options) {
+    return regeneratorRuntime_default()().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          return _context7.abrupt("return", (0,_umi_production_exports.request)('/apis/cake/deleteOrder', objectSpread2_default()({
+            method: 'POST',
+            params: objectSpread2_default()({}, params)
+          }, options || {})));
+        case 1:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7);
+  }));
+  return _deleteOrder.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: ./src/services/demo/index.ts
 /* eslint-disable */

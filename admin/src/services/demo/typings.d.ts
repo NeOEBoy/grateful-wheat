@@ -113,4 +113,8 @@ declare namespace API {
     phoneNumber?: String,
     remarks?: String
   };
+
+  type deleteOneParams = {
+    _id?: String;
+  };
 }

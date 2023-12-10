@@ -110,3 +110,17 @@ export async function getOrders(
   });
 }
 
+/** 获取订单列表 GET /apis/order */
+export async function deleteOrder(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.deleteOneParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.OrderList>('/apis/cake/deleteOrder', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  });
+}

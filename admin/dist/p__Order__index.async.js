@@ -146,12 +146,7 @@ var KTableColumnsConfig = [{
   valueType: 'text',
   width: 80
 }, {
-  title: '取货方式',
-  dataIndex: 'pickUpType',
-  valueType: 'text',
-  width: 90
-}, {
-  title: '取货 | 配送时间',
+  title: '取货|配送时间',
   dataIndex: 'pickUpTime',
   valueType: 'text',
   width: 130,
@@ -163,6 +158,16 @@ var KTableColumnsConfig = [{
       children: "".concat(record.pickUpDay).concat(record.pickUpTime)
     });
   }
+}, {
+  title: '取货方式',
+  dataIndex: 'pickUpType',
+  valueType: 'text',
+  width: 90
+}, {
+  title: '配送地址',
+  dataIndex: 'address',
+  valueType: 'text',
+  width: 120
 }, {
   title: '备注',
   dataIndex: 'remarks',
@@ -359,7 +364,7 @@ var Order = function Order() {
     title: '操作',
     dataIndex: 'option',
     valueType: 'option',
-    width: 88,
+    width: 82,
     render: function render(_, record) {
       return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {

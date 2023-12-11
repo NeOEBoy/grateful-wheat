@@ -8,7 +8,7 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '蛋糕票后台',
+    title: '蛋糕票后台'
   },
   routes: [
     {

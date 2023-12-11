@@ -99,19 +99,25 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         width: 80,
     },
     {
-        title: '取货方式',
-        dataIndex: 'pickUpType',
-        valueType: 'text',
-        width: 90
-    },
-    {
-        title: '取货 | 配送时间',
+        title: '取货|配送时间',
         dataIndex: 'pickUpTime',
         valueType: 'text',
         width: 130,
         render: (_, record) => {
             return <div style={{ color: 'darkmagenta' }}>{`${record.pickUpDay}${record.pickUpTime}`}</div>
         }
+    },
+    {
+        title: '取货方式',
+        dataIndex: 'pickUpType',
+        valueType: 'text',
+        width: 90
+    },
+    {
+        title: '配送地址',
+        dataIndex: 'address',
+        valueType: 'text',
+        width: 120
     },
     {
         title: '备注',
@@ -305,7 +311,7 @@ const Order: React.FC = () => {
             title: '操作',
             dataIndex: 'option',
             valueType: 'option',
-            width: 88,
+            width: 82,
             render: (_, record) => [
                 <div key="view">
                     <Button type='primary' size='large' onClick={() => {
@@ -360,7 +366,7 @@ const Order: React.FC = () => {
                 options={{
                     reloadIcon: <Button type='primary' size='large'>刷新</Button>,
                     density: false,
-                    setting:false
+                    setting: false
                 }}
                 rowKey="_id"
                 size='small'

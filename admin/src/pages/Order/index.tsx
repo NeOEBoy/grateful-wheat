@@ -108,7 +108,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '取货 | 配送时间',
         dataIndex: 'pickUpTime',
         valueType: 'text',
-        width: 120,
+        width: 130,
         render: (_, record) => {
             return <div style={{ color: 'darkmagenta' }}>{`${record.pickUpDay}${record.pickUpTime}`}</div>
         }

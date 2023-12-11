@@ -154,7 +154,7 @@ var KTableColumnsConfig = [{
   title: '取货 | 配送时间',
   dataIndex: 'pickUpTime',
   valueType: 'text',
-  width: 120,
+  width: 130,
   render: function render(_, record) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       style: {

@@ -305,7 +305,7 @@ const Order: React.FC = () => {
             title: '操作',
             dataIndex: 'option',
             valueType: 'option',
-            width: 120,
+            width: 88,
             render: (_, record) => [
                 <div key="view">
                     <Button type='primary' size='large' onClick={() => {

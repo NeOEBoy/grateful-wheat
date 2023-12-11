@@ -359,7 +359,7 @@ var Order = function Order() {
     title: '操作',
     dataIndex: 'option',
     valueType: 'option',
-    width: 120,
+    width: 88,
     render: function render(_, record) {
       return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {

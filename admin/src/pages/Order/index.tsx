@@ -90,7 +90,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '姓名',
         dataIndex: 'pickUpName',
         valueType: 'text',
-        width: 50,
+        width: 80,
     },
     {
         title: '电话',

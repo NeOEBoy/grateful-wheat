@@ -58,6 +58,7 @@ var KTableColumnsConfig = [{
   title: '图片',
   dataIndex: 'images',
   valueType: 'text',
+  width: 80,
   render: function render(_) {
     var imageSource = "";
     if (_[0].type === 1) {
@@ -69,8 +70,8 @@ var KTableColumnsConfig = [{
     }
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
       style: {
-        width: 60,
-        height: 60
+        width: 80,
+        height: 80
       },
       alt: "",
       src: imageSource
@@ -83,9 +84,10 @@ var KTableColumnsConfig = [{
 //     valueType: 'text'
 // },
 {
-  title: '日期',
+  title: '预定日期',
   dataIndex: 'createdAt',
   valueType: 'dateTime',
+  width: 98,
   render: function render(_) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       style: {
@@ -99,6 +101,7 @@ var KTableColumnsConfig = [{
   title: '名称',
   dataIndex: 'name',
   valueType: 'text',
+  width: 130,
   render: function render(_) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       style: {
@@ -111,15 +114,18 @@ var KTableColumnsConfig = [{
 }, {
   title: '奶油',
   dataIndex: 'cream',
-  valueType: 'text'
+  valueType: 'text',
+  width: 80
 }, {
   title: '大小',
   dataIndex: 'size',
-  valueType: 'text'
+  valueType: 'text',
+  width: 50
 }, {
   title: '门店',
   dataIndex: 'shop',
   valueType: 'text',
+  width: 100,
   render: function render(_) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       style: {
@@ -132,11 +138,36 @@ var KTableColumnsConfig = [{
 }, {
   title: '姓名',
   dataIndex: 'pickUpName',
-  valueType: 'text'
+  valueType: 'text',
+  width: 50
 }, {
   title: '电话',
   dataIndex: 'phoneNumber',
-  valueType: 'text'
+  valueType: 'text',
+  width: 80
+}, {
+  title: '取货方式',
+  dataIndex: 'pickUpType',
+  valueType: 'text',
+  width: 90
+}, {
+  title: '取货 | 配送时间',
+  dataIndex: 'pickUpTime',
+  valueType: 'text',
+  width: 120,
+  render: function render(_, record) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      style: {
+        color: 'darkmagenta'
+      },
+      children: "".concat(record.pickUpDay).concat(record.pickUpTime)
+    });
+  }
+}, {
+  title: '备注',
+  dataIndex: 'remarks',
+  valueType: 'text',
+  width: '*'
 }];
 var KDescriptionsColumnsConfig = [
   // {
@@ -333,6 +364,7 @@ var Order = function Order() {
       return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
           type: "primary",
+          size: "large",
           onClick: function onClick() {
             setImage4QRCode('dummy4init');
             setCurrentRow(record);
@@ -345,7 +377,7 @@ var Order = function Order() {
           }
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
           title: "\u5220\u9664\u8BA2\u5355",
-          description: "Are you sure to delete this task?",
+          description: "\u4F60\u786E\u5B9A\u5220\u9664\u8BE5\u8BA2\u5355\u5417?",
           onConfirm: /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee() {
             var _tableRef$current2;
             return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee$(_context) {
@@ -363,11 +395,12 @@ var Order = function Order() {
               }
             }, _callee);
           })),
-          okText: "Yes",
-          cancelText: "No",
+          okText: "\u786E\u5B9A",
+          cancelText: "\u53D6\u6D88",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
             danger: true,
             type: "primary",
+            size: "middle",
             children: "\u5220\u9664"
           })
         })]
@@ -402,6 +435,15 @@ var Order = function Order() {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z, {
       actionRef: tableRef,
       headerTitle: "\u8BA2\u5355\u5217\u8868",
+      options: {
+        reloadIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
+          type: "primary",
+          size: "large",
+          children: "\u5237\u65B0"
+        }),
+        density: false,
+        setting: false
+      },
       rowKey: "_id",
       size: "small",
       cardBordered: true,

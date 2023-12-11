@@ -35,6 +35,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '图片',
         dataIndex: 'images',
         valueType: 'text',
+        width: 80,
         render: (_: any) => {
             let imageSource = ``;
             if (_[0].type === 1) {
@@ -44,7 +45,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
             } else {
                 imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
             }
-            return <Image style={{ width: 60, height: 60 }} alt='' src={imageSource}></Image>
+            return <Image style={{ width: 80, height: 80 }} alt='' src={imageSource}></Image>
         }
     },
     // {
@@ -53,42 +54,70 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
     //     valueType: 'text'
     // },
     {
-        title: '日期',
+        title: '预定日期',
         dataIndex: 'createdAt',
         valueType: 'dateTime',
+        width: 98,
         render: (_) => <div style={{ color: 'red', fontSize: 15 }}>{_}</div>
     },
     {
         title: '名称',
         dataIndex: 'name',
         valueType: 'text',
+        width: 130,
         render: (_) => <div style={{ color: 'green', fontSize: 16 }}>{_}</div>
     },
     {
         title: '奶油',
         dataIndex: 'cream',
         valueType: 'text',
+        width: 80,
     },
     {
         title: '大小',
         dataIndex: 'size',
         valueType: 'text',
+        width: 50,
     },
     {
         title: '门店',
         dataIndex: 'shop',
         valueType: 'text',
+        width: 100,
         render: (_) => <div style={{ color: 'darkcyan', fontSize: 15 }}>{_}</div>
     },
     {
         title: '姓名',
         dataIndex: 'pickUpName',
         valueType: 'text',
+        width: 50,
     },
     {
         title: '电话',
         dataIndex: 'phoneNumber',
         valueType: 'text',
+        width: 80,
+    },
+    {
+        title: '取货方式',
+        dataIndex: 'pickUpType',
+        valueType: 'text',
+        width: 90
+    },
+    {
+        title: '取货 | 配送时间',
+        dataIndex: 'pickUpTime',
+        valueType: 'text',
+        width: 120,
+        render: (_, record) => {
+            return <div style={{ color: 'darkmagenta' }}>{`${record.pickUpDay}${record.pickUpTime}`}</div>
+        }
+    },
+    {
+        title: '备注',
+        dataIndex: 'remarks',
+        valueType: 'text',
+        width: '*',
     }
 ];
 
@@ -279,7 +308,7 @@ const Order: React.FC = () => {
             width: 120,
             render: (_, record) => [
                 <div key="view">
-                    <Button type='primary' onClick={() => {
+                    <Button type='primary' size='large' onClick={() => {
                         setImage4QRCode('dummy4init');
                         setCurrentRow(record);
                         setCreateOrUpdateModalOpen(true);
@@ -287,15 +316,15 @@ const Order: React.FC = () => {
                     <div style={{ height: 10 }}></div>
                     <Popconfirm
                         title="删除订单"
-                        description="Are you sure to delete this task?"
+                        description="你确定删除该订单吗?"
                         onConfirm={async () => {
                             await deleteOrder({ '_id': record._id });
                             tableRef.current?.reload();
                         }}
-                        okText="Yes"
-                        cancelText="No"
+                        okText="确定"
+                        cancelText="取消"
                     >
-                        <Button danger type='primary'>删除</Button>
+                        <Button danger type='primary' size='middle'>删除</Button>
                     </Popconfirm>
                 </div >
             ]
@@ -328,6 +357,11 @@ const Order: React.FC = () => {
             <ProTable<API.OrderListItem, API.GetSomeListParams>
                 actionRef={tableRef}
                 headerTitle='订单列表'
+                options={{
+                    reloadIcon: <Button type='primary' size='large'>刷新</Button>,
+                    density: false,
+                    setting:false
+                }}
                 rowKey="_id"
                 size='small'
                 cardBordered

@@ -1,6 +1,14 @@
 {
     "sizes": [
         {
+            "id": 0,
+            "name": "中号纸杯",
+            "unit": "厘米",
+            "number": 7,
+            "description": "上口7厘米，下口5厘米，高6厘米",
+            "plates": 0
+        },
+        {
             "id": 1,
             "name": "5寸",
             "unit": "寸",

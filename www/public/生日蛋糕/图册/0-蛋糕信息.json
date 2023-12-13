@@ -802,6 +802,13 @@
         },
         {
             "id": 18,
+            "name": "纸杯蛋糕系列",
+            "description": "纸杯蛋糕系列~",
+            "images": [],
+            "products": []
+        },
+        {
+            "id": 19,
             "name": "其它系列",
             "description": "其它系列",
             "images": [],

@@ -1,0 +1,344 @@
+{
+    "products": [
+        {
+            "name": "爱心纸杯蛋糕1",
+            "description": "爱心纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/爱心纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/爱心纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "粉系纸杯蛋糕1",
+            "description": "粉系纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/粉系纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/粉系纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "海盐奥利奥纸杯蛋糕1",
+            "description": "海盐奥利奥纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "海盐奥利奥纸杯蛋糕2",
+            "description": "海盐奥利奥纸杯蛋糕2",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕2.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕2_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "海盐奥利奥纸杯蛋糕3",
+            "description": "海盐奥利奥纸杯蛋糕3",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕3.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕3_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "海盐奥利奥纸杯蛋糕4",
+            "description": "海盐奥利奥纸杯蛋糕4",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕4.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/海盐奥利奥纸杯蛋糕4_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "开心果纸杯蛋糕1",
+            "description": "开心果纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/开心果纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/开心果纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "圣诞节纸杯蛋糕1",
+            "description": "圣诞节纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "圣诞节纸杯蛋糕2",
+            "description": "圣诞节纸杯蛋糕2",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕2.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕2_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "手绘纸杯蛋糕1",
+            "description": "手绘纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "手绘纸杯蛋糕2",
+            "description": "手绘纸杯蛋糕2",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕2.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕2_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "手绘纸杯蛋糕3",
+            "description": "手绘纸杯蛋糕3",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕3.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕3_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "手绘纸杯蛋糕4",
+            "description": "手绘纸杯蛋糕4",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕4.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/手绘纸杯蛋糕4_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "水果纸杯蛋糕1",
+            "description": "水果纸杯蛋糕1",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/水果纸杯蛋糕1.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/水果纸杯蛋糕1_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "水果纸杯蛋糕2",
+            "description": "水果纸杯蛋糕2",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/水果纸杯蛋糕2.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/水果纸杯蛋糕2_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "水果纸杯蛋糕3",
+            "description": "水果纸杯蛋糕3",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/水果纸杯蛋糕3.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/水果纸杯蛋糕3_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        },
+        {
+            "name": "小熊卡片纸杯蛋糕",
+            "description": "小熊卡片纸杯蛋糕",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/小熊卡片纸杯蛋糕.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/小熊卡片纸杯蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 15
+                }
+            ]
+        }
+    ]
+}

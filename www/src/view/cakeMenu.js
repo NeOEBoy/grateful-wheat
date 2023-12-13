@@ -518,7 +518,8 @@ class cakeMenu extends React.Component {
             return;
         }
         if (cakeOrderInfo.making?.fillings?.length <= 0 &&
-            cakeOrderInfo.product?.fillingNumber > 0) {
+            cakeOrderInfo.product?.fillingNumber > 0 &&
+            cakeOrderInfo.product.fillingRequired) {
             message.warning('请选择夹心！');
             return;
         }
@@ -1452,29 +1453,34 @@ class cakeMenu extends React.Component {
                                     <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <span style={{ fontWeight: 'bold' }}>价格：</span>
                                         <span>{cakeOrderInfo.making.price}</span>
-                                        <span> 元</span>
+                                        <span> 元 x 1</span>
                                     </div>
-                                    <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
-                                        <div style={{ fontWeight: 'bold' }}>
-                                            <span>夹心</span>
-                                            {
-                                                this.evalWith(cakeOrderInfo.making.height)?.name ? <span>
-                                                    {`（${this.evalWith(cakeOrderInfo.making.height)?.name}，任选 ${cakeOrderInfo.product?.fillingNumber} 种，已选 ${cakeOrderInfo.making.fillings?.length} 种）：`}
-                                                </span> : <span>：</span>
-                                            }
-                                        </div>
-                                        <CheckboxGroup
-                                            disabled={cakeOrderInfo.product?.fillingNumber > 0 ? false : true}
-                                            style={{ marginTop: 8 }}
-                                            options={this._fillingOptions}
-                                            value={cakeOrderInfo.making.fillings}
-                                            onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product?.fillingNumber)} />
-                                        {
-                                            cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product?.fillingNumber > 0 ? (
-                                                <div style={{ color: 'red' }}>“夹心”是必填项</div>
-                                            ) : (<span></span>)
-                                        }
-                                    </div>
+                                    {
+                                        cakeOrderInfo.product?.fillingRequired ? (
+                                            <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
+                                                <div style={{ fontWeight: 'bold' }}>
+                                                    <span>夹心</span>
+                                                    {
+                                                        this.evalWith(cakeOrderInfo.making.height)?.name ? <span>
+                                                            {`（${this.evalWith(cakeOrderInfo.making.height)?.name}，任选 ${cakeOrderInfo.product?.fillingNumber} 种，已选 ${cakeOrderInfo.making.fillings?.length} 种）：`}
+                                                        </span> : <span>：</span>
+                                                    }
+                                                </div>
+                                                <CheckboxGroup
+                                                    disabled={cakeOrderInfo.product?.fillingNumber > 0 ? false : true}
+                                                    style={{ marginTop: 8 }}
+                                                    options={this._fillingOptions}
+                                                    value={cakeOrderInfo.making.fillings}
+                                                    onChange={(value) => this.handleCakeFillingChange(value, cakeOrderInfo.product?.fillingNumber)} />
+                                                {
+                                                    cakeOrderInfo.making.fillings?.length === 0 && cakeOrderInfo.product?.fillingNumber > 0 ? (
+                                                        <div style={{ color: 'red' }}>“夹心”是必填项</div>
+                                                    ) : (<span></span>)
+                                                }
+                                            </div>
+                                        ) : (<div />)
+                                    }
+
                                     <div style={{ marginTop: 8, marginBottom: 18, textAlign: 'center' }}>
                                         <div style={{ fontWeight: 'bold' }}>蜡烛（任选一种，若蛋糕自带蜡烛则不额外赠送蜡烛）：</div>
 
@@ -1880,16 +1886,20 @@ class cakeMenu extends React.Component {
                                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>价格：</span>
                                                 <span style={{ fontSize: 14 }}>{cakeOrderInfo.making.price}</span>
-                                                <span style={{ fontSize: 14 }}>元</span>
+                                                <span style={{ fontSize: 14 }}>元 x 1</span>
                                             </div>
-                                            <div style={{ marginTop: 4, marginBottom: 4 }}>
-                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
-                                                <span style={{ fontSize: 16, color: 'green' }}>{
-                                                    cakeOrderInfo.making.fillings.length > 0 ?
-                                                        cakeOrderInfo.making.fillings.map(item => this.evalWith(item)?.name).join('+') :
-                                                        '没有夹心'
-                                                }</span>
-                                            </div>
+                                            {
+                                                cakeOrderInfo.product?.fillingRequired ? (
+                                                    <div style={{ marginTop: 4, marginBottom: 4 }}>
+                                                        <span style={{ fontSize: 14, fontWeight: 'bold' }}>夹心：</span>
+                                                        <span style={{ fontSize: 16, color: 'green' }}>{
+                                                            cakeOrderInfo.making.fillings.length > 0 ?
+                                                                cakeOrderInfo.making.fillings.map(item => this.evalWith(item)?.name).join('+') :
+                                                                '没有夹心'
+                                                        }</span>
+                                                    </div>
+                                                ) : (<div />)
+                                            }
                                             <div style={{ marginTop: 4, marginBottom: 4 }}>
                                                 <span style={{ fontSize: 14, fontWeight: 'bold' }}>蜡烛：</span>
                                                 <span style={{ fontSize: 16, color: 'blue' }}>{this.evalWith(cakeOrderInfo.making.candle).name}</span>

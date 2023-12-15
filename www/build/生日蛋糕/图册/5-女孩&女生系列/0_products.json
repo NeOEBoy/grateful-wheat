@@ -1,6 +1,116 @@
 {
     "products": [
         {
+            "name": "相知好友",
+            "description": "祝你生日快乐，我的朋友！愿你的人生如这蛋糕一样丰富多彩，充满了喜悦和幸福~",
+            "category": {
+                "id": "5",
+                "name": "女孩&女生系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/5-女孩&女生系列/相知好友_40.jpg",
+            "images": [
+                "/生日蛋糕/图册/5-女孩&女生系列/相知好友_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "脉脉小狗",
+            "description": "愿你的生活充满欢乐和惊喜，像脉脉小狗狗一样快乐无比~",
+            "category": {
+                "id": 5,
+                "name": "女孩&女生系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/5-女孩&女生系列/脉脉小狗_30.jpg",
+            "images": [
+                "/生日蛋糕/图册/5-女孩&女生系列/脉脉小狗_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
+                }
+            ]
+        },
+        {
             "name": "火烈鸟",
             "description": "火烈鸟，来自异域的优雅贵族，在阳光下翩翩起舞，绽放出炫目的色彩~",
             "category": {

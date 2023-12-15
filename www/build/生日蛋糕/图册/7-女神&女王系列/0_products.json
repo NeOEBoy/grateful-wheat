@@ -1,6 +1,226 @@
 {
     "products": [
         {
+            "name": "最美女神",
+            "description": "愿你如这蛋糕一样，甜蜜美丽，永远是我们心中的最美女神~",
+            "category": {
+                "id": "7",
+                "name": "女神&女王系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/7-女神&女王系列/最美女神_40.jpg",
+            "images": [
+                "/生日蛋糕/图册/7-女神&女王系列/最美女神_40_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 168
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 208
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 168
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 208
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 248
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 298
+                }
+            ]
+        },
+        {
+            "name": "相信老婆",
+            "description": "老婆，我相信你的选择和决定，无论你做什么，我都会在你身边支持你，祝你幸福快乐~",
+            "category": {
+                "id": "7",
+                "name": "女神&女王系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/7-女神&女王系列/相信老婆_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/7-女神&女王系列/相信老婆_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "全世界最好妈妈",
+            "description": "亲爱的妈妈，祝您生日快乐！感谢您一直以来的关爱和付出，您是全世界最好的妈妈~",
+            "category": {
+                "id": "7",
+                "name": "女神&女王系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/7-女神&女王系列/全世界最好妈妈_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/7-女神&女王系列/全世界最好妈妈_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "彩虹蛋糕",
+            "description": "愿你的生活如彩虹般绚丽多彩，愿这份彩虹蛋糕为你带来甜蜜和幸福~",
+            "category": {
+                "id": "7",
+                "name": "女神&女王系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/7-女神&女王系列/彩虹蛋糕_10.jpg",
+            "images": [
+                "/生日蛋糕/图册/7-女神&女王系列/彩虹蛋糕_10_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 108
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 138
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 138
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 268
+                }
+            ]
+        },
+        {
             "name": "渐变圆形",
             "description": "一朵花，一生情，愿幸福与你相伴，祝福你，MyLover~",
             "category": {

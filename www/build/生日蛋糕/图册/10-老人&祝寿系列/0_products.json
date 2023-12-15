@@ -1,6 +1,61 @@
 {
     "products": [
         {
+            "name": "外婆安康",
+            "description": "外婆，您是我们生命中最亲爱的人。祝您生日快乐，健康长寿~",
+            "category": {
+                "id": "10",
+                "name": "老人&祝寿系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/10-老人&祝寿系列/外婆安康_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/10-老人&祝寿系列/外婆安康_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "福气满满身体健康",
             "description": "愿你福如东海，寿比南山，身体健康，笑口常开~",
             "category": {

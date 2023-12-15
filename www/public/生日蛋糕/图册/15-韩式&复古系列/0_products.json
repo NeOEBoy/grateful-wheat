@@ -56,6 +56,61 @@
             ]
         },
         {
+            "name": "旗袍蛋糕2",
+            "description": "旗袍展现东方美，蛋糕传递好味道，祝您人生美满，快乐常伴~",
+            "category": {
+                "id": "15",
+                "name": "韩式&复古系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/15-韩式&复古系列/旗袍蛋糕2_50.jpg",
+            "images": [
+                "/生日蛋糕/图册/15-韩式&复古系列/旗袍蛋糕2_50_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 178
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 218
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 258
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 178
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 218
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 258
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 308
+                }
+            ]
+        },
+        {
             "name": "复古中国风蛋糕",
             "description": "花开花落又一年，且喜今朝结良缘，百年歌好合，五世卜其昌~",
             "category": {

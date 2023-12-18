@@ -212,6 +212,7 @@ class ProductLabelPrinter extends React.Component {
                 </div>
                 <div style={{ marginTop: 20 }}>
                     <Search
+                        enterButton={<div>查找</div>}
                         ref={(ref) => this._searchRef = ref}
                         autoFocus
                         style={{ width: 280 }}

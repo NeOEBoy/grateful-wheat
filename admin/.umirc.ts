@@ -8,7 +8,8 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '蛋糕票后台'
+    title: '蛋糕票后台',
+    locale: false, // 默认开启，如无需菜单国际化可关闭
   },
   routes: [
     {
@@ -20,21 +21,21 @@ export default defineConfig({
       path: '/home',
       component: './Home',
     },
-    {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
-    },
-    {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
-    },
-    {
-      name: 'WS 示例',
-      path: '/ws',
-      component: './WS',
-    },
+    // {
+    //   name: '权限演示',
+    //   path: '/access',
+    //   component: './Access',
+    // },
+    // {
+    //   name: ' CRUD 示例',
+    //   path: '/table',
+    //   component: './Table',
+    // },
+    // {
+    //   name: 'WS 示例',
+    //   path: '/ws',
+    //   component: './WS',
+    // },
     {
       name: '订单',
       path: '/order',

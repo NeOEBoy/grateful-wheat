@@ -3075,11 +3075,6 @@
             "specifications": [
                 {
                     "creamId": 1,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
                     "sizeId": 3,
                     "price": 168
                 },
@@ -3092,11 +3087,6 @@
                     "creamId": 1,
                     "sizeId": 5,
                     "price": 248
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 168
                 },
                 {
                     "creamId": 2,
@@ -3130,11 +3120,6 @@
             "specifications": [
                 {
                     "creamId": 1,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
                     "sizeId": 3,
                     "price": 168
                 },
@@ -3147,11 +3132,6 @@
                     "creamId": 1,
                     "sizeId": 5,
                     "price": 248
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 168
                 },
                 {
                     "creamId": 2,
@@ -3185,11 +3165,6 @@
             "specifications": [
                 {
                     "creamId": 1,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
                     "sizeId": 3,
                     "price": 168
                 },
@@ -3202,11 +3177,6 @@
                     "creamId": 1,
                     "sizeId": 5,
                     "price": 248
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 168
                 },
                 {
                     "creamId": 2,
@@ -3240,11 +3210,6 @@
             "specifications": [
                 {
                     "creamId": 1,
-                    "sizeId": 2,
-                    "price": 138
-                },
-                {
-                    "creamId": 1,
                     "sizeId": 3,
                     "price": 168
                 },
@@ -3257,11 +3222,6 @@
                     "creamId": 1,
                     "sizeId": 5,
                     "price": 248
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 168
                 },
                 {
                     "creamId": 2,

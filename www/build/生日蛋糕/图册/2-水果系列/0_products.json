@@ -78,50 +78,50 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_40.jpg",
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_20.jpg",
             "images": [
-                "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_40_logo.jpg"
+                "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_20_logo.jpg"
             ],
             "specifications": [
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 138
+                    "price": 118
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 298
+                    "price": 278
                 }
             ]
         },
@@ -133,50 +133,50 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_40.jpg",
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_20.jpg",
             "images": [
-                "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_40_logo.jpg"
+                "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_20_logo.jpg"
             ],
             "specifications": [
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 138
+                    "price": 118
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 298
+                    "price": 278
                 }
             ]
         },
@@ -188,50 +188,50 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕C款_40.jpg",
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕C款_20.jpg",
             "images": [
-                "/生日蛋糕/图册/2-水果系列/草莓蛋糕C款_40_logo.jpg"
+                "/生日蛋糕/图册/2-水果系列/草莓蛋糕C款_20_logo.jpg"
             ],
             "specifications": [
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 138
+                    "price": 118
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 298
+                    "price": 278
                 }
             ]
         },
@@ -243,50 +243,50 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕D款_40.jpg",
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕D款_20.jpg",
             "images": [
-                "/生日蛋糕/图册/2-水果系列/草莓蛋糕D款_40_logo.jpg"
+                "/生日蛋糕/图册/2-水果系列/草莓蛋糕D款_20_logo.jpg"
             ],
             "specifications": [
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 138
+                    "price": 118
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 298
+                    "price": 278
                 }
             ]
         },
@@ -298,50 +298,50 @@
                 "name": "水果系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕E款_40.jpg",
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕E款_20.jpg",
             "images": [
-                "/生日蛋糕/图册/2-水果系列/草莓蛋糕E款_40_logo.jpg"
+                "/生日蛋糕/图册/2-水果系列/草莓蛋糕E款_20_logo.jpg"
             ],
             "specifications": [
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 138
+                    "price": 118
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 168
+                    "price": 148
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 208
+                    "price": 188
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 248
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 298
+                    "price": 278
                 }
             ]
         },

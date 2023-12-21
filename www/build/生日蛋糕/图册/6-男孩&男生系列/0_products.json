@@ -226,16 +226,16 @@
             ]
         },
         {
-            "name": "汪汪队蓝色",
+            "name": "汪汪队蓝色A款",
             "description": "汪汪队，代表着勇气、智慧与忠诚，勇敢地面对一切挑战，用智慧解决难题，用忠诚守护着他们的使命",
             "category": {
                 "id": "6",
                 "name": "男孩&男生系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色_20.jpg",
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色A款_20.jpg",
             "images": [
-                "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色_20_logo.jpg"
+                "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色A款_20_logo.jpg"
             ],
             "specifications": [
                 {
@@ -277,6 +277,61 @@
                     "creamId": 2,
                     "sizeId": 5,
                     "price": 278
+                }
+            ]
+        },
+        {
+            "name": "汪汪队蓝色B款",
+            "description": "汪汪队，代表着勇气、智慧与忠诚，勇敢地面对一切挑战，用智慧解决难题，用忠诚守护着他们的使命",
+            "category": {
+                "id": "6",
+                "name": "男孩&男生系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色B款_30.jpg",
+            "images": [
+                "/生日蛋糕/图册/6-男孩&男生系列/汪汪队蓝色B款_30_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 128
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 158
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 198
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 158
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 198
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 238
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 288
                 }
             ]
         },

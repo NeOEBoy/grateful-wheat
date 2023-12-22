@@ -86,15 +86,15 @@ app.use(function (err, req, res, next) {
 // const startScheduleBusinessMonth = require('./schedule/schedule-task-business-month');
 // startScheduleBusinessMonth();
 /// 启动定时任务，每日汇报打卡数据
-const startScheduleCheckinDay = require('./schedule/schedule-task-checkin-day');
-startScheduleCheckinDay();
+// const startScheduleCheckinDay = require('./schedule/schedule-task-checkin-day');
+// startScheduleCheckinDay();
 /// 启动定时任务，每日上报抽奖数据
 // const startScheduleLotteryDay = require('./schedule/schedule-task-lottery-day');
 // startScheduleLotteryDay();
 
 /// 启动定时任务，每日上报天气数据
-const startScheduleWeatherDay = require('./schedule/schedule-task-weather-day');
-startScheduleWeatherDay();
+// const startScheduleWeatherDay = require('./schedule/schedule-task-weather-day');
+// startScheduleWeatherDay();
 
 /// 启动定时任务，每日检查报货情况
 // const startScheduleOrderReminder = require('./schedule/schedule-task-order-reminder-day');

@@ -181,6 +181,26 @@
             ]
         },
         {
+            "name": "圣诞节纸杯蛋糕3",
+            "description": "圣诞节纸杯蛋糕3",
+            "category": {
+                "id": "18",
+                "name": "纸杯蛋糕系列"
+            },
+            "fillingRequired": false,
+            "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕3.jpg",
+            "images": [
+                "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕3_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 0,
+                    "price": 10
+                }
+            ]
+        },
+        {
             "name": "手绘纸杯蛋糕1",
             "description": "手绘纸杯蛋糕1",
             "category": {

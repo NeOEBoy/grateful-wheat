@@ -1,79 +1,54 @@
 ﻿{
     "recommend": {
-        "name": "2014圣诞节&元旦小蛋糕",
+        "name": "2014元旦小蛋糕",
         "products": [
             {
-                "name": "圣诞草莓塔",
-                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
+                "name": "花样愿望",
+                "description": "愿你的生活像花样愿望蛋糕一样，永远充满阳光和欢笑~",
                 "category": {
-                    "id": 2,
-                    "name": "水果系列"
+                    "id": 1,
+                    "name": "小蛋糕系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/2-水果系列/圣诞草莓塔_30.jpg",
+                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/花样愿望.jpg",
                 "images": [
-                    "/生日蛋糕/图册/2-水果系列/圣诞草莓塔_30_logo.jpg"
+                    "/生日蛋糕/图册/1-小蛋糕系列/花样愿望_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 2,
-                        "price": 128
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 3,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 4,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 1,
-                        "sizeId": 5,
-                        "price": 238
+                        "sizeId": 1,
+                        "price": 68
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 2,
-                        "price": 158
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 3,
-                        "price": 198
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 4,
-                        "price": 238
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 5,
-                        "price": 288
+                        "sizeId": 1,
+                        "price": 88
                     }
                 ]
             },
             {
-                "name": "圣诞节纸杯蛋糕3",
-                "description": "在这个特别的日子里，送上这个特别的蛋糕，祝你圣诞快乐~",
+                "name": "我心哈哈",
+                "description": "愿你的生活像我心哈哈蛋糕一样，永远充满阳光和欢笑~",
                 "category": {
-                    "id": "18",
-                    "name": "纸杯蛋糕系列"
+                    "id": 1,
+                    "name": "小蛋糕系列"
                 },
-                "fillingRequired": false,
-                "thumbnail": "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕3.jpg",
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/我心哈哈.jpg",
                 "images": [
-                    "/生日蛋糕/图册/18-纸杯蛋糕系列/圣诞节纸杯蛋糕3_logo.jpg"
+                    "/生日蛋糕/图册/1-小蛋糕系列/我心哈哈_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 0,
-                        "price": 10
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     }
                 ]
             },

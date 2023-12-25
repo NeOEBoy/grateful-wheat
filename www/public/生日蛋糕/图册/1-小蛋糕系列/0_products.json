@@ -1,0 +1,854 @@
+{
+    "products": [
+        {
+            "name": "草莓QQ",
+            "description": "愿你的生活如草莓 QQ 蛋糕一样，甜蜜又 Q 弹~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/草莓QQ.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/草莓QQ_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "哈哈哈蛋糕",
+            "description": "希望这块草莓哈哈哈蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/哈哈哈蛋糕.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/哈哈哈蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "520小蛋糕",
+            "description": "亲爱的，520 快乐，你是我生命中最美好的一部分~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/520小蛋糕.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/520小蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "草莓白巧",
+            "description": "愿你的生活像草莓白巧蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/草莓白巧.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/草莓白巧_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "草莓粉巧",
+            "description": "愿你的生活像草莓粉巧蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/草莓粉巧.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/草莓粉巧_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "稻草人黄",
+            "description": "愿你的生活像稻草人黄蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/稻草人黄.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/稻草人黄_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "粉色小熊",
+            "description": "愿你的生活像粉色小熊蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/粉色小熊.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/粉色小熊_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "粉色之爱",
+            "description": "愿你的生活像粉色之爱蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/粉色之爱.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/粉色之爱_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "海盐精灵",
+            "description": "愿你的生活像海盐精灵蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/海盐精灵.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/海盐精灵_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "花样愿望",
+            "description": "愿你的生活像花样愿望蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/花样愿望.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/花样愿望_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "简单祝福",
+            "description": "愿你的生活像简单祝福蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/简单祝福.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/简单祝福_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "简约白巧",
+            "description": "愿你的生活像简约白巧蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/简约白巧.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/简约白巧_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "简约草莓",
+            "description": "愿你的生活像简约草莓蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/简约草莓.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/简约草莓_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "风吹鸡蛋壳",
+            "description": "愿你的生活像风吹鸡蛋壳蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/风吹鸡蛋壳.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/风吹鸡蛋壳_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "渐变花蕾",
+            "description": "愿你的生活像渐变花蕾蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/渐变花蕾.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/渐变花蕾_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "开心一夏",
+            "description": "愿你的生活像开心一夏蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/开心一夏.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/开心一夏_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "蓝莓小熊",
+            "description": "愿你的生活像蓝莓小熊蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/蓝莓小熊.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/蓝莓小熊_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "巧克力帽",
+            "description": "愿你的生活像巧克力帽蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/巧克力帽.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/巧克力帽_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "青草嘤嘤",
+            "description": "愿你的生活像青草嘤嘤蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/青草嘤嘤.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/青草嘤嘤_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "青青草婴",
+            "description": "愿你的生活像青青草婴蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/青青草婴.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/青青草婴_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "深邃之花",
+            "description": "愿你的生活像深邃之花蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/深邃之花.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/深邃之花_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "甜蜜巧克力",
+            "description": "愿你的生活像甜蜜巧克力蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/甜蜜巧克力.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/甜蜜巧克力_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "我心哈哈",
+            "description": "愿你的生活像我心哈哈蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/我心哈哈.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/我心哈哈_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "无限好运",
+            "description": "愿你的生活像无限好运蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/无限好运.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/无限好运_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "无限之恋",
+            "description": "愿你的生活像无限之恋蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/无限之恋.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/无限之恋_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "先生快乐",
+            "description": "愿你的生活像先生快乐蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/先生快乐.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/先生快乐_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小Q羊羊",
+            "description": "愿你的生活像小Q羊羊蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小Q羊羊.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小Q羊羊_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小彩虹蛋糕",
+            "description": "愿你的生活像小彩虹蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小彩虹蛋糕.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小彩虹蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小草莓蛋糕",
+            "description": "愿你的生活像小草莓蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小草莓蛋糕.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小草莓蛋糕_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小兔乖乖",
+            "description": "愿你的生活像小兔乖乖一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小兔乖乖.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小兔乖乖_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小小熊happy",
+            "description": "愿你的生活像小小熊happy一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小小熊happy.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小小熊happy_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小熊告白",
+            "description": "愿你的生活像小熊告白蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小熊告白.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小熊告白_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "小熊心连心",
+            "description": "愿你的生活像小熊心连心蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小熊心连心.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/小熊心连心_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        },
+        {
+            "name": "雪人心连心",
+            "description": "愿你的生活像雪人心连心蛋糕一样，永远充满阳光和欢笑~",
+            "category": {
+                "id": 1,
+                "name": "小蛋糕系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/雪人心连心.jpg",
+            "images": [
+                "/生日蛋糕/图册/1-小蛋糕系列/雪人心连心_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 1,
+                    "price": 68
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 1,
+                    "price": 88
+                }
+            ]
+        }
+    ]
+}

@@ -386,61 +386,6 @@
             ]
         },
         {
-            "name": "哈哈哈蛋糕",
-            "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
-            "category": {
-                "id": 2,
-                "name": "水果系列"
-            },
-            "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/2-水果系列/哈哈哈蛋糕_20.jpg",
-            "images": [
-                "/生日蛋糕/图册/2-水果系列/哈哈哈蛋糕_20_logo.jpg"
-            ],
-            "specifications": [
-                {
-                    "creamId": 1,
-                    "sizeId": 2,
-                    "price": 118
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 3,
-                    "price": 148
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 4,
-                    "price": 188
-                },
-                {
-                    "creamId": 1,
-                    "sizeId": 5,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 2,
-                    "price": 148
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 3,
-                    "price": 188
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 4,
-                    "price": 228
-                },
-                {
-                    "creamId": 2,
-                    "sizeId": 5,
-                    "price": 278
-                }
-            ]
-        },
-        {
             "name": "草莓炸弹",
             "description": "草莓的红色象征着热情和活力，愿这款草莓炸弹蛋糕为你带来无限的快乐和好运~",
             "category": {

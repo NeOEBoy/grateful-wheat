@@ -17,6 +17,11 @@
                 "specifications": [
                     {
                         "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
                         "sizeId": 2,
                         "price": 118
                     },
@@ -34,6 +39,11 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -72,6 +82,11 @@
                 "specifications": [
                     {
                         "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
                         "sizeId": 2,
                         "price": 118
                     },
@@ -89,6 +104,11 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -127,6 +147,11 @@
                 "specifications": [
                     {
                         "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
                         "sizeId": 2,
                         "price": 118
                     },
@@ -144,6 +169,11 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -182,6 +212,11 @@
                 "specifications": [
                     {
                         "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
                         "sizeId": 2,
                         "price": 118
                     },
@@ -199,6 +234,11 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -237,6 +277,11 @@
                 "specifications": [
                     {
                         "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
                         "sizeId": 2,
                         "price": 118
                     },
@@ -254,6 +299,11 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -292,6 +342,11 @@
                 "specifications": [
                     {
                         "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
                         "sizeId": 2,
                         "price": 118
                     },
@@ -309,6 +364,11 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
                     },
                     {
                         "creamId": 2,

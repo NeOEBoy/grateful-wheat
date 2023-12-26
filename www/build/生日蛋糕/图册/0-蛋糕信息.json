@@ -1,210 +1,347 @@
 ﻿{
     "recommend": {
-        "name": "2014元旦小蛋糕",
+        "name": "2014新年蛋糕",
         "products": [
             {
-                "name": "花样愿望",
-                "description": "愿你的生活像花样愿望蛋糕一样，永远充满阳光和欢笑~",
+                "name": "2024新年蛋糕1",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
                 "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
+                    "id": "0",
+                    "name": "新年系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/花样愿望.jpg",
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕1_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/花样愿望_logo.jpg"
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕1_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             },
             {
-                "name": "我心哈哈",
-                "description": "愿你的生活像我心哈哈蛋糕一样，永远充满阳光和欢笑~",
+                "name": "2024新年蛋糕2",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
                 "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
+                    "id": "0",
+                    "name": "新年系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/我心哈哈.jpg",
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕2_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/我心哈哈_logo.jpg"
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕2_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             },
             {
-                "name": "草莓QQ",
-                "description": "愿你的生活如草莓 QQ 蛋糕一样，甜蜜又 Q 弹~",
+                "name": "2024新年蛋糕3",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
                 "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
+                    "id": "0",
+                    "name": "新年系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/草莓QQ.jpg",
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕3_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/草莓QQ_logo.jpg"
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕3_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             },
             {
-                "name": "哈哈哈蛋糕",
-                "description": "希望这块草莓哈哈哈蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
+                "name": "2024新年蛋糕4",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
                 "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
+                    "id": "0",
+                    "name": "新年系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/哈哈哈蛋糕.jpg",
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕4_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/哈哈哈蛋糕_logo.jpg"
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕4_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             },
             {
-                "name": "甜蜜巧克力",
-                "description": "愿你的生活像甜蜜巧克力蛋糕一样，永远充满阳光和欢笑~",
+                "name": "2024新年蛋糕5",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
                 "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
+                    "id": "0",
+                    "name": "新年系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/甜蜜巧克力.jpg",
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕5_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/甜蜜巧克力_logo.jpg"
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕5_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             },
             {
-                "name": "小草莓蛋糕",
-                "description": "愿你的生活像小草莓蛋糕一样，永远充满阳光和欢笑~",
+                "name": "2024新年蛋糕6",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
                 "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
+                    "id": "0",
+                    "name": "新年系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/小草莓蛋糕.jpg",
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕6_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/小草莓蛋糕_logo.jpg"
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕6_20_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 2,
+                        "price": 118
                     },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
-                    }
-                ]
-            },
-            {
-                "name": "巧克力帽",
-                "description": "愿你的生活像巧克力帽蛋糕一样，永远充满阳光和欢笑~",
-                "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
-                },
-                "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/巧克力帽.jpg",
-                "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/巧克力帽_logo.jpg"
-                ],
-                "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 3,
+                        "price": 148
                     },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
-                    }
-                ]
-            },
-            {
-                "name": "草莓白巧",
-                "description": "愿你的生活像草莓白巧蛋糕一样，永远充满阳光和欢笑~",
-                "category": {
-                    "id": 1,
-                    "name": "小蛋糕系列"
-                },
-                "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/1-小蛋糕系列/草莓白巧.jpg",
-                "images": [
-                    "/生日蛋糕/图册/1-小蛋糕系列/草莓白巧_logo.jpg"
-                ],
-                "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
+                        "sizeId": 4,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 5,
+                        "price": 228
                     },
                     {
                         "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 4,
+                        "price": 228
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 5,
+                        "price": 278
                     }
                 ]
             }
         ]
     },
     "categorys": [
+        {
+            "id": 0,
+            "name": "新年系列",
+            "description": "新的一年，愿你有能力爱自己，有余力爱别人。新年快乐~",
+            "images": [],
+            "products": []
+        },
         {
             "id": 1,
             "name": "小蛋糕系列",

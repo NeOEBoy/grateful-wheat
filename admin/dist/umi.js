@@ -158,7 +158,7 @@ function _getInitialState() {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           return _context.abrupt("return", {
-            name: '@umijs/max'
+            name: '弯麦电子蛋糕票~'
           });
         case 1:
         case "end":
@@ -170,7 +170,7 @@ function _getInitialState() {
 }
 var layout = function layout() {
   return {
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    logo: '弯麦logo方-黑白.png',
     menu: {
       locale: false
     }
@@ -544,7 +544,6 @@ function getPluginManager() {
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  Access: function() { return /* reexport */ plugin_access/* Access */.Nv; },
   ApplyPluginsType: function() { return /* reexport */ ApplyPluginsType; },
   Link: function() { return /* reexport */ LinkWithPrefetch; },
   Outlet: function() { return /* reexport */ react_router/* Outlet */.j3; },
@@ -552,7 +551,6 @@ __webpack_require__.d(__webpack_exports__, {
   history: function() { return /* reexport */ core_history/* history */.m; },
   matchRoutes: function() { return /* reexport */ react_router/* matchRoutes */.fp; },
   request: function() { return /* reexport */ request; },
-  useAccess: function() { return /* reexport */ plugin_access/* useAccess */.md; },
   useAppData: function() { return /* reexport */ appContext/* useAppData */.Ov; },
   useLocation: function() { return /* reexport */ react_router/* useLocation */.TH; },
   useModel: function() { return /* reexport */ plugin_model/* useModel */.t; },
@@ -560,7 +558,7 @@ __webpack_require__.d(__webpack_exports__, {
   useOutletContext: function() { return /* reexport */ react_router/* useOutletContext */.bx; }
 });
 
-// UNUSED EXPORTS: Helmet, HelmetProvider, NavLink, Navigate, Provider, UseRequestProvider, __getRoot, __useFetcher, createBrowserHistory, createHashHistory, createHistory, createMemoryHistory, createSearchParams, defineApp, generatePath, getRequestInstance, matchPath, renderClient, resolvePath, terminal, useAccessMarkedRoutes, useClientLoaderData, useMatch, useOutlet, useParams, useRequest, useResolvedPath, useRouteData, useRouteProps, useRoutes, useSearchParams, useSelectedRoutes, useServerInsertedHTML, useServerLoaderData, withRouter
+// UNUSED EXPORTS: Access, Helmet, HelmetProvider, NavLink, Navigate, Provider, UseRequestProvider, __getRoot, __useFetcher, createBrowserHistory, createHashHistory, createHistory, createMemoryHistory, createSearchParams, defineApp, generatePath, getRequestInstance, matchPath, renderClient, resolvePath, terminal, useAccess, useAccessMarkedRoutes, useClientLoaderData, useMatch, useOutlet, useParams, useRequest, useResolvedPath, useRouteData, useRouteProps, useRoutes, useSearchParams, useSelectedRoutes, useServerInsertedHTML, useServerLoaderData, withRouter
 
 // EXTERNAL MODULE: ./src/.umi-production/plugin-access/index.tsx
 var plugin_access = __webpack_require__(83228);
@@ -3417,10 +3415,9 @@ var AccessContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContex
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Mf: function() { return /* binding */ useAccessMarkedRoutes; },
-/* harmony export */   Nv: function() { return /* binding */ Access; },
-/* harmony export */   md: function() { return /* binding */ useAccess; }
+/* harmony export */   Mf: function() { return /* binding */ useAccessMarkedRoutes; }
 /* harmony export */ });
+/* unused harmony exports useAccess, Access */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ 67294);
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./context */ 78382);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ 85893);
@@ -3436,7 +3433,7 @@ var useAccess = function useAccess() {
 };
 var Access = function Access(props) {
   if (false) {}
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.Fragment, {
+  return /*#__PURE__*/_jsx(_Fragment, {
     children: props.accessible ? props.children : props.fallback
   });
 };
@@ -29026,7 +29023,7 @@ function _objectWithoutProperties(source, excluded) {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = function(chunkId) {
 /******/ 			// return url for filenames based on template
-/******/ 			return "" + ({"301":"t__plugin-layout__Layout","311":"p__Table__index","335":"p__Order__index","368":"p__WS__index","371":"p__Home__index","755":"p__Access__index"}[chunkId] || chunkId) + ".async.js";
+/******/ 			return "" + ({"301":"t__plugin-layout__Layout","335":"p__Order__index","371":"p__Home__index"}[chunkId] || chunkId) + ".async.js";
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -30479,28 +30476,10 @@ function _getRoutes() {
               "id": "2"
             },
             "3": {
-              "name": "权限演示",
-              "path": "/access",
-              "parentId": "ant-design-pro-layout",
-              "id": "3"
-            },
-            "4": {
-              "name": " CRUD 示例",
-              "path": "/table",
-              "parentId": "ant-design-pro-layout",
-              "id": "4"
-            },
-            "5": {
-              "name": "WS 示例",
-              "path": "/ws",
-              "parentId": "ant-design-pro-layout",
-              "id": "5"
-            },
-            "6": {
               "name": "订单",
               "path": "/order",
               "parentId": "ant-design-pro-layout",
-              "id": "6"
+              "id": "3"
             },
             "ant-design-pro-layout": {
               "id": "ant-design-pro-layout",
@@ -30515,22 +30494,13 @@ function _getRoutes() {
                 return __webpack_require__.e(/*! import() */ 390).then(__webpack_require__.bind(__webpack_require__, /*! ./EmptyRoute */ 96390));
               }),
               '2': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | p__Home__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(320), __webpack_require__.e(108), __webpack_require__.e(371)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Home/index.tsx */ 17153));
+                return Promise.all(/*! import() | p__Home__index */[__webpack_require__.e(918), __webpack_require__.e(741), __webpack_require__.e(371)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Home/index.tsx */ 17153));
               }),
               '3': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | p__Access__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(867), __webpack_require__.e(755)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Access/index.tsx */ 96894));
-              }),
-              '4': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | p__Table__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(320), __webpack_require__.e(867), __webpack_require__.e(108), __webpack_require__.e(287), __webpack_require__.e(106), __webpack_require__.e(311)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Table/index.tsx */ 76048));
-              }),
-              '5': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | p__WS__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(368)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/WS/index.tsx */ 51325));
-              }),
-              '6': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | p__Order__index */[__webpack_require__.e(137), __webpack_require__.e(524), __webpack_require__.e(320), __webpack_require__.e(867), __webpack_require__.e(108), __webpack_require__.e(287), __webpack_require__.e(106), __webpack_require__.e(510), __webpack_require__.e(335)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Order/index.tsx */ 83960));
+                return Promise.all(/*! import() | p__Order__index */[__webpack_require__.e(918), __webpack_require__.e(741), __webpack_require__.e(287), __webpack_require__.e(839), __webpack_require__.e(335)]).then(__webpack_require__.bind(__webpack_require__, /*! @/pages/Order/index.tsx */ 13900));
               }),
               'ant-design-pro-layout': /*#__PURE__*/react.lazy(function () {
-                return Promise.all(/*! import() | t__plugin-layout__Layout */[__webpack_require__.e(137), __webpack_require__.e(320), __webpack_require__.e(867), __webpack_require__.e(287), __webpack_require__.e(143), __webpack_require__.e(301)]).then(__webpack_require__.bind(__webpack_require__, /*! ./src/.umi-production/plugin-layout/Layout.tsx */ 27626));
+                return Promise.all(/*! import() | t__plugin-layout__Layout */[__webpack_require__.e(918), __webpack_require__.e(287), __webpack_require__.e(143), __webpack_require__.e(301)]).then(__webpack_require__.bind(__webpack_require__, /*! ./src/.umi-production/plugin-layout/Layout.tsx */ 27626));
               })
             }
           });

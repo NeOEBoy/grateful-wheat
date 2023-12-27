@@ -271,38 +271,38 @@ const Order: React.FC = () => {
     const [socket, setSocket] = useState<WebSocket>();
     // 建立 WebSocket连接
     useEffect(() => {
-        // 使用环境变量
-        let address = 'ws://admin.ruyue.xyz/websocket/cake/ws4Order';
-        if (process.env.NODE_ENV === 'development') {
-            address = 'ws://localhost:9001/cake/ws4Order';
-            console.log('开发环境');
-        } else {
-            console.log('生产环境');
-        }
-        const newSocket = new WebSocket(address);
-        newSocket.onopen = () => {
-            setSocket(newSocket);
-        };
-        newSocket.onmessage = (event) => {
-            console.log('onmessage')
-            let source = '新订单.mp3';
-            if (event.data === '已连接') {
-                source = '已连接.mp3'
-            }
-            var sound = new Howl({
-                src: source,
-                autoplay: true
-            });
-            sound.play();
+        // // 使用环境变量
+        // let address = 'ws://admin.ruyue.xyz/websocket/cake/ws4Order';
+        // if (process.env.NODE_ENV === 'development') {
+        //     address = 'ws://localhost:9001/cake/ws4Order';
+        //     console.log('开发环境');
+        // } else {
+        //     console.log('生产环境');
+        // }
+        // const newSocket = new WebSocket(address);
+        // newSocket.onopen = () => {
+        //     setSocket(newSocket);
+        // };
+        // newSocket.onmessage = (event) => {
+        //     console.log('onmessage')
+        //     let source = '新订单.mp3';
+        //     if (event.data === '已连接') {
+        //         source = '已连接.mp3'
+        //     }
+        //     var sound = new Howl({
+        //         src: source,
+        //         autoplay: true
+        //     });
+        //     sound.play();
 
-            tableRef.current?.reload();
-        };
-        newSocket.onclose = () => {
-            setSocket(undefined);
-        };
-        return () => {
-            newSocket.close();
-        };
+        //     tableRef.current?.reload();
+        // };
+        // newSocket.onclose = () => {
+        //     setSocket(undefined);
+        // };
+        // return () => {
+        //     newSocket.close();
+        // };
     }, []);
 
     const tableColumnsConfig: ProColumns<API.OrderListItem>[] = [

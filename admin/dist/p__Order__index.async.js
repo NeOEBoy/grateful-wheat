@@ -1,946 +1,18 @@
 "use strict";
 (self["webpackChunk"] = self["webpackChunk"] || []).push([[335],{
 
-/***/ 83960:
-/*!***********************************!*\
-  !*** ./src/pages/Order/index.tsx ***!
-  \***********************************/
+/***/ 13900:
+/*!***********************************************!*\
+  !*** ./src/pages/Order/index.tsx + 2 modules ***!
+  \***********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/regeneratorRuntime.js */ 15009);
-/* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/asyncToGenerator.js */ 99289);
-/* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/slicedToArray.js */ 5574);
-/* harmony import */ var E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ 67294);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd */ 29820);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd */ 15867);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! antd */ 86738);
-/* harmony import */ var antd__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! antd */ 96074);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ant-design/pro-components */ 1524);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ant-design/pro-components */ 57062);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ant-design/pro-components */ 37476);
-/* harmony import */ var _ant_design_pro_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ant-design/pro-components */ 98097);
-/* harmony import */ var _services_demo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/services/demo */ 18580);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ 30381);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var moment_locale_zh_cn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment/locale/zh-cn */ 83839);
-/* harmony import */ var moment_locale_zh_cn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment_locale_zh_cn__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ 85893);
-
-
-
-
-
-
-// import QRCode from 'qrcode';
-var QRCode = __webpack_require__(/*! qrcode */ 92592);
-
-var _services$UserControl = _services_demo__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z.UserController,
-  getOrders = _services$UserControl.getOrders,
-  deleteOrder = _services$UserControl.deleteOrder;
-
-
-
-
-moment__WEBPACK_IMPORTED_MODULE_5___default().locale('zh-cn');
-var PrintHTML = __webpack_require__(/*! react-print-html */ 39934);
-var _require = __webpack_require__(/*! howler */ 41766),
-  Howl = _require.Howl;
-var KTableColumnsConfig = [{
-  title: '序',
-  dataIndex: 'index',
-  valueType: 'indexBorder',
-  width: 36
-}, {
-  title: '图片',
-  dataIndex: 'images',
-  valueType: 'text',
-  width: 80,
-  render: function render(_) {
-    var imageSource = "";
-    if (_[0].type === 1) {
-      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0].thumbnail);
-    } else if (_[0].indexOf('data:image') !== -1) {
-      imageSource = _[0];
-    } else {
-      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0]);
-    }
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
-      style: {
-        width: 80,
-        height: 80
-      },
-      alt: "",
-      src: imageSource
-    });
-  }
-},
-// {
-//     title: '订单号',
-//     dataIndex: '_id',
-//     valueType: 'text'
-// },
-{
-  title: '预定日期',
-  dataIndex: 'createdAt',
-  valueType: 'dateTime',
-  width: 98,
-  render: function render(_) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      style: {
-        color: 'red',
-        fontSize: 15
-      },
-      children: _
-    });
-  }
-}, {
-  title: '名称',
-  dataIndex: 'name',
-  valueType: 'text',
-  width: 130,
-  render: function render(_) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      style: {
-        color: 'green',
-        fontSize: 16
-      },
-      children: _
-    });
-  }
-}, {
-  title: '奶油',
-  dataIndex: 'cream',
-  valueType: 'text',
-  width: 80
-}, {
-  title: '大小',
-  dataIndex: 'size',
-  valueType: 'text',
-  width: 50
-}, {
-  title: '门店',
-  dataIndex: 'shop',
-  valueType: 'text',
-  width: 100,
-  render: function render(_) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      style: {
-        color: 'darkcyan',
-        fontSize: 15
-      },
-      children: _
-    });
-  }
-}, {
-  title: '姓名',
-  dataIndex: 'pickUpName',
-  valueType: 'text',
-  width: 80
-}, {
-  title: '电话',
-  dataIndex: 'phoneNumber',
-  valueType: 'text',
-  width: 80
-}, {
-  title: '取货|配送时间',
-  dataIndex: 'pickUpTime',
-  valueType: 'text',
-  width: 130,
-  render: function render(_, record) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-      style: {
-        color: 'darkmagenta'
-      },
-      children: "".concat(record.pickUpDay).concat(record.pickUpTime)
-    });
-  }
-}, {
-  title: '取货方式',
-  dataIndex: 'pickUpType',
-  valueType: 'text',
-  width: 90
-}, {
-  title: '配送地址',
-  dataIndex: 'address',
-  valueType: 'text',
-  width: 120
-}, {
-  title: '备注',
-  dataIndex: 'remarks',
-  valueType: 'text',
-  width: '*'
-}];
-var KDescriptionsColumnsConfig = [
-  // {
-  //     title: '预定日期',
-  //     key: 'createdAt',
-  //     dataIndex: 'createdAt',
-  //     valueType: 'dateTime'
-  // },
-  // {
-  //     title: '名称',
-  //     dataIndex: 'name',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '描述',
-  //     dataIndex: 'description',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '图片',
-  //     dataIndex: 'images',
-  //     valueType: 'text',
-  //     render: (_: any) => {
-  //         let imageSource = ``;
-  //         if (_[0].type === 1) {
-  //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
-  //         } else if (_[0].indexOf('data:image') !== -1) {
-  //             imageSource = _[0];
-  //         } else {
-  //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
-  //         }
-  //         return (<Image style={{ width: 44, height: 44 }} alt='' src={imageSource} />)
-  //     }
-  // },
-  // {
-  //     title: '奶油',
-  //     dataIndex: 'cream',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '大小',
-  //     dataIndex: 'size',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '大小附加',
-  //     dataIndex: 'sizeExtra',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '高度',
-  //     dataIndex: 'height',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '价格',
-  //     dataIndex: 'price',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '夹心',
-  //     dataIndex: 'fillings',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '蜡烛',
-  //     dataIndex: 'candle',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '蜡烛额外',
-  //     dataIndex: 'candleExtra',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '火柴盒',
-  //     dataIndex: 'kindling',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '帽子',
-  //     dataIndex: 'hat',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '餐具',
-  //     dataIndex: 'plates',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '取货日期',
-  //     dataIndex: 'pickUpDay',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '取货时间',
-  //     dataIndex: 'pickUpTime',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '取货方式',
-  //     dataIndex: 'pickUpType',
-  //     valueType: 'text'
-  // },
-  // {
-  //     title: '门店',
-  //     dataIndex: 'shop',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '地址',
-  //     dataIndex: 'address',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '姓名',
-  //     dataIndex: 'pickUpName',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '电话',
-  //     dataIndex: 'phoneNumber',
-  //     valueType: 'text',
-  // },
-  // {
-  //     title: '备注',
-  //     key: 'remarks',
-  //     dataIndex: 'remarks',
-  //     valueType: 'text',
-  //     // ellipsis: true,
-  //     // copyable: true,
-  // }
-];
-var Order = function Order() {
-  var _currentRow$images, _currentRow$images2, _currentRow$images3, _currentRow$images4, _currentRow$images5, _currentRow$fillings, _currentRow$fillings2, _currentRow$fillings3;
-  /// 当前条目设置
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState2 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState, 2),
-    createOrUpdateModalOpen = _useState2[0],
-    setCreateOrUpdateModalOpen = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
-    _useState4 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState3, 2),
-    currentRow = _useState4[0],
-    setCurrentRow = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)('dummy4init'),
-    _useState6 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState5, 2),
-    image4QRCode = _useState6[0],
-    setImage4QRCode = _useState6[1];
-  var tableRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)();
-  var divRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
-  // 创建 WebSocket 实例
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
-    _useState8 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_slicedToArray_js__WEBPACK_IMPORTED_MODULE_2___default()(_useState7, 2),
-    socket = _useState8[0],
-    setSocket = _useState8[1];
-  // 建立 WebSocket连接
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    // 使用环境变量
-    var address = 'ws://admin.ruyue.xyz/websocket/cake/ws4Order';
-    if (false) {} else {
-      console.log('生产环境');
-    }
-    var newSocket = new WebSocket(address);
-    newSocket.onopen = function () {
-      setSocket(newSocket);
-    };
-    newSocket.onmessage = function (event) {
-      var _tableRef$current;
-      console.log('onmessage');
-      var source = '新订单.mp3';
-      if (event.data === '已连接') {
-        source = '已连接.mp3';
-      }
-      var sound = new Howl({
-        src: source,
-        autoplay: true
-      });
-      sound.play();
-      (_tableRef$current = tableRef.current) === null || _tableRef$current === void 0 || _tableRef$current.reload();
-    };
-    newSocket.onclose = function () {
-      setSocket(undefined);
-    };
-    return function () {
-      newSocket.close();
-    };
-  }, []);
-  var tableColumnsConfig = [].concat(KTableColumnsConfig, [{
-    title: '操作',
-    dataIndex: 'option',
-    valueType: 'option',
-    width: 82,
-    render: function render(_, record) {
-      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
-          type: "primary",
-          size: "large",
-          onClick: function onClick() {
-            setImage4QRCode('dummy4init');
-            setCurrentRow(record);
-            setCreateOrUpdateModalOpen(true);
-          },
-          children: "\u67E5\u770B"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-          style: {
-            height: 10
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_10__/* ["default"] */ .Z, {
-          title: "\u5220\u9664\u8BA2\u5355",
-          description: "\u4F60\u786E\u5B9A\u5220\u9664\u8BE5\u8BA2\u5355\u5417?",
-          onConfirm: /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee() {
-            var _tableRef$current2;
-            return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee$(_context) {
-              while (1) switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return deleteOrder({
-                    '_id': record._id
-                  });
-                case 2:
-                  (_tableRef$current2 = tableRef.current) === null || _tableRef$current2 === void 0 || _tableRef$current2.reload();
-                case 3:
-                case "end":
-                  return _context.stop();
-              }
-            }, _callee);
-          })),
-          okText: "\u786E\u5B9A",
-          cancelText: "\u53D6\u6D88",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
-            danger: true,
-            type: "primary",
-            size: "middle",
-            children: "\u5220\u9664"
-          })
-        })]
-      }, "view")];
-    }
-  }]);
-  var _theDiv4CaptureWidth = 760;
-  var theDiv4CaptureHeight = _theDiv4CaptureWidth * 148 / 210;
-  var _theDiv4CaptureStyle = {
-    width: _theDiv4CaptureWidth,
-    height: theDiv4CaptureHeight,
-    background: 'white',
-    borderRadius: 8,
-    border: '1px dotted #000000'
-  };
-  var _theLeftDivInTheDiv4CaptureStyle = {
-    width: theDiv4CaptureHeight - 180,
-    height: theDiv4CaptureHeight - 180 + 40,
-    "float": "left",
-    marginLeft: 8,
-    borderRadius: 8,
-    border: '2px dotted #008B8B'
-  };
-  var _theRightDivInTheDiv4CaptureStyle = {
-    "float": "right",
-    width: _theDiv4CaptureWidth - theDiv4CaptureHeight + 160
-  };
-  var orderingTime = moment__WEBPACK_IMPORTED_MODULE_5___default()(currentRow === null || currentRow === void 0 ? void 0 : currentRow.createdAt).format('YYYY年M月D日 HH:mm:ss');
-  ;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_11__/* .PageContainer */ ._z, {
-    title: false,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_12__/* ["default"] */ .Z, {
-      actionRef: tableRef,
-      headerTitle: "\u8BA2\u5355\u5217\u8868",
-      options: {
-        reloadIcon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_9__/* ["default"] */ .ZP, {
-          type: "primary",
-          size: "large",
-          children: "\u5237\u65B0"
-        }),
-        density: false,
-        setting: false
-      },
-      rowKey: "_id",
-      size: "small",
-      cardBordered: true,
-      search: false,
-      pagination: {
-        pageSize: 10
-      },
-      request: getOrders,
-      columns: tableColumnsConfig
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_13__/* .ModalForm */ .Y, {
-      modalProps: {
-        style: {
-          top: 10
-        },
-        destroyOnClose: true,
-        okText: '打印订购单'
-      },
-      width: 810,
-      open: createOrUpdateModalOpen,
-      onOpenChange: function onOpenChange(open) {
-        setCreateOrUpdateModalOpen(open);
-        !open && currentRow && setCurrentRow(undefined);
-      },
-      onFinish: /*#__PURE__*/function () {
-        var _ref2 = E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee2(value) {
-          return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee2$(_context2) {
-            while (1) switch (_context2.prev = _context2.next) {
-              case 0:
-                console.log('onFinish value = ' + value);
-                PrintHTML(divRef.current);
-                setCreateOrUpdateModalOpen(false);
-                currentRow && setCurrentRow(undefined);
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }, _callee2);
-        }));
-        return function (_x) {
-          return _ref2.apply(this, arguments);
-        };
-      }(),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ant_design_pro_components__WEBPACK_IMPORTED_MODULE_14__/* .ProDescriptions */ .vY, {
-        title: "\u8BA2\u5355\u8BE6\u60C5",
-        column: 6,
-        dataSource: currentRow,
-        columns: KDescriptionsColumnsConfig
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        style: {
-          textAlign: 'center'
-        }
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-        style: {
-          opacity: 1
-        },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-          ref: divRef,
-          style: _theDiv4CaptureStyle,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            id: "qrcode",
-            style: {
-              textAlign: 'right',
-              position: 'absolute',
-              paddingRight: 18,
-              paddingTop: 10,
-              width: _theDiv4CaptureWidth,
-              height: 150
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-              style: {
-                fontSize: 12,
-                fontWeight: 'bold',
-                marginRight: 8
-              },
-              children: "\u7535\u5B50\u8BA2\u8D2D\u5355\u4E8C\u7EF4\u7801"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
-              style: {
-                width: 135,
-                height: 135
-              },
-              onLoad: function onLoad() {},
-              onError: /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().mark(function _callee3() {
-                var cakeOrderUrl, qrOpts, qrCode;
-                return E_soucecode_grateful_wheat_admin_node_modules_umijs_babel_preset_umi_node_modules_babel_runtime_helpers_regeneratorRuntime_js__WEBPACK_IMPORTED_MODULE_0___default()().wrap(function _callee3$(_context3) {
-                  while (1) switch (_context3.prev = _context3.next) {
-                    case 0:
-                      if (!(image4QRCode == 'dummy4init')) {
-                        _context3.next = 7;
-                        break;
-                      }
-                      cakeOrderUrl = "http://gratefulwheat.ruyue.xyz/cakeOrder?_id=".concat(currentRow._id);
-                      qrOpts = {
-                        errorCorrectionLevel: 'L',
-                        type: 'image/jpeg',
-                        quality: 0.8,
-                        margin: 2,
-                        color: {
-                          dark: "#000000ff",
-                          light: "#ffffffff"
-                        }
-                      };
-                      _context3.next = 5;
-                      return QRCode.toDataURL(cakeOrderUrl, qrOpts);
-                    case 5:
-                      qrCode = _context3.sent;
-                      setImage4QRCode(qrCode);
-                    case 7:
-                    case "end":
-                      return _context3.stop();
-                  }
-                }, _callee3);
-              })),
-              preview: false,
-              src: image4QRCode
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            style: {
-              textAlign: 'left',
-              position: 'absolute',
-              paddingLeft: 20,
-              width: _theDiv4CaptureWidth,
-              fontSize: 14,
-              paddingTop: 15
-            },
-            children: "\u8BA2\u8D2D\u65F6\u95F4\uFF1A".concat(orderingTime)
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-            style: {
-              fontSize: 22,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              paddingTop: 8,
-              paddingBottom: 15
-            },
-            children: "\u86CB\u7CD5\u8BA2\u8D2D\u5355"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-              style: _theLeftDivInTheDiv4CaptureStyle,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                style: {
-                  fontSize: 20,
-                  textAlign: 'center',
-                  paddingTop: 4,
-                  paddingBottom: 4,
-                  fontWeight: 'bold',
-                  background: '#D8D8D8',
-                  borderBottom: '1px dashed black'
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  children: "\u300A".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.name, "\u300B")
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  style: {
-                    position: 'relative'
-                  },
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
-                    preview: false,
-                    src: (currentRow === null || currentRow === void 0 || (_currentRow$images = currentRow.images) === null || _currentRow$images === void 0 ? void 0 : _currentRow$images[0].type) === 1 ? "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images2 = currentRow.images) === null || _currentRow$images2 === void 0 ? void 0 : _currentRow$images2[0].thumbnail) : (currentRow === null || currentRow === void 0 || (_currentRow$images3 = currentRow.images) === null || _currentRow$images3 === void 0 ? void 0 : _currentRow$images3[0].indexOf('data:image')) !== -1 ? currentRow === null || currentRow === void 0 || (_currentRow$images4 = currentRow.images) === null || _currentRow$images4 === void 0 ? void 0 : _currentRow$images4[0] : "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images5 = currentRow.images) === null || _currentRow$images5 === void 0 ? void 0 : _currentRow$images5[0])
-                  })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_8__/* ["default"] */ .Z, {
-                  style: {
-                    marginTop: 16
-                  },
-                  preview: false,
-                  src: "/\u5F2F\u9EA6logo\u957F.png"
-                })]
-              })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-              style: _theRightDivInTheDiv4CaptureStyle,
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {
-                orientation: "left",
-                dashed: true,
-                style: {
-                  marginTop: 0,
-                  marginBottom: 0,
-                  fontSize: 8
-                },
-                children: "\u5236\u4F5C"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u5976\u6CB9\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'green'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.cream
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u5C3A\u5BF8\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'green'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.size
-                }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.size) === '组合' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'green'
-                  },
-                  children: " | ".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.sizeExtra)
-                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'green'
-                  },
-                  children: " | ".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.height)
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u4EF7\u683C\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.price
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14
-                  },
-                  children: "\u5143"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u5939\u5FC3\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'green'
-                  },
-                  children: (currentRow === null || currentRow === void 0 || (_currentRow$fillings = currentRow.fillings) === null || _currentRow$fillings === void 0 ? void 0 : _currentRow$fillings.length) !== undefined && (currentRow === null || currentRow === void 0 || (_currentRow$fillings2 = currentRow.fillings) === null || _currentRow$fillings2 === void 0 ? void 0 : _currentRow$fillings2.length) > 0 ? currentRow === null || currentRow === void 0 || (_currentRow$fillings3 = currentRow.fillings) === null || _currentRow$fillings3 === void 0 ? void 0 : _currentRow$fillings3.join('+') : '没有夹心'
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u8721\u70DB\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'blue'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.candle
-                }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.candle) === '数字蜡烛' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'blue'
-                  },
-                  children: "(".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.candleExtra, ")")
-                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {}), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.kindling) === '火柴盒' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'blue'
-                  },
-                  children: "+\u706B\u67F4\u76D2"
-                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {})]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u5E3D\u5B50\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'blue'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.hat
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u9910\u5177\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'blue'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.plates
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 16,
-                    color: 'blue'
-                  },
-                  children: "\u5957"
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {
-                orientation: "left",
-                style: {
-                  marginTop: 0,
-                  marginBottom: 0,
-                  fontSize: 8
-                },
-                children: "\u53D6\u8D27"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u65F6\u95F4\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'red'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpDay
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'red'
-                  },
-                  children: " "
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'red'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpTime
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u65B9\u5F0F\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpType
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u95E8\u5E97\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.shop
-                })]
-              }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpType) === '商家配送' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u5730\u5740\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'red'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.address
-                })]
-              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u59D3\u540D\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'red'
-                  },
-                  children: "".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpName, "\uFF08").concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.phoneNumber, "\uFF09")
-                })]
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(antd__WEBPACK_IMPORTED_MODULE_15__/* ["default"] */ .Z, {
-                orientation: "left",
-                style: {
-                  marginTop: 0,
-                  marginBottom: 0,
-                  fontSize: 8
-                },
-                children: "\u5176\u5B83"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                style: {
-                  marginTop: 4,
-                  marginBottom: 4,
-                  marginRight: 8
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 14,
-                    fontWeight: 'bold'
-                  },
-                  children: "\u5907\u6CE8\uFF1A"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-                  style: {
-                    fontSize: 18,
-                    color: 'red',
-                    wordWrap: 'break-word'
-                  },
-                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.remarks
-                })]
-              })]
-            })]
-          })]
-        })
-      })]
-    })]
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Order);
-
-/***/ }),
-
-/***/ 18580:
-/*!************************************************!*\
-  !*** ./src/services/demo/index.ts + 1 modules ***!
-  \************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  Z: function() { return /* binding */ demo; }
+  "default": function() { return /* binding */ pages_Order; }
 });
 
 // NAMESPACE OBJECT: ./src/services/demo/UserController.ts
@@ -959,12 +31,33 @@ __webpack_require__.d(UserController_namespaceObject, {
 // EXTERNAL MODULE: ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/regeneratorRuntime.js
 var regeneratorRuntime = __webpack_require__(15009);
 var regeneratorRuntime_default = /*#__PURE__*/__webpack_require__.n(regeneratorRuntime);
-// EXTERNAL MODULE: ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/objectSpread2.js
-var objectSpread2 = __webpack_require__(97857);
-var objectSpread2_default = /*#__PURE__*/__webpack_require__.n(objectSpread2);
 // EXTERNAL MODULE: ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/asyncToGenerator.js
 var asyncToGenerator = __webpack_require__(99289);
 var asyncToGenerator_default = /*#__PURE__*/__webpack_require__.n(asyncToGenerator);
+// EXTERNAL MODULE: ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/slicedToArray.js
+var slicedToArray = __webpack_require__(5574);
+var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray);
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(67294);
+// EXTERNAL MODULE: ./node_modules/antd/es/image/index.js + 28 modules
+var es_image = __webpack_require__(29820);
+// EXTERNAL MODULE: ./node_modules/antd/es/button/index.js + 8 modules
+var es_button = __webpack_require__(15867);
+// EXTERNAL MODULE: ./node_modules/antd/es/popconfirm/index.js + 2 modules
+var popconfirm = __webpack_require__(86738);
+// EXTERNAL MODULE: ./node_modules/antd/es/divider/index.js + 1 modules
+var divider = __webpack_require__(96074);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-layout/es/components/PageContainer/index.js + 10 modules
+var PageContainer = __webpack_require__(11774);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-table/es/Table.js + 74 modules
+var Table = __webpack_require__(18488);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-form/es/layouts/ModalForm/index.js
+var ModalForm = __webpack_require__(37476);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-descriptions/es/index.js + 6 modules
+var es = __webpack_require__(98097);
+// EXTERNAL MODULE: ./node_modules/@umijs/babel-preset-umi/node_modules/@babel/runtime/helpers/objectSpread2.js
+var objectSpread2 = __webpack_require__(97857);
+var objectSpread2_default = /*#__PURE__*/__webpack_require__.n(objectSpread2);
 // EXTERNAL MODULE: ./src/.umi-production/exports.ts + 35 modules
 var _umi_production_exports = __webpack_require__(80854);
 ;// CONCATENATED MODULE: ./src/services/demo/UserController.ts
@@ -1153,6 +246,916 @@ function _deleteOrder() {
 /* harmony default export */ var demo = ({
   UserController: UserController_namespaceObject
 });
+// EXTERNAL MODULE: ./node_modules/moment/moment.js
+var moment = __webpack_require__(30381);
+var moment_default = /*#__PURE__*/__webpack_require__.n(moment);
+// EXTERNAL MODULE: ./node_modules/moment/locale/zh-cn.js
+var zh_cn = __webpack_require__(83839);
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(85893);
+;// CONCATENATED MODULE: ./src/pages/Order/index.tsx
+
+
+
+
+
+
+// import QRCode from 'qrcode';
+var QRCode = __webpack_require__(/*! qrcode */ 92592);
+
+var _services$UserControl = demo.UserController,
+  Order_getOrders = _services$UserControl.getOrders,
+  Order_deleteOrder = _services$UserControl.deleteOrder;
+
+
+
+
+moment_default().locale('zh-cn');
+var PrintHTML = __webpack_require__(/*! react-print-html */ 39934);
+var _require = __webpack_require__(/*! howler */ 41766),
+  Howl = _require.Howl;
+var KTableColumnsConfig = [{
+  title: '序',
+  dataIndex: 'index',
+  valueType: 'indexBorder',
+  width: 36
+}, {
+  title: '图片',
+  dataIndex: 'images',
+  valueType: 'text',
+  width: 80,
+  render: function render(_) {
+    var imageSource = "";
+    if (_[0].type === 1) {
+      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0].thumbnail);
+    } else if (_[0].indexOf('data:image') !== -1) {
+      imageSource = _[0];
+    } else {
+      imageSource = "http://gratefulwheat.ruyue.xyz/".concat(_[0]);
+    }
+    return /*#__PURE__*/(0,jsx_runtime.jsx)(es_image/* default */.Z, {
+      style: {
+        width: 80,
+        height: 80
+      },
+      alt: "",
+      src: imageSource
+    });
+  }
+},
+// {
+//     title: '订单号',
+//     dataIndex: '_id',
+//     valueType: 'text'
+// },
+{
+  title: '预定日期',
+  dataIndex: 'createdAt',
+  valueType: 'dateTime',
+  width: 98,
+  render: function render(_) {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      style: {
+        color: 'red',
+        fontSize: 15
+      },
+      children: _
+    });
+  }
+}, {
+  title: '名称',
+  dataIndex: 'name',
+  valueType: 'text',
+  width: 130,
+  render: function render(_) {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      style: {
+        color: 'green',
+        fontSize: 16
+      },
+      children: _
+    });
+  }
+}, {
+  title: '奶油',
+  dataIndex: 'cream',
+  valueType: 'text',
+  width: 80
+}, {
+  title: '大小',
+  dataIndex: 'size',
+  valueType: 'text',
+  width: 50
+}, {
+  title: '门店',
+  dataIndex: 'shop',
+  valueType: 'text',
+  width: 100,
+  render: function render(_) {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      style: {
+        color: 'darkcyan',
+        fontSize: 15
+      },
+      children: _
+    });
+  }
+}, {
+  title: '姓名',
+  dataIndex: 'pickUpName',
+  valueType: 'text',
+  width: 80
+}, {
+  title: '电话',
+  dataIndex: 'phoneNumber',
+  valueType: 'text',
+  width: 80
+}, {
+  title: '取货|配送时间',
+  dataIndex: 'pickUpTime',
+  valueType: 'text',
+  width: 130,
+  render: function render(_, record) {
+    return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+      style: {
+        color: 'darkmagenta'
+      },
+      children: "".concat(record.pickUpDay).concat(record.pickUpTime)
+    });
+  }
+}, {
+  title: '取货方式',
+  dataIndex: 'pickUpType',
+  valueType: 'text',
+  width: 90
+}, {
+  title: '配送地址',
+  dataIndex: 'address',
+  valueType: 'text',
+  width: 120
+}, {
+  title: '备注',
+  dataIndex: 'remarks',
+  valueType: 'text',
+  width: '*'
+}];
+var KDescriptionsColumnsConfig = [
+  // {
+  //     title: '预定日期',
+  //     key: 'createdAt',
+  //     dataIndex: 'createdAt',
+  //     valueType: 'dateTime'
+  // },
+  // {
+  //     title: '名称',
+  //     dataIndex: 'name',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '描述',
+  //     dataIndex: 'description',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '图片',
+  //     dataIndex: 'images',
+  //     valueType: 'text',
+  //     render: (_: any) => {
+  //         let imageSource = ``;
+  //         if (_[0].type === 1) {
+  //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0].thumbnail}`;
+  //         } else if (_[0].indexOf('data:image') !== -1) {
+  //             imageSource = _[0];
+  //         } else {
+  //             imageSource = `http://gratefulwheat.ruyue.xyz/${_[0]}`;
+  //         }
+  //         return (<Image style={{ width: 44, height: 44 }} alt='' src={imageSource} />)
+  //     }
+  // },
+  // {
+  //     title: '奶油',
+  //     dataIndex: 'cream',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '大小',
+  //     dataIndex: 'size',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '大小附加',
+  //     dataIndex: 'sizeExtra',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '高度',
+  //     dataIndex: 'height',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '价格',
+  //     dataIndex: 'price',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '夹心',
+  //     dataIndex: 'fillings',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '蜡烛',
+  //     dataIndex: 'candle',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '蜡烛额外',
+  //     dataIndex: 'candleExtra',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '火柴盒',
+  //     dataIndex: 'kindling',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '帽子',
+  //     dataIndex: 'hat',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '餐具',
+  //     dataIndex: 'plates',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '取货日期',
+  //     dataIndex: 'pickUpDay',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '取货时间',
+  //     dataIndex: 'pickUpTime',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '取货方式',
+  //     dataIndex: 'pickUpType',
+  //     valueType: 'text'
+  // },
+  // {
+  //     title: '门店',
+  //     dataIndex: 'shop',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '地址',
+  //     dataIndex: 'address',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '姓名',
+  //     dataIndex: 'pickUpName',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '电话',
+  //     dataIndex: 'phoneNumber',
+  //     valueType: 'text',
+  // },
+  // {
+  //     title: '备注',
+  //     key: 'remarks',
+  //     dataIndex: 'remarks',
+  //     valueType: 'text',
+  //     // ellipsis: true,
+  //     // copyable: true,
+  // }
+];
+var Order = function Order() {
+  var _currentRow$images, _currentRow$images2, _currentRow$images3, _currentRow$images4, _currentRow$images5, _currentRow$fillings, _currentRow$fillings2, _currentRow$fillings3;
+  /// 当前条目设置
+  var _useState = (0,react.useState)(false),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    createOrUpdateModalOpen = _useState2[0],
+    setCreateOrUpdateModalOpen = _useState2[1];
+  var _useState3 = (0,react.useState)(),
+    _useState4 = slicedToArray_default()(_useState3, 2),
+    currentRow = _useState4[0],
+    setCurrentRow = _useState4[1];
+  var _useState5 = (0,react.useState)('dummy4init'),
+    _useState6 = slicedToArray_default()(_useState5, 2),
+    image4QRCode = _useState6[0],
+    setImage4QRCode = _useState6[1];
+  var tableRef = (0,react.useRef)();
+  var divRef = (0,react.useRef)(null);
+  // 创建 WebSocket 实例
+  var _useState7 = (0,react.useState)(),
+    _useState8 = slicedToArray_default()(_useState7, 2),
+    socket = _useState8[0],
+    setSocket = _useState8[1];
+  // 建立 WebSocket连接
+  (0,react.useEffect)(function () {
+    // // 使用环境变量
+    // let address = 'ws://admin.ruyue.xyz/websocket/cake/ws4Order';
+    // if (process.env.NODE_ENV === 'development') {
+    //     address = 'ws://localhost:9001/cake/ws4Order';
+    //     console.log('开发环境');
+    // } else {
+    //     console.log('生产环境');
+    // }
+    // const newSocket = new WebSocket(address);
+    // newSocket.onopen = () => {
+    //     setSocket(newSocket);
+    // };
+    // newSocket.onmessage = (event) => {
+    //     console.log('onmessage')
+    //     let source = '新订单.mp3';
+    //     if (event.data === '已连接') {
+    //         source = '已连接.mp3'
+    //     }
+    //     var sound = new Howl({
+    //         src: source,
+    //         autoplay: true
+    //     });
+    //     sound.play();
+
+    //     tableRef.current?.reload();
+    // };
+    // newSocket.onclose = () => {
+    //     setSocket(undefined);
+    // };
+    // return () => {
+    //     newSocket.close();
+    // };
+  }, []);
+  var tableColumnsConfig = [].concat(KTableColumnsConfig, [{
+    title: '操作',
+    dataIndex: 'option',
+    valueType: 'option',
+    width: 82,
+    render: function render(_, record) {
+      return [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+        children: [/*#__PURE__*/(0,jsx_runtime.jsx)(es_button/* default */.ZP, {
+          type: "primary",
+          size: "large",
+          onClick: function onClick() {
+            setImage4QRCode('dummy4init');
+            setCurrentRow(record);
+            setCreateOrUpdateModalOpen(true);
+          },
+          children: "\u67E5\u770B"
+        }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+          style: {
+            height: 10
+          }
+        }), /*#__PURE__*/(0,jsx_runtime.jsx)(popconfirm/* default */.Z, {
+          title: "\u5220\u9664\u8BA2\u5355",
+          description: "\u4F60\u786E\u5B9A\u5220\u9664\u8BE5\u8BA2\u5355\u5417?",
+          onConfirm: /*#__PURE__*/asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee() {
+            var _tableRef$current;
+            return regeneratorRuntime_default()().wrap(function _callee$(_context) {
+              while (1) switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return Order_deleteOrder({
+                    '_id': record._id
+                  });
+                case 2:
+                  (_tableRef$current = tableRef.current) === null || _tableRef$current === void 0 || _tableRef$current.reload();
+                case 3:
+                case "end":
+                  return _context.stop();
+              }
+            }, _callee);
+          })),
+          okText: "\u786E\u5B9A",
+          cancelText: "\u53D6\u6D88",
+          children: /*#__PURE__*/(0,jsx_runtime.jsx)(es_button/* default */.ZP, {
+            danger: true,
+            type: "primary",
+            size: "middle",
+            children: "\u5220\u9664"
+          })
+        })]
+      }, "view")];
+    }
+  }]);
+  var _theDiv4CaptureWidth = 760;
+  var theDiv4CaptureHeight = _theDiv4CaptureWidth * 148 / 210;
+  var _theDiv4CaptureStyle = {
+    width: _theDiv4CaptureWidth,
+    height: theDiv4CaptureHeight,
+    background: 'white',
+    borderRadius: 8,
+    border: '1px dotted #000000'
+  };
+  var _theLeftDivInTheDiv4CaptureStyle = {
+    width: theDiv4CaptureHeight - 180,
+    height: theDiv4CaptureHeight - 180 + 40,
+    "float": "left",
+    marginLeft: 8,
+    borderRadius: 8,
+    border: '2px dotted #008B8B'
+  };
+  var _theRightDivInTheDiv4CaptureStyle = {
+    "float": "right",
+    width: _theDiv4CaptureWidth - theDiv4CaptureHeight + 160
+  };
+  var orderingTime = moment_default()(currentRow === null || currentRow === void 0 ? void 0 : currentRow.createdAt).format('YYYY年M月D日 HH:mm:ss');
+  ;
+  return /*#__PURE__*/(0,jsx_runtime.jsxs)(PageContainer/* PageContainer */._z, {
+    title: false,
+    children: [/*#__PURE__*/(0,jsx_runtime.jsx)(Table/* default */.Z, {
+      actionRef: tableRef,
+      headerTitle: "\u8BA2\u5355\u5217\u8868",
+      options: {
+        reloadIcon: /*#__PURE__*/(0,jsx_runtime.jsx)(es_button/* default */.ZP, {
+          type: "primary",
+          size: "large",
+          children: "\u5237\u65B0"
+        }),
+        density: false,
+        setting: false
+      },
+      rowKey: "_id",
+      size: "small",
+      cardBordered: true,
+      search: false,
+      pagination: {
+        pageSize: 10
+      },
+      request: Order_getOrders,
+      columns: tableColumnsConfig
+    }), /*#__PURE__*/(0,jsx_runtime.jsxs)(ModalForm/* ModalForm */.Y, {
+      modalProps: {
+        style: {
+          top: 10
+        },
+        destroyOnClose: true,
+        okText: '打印订购单'
+      },
+      width: 810,
+      open: createOrUpdateModalOpen,
+      onOpenChange: function onOpenChange(open) {
+        setCreateOrUpdateModalOpen(open);
+        !open && currentRow && setCurrentRow(undefined);
+      },
+      onFinish: /*#__PURE__*/function () {
+        var _ref2 = asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee2(value) {
+          return regeneratorRuntime_default()().wrap(function _callee2$(_context2) {
+            while (1) switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log('onFinish value = ' + value);
+                PrintHTML(divRef.current);
+                setCreateOrUpdateModalOpen(false);
+                currentRow && setCurrentRow(undefined);
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }, _callee2);
+        }));
+        return function (_x) {
+          return _ref2.apply(this, arguments);
+        };
+      }(),
+      children: [/*#__PURE__*/(0,jsx_runtime.jsx)(es/* ProDescriptions */.vY, {
+        title: "\u8BA2\u5355\u8BE6\u60C5",
+        column: 6,
+        dataSource: currentRow,
+        columns: KDescriptionsColumnsConfig
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        style: {
+          textAlign: 'center'
+        }
+      }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+        style: {
+          opacity: 1
+        },
+        children: /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+          ref: divRef,
+          style: _theDiv4CaptureStyle,
+          children: [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+            id: "qrcode",
+            style: {
+              textAlign: 'right',
+              position: 'absolute',
+              paddingRight: 18,
+              paddingTop: 10,
+              width: _theDiv4CaptureWidth,
+              height: 150
+            },
+            children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+              style: {
+                fontSize: 12,
+                fontWeight: 'bold',
+                marginRight: 8
+              },
+              children: "\u7535\u5B50\u8BA2\u8D2D\u5355\u4E8C\u7EF4\u7801"
+            }), /*#__PURE__*/(0,jsx_runtime.jsx)(es_image/* default */.Z, {
+              style: {
+                width: 135,
+                height: 135
+              },
+              onLoad: function onLoad() {},
+              onError: /*#__PURE__*/asyncToGenerator_default()( /*#__PURE__*/regeneratorRuntime_default()().mark(function _callee3() {
+                var cakeOrderUrl, qrOpts, qrCode;
+                return regeneratorRuntime_default()().wrap(function _callee3$(_context3) {
+                  while (1) switch (_context3.prev = _context3.next) {
+                    case 0:
+                      if (!(image4QRCode == 'dummy4init')) {
+                        _context3.next = 7;
+                        break;
+                      }
+                      cakeOrderUrl = "http://gratefulwheat.ruyue.xyz/cakeOrder?_id=".concat(currentRow._id);
+                      qrOpts = {
+                        errorCorrectionLevel: 'L',
+                        type: 'image/jpeg',
+                        quality: 0.8,
+                        margin: 2,
+                        color: {
+                          dark: "#000000ff",
+                          light: "#ffffffff"
+                        }
+                      };
+                      _context3.next = 5;
+                      return QRCode.toDataURL(cakeOrderUrl, qrOpts);
+                    case 5:
+                      qrCode = _context3.sent;
+                      setImage4QRCode(qrCode);
+                    case 7:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }, _callee3);
+              })),
+              preview: false,
+              src: image4QRCode
+            })]
+          }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+            style: {
+              textAlign: 'left',
+              position: 'absolute',
+              paddingLeft: 20,
+              width: _theDiv4CaptureWidth,
+              fontSize: 14,
+              paddingTop: 15
+            },
+            children: "\u8BA2\u8D2D\u65F6\u95F4\uFF1A".concat(orderingTime)
+          }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+            style: {
+              fontSize: 22,
+              fontWeight: 'bold',
+              textAlign: 'center',
+              paddingTop: 8,
+              paddingBottom: 15
+            },
+            children: "\u86CB\u7CD5\u8BA2\u8D2D\u5355"
+          }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+            children: [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+              style: _theLeftDivInTheDiv4CaptureStyle,
+              children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+                style: {
+                  fontSize: 20,
+                  textAlign: 'center',
+                  paddingTop: 4,
+                  paddingBottom: 4,
+                  fontWeight: 'bold',
+                  background: '#D8D8D8',
+                  borderBottom: '1px dashed black'
+                },
+                children: /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  children: "\u300A".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.name, "\u300B")
+                })
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+                  style: {
+                    position: 'relative'
+                  },
+                  children: /*#__PURE__*/(0,jsx_runtime.jsx)(es_image/* default */.Z, {
+                    preview: false,
+                    src: (currentRow === null || currentRow === void 0 || (_currentRow$images = currentRow.images) === null || _currentRow$images === void 0 ? void 0 : _currentRow$images[0].type) === 1 ? "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images2 = currentRow.images) === null || _currentRow$images2 === void 0 ? void 0 : _currentRow$images2[0].thumbnail) : (currentRow === null || currentRow === void 0 || (_currentRow$images3 = currentRow.images) === null || _currentRow$images3 === void 0 ? void 0 : _currentRow$images3[0].indexOf('data:image')) !== -1 ? currentRow === null || currentRow === void 0 || (_currentRow$images4 = currentRow.images) === null || _currentRow$images4 === void 0 ? void 0 : _currentRow$images4[0] : "http://gratefulwheat.ruyue.xyz/".concat(currentRow === null || currentRow === void 0 || (_currentRow$images5 = currentRow.images) === null || _currentRow$images5 === void 0 ? void 0 : _currentRow$images5[0])
+                  })
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)(es_image/* default */.Z, {
+                  style: {
+                    marginTop: 16
+                  },
+                  preview: false,
+                  src: "/\u5F2F\u9EA6logo\u957F.png"
+                })]
+              })]
+            }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+              style: _theRightDivInTheDiv4CaptureStyle,
+              children: [/*#__PURE__*/(0,jsx_runtime.jsx)(divider/* default */.Z, {
+                orientation: "left",
+                dashed: true,
+                style: {
+                  marginTop: 0,
+                  marginBottom: 0,
+                  fontSize: 8
+                },
+                children: "\u5236\u4F5C"
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u5976\u6CB9\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'green'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.cream
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u5C3A\u5BF8\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'green'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.size
+                }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.size) === '组合' ? /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'green'
+                  },
+                  children: " | ".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.sizeExtra)
+                }) : /*#__PURE__*/(0,jsx_runtime.jsx)("span", {}), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'green'
+                  },
+                  children: " | ".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.height)
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u4EF7\u683C\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.price
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14
+                  },
+                  children: "\u5143"
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u5939\u5FC3\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'green'
+                  },
+                  children: (currentRow === null || currentRow === void 0 || (_currentRow$fillings = currentRow.fillings) === null || _currentRow$fillings === void 0 ? void 0 : _currentRow$fillings.length) !== undefined && (currentRow === null || currentRow === void 0 || (_currentRow$fillings2 = currentRow.fillings) === null || _currentRow$fillings2 === void 0 ? void 0 : _currentRow$fillings2.length) > 0 ? currentRow === null || currentRow === void 0 || (_currentRow$fillings3 = currentRow.fillings) === null || _currentRow$fillings3 === void 0 ? void 0 : _currentRow$fillings3.join('+') : '没有夹心'
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u8721\u70DB\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'blue'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.candle
+                }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.candle) === '数字蜡烛' ? /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'blue'
+                  },
+                  children: "(".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.candleExtra, ")")
+                }) : /*#__PURE__*/(0,jsx_runtime.jsx)("span", {}), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.kindling) === '火柴盒' ? /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'blue'
+                  },
+                  children: "+\u706B\u67F4\u76D2"
+                }) : /*#__PURE__*/(0,jsx_runtime.jsx)("span", {})]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u5E3D\u5B50\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'blue'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.hat
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u9910\u5177\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'blue'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.plates
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 16,
+                    color: 'blue'
+                  },
+                  children: "\u5957"
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsx)(divider/* default */.Z, {
+                orientation: "left",
+                style: {
+                  marginTop: 0,
+                  marginBottom: 0,
+                  fontSize: 8
+                },
+                children: "\u53D6\u8D27"
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u65F6\u95F4\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpDay
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red'
+                  },
+                  children: " "
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpTime
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u65B9\u5F0F\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpType
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u95E8\u5E97\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.shop
+                })]
+              }), (currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpType) === '商家配送' ? /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u5730\u5740\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.address
+                })]
+              }) : /*#__PURE__*/(0,jsx_runtime.jsx)("div", {}), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u59D3\u540D\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red'
+                  },
+                  children: "".concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.pickUpName, "\uFF08").concat(currentRow === null || currentRow === void 0 ? void 0 : currentRow.phoneNumber, "\uFF09")
+                })]
+              }), /*#__PURE__*/(0,jsx_runtime.jsx)(divider/* default */.Z, {
+                orientation: "left",
+                style: {
+                  marginTop: 0,
+                  marginBottom: 0,
+                  fontSize: 8
+                },
+                children: "\u5176\u5B83"
+              }), /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
+                style: {
+                  marginTop: 4,
+                  marginBottom: 4,
+                  marginRight: 8
+                },
+                children: [/*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 14,
+                    fontWeight: 'bold'
+                  },
+                  children: "\u5907\u6CE8\uFF1A"
+                }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
+                  style: {
+                    fontSize: 18,
+                    color: 'red',
+                    wordWrap: 'break-word'
+                  },
+                  children: currentRow === null || currentRow === void 0 ? void 0 : currentRow.remarks
+                })]
+              })]
+            })]
+          })]
+        })
+      })]
+    })]
+  });
+};
+/* harmony default export */ var pages_Order = (Order);
 
 /***/ })
 

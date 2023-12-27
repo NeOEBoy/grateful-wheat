@@ -58,8 +58,8 @@ var Guide = function Guide(props) {
 function trim(str) {
   return str.trim();
 }
-// EXTERNAL MODULE: ./node_modules/@ant-design/pro-layout/es/components/PageContainer/index.js + 7 modules
-var PageContainer = __webpack_require__(1524);
+// EXTERNAL MODULE: ./node_modules/@ant-design/pro-layout/es/components/PageContainer/index.js + 10 modules
+var PageContainer = __webpack_require__(11774);
 // EXTERNAL MODULE: ./src/.umi-production/exports.ts + 35 modules
 var _umi_production_exports = __webpack_require__(80854);
 ;// CONCATENATED MODULE: ./src/pages/Home/index.less?modules

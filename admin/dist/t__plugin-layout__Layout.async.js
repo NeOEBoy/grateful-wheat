@@ -379,7 +379,8 @@ var mapRoutes = function mapRoutes(routes) {
     loading = initialInfo.loading,
     setInitialState = initialInfo.setInitialState;
   var userConfig = {
-    "title": "蛋糕票后台"
+    "title": "蛋糕票后台",
+    "locale": false
   };
   var formatMessage = undefined;
   var runtimeConfig = pluginManager.applyPlugins({

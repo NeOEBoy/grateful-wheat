@@ -64,7 +64,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '名称',
         dataIndex: 'name',
         valueType: 'text',
-        width: 130,
+        width: 90,
         render: (_) => <div style={{ color: 'green', fontSize: 16 }}>{_}</div>
     },
     {
@@ -77,13 +77,13 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '大小',
         dataIndex: 'size',
         valueType: 'text',
-        width: 50,
+        width: 40,
     },
     {
         title: '门店',
         dataIndex: 'shop',
         valueType: 'text',
-        width: 100,
+        width: 80,
         render: (_) => <div style={{ color: 'darkcyan', fontSize: 15 }}>{_}</div>
     },
     {
@@ -102,7 +102,7 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '取货|配送时间',
         dataIndex: 'pickUpTime',
         valueType: 'text',
-        width: 130,
+        width: 90,
         render: (_, record) => {
             return <div style={{ color: 'darkmagenta' }}>{`${record.pickUpDay}${record.pickUpTime}`}</div>
         }
@@ -111,13 +111,13 @@ const KTableColumnsConfig: ProColumns<API.OrderListItem>[] = [
         title: '取货方式',
         dataIndex: 'pickUpType',
         valueType: 'text',
-        width: 90
+        width: 80
     },
     {
         title: '配送地址',
         dataIndex: 'address',
         valueType: 'text',
-        width: 120
+        width: 80
     },
     {
         title: '备注',

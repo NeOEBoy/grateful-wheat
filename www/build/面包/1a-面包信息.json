@@ -12,9 +12,9 @@
     "recommend": {
         "name": "最近热销",
         "productNames": [
-            "纸质菜单卷轴",
-            "手打金桔柠檬",
-            "葡萄卷蛋糕",
+            "原味麻薯球",
+            "小白兔面包",
+            "海苔肉松卷",
             "芝士鸡排三明治",
             "迷你小蛋糕(3寸)",
             "海盐波波小蛋糕(咸口味,3寸)"
@@ -27,77 +27,88 @@
             "name": "弯麦特饮",
             "description": "优选特饮，好喝看得见",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": false
         },
         {
             "id": 2,
             "name": "弯麦小蛋糕",
             "description": "给你小小仪式感，每日快快乐乐",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 3,
             "name": "弯麦常温蛋糕",
             "description": "清凉小糕点，冰冰爽爽，舒舒服服",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 4,
             "name": "弯麦甜点慕斯蛋糕",
             "description": "甜点慕斯蛋糕，跟烦恼说拜拜喽",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 5,
             "name": "弯麦现烤面包",
             "description": "新鲜现烤，美味无限",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 6,
             "name": "弯麦切片面包",
             "description": "切片吐司，片片留香",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 7,
             "name": "弯麦吐司面包",
             "description": "做人方方正正，如弯麦吐司面包",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 8,
             "name": "弯麦餐包面包",
             "description": "圆圆圆面包，生活美美满满",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 9,
             "name": "弯麦干点饼干",
             "description": "传统干点，经典传承",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 10,
             "name": "长富常温牛奶",
             "description": "精品牛奶，强壮身体",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         },
         {
             "id": 11,
             "name": "其它",
             "description": "其它商品",
             "images": [],
-            "products": []
+            "products": [],
+            "enable": true
         }
     ],
     "products": [
@@ -157,6 +168,21 @@
                 "name": "3寸/个",
                 "unit": "个",
                 "price": 14.8
+            },
+            "expirationDate": "冷藏环境3~4天，常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "草莓炸弹(4寸)",
+            "ingredient": "草莓，淡奶油，戚风蛋糕胚",
+            "categoryId": 2,
+            "images": [
+                "/面包/草莓炸弹(4寸).jpg"
+            ],
+            "specification": {
+                "name": "4寸/个",
+                "unit": "个",
+                "price": 38
             },
             "expirationDate": "冷藏环境3~4天，常温环境1~2天",
             "onSale": true
@@ -535,6 +561,51 @@
             },
             "expirationDate": "冷藏环境2~3天，常温环境1~2天",
             "onSale": false
+        },
+        {
+            "name": "小白兔面包",
+            "ingredient": "香肠，低精面粉",
+            "categoryId": 5,
+            "images": [
+                "/面包/小白兔面包.jpg"
+            ],
+            "specification": {
+                "name": "100克/个",
+                "unit": "个",
+                "price": 4.8
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "海苔肉松卷",
+            "ingredient": "海苔肉松，低筋面粉",
+            "categoryId": 5,
+            "images": [
+                "/面包/海苔肉松卷.jpg"
+            ],
+            "specification": {
+                "name": "120克/个",
+                "unit": "个",
+                "price": 6
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
+        },
+        {
+            "name": "原味麻薯球",
+            "ingredient": "麻薯粉，低筋面粉",
+            "categoryId": 5,
+            "images": [
+                "/面包/原味麻薯球.jpg"
+            ],
+            "specification": {
+                "name": "50克/个",
+                "unit": "个",
+                "price": 3.5
+            },
+            "expirationDate": "常温环境1~2天",
+            "onSale": true
         },
         {
             "name": "芝士鸡排三明治",

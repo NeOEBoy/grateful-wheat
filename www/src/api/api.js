@@ -694,10 +694,16 @@ const allBreadInfos = async () => {
   const allBreadInfosResponseJson = await allBreadInfosResponse.json();
 
   let breadInfos = {};
-  breadInfos.categorys = allBreadInfosResponseJson.categorys;
+  breadInfos.categorys = [];
   breadInfos.products = allBreadInfosResponseJson.products;
   breadInfos.recommend = allBreadInfosResponseJson.recommend;
   breadInfos.weixin = allBreadInfosResponseJson.weixin;
+
+  for (let m = 0; m < allBreadInfosResponseJson.categorys.length; ++m) {
+    if (allBreadInfosResponseJson.categorys[m].enable) {
+      breadInfos.categorys.push(allBreadInfosResponseJson.categorys[m]);
+    }
+  }
 
   for (let i = 0; i < breadInfos.products.length; ++i) {
     let product = breadInfos.products[i];

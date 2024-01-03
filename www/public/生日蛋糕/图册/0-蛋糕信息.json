@@ -1,25 +1,20 @@
 ﻿{
     "recommend": {
-        "name": "2024新年蛋糕",
+        "name": "2024草莓蛋糕",
         "products": [
             {
-                "name": "2024新年蛋糕1",
-                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "name": "草莓蛋糕A款",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
-                    "id": "0",
-                    "name": "新年系列"
+                    "id": 2,
+                    "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕1_20.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕1_20_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕A款_20_logo.jpg"
                 ],
                 "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
-                    },
                     {
                         "creamId": 1,
                         "sizeId": 2,
@@ -39,11 +34,6 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -68,23 +58,18 @@
                 ]
             },
             {
-                "name": "2024新年蛋糕2",
-                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "name": "草莓蛋糕B款",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
-                    "id": "0",
-                    "name": "新年系列"
+                    "id": 2,
+                    "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕2_20.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕2_20_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕B款_20_logo.jpg"
                 ],
                 "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
-                    },
                     {
                         "creamId": 1,
                         "sizeId": 2,
@@ -104,11 +89,6 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -133,23 +113,18 @@
                 ]
             },
             {
-                "name": "2024新年蛋糕3",
-                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "name": "草莓蛋糕C款",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
-                    "id": "0",
-                    "name": "新年系列"
+                    "id": 2,
+                    "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕3_20.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕C款_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕3_20_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕C款_20_logo.jpg"
                 ],
                 "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
-                    },
                     {
                         "creamId": 1,
                         "sizeId": 2,
@@ -169,11 +144,6 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -198,23 +168,18 @@
                 ]
             },
             {
-                "name": "2024新年蛋糕4",
-                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "name": "草莓蛋糕D款",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
-                    "id": "0",
-                    "name": "新年系列"
+                    "id": 2,
+                    "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕4_20.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕D款_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕4_20_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕D款_20_logo.jpg"
                 ],
                 "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
-                    },
                     {
                         "creamId": 1,
                         "sizeId": 2,
@@ -234,11 +199,6 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -263,23 +223,18 @@
                 ]
             },
             {
-                "name": "2024新年蛋糕5",
-                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "name": "草莓蛋糕E款",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
-                    "id": "0",
-                    "name": "新年系列"
+                    "id": 2,
+                    "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕5_20.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕E款_20.jpg",
                 "images": [
-                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕5_20_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕E款_20_logo.jpg"
                 ],
                 "specifications": [
-                    {
-                        "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
-                    },
                     {
                         "creamId": 1,
                         "sizeId": 2,
@@ -299,11 +254,6 @@
                         "creamId": 1,
                         "sizeId": 5,
                         "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
                     },
                     {
                         "creamId": 2,
@@ -328,67 +278,57 @@
                 ]
             },
             {
-                "name": "2024新年蛋糕6",
-                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "name": "草莓蛋糕F款",
+                "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {
-                    "id": "0",
-                    "name": "新年系列"
+                    "id": 2,
+                    "name": "水果系列"
                 },
                 "fillingRequired": true,
-                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕6_20.jpg",
+                "thumbnail": "/生日蛋糕/图册/2-水果系列/草莓蛋糕F款_30.jpg",
                 "images": [
-                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕6_20_logo.jpg"
+                    "/生日蛋糕/图册/2-水果系列/草莓蛋糕F款_30_logo.jpg"
                 ],
                 "specifications": [
                     {
                         "creamId": 1,
-                        "sizeId": 1,
-                        "price": 68
-                    },
-                    {
-                        "creamId": 1,
                         "sizeId": 2,
-                        "price": 118
+                        "price": 128
                     },
                     {
                         "creamId": 1,
                         "sizeId": 3,
-                        "price": 148
+                        "price": 158
                     },
                     {
                         "creamId": 1,
                         "sizeId": 4,
-                        "price": 188
+                        "price": 198
                     },
                     {
                         "creamId": 1,
                         "sizeId": 5,
-                        "price": 228
-                    },
-                    {
-                        "creamId": 2,
-                        "sizeId": 1,
-                        "price": 88
+                        "price": 238
                     },
                     {
                         "creamId": 2,
                         "sizeId": 2,
-                        "price": 148
+                        "price": 158
                     },
                     {
                         "creamId": 2,
                         "sizeId": 3,
-                        "price": 188
+                        "price": 198
                     },
                     {
                         "creamId": 2,
                         "sizeId": 4,
-                        "price": 228
+                        "price": 238
                     },
                     {
                         "creamId": 2,
                         "sizeId": 5,
-                        "price": 278
+                        "price": 288
                     }
                 ]
             }

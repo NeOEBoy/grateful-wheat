@@ -63,50 +63,50 @@
                 "name": "女孩&女生系列"
             },
             "fillingRequired": true,
-            "thumbnail": "/生日蛋糕/图册/5-女孩&女生系列/脉脉小狗_30.jpg",
+            "thumbnail": "/生日蛋糕/图册/5-女孩&女生系列/脉脉小狗_20.jpg",
             "images": [
-                "/生日蛋糕/图册/5-女孩&女生系列/脉脉小狗_30_logo.jpg"
+                "/生日蛋糕/图册/5-女孩&女生系列/脉脉小狗_20_logo.jpg"
             ],
             "specifications": [
                 {
                     "creamId": 1,
                     "sizeId": 2,
-                    "price": 128
+                    "price": 118
                 },
                 {
                     "creamId": 1,
                     "sizeId": 3,
-                    "price": 158
+                    "price": 148
                 },
                 {
                     "creamId": 1,
                     "sizeId": 4,
-                    "price": 198
+                    "price": 188
                 },
                 {
                     "creamId": 1,
                     "sizeId": 5,
-                    "price": 238
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 2,
-                    "price": 158
+                    "price": 148
                 },
                 {
                     "creamId": 2,
                     "sizeId": 3,
-                    "price": 198
+                    "price": 188
                 },
                 {
                     "creamId": 2,
                     "sizeId": 4,
-                    "price": 238
+                    "price": 228
                 },
                 {
                     "creamId": 2,
                     "sizeId": 5,
-                    "price": 288
+                    "price": 278
                 }
             ]
         },

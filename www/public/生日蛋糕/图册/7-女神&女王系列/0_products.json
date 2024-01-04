@@ -1,6 +1,61 @@
 {
     "products": [
         {
+            "name": "莓有烦恼",
+            "description": "希望你的每一天都能像这蛋糕上的草莓一样，充满幸福与喜悦，没有任何烦恼~",
+            "category": {
+                "id": "7",
+                "name": "女神&女王系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/7-女神&女王系列/莓有烦恼_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/7-女神&女王系列/莓有烦恼_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "最美女神",
             "description": "愿你如这蛋糕一样，甜蜜美丽，永远是我们心中的最美女神~",
             "category": {

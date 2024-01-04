@@ -1,6 +1,116 @@
 {
     "products": [
         {
+            "name": "无人机男孩",
+            "description": "祝你在新的一岁里，像无人机一样自由翱翔，勇往直前~",
+            "category": {
+                "id": "6",
+                "name": "男孩&男生系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/无人机_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/6-男孩&男生系列/无人机_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "OnePiece海贼王",
+            "description": "愿你像路飞一样勇往直前，追寻自己的梦想，生日快乐~",
+            "category": {
+                "id": "6",
+                "name": "男孩&男生系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/6-男孩&男生系列/OnePiece_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/6-男孩&男生系列/OnePiece_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "小王子小公主",
             "description": "祝小王子/小公主快乐每一天，永远被爱包围~",
             "category": {

@@ -56,6 +56,12 @@
         },
         {
             "id": 10,
+            "name": "新鲜草莓",
+            "description": "新鲜草莓",
+            "image": "生日蛋糕/夹心/新鲜草莓.jpg"
+        },
+        {
+            "id": 11,
             "name": "现蒸芋泥",
             "description": "现蒸芋泥",
             "image": "生日蛋糕/夹心/现蒸芋泥.jpg"

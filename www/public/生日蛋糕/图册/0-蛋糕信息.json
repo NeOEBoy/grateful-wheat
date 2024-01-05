@@ -3,6 +3,96 @@
         "name": "2024草莓蛋糕",
         "products": [
             {
+                "name": "2024新年蛋糕11",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "category": {
+                    "id": "0",
+                    "name": "新年系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕11_20.jpg",
+                "images": [
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕11_20_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    }
+                ]
+            },
+            {
+                "name": "2024新年蛋糕12",
+                "description": "祝你在新的一年里，每天都像这块蛋糕一样甜蜜~",
+                "category": {
+                    "id": "0",
+                    "name": "新年系列"
+                },
+                "fillingRequired": true,
+                "thumbnail": "/生日蛋糕/图册/0-新年系列/2024新年蛋糕12_20.jpg",
+                "images": [
+                    "/生日蛋糕/图册/0-新年系列/2024新年蛋糕12_20_logo.jpg"
+                ],
+                "specifications": [
+                    {
+                        "creamId": 1,
+                        "sizeId": 1,
+                        "price": 68
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 2,
+                        "price": 118
+                    },
+                    {
+                        "creamId": 1,
+                        "sizeId": 3,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 1,
+                        "price": 88
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 2,
+                        "price": 148
+                    },
+                    {
+                        "creamId": 2,
+                        "sizeId": 3,
+                        "price": 188
+                    }
+                ]
+            },
+            {
                 "name": "草莓蛋糕A款",
                 "description": "希望这块草莓蛋糕能给你带来一份惊喜和快乐，祝你开心每一天~",
                 "category": {

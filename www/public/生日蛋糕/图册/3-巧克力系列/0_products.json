@@ -1,6 +1,336 @@
 {
     "products": [
         {
+            "name": "草莓白巧A",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的白色巧克力，甜甜蜜蜜的感觉~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/草莓白巧A_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/草莓白巧A_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "草莓白巧B",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的白色巧克力，甜甜蜜蜜的感觉~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/草莓白巧B_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/草莓白巧B_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "芒果白巧",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的白色巧克力，甜甜蜜蜜的感觉~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/芒果白巧_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/芒果白巧_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "天空白巧",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的白色巧克力，甜甜蜜蜜的感觉~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/天空白巧_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/天空白巧_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "五彩白巧",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的白色巧克力，甜甜蜜蜜的感觉~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/五彩白巧_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/五彩白巧_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
+            "name": "小熊白巧",
+            "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的白色巧克力，甜甜蜜蜜的感觉~",
+            "category": {
+                "id": 3,
+                "name": "巧克力系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/3-巧克力系列/小熊白巧_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/3-巧克力系列/小熊白巧_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
+        },
+        {
             "name": "奥利奥巧克力",
             "description": "巧克力蛋糕，蛋糕外围淋上一层香甜的巧克力，甜甜蜜蜜的感觉~",
             "category": {

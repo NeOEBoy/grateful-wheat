@@ -2489,6 +2489,61 @@
                     "price": 258
                 }
             ]
+        },
+        {
+            "name": "奶茶蛋糕",
+            "description": "给你一个可以吃的奶茶，奶茶口味的蛋糕，祝你天天开心，无烦恼~",
+            "category": {
+                "id": 2,
+                "name": "水果系列"
+            },
+            "fillingRequired": true,
+            "thumbnail": "/生日蛋糕/图册/2-水果系列/奶茶蛋糕_20.jpg",
+            "images": [
+                "/生日蛋糕/图册/2-水果系列/奶茶蛋糕_20_logo.jpg"
+            ],
+            "specifications": [
+                {
+                    "creamId": 1,
+                    "sizeId": 2,
+                    "price": 118
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 3,
+                    "price": 148
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 4,
+                    "price": 188
+                },
+                {
+                    "creamId": 1,
+                    "sizeId": 5,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 2,
+                    "price": 148
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 3,
+                    "price": 188
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 4,
+                    "price": 228
+                },
+                {
+                    "creamId": 2,
+                    "sizeId": 5,
+                    "price": 278
+                }
+            ]
         }
     ]
 }

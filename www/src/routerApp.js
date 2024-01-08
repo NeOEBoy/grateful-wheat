@@ -40,9 +40,9 @@ import {
 // 在需要用到的 组件文件中引入中文语言包
 import zhCN from 'antd/es/locale/zh_CN';
 import VConsole from 'vconsole';
-// if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   new VConsole();
-// }
+}
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
